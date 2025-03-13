@@ -46,10 +46,9 @@ class QueryClient:
         self._hostname = hostname
         self._config = config
         self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-        self.with_streaming_response = _QueryClientStreaming(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.with_raw_response = _QueryClientRaw(auth=auth, hostname=hostname, config=config)
+
+        self.with_streaming_response = _QueryClientStreaming(self)
+        self.with_raw_response = _QueryClientRaw(self)
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -60,6 +59,7 @@ class QueryClient:
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -96,8 +96,9 @@ class QueryClient:
                     "CancelQueryPermissionDenied": sql_queries_errors.CancelQueryPermissionDenied,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -109,6 +110,7 @@ class QueryClient:
         fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
         """
         Executes a new query. Only the user that invoked the query can operate on the query.
@@ -161,8 +163,9 @@ class QueryClient:
                     "QueryParseError": sql_queries_errors.QueryParseError,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @typing_extensions.overload
     @typing_extensions.deprecated(
@@ -176,6 +179,7 @@ class QueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> core.BinaryStream:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
@@ -209,6 +213,7 @@ class QueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
@@ -244,6 +249,7 @@ class QueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
@@ -280,6 +286,7 @@ class QueryClient:
         stream: bool = False,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
@@ -336,8 +343,9 @@ class QueryClient:
                     "QueryFailed": sql_queries_errors.QueryFailed,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -348,6 +356,7 @@ class QueryClient:
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
         """
         Gets the status of a query.
@@ -386,483 +395,30 @@ class QueryClient:
                     "GetStatusPermissionDenied": sql_queries_errors.GetStatusPermissionDenied,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
 
 class _QueryClientRaw:
-    """
-    The API client for the Query Resource.
+    def __init__(self, client: QueryClient) -> None:
+        def cancel(_: None): ...
+        def execute(_: sql_queries_models.QueryStatus): ...
+        def get_results(_: bytes): ...
+        def get_status(_: sql_queries_models.QueryStatus): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def cancel(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[None]:
-        """
-        Cancels a query. If the query is no longer running this is effectively a no-op.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[None]
-
-        :raises CancelQueryPermissionDenied: Could not cancel the Query.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={},
-                body=None,
-                body_type=None,
-                response_type=None,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "CancelQueryPermissionDenied": sql_queries_errors.CancelQueryPermissionDenied,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def execute(
-        self,
-        *,
-        query: str,
-        fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[sql_queries_models.QueryStatus]:
-        """
-        Executes a new query. Only the user that invoked the query can operate on the query.
-
-        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
-        :type query: str
-        :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
-        :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[sql_queries_models.QueryStatus]
-
-        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
-        :raises QueryParseError: The query cannot be parsed.
-        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/sqlQueries/queries/execute",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body={
-                    "query": query,
-                    "fallbackBranchIds": fallback_branch_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "query": str,
-                        "fallbackBranchIds": typing.Optional[
-                            typing.List[datasets_models.BranchName]
-                        ],
-                    },
-                ),
-                response_type=sql_queries_models.QueryStatus,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ExecuteQueryPermissionDenied": sql_queries_errors.ExecuteQueryPermissionDenied,
-                    "QueryParseError": sql_queries_errors.QueryParseError,
-                    "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_results(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[bytes]:
-        """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[bytes]
-
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getResults",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={
-                    "Accept": "application/octet-stream",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetResultsPermissionDenied": sql_queries_errors.GetResultsPermissionDenied,
-                    "QueryCanceled": sql_queries_errors.QueryCanceled,
-                    "QueryFailed": sql_queries_errors.QueryFailed,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_status(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[sql_queries_models.QueryStatus]:
-        """
-        Gets the status of a query.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[sql_queries_models.QueryStatus]
-
-        :raises GetStatusPermissionDenied: Could not getStatus the Query.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getStatus",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=sql_queries_models.QueryStatus,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetStatusPermissionDenied": sql_queries_errors.GetStatusPermissionDenied,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
+        self.cancel = core.with_raw_response(cancel, client.cancel)
+        self.execute = core.with_raw_response(execute, client.execute)
+        self.get_results = core.with_raw_response(get_results, client.get_results)
+        self.get_status = core.with_raw_response(get_status, client.get_status)
 
 
 class _QueryClientStreaming:
-    """
-    The API client for the Query Resource.
+    def __init__(self, client: QueryClient) -> None:
+        def execute(_: sql_queries_models.QueryStatus): ...
+        def get_results(_: bytes): ...
+        def get_status(_: sql_queries_models.QueryStatus): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def cancel(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[None]:
-        """
-        Cancels a query. If the query is no longer running this is effectively a no-op.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[None]
-
-        :raises CancelQueryPermissionDenied: Could not cancel the Query.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={},
-                body=None,
-                body_type=None,
-                response_type=None,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "CancelQueryPermissionDenied": sql_queries_errors.CancelQueryPermissionDenied,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def execute(
-        self,
-        *,
-        query: str,
-        fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[sql_queries_models.QueryStatus]:
-        """
-        Executes a new query. Only the user that invoked the query can operate on the query.
-
-        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
-        :type query: str
-        :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
-        :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[sql_queries_models.QueryStatus]
-
-        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
-        :raises QueryParseError: The query cannot be parsed.
-        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/sqlQueries/queries/execute",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body={
-                    "query": query,
-                    "fallbackBranchIds": fallback_branch_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "query": str,
-                        "fallbackBranchIds": typing.Optional[
-                            typing.List[datasets_models.BranchName]
-                        ],
-                    },
-                ),
-                response_type=sql_queries_models.QueryStatus,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ExecuteQueryPermissionDenied": sql_queries_errors.ExecuteQueryPermissionDenied,
-                    "QueryParseError": sql_queries_errors.QueryParseError,
-                    "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_results(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[bytes]:
-        """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[bytes]
-
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getResults",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={
-                    "Accept": "application/octet-stream",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetResultsPermissionDenied": sql_queries_errors.GetResultsPermissionDenied,
-                    "QueryCanceled": sql_queries_errors.QueryCanceled,
-                    "QueryFailed": sql_queries_errors.QueryFailed,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_status(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[sql_queries_models.QueryStatus]:
-        """
-        Gets the status of a query.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[sql_queries_models.QueryStatus]
-
-        :raises GetStatusPermissionDenied: Could not getStatus the Query.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getStatus",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "queryId": query_id,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=sql_queries_models.QueryStatus,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetStatusPermissionDenied": sql_queries_errors.GetStatusPermissionDenied,
-                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
-                },
-            ),
-        )
+        self.execute = core.with_streaming_response(execute, client.execute)
+        self.get_results = core.with_streaming_response(get_results, client.get_results)
+        self.get_status = core.with_streaming_response(get_status, client.get_status)

@@ -43,12 +43,9 @@ class AttachmentPropertyClient:
         self._hostname = hostname
         self._config = config
         self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-        self.with_streaming_response = _AttachmentPropertyClientStreaming(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.with_raw_response = _AttachmentPropertyClientRaw(
-            auth=auth, hostname=hostname, config=config
-        )
+
+        self.with_streaming_response = _AttachmentPropertyClientStreaming(self)
+        self.with_raw_response = _AttachmentPropertyClientRaw(self)
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -63,6 +60,7 @@ class AttachmentPropertyClient:
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AttachmentMetadataResponse:
         """
         Get the metadata of attachments parented to the given object.
@@ -110,8 +108,9 @@ class AttachmentPropertyClient:
                 response_type=ontologies_models.AttachmentMetadataResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -127,6 +126,7 @@ class AttachmentPropertyClient:
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AttachmentV2:
         """
         Get the metadata of a particular attachment in an attachment list.
@@ -177,8 +177,9 @@ class AttachmentPropertyClient:
                 response_type=ontologies_models.AttachmentV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @typing_extensions.overload
     @typing_extensions.deprecated(
@@ -196,6 +197,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> core.BinaryStream:
         """
         Get the content of an attachment.
@@ -238,6 +240,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
         Get the content of an attachment.
@@ -282,6 +285,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
@@ -327,6 +331,7 @@ class AttachmentPropertyClient:
         stream: bool = False,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment.
@@ -387,8 +392,9 @@ class AttachmentPropertyClient:
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @typing_extensions.overload
     @typing_extensions.deprecated(
@@ -407,6 +413,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> core.BinaryStream:
         """
         Get the content of an attachment by its RID.
@@ -454,6 +461,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
         Get the content of an attachment by its RID.
@@ -503,6 +511,7 @@ class AttachmentPropertyClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment by its RID.
@@ -553,6 +562,7 @@ class AttachmentPropertyClient:
         stream: bool = False,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Get the content of an attachment by its RID.
@@ -618,571 +628,40 @@ class AttachmentPropertyClient:
                 chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
 
 class _AttachmentPropertyClientRaw:
-    """
-    The API client for the AttachmentProperty Resource.
+    def __init__(self, client: AttachmentPropertyClient) -> None:
+        def get_attachment(_: ontologies_models.AttachmentMetadataResponse): ...
+        def get_attachment_by_rid(_: ontologies_models.AttachmentV2): ...
+        def read_attachment(_: bytes): ...
+        def read_attachment_by_rid(_: bytes): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[ontologies_models.AttachmentMetadataResponse]:
-        """
-        Get the metadata of attachments parented to the given object.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[ontologies_models.AttachmentMetadataResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.AttachmentMetadataResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
+        self.get_attachment = core.with_raw_response(get_attachment, client.get_attachment)
+        self.get_attachment_by_rid = core.with_raw_response(
+            get_attachment_by_rid, client.get_attachment_by_rid
         )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[ontologies_models.AttachmentV2]:
-        """
-        Get the metadata of a particular attachment in an attachment list.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[ontologies_models.AttachmentV2]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                    "attachmentRid": attachment_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.AttachmentV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[bytes]:
-        """
-        Get the content of an attachment.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[bytes]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                },
-                header_params={
-                    "Accept": "*/*",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[bytes]:
-        """
-        Get the content of an attachment by its RID.
-
-        The RID must exist in the attachment array of the property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[bytes]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                    "attachmentRid": attachment_rid,
-                },
-                header_params={
-                    "Accept": "*/*",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
+        self.read_attachment = core.with_raw_response(read_attachment, client.read_attachment)
+        self.read_attachment_by_rid = core.with_raw_response(
+            read_attachment_by_rid, client.read_attachment_by_rid
         )
 
 
 class _AttachmentPropertyClientStreaming:
-    """
-    The API client for the AttachmentProperty Resource.
+    def __init__(self, client: AttachmentPropertyClient) -> None:
+        def get_attachment(_: ontologies_models.AttachmentMetadataResponse): ...
+        def get_attachment_by_rid(_: ontologies_models.AttachmentV2): ...
+        def read_attachment(_: bytes): ...
+        def read_attachment_by_rid(_: bytes): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[ontologies_models.AttachmentMetadataResponse]:
-        """
-        Get the metadata of attachments parented to the given object.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[ontologies_models.AttachmentMetadataResponse]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.AttachmentMetadataResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
+        self.get_attachment = core.with_streaming_response(get_attachment, client.get_attachment)
+        self.get_attachment_by_rid = core.with_streaming_response(
+            get_attachment_by_rid, client.get_attachment_by_rid
         )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[ontologies_models.AttachmentV2]:
-        """
-        Get the metadata of a particular attachment in an attachment list.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[ontologies_models.AttachmentV2]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                    "attachmentRid": attachment_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.AttachmentV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[bytes]:
-        """
-        Get the content of an attachment.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[bytes]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                },
-                header_params={
-                    "Accept": "*/*",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[bytes]:
-        """
-        Get the content of an attachment by its RID.
-
-        The RID must exist in the attachment array of the property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[bytes]
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content",
-                query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "property": property,
-                    "attachmentRid": attachment_rid,
-                },
-                header_params={
-                    "Accept": "*/*",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={},
-            ),
+        self.read_attachment = core.with_streaming_response(read_attachment, client.read_attachment)
+        self.read_attachment_by_rid = core.with_streaming_response(
+            read_attachment_by_rid, client.read_attachment_by_rid
         )

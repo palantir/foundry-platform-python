@@ -14,6 +14,8 @@
 
 
 import time
+from typing import List
+from typing import Optional
 
 from fastapi import APIRouter
 from fastapi import FastAPI
@@ -21,6 +23,7 @@ from fastapi import HTTPException
 from fastapi import Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
+from pydantic import Field
 
 app = FastAPI()
 router = APIRouter()
@@ -34,6 +37,22 @@ class FooBar(BaseModel):
 @router.get("/foo/bar", response_model=FooBar)
 def foo_bar() -> FooBar:
     return FooBar(foo="foo", bar=2)
+
+
+class FooData(BaseModel):
+    data: List[FooBar]
+    next_page_token: Optional[str] = Field(alias="nextPageToken", default=None)
+
+
+@router.get("/foo/iterator", response_model=FooData)
+def foo_iterator() -> FooData:
+    return FooData(
+        data=[
+            FooBar(foo="foo", bar=1),
+            FooBar(foo="foo", bar=2),
+        ],
+        nextPageToken=None,
+    )
 
 
 @router.get("/foo/timeout", response_model=FooBar)

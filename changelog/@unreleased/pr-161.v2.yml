@@ -1,0 +1,6 @@
+type: improvement
+improvement:
+  description: Replace raw and streaming client implementations with wrappers around
+    the core client
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/161

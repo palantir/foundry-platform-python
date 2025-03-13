@@ -47,10 +47,9 @@ class DatasetClient:
         self._hostname = hostname
         self._config = config
         self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-        self.with_streaming_response = _DatasetClientStreaming(
-            auth=auth, hostname=hostname, config=config
-        )
-        self.with_raw_response = _DatasetClientRaw(auth=auth, hostname=hostname, config=config)
+
+        self.with_streaming_response = _DatasetClientStreaming(self)
+        self.with_raw_response = _DatasetClientRaw(self)
 
     @cached_property
     def Branch(self):
@@ -91,6 +90,7 @@ class DatasetClient:
         name: datasets_models.DatasetName,
         parent_folder_rid: filesystem_models.FolderRid,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
@@ -133,8 +133,9 @@ class DatasetClient:
                 throwable_errors={
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -144,6 +145,7 @@ class DatasetClient:
         dataset_rid: datasets_models.DatasetRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Dataset:
         """
         Get the Dataset with the specified rid.
@@ -179,8 +181,9 @@ class DatasetClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
     @typing_extensions.overload
     @typing_extensions.deprecated(
@@ -199,6 +202,7 @@ class DatasetClient:
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> core.BinaryStream:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -251,6 +255,7 @@ class DatasetClient:
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -305,6 +310,7 @@ class DatasetClient:
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -360,6 +366,7 @@ class DatasetClient:
         stream: bool = False,
         chunk_size: typing.Optional[int] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
     ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -438,411 +445,28 @@ class DatasetClient:
                     "ReadTableTimeout": datasets_errors.ReadTableTimeout,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
             ),
-        ).decode()
+        )
 
 
 class _DatasetClientRaw:
-    """
-    The API client for the Dataset Resource.
+    def __init__(self, client: DatasetClient) -> None:
+        def create(_: datasets_models.Dataset): ...
+        def get(_: datasets_models.Dataset): ...
+        def read_table(_: bytes): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def create(
-        self,
-        *,
-        name: datasets_models.DatasetName,
-        parent_folder_rid: filesystem_models.FolderRid,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[datasets_models.Dataset]:
-        """
-        Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
-
-        :param name:
-        :type name: DatasetName
-        :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[datasets_models.Dataset]
-
-        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/datasets",
-                query_params={},
-                path_params={},
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "name": datasets_models.DatasetName,
-                    },
-                ),
-                response_type=datasets_models.Dataset,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[datasets_models.Dataset]:
-        """
-        Get the Dataset with the specified rid.
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[datasets_models.Dataset]
-
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/datasets/{datasetRid}",
-                query_params={},
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=datasets_models.Dataset,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
-                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_table(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        format: datasets_models.TableExportFormat,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.ApiResponse[bytes]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.ApiResponse[bytes]
-
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/datasets/{datasetRid}/readTable",
-                query_params={
-                    "format": format,
-                    "branchName": branch_name,
-                    "columns": columns,
-                    "endTransactionRid": end_transaction_rid,
-                    "rowLimit": row_limit,
-                    "startTransactionRid": start_transaction_rid,
-                },
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/octet-stream",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
-                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
-                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
-                    "ReadTableError": datasets_errors.ReadTableError,
-                    "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,
-                    "ReadTableTimeout": datasets_errors.ReadTableTimeout,
-                    "SchemaNotFound": datasets_errors.SchemaNotFound,
-                },
-            ),
-        )
+        self.create = core.with_raw_response(create, client.create)
+        self.get = core.with_raw_response(get, client.get)
+        self.read_table = core.with_raw_response(read_table, client.read_table)
 
 
 class _DatasetClientStreaming:
-    """
-    The API client for the Dataset Resource.
+    def __init__(self, client: DatasetClient) -> None:
+        def create(_: datasets_models.Dataset): ...
+        def get(_: datasets_models.Dataset): ...
+        def read_table(_: bytes): ...
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
-    :param config: Optionally specify the configuration for the HTTP session.
-    """
-
-    def __init__(
-        self,
-        auth: core.Auth,
-        hostname: str,
-        config: typing.Optional[core.Config] = None,
-    ):
-        self._auth = auth
-        self._hostname = hostname
-        self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def create(
-        self,
-        *,
-        name: datasets_models.DatasetName,
-        parent_folder_rid: filesystem_models.FolderRid,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[datasets_models.Dataset]:
-        """
-        Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
-
-        :param name:
-        :type name: DatasetName
-        :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[datasets_models.Dataset]
-
-        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/datasets",
-                query_params={},
-                path_params={},
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "name": datasets_models.DatasetName,
-                    },
-                ),
-                response_type=datasets_models.Dataset,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[datasets_models.Dataset]:
-        """
-        Get the Dataset with the specified rid.
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[datasets_models.Dataset]
-
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/datasets/{datasetRid}",
-                query_params={},
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=datasets_models.Dataset,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
-                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
-                },
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_table(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        format: datasets_models.TableExportFormat,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-    ) -> core.StreamingContextManager[bytes]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.StreamingContextManager[bytes]
-
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
-        """
-
-        return self._api_client.stream_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/datasets/{datasetRid}/readTable",
-                query_params={
-                    "format": format,
-                    "branchName": branch_name,
-                    "columns": columns,
-                    "endTransactionRid": end_transaction_rid,
-                    "rowLimit": row_limit,
-                    "startTransactionRid": start_transaction_rid,
-                },
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/octet-stream",
-                },
-                body=None,
-                body_type=None,
-                response_type=bytes,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
-                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
-                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
-                    "ReadTableError": datasets_errors.ReadTableError,
-                    "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,
-                    "ReadTableTimeout": datasets_errors.ReadTableTimeout,
-                    "SchemaNotFound": datasets_errors.SchemaNotFound,
-                },
-            ),
-        )
+        self.create = core.with_streaming_response(create, client.create)
+        self.get = core.with_streaming_response(get, client.get)
+        self.read_table = core.with_streaming_response(read_table, client.read_table)
