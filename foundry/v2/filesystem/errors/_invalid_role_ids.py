@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._role_id import RoleId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidRoleIdsParameters(TypedDict):
+class InvalidRoleIdsParameters(typing_extensions.TypedDict):
     """A roleId referenced in either default roles or role grants does not exist in the project role set for the space."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    requestedRoleIds: List[RoleId]
+    requestedRoleIds: typing.List[core_models.RoleId]
     """All referenced role ids in the create project request."""
 
 
 @dataclass
-class InvalidRoleIds(BadRequestError):
-    name: Literal["InvalidRoleIds"]
+class InvalidRoleIds(errors.BadRequestError):
+    name: typing.Literal["InvalidRoleIds"]
     parameters: InvalidRoleIdsParameters
     error_instance_id: str
 

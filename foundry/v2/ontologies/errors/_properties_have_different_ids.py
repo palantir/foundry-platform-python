@@ -13,31 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._shared_property_type_api_name import (
-    SharedPropertyTypeApiName,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class PropertiesHaveDifferentIdsParameters(TypedDict):
+class PropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
     """Properties used in ordering must have the same ids. Temporary restriction imposed due to OSS limitations."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[SharedPropertyTypeApiName]
+    properties: typing.List[ontologies_models.SharedPropertyTypeApiName]
 
 
 @dataclass
-class PropertiesHaveDifferentIds(BadRequestError):
-    name: Literal["PropertiesHaveDifferentIds"]
+class PropertiesHaveDifferentIds(errors.BadRequestError):
+    name: typing.Literal["PropertiesHaveDifferentIds"]
     parameters: PropertiesHaveDifferentIdsParameters
     error_instance_id: str
 

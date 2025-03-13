@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class PrincipalNotFoundParameters(TypedDict):
+class PrincipalNotFoundParameters(typing_extensions.TypedDict):
     """A principal (User or Group) with the given PrincipalId could not be found"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    principalId: PrincipalId
+    principalId: core_models.PrincipalId
 
 
 @dataclass
-class PrincipalNotFound(NotFoundError):
-    name: Literal["PrincipalNotFound"]
+class PrincipalNotFound(errors.NotFoundError):
+    name: typing.Literal["PrincipalNotFound"]
     parameters: PrincipalNotFoundParameters
     error_instance_id: str
 

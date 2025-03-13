@@ -13,21 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._data_value import DataValue
-from foundry.v2.ontologies.models._parameter_id import ParameterId
-from foundry.v2.ontologies.models._query_data_type_dict import QueryDataTypeDict
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class InvalidQueryParameterValueParameters(TypedDict):
+class InvalidQueryParameterValueParameters(typing_extensions.TypedDict):
     """
     The value of the given parameter is invalid. See the documentation of `DataValue` for details on
     how parameters are represented.
@@ -35,16 +30,14 @@ class InvalidQueryParameterValueParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameterDataType: QueryDataTypeDict
-
-    parameterId: ParameterId
-
-    parameterValue: NotRequired[DataValue]
+    parameterDataType: ontologies_models.QueryDataTypeDict
+    parameterId: ontologies_models.ParameterId
+    parameterValue: typing_extensions.NotRequired[ontologies_models.DataValue]
 
 
 @dataclass
-class InvalidQueryParameterValue(BadRequestError):
-    name: Literal["InvalidQueryParameterValue"]
+class InvalidQueryParameterValue(errors.BadRequestError):
+    name: typing.Literal["InvalidQueryParameterValue"]
     parameters: InvalidQueryParameterValueParameters
     error_instance_id: str
 

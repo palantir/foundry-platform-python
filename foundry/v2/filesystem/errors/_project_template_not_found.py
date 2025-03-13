@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.filesystem.models._project_template_rid import ProjectTemplateRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class ProjectTemplateNotFoundParameters(TypedDict):
+class ProjectTemplateNotFoundParameters(typing_extensions.TypedDict):
     """The project template RID referenced cannot be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    projectTemplateRid: ProjectTemplateRid
+    projectTemplateRid: filesystem_models.ProjectTemplateRid
 
 
 @dataclass
-class ProjectTemplateNotFound(NotFoundError):
-    name: Literal["ProjectTemplateNotFound"]
+class ProjectTemplateNotFound(errors.NotFoundError):
+    name: typing.Literal["ProjectTemplateNotFound"]
     parameters: ProjectTemplateNotFoundParameters
     error_instance_id: str
 

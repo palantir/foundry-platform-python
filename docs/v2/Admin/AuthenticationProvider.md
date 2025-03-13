@@ -14,9 +14,9 @@ Get the AuthenticationProvider with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**authentication_provider_rid** | AuthenticationProviderRid | authenticationProviderRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **AuthenticationProvider**
@@ -32,11 +32,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# EnrollmentRid
 enrollment_rid = None
-# AuthenticationProviderRid | authenticationProviderRid
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -75,8 +75,8 @@ Lists all AuthenticationProviders.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**enrollment_rid** | EnrollmentRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListAuthenticationProvidersResponse**
@@ -92,9 +92,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# EnrollmentRid
 enrollment_rid = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -132,11 +132,11 @@ Preregistered groups can be used anywhere other groups are used in the platform.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**authentication_provider_rid** | AuthenticationProviderRid | authenticationProviderRid |  |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
 **name** | GroupName |  |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations that can view this group.  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **PrincipalId**
@@ -152,15 +152,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# EnrollmentRid
 enrollment_rid = None
-# AuthenticationProviderRid | authenticationProviderRid
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# GroupName |
+# GroupName
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations that can view this group.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -201,15 +201,15 @@ Authentication Provider. Preregistered users can be assigned to groups and roles
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | EnrollmentRid | enrollmentRid |  |
-**authentication_provider_rid** | AuthenticationProviderRid | authenticationProviderRid |  |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
 **organization** | OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.  |  |
 **username** | UserUsername | The new user's username. This must match one of the provider's supported username patterns. |  |
 **attributes** | Optional[Dict[AttributeName, AttributeValues]] |  | [optional] |
 **email** | Optional[str] |  | [optional] |
 **family_name** | Optional[str] |  | [optional] |
 **given_name** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **PrincipalId**
@@ -225,15 +225,15 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# EnrollmentRid | enrollmentRid
+# EnrollmentRid
 enrollment_rid = None
-# AuthenticationProviderRid | authenticationProviderRid
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
 # OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
 organization = "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
 # UserUsername | The new user's username. This must match one of the provider's supported username patterns.
 username = "jsmith"
-# Optional[Dict[AttributeName, AttributeValues]] |
+# Optional[Dict[AttributeName, AttributeValues]]
 attributes = {
     "multipass:givenName": ["John"],
     "multipass:familyName": ["Smith"],
@@ -245,13 +245,13 @@ attributes = {
     "department": ["Finance"],
     "jobTitle": ["Accountant"],
 }
-# Optional[str] |
+# Optional[str]
 email = "jsmith@example.com"
-# Optional[str] |
+# Optional[str]
 family_name = "Smith"
-# Optional[str] |
+# Optional[str]
 given_name = "John"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

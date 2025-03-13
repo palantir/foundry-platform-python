@@ -13,35 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._function_rid import FunctionRid
-from foundry.v1.ontologies.models._function_version import FunctionVersion
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class FunctionExecutionFailedParameters(TypedDict):
+class FunctionExecutionFailedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: FunctionRid
-
-    functionVersion: FunctionVersion
-
-    message: NotRequired[str]
-
-    stacktrace: NotRequired[str]
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+    message: typing_extensions.NotRequired[str]
+    stacktrace: typing_extensions.NotRequired[str]
 
 
 @dataclass
-class FunctionExecutionFailed(BadRequestError):
-    name: Literal["FunctionExecutionFailed"]
+class FunctionExecutionFailed(errors.BadRequestError):
+    name: typing.Literal["FunctionExecutionFailed"]
     parameters: FunctionExecutionFailedParameters
     error_instance_id: str
 

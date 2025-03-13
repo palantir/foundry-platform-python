@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidDefaultRolesParameters(TypedDict):
+class InvalidDefaultRolesParameters(typing_extensions.TypedDict):
     """Either the user has not passed default roles for a template with suggested default roles, or has passed default roles for a template with fixed default roles."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidDefaultRoles(BadRequestError):
-    name: Literal["InvalidDefaultRoles"]
+class InvalidDefaultRoles(errors.BadRequestError):
+    name: typing.Literal["InvalidDefaultRoles"]
     parameters: InvalidDefaultRolesParameters
     error_instance_id: str
 

@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class ReadTableErrorParameters(TypedDict):
+class ReadTableErrorParameters(typing_extensions.TypedDict):
     """An error occurred while reading the table. Refer to the message for more details."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
+    datasetRid: datasets_models.DatasetRid
     message: str
 
 
 @dataclass
-class ReadTableError(InternalServerError):
-    name: Literal["ReadTableError"]
+class ReadTableError(errors.InternalServerError):
+    name: typing.Literal["ReadTableError"]
     parameters: ReadTableErrorParameters
     error_instance_id: str
 

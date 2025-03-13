@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class InvalidDisplayNameParameters(TypedDict):
+class InvalidDisplayNameParameters(typing_extensions.TypedDict):
     """
     The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be
     too long.
@@ -32,12 +30,12 @@ class InvalidDisplayNameParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    displayName: ResourceDisplayName
+    displayName: filesystem_models.ResourceDisplayName
 
 
 @dataclass
-class InvalidDisplayName(BadRequestError):
-    name: Literal["InvalidDisplayName"]
+class InvalidDisplayName(errors.BadRequestError):
+    name: typing.Literal["InvalidDisplayName"]
     parameters: InvalidDisplayNameParameters
     error_instance_id: str
 

@@ -13,32 +13,29 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._marking_id import MarkingId
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters(TypedDict):
+class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters(
+    typing_extensions.TypedDict
+):
     """You cannot remove all administrators from a marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingId: MarkingId
-
-    currentAdministrators: List[PrincipalId]
+    markingId: core_models.MarkingId
+    currentAdministrators: typing.List[core_models.PrincipalId]
 
 
 @dataclass
-class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(BadRequestError):
-    name: Literal["RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed"]
+class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(errors.BadRequestError):
+    name: typing.Literal["RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed"]
     parameters: RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowedParameters
     error_instance_id: str
 

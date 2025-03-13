@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters(TypedDict):
+class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters(typing_extensions.TypedDict):
     """The additional secrets must be specified as a plaintext value map."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap(BadRequestError):
-    name: Literal["AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap"]
+class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap(errors.BadRequestError):
+    name: typing.Literal["AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap"]
     parameters: AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters
     error_instance_id: str
 

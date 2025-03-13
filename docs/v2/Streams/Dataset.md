@@ -20,7 +20,7 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).  | [optional] |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.  | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **stream_type** | Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  | [optional] |
 
 ### Return type
@@ -37,9 +37,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetName |
+# DatasetName
 name = "My Dataset"
-# FolderRid |
+# FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.
 schema = None
@@ -49,7 +49,7 @@ branch_name = "master"
 compressed = False
 # Optional[PartitionsCount] | The number of partitions for the Foundry stream.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If not specified, 1 partition is used.  This value cannot be changed later.
 partitions_count = 1
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
 stream_type = "LOW_LATENCY"

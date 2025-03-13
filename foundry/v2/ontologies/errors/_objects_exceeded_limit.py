@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class ObjectsExceededLimitParameters(TypedDict):
+class ObjectsExceededLimitParameters(typing_extensions.TypedDict):
     """
     There are more objects, but they cannot be returned by this API. Only 10,000 objects are available through this
     API for a given request.
@@ -33,8 +31,8 @@ class ObjectsExceededLimitParameters(TypedDict):
 
 
 @dataclass
-class ObjectsExceededLimit(BadRequestError):
-    name: Literal["ObjectsExceededLimit"]
+class ObjectsExceededLimit(errors.BadRequestError):
+    name: typing.Literal["ObjectsExceededLimit"]
     parameters: ObjectsExceededLimitParameters
     error_instance_id: str
 

@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._build_rid import BuildRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class BuildNotFoundParameters(TypedDict):
+class BuildNotFoundParameters(typing_extensions.TypedDict):
     """The given Build could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    buildRid: BuildRid
+    buildRid: core_models.BuildRid
     """The RID of a Build."""
 
 
 @dataclass
-class BuildNotFound(NotFoundError):
-    name: Literal["BuildNotFound"]
+class BuildNotFound(errors.NotFoundError):
+    name: typing.Literal["BuildNotFound"]
     parameters: BuildNotFoundParameters
     error_instance_id: str
 

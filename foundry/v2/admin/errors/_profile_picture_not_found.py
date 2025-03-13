@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class ProfilePictureNotFoundParameters(TypedDict):
+class ProfilePictureNotFoundParameters(typing_extensions.TypedDict):
     """The user has not set a profile picture"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: PrincipalId
+    userId: core_models.PrincipalId
 
 
 @dataclass
-class ProfilePictureNotFound(NotFoundError):
-    name: Literal["ProfilePictureNotFound"]
+class ProfilePictureNotFound(errors.NotFoundError):
+    name: typing.Literal["ProfilePictureNotFound"]
     parameters: ProfilePictureNotFoundParameters
     error_instance_id: str
 

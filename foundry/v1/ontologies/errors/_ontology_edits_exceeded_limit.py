@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class OntologyEditsExceededLimitParameters(TypedDict):
+class OntologyEditsExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of edits to the Ontology exceeded the allowed limit.
     This may happen because of the request or because the Action is modifying too many objects.
@@ -33,13 +31,12 @@ class OntologyEditsExceededLimitParameters(TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     editsCount: int
-
     editsLimit: int
 
 
 @dataclass
-class OntologyEditsExceededLimit(BadRequestError):
-    name: Literal["OntologyEditsExceededLimit"]
+class OntologyEditsExceededLimit(errors.BadRequestError):
+    name: typing.Literal["OntologyEditsExceededLimit"]
     parameters: OntologyEditsExceededLimitParameters
     error_instance_id: str
 

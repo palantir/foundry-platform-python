@@ -31,9 +31,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetName |
+# DatasetName
 name = "My Dataset"
-# FolderRid |
+# FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 
 
@@ -69,7 +69,7 @@ Get the Dataset with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
+**dataset_rid** | DatasetRid |  |  |
 
 ### Return type
 **Dataset**
@@ -85,7 +85,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# DatasetRid
 dataset_rid = None
 
 
@@ -123,13 +123,13 @@ This endpoint currently does not support views (virtual datasets composed of oth
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | datasetRid |  |
-**format** | TableExportFormat | format |  |
-**branch_name** | Optional[BranchName] | branchName | [optional] |
-**columns** | Optional[List[str]] | columns | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | endTransactionRid | [optional] |
-**row_limit** | Optional[int] | rowLimit | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | startTransactionRid | [optional] |
+**dataset_rid** | DatasetRid |  |  |
+**format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch.  | [optional] |
+**columns** | Optional[List[str]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
+**row_limit** | Optional[int] | A limit on the number of rows to return. Note that row ordering is non-deterministic.  | [optional] |
+**start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.  | [optional] |
 
 ### Return type
 **bytes**
@@ -145,19 +145,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | datasetRid
+# DatasetRid
 dataset_rid = None
-# TableExportFormat | format
+# TableExportFormat | The export format. Must be `ARROW` or `CSV`.
 format = None
-# Optional[BranchName] | branchName
+# Optional[BranchName] | The name of the Branch.
 branch_name = None
-# Optional[List[str]] | columns
+# Optional[List[str]] | A subset of the dataset columns to include in the result. Defaults to all columns.
 columns = ["id", "firstName", "lastName"]
-# Optional[TransactionRid] | endTransactionRid
+# Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
 end_transaction_rid = None
-# Optional[int] | rowLimit
+# Optional[int] | A limit on the number of rows to return. Note that row ordering is non-deterministic.
 row_limit = None
-# Optional[TransactionRid] | startTransactionRid
+# Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.
 start_transaction_rid = None
 
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._zone_id import ZoneId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidTimeZoneParameters(TypedDict):
+class InvalidTimeZoneParameters(typing_extensions.TypedDict):
     """The time zone is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    timeZone: ZoneId
+    timeZone: core_models.ZoneId
 
 
 @dataclass
-class InvalidTimeZone(BadRequestError):
-    name: Literal["InvalidTimeZone"]
+class InvalidTimeZone(errors.BadRequestError):
+    name: typing.Literal["InvalidTimeZone"]
     parameters: InvalidTimeZoneParameters
     error_instance_id: str
 

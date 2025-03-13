@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._search_order_by_type import SearchOrderByType
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class InvalidOrderTypeParameters(TypedDict):
+class InvalidOrderTypeParameters(typing_extensions.TypedDict):
     """This query type does not support the provided order type"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    orderType: NotRequired[SearchOrderByType]
+    orderType: typing_extensions.NotRequired[ontologies_models.SearchOrderByType]
 
 
 @dataclass
-class InvalidOrderType(BadRequestError):
-    name: Literal["InvalidOrderType"]
+class InvalidOrderType(errors.BadRequestError):
+    name: typing.Literal["InvalidOrderType"]
     parameters: InvalidOrderTypeParameters
     error_instance_id: str
 

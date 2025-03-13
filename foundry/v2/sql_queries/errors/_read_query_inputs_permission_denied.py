@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import PermissionDeniedError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class ReadQueryInputsPermissionDeniedParameters(TypedDict):
+class ReadQueryInputsPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to access the inputs to the query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rids: List[RID]
+    rids: typing.List[core.RID]
     """The RIDs of the inputs to the query that the user does not have permission to query."""
 
 
 @dataclass
-class ReadQueryInputsPermissionDenied(PermissionDeniedError):
-    name: Literal["ReadQueryInputsPermissionDenied"]
+class ReadQueryInputsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReadQueryInputsPermissionDenied"]
     parameters: ReadQueryInputsPermissionDeniedParameters
     error_instance_id: str
 

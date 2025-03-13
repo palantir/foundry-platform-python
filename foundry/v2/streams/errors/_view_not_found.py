@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.streams.models._view_rid import ViewRid
+from foundry import _errors as errors
+from foundry.v2.streams import models as streams_models
 
 
-class ViewNotFoundParameters(TypedDict):
+class ViewNotFoundParameters(typing_extensions.TypedDict):
     """No view for the provided view rid provided could be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewRid: ViewRid
+    viewRid: streams_models.ViewRid
 
 
 @dataclass
-class ViewNotFound(NotFoundError):
-    name: Literal["ViewNotFound"]
+class ViewNotFound(errors.NotFoundError):
+    name: typing.Literal["ViewNotFound"]
     parameters: ViewNotFoundParameters
     error_instance_id: str
 

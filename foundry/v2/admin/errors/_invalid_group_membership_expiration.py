@@ -13,37 +13,31 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.admin.models._group_membership_expiration import GroupMembershipExpiration  # NOQA
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.admin import models as admin_models
+from foundry.v2.core import models as core_models
 
 
-class InvalidGroupMembershipExpirationParameters(TypedDict):
+class InvalidGroupMembershipExpirationParameters(typing_extensions.TypedDict):
     """The member expiration you provided does not conform to the Group's requirements for member expirations."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: PrincipalId
-
-    expirationProvided: NotRequired[GroupMembershipExpiration]
-
-    maximumDuration: NotRequired[str]
-
-    latestExpiration: NotRequired[datetime]
+    groupId: core_models.PrincipalId
+    expirationProvided: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
+    maximumDuration: typing_extensions.NotRequired[str]
+    latestExpiration: typing_extensions.NotRequired[datetime]
 
 
 @dataclass
-class InvalidGroupMembershipExpiration(BadRequestError):
-    name: Literal["InvalidGroupMembershipExpiration"]
+class InvalidGroupMembershipExpiration(errors.BadRequestError):
+    name: typing.Literal["InvalidGroupMembershipExpiration"]
     parameters: InvalidGroupMembershipExpirationParameters
     error_instance_id: str
 

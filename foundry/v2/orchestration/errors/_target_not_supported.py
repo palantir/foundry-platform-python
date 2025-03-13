@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.orchestration.models._schedule_rid import ScheduleRid
+from foundry import _errors as errors
+from foundry.v2.orchestration import models as orchestration_models
 
 
-class TargetNotSupportedParameters(TypedDict):
+class TargetNotSupportedParameters(typing_extensions.TypedDict):
     """
     The schedule target is not supported. The schedule target must be either a connecting target, upstream
     target or list of single dataset targets.
@@ -32,12 +30,12 @@ class TargetNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: ScheduleRid
+    scheduleRid: orchestration_models.ScheduleRid
 
 
 @dataclass
-class TargetNotSupported(BadRequestError):
-    name: Literal["TargetNotSupported"]
+class TargetNotSupported(errors.BadRequestError):
+    name: typing.Literal["TargetNotSupported"]
     parameters: TargetNotSupportedParameters
     error_instance_id: str
 

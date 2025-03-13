@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._principal_id import PrincipalId
-from foundry.v2.core.models._realm import Realm
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters(TypedDict):
+class CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters(typing_extensions.TypedDict):
     """Provider information for Principals in this Realm cannot be replaced."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    principalId: PrincipalId
-
-    realm: Realm
+    principalId: core_models.PrincipalId
+    realm: core_models.Realm
 
 
 @dataclass
-class CannotReplaceProviderInfoForPrincipalInProtectedRealm(BadRequestError):
-    name: Literal["CannotReplaceProviderInfoForPrincipalInProtectedRealm"]
+class CannotReplaceProviderInfoForPrincipalInProtectedRealm(errors.BadRequestError):
+    name: typing.Literal["CannotReplaceProviderInfoForPrincipalInProtectedRealm"]
     parameters: CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters
     error_instance_id: str
 

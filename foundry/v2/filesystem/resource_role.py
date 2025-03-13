@@ -13,39 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.filesystem import errors as filesystem_errors
-from foundry.v2.filesystem.models._list_resource_roles_response import (
-    ListResourceRolesResponse,
-)  # NOQA
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
-from foundry.v2.filesystem.models._resource_role import ResourceRole
-from foundry.v2.filesystem.models._resource_role_dict import ResourceRoleDict
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class ResourceRoleClient:
@@ -59,37 +37,39 @@ class ResourceRoleClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ResourceRoleClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ResourceRoleClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -100,7 +80,7 @@ class ResourceRoleClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
                 query_params={
@@ -115,10 +95,14 @@ class ResourceRoleClient:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,
@@ -129,40 +113,40 @@ class ResourceRoleClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[ResourceRole]:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[filesystem_models.ResourceRole]:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[ResourceRole]
+        :rtype: core.ResourceIterator[filesystem_models.ResourceRole]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -179,42 +163,42 @@ class ResourceRoleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListResourceRolesResponse:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.ListResourceRolesResponse:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListResourceRolesResponse
+        :rtype: filesystem_models.ListResourceRolesResponse
         """
 
         warnings.warn(
@@ -224,7 +208,7 @@ class ResourceRoleClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -241,30 +225,32 @@ class ResourceRoleClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -275,7 +261,7 @@ class ResourceRoleClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
                 query_params={
@@ -290,10 +276,14 @@ class ResourceRoleClient:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,
@@ -316,44 +306,46 @@ class _ResourceRoleClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
                 query_params={
@@ -368,10 +360,14 @@ class _ResourceRoleClientRaw:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,
@@ -382,40 +378,40 @@ class _ResourceRoleClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListResourceRolesResponse]:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListResourceRolesResponse]:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListResourceRolesResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListResourceRolesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -432,42 +428,42 @@ class _ResourceRoleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListResourceRolesResponse]:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListResourceRolesResponse]:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListResourceRolesResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListResourceRolesResponse]
         """
 
         warnings.warn(
@@ -477,7 +473,7 @@ class _ResourceRoleClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -494,41 +490,43 @@ class _ResourceRoleClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
                 query_params={
@@ -543,10 +541,14 @@ class _ResourceRoleClientRaw:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,
@@ -569,44 +571,46 @@ class _ResourceRoleClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
                 query_params={
@@ -621,10 +625,14 @@ class _ResourceRoleClientStreaming:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,
@@ -635,40 +643,40 @@ class _ResourceRoleClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListResourceRolesResponse]:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListResourceRolesResponse]:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListResourceRolesResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListResourceRolesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -685,42 +693,42 @@ class _ResourceRoleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        include_inherited: Optional[bool] = None,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListResourceRolesResponse]:
+        include_inherited: typing.Optional[bool] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListResourceRolesResponse]:
         """
         List the roles on a resource.
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
-        :param include_inherited: includeInherited
+        :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListResourceRolesResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListResourceRolesResponse]
         """
 
         warnings.warn(
@@ -730,7 +738,7 @@ class _ResourceRoleClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles",
                 query_params={
@@ -747,41 +755,43 @@ class _ResourceRoleClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListResourceRolesResponse,
+                response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove(
         self,
-        resource_rid: ResourceRid,
+        resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: List[Union[ResourceRole, ResourceRoleDict]],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        roles: typing.List[
+            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
+        ],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
 
-        :param resource_rid: resourceRid
+        :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
                 query_params={
@@ -796,10 +806,14 @@ class _ResourceRoleClientStreaming:
                 body={
                     "roles": roles,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": List[Union[ResourceRole, ResourceRoleDict]],
+                        "roles": typing.List[
+                            typing.Union[
+                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
+                            ]
+                        ],
                     },
                 ),
                 response_type=None,

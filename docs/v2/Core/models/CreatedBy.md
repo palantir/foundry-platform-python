@@ -4,7 +4,7 @@ The Foundry user who created this resource
 
 ## Type
 ```python
-PrincipalId
+str
 ```
 
 

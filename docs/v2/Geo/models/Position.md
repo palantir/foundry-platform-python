@@ -18,7 +18,7 @@ elements MAY be ignored by parsers.
 
 ## Type
 ```python
-Annotated[List[Coordinate], Len(min_length=2, max_length=3)]
+List[Coordinate]
 ```
 
 

@@ -13,20 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
-from foundry.v1.ontologies.models._property_filter import PropertyFilter
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class PropertyFiltersNotSupportedParameters(TypedDict):
+class PropertyFiltersNotSupportedParameters(typing_extensions.TypedDict):
     """
     At least one of the requested property filters are not supported. See the documentation of `PropertyFilter` for
     a list of supported property filters.
@@ -34,14 +30,13 @@ class PropertyFiltersNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyFilters: List[PropertyFilter]
-
-    property: PropertyApiName
+    propertyFilters: typing.List[ontologies_models.PropertyFilter]
+    property: ontologies_models.PropertyApiName
 
 
 @dataclass
-class PropertyFiltersNotSupported(BadRequestError):
-    name: Literal["PropertyFiltersNotSupported"]
+class PropertyFiltersNotSupported(errors.BadRequestError):
+    name: typing.Literal["PropertyFiltersNotSupported"]
     parameters: PropertyFiltersNotSupportedParameters
     error_instance_id: str
 

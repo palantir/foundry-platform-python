@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._parameter_id import ParameterId
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class MissingParameterParameters(TypedDict):
+class MissingParameterParameters(typing_extensions.TypedDict):
     """
     Required parameters are missing. Please look at the `parameters` field to see which required parameters are
     missing from the request.
@@ -33,12 +30,12 @@ class MissingParameterParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameters: List[ParameterId]
+    parameters: typing.List[ontologies_models.ParameterId]
 
 
 @dataclass
-class MissingParameter(BadRequestError):
-    name: Literal["MissingParameter"]
+class MissingParameter(errors.BadRequestError):
+    name: typing.Literal["MissingParameter"]
     parameters: MissingParameterParameters
     error_instance_id: str
 

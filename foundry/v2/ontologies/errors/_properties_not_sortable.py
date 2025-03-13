@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class PropertiesNotSortableParameters(TypedDict):
+class PropertiesNotSortableParameters(typing_extensions.TypedDict):
     """
     Results could not be ordered by the requested properties. Please mark the properties as *Searchable* and
     *Sortable* in the **Ontology Manager** to enable their use in `orderBy` parameters. There may be a short delay
@@ -34,12 +31,12 @@ class PropertiesNotSortableParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    properties: List[PropertyApiName]
+    properties: typing.List[ontologies_models.PropertyApiName]
 
 
 @dataclass
-class PropertiesNotSortable(BadRequestError):
-    name: Literal["PropertiesNotSortable"]
+class PropertiesNotSortable(errors.BadRequestError):
+    name: typing.Literal["PropertiesNotSortable"]
     parameters: PropertiesNotSortableParameters
     error_instance_id: str
 

@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.aip_agents.models._agent_rid import AgentRid
+from foundry import _errors as errors
+from foundry.v2.aip_agents import models as aip_agents_models
 
 
-class NoPublishedAgentVersionParameters(TypedDict):
+class NoPublishedAgentVersionParameters(typing_extensions.TypedDict):
     """
     Failed to retrieve the latest published version of the Agent because the Agent has no published versions.
     Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
@@ -32,12 +30,12 @@ class NoPublishedAgentVersionParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentRid: AgentRid
+    agentRid: aip_agents_models.AgentRid
 
 
 @dataclass
-class NoPublishedAgentVersion(BadRequestError):
-    name: Literal["NoPublishedAgentVersion"]
+class NoPublishedAgentVersion(errors.BadRequestError):
+    name: typing.Literal["NoPublishedAgentVersion"]
     parameters: NoPublishedAgentVersionParameters
     error_instance_id: str
 

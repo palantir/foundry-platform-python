@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
+from foundry import _errors as errors
 
 
-class HighScaleComputationNotEnabledParameters(TypedDict):
+class HighScaleComputationNotEnabledParameters(typing_extensions.TypedDict):
     """High-scale compute was required for this Ontology query but is not enabled on this enrollment."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class HighScaleComputationNotEnabled(InternalServerError):
-    name: Literal["HighScaleComputationNotEnabled"]
+class HighScaleComputationNotEnabled(errors.InternalServerError):
+    name: typing.Literal["HighScaleComputationNotEnabled"]
     parameters: HighScaleComputationNotEnabledParameters
     error_instance_id: str
 

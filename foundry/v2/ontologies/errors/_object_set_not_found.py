@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.ontologies.models._object_set_rid import ObjectSetRid
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ObjectSetNotFoundParameters(TypedDict):
+class ObjectSetNotFoundParameters(typing_extensions.TypedDict):
     """The requested object set is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectSetRid: ObjectSetRid
+    objectSetRid: ontologies_models.ObjectSetRid
 
 
 @dataclass
-class ObjectSetNotFound(NotFoundError):
-    name: Literal["ObjectSetNotFound"]
+class ObjectSetNotFound(errors.NotFoundError):
+    name: typing.Literal["ObjectSetNotFound"]
     parameters: ObjectSetNotFoundParameters
     error_instance_id: str
 

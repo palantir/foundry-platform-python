@@ -13,37 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.core.models._page_size import PageSize
-from foundry.v1.core.models._page_token import PageToken
-from foundry.v1.ontologies.models._link_type_api_name import LinkTypeApiName
-from foundry.v1.ontologies.models._link_type_side import LinkTypeSide
-from foundry.v1.ontologies.models._list_object_types_response import ListObjectTypesResponse  # NOQA
-from foundry.v1.ontologies.models._list_outgoing_link_types_response import (
-    ListOutgoingLinkTypesResponse,
-)  # NOQA
-from foundry.v1.ontologies.models._object_type import ObjectType
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v1.ontologies.models._ontology_rid import OntologyRid
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.ontologies import models as ontologies_models
 
 
 class ObjectTypeClient:
@@ -57,46 +36,46 @@ class ObjectTypeClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ObjectTypeClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ObjectTypeClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ObjectType:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ObjectType:
         """
         Gets a specific object type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ObjectType
+        :rtype: ontologies_models.ObjectType
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}",
                 query_params={},
@@ -109,43 +88,43 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectType,
+                response_type=ontologies_models.ObjectType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> LinkTypeSide:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.LinkTypeSide:
         """
         Get an outgoing link for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param link_type: linkType
+        :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: LinkTypeSide
+        :rtype: ontologies_models.LinkTypeSide
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
                 query_params={},
@@ -159,23 +138,23 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=LinkTypeSide,
+                response_type=ontologies_models.LinkTypeSide,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[ObjectType]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.ObjectType]:
         """
         Lists the object types for the given Ontology.
 
@@ -185,20 +164,20 @@ class ObjectTypeClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[ObjectType]
+        :rtype: core.ResourceIterator[ontologies_models.ObjectType]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -213,46 +192,46 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[LinkTypeSide]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.LinkTypeSide]:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[LinkTypeSide]
+        :rtype: core.ResourceIterator[ontologies_models.LinkTypeSide]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -268,23 +247,23 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListObjectTypesResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListObjectTypesResponse:
         """
         Lists the object types for the given Ontology.
 
@@ -294,16 +273,16 @@ class ObjectTypeClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListObjectTypesResponse
+        :rtype: ontologies_models.ListObjectTypesResponse
         """
 
         warnings.warn(
@@ -313,7 +292,7 @@ class ObjectTypeClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -328,42 +307,42 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListOutgoingLinkTypesResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListOutgoingLinkTypesResponse:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListOutgoingLinkTypesResponse
+        :rtype: ontologies_models.ListOutgoingLinkTypesResponse
         """
 
         warnings.warn(
@@ -373,7 +352,7 @@ class ObjectTypeClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -389,7 +368,7 @@ class ObjectTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -407,42 +386,42 @@ class _ObjectTypeClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ObjectType]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ObjectType]:
         """
         Gets a specific object type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ObjectType]
+        :rtype: core.ApiResponse[ontologies_models.ObjectType]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}",
                 query_params={},
@@ -455,43 +434,43 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectType,
+                response_type=ontologies_models.ObjectType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[LinkTypeSide]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.LinkTypeSide]:
         """
         Get an outgoing link for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param link_type: linkType
+        :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[LinkTypeSide]
+        :rtype: core.ApiResponse[ontologies_models.LinkTypeSide]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
                 query_params={},
@@ -505,23 +484,23 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=LinkTypeSide,
+                response_type=ontologies_models.LinkTypeSide,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListObjectTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListObjectTypesResponse]:
         """
         Lists the object types for the given Ontology.
 
@@ -531,20 +510,20 @@ class _ObjectTypeClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListObjectTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListObjectTypesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -559,46 +538,46 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListOutgoingLinkTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListOutgoingLinkTypesResponse]:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListOutgoingLinkTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListOutgoingLinkTypesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -614,23 +593,23 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListObjectTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListObjectTypesResponse]:
         """
         Lists the object types for the given Ontology.
 
@@ -640,16 +619,16 @@ class _ObjectTypeClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListObjectTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListObjectTypesResponse]
         """
 
         warnings.warn(
@@ -659,7 +638,7 @@ class _ObjectTypeClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -674,42 +653,42 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListOutgoingLinkTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListOutgoingLinkTypesResponse]:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListOutgoingLinkTypesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListOutgoingLinkTypesResponse]
         """
 
         warnings.warn(
@@ -719,7 +698,7 @@ class _ObjectTypeClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -735,7 +714,7 @@ class _ObjectTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -753,42 +732,42 @@ class _ObjectTypeClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ObjectType]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ObjectType]:
         """
         Gets a specific object type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ObjectType]
+        :rtype: core.StreamingContextManager[ontologies_models.ObjectType]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}",
                 query_params={},
@@ -801,43 +780,43 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ObjectType,
+                response_type=ontologies_models.ObjectType,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
-        link_type: LinkTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[LinkTypeSide]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.LinkTypeSide]:
         """
         Get an outgoing link for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param link_type: linkType
+        :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[LinkTypeSide]
+        :rtype: core.StreamingContextManager[ontologies_models.LinkTypeSide]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
                 query_params={},
@@ -851,23 +830,23 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=LinkTypeSide,
+                response_type=ontologies_models.LinkTypeSide,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListObjectTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListObjectTypesResponse]:
         """
         Lists the object types for the given Ontology.
 
@@ -877,20 +856,20 @@ class _ObjectTypeClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListObjectTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListObjectTypesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -905,46 +884,46 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListOutgoingLinkTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListOutgoingLinkTypesResponse]:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListOutgoingLinkTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListOutgoingLinkTypesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -960,23 +939,23 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListObjectTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListObjectTypesResponse]:
         """
         Lists the object types for the given Ontology.
 
@@ -986,16 +965,16 @@ class _ObjectTypeClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListObjectTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListObjectTypesResponse]
         """
 
         warnings.warn(
@@ -1005,7 +984,7 @@ class _ObjectTypeClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes",
                 query_params={
@@ -1020,42 +999,42 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListObjectTypesResponse,
+                response_type=ontologies_models.ListObjectTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page_outgoing_link_types(
         self,
-        ontology_rid: OntologyRid,
-        object_type: ObjectTypeApiName,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListOutgoingLinkTypesResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListOutgoingLinkTypesResponse]:
         """
         List the outgoing links for an object type.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListOutgoingLinkTypesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListOutgoingLinkTypesResponse]
         """
 
         warnings.warn(
@@ -1065,7 +1044,7 @@ class _ObjectTypeClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
@@ -1081,7 +1060,7 @@ class _ObjectTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOutgoingLinkTypesResponse,
+                response_type=ontologies_models.ListOutgoingLinkTypesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

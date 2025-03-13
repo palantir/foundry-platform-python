@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class TrashingSpaceNotSupportedParameters(TypedDict):
+class TrashingSpaceNotSupportedParameters(typing_extensions.TypedDict):
     """Spaces cannot be trashed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    resourceRid: filesystem_models.ResourceRid
 
 
 @dataclass
-class TrashingSpaceNotSupported(BadRequestError):
-    name: Literal["TrashingSpaceNotSupported"]
+class TrashingSpaceNotSupported(errors.BadRequestError):
+    name: typing.Literal["TrashingSpaceNotSupported"]
     parameters: TrashingSpaceNotSupportedParameters
     error_instance_id: str
 

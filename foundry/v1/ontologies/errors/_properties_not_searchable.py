@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class PropertiesNotSearchableParameters(TypedDict):
+class PropertiesNotSearchableParameters(typing_extensions.TypedDict):
     """
     Search is not enabled on the specified properties. Please mark the properties as *Searchable*
     in the **Ontology Manager** to enable search on them. There may be a short delay
@@ -34,12 +31,12 @@ class PropertiesNotSearchableParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyApiNames: List[PropertyApiName]
+    propertyApiNames: typing.List[ontologies_models.PropertyApiName]
 
 
 @dataclass
-class PropertiesNotSearchable(BadRequestError):
-    name: Literal["PropertiesNotSearchable"]
+class PropertiesNotSearchable(errors.BadRequestError):
+    name: typing.Literal["PropertiesNotSearchable"]
     parameters: PropertiesNotSearchableParameters
     error_instance_id: str
 

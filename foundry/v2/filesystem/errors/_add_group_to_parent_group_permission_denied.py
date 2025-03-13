@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._group_rid import GroupRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class AddGroupToParentGroupPermissionDeniedParameters(TypedDict):
+class AddGroupToParentGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     """The user is not authorized to add a a group to the parent group required to create the project from template."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parentGroupsWithoutPermission: List[GroupRid]
+    parentGroupsWithoutPermission: typing.List[core_models.GroupRid]
 
 
 @dataclass
-class AddGroupToParentGroupPermissionDenied(PermissionDeniedError):
-    name: Literal["AddGroupToParentGroupPermissionDenied"]
+class AddGroupToParentGroupPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddGroupToParentGroupPermissionDenied"]
     parameters: AddGroupToParentGroupPermissionDeniedParameters
     error_instance_id: str
 

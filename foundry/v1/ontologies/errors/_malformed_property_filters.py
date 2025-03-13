@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MalformedPropertyFiltersParameters(TypedDict):
+class MalformedPropertyFiltersParameters(typing_extensions.TypedDict):
     """At least one of requested filters are malformed. Please look at the documentation of `PropertyFilter`."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class MalformedPropertyFiltersParameters(TypedDict):
 
 
 @dataclass
-class MalformedPropertyFilters(BadRequestError):
-    name: Literal["MalformedPropertyFilters"]
+class MalformedPropertyFilters(errors.BadRequestError):
+    name: typing.Literal["MalformedPropertyFilters"]
     parameters: MalformedPropertyFiltersParameters
     error_instance_id: str
 

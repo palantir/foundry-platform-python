@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidSortTypeParameters(TypedDict):
+class InvalidSortTypeParameters(typing_extensions.TypedDict):
     """The requested sort type of one or more clauses is invalid. Valid sort types are 'p' or 'properties'."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidSortTypeParameters(TypedDict):
 
 
 @dataclass
-class InvalidSortType(BadRequestError):
-    name: Literal["InvalidSortType"]
+class InvalidSortType(errors.BadRequestError):
+    name: typing.Literal["InvalidSortType"]
     parameters: InvalidSortTypeParameters
     error_instance_id: str
 

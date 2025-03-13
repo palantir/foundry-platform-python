@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class ActionEditedPropertiesNotFoundParameters(TypedDict):
+class ActionEditedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     """
     Actions attempted to edit properties that could not be found on the object type.
     Please contact the Ontology administrator to resolve this issue.
@@ -33,8 +31,8 @@ class ActionEditedPropertiesNotFoundParameters(TypedDict):
 
 
 @dataclass
-class ActionEditedPropertiesNotFound(BadRequestError):
-    name: Literal["ActionEditedPropertiesNotFound"]
+class ActionEditedPropertiesNotFound(errors.BadRequestError):
+    name: typing.Literal["ActionEditedPropertiesNotFound"]
     parameters: ActionEditedPropertiesNotFoundParameters
     error_instance_id: str
 

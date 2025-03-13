@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._derived_property_api_name import DerivedPropertyApiName  # NOQA
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class DerivedPropertyApiNamesNotUniqueParameters(TypedDict):
+class DerivedPropertyApiNamesNotUniqueParameters(typing_extensions.TypedDict):
     """At least one of the requested derived property API names already exist on the object set."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    derivedPropertyApiNames: List[DerivedPropertyApiName]
+    derivedPropertyApiNames: typing.List[ontologies_models.DerivedPropertyApiName]
 
 
 @dataclass
-class DerivedPropertyApiNamesNotUnique(BadRequestError):
-    name: Literal["DerivedPropertyApiNamesNotUnique"]
+class DerivedPropertyApiNamesNotUnique(errors.BadRequestError):
+    name: typing.Literal["DerivedPropertyApiNamesNotUnique"]
     parameters: DerivedPropertyApiNamesNotUniqueParameters
     error_instance_id: str
 

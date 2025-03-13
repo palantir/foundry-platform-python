@@ -32,8 +32,8 @@ from foundry.v2.orchestration.errors._build_targets_up_to_date import BuildTarge
 from foundry.v2.orchestration.errors._cancel_build_permission_denied import (
     CancelBuildPermissionDenied,
 )  # NOQA
-from foundry.v2.orchestration.errors._create_builds_permission_denied import (
-    CreateBuildsPermissionDenied,
+from foundry.v2.orchestration.errors._create_build_permission_denied import (
+    CreateBuildPermissionDenied,
 )  # NOQA
 from foundry.v2.orchestration.errors._create_schedule_permission_denied import (
     CreateSchedulePermissionDenied,
@@ -94,7 +94,7 @@ __all__ = [
     "BuildTargetsResolutionError",
     "BuildTargetsUpToDate",
     "CancelBuildPermissionDenied",
-    "CreateBuildsPermissionDenied",
+    "CreateBuildPermissionDenied",
     "CreateSchedulePermissionDenied",
     "DeleteSchedulePermissionDenied",
     "InvalidAndTrigger",

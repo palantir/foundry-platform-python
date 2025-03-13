@@ -21,12 +21,12 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**action** | ActionTypeApiName | action |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **options** | Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
 **SyncApplyActionResponseV2**
@@ -42,17 +42,17 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ActionTypeApiName | action
+# ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
 action = "rename-employee"
-# Dict[ParameterId, Optional[DataValue]] |
+# Dict[ParameterId, Optional[DataValue]]
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |
+# Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
 options = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 
 
@@ -102,12 +102,12 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**action** | ActionTypeApiName | action |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **requests** | List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **options** | Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
 **BatchApplyActionResponseV2**
@@ -123,20 +123,20 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ActionTypeApiName | action
+# ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
 action = "rename-employee"
-# List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |
+# List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
 ]
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |
+# Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
 options = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 
 

@@ -1,0 +1,6 @@
+type: improvement
+improvement:
+  description: Merge model files into a single file for each namespace. This allows
+    for complex circular dependencies between models.
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/159

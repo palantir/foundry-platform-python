@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class PropertyTypeDoesNotSupportNearestNeighborsParameters(TypedDict):
+class PropertyTypeDoesNotSupportNearestNeighborsParameters(typing_extensions.TypedDict):
     """The provided propertyIdentifier is not configured with an embedding model in the ontology."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class PropertyTypeDoesNotSupportNearestNeighbors(BadRequestError):
-    name: Literal["PropertyTypeDoesNotSupportNearestNeighbors"]
+class PropertyTypeDoesNotSupportNearestNeighbors(errors.BadRequestError):
+    name: typing.Literal["PropertyTypeDoesNotSupportNearestNeighbors"]
     parameters: PropertyTypeDoesNotSupportNearestNeighborsParameters
     error_instance_id: str
 

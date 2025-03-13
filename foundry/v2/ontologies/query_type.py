@@ -13,34 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.ontologies.models._list_query_types_response_v2 import (
-    ListQueryTypesResponseV2,
-)  # NOQA
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._query_api_name import QueryApiName
-from foundry.v2.ontologies.models._query_type_v2 import QueryTypeV2
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class QueryTypeClient:
@@ -54,46 +36,46 @@ class QueryTypeClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _QueryTypeClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _QueryTypeClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        query_api_name: QueryApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> QueryTypeV2:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.QueryTypeV2:
         """
         Gets a specific query type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: QueryTypeV2
+        :rtype: ontologies_models.QueryTypeV2
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={},
@@ -106,23 +88,23 @@ class QueryTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=QueryTypeV2,
+                response_type=ontologies_models.QueryTypeV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[QueryTypeV2]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[ontologies_models.QueryTypeV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -131,20 +113,20 @@ class QueryTypeClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[QueryTypeV2]
+        :rtype: core.ResourceIterator[ontologies_models.QueryTypeV2]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -159,23 +141,23 @@ class QueryTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListQueryTypesResponseV2:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListQueryTypesResponseV2:
         """
         Lists the query types for the given Ontology.
 
@@ -184,16 +166,16 @@ class QueryTypeClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListQueryTypesResponseV2
+        :rtype: ontologies_models.ListQueryTypesResponseV2
         """
 
         warnings.warn(
@@ -203,7 +185,7 @@ class QueryTypeClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -218,7 +200,7 @@ class QueryTypeClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -236,42 +218,42 @@ class _QueryTypeClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        query_api_name: QueryApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[QueryTypeV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.QueryTypeV2]:
         """
         Gets a specific query type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[QueryTypeV2]
+        :rtype: core.ApiResponse[ontologies_models.QueryTypeV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={},
@@ -284,23 +266,23 @@ class _QueryTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=QueryTypeV2,
+                response_type=ontologies_models.QueryTypeV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListQueryTypesResponseV2]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListQueryTypesResponseV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -309,20 +291,20 @@ class _QueryTypeClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListQueryTypesResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.ListQueryTypesResponseV2]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -337,23 +319,23 @@ class _QueryTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListQueryTypesResponseV2]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListQueryTypesResponseV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -362,16 +344,16 @@ class _QueryTypeClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListQueryTypesResponseV2]
+        :rtype: core.ApiResponse[ontologies_models.ListQueryTypesResponseV2]
         """
 
         warnings.warn(
@@ -381,7 +363,7 @@ class _QueryTypeClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -396,7 +378,7 @@ class _QueryTypeClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -414,42 +396,42 @@ class _QueryTypeClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology: OntologyIdentifier,
-        query_api_name: QueryApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        query_api_name: ontologies_models.QueryApiName,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[QueryTypeV2]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.QueryTypeV2]:
         """
         Gets a specific query type with the given API name.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param query_api_name: queryApiName
+        :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[QueryTypeV2]
+        :rtype: core.StreamingContextManager[ontologies_models.QueryTypeV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={},
@@ -462,23 +444,23 @@ class _QueryTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=QueryTypeV2,
+                response_type=ontologies_models.QueryTypeV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListQueryTypesResponseV2]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListQueryTypesResponseV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -487,20 +469,20 @@ class _QueryTypeClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListQueryTypesResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.ListQueryTypesResponseV2]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -515,23 +497,23 @@ class _QueryTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        ontology: OntologyIdentifier,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListQueryTypesResponseV2]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListQueryTypesResponseV2]:
         """
         Lists the query types for the given Ontology.
 
@@ -540,16 +522,16 @@ class _QueryTypeClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param page_size: pageSize
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token:
         :type page_token: Optional[PageToken]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListQueryTypesResponseV2]
+        :rtype: core.StreamingContextManager[ontologies_models.ListQueryTypesResponseV2]
         """
 
         warnings.warn(
@@ -559,7 +541,7 @@ class _QueryTypeClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
@@ -574,7 +556,7 @@ class _QueryTypeClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListQueryTypesResponseV2,
+                response_type=ontologies_models.ListQueryTypesResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

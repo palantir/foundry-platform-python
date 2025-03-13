@@ -20,9 +20,9 @@ Adds a list of Markings to a resource.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
+**resource_rid** | ResourceRid |  |  |
 **marking_ids** | List[MarkingId] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -38,11 +38,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[MarkingId] |
+# List[MarkingId]
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -81,8 +81,8 @@ Move the given resource to the trash. Following this operation, the resource can
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -98,9 +98,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -136,8 +136,8 @@ Get the Resource with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Resource**
@@ -153,9 +153,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -193,8 +193,8 @@ composed of Organizations and Markings, and can either be applied directly to th
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **AccessRequirements**
@@ -210,9 +210,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -248,8 +248,8 @@ Get a Resource by its absolute path.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**path** | ResourcePath | path |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**path** | ResourcePath | The path to the Resource. The leading slash is optional. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Resource**
@@ -265,9 +265,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourcePath | path
+# ResourcePath | The path to the Resource. The leading slash is optional.
 path = "/My Organization-abcd/My Important Project/My Dataset"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -305,13 +305,13 @@ so the `pageSize` and `pageToken` parameters are not required.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ResourceIterator[MarkingId]**
+**ListMarkingsOfResourceResponse**
 
 ### Example
 
@@ -324,13 +324,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -369,10 +369,10 @@ so the `pageSize` and `pageToken` parameters are not required.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingsOfResourceResponse**
@@ -388,13 +388,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -434,8 +434,8 @@ Permanently delete the given resource from the trash. If the Resource is not dir
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -451,9 +451,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -489,9 +489,9 @@ Removes Markings from a resource.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
+**resource_rid** | ResourceRid |  |  |
 **marking_ids** | List[MarkingId] |  |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -507,11 +507,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[MarkingId] |
+# List[MarkingId]
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -550,8 +550,8 @@ trashed, this operation will be ignored.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid | resourceRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**resource_rid** | ResourceRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -567,9 +567,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid | resourceRid
+# ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

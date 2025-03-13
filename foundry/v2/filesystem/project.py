@@ -13,51 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._organization_rid import OrganizationRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._role_id import RoleId
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.filesystem import errors as filesystem_errors
-from foundry.v2.filesystem.models._list_organizations_of_project_response import (
-    ListOrganizationsOfProjectResponse,
-)  # NOQA
-from foundry.v2.filesystem.models._principal_with_id import PrincipalWithId
-from foundry.v2.filesystem.models._principal_with_id_dict import PrincipalWithIdDict
-from foundry.v2.filesystem.models._project import Project
-from foundry.v2.filesystem.models._project_rid import ProjectRid
-from foundry.v2.filesystem.models._project_template_rid import ProjectTemplateRid
-from foundry.v2.filesystem.models._project_template_variable_id import (
-    ProjectTemplateVariableId,
-)  # NOQA
-from foundry.v2.filesystem.models._project_template_variable_value import (
-    ProjectTemplateVariableValue,
-)  # NOQA
-from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class ProjectClient:
@@ -71,37 +37,37 @@ class ProjectClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _ProjectClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _ProjectClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -112,7 +78,7 @@ class ProjectClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/addOrganizations",
                 query_params={
@@ -127,10 +93,10 @@ class ProjectClient:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,
@@ -141,21 +107,28 @@ class ProjectClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        default_roles: List[RoleId],
-        display_name: ResourceDisplayName,
-        organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
-        space_rid: SpaceRid,
-        description: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Project:
+        default_roles: typing.List[core_models.RoleId],
+        display_name: filesystem_models.ResourceDisplayName,
+        organization_rids: typing.List[core_models.OrganizationRid],
+        role_grants: typing.Dict[
+            core_models.RoleId,
+            typing.List[
+                typing.Union[
+                    filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict
+                ]
+            ],
+        ],
+        space_rid: filesystem_models.SpaceRid,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.Project:
         """
         Creates a new Project.
 
@@ -175,12 +148,12 @@ class ProjectClient:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Project
+        :rtype: filesystem_models.Project
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
@@ -193,7 +166,7 @@ class ProjectClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/create",
                 query_params={
@@ -212,20 +185,26 @@ class ProjectClient:
                     "defaultRoles": default_roles,
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": ResourceDisplayName,
-                        "description": Optional[str],
-                        "spaceRid": SpaceRid,
-                        "roleGrants": Dict[
-                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        "displayName": filesystem_models.ResourceDisplayName,
+                        "description": typing.Optional[str],
+                        "spaceRid": filesystem_models.SpaceRid,
+                        "roleGrants": typing.Dict[
+                            core_models.RoleId,
+                            typing.List[
+                                typing.Union[
+                                    filesystem_models.PrincipalWithId,
+                                    filesystem_models.PrincipalWithIdDict,
+                                ]
+                            ],
                         ],
-                        "defaultRoles": List[RoleId],
-                        "organizationRids": List[OrganizationRid],
+                        "defaultRoles": typing.List[core_models.RoleId],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
@@ -240,20 +219,23 @@ class ProjectClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_from_template(
         self,
         *,
-        template_rid: ProjectTemplateRid,
-        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
-        default_roles: Optional[List[RoleId]] = None,
-        organization_rids: Optional[List[OrganizationRid]] = None,
-        preview: Optional[PreviewMode] = None,
-        project_description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Project:
+        template_rid: filesystem_models.ProjectTemplateRid,
+        variable_values: typing.Dict[
+            filesystem_models.ProjectTemplateVariableId,
+            filesystem_models.ProjectTemplateVariableValue,
+        ],
+        default_roles: typing.Optional[typing.List[core_models.RoleId]] = None,
+        organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        project_description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.Project:
         """
         Creates a project from a project template.
         :param template_rid:
@@ -264,14 +246,14 @@ class ProjectClient:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Project
+        :rtype: filesystem_models.Project
 
         :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
         :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
@@ -292,7 +274,7 @@ class ProjectClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/createFromTemplate",
                 query_params={
@@ -310,19 +292,22 @@ class ProjectClient:
                     "organizationRids": organization_rids,
                     "projectDescription": project_description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "templateRid": ProjectTemplateRid,
-                        "variableValues": Dict[
-                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        "templateRid": filesystem_models.ProjectTemplateRid,
+                        "variableValues": typing.Dict[
+                            filesystem_models.ProjectTemplateVariableId,
+                            filesystem_models.ProjectTemplateVariableValue,
                         ],
-                        "defaultRoles": Optional[List[RoleId]],
-                        "organizationRids": Optional[List[OrganizationRid]],
-                        "projectDescription": Optional[str],
+                        "defaultRoles": typing.Optional[typing.List[core_models.RoleId]],
+                        "organizationRids": typing.Optional[
+                            typing.List[core_models.OrganizationRid]
+                        ],
+                        "projectDescription": typing.Optional[str],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
@@ -345,32 +330,32 @@ class ProjectClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Project:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.Project:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Project
+        :rtype: filesystem_models.Project
 
         :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}",
                 query_params={
@@ -384,7 +369,7 @@ class ProjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
@@ -392,38 +377,38 @@ class ProjectClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[OrganizationRid]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[core_models.OrganizationRid]:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[OrganizationRid]
+        :rtype: core.ResourceIterator[core_models.OrganizationRid]
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -439,40 +424,40 @@ class ProjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations_page(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListOrganizationsOfProjectResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> filesystem_models.ListOrganizationsOfProjectResponse:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListOrganizationsOfProjectResponse
+        :rtype: filesystem_models.ListOrganizationsOfProjectResponse
         """
 
         warnings.warn(
@@ -482,7 +467,7 @@ class ProjectClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -498,30 +483,30 @@ class ProjectClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -532,7 +517,7 @@ class ProjectClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/removeOrganizations",
                 query_params={
@@ -547,10 +532,10 @@ class ProjectClient:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,
@@ -573,44 +558,44 @@ class _ProjectClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/addOrganizations",
                 query_params={
@@ -625,10 +610,10 @@ class _ProjectClientRaw:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,
@@ -639,21 +624,28 @@ class _ProjectClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        default_roles: List[RoleId],
-        display_name: ResourceDisplayName,
-        organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
-        space_rid: SpaceRid,
-        description: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Project]:
+        default_roles: typing.List[core_models.RoleId],
+        display_name: filesystem_models.ResourceDisplayName,
+        organization_rids: typing.List[core_models.OrganizationRid],
+        role_grants: typing.Dict[
+            core_models.RoleId,
+            typing.List[
+                typing.Union[
+                    filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict
+                ]
+            ],
+        ],
+        space_rid: filesystem_models.SpaceRid,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.Project]:
         """
         Creates a new Project.
 
@@ -673,12 +665,12 @@ class _ProjectClientRaw:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Project]
+        :rtype: core.ApiResponse[filesystem_models.Project]
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
@@ -691,7 +683,7 @@ class _ProjectClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/create",
                 query_params={
@@ -710,20 +702,26 @@ class _ProjectClientRaw:
                     "defaultRoles": default_roles,
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": ResourceDisplayName,
-                        "description": Optional[str],
-                        "spaceRid": SpaceRid,
-                        "roleGrants": Dict[
-                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        "displayName": filesystem_models.ResourceDisplayName,
+                        "description": typing.Optional[str],
+                        "spaceRid": filesystem_models.SpaceRid,
+                        "roleGrants": typing.Dict[
+                            core_models.RoleId,
+                            typing.List[
+                                typing.Union[
+                                    filesystem_models.PrincipalWithId,
+                                    filesystem_models.PrincipalWithIdDict,
+                                ]
+                            ],
                         ],
-                        "defaultRoles": List[RoleId],
-                        "organizationRids": List[OrganizationRid],
+                        "defaultRoles": typing.List[core_models.RoleId],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
@@ -738,20 +736,23 @@ class _ProjectClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_from_template(
         self,
         *,
-        template_rid: ProjectTemplateRid,
-        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
-        default_roles: Optional[List[RoleId]] = None,
-        organization_rids: Optional[List[OrganizationRid]] = None,
-        preview: Optional[PreviewMode] = None,
-        project_description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Project]:
+        template_rid: filesystem_models.ProjectTemplateRid,
+        variable_values: typing.Dict[
+            filesystem_models.ProjectTemplateVariableId,
+            filesystem_models.ProjectTemplateVariableValue,
+        ],
+        default_roles: typing.Optional[typing.List[core_models.RoleId]] = None,
+        organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        project_description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.Project]:
         """
         Creates a project from a project template.
         :param template_rid:
@@ -762,14 +763,14 @@ class _ProjectClientRaw:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Project]
+        :rtype: core.ApiResponse[filesystem_models.Project]
 
         :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
         :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
@@ -790,7 +791,7 @@ class _ProjectClientRaw:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/createFromTemplate",
                 query_params={
@@ -808,19 +809,22 @@ class _ProjectClientRaw:
                     "organizationRids": organization_rids,
                     "projectDescription": project_description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "templateRid": ProjectTemplateRid,
-                        "variableValues": Dict[
-                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        "templateRid": filesystem_models.ProjectTemplateRid,
+                        "variableValues": typing.Dict[
+                            filesystem_models.ProjectTemplateVariableId,
+                            filesystem_models.ProjectTemplateVariableValue,
                         ],
-                        "defaultRoles": Optional[List[RoleId]],
-                        "organizationRids": Optional[List[OrganizationRid]],
-                        "projectDescription": Optional[str],
+                        "defaultRoles": typing.Optional[typing.List[core_models.RoleId]],
+                        "organizationRids": typing.Optional[
+                            typing.List[core_models.OrganizationRid]
+                        ],
+                        "projectDescription": typing.Optional[str],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
@@ -843,32 +847,32 @@ class _ProjectClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Project]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.Project]:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Project]
+        :rtype: core.ApiResponse[filesystem_models.Project]
 
         :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}",
                 query_params={
@@ -882,7 +886,7 @@ class _ProjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
@@ -890,38 +894,38 @@ class _ProjectClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListOrganizationsOfProjectResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListOrganizationsOfProjectResponse]:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListOrganizationsOfProjectResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListOrganizationsOfProjectResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -937,40 +941,40 @@ class _ProjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations_page(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListOrganizationsOfProjectResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[filesystem_models.ListOrganizationsOfProjectResponse]:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListOrganizationsOfProjectResponse]
+        :rtype: core.ApiResponse[filesystem_models.ListOrganizationsOfProjectResponse]
         """
 
         warnings.warn(
@@ -980,7 +984,7 @@ class _ProjectClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -996,41 +1000,41 @@ class _ProjectClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/removeOrganizations",
                 query_params={
@@ -1045,10 +1049,10 @@ class _ProjectClientRaw:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,
@@ -1071,44 +1075,44 @@ class _ProjectClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def add_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Adds a list of Organizations to a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/addOrganizations",
                 query_params={
@@ -1123,10 +1127,10 @@ class _ProjectClientStreaming:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,
@@ -1137,21 +1141,28 @@ class _ProjectClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        default_roles: List[RoleId],
-        display_name: ResourceDisplayName,
-        organization_rids: List[OrganizationRid],
-        role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]],
-        space_rid: SpaceRid,
-        description: Optional[str] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Project]:
+        default_roles: typing.List[core_models.RoleId],
+        display_name: filesystem_models.ResourceDisplayName,
+        organization_rids: typing.List[core_models.OrganizationRid],
+        role_grants: typing.Dict[
+            core_models.RoleId,
+            typing.List[
+                typing.Union[
+                    filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict
+                ]
+            ],
+        ],
+        space_rid: filesystem_models.SpaceRid,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.Project]:
         """
         Creates a new Project.
 
@@ -1171,12 +1182,12 @@ class _ProjectClientStreaming:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Project]
+        :rtype: core.StreamingContextManager[filesystem_models.Project]
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
@@ -1189,7 +1200,7 @@ class _ProjectClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/create",
                 query_params={
@@ -1208,20 +1219,26 @@ class _ProjectClientStreaming:
                     "defaultRoles": default_roles,
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": ResourceDisplayName,
-                        "description": Optional[str],
-                        "spaceRid": SpaceRid,
-                        "roleGrants": Dict[
-                            RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]
+                        "displayName": filesystem_models.ResourceDisplayName,
+                        "description": typing.Optional[str],
+                        "spaceRid": filesystem_models.SpaceRid,
+                        "roleGrants": typing.Dict[
+                            core_models.RoleId,
+                            typing.List[
+                                typing.Union[
+                                    filesystem_models.PrincipalWithId,
+                                    filesystem_models.PrincipalWithIdDict,
+                                ]
+                            ],
                         ],
-                        "defaultRoles": List[RoleId],
-                        "organizationRids": List[OrganizationRid],
+                        "defaultRoles": typing.List[core_models.RoleId],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
@@ -1236,20 +1253,23 @@ class _ProjectClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create_from_template(
         self,
         *,
-        template_rid: ProjectTemplateRid,
-        variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue],
-        default_roles: Optional[List[RoleId]] = None,
-        organization_rids: Optional[List[OrganizationRid]] = None,
-        preview: Optional[PreviewMode] = None,
-        project_description: Optional[str] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Project]:
+        template_rid: filesystem_models.ProjectTemplateRid,
+        variable_values: typing.Dict[
+            filesystem_models.ProjectTemplateVariableId,
+            filesystem_models.ProjectTemplateVariableValue,
+        ],
+        default_roles: typing.Optional[typing.List[core_models.RoleId]] = None,
+        organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        project_description: typing.Optional[str] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.Project]:
         """
         Creates a project from a project template.
         :param template_rid:
@@ -1260,14 +1280,14 @@ class _ProjectClientStreaming:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Project]
+        :rtype: core.StreamingContextManager[filesystem_models.Project]
 
         :raises AddGroupToParentGroupPermissionDenied: The user is not authorized to add a a group to the parent group required to create the project from template.
         :raises CreateGroupPermissionDenied: The user is not authorized to create the group in the organization required to create the project from template.
@@ -1288,7 +1308,7 @@ class _ProjectClientStreaming:
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/createFromTemplate",
                 query_params={
@@ -1306,19 +1326,22 @@ class _ProjectClientStreaming:
                     "organizationRids": organization_rids,
                     "projectDescription": project_description,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "templateRid": ProjectTemplateRid,
-                        "variableValues": Dict[
-                            ProjectTemplateVariableId, ProjectTemplateVariableValue
+                        "templateRid": filesystem_models.ProjectTemplateRid,
+                        "variableValues": typing.Dict[
+                            filesystem_models.ProjectTemplateVariableId,
+                            filesystem_models.ProjectTemplateVariableValue,
                         ],
-                        "defaultRoles": Optional[List[RoleId]],
-                        "organizationRids": Optional[List[OrganizationRid]],
-                        "projectDescription": Optional[str],
+                        "defaultRoles": typing.Optional[typing.List[core_models.RoleId]],
+                        "organizationRids": typing.Optional[
+                            typing.List[core_models.OrganizationRid]
+                        ],
+                        "projectDescription": typing.Optional[str],
                     },
                 ),
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddGroupToParentGroupPermissionDenied": filesystem_errors.AddGroupToParentGroupPermissionDenied,
@@ -1341,32 +1364,32 @@ class _ProjectClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Project]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.Project]:
         """
         Get the Project with the specified rid.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Project]
+        :rtype: core.StreamingContextManager[filesystem_models.Project]
 
         :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}",
                 query_params={
@@ -1380,7 +1403,7 @@ class _ProjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Project,
+                response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
@@ -1388,38 +1411,38 @@ class _ProjectClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListOrganizationsOfProjectResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListOrganizationsOfProjectResponse]:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListOrganizationsOfProjectResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListOrganizationsOfProjectResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -1435,40 +1458,40 @@ class _ProjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def organizations_page(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListOrganizationsOfProjectResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[filesystem_models.ListOrganizationsOfProjectResponse]:
         """
         List of Organizations directly applied to a Project. The number of Organizations on a Project is
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListOrganizationsOfProjectResponse]
+        :rtype: core.StreamingContextManager[filesystem_models.ListOrganizationsOfProjectResponse]
         """
 
         warnings.warn(
@@ -1478,7 +1501,7 @@ class _ProjectClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}/organizations",
                 query_params={
@@ -1494,41 +1517,41 @@ class _ProjectClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOrganizationsOfProjectResponse,
+                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def remove_organizations(
         self,
-        project_rid: ProjectRid,
+        project_rid: filesystem_models.ProjectRid,
         *,
-        organization_rids: List[OrganizationRid],
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        organization_rids: typing.List[core_models.OrganizationRid],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Removes Organizations from a Project.
-        :param project_rid: projectRid
+        :param project_rid:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/removeOrganizations",
                 query_params={
@@ -1543,10 +1566,10 @@ class _ProjectClientStreaming:
                 body={
                     "organizationRids": organization_rids,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "organizationRids": List[OrganizationRid],
+                        "organizationRids": typing.List[core_models.OrganizationRid],
                     },
                 ),
                 response_type=None,

@@ -13,45 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing import Union
+import typing
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.core.models._stream_schema import StreamSchema
-from foundry.v2.core.models._stream_schema_dict import StreamSchemaDict
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 from foundry.v2.streams import errors as streams_errors
-from foundry.v2.streams.models._compressed import Compressed
-from foundry.v2.streams.models._create_stream_request_stream_schema import (
-    CreateStreamRequestStreamSchema,
-)  # NOQA
-from foundry.v2.streams.models._create_stream_request_stream_schema_dict import (
-    CreateStreamRequestStreamSchemaDict,
-)  # NOQA
-from foundry.v2.streams.models._partitions_count import PartitionsCount
-from foundry.v2.streams.models._record import Record
-from foundry.v2.streams.models._stream import Stream
-from foundry.v2.streams.models._stream_type import StreamType
-from foundry.v2.streams.models._view_rid import ViewRid
+from foundry.v2.streams import models as streams_models
 
 
 class StreamClient:
@@ -65,38 +37,41 @@ class StreamClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _StreamClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _StreamClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: BranchName,
-        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Stream:
+        branch_name: datasets_models.BranchName,
+        schema: typing.Union[
+            streams_models.CreateStreamRequestStreamSchema,
+            streams_models.CreateStreamRequestStreamSchemaDict,
+        ],
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> streams_models.Stream:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -106,20 +81,20 @@ class StreamClient:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Stream
+        :rtype: streams_models.Stream
 
         :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams",
                 query_params={
@@ -139,19 +114,20 @@ class StreamClient:
                     "branchName": branch_name,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Union[
-                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        "schema": typing.Union[
+                            streams_models.CreateStreamRequestStreamSchema,
+                            streams_models.CreateStreamRequestStreamSchemaDict,
                         ],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "branchName": BranchName,
-                        "compressed": Optional[Compressed],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "branchName": datasets_models.BranchName,
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
@@ -159,37 +135,37 @@ class StreamClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Stream:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> streams_models.Stream:
         """
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Stream
+        :rtype: streams_models.Stream
 
         :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}",
                 query_params={
@@ -204,7 +180,7 @@ class StreamClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "StreamNotFound": streams_errors.StreamNotFound,
@@ -212,31 +188,31 @@ class StreamClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         body: bytes,
         *,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -247,7 +223,7 @@ class StreamClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord",
                 query_params={
@@ -271,30 +247,30 @@ class StreamClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        record: Record,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        record: streams_models.Record,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -307,7 +283,7 @@ class StreamClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord",
                 query_params={
@@ -324,11 +300,11 @@ class StreamClient:
                     "record": record,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "record": Record,
-                        "viewRid": Optional[ViewRid],
+                        "record": streams_models.Record,
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -339,30 +315,30 @@ class StreamClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        records: List[Record],
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        records: typing.List[streams_models.Record],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
@@ -375,7 +351,7 @@ class StreamClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords",
                 query_params={
@@ -392,11 +368,11 @@ class StreamClient:
                     "records": records,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "records": List[Record],
-                        "viewRid": Optional[ViewRid],
+                        "records": typing.List[streams_models.Record],
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -407,21 +383,23 @@ class StreamClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Stream:
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        schema: typing.Optional[
+            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        ] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> streams_models.Stream:
         """
         Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
         to be applied.
@@ -431,15 +409,15 @@ class StreamClient:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
@@ -448,13 +426,13 @@ class StreamClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Stream
+        :rtype: streams_models.Stream
 
         :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset",
                 query_params={
@@ -474,16 +452,18 @@ class StreamClient:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "schema": typing.Optional[
+                            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+                        ],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
@@ -503,34 +483,37 @@ class _StreamClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: BranchName,
-        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Stream]:
+        branch_name: datasets_models.BranchName,
+        schema: typing.Union[
+            streams_models.CreateStreamRequestStreamSchema,
+            streams_models.CreateStreamRequestStreamSchemaDict,
+        ],
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[streams_models.Stream]:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -540,20 +523,20 @@ class _StreamClientRaw:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Stream]
+        :rtype: core.ApiResponse[streams_models.Stream]
 
         :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams",
                 query_params={
@@ -573,19 +556,20 @@ class _StreamClientRaw:
                     "branchName": branch_name,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Union[
-                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        "schema": typing.Union[
+                            streams_models.CreateStreamRequestStreamSchema,
+                            streams_models.CreateStreamRequestStreamSchemaDict,
                         ],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "branchName": BranchName,
-                        "compressed": Optional[Compressed],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "branchName": datasets_models.BranchName,
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
@@ -593,37 +577,37 @@ class _StreamClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Stream]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[streams_models.Stream]:
         """
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Stream]
+        :rtype: core.ApiResponse[streams_models.Stream]
 
         :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}",
                 query_params={
@@ -638,7 +622,7 @@ class _StreamClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "StreamNotFound": streams_errors.StreamNotFound,
@@ -646,42 +630,42 @@ class _StreamClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         body: bytes,
         *,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises PublishBinaryRecordToStreamPermissionDenied: Could not publishBinaryRecord the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord",
                 query_params={
@@ -705,43 +689,43 @@ class _StreamClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        record: Record,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        record: streams_models.Record,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises PublishRecordToStreamPermissionDenied: Could not publishRecord the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord",
                 query_params={
@@ -758,11 +742,11 @@ class _StreamClientRaw:
                     "record": record,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "record": Record,
-                        "viewRid": Optional[ViewRid],
+                        "record": streams_models.Record,
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -773,43 +757,43 @@ class _StreamClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        records: List[Record],
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        records: typing.List[streams_models.Record],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises PublishRecordsToStreamPermissionDenied: Could not publishRecords the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords",
                 query_params={
@@ -826,11 +810,11 @@ class _StreamClientRaw:
                     "records": records,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "records": List[Record],
-                        "viewRid": Optional[ViewRid],
+                        "records": typing.List[streams_models.Record],
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -841,21 +825,23 @@ class _StreamClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Stream]:
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        schema: typing.Optional[
+            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        ] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[streams_models.Stream]:
         """
         Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
         to be applied.
@@ -865,15 +851,15 @@ class _StreamClientRaw:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
@@ -882,13 +868,13 @@ class _StreamClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Stream]
+        :rtype: core.ApiResponse[streams_models.Stream]
 
         :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset",
                 query_params={
@@ -908,16 +894,18 @@ class _StreamClientRaw:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "schema": typing.Optional[
+                            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+                        ],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
@@ -937,34 +925,37 @@ class _StreamClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: BranchName,
-        schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict],
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Stream]:
+        branch_name: datasets_models.BranchName,
+        schema: typing.Union[
+            streams_models.CreateStreamRequestStreamSchema,
+            streams_models.CreateStreamRequestStreamSchemaDict,
+        ],
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[streams_models.Stream]:
         """
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
@@ -974,20 +965,20 @@ class _StreamClientStreaming:
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Stream]
+        :rtype: core.StreamingContextManager[streams_models.Stream]
 
         :raises CreateStreamPermissionDenied: Could not create the Stream.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams",
                 query_params={
@@ -1007,19 +998,20 @@ class _StreamClientStreaming:
                     "branchName": branch_name,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Union[
-                            CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict
+                        "schema": typing.Union[
+                            streams_models.CreateStreamRequestStreamSchema,
+                            streams_models.CreateStreamRequestStreamSchemaDict,
                         ],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "branchName": BranchName,
-                        "compressed": Optional[Compressed],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "branchName": datasets_models.BranchName,
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
@@ -1027,37 +1019,37 @@ class _StreamClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Stream]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[streams_models.Stream]:
         """
         Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
         user does not have permission to access the stream, a 404 error will be returned.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Stream]
+        :rtype: core.StreamingContextManager[streams_models.Stream]
 
         :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}",
                 query_params={
@@ -1072,7 +1064,7 @@ class _StreamClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "StreamNotFound": streams_errors.StreamNotFound,
@@ -1080,42 +1072,42 @@ class _StreamClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         body: bytes,
         *,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: viewRid
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises PublishBinaryRecordToStreamPermissionDenied: Could not publishBinaryRecord the Stream.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord",
                 query_params={
@@ -1139,43 +1131,43 @@ class _StreamClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        record: Record,
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        record: streams_models.Record,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Publish a single record to the stream. The record will be validated against the stream's schema, and
         rejected if it is invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises PublishRecordToStreamPermissionDenied: Could not publishRecord the Stream.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord",
                 query_params={
@@ -1192,11 +1184,11 @@ class _StreamClientStreaming:
                     "record": record,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "record": Record,
-                        "viewRid": Optional[ViewRid],
+                        "record": streams_models.Record,
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -1207,43 +1199,43 @@ class _StreamClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        records: List[Record],
-        preview: Optional[PreviewMode] = None,
-        view_rid: Optional[ViewRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        records: typing.List[streams_models.Record],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Publish a batch of records to the stream. The records will be validated against the stream's schema, and
         the batch will be rejected if one or more of the records are invalid.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises PublishRecordsToStreamPermissionDenied: Could not publishRecords the Stream.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords",
                 query_params={
@@ -1260,11 +1252,11 @@ class _StreamClientStreaming:
                     "records": records,
                     "viewRid": view_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "records": List[Record],
-                        "viewRid": Optional[ViewRid],
+                        "records": typing.List[streams_models.Record],
+                        "viewRid": typing.Optional[streams_models.ViewRid],
                     },
                 ),
                 response_type=None,
@@ -1275,21 +1267,23 @@ class _StreamClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: DatasetRid,
-        stream_branch_name: BranchName,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
-        compressed: Optional[Compressed] = None,
-        partitions_count: Optional[PartitionsCount] = None,
-        preview: Optional[PreviewMode] = None,
-        schema: Optional[Union[StreamSchema, StreamSchemaDict]] = None,
-        stream_type: Optional[StreamType] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Stream]:
+        compressed: typing.Optional[streams_models.Compressed] = None,
+        partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        schema: typing.Optional[
+            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+        ] = None,
+        stream_type: typing.Optional[streams_models.StreamType] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[streams_models.Stream]:
         """
         Reset the stream on the given dataset branch, clearing the existing records and allowing new configurations
         to be applied.
@@ -1299,15 +1293,15 @@ class _StreamClientStreaming:
         This will create a new stream view (as seen by the change of the `viewRid` on the branch),
         which will be the new stream view that will be written to for the branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
-        :param stream_branch_name: streamBranchName
+        :param stream_branch_name:
         :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.
         :type partitions_count: Optional[PartitionsCount]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
         :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
@@ -1316,13 +1310,13 @@ class _StreamClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Stream]
+        :rtype: core.StreamingContextManager[streams_models.Stream]
 
         :raises ResetStreamPermissionDenied: Could not reset the Stream.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset",
                 query_params={
@@ -1342,16 +1336,18 @@ class _StreamClientStreaming:
                     "streamType": stream_type,
                     "compressed": compressed,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": Optional[Union[StreamSchema, StreamSchemaDict]],
-                        "partitionsCount": Optional[PartitionsCount],
-                        "streamType": Optional[StreamType],
-                        "compressed": Optional[Compressed],
+                        "schema": typing.Optional[
+                            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
+                        ],
+                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
+                        "streamType": typing.Optional[streams_models.StreamType],
+                        "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
-                response_type=Stream,
+                response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,

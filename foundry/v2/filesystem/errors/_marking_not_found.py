@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._marking_id import MarkingId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class MarkingNotFoundParameters(TypedDict):
+class MarkingNotFoundParameters(typing_extensions.TypedDict):
     """A provided marking ID cannot be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingIds: List[MarkingId]
+    markingIds: typing.List[core_models.MarkingId]
 
 
 @dataclass
-class MarkingNotFound(NotFoundError):
-    name: Literal["MarkingNotFound"]
+class MarkingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarkingNotFound"]
     parameters: MarkingNotFoundParameters
     error_instance_id: str
 

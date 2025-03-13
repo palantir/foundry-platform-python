@@ -13,40 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.core.models._folder_rid import FolderRid
-from foundry.v1.core.models._preview_mode import PreviewMode
-from foundry.v1.datasets.models._branch_id import BranchId
-from foundry.v1.datasets.models._dataset import Dataset
-from foundry.v1.datasets.models._dataset_name import DatasetName
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
-from foundry.v1.datasets.models._table_export_format import TableExportFormat
-from foundry.v1.datasets.models._transaction_rid import TransactionRid
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
+from foundry.v1.datasets import models as datasets_models
 
 
 class DatasetClient:
@@ -60,14 +37,14 @@ class DatasetClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _DatasetClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -103,16 +80,16 @@ class DatasetClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Dataset:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: core_models.FolderRid,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Dataset:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
@@ -125,11 +102,11 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Dataset
+        :rtype: datasets_models.Dataset
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets",
                 query_params={},
@@ -142,41 +119,41 @@ class DatasetClient:
                     "name": name,
                     "parentFolderRid": parent_folder_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": core_models.FolderRid,
                     },
                 ),
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -185,7 +162,7 @@ class DatasetClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -205,30 +182,30 @@ class DatasetClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Dataset:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> datasets_models.Dataset:
         """
         Gets the Dataset with the given DatasetRid.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Dataset
+        :rtype: datasets_models.Dataset
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}",
                 query_params={},
@@ -240,43 +217,43 @@ class DatasetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[Any]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[typing.Any]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[Any]
+        :rtype: typing.Optional[typing.Any]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -292,30 +269,30 @@ class DatasetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Any],
+                response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        stream: Literal[True],
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -323,19 +300,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -344,23 +321,23 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Gets the content of a dataset as a table in the specified format.
@@ -369,19 +346,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -392,24 +369,24 @@ class DatasetClient:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         stream: bool,
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -417,19 +394,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -438,27 +415,27 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -466,19 +443,19 @@ class DatasetClient:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
@@ -487,7 +464,7 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -498,7 +475,7 @@ class DatasetClient:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/readTable",
                 query_params={
@@ -525,28 +502,28 @@ class DatasetClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace_schema(
         self,
-        dataset_rid: DatasetRid,
-        body: Any,
+        dataset_rid: datasets_models.DatasetRid,
+        body: typing.Any,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -555,7 +532,7 @@ class DatasetClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -569,7 +546,7 @@ class DatasetClient:
                     "Content-Type": "application/json",
                 },
                 body=body,
-                body_type=Any,
+                body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -588,25 +565,25 @@ class _DatasetClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Dataset]:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: core_models.FolderRid,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Dataset]:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
@@ -619,11 +596,11 @@ class _DatasetClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Dataset]
+        :rtype: core.ApiResponse[datasets_models.Dataset]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets",
                 query_params={},
@@ -636,50 +613,50 @@ class _DatasetClientRaw:
                     "name": name,
                     "parentFolderRid": parent_folder_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": core_models.FolderRid,
                     },
                 ),
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -699,30 +676,30 @@ class _DatasetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Dataset]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[datasets_models.Dataset]:
         """
         Gets the Dataset with the given DatasetRid.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Dataset]
+        :rtype: core.ApiResponse[datasets_models.Dataset]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}",
                 query_params={},
@@ -734,43 +711,43 @@ class _DatasetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[Any]]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[typing.Any]]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[Any]]
+        :rtype: core.ApiResponse[typing.Optional[typing.Any]]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -786,27 +763,27 @@ class _DatasetClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Any],
+                response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -814,28 +791,28 @@ class _DatasetClientRaw:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/readTable",
                 query_params={
@@ -860,37 +837,37 @@ class _DatasetClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace_schema(
         self,
-        dataset_rid: DatasetRid,
-        body: Any,
+        dataset_rid: datasets_models.DatasetRid,
+        body: typing.Any,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -904,7 +881,7 @@ class _DatasetClientRaw:
                     "Content-Type": "application/json",
                 },
                 body=body,
-                body_type=Any,
+                body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -923,25 +900,25 @@ class _DatasetClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
         *,
-        name: DatasetName,
-        parent_folder_rid: FolderRid,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Dataset]:
+        name: datasets_models.DatasetName,
+        parent_folder_rid: core_models.FolderRid,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Dataset]:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
@@ -954,11 +931,11 @@ class _DatasetClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Dataset]
+        :rtype: core.StreamingContextManager[datasets_models.Dataset]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v1/datasets",
                 query_params={},
@@ -971,50 +948,50 @@ class _DatasetClientStreaming:
                     "name": name,
                     "parentFolderRid": parent_folder_rid,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": DatasetName,
-                        "parentFolderRid": FolderRid,
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": core_models.FolderRid,
                     },
                 ),
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Deletes the Schema from a Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to delete the schema.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The RID of the Transaction on which to delete the schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -1034,30 +1011,30 @@ class _DatasetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Dataset]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[datasets_models.Dataset]:
         """
         Gets the Dataset with the given DatasetRid.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Dataset]
+        :rtype: core.StreamingContextManager[datasets_models.Dataset]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}",
                 query_params={},
@@ -1069,43 +1046,43 @@ class _DatasetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Dataset,
+                response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_schema(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[Any]]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[typing.Any]]:
         """
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
-        :param transaction_rid: transactionRid
+        :param transaction_rid: The TransactionRid that contains the Schema.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[Any]]
+        :rtype: core.StreamingContextManager[typing.Optional[typing.Any]]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -1121,27 +1098,27 @@ class _DatasetClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[Any],
+                response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: DatasetRid,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        format: TableExportFormat,
-        branch_id: Optional[BranchId] = None,
-        columns: Optional[List[str]] = None,
-        end_transaction_rid: Optional[TransactionRid] = None,
-        row_limit: Optional[int] = None,
-        start_transaction_rid: Optional[TransactionRid] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        format: datasets_models.TableExportFormat,
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        columns: typing.Optional[typing.List[str]] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        row_limit: typing.Optional[int] = None,
+        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -1149,28 +1126,28 @@ class _DatasetClientStreaming:
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
-        :param format: format
+        :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
-        :param branch_id: branchId
+        :param branch_id: The identifier (name) of the Branch.
         :type branch_id: Optional[BranchId]
-        :param columns: columns
+        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
         :type columns: Optional[List[str]]
-        :param end_transaction_rid: endTransactionRid
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: rowLimit
+        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
         :type row_limit: Optional[int]
-        :param start_transaction_rid: startTransactionRid
+        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/datasets/{datasetRid}/readTable",
                 query_params={
@@ -1195,37 +1172,37 @@ class _DatasetClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def replace_schema(
         self,
-        dataset_rid: DatasetRid,
-        body: Any,
+        dataset_rid: datasets_models.DatasetRid,
+        body: typing.Any,
         *,
-        branch_id: Optional[BranchId] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        branch_id: typing.Optional[datasets_models.BranchId] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Puts a Schema on an existing Dataset and Branch.
 
-        :param dataset_rid: datasetRid
+        :param dataset_rid: The RID of the Dataset on which to put the Schema.
         :type dataset_rid: DatasetRid
         :param body: Body of the request
         :type body: Any
-        :param branch_id: branchId
+        :param branch_id: The ID of the Branch on which to put the Schema.
         :type branch_id: Optional[BranchId]
-        :param preview: preview
+        :param preview:
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="PUT",
                 resource_path="/v1/datasets/{datasetRid}/schema",
                 query_params={
@@ -1239,7 +1216,7 @@ class _DatasetClientStreaming:
                     "Content-Type": "application/json",
                 },
                 body=body,
-                body_type=Any,
+                body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={},

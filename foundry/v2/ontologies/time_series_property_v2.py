@@ -13,43 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Literal
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
-from typing_extensions import deprecated
-from typing_extensions import overload
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import BinaryStream
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v2.ontologies.models._artifact_repository_rid import ArtifactRepositoryRid
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
-from foundry.v2.ontologies.models._ontology_identifier import OntologyIdentifier
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._property_value_escaped_string import (
-    PropertyValueEscapedString,
-)  # NOQA
-from foundry.v2.ontologies.models._sdk_package_name import SdkPackageName
-from foundry.v2.ontologies.models._streaming_output_format import StreamingOutputFormat
-from foundry.v2.ontologies.models._time_range import TimeRange
-from foundry.v2.ontologies.models._time_range_dict import TimeRangeDict
-from foundry.v2.ontologies.models._time_series_point import TimeSeriesPoint
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class TimeSeriesPropertyV2Client:
@@ -63,14 +35,14 @@ class TimeSeriesPropertyV2Client:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _TimeSeriesPropertyV2ClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -78,46 +50,46 @@ class TimeSeriesPropertyV2Client:
             auth=auth, hostname=hostname, config=config
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_first_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[TimeSeriesPoint]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
         """
         Get the first point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[TimeSeriesPoint]
+        :rtype: typing.Optional[ontologies_models.TimeSeriesPoint]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint",
                 query_params={
@@ -135,52 +107,52 @@ class TimeSeriesPropertyV2Client:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_last_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Optional[TimeSeriesPoint]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
         """
         Get the last point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Optional[TimeSeriesPoint]
+        :rtype: typing.Optional[ontologies_models.TimeSeriesPoint]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint",
                 query_params={
@@ -198,50 +170,59 @@ class TimeSeriesPropertyV2Client:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        stream: Literal[True],
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BinaryStream:
+        stream: typing.Literal[True],
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.BinaryStream:
         """
         Stream all of the points of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
@@ -252,24 +233,31 @@ class TimeSeriesPropertyV2Client:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BinaryStream
+        :rtype: core.BinaryStream
         """
         ...
 
-    @overload
+    @typing_extensions.overload
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
-        stream: Literal[False] = False,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
+        stream: typing.Literal[False] = False,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> bytes:
         """
         Stream all of the points of a time series property.
@@ -277,19 +265,21 @@ class TimeSeriesPropertyV2Client:
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
@@ -302,44 +292,53 @@ class TimeSeriesPropertyV2Client:
         """
         ...
 
-    @overload
-    @deprecated(
+    @typing_extensions.overload
+    @typing_extensions.deprecated(
         "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
     )
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
         stream: bool,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Stream all of the points of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
@@ -350,47 +349,56 @@ class TimeSeriesPropertyV2Client:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
         ...
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
         stream: bool = False,
-        chunk_size: Optional[int] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Union[bytes, BinaryStream]:
+        chunk_size: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> typing.Union[bytes, core.BinaryStream]:
         """
         Stream all of the points of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
@@ -401,7 +409,7 @@ class TimeSeriesPropertyV2Client:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Union[bytes, BinaryStream]
+        :rtype: typing.Union[bytes, core.BinaryStream]
         """
 
         if stream:
@@ -412,7 +420,7 @@ class TimeSeriesPropertyV2Client:
             )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
@@ -432,11 +440,22 @@ class TimeSeriesPropertyV2Client:
                 },
                 body={
                     "range": range,
+                    "aggregate": aggregate,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[Union[TimeRange, TimeRangeDict]],
+                        "range": typing.Optional[
+                            typing.Union[
+                                ontologies_models.TimeRange, ontologies_models.TimeRangeDict
+                            ]
+                        ],
+                        "aggregate": typing.Optional[
+                            typing.Union[
+                                ontologies_models.AggregateTimeSeries,
+                                ontologies_models.AggregateTimeSeriesDict,
+                            ]
+                        ],
                     },
                 ),
                 response_type=bytes,
@@ -459,55 +478,55 @@ class _TimeSeriesPropertyV2ClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_first_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[TimeSeriesPoint]]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the first point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[TimeSeriesPoint]]
+        :rtype: core.ApiResponse[typing.Optional[ontologies_models.TimeSeriesPoint]]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint",
                 query_params={
@@ -525,52 +544,52 @@ class _TimeSeriesPropertyV2ClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_last_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Optional[TimeSeriesPoint]]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Optional[TimeSeriesPoint]]
+        :rtype: core.ApiResponse[typing.Optional[ontologies_models.TimeSeriesPoint]]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint",
                 query_params={
@@ -588,58 +607,67 @@ class _TimeSeriesPropertyV2ClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[bytes]:
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[bytes]:
         """
         Stream all of the points of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[bytes]
+        :rtype: core.ApiResponse[bytes]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
@@ -659,11 +687,22 @@ class _TimeSeriesPropertyV2ClientRaw:
                 },
                 body={
                     "range": range,
+                    "aggregate": aggregate,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[Union[TimeRange, TimeRangeDict]],
+                        "range": typing.Optional[
+                            typing.Union[
+                                ontologies_models.TimeRange, ontologies_models.TimeRangeDict
+                            ]
+                        ],
+                        "aggregate": typing.Optional[
+                            typing.Union[
+                                ontologies_models.AggregateTimeSeries,
+                                ontologies_models.AggregateTimeSeriesDict,
+                            ]
+                        ],
                     },
                 ),
                 response_type=bytes,
@@ -684,55 +723,55 @@ class _TimeSeriesPropertyV2ClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_first_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[TimeSeriesPoint]]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the first point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[TimeSeriesPoint]]
+        :rtype: core.StreamingContextManager[typing.Optional[ontologies_models.TimeSeriesPoint]]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint",
                 query_params={
@@ -750,52 +789,52 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get_last_point(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        package_name: Optional[SdkPackageName] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Optional[TimeSeriesPoint]]:
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Optional[TimeSeriesPoint]]
+        :rtype: core.StreamingContextManager[typing.Optional[ontologies_models.TimeSeriesPoint]]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint",
                 query_params={
@@ -813,58 +852,67 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Optional[TimeSeriesPoint],
+                response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def stream_points(
         self,
-        ontology: OntologyIdentifier,
-        object_type: ObjectTypeApiName,
-        primary_key: PropertyValueEscapedString,
-        property: PropertyApiName,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: Optional[ArtifactRepositoryRid] = None,
-        format: Optional[StreamingOutputFormat] = None,
-        package_name: Optional[SdkPackageName] = None,
-        range: Optional[Union[TimeRange, TimeRangeDict]] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[bytes]:
+        aggregate: typing.Optional[
+            typing.Union[
+                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
+            ]
+        ] = None,
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        range: typing.Optional[
+            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[bytes]:
         """
         Stream all of the points of a time series property.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read`.
 
-        :param ontology: ontology
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
-        :param object_type: objectType
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param primary_key: primaryKey
+        :param primary_key: The primary key of the object with the time series property.
         :type primary_key: PropertyValueEscapedString
-        :param property: property
+        :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: artifactRepository
+        :param aggregate:
+        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param format: format
+        :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: packageName
+        :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[Union[TimeRange, TimeRangeDict]]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[bytes]
+        :rtype: core.StreamingContextManager[bytes]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
@@ -884,11 +932,22 @@ class _TimeSeriesPropertyV2ClientStreaming:
                 },
                 body={
                     "range": range,
+                    "aggregate": aggregate,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": Optional[Union[TimeRange, TimeRangeDict]],
+                        "range": typing.Optional[
+                            typing.Union[
+                                ontologies_models.TimeRange, ontologies_models.TimeRangeDict
+                            ]
+                        ],
+                        "aggregate": typing.Optional[
+                            typing.Union[
+                                ontologies_models.AggregateTimeSeries,
+                                ontologies_models.AggregateTimeSeriesDict,
+                            ]
+                        ],
                     },
                 ),
                 response_type=bytes,

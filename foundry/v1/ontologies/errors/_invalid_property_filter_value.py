@@ -13,21 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._filter_value import FilterValue
-from foundry.v1.ontologies.models._property_api_name import PropertyApiName
-from foundry.v1.ontologies.models._property_filter import PropertyFilter
-from foundry.v1.ontologies.models._value_type import ValueType
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class InvalidPropertyFilterValueParameters(TypedDict):
+class InvalidPropertyFilterValueParameters(typing_extensions.TypedDict):
     """
     The value of the given property filter is invalid. For instance, 2 is an invalid value for
     `isNull` in `properties.address.isNull=2` because the `isNull` filter expects a value of boolean type.
@@ -35,18 +30,15 @@ class InvalidPropertyFilterValueParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    expectedType: ValueType
-
-    propertyFilter: PropertyFilter
-
-    propertyFilterValue: FilterValue
-
-    property: PropertyApiName
+    expectedType: ontologies_models.ValueType
+    propertyFilter: ontologies_models.PropertyFilter
+    propertyFilterValue: ontologies_models.FilterValue
+    property: ontologies_models.PropertyApiName
 
 
 @dataclass
-class InvalidPropertyFilterValue(BadRequestError):
-    name: Literal["InvalidPropertyFilterValue"]
+class InvalidPropertyFilterValue(errors.BadRequestError):
+    name: typing.Literal["InvalidPropertyFilterValue"]
     parameters: InvalidPropertyFilterValueParameters
     error_instance_id: str
 

@@ -13,31 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.ontologies.models._apply_action_request_options import (
-    ApplyActionRequestOptions,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class InvalidApplyActionOptionCombinationParameters(TypedDict):
+class InvalidApplyActionOptionCombinationParameters(typing_extensions.TypedDict):
     """The given options are individually valid but cannot be used in the given combination."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    invalidCombination: NotRequired[ApplyActionRequestOptions]
+    invalidCombination: typing_extensions.NotRequired[ontologies_models.ApplyActionRequestOptions]
 
 
 @dataclass
-class InvalidApplyActionOptionCombination(BadRequestError):
-    name: Literal["InvalidApplyActionOptionCombination"]
+class InvalidApplyActionOptionCombination(errors.BadRequestError):
+    name: typing.Literal["InvalidApplyActionOptionCombination"]
     parameters: InvalidApplyActionOptionCombinationParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._marking_id import MarkingId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class GetMarkingPermissionDeniedParameters(TypedDict):
+class GetMarkingPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to view the marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingId: MarkingId
+    markingId: core_models.MarkingId
 
 
 @dataclass
-class GetMarkingPermissionDenied(PermissionDeniedError):
-    name: Literal["GetMarkingPermissionDenied"]
+class GetMarkingPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetMarkingPermissionDenied"]
     parameters: GetMarkingPermissionDeniedParameters
     error_instance_id: str
 

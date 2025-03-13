@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class DomainMustUseHttpsWithAuthenticationParameters(TypedDict):
+class DomainMustUseHttpsWithAuthenticationParameters(typing_extensions.TypedDict):
     """The domain must use HTTPS if authentication is required."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class DomainMustUseHttpsWithAuthentication(BadRequestError):
-    name: Literal["DomainMustUseHttpsWithAuthentication"]
+class DomainMustUseHttpsWithAuthentication(errors.BadRequestError):
+    name: typing.Literal["DomainMustUseHttpsWithAuthentication"]
     parameters: DomainMustUseHttpsWithAuthenticationParameters
     error_instance_id: str
 

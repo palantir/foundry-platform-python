@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.sql_queries.models._query_id import QueryId
+from foundry import _errors as errors
+from foundry.v2.sql_queries import models as sql_queries_models
 
 
-class CancelQueryPermissionDeniedParameters(TypedDict):
+class CancelQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not cancel the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: QueryId
+    queryId: sql_queries_models.QueryId
     """The id of a query."""
 
 
 @dataclass
-class CancelQueryPermissionDenied(PermissionDeniedError):
-    name: Literal["CancelQueryPermissionDenied"]
+class CancelQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CancelQueryPermissionDenied"]
     parameters: CancelQueryPermissionDeniedParameters
     error_instance_id: str
 

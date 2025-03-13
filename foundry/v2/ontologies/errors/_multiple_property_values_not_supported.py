@@ -13,19 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.ontologies.models._property_api_name import PropertyApiName
-from foundry.v2.ontologies.models._property_filter import PropertyFilter
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class MultiplePropertyValuesNotSupportedParameters(TypedDict):
+class MultiplePropertyValuesNotSupportedParameters(typing_extensions.TypedDict):
     """
     One of the requested property filters does not support multiple values. Please include only a single value for
     it.
@@ -33,14 +30,13 @@ class MultiplePropertyValuesNotSupportedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    propertyFilter: PropertyFilter
-
-    property: PropertyApiName
+    propertyFilter: ontologies_models.PropertyFilter
+    property: ontologies_models.PropertyApiName
 
 
 @dataclass
-class MultiplePropertyValuesNotSupported(BadRequestError):
-    name: Literal["MultiplePropertyValuesNotSupported"]
+class MultiplePropertyValuesNotSupported(errors.BadRequestError):
+    name: typing.Literal["MultiplePropertyValuesNotSupported"]
     parameters: MultiplePropertyValuesNotSupportedParameters
     error_instance_id: str
 

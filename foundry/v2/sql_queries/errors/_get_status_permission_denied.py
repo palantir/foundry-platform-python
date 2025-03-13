@@ -13,29 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.sql_queries.models._query_id import QueryId
+from foundry import _errors as errors
+from foundry.v2.sql_queries import models as sql_queries_models
 
 
-class GetStatusPermissionDeniedParameters(TypedDict):
+class GetStatusPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getStatus the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: QueryId
+    queryId: sql_queries_models.QueryId
     """The id of a query."""
 
 
 @dataclass
-class GetStatusPermissionDenied(PermissionDeniedError):
-    name: Literal["GetStatusPermissionDenied"]
+class GetStatusPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetStatusPermissionDenied"]
     parameters: GetStatusPermissionDeniedParameters
     error_instance_id: str
 

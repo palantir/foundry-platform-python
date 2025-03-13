@@ -16,8 +16,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**action_type** | ActionTypeApiName | actionType |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**action_type** | ActionTypeApiName | The name of the action type in the API.  |  |
 
 ### Return type
 **ActionTypeV2**
@@ -33,9 +33,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ActionTypeApiName | actionType
+# ActionTypeApiName | The name of the action type in the API.
 action_type = "promote-employee"
 
 
@@ -77,12 +77,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
 
 ### Return type
-**ResourceIterator[ActionTypeV2]**
+**ListActionTypesResponseV2**
 
 ### Example
 
@@ -95,11 +95,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
 
 
@@ -141,9 +141,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**page_size** | Optional[PageSize] | pageSize | [optional] |
-**page_token** | Optional[PageToken] | pageToken | [optional] |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
 
 ### Return type
 **ListActionTypesResponseV2**
@@ -159,11 +159,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Optional[PageSize] | pageSize
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
-# Optional[PageToken] | pageToken
+# Optional[PageToken]
 page_token = None
 
 

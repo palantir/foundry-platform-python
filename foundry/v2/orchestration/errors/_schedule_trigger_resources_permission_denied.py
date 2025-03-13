@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import PermissionDeniedError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class ScheduleTriggerResourcesPermissionDeniedParameters(TypedDict):
+class ScheduleTriggerResourcesPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to use the given resources as a schedule trigger."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRids: List[RID]
+    resourceRids: typing.List[core.RID]
 
 
 @dataclass
-class ScheduleTriggerResourcesPermissionDenied(PermissionDeniedError):
-    name: Literal["ScheduleTriggerResourcesPermissionDenied"]
+class ScheduleTriggerResourcesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ScheduleTriggerResourcesPermissionDenied"]
     parameters: ScheduleTriggerResourcesPermissionDeniedParameters
     error_instance_id: str
 

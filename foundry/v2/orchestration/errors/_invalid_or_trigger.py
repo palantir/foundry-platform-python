@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidOrTriggerParameters(TypedDict):
+class InvalidOrTriggerParameters(typing_extensions.TypedDict):
     """The OR trigger should have at least one value."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidOrTrigger(BadRequestError):
-    name: Literal["InvalidOrTrigger"]
+class InvalidOrTrigger(errors.BadRequestError):
+    name: typing.Literal["InvalidOrTrigger"]
     parameters: InvalidOrTriggerParameters
     error_instance_id: str
 

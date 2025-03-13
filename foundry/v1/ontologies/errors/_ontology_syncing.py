@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v1.ontologies.models._object_type_api_name import ObjectTypeApiName
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
-class OntologySyncingParameters(TypedDict):
+class OntologySyncingParameters(typing_extensions.TypedDict):
     """
     The requested object type has been changed in the **Ontology Manager** and changes are currently being applied. Wait a
     few seconds and try again.
@@ -32,12 +30,12 @@ class OntologySyncingParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
+    objectType: ontologies_models.ObjectTypeApiName
 
 
 @dataclass
-class OntologySyncing(ConflictError):
-    name: Literal["OntologySyncing"]
+class OntologySyncing(errors.ConflictError):
+    name: typing.Literal["OntologySyncing"]
     parameters: OntologySyncingParameters
     error_instance_id: str
 

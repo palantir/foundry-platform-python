@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class SpaceNotFoundParameters(TypedDict):
+class SpaceNotFoundParameters(typing_extensions.TypedDict):
     """The referenced space cannot be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    spaceRid: SpaceRid
+    spaceRid: filesystem_models.SpaceRid
 
 
 @dataclass
-class SpaceNotFound(NotFoundError):
-    name: Literal["SpaceNotFound"]
+class SpaceNotFound(errors.NotFoundError):
+    name: typing.Literal["SpaceNotFound"]
     parameters: SpaceNotFoundParameters
     error_instance_id: str
 

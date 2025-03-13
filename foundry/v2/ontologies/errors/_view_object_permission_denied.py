@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.ontologies.models._object_type_api_name import ObjectTypeApiName
+from foundry import _errors as errors
+from foundry.v2.ontologies import models as ontologies_models
 
 
-class ViewObjectPermissionDeniedParameters(TypedDict):
+class ViewObjectPermissionDeniedParameters(typing_extensions.TypedDict):
     """
     The provided token does not have permission to view any data sources backing this object type. Ensure the object
     type has backing data sources configured and visible.
@@ -32,12 +30,12 @@ class ViewObjectPermissionDeniedParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ObjectTypeApiName
+    objectType: ontologies_models.ObjectTypeApiName
 
 
 @dataclass
-class ViewObjectPermissionDenied(PermissionDeniedError):
-    name: Literal["ViewObjectPermissionDenied"]
+class ViewObjectPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ViewObjectPermissionDenied"]
     parameters: ViewObjectPermissionDeniedParameters
     error_instance_id: str
 

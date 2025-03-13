@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._marking_id import MarkingId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class AddMarkingMembersPermissionDeniedParameters(TypedDict):
+class AddMarkingMembersPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the MarkingMember."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    markingId: MarkingId
+    markingId: core_models.MarkingId
 
 
 @dataclass
-class AddMarkingMembersPermissionDenied(PermissionDeniedError):
-    name: Literal["AddMarkingMembersPermissionDenied"]
+class AddMarkingMembersPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddMarkingMembersPermissionDenied"]
     parameters: AddMarkingMembersPermissionDeniedParameters
     error_instance_id: str
 

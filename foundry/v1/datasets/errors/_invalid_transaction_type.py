@@ -13,34 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
-from foundry.v1.datasets.models._transaction_rid import TransactionRid
-from foundry.v1.datasets.models._transaction_type import TransactionType
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class InvalidTransactionTypeParameters(TypedDict):
+class InvalidTransactionTypeParameters(typing_extensions.TypedDict):
     """The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    transactionRid: TransactionRid
-
-    transactionType: TransactionType
+    datasetRid: datasets_models.DatasetRid
+    transactionRid: datasets_models.TransactionRid
+    transactionType: datasets_models.TransactionType
 
 
 @dataclass
-class InvalidTransactionType(BadRequestError):
-    name: Literal["InvalidTransactionType"]
+class InvalidTransactionType(errors.BadRequestError):
+    name: typing.Literal["InvalidTransactionType"]
     parameters: InvalidTransactionTypeParameters
     error_instance_id: str
 

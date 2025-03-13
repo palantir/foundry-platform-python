@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.filesystem.models._resource_display_name import ResourceDisplayName
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class ProjectNameAlreadyExistsParameters(TypedDict):
+class ProjectNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """The requested display name for the created project is already being used in the space."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    displayName: ResourceDisplayName
-
-    spaceRid: SpaceRid
+    displayName: filesystem_models.ResourceDisplayName
+    spaceRid: filesystem_models.SpaceRid
 
 
 @dataclass
-class ProjectNameAlreadyExists(ConflictError):
-    name: Literal["ProjectNameAlreadyExists"]
+class ProjectNameAlreadyExists(errors.ConflictError):
+    name: typing.Literal["ProjectNameAlreadyExists"]
     parameters: ProjectNameAlreadyExistsParameters
     error_instance_id: str
 

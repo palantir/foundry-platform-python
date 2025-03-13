@@ -13,34 +13,28 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v1.datasets.models._dataset_rid import DatasetRid
-from foundry.v1.datasets.models._transaction_rid import TransactionRid
-from foundry.v1.datasets.models._transaction_status import TransactionStatus
+from foundry import _errors as errors
+from foundry.v1.datasets import models as datasets_models
 
 
-class TransactionNotCommittedParameters(TypedDict):
+class TransactionNotCommittedParameters(typing_extensions.TypedDict):
     """The given transaction has not been committed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    transactionRid: TransactionRid
-
-    transactionStatus: TransactionStatus
+    datasetRid: datasets_models.DatasetRid
+    transactionRid: datasets_models.TransactionRid
+    transactionStatus: datasets_models.TransactionStatus
 
 
 @dataclass
-class TransactionNotCommitted(BadRequestError):
-    name: Literal["TransactionNotCommitted"]
+class TransactionNotCommitted(errors.BadRequestError):
+    name: typing.Literal["TransactionNotCommitted"]
     parameters: TransactionNotCommittedParameters
     error_instance_id: str
 

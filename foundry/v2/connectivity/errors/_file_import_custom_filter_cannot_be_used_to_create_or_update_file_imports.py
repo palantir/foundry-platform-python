@@ -13,18 +13,17 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Any
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImportsParameters(TypedDict):
+class FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImportsParameters(
+    typing_extensions.TypedDict
+):
     """
     Custom file import filters can be fetched but cannot currently be used
     when creating or updating file imports.
@@ -32,12 +31,12 @@ class FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImportsParameters(Ty
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    config: Any
+    config: typing.Any
 
 
 @dataclass
-class FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports(BadRequestError):
-    name: Literal["FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports"]
+class FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports(errors.BadRequestError):
+    name: typing.Literal["FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports"]
     parameters: FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImportsParameters
     error_instance_id: str
 

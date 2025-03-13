@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class ChangingOutputDatasetNotSupportedForImportsParameters(TypedDict):
+class ChangingOutputDatasetNotSupportedForImportsParameters(typing_extensions.TypedDict):
     """Changing of output dataset is not supported for imports."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    existingOutputDatasetRid: DatasetRid
-
-    newOutputDatasetRid: DatasetRid
+    existingOutputDatasetRid: datasets_models.DatasetRid
+    newOutputDatasetRid: datasets_models.DatasetRid
 
 
 @dataclass
-class ChangingOutputDatasetNotSupportedForImports(BadRequestError):
-    name: Literal["ChangingOutputDatasetNotSupportedForImports"]
+class ChangingOutputDatasetNotSupportedForImports(errors.BadRequestError):
+    name: typing.Literal["ChangingOutputDatasetNotSupportedForImports"]
     parameters: ChangingOutputDatasetNotSupportedForImportsParameters
     error_instance_id: str
 

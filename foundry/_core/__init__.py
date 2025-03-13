@@ -26,3 +26,8 @@ from foundry._core.config import Config
 from foundry._core.foundry_token_auth_client import UserTokenAuth
 from foundry._core.public_client_auth import PublicClientAuth
 from foundry._core.resource_iterator import ResourceIterator
+from foundry._core.utils import RID
+from foundry._core.utils import UUID
+from foundry._core.utils import Long
+from foundry._core.utils import Timeout
+from foundry._core.utils import maybe_ignore_preview

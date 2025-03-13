@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class GetCurrentEnrollmentPermissionDeniedParameters(TypedDict):
+class GetCurrentEnrollmentPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getCurrent the Enrollment."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class GetCurrentEnrollmentPermissionDenied(PermissionDeniedError):
-    name: Literal["GetCurrentEnrollmentPermissionDenied"]
+class GetCurrentEnrollmentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetCurrentEnrollmentPermissionDenied"]
     parameters: GetCurrentEnrollmentPermissionDeniedParameters
     error_instance_id: str
 

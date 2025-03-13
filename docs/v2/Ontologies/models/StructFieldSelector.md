@@ -1,8 +1,9 @@
 # StructFieldSelector
 
-A combination of a struct property api name and a struct field api name. This is used to select struct fields 
-to query on. Note that you can still select struct properties with only a 'PropertyApiNameSelector'; the queries 
-will then become 'OR' queries across the fields of the struct property.
+A combination of a property API name and a struct field API name used to select struct fields. Note that you can
+still select struct properties with only a 'PropertyApiNameSelector'; the queries will then become 'OR' queries
+across the fields of the struct property, and derived property expressions will operate on the whole struct
+where applicable.
 
 
 ## Properties

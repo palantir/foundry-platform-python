@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class ResourceNotDirectlyTrashedParameters(TypedDict):
+class ResourceNotDirectlyTrashedParameters(typing_extensions.TypedDict):
     """The Resource is not directly trashed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    resourceRid: filesystem_models.ResourceRid
 
 
 @dataclass
-class ResourceNotDirectlyTrashed(BadRequestError):
-    name: Literal["ResourceNotDirectlyTrashed"]
+class ResourceNotDirectlyTrashed(errors.BadRequestError):
+    name: typing.Literal["ResourceNotDirectlyTrashed"]
     parameters: ResourceNotDirectlyTrashedParameters
     error_instance_id: str
 

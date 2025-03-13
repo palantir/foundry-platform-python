@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v1.core.models._operation_scope import OperationScope
+from foundry import _errors as errors
+from foundry.v1.core import models as core_models
 
 
-class ApiUsageDeniedParameters(TypedDict):
+class ApiUsageDeniedParameters(typing_extensions.TypedDict):
     """You are not allowed to use Palantir APIs."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    missingScope: NotRequired[OperationScope]
+    missingScope: typing_extensions.NotRequired[core_models.OperationScope]
 
 
 @dataclass
-class ApiUsageDenied(PermissionDeniedError):
-    name: Literal["ApiUsageDenied"]
+class ApiUsageDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ApiUsageDenied"]
     parameters: ApiUsageDeniedParameters
     error_instance_id: str
 

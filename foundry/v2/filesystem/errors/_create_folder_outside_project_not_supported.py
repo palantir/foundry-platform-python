@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._folder_rid import FolderRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class CreateFolderOutsideProjectNotSupportedParameters(TypedDict):
+class CreateFolderOutsideProjectNotSupportedParameters(typing_extensions.TypedDict):
     """The given Resource is not a folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parentFolderRid: FolderRid
+    parentFolderRid: filesystem_models.FolderRid
 
 
 @dataclass
-class CreateFolderOutsideProjectNotSupported(BadRequestError):
-    name: Literal["CreateFolderOutsideProjectNotSupported"]
+class CreateFolderOutsideProjectNotSupported(errors.BadRequestError):
+    name: typing.Literal["CreateFolderOutsideProjectNotSupported"]
     parameters: CreateFolderOutsideProjectNotSupportedParameters
     error_instance_id: str
 

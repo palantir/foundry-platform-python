@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.filesystem.models._resource_path import ResourcePath
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class PathNotFoundParameters(TypedDict):
+class PathNotFoundParameters(typing_extensions.TypedDict):
     """The given path could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    path: ResourcePath
+    path: filesystem_models.ResourcePath
 
 
 @dataclass
-class PathNotFound(NotFoundError):
-    name: Literal["PathNotFound"]
+class PathNotFound(errors.NotFoundError):
+    name: typing.Literal["PathNotFound"]
     parameters: PathNotFoundParameters
     error_instance_id: str
 

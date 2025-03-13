@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._principal_id import PrincipalId
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidPrincipalIdsForGroupTemplateParameters(TypedDict):
+class InvalidPrincipalIdsForGroupTemplateParameters(typing_extensions.TypedDict):
     """The template requested for project creation contains principal IDs that do not exist."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    invalidPrincipalIds: List[PrincipalId]
+    invalidPrincipalIds: typing.List[core_models.PrincipalId]
 
 
 @dataclass
-class InvalidPrincipalIdsForGroupTemplate(BadRequestError):
-    name: Literal["InvalidPrincipalIdsForGroupTemplate"]
+class InvalidPrincipalIdsForGroupTemplate(errors.BadRequestError):
+    name: typing.Literal["InvalidPrincipalIdsForGroupTemplate"]
     parameters: InvalidPrincipalIdsForGroupTemplateParameters
     error_instance_id: str
 

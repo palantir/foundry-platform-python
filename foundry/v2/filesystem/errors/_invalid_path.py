@@ -13,18 +13,16 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._resource_path import ResourcePath
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class InvalidPathParameters(TypedDict):
+class InvalidPathParameters(typing_extensions.TypedDict):
     """
     The given path is invalid.
 
@@ -33,12 +31,12 @@ class InvalidPathParameters(TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    path: ResourcePath
+    path: filesystem_models.ResourcePath
 
 
 @dataclass
-class InvalidPath(BadRequestError):
-    name: Literal["InvalidPath"]
+class InvalidPath(errors.BadRequestError):
+    name: typing.Literal["InvalidPath"]
     parameters: InvalidPathParameters
     error_instance_id: str
 

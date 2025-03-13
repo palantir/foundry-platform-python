@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class EnrollmentNotFoundParameters(TypedDict):
+class EnrollmentNotFoundParameters(typing_extensions.TypedDict):
     """The given Enrollment could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    enrollmentRid: EnrollmentRid
+    enrollmentRid: core_models.EnrollmentRid
 
 
 @dataclass
-class EnrollmentNotFound(NotFoundError):
-    name: Literal["EnrollmentNotFound"]
+class EnrollmentNotFound(errors.NotFoundError):
+    name: typing.Literal["EnrollmentNotFound"]
     parameters: EnrollmentNotFoundParameters
     error_instance_id: str
 

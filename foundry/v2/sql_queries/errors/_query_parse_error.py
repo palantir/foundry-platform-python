@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class QueryParseErrorParameters(TypedDict):
+class QueryParseErrorParameters(typing_extensions.TypedDict):
     """The query cannot be parsed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class QueryParseErrorParameters(TypedDict):
 
 
 @dataclass
-class QueryParseError(BadRequestError):
-    name: Literal["QueryParseError"]
+class QueryParseError(errors.BadRequestError):
+    name: typing.Literal["QueryParseError"]
     parameters: QueryParseErrorParameters
     error_instance_id: str
 

@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.functions.models._value_type_rid import ValueTypeRid
-from foundry.v2.functions.models._value_type_version_id import ValueTypeVersionId
+from foundry import _errors as errors
+from foundry.v2.functions import models as functions_models
 
 
-class VersionIdNotFoundParameters(TypedDict):
+class VersionIdNotFoundParameters(typing_extensions.TypedDict):
     """The given VersionId could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    valueTypeRid: ValueTypeRid
-
-    versionIdVersionId: ValueTypeVersionId
+    valueTypeRid: functions_models.ValueTypeRid
+    versionIdVersionId: functions_models.ValueTypeVersionId
 
 
 @dataclass
-class VersionIdNotFound(NotFoundError):
-    name: Literal["VersionIdNotFound"]
+class VersionIdNotFound(errors.NotFoundError):
+    name: typing.Literal["VersionIdNotFound"]
     parameters: VersionIdNotFoundParameters
     error_instance_id: str
 

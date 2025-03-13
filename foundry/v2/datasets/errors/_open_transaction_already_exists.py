@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class OpenTransactionAlreadyExistsParameters(TypedDict):
+class OpenTransactionAlreadyExistsParameters(typing_extensions.TypedDict):
     """A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    branchName: BranchName
+    datasetRid: datasets_models.DatasetRid
+    branchName: datasets_models.BranchName
 
 
 @dataclass
-class OpenTransactionAlreadyExists(ConflictError):
-    name: Literal["OpenTransactionAlreadyExists"]
+class OpenTransactionAlreadyExists(errors.ConflictError):
+    name: typing.Literal["OpenTransactionAlreadyExists"]
     parameters: OpenTransactionAlreadyExistsParameters
     error_instance_id: str
 

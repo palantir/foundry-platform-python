@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.third_party_applications.models._version_version import VersionVersion
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class VersionAlreadyExistsParameters(TypedDict):
+class VersionAlreadyExistsParameters(typing_extensions.TypedDict):
     """The given website version already exists."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    version: VersionVersion
+    version: third_party_applications_models.VersionVersion
 
 
 @dataclass
-class VersionAlreadyExists(ConflictError):
-    name: Literal["VersionAlreadyExists"]
+class VersionAlreadyExists(errors.ConflictError):
+    name: typing.Literal["VersionAlreadyExists"]
     parameters: VersionAlreadyExistsParameters
     error_instance_id: str
 

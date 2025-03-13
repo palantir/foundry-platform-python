@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class ConflictingMediaSetIdentifiersParameters(TypedDict):
+class ConflictingMediaSetIdentifiersParameters(typing_extensions.TypedDict):
     """Client provided more than one of branch name, branch rid, or view rid as arguments.  Only one may be specified."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class ConflictingMediaSetIdentifiers(BadRequestError):
-    name: Literal["ConflictingMediaSetIdentifiers"]
+class ConflictingMediaSetIdentifiers(errors.BadRequestError):
+    name: typing.Literal["ConflictingMediaSetIdentifiers"]
     parameters: ConflictingMediaSetIdentifiersParameters
     error_instance_id: str
 

@@ -12,9 +12,9 @@ Gets a specific value type with the given RID. The specified version is returned
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**value_type_rid** | ValueTypeRid | valueTypeRid |  |
-**version_id_version_id** | ValueTypeVersionId | versionIdVersionId |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**value_type_rid** | ValueTypeRid |  |  |
+**version_id_version_id** | ValueTypeVersionId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **VersionId**
@@ -30,11 +30,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ValueTypeRid | valueTypeRid
+# ValueTypeRid
 value_type_rid = None
-# ValueTypeVersionId | versionIdVersionId
+# ValueTypeVersionId
 version_id_version_id = None
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

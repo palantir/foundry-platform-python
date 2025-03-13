@@ -12,8 +12,8 @@ Get the ScheduleVersion with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_version_rid** | ScheduleVersionRid | scheduleVersionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_version_rid** | ScheduleVersionRid | The RID of a schedule version |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ScheduleVersion**
@@ -29,9 +29,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleVersionRid | scheduleVersionRid
+# ScheduleVersionRid | The RID of a schedule version
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
@@ -67,8 +67,8 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**schedule_version_rid** | ScheduleVersionRid | scheduleVersionRid |  |
-**preview** | Optional[PreviewMode] | preview | [optional] |
+**schedule_version_rid** | ScheduleVersionRid | The RID of a schedule version |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Optional[Schedule]**
@@ -84,9 +84,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ScheduleVersionRid | scheduleVersionRid
+# ScheduleVersionRid | The RID of a schedule version
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
-# Optional[PreviewMode] | preview
+# Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 

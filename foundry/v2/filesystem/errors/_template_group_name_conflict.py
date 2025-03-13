@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import ConflictError
-from foundry.v2.core.models._group_name import GroupName
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class TemplateGroupNameConflictParameters(TypedDict):
+class TemplateGroupNameConflictParameters(typing_extensions.TypedDict):
     """Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    conflictingGroupNames: List[GroupName]
+    conflictingGroupNames: typing.List[core_models.GroupName]
 
 
 @dataclass
-class TemplateGroupNameConflict(ConflictError):
-    name: Literal["TemplateGroupNameConflict"]
+class TemplateGroupNameConflict(errors.ConflictError):
+    name: typing.Literal["TemplateGroupNameConflict"]
     parameters: TemplateGroupNameConflictParameters
     error_instance_id: str
 

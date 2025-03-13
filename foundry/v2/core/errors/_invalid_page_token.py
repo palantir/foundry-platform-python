@@ -13,23 +13,21 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.core.models._page_token import PageToken
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class InvalidPageTokenParameters(TypedDict):
+class InvalidPageTokenParameters(typing_extensions.TypedDict):
     """The provided page token is invalid."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    pageToken: PageToken
+    pageToken: core_models.PageToken
     """
     The page token indicates where to start paging. This should be omitted from the first page's request.
     To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
@@ -38,8 +36,8 @@ class InvalidPageTokenParameters(TypedDict):
 
 
 @dataclass
-class InvalidPageToken(BadRequestError):
-    name: Literal["InvalidPageToken"]
+class InvalidPageToken(errors.BadRequestError):
+    name: typing.Literal["InvalidPageToken"]
     parameters: InvalidPageTokenParameters
     error_instance_id: str
 

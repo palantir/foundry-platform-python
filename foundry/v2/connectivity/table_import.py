@@ -13,52 +13,19 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 import warnings
-from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
-from typing import Union
 
 import pydantic
-from typing_extensions import Annotated
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import ResourceIterator
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
+from foundry import _core as core
+from foundry import _errors as errors
 from foundry.v2.connectivity import errors as connectivity_errors
-from foundry.v2.connectivity.models._connection_rid import ConnectionRid
-from foundry.v2.connectivity.models._create_table_import_request_table_import_config import (
-    CreateTableImportRequestTableImportConfig,
-)  # NOQA
-from foundry.v2.connectivity.models._create_table_import_request_table_import_config_dict import (
-    CreateTableImportRequestTableImportConfigDict,
-)  # NOQA
-from foundry.v2.connectivity.models._list_table_imports_response import (
-    ListTableImportsResponse,
-)  # NOQA
-from foundry.v2.connectivity.models._table_import import TableImport
-from foundry.v2.connectivity.models._table_import_allow_schema_changes import (
-    TableImportAllowSchemaChanges,
-)  # NOQA
-from foundry.v2.connectivity.models._table_import_display_name import TableImportDisplayName  # NOQA
-from foundry.v2.connectivity.models._table_import_mode import TableImportMode
-from foundry.v2.connectivity.models._table_import_rid import TableImportRid
-from foundry.v2.core.models._build_rid import BuildRid
-from foundry.v2.core.models._page_size import PageSize
-from foundry.v2.core.models._page_token import PageToken
-from foundry.v2.core.models._preview_mode import PreviewMode
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry.v2.connectivity import models as connectivity_models
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import errors as datasets_errors
+from foundry.v2.datasets import models as datasets_models
 
 
 class TableImportClient:
@@ -72,40 +39,43 @@ class TableImportClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _TableImportClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
         self.with_raw_response = _TableImportClientRaw(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        config: Union[
-            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        config: typing.Union[
+            connectivity_models.CreateTableImportRequestTableImportConfig,
+            connectivity_models.CreateTableImportRequestTableImportConfigDict,
         ],
-        dataset_rid: DatasetRid,
-        display_name: TableImportDisplayName,
-        import_mode: TableImportMode,
-        allow_schema_changes: Optional[TableImportAllowSchemaChanges] = None,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> TableImport:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.TableImportDisplayName,
+        import_mode: connectivity_models.TableImportMode,
+        allow_schema_changes: typing.Optional[
+            connectivity_models.TableImportAllowSchemaChanges
+        ] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.TableImport:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -119,21 +89,23 @@ class TableImportClient:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: TableImport
+        :rtype: connectivity_models.TableImport
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -154,52 +126,56 @@ class TableImportClient:
                     "branchName": branch_name,
                     "config": config,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": TableImportMode,
-                        "displayName": TableImportDisplayName,
-                        "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
-                        "branchName": Optional[BranchName],
-                        "config": Union[
-                            CreateTableImportRequestTableImportConfig,
-                            CreateTableImportRequestTableImportConfigDict,
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.TableImportMode,
+                        "displayName": connectivity_models.TableImportDisplayName,
+                        "allowSchemaChanges": typing.Optional[
+                            connectivity_models.TableImportAllowSchemaChanges
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "config": typing.Union[
+                            connectivity_models.CreateTableImportRequestTableImportConfig,
+                            connectivity_models.CreateTableImportRequestTableImportConfigDict,
                         ],
                     },
                 ),
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
                     "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
                 },
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
     ) -> None:
         """
         Delete the TableImport with the specified RID.
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -210,7 +186,7 @@ class TableImportClient:
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -231,37 +207,37 @@ class TableImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> BuildRid:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core_models.BuildRid:
         """
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: BuildRid
+        :rtype: core_models.BuildRid
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute",
                 query_params={
@@ -276,7 +252,7 @@ class TableImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
@@ -284,36 +260,36 @@ class TableImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> TableImport:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.TableImport:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: TableImport
+        :rtype: connectivity_models.TableImport
 
         :raises TableImportNotFound: The given TableImport could not be found.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -328,7 +304,7 @@ class TableImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,
@@ -337,38 +313,40 @@ class TableImportClient:
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ResourceIterator[TableImport]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ResourceIterator[connectivity_models.TableImport]:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ResourceIterator[TableImport]
+        :rtype: core.ResourceIterator[connectivity_models.TableImport]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         return self._api_client.iterate_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -384,40 +362,44 @@ class TableImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListTableImportsResponse:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> connectivity_models.ListTableImportsResponse:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListTableImportsResponse
+        :rtype: connectivity_models.ListTableImportsResponse
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         warnings.warn(
@@ -427,7 +409,7 @@ class TableImportClient:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -443,9 +425,11 @@ class TableImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         ).decode()
 
@@ -461,36 +445,39 @@ class _TableImportClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        config: Union[
-            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        config: typing.Union[
+            connectivity_models.CreateTableImportRequestTableImportConfig,
+            connectivity_models.CreateTableImportRequestTableImportConfigDict,
         ],
-        dataset_rid: DatasetRid,
-        display_name: TableImportDisplayName,
-        import_mode: TableImportMode,
-        allow_schema_changes: Optional[TableImportAllowSchemaChanges] = None,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[TableImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.TableImportDisplayName,
+        import_mode: connectivity_models.TableImportMode,
+        allow_schema_changes: typing.Optional[
+            connectivity_models.TableImportAllowSchemaChanges
+        ] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.TableImport]:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -504,21 +491,23 @@ class _TableImportClientRaw:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[TableImport]
+        :rtype: core.ApiResponse[connectivity_models.TableImport]
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -539,63 +528,67 @@ class _TableImportClientRaw:
                     "branchName": branch_name,
                     "config": config,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": TableImportMode,
-                        "displayName": TableImportDisplayName,
-                        "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
-                        "branchName": Optional[BranchName],
-                        "config": Union[
-                            CreateTableImportRequestTableImportConfig,
-                            CreateTableImportRequestTableImportConfigDict,
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.TableImportMode,
+                        "displayName": connectivity_models.TableImportDisplayName,
+                        "allowSchemaChanges": typing.Optional[
+                            connectivity_models.TableImportAllowSchemaChanges
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "config": typing.Union[
+                            connectivity_models.CreateTableImportRequestTableImportConfig,
+                            connectivity_models.CreateTableImportRequestTableImportConfigDict,
                         ],
                     },
                 ),
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
                     "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[None]:
         """
         Delete the TableImport with the specified RID.
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[None]
+        :rtype: core.ApiResponse[None]
 
         :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -616,37 +609,37 @@ class _TableImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[BuildRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[core_models.BuildRid]:
         """
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[BuildRid]
+        :rtype: core.ApiResponse[core_models.BuildRid]
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute",
                 query_params={
@@ -661,7 +654,7 @@ class _TableImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
@@ -669,36 +662,36 @@ class _TableImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[TableImport]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.TableImport]:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[TableImport]
+        :rtype: core.ApiResponse[connectivity_models.TableImport]
 
         :raises TableImportNotFound: The given TableImport could not be found.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -713,7 +706,7 @@ class _TableImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,
@@ -722,38 +715,40 @@ class _TableImportClientRaw:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListTableImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.ListTableImportsResponse]:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListTableImportsResponse]
+        :rtype: core.ApiResponse[connectivity_models.ListTableImportsResponse]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -769,40 +764,44 @@ class _TableImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListTableImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[connectivity_models.ListTableImportsResponse]:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListTableImportsResponse]
+        :rtype: core.ApiResponse[connectivity_models.ListTableImportsResponse]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         warnings.warn(
@@ -812,7 +811,7 @@ class _TableImportClientRaw:
         )
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -828,9 +827,11 @@ class _TableImportClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         )
 
@@ -846,36 +847,39 @@ class _TableImportClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def create(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        config: Union[
-            CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict
+        config: typing.Union[
+            connectivity_models.CreateTableImportRequestTableImportConfig,
+            connectivity_models.CreateTableImportRequestTableImportConfigDict,
         ],
-        dataset_rid: DatasetRid,
-        display_name: TableImportDisplayName,
-        import_mode: TableImportMode,
-        allow_schema_changes: Optional[TableImportAllowSchemaChanges] = None,
-        branch_name: Optional[BranchName] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[TableImport]:
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.TableImportDisplayName,
+        import_mode: connectivity_models.TableImportMode,
+        allow_schema_changes: typing.Optional[
+            connectivity_models.TableImportAllowSchemaChanges
+        ] = None,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.TableImport]:
         """
         Creates a new TableImport.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
@@ -889,21 +893,23 @@ class _TableImportClientStreaming:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[TableImport]
+        :rtype: core.StreamingContextManager[connectivity_models.TableImport]
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises CreateTableImportPermissionDenied: Could not create the TableImport.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -924,63 +930,67 @@ class _TableImportClientStreaming:
                     "branchName": branch_name,
                     "config": config,
                 },
-                body_type=TypedDict(
+                body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": DatasetRid,
-                        "importMode": TableImportMode,
-                        "displayName": TableImportDisplayName,
-                        "allowSchemaChanges": Optional[TableImportAllowSchemaChanges],
-                        "branchName": Optional[BranchName],
-                        "config": Union[
-                            CreateTableImportRequestTableImportConfig,
-                            CreateTableImportRequestTableImportConfigDict,
+                        "datasetRid": datasets_models.DatasetRid,
+                        "importMode": connectivity_models.TableImportMode,
+                        "displayName": connectivity_models.TableImportDisplayName,
+                        "allowSchemaChanges": typing.Optional[
+                            connectivity_models.TableImportAllowSchemaChanges
+                        ],
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "config": typing.Union[
+                            connectivity_models.CreateTableImportRequestTableImportConfig,
+                            connectivity_models.CreateTableImportRequestTableImportConfigDict,
                         ],
                     },
                 ),
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "CreateTableImportPermissionDenied": connectivity_errors.CreateTableImportPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
                     "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
                 },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[None]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[None]:
         """
         Delete the TableImport with the specified RID.
         Deleting the table import does not delete the destination dataset but the dataset will no longer
         be updated by this import.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[None]
+        :rtype: core.StreamingContextManager[None]
 
         :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -1001,37 +1011,37 @@ class _TableImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[BuildRid]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[core_models.BuildRid]:
         """
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[BuildRid]
+        :rtype: core.StreamingContextManager[core_models.BuildRid]
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute",
                 query_params={
@@ -1046,7 +1056,7 @@ class _TableImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=BuildRid,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
@@ -1054,36 +1064,36 @@ class _TableImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        connection_rid: ConnectionRid,
-        table_import_rid: TableImportRid,
+        connection_rid: connectivity_models.ConnectionRid,
+        table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[TableImport]:
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.TableImport]:
         """
         Get the TableImport with the specified rid.
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param table_import_rid: tableImportRid
+        :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[TableImport]
+        :rtype: core.StreamingContextManager[connectivity_models.TableImport]
 
         :raises TableImportNotFound: The given TableImport could not be found.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
                 query_params={
@@ -1098,7 +1108,7 @@ class _TableImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=TableImport,
+                response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,
@@ -1107,38 +1117,40 @@ class _TableImportClientStreaming:
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListTableImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.ListTableImportsResponse]:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListTableImportsResponse]
+        :rtype: core.StreamingContextManager[connectivity_models.ListTableImportsResponse]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -1154,40 +1166,44 @@ class _TableImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def page(
         self,
-        connection_rid: ConnectionRid,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        page_size: Optional[PageSize] = None,
-        page_token: Optional[PageToken] = None,
-        preview: Optional[PreviewMode] = None,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListTableImportsResponse]:
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[connectivity_models.ListTableImportsResponse]:
         """
         Lists all table imports defined for this connection.
         Only table imports that the user has permissions to view will be returned.
 
-        :param connection_rid: connectionRid
+        :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param page_size: pageSize
+        :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
-        :param page_token: pageToken
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: preview
+        :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListTableImportsResponse]
+        :rtype: core.StreamingContextManager[connectivity_models.ListTableImportsResponse]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         warnings.warn(
@@ -1197,7 +1213,7 @@ class _TableImportClientStreaming:
         )
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
                 query_params={
@@ -1213,8 +1229,10 @@ class _TableImportClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListTableImportsResponse,
+                response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
             ),
         )

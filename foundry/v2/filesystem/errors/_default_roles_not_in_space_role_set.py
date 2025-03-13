@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class DefaultRolesNotInSpaceRoleSetParameters(TypedDict):
+class DefaultRolesNotInSpaceRoleSetParameters(typing_extensions.TypedDict):
     """The requested default roles are not in the role set of the space for the project template."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class DefaultRolesNotInSpaceRoleSet(BadRequestError):
-    name: Literal["DefaultRolesNotInSpaceRoleSet"]
+class DefaultRolesNotInSpaceRoleSet(errors.BadRequestError):
+    name: typing.Literal["DefaultRolesNotInSpaceRoleSet"]
     parameters: DefaultRolesNotInSpaceRoleSetParameters
     error_instance_id: str
 

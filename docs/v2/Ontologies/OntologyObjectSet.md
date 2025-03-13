@@ -17,13 +17,13 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
 **group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
 **object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -39,19 +39,19 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# List[Union[AggregationV2, AggregationV2Dict]] |
+# List[Union[AggregationV2, AggregationV2Dict]]
 aggregation = None
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |
+# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
 group_by = None
-# Union[ObjectSet, ObjectSetDict] |
+# Union[ObjectSet, ObjectSetDict]
 object_set = None
-# Optional[AggregationAccuracyRequest] |
+# Optional[AggregationAccuracyRequest]
 accuracy = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 
 
@@ -96,7 +96,7 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 
 ### Return type
@@ -113,9 +113,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict] |
+# Union[ObjectSet, ObjectSetDict]
 object_set = {"type": "base", "objectType": "Employee"}
 
 
@@ -154,8 +154,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
-**object_set_rid** | ObjectSetRid | objectSetRid |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_set_rid** | ObjectSetRid | The RID of the object set.  |  |
 
 ### Return type
 **ObjectSet**
@@ -171,9 +171,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# ObjectSetRid | objectSetRid
+# ObjectSetRid | The RID of the object set.
 object_set_rid = "ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77a053"
 
 
@@ -217,13 +217,13 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | ontology |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | artifactRepository | [optional] |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | packageName | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -241,23 +241,23 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# OntologyIdentifier | ontology
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict] |
+# Union[ObjectSet, ObjectSetDict]
 object_set = {"type": "base", "objectType": "Employee"}
-# List[SelectedPropertyApiName] |
+# List[SelectedPropertyApiName]
 select = None
-# Optional[ArtifactRepositoryRid] | artifactRepository
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |
+# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
 order_by = None
-# Optional[SdkPackageName] | packageName
+# Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[PageSize] |
+# Optional[PageSize]
 page_size = 10000
-# Optional[PageToken] |
+# Optional[PageToken]
 page_token = None
 
 

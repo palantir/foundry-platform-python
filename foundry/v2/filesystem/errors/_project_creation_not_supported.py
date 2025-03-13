@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.filesystem.models._space_rid import SpaceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class ProjectCreationNotSupportedParameters(TypedDict):
+class ProjectCreationNotSupportedParameters(typing_extensions.TypedDict):
     """Project creation is not supported in the current user's space."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    spaceRid: SpaceRid
+    spaceRid: filesystem_models.SpaceRid
 
 
 @dataclass
-class ProjectCreationNotSupported(BadRequestError):
-    name: Literal["ProjectCreationNotSupported"]
+class ProjectCreationNotSupported(errors.BadRequestError):
+    name: typing.Literal["ProjectCreationNotSupported"]
     parameters: ProjectCreationNotSupportedParameters
     error_instance_id: str
 

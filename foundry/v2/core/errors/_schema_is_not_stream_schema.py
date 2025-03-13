@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class SchemaIsNotStreamSchemaParameters(TypedDict):
+class SchemaIsNotStreamSchemaParameters(typing_extensions.TypedDict):
     """The requested schema could not be converted into a stream schema."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class SchemaIsNotStreamSchema(BadRequestError):
-    name: Literal["SchemaIsNotStreamSchema"]
+class SchemaIsNotStreamSchema(errors.BadRequestError):
+    name: typing.Literal["SchemaIsNotStreamSchema"]
     parameters: SchemaIsNotStreamSchemaParameters
     error_instance_id: str
 

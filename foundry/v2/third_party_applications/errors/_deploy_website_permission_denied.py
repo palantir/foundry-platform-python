@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.third_party_applications.models._third_party_application_rid import (
-    ThirdPartyApplicationRid,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class DeployWebsitePermissionDeniedParameters(TypedDict):
+class DeployWebsitePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not deploy the Website."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    thirdPartyApplicationRid: ThirdPartyApplicationRid
+    thirdPartyApplicationRid: third_party_applications_models.ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
 
 
 @dataclass
-class DeployWebsitePermissionDenied(PermissionDeniedError):
-    name: Literal["DeployWebsitePermissionDenied"]
+class DeployWebsitePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeployWebsitePermissionDenied"]
     parameters: DeployWebsitePermissionDeniedParameters
     error_instance_id: str
 

@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.core.models._enrollment_rid import EnrollmentRid
+from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 
 
-class ListHostsPermissionDeniedParameters(TypedDict):
+class ListHostsPermissionDeniedParameters(typing_extensions.TypedDict):
     """You do not have permission to list hosts for this enrollment"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    enrollmentRid: EnrollmentRid
+    enrollmentRid: core_models.EnrollmentRid
 
 
 @dataclass
-class ListHostsPermissionDenied(PermissionDeniedError):
-    name: Literal["ListHostsPermissionDenied"]
+class ListHostsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListHostsPermissionDenied"]
     parameters: ListHostsPermissionDeniedParameters
     error_instance_id: str
 

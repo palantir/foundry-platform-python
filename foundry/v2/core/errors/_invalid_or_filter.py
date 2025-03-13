@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidOrFilterParameters(TypedDict):
+class InvalidOrFilterParameters(typing_extensions.TypedDict):
     """The provided OR filter should have at least one sub-filter."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class InvalidOrFilter(BadRequestError):
-    name: Literal["InvalidOrFilter"]
+class InvalidOrFilter(errors.BadRequestError):
+    name: typing.Literal["InvalidOrFilter"]
     parameters: InvalidOrFilterParameters
     error_instance_id: str
 

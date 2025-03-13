@@ -13,32 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import NotRequired
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.datasets.models._branch_name import BranchName
-from foundry.v2.datasets.models._dataset_rid import DatasetRid
+from foundry import _errors as errors
+from foundry.v2.datasets import models as datasets_models
 
 
-class CreateTransactionPermissionDeniedParameters(TypedDict):
+class CreateTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to create a transaction on this dataset."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: DatasetRid
-
-    branchName: NotRequired[BranchName]
+    datasetRid: datasets_models.DatasetRid
+    branchName: typing_extensions.NotRequired[datasets_models.BranchName]
 
 
 @dataclass
-class CreateTransactionPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateTransactionPermissionDenied"]
+class CreateTransactionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateTransactionPermissionDenied"]
     parameters: CreateTransactionPermissionDeniedParameters
     error_instance_id: str
 

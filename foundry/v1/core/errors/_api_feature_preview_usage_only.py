@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class ApiFeaturePreviewUsageOnlyParameters(TypedDict):
+class ApiFeaturePreviewUsageOnlyParameters(typing_extensions.TypedDict):
     """
     This feature is only supported in preview mode. Please use `preview=true` in the query
     parameters to call this endpoint.
@@ -33,8 +31,8 @@ class ApiFeaturePreviewUsageOnlyParameters(TypedDict):
 
 
 @dataclass
-class ApiFeaturePreviewUsageOnly(BadRequestError):
-    name: Literal["ApiFeaturePreviewUsageOnly"]
+class ApiFeaturePreviewUsageOnly(errors.BadRequestError):
+    name: typing.Literal["ApiFeaturePreviewUsageOnly"]
     parameters: ApiFeaturePreviewUsageOnlyParameters
     error_instance_id: str
 

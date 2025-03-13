@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import NotFoundError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class ScheduleTriggerResourcesNotFoundParameters(TypedDict):
+class ScheduleTriggerResourcesNotFoundParameters(typing_extensions.TypedDict):
     """The given resources in the schedule trigger could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRids: List[RID]
+    resourceRids: typing.List[core.RID]
 
 
 @dataclass
-class ScheduleTriggerResourcesNotFound(NotFoundError):
-    name: Literal["ScheduleTriggerResourcesNotFound"]
+class ScheduleTriggerResourcesNotFound(errors.NotFoundError):
+    name: typing.Literal["ScheduleTriggerResourcesNotFound"]
     parameters: ScheduleTriggerResourcesNotFoundParameters
     error_instance_id: str
 

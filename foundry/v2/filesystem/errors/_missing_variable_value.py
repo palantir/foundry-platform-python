@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class MissingVariableValueParameters(TypedDict):
+class MissingVariableValueParameters(typing_extensions.TypedDict):
     """A variable defined on the template requested for project creation does not have a value set in the request."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class MissingVariableValueParameters(TypedDict):
 
 
 @dataclass
-class MissingVariableValue(BadRequestError):
-    name: Literal["MissingVariableValue"]
+class MissingVariableValue(errors.BadRequestError):
+    name: typing.Literal["MissingVariableValue"]
     parameters: MissingVariableValueParameters
     error_instance_id: str
 

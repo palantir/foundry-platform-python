@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.filesystem.models._project_rid import ProjectRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class RemoveOrganizationsPermissionDeniedParameters(TypedDict):
+class RemoveOrganizationsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not removeOrganizations the Project."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    projectRid: ProjectRid
+    projectRid: filesystem_models.ProjectRid
 
 
 @dataclass
-class RemoveOrganizationsPermissionDenied(PermissionDeniedError):
-    name: Literal["RemoveOrganizationsPermissionDenied"]
+class RemoveOrganizationsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveOrganizationsPermissionDenied"]
     parameters: RemoveOrganizationsPermissionDeniedParameters
     error_instance_id: str
 

@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class GetByRidQueriesPermissionDeniedParameters(TypedDict):
+class GetByRidQueriesPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getByRid the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class GetByRidQueriesPermissionDenied(PermissionDeniedError):
-    name: Literal["GetByRidQueriesPermissionDenied"]
+class GetByRidQueriesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetByRidQueriesPermissionDenied"]
     parameters: GetByRidQueriesPermissionDeniedParameters
     error_instance_id: str
 

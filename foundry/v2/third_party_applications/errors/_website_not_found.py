@@ -13,31 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import NotFoundError
-from foundry.v2.third_party_applications.models._third_party_application_rid import (
-    ThirdPartyApplicationRid,
-)  # NOQA
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class WebsiteNotFoundParameters(TypedDict):
+class WebsiteNotFoundParameters(typing_extensions.TypedDict):
     """The given Website could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    thirdPartyApplicationRid: ThirdPartyApplicationRid
+    thirdPartyApplicationRid: third_party_applications_models.ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
 
 
 @dataclass
-class WebsiteNotFound(NotFoundError):
-    name: Literal["WebsiteNotFound"]
+class WebsiteNotFound(errors.NotFoundError):
+    name: typing.Literal["WebsiteNotFound"]
     parameters: WebsiteNotFoundParameters
     error_instance_id: str
 

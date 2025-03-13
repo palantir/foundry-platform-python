@@ -13,29 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import List
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import PermissionDeniedError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class BuildTargetsPermissionDeniedParameters(TypedDict):
+class BuildTargetsPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to build the given resources."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRids: List[RID]
+    resourceRids: typing.List[core.RID]
 
 
 @dataclass
-class BuildTargetsPermissionDenied(PermissionDeniedError):
-    name: Literal["BuildTargetsPermissionDenied"]
+class BuildTargetsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["BuildTargetsPermissionDenied"]
     parameters: BuildTargetsPermissionDeniedParameters
     error_instance_id: str
 

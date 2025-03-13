@@ -13,27 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from functools import cached_property
-from typing import Any
-from typing import Dict
-from typing import Optional
 
 import pydantic
-from typing_extensions import Annotated
+import typing_extensions
 
-from foundry._core import ApiClient
-from foundry._core import ApiResponse
-from foundry._core import Auth
-from foundry._core import Config
-from foundry._core import RequestInfo
-from foundry._core import StreamingContextManager
-from foundry._core.utils import maybe_ignore_preview
-from foundry._errors import handle_unexpected
-from foundry.v1.ontologies.models._list_ontologies_response import ListOntologiesResponse  # NOQA
-from foundry.v1.ontologies.models._ontology import Ontology
-from foundry.v1.ontologies.models._ontology_rid import OntologyRid
+from foundry import _core as core
+from foundry import _errors as errors
+from foundry.v1.ontologies import models as ontologies_models
 
 
 class OntologyClient:
@@ -47,14 +35,14 @@ class OntologyClient:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
         self.with_streaming_response = _OntologyClientStreaming(
             auth=auth, hostname=hostname, config=config
         )
@@ -90,30 +78,30 @@ class OntologyClient:
             config=self._config,
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> Ontology:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.Ontology:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: Ontology
+        :rtype: ontologies_models.Ontology
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}",
                 query_params={},
@@ -125,20 +113,20 @@ class OntologyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=Ontology,
+                response_type=ontologies_models.Ontology,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         ).decode()
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ListOntologiesResponse:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> ontologies_models.ListOntologiesResponse:
         """
         Lists the Ontologies visible to the current user.
 
@@ -147,11 +135,11 @@ class OntologyClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ListOntologiesResponse
+        :rtype: ontologies_models.ListOntologiesResponse
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies",
                 query_params={},
@@ -161,7 +149,7 @@ class OntologyClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOntologiesResponse,
+                response_type=ontologies_models.ListOntologiesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -179,39 +167,39 @@ class _OntologyClientRaw:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[Ontology]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.Ontology]:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[Ontology]
+        :rtype: core.ApiResponse[ontologies_models.Ontology]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}",
                 query_params={},
@@ -223,20 +211,20 @@ class _OntologyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=Ontology,
+                response_type=ontologies_models.Ontology,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> ApiResponse[ListOntologiesResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.ApiResponse[ontologies_models.ListOntologiesResponse]:
         """
         Lists the Ontologies visible to the current user.
 
@@ -245,11 +233,11 @@ class _OntologyClientRaw:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: ApiResponse[ListOntologiesResponse]
+        :rtype: core.ApiResponse[ontologies_models.ListOntologiesResponse]
         """
 
         return self._api_client.call_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies",
                 query_params={},
@@ -259,7 +247,7 @@ class _OntologyClientRaw:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOntologiesResponse,
+                response_type=ontologies_models.ListOntologiesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
@@ -277,39 +265,39 @@ class _OntologyClientStreaming:
 
     def __init__(
         self,
-        auth: Auth,
+        auth: core.Auth,
         hostname: str,
-        config: Optional[Config] = None,
+        config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
         self._hostname = hostname
         self._config = config
-        self._api_client = ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: OntologyRid,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[Ontology]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.Ontology]:
         """
         Gets a specific ontology with the given Ontology RID.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology_rid: ontologyRid
+        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[Ontology]
+        :rtype: core.StreamingContextManager[ontologies_models.Ontology]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies/{ontologyRid}",
                 query_params={},
@@ -321,20 +309,20 @@ class _OntologyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=Ontology,
+                response_type=ontologies_models.Ontology,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),
         )
 
-    @maybe_ignore_preview
+    @core.maybe_ignore_preview
     @pydantic.validate_call
-    @handle_unexpected
+    @errors.handle_unexpected
     def list(
         self,
         *,
-        request_timeout: Optional[Annotated[pydantic.StrictInt, pydantic.Field(gt=0)]] = None,
-    ) -> StreamingContextManager[ListOntologiesResponse]:
+        request_timeout: typing.Optional[core.Timeout] = None,
+    ) -> core.StreamingContextManager[ontologies_models.ListOntologiesResponse]:
         """
         Lists the Ontologies visible to the current user.
 
@@ -343,11 +331,11 @@ class _OntologyClientStreaming:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: StreamingContextManager[ListOntologiesResponse]
+        :rtype: core.StreamingContextManager[ontologies_models.ListOntologiesResponse]
         """
 
         return self._api_client.stream_api(
-            RequestInfo(
+            core.RequestInfo(
                 method="GET",
                 resource_path="/v1/ontologies",
                 query_params={},
@@ -357,7 +345,7 @@ class _OntologyClientStreaming:
                 },
                 body=None,
                 body_type=None,
-                response_type=ListOntologiesResponse,
+                response_type=ontologies_models.ListOntologiesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
             ),

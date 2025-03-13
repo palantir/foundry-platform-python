@@ -13,30 +13,27 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.admin.models._marking_category_id import MarkingCategoryId
+from foundry import _errors as errors
+from foundry.v2.admin import models as admin_models
 
 
-class CreateMarkingNameInCategoryAlreadyExistsParameters(TypedDict):
+class CreateMarkingNameInCategoryAlreadyExistsParameters(typing_extensions.TypedDict):
     """A marking with the same name already exists in the category."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     displayName: str
-
-    categoryId: MarkingCategoryId
+    categoryId: admin_models.MarkingCategoryId
 
 
 @dataclass
-class CreateMarkingNameInCategoryAlreadyExists(BadRequestError):
-    name: Literal["CreateMarkingNameInCategoryAlreadyExists"]
+class CreateMarkingNameInCategoryAlreadyExists(errors.BadRequestError):
+    name: typing.Literal["CreateMarkingNameInCategoryAlreadyExists"]
     parameters: CreateMarkingNameInCategoryAlreadyExistsParameters
     error_instance_id: str
 

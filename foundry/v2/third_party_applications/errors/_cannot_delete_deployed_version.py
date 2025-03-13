@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
-from foundry.v2.third_party_applications.models._version_version import VersionVersion
+from foundry import _errors as errors
+from foundry.v2.third_party_applications import models as third_party_applications_models  # NOQA
 
 
-class CannotDeleteDeployedVersionParameters(TypedDict):
+class CannotDeleteDeployedVersionParameters(typing_extensions.TypedDict):
     """The given website version is deployed. You must un-deploy it before deleting it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    version: VersionVersion
+    version: third_party_applications_models.VersionVersion
 
 
 @dataclass
-class CannotDeleteDeployedVersion(BadRequestError):
-    name: Literal["CannotDeleteDeployedVersion"]
+class CannotDeleteDeployedVersion(errors.BadRequestError):
+    name: typing.Literal["CannotDeleteDeployedVersion"]
     parameters: CannotDeleteDeployedVersionParameters
     error_instance_id: str
 

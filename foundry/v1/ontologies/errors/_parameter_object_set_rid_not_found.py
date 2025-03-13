@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._core.utils import RID
-from foundry._errors import NotFoundError
+from foundry import _core as core
+from foundry import _errors as errors
 
 
-class ParameterObjectSetRidNotFoundParameters(TypedDict):
+class ParameterObjectSetRidNotFoundParameters(typing_extensions.TypedDict):
     """The parameter object set RID is not found, or the client token does not have access to it."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectSetRid: RID
+    objectSetRid: core.RID
 
 
 @dataclass
-class ParameterObjectSetRidNotFound(NotFoundError):
-    name: Literal["ParameterObjectSetRidNotFound"]
+class ParameterObjectSetRidNotFound(errors.NotFoundError):
+    name: typing.Literal["ParameterObjectSetRidNotFound"]
     parameters: ParameterObjectSetRidNotFoundParameters
     error_instance_id: str
 

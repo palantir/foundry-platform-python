@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
+from foundry import _errors as errors
 
 
-class CreateFolderPermissionDeniedParameters(TypedDict):
+class CreateFolderPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Folder."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class CreateFolderPermissionDenied(PermissionDeniedError):
-    name: Literal["CreateFolderPermissionDenied"]
+class CreateFolderPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateFolderPermissionDenied"]
     parameters: CreateFolderPermissionDeniedParameters
     error_instance_id: str
 

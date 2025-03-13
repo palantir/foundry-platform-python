@@ -13,25 +13,23 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import InternalServerError
+from foundry import _errors as errors
 
 
-class FailedToProcessBinaryRecordParameters(TypedDict):
+class FailedToProcessBinaryRecordParameters(typing_extensions.TypedDict):
     """The byte stream could not be processed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class FailedToProcessBinaryRecord(InternalServerError):
-    name: Literal["FailedToProcessBinaryRecord"]
+class FailedToProcessBinaryRecord(errors.InternalServerError):
+    name: typing.Literal["FailedToProcessBinaryRecord"]
     parameters: FailedToProcessBinaryRecordParameters
     error_instance_id: str
 

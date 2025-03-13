@@ -13,28 +13,26 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import PermissionDeniedError
-from foundry.v2.filesystem.models._resource_rid import ResourceRid
+from foundry import _errors as errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
-class PermanentlyDeleteResourcePermissionDeniedParameters(TypedDict):
+class PermanentlyDeleteResourcePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not permanentlyDelete the Resource."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    resourceRid: ResourceRid
+    resourceRid: filesystem_models.ResourceRid
 
 
 @dataclass
-class PermanentlyDeleteResourcePermissionDenied(PermissionDeniedError):
-    name: Literal["PermanentlyDeleteResourcePermissionDenied"]
+class PermanentlyDeleteResourcePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PermanentlyDeleteResourcePermissionDenied"]
     parameters: PermanentlyDeleteResourcePermissionDeniedParameters
     error_instance_id: str
 

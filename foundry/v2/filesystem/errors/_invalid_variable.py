@@ -13,17 +13,15 @@
 #  limitations under the License.
 
 
-from __future__ import annotations
-
+import typing
 from dataclasses import dataclass
-from typing import Literal
 
-from typing_extensions import TypedDict
+import typing_extensions
 
-from foundry._errors import BadRequestError
+from foundry import _errors as errors
 
 
-class InvalidVariableParameters(TypedDict):
+class InvalidVariableParameters(typing_extensions.TypedDict):
     """A variable referenced in the request to create project from template is not defined on the template."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -32,8 +30,8 @@ class InvalidVariableParameters(TypedDict):
 
 
 @dataclass
-class InvalidVariable(BadRequestError):
-    name: Literal["InvalidVariable"]
+class InvalidVariable(errors.BadRequestError):
+    name: typing.Literal["InvalidVariable"]
     parameters: InvalidVariableParameters
     error_instance_id: str
 
