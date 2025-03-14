@@ -7423,6 +7423,29 @@ def orchestration_job_get(
     click.echo(repr(result))
 
 
+@orchestration_job.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def orchestration_job_get_batch(
+    client: foundry.v2.FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Execute multiple get requests on Job.
+
+    The maximum batch size for this endpoint is 500.
+    """
+    result = client.orchestration.Job.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration.group("build")
 def orchestration_build():
     pass
@@ -7544,6 +7567,78 @@ def orchestration_build_get_batch(
     """
     result = client.orchestration.Build.get_batch(
         body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_build.command("jobs")
+@click.argument("build_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def orchestration_build_jobs(
+    client: foundry.v2.FoundryClient,
+    build_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Jobs in the Build.
+    """
+    result = client.orchestration.Build.jobs(
+        build_rid=build_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_build.command("jobs_page")
+@click.argument("build_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def orchestration_build_jobs_page(
+    client: foundry.v2.FoundryClient,
+    build_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Jobs in the Build.
+    """
+    result = client.orchestration.Build.jobs_page(
+        build_rid=build_rid,
+        page_size=page_size,
+        page_token=page_token,
         preview=preview,
     )
     click.echo(repr(result))

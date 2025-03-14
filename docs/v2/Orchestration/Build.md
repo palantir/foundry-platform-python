@@ -6,6 +6,8 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/orchestration/builds/create | Public Beta |
 [**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Public Beta |
 [**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Public Beta |
+[**jobs**](#jobs) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
+[**jobs_page**](#jobs_page) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
 [**search**](#search) | **POST** /v2/orchestration/builds/search | Private Beta |
 
 # **cancel**
@@ -256,6 +258,131 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetBuildsBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **jobs**
+Get the Jobs in the Build.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**build_rid** | BuildRid | The RID of a Build. |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListJobsOfBuildResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# BuildRid | The RID of a Build.
+build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
+# Optional[PageSize] | The page size to use for the endpoint.
+page_size = None
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    for build in foundry_client.orchestration.Build.jobs(
+        build_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    ):
+        pprint(build)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Build.jobs: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListJobsOfBuildResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **jobs_page**
+Get the Jobs in the Build.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**build_rid** | BuildRid | The RID of a Build. |  |
+**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
+**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListJobsOfBuildResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# BuildRid | The RID of a Build.
+build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
+# Optional[PageSize] | The page size to use for the endpoint.
+page_size = None
+# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = foundry_client.orchestration.Build.jobs_page(
+        build_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The jobs_page response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Build.jobs_page: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListJobsOfBuildResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

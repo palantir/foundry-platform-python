@@ -14,6 +14,7 @@
 
 
 import typing
+import warnings
 
 import annotated_types
 import pydantic
@@ -313,6 +314,118 @@ class BuildClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def jobs(
+        self,
+        build_rid: core_models.BuildRid,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[orchestration_models.Job]:
+        """
+        Get the Jobs in the Build.
+        :param build_rid: The RID of a Build.
+        :type build_rid: BuildRid
+        :param page_size: The page size to use for the endpoint.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[orchestration_models.Job]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/builds/{buildRid}/jobs",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "buildRid": build_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=orchestration_models.ListJobsOfBuildResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def jobs_page(
+        self,
+        build_rid: core_models.BuildRid,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> orchestration_models.ListJobsOfBuildResponse:
+        """
+        Get the Jobs in the Build.
+        :param build_rid: The RID of a Build.
+        :type build_rid: BuildRid
+        :param page_size: The page size to use for the endpoint.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: orchestration_models.ListJobsOfBuildResponse
+        """
+
+        warnings.warn(
+            "The client.orchestration.Build.jobs_page(...) method has been deprecated. Please use client.orchestration.Build.jobs(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/orchestration/builds/{buildRid}/jobs",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "buildRid": build_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=orchestration_models.ListJobsOfBuildResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def search(
         self,
         *,
@@ -402,12 +515,16 @@ class _BuildClientRaw:
         def create(_: orchestration_models.Build): ...
         def get(_: orchestration_models.Build): ...
         def get_batch(_: orchestration_models.GetBuildsBatchResponse): ...
+        def jobs(_: orchestration_models.ListJobsOfBuildResponse): ...
+        def jobs_page(_: orchestration_models.ListJobsOfBuildResponse): ...
         def search(_: orchestration_models.SearchBuildsResponse): ...
 
         self.cancel = core.with_raw_response(cancel, client.cancel)
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
+        self.jobs = core.with_raw_response(jobs, client.jobs)
+        self.jobs_page = core.with_raw_response(jobs_page, client.jobs_page)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -416,9 +533,13 @@ class _BuildClientStreaming:
         def create(_: orchestration_models.Build): ...
         def get(_: orchestration_models.Build): ...
         def get_batch(_: orchestration_models.GetBuildsBatchResponse): ...
+        def jobs(_: orchestration_models.ListJobsOfBuildResponse): ...
+        def jobs_page(_: orchestration_models.ListJobsOfBuildResponse): ...
         def search(_: orchestration_models.SearchBuildsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
+        self.jobs = core.with_streaming_response(jobs, client.jobs)
+        self.jobs_page = core.with_streaming_response(jobs_page, client.jobs_page)
         self.search = core.with_streaming_response(search, client.search)
