@@ -54,7 +54,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def add_organizations(
         self,
-        project_rid: filesystem_models.ProjectRid,
+        project_rid: core.RID,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -64,7 +64,7 @@ class ProjectClient:
         """
         Adds a list of Organizations to a Project.
         :param project_rid:
-        :type project_rid: ProjectRid
+        :type project_rid: RID
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.
@@ -340,7 +340,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def get(
         self,
-        project_rid: filesystem_models.ProjectRid,
+        project_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -349,7 +349,7 @@ class ProjectClient:
         """
         Get the Project with the specified rid.
         :param project_rid:
-        :type project_rid: ProjectRid
+        :type project_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -389,7 +389,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def organizations(
         self,
-        project_rid: filesystem_models.ProjectRid,
+        project_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -402,7 +402,7 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid:
-        :type project_rid: ProjectRid
+        :type project_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -444,7 +444,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def organizations_page(
         self,
-        project_rid: filesystem_models.ProjectRid,
+        project_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -457,7 +457,7 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid:
-        :type project_rid: ProjectRid
+        :type project_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -505,7 +505,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def remove_organizations(
         self,
-        project_rid: filesystem_models.ProjectRid,
+        project_rid: core.RID,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -515,7 +515,7 @@ class ProjectClient:
         """
         Removes Organizations from a Project.
         :param project_rid:
-        :type project_rid: ProjectRid
+        :type project_rid: RID
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.

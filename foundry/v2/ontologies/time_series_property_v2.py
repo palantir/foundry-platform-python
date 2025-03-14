@@ -52,10 +52,10 @@ class TimeSeriesPropertyV2Client:
     @errors.handle_unexpected
     def get_first_point(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -69,13 +69,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -117,10 +117,10 @@ class TimeSeriesPropertyV2Client:
     @errors.handle_unexpected
     def get_last_point(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -134,13 +134,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -183,10 +183,10 @@ class TimeSeriesPropertyV2Client:
     )
     def stream_points(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         stream: typing.Literal[True],
         aggregate: typing.Optional[
@@ -211,13 +211,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param aggregate:
         :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -242,10 +242,10 @@ class TimeSeriesPropertyV2Client:
     @typing_extensions.overload
     def stream_points(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         aggregate: typing.Optional[
             typing.Union[
@@ -269,13 +269,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param aggregate:
         :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -301,10 +301,10 @@ class TimeSeriesPropertyV2Client:
     )
     def stream_points(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         stream: bool,
         aggregate: typing.Optional[
@@ -329,13 +329,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param aggregate:
         :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -362,10 +362,10 @@ class TimeSeriesPropertyV2Client:
     @errors.handle_unexpected
     def stream_points(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         aggregate: typing.Optional[
             typing.Union[
@@ -390,13 +390,13 @@ class TimeSeriesPropertyV2Client:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object with the time series property.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param aggregate:
         :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
         :param artifact_repository: The repository associated with a marketplace installation.

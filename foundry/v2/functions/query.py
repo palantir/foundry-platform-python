@@ -53,7 +53,7 @@ class QueryClient:
     @errors.handle_unexpected
     def execute(
         self,
-        query_api_name: functions_models.QueryApiName,
+        query_api_name: str,
         *,
         parameters: typing.Dict[
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
@@ -68,7 +68,7 @@ class QueryClient:
         Optional parameters do not need to be supplied.
 
         :param query_api_name:
-        :type query_api_name: QueryApiName
+        :type query_api_name: str
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: Enables the use of preview functionality.
@@ -121,7 +121,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get(
         self,
-        query_api_name: functions_models.QueryApiName,
+        query_api_name: str,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -131,7 +131,7 @@ class QueryClient:
         Gets a specific query type with the given API name.
 
         :param query_api_name:
-        :type query_api_name: QueryApiName
+        :type query_api_name: str
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

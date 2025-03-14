@@ -141,7 +141,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -149,7 +149,7 @@ class DatasetClient:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -190,7 +190,7 @@ class DatasetClient:
     )
     def read_table(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         stream: typing.Literal[True],
         format: datasets_models.TableExportFormat,
@@ -209,7 +209,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -244,7 +244,7 @@ class DatasetClient:
     @typing_extensions.overload
     def read_table(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         format: datasets_models.TableExportFormat,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -262,7 +262,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -298,7 +298,7 @@ class DatasetClient:
     )
     def read_table(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         stream: bool,
         format: datasets_models.TableExportFormat,
@@ -317,7 +317,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -354,7 +354,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def read_table(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         format: datasets_models.TableExportFormat,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -373,7 +373,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.

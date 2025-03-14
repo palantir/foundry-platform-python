@@ -56,7 +56,7 @@ class FileImportClient:
     @errors.handle_unexpected
     def create(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         dataset_rid: core.RID,
         display_name: str,
@@ -75,7 +75,7 @@ class FileImportClient:
         """
         Creates a new FileImport.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: RID
         :param display_name:
@@ -170,8 +170,8 @@ class FileImportClient:
     @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        file_import_rid: connectivity_models.FileImportRid,
+        connection_rid: core.RID,
+        file_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -183,9 +183,9 @@ class FileImportClient:
         be updated by this import.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param file_import_rid:
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -224,27 +224,27 @@ class FileImportClient:
     @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        file_import_rid: connectivity_models.FileImportRid,
+        connection_rid: core.RID,
+        file_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> core_models.BuildRid:
+    ) -> core.RID:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param file_import_rid:
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: core_models.BuildRid
+        :rtype: core.RID
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
@@ -265,7 +265,7 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=core_models.BuildRid,
+                response_type=core.RID,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
@@ -279,8 +279,8 @@ class FileImportClient:
     @errors.handle_unexpected
     def get(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        file_import_rid: connectivity_models.FileImportRid,
+        connection_rid: core.RID,
+        file_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -289,9 +289,9 @@ class FileImportClient:
         """
         Get the FileImport with the specified rid.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param file_import_rid:
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -332,7 +332,7 @@ class FileImportClient:
     @errors.handle_unexpected
     def list(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -345,7 +345,7 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -387,7 +387,7 @@ class FileImportClient:
     @errors.handle_unexpected
     def page(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -400,7 +400,7 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -448,8 +448,8 @@ class FileImportClient:
     @errors.handle_unexpected
     def replace(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        file_import_rid: connectivity_models.FileImportRid,
+        connection_rid: core.RID,
+        file_import_rid: core.RID,
         *,
         dataset_rid: core.RID,
         display_name: str,
@@ -468,9 +468,9 @@ class FileImportClient:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param file_import_rid:
-        :type file_import_rid: FileImportRid
+        :type file_import_rid: RID
         :param dataset_rid: The RID of the output dataset.
         :type dataset_rid: RID
         :param display_name:
@@ -558,7 +558,7 @@ class _FileImportClientRaw:
     def __init__(self, client: FileImportClient) -> None:
         def create(_: connectivity_models.FileImport): ...
         def delete(_: None): ...
-        def execute(_: core_models.BuildRid): ...
+        def execute(_: core.RID): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
         def page(_: connectivity_models.ListFileImportsResponse): ...
@@ -576,7 +576,7 @@ class _FileImportClientRaw:
 class _FileImportClientStreaming:
     def __init__(self, client: FileImportClient) -> None:
         def create(_: connectivity_models.FileImport): ...
-        def execute(_: core_models.BuildRid): ...
+        def execute(_: core.RID): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
         def page(_: connectivity_models.ListFileImportsResponse): ...

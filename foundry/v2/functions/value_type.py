@@ -64,7 +64,7 @@ class ValueTypeClient:
     @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: functions_models.ValueTypeRid,
+        value_type_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -74,7 +74,7 @@ class ValueTypeClient:
         Gets a specific value type with the given RID. The latest version is returned.
 
         :param value_type_rid:
-        :type value_type_rid: ValueTypeRid
+        :type value_type_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

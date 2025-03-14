@@ -52,10 +52,10 @@ class AttachmentPropertyClient:
     @errors.handle_unexpected
     def get_attachment(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -69,13 +69,13 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -117,11 +117,11 @@ class AttachmentPropertyClient:
     @errors.handle_unexpected
     def get_attachment_by_rid(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
+        attachment_rid: core.RID,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -135,15 +135,15 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: RID
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -187,10 +187,10 @@ class AttachmentPropertyClient:
     )
     def read_attachment(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         stream: typing.Literal[True],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
@@ -206,13 +206,13 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -231,10 +231,10 @@ class AttachmentPropertyClient:
     @typing_extensions.overload
     def read_attachment(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -249,13 +249,13 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -275,10 +275,10 @@ class AttachmentPropertyClient:
     )
     def read_attachment(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         stream: bool,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
@@ -294,13 +294,13 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -321,10 +321,10 @@ class AttachmentPropertyClient:
     @errors.handle_unexpected
     def read_attachment(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -340,13 +340,13 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -402,11 +402,11 @@ class AttachmentPropertyClient:
     )
     def read_attachment_by_rid(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
+        attachment_rid: core.RID,
         *,
         stream: typing.Literal[True],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
@@ -424,15 +424,15 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: RID
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -451,11 +451,11 @@ class AttachmentPropertyClient:
     @typing_extensions.overload
     def read_attachment_by_rid(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
+        attachment_rid: core.RID,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -472,15 +472,15 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: RID
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -500,11 +500,11 @@ class AttachmentPropertyClient:
     )
     def read_attachment_by_rid(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
+        attachment_rid: core.RID,
         *,
         stream: bool,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
@@ -522,15 +522,15 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: RID
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -551,11 +551,11 @@ class AttachmentPropertyClient:
     @errors.handle_unexpected
     def read_attachment_by_rid(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
+        property: str,
+        attachment_rid: core.RID,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -573,15 +573,15 @@ class AttachmentPropertyClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
+        :type property: str
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
+        :type attachment_rid: RID
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.

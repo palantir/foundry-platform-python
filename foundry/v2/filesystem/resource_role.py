@@ -54,7 +54,7 @@ class ResourceRoleClient:
     @errors.handle_unexpected
     def add(
         self,
-        resource_rid: filesystem_models.ResourceRid,
+        resource_rid: core.RID,
         *,
         roles: typing.List[
             typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
@@ -66,7 +66,7 @@ class ResourceRoleClient:
         """
 
         :param resource_rid:
-        :type resource_rid: ResourceRid
+        :type resource_rid: RID
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: Enables the use of preview functionality.
@@ -119,7 +119,7 @@ class ResourceRoleClient:
     @errors.handle_unexpected
     def list(
         self,
-        resource_rid: filesystem_models.ResourceRid,
+        resource_rid: core.RID,
         *,
         include_inherited: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -132,7 +132,7 @@ class ResourceRoleClient:
         List the roles on a resource.
 
         :param resource_rid:
-        :type resource_rid: ResourceRid
+        :type resource_rid: RID
         :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
         :param page_size: The page size to use for the endpoint.
@@ -177,7 +177,7 @@ class ResourceRoleClient:
     @errors.handle_unexpected
     def page(
         self,
-        resource_rid: filesystem_models.ResourceRid,
+        resource_rid: core.RID,
         *,
         include_inherited: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -190,7 +190,7 @@ class ResourceRoleClient:
         List the roles on a resource.
 
         :param resource_rid:
-        :type resource_rid: ResourceRid
+        :type resource_rid: RID
         :param include_inherited: Whether to include inherited roles on the resource.
         :type include_inherited: Optional[bool]
         :param page_size: The page size to use for the endpoint.
@@ -241,7 +241,7 @@ class ResourceRoleClient:
     @errors.handle_unexpected
     def remove(
         self,
-        resource_rid: filesystem_models.ResourceRid,
+        resource_rid: core.RID,
         *,
         roles: typing.List[
             typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
@@ -253,7 +253,7 @@ class ResourceRoleClient:
         """
 
         :param resource_rid:
-        :type resource_rid: ResourceRid
+        :type resource_rid: RID
         :param roles:
         :type roles: List[Union[ResourceRole, ResourceRoleDict]]
         :param preview: Enables the use of preview functionality.

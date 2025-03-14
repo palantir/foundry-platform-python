@@ -53,8 +53,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -64,9 +64,9 @@ class TransactionClient:
         not updated.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid:
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -103,8 +103,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -116,9 +116,9 @@ class TransactionClient:
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid:
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -159,8 +159,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -170,9 +170,9 @@ class TransactionClient:
         updated to point to the Transaction.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid:
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -209,7 +209,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         transaction_type: datasets_models.TransactionType,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -220,7 +220,7 @@ class TransactionClient:
         Creates a Transaction on a Branch of a Dataset.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_type:
         :type transaction_type: TransactionType
         :param branch_name: The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
@@ -276,8 +276,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -286,9 +286,9 @@ class TransactionClient:
         Gets a Transaction of a Dataset.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid:
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -325,8 +325,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -338,9 +338,9 @@ class TransactionClient:
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid:
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

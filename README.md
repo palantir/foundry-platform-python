@@ -145,7 +145,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
+# RID | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # str
 branch_id = "my-branch"
@@ -1022,8 +1022,6 @@ Namespace | Name | Import |
 **Core** | [ChangeDataCaptureConfigurationDict](docs/v2/Core/models/ChangeDataCaptureConfigurationDict.md) | `from foundry.v2.core.models import ChangeDataCaptureConfigurationDict` |
 **Core** | [CipherTextType](docs/v2/Core/models/CipherTextType.md) | `from foundry.v2.core.models import CipherTextType` |
 **Core** | [CipherTextTypeDict](docs/v2/Core/models/CipherTextTypeDict.md) | `from foundry.v2.core.models import CipherTextTypeDict` |
-**Core** | [ContentLength](docs/v2/Core/models/ContentLength.md) | `from foundry.v2.core.models import ContentLength` |
-**Core** | [ContentType](docs/v2/Core/models/ContentType.md) | `from foundry.v2.core.models import ContentType` |
 **Core** | [CreatedBy](docs/v2/Core/models/CreatedBy.md) | `from foundry.v2.core.models import CreatedBy` |
 **Core** | [CreatedTime](docs/v2/Core/models/CreatedTime.md) | `from foundry.v2.core.models import CreatedTime` |
 **Core** | [CustomMetadata](docs/v2/Core/models/CustomMetadata.md) | `from foundry.v2.core.models import CustomMetadata` |
@@ -1049,7 +1047,6 @@ Namespace | Name | Import |
 **Core** | [FieldName](docs/v2/Core/models/FieldName.md) | `from foundry.v2.core.models import FieldName` |
 **Core** | [FieldSchema](docs/v2/Core/models/FieldSchema.md) | `from foundry.v2.core.models import FieldSchema` |
 **Core** | [FieldSchemaDict](docs/v2/Core/models/FieldSchemaDict.md) | `from foundry.v2.core.models import FieldSchemaDict` |
-**Core** | [Filename](docs/v2/Core/models/Filename.md) | `from foundry.v2.core.models import Filename` |
 **Core** | [FilePath](docs/v2/Core/models/FilePath.md) | `from foundry.v2.core.models import FilePath` |
 **Core** | [FilterBinaryTypeDict](docs/v2/Core/models/FilterBinaryTypeDict.md) | `from foundry.v2.core.models import FilterBinaryTypeDict` |
 **Core** | [FilterBooleanTypeDict](docs/v2/Core/models/FilterBooleanTypeDict.md) | `from foundry.v2.core.models import FilterBooleanTypeDict` |
@@ -1612,7 +1609,6 @@ Namespace | Name | Import |
 **Ontologies** | [OntologyDataTypeDict](docs/v2/Ontologies/models/OntologyDataTypeDict.md) | `from foundry.v2.ontologies.models import OntologyDataTypeDict` |
 **Ontologies** | [OntologyFullMetadata](docs/v2/Ontologies/models/OntologyFullMetadata.md) | `from foundry.v2.ontologies.models import OntologyFullMetadata` |
 **Ontologies** | [OntologyFullMetadataDict](docs/v2/Ontologies/models/OntologyFullMetadataDict.md) | `from foundry.v2.ontologies.models import OntologyFullMetadataDict` |
-**Ontologies** | [OntologyIdentifier](docs/v2/Ontologies/models/OntologyIdentifier.md) | `from foundry.v2.ontologies.models import OntologyIdentifier` |
 **Ontologies** | [OntologyInterfaceObjectType](docs/v2/Ontologies/models/OntologyInterfaceObjectType.md) | `from foundry.v2.ontologies.models import OntologyInterfaceObjectType` |
 **Ontologies** | [OntologyInterfaceObjectTypeDict](docs/v2/Ontologies/models/OntologyInterfaceObjectTypeDict.md) | `from foundry.v2.ontologies.models import OntologyInterfaceObjectTypeDict` |
 **Ontologies** | [OntologyMapType](docs/v2/Ontologies/models/OntologyMapType.md) | `from foundry.v2.ontologies.models import OntologyMapType` |
@@ -1664,7 +1660,6 @@ Namespace | Name | Import |
 **Ontologies** | [PropertyV2](docs/v2/Ontologies/models/PropertyV2.md) | `from foundry.v2.ontologies.models import PropertyV2` |
 **Ontologies** | [PropertyV2Dict](docs/v2/Ontologies/models/PropertyV2Dict.md) | `from foundry.v2.ontologies.models import PropertyV2Dict` |
 **Ontologies** | [PropertyValue](docs/v2/Ontologies/models/PropertyValue.md) | `from foundry.v2.ontologies.models import PropertyValue` |
-**Ontologies** | [PropertyValueEscapedString](docs/v2/Ontologies/models/PropertyValueEscapedString.md) | `from foundry.v2.ontologies.models import PropertyValueEscapedString` |
 **Ontologies** | [QueryAggregationKeyType](docs/v2/Ontologies/models/QueryAggregationKeyType.md) | `from foundry.v2.ontologies.models import QueryAggregationKeyType` |
 **Ontologies** | [QueryAggregationKeyTypeDict](docs/v2/Ontologies/models/QueryAggregationKeyTypeDict.md) | `from foundry.v2.ontologies.models import QueryAggregationKeyTypeDict` |
 **Ontologies** | [QueryAggregationRangeSubType](docs/v2/Ontologies/models/QueryAggregationRangeSubType.md) | `from foundry.v2.ontologies.models import QueryAggregationRangeSubType` |
@@ -2216,7 +2211,6 @@ Namespace | Name | Import |
 **Ontologies** | [PropertyFilter](docs/v1/Ontologies/models/PropertyFilter.md) | `from foundry.v1.ontologies.models import PropertyFilter` |
 **Ontologies** | [PropertyId](docs/v1/Ontologies/models/PropertyId.md) | `from foundry.v1.ontologies.models import PropertyId` |
 **Ontologies** | [PropertyValue](docs/v1/Ontologies/models/PropertyValue.md) | `from foundry.v1.ontologies.models import PropertyValue` |
-**Ontologies** | [PropertyValueEscapedString](docs/v1/Ontologies/models/PropertyValueEscapedString.md) | `from foundry.v1.ontologies.models import PropertyValueEscapedString` |
 **Ontologies** | [QueryAggregationKeyTypeDict](docs/v1/Ontologies/models/QueryAggregationKeyTypeDict.md) | `from foundry.v1.ontologies.models import QueryAggregationKeyTypeDict` |
 **Ontologies** | [QueryAggregationRangeSubTypeDict](docs/v1/Ontologies/models/QueryAggregationRangeSubTypeDict.md) | `from foundry.v1.ontologies.models import QueryAggregationRangeSubTypeDict` |
 **Ontologies** | [QueryAggregationRangeTypeDict](docs/v1/Ontologies/models/QueryAggregationRangeTypeDict.md) | `from foundry.v1.ontologies.models import QueryAggregationRangeTypeDict` |

@@ -76,7 +76,7 @@ class UserClient:
     @errors.handle_unexpected
     def delete(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -84,7 +84,7 @@ class UserClient:
         """
         Delete the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -118,7 +118,7 @@ class UserClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -126,7 +126,7 @@ class UserClient:
         """
         Get the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -253,7 +253,7 @@ class UserClient:
     @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: str,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -262,7 +262,7 @@ class UserClient:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: str
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -400,7 +400,7 @@ class UserClient:
     @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -408,7 +408,7 @@ class UserClient:
         """
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

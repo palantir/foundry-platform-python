@@ -16,7 +16,7 @@ Optional parameters do not need to be supplied.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_api_name** | QueryApiName |  |  |
+**query_api_name** | str |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -34,7 +34,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryApiName
+# str
 query_api_name = None
 # Dict[ParameterId, Optional[DataValue]]
 parameters = None
@@ -76,7 +76,7 @@ Gets a specific query type with the given API name.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_api_name** | QueryApiName |  |  |
+**query_api_name** | str |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -93,7 +93,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# QueryApiName
+# str
 query_api_name = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

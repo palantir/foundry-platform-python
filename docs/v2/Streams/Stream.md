@@ -17,7 +17,7 @@ Creates a new branch on the backing streaming dataset, and creates a new stream 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
+**dataset_rid** | RID |  |  |
 **branch_name** | str |  |  |
 **schema** | Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream. |  |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
@@ -39,7 +39,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
 # str
 branch_name = "master"
@@ -94,8 +94,8 @@ user does not have permission to access the stream, a 404 error will be returned
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
-**stream_branch_name** | BranchName |  |  |
+**dataset_rid** | RID |  |  |
+**stream_branch_name** | str |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -112,9 +112,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
-# BranchName
+# str
 stream_branch_name = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -154,8 +154,8 @@ Publish a single binary record to the stream. The stream's schema must be a sing
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
-**stream_branch_name** | BranchName |  |  |
+**dataset_rid** | RID |  |  |
+**stream_branch_name** | str |  |  |
 **body** | bytes | The binary record to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
@@ -174,9 +174,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
-# BranchName
+# str
 stream_branch_name = None
 # bytes | The binary record to publish to the stream
 body = None
@@ -223,8 +223,8 @@ rejected if it is invalid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
-**stream_branch_name** | BranchName |  |  |
+**dataset_rid** | RID |  |  |
+**stream_branch_name** | str |  |  |
 **record** | Record | The record to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
@@ -243,9 +243,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
-# BranchName
+# str
 stream_branch_name = None
 # Record | The record to publish to the stream
 record = {"timestamp": 1731426022784, "value": "Hello, World!"}
@@ -292,8 +292,8 @@ the batch will be rejected if one or more of the records are invalid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
-**stream_branch_name** | BranchName |  |  |
+**dataset_rid** | RID |  |  |
+**stream_branch_name** | str |  |  |
 **records** | List[Record] | The records to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
@@ -312,9 +312,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
-# BranchName
+# str
 stream_branch_name = None
 # List[Record] | The records to publish to the stream
 records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
@@ -366,8 +366,8 @@ which will be the new stream view that will be written to for the branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
-**stream_branch_name** | BranchName |  |  |
+**dataset_rid** | RID |  |  |
+**stream_branch_name** | str |  |  |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -388,9 +388,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
-# BranchName
+# str
 stream_branch_name = None
 # Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
 compressed = False

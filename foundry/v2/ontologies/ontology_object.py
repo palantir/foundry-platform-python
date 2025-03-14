@@ -53,8 +53,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         aggregation: typing.List[
             typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
@@ -81,9 +81,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The type of the object to aggregate on.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
@@ -159,8 +159,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def count(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -173,9 +173,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
@@ -215,9 +215,9 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
+        ontology: str,
+        object_type: str,
+        primary_key: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
@@ -232,11 +232,11 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: PropertyValueEscapedString
+        :type primary_key: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -283,8 +283,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
@@ -314,9 +314,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -371,8 +371,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
@@ -402,9 +402,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -465,8 +465,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def search(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
@@ -513,9 +513,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.

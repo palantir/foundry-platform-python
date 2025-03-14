@@ -54,7 +54,7 @@ class MarkingCategoryClient:
     @errors.handle_unexpected
     def get(
         self,
-        marking_category_id: admin_models.MarkingCategoryId,
+        marking_category_id: str,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -63,7 +63,7 @@ class MarkingCategoryClient:
         """
         Get the MarkingCategory with the specified id.
         :param marking_category_id:
-        :type marking_category_id: MarkingCategoryId
+        :type marking_category_id: str
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

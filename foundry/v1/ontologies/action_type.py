@@ -53,8 +53,8 @@ class ActionTypeClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: ontologies_models.OntologyRid,
-        action_type_api_name: ontologies_models.ActionTypeApiName,
+        ontology_rid: core.RID,
+        action_type_api_name: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -65,9 +65,9 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action type.
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: RID
         :param action_type_api_name: The name of the action type in the API.
-        :type action_type_api_name: ActionTypeApiName
+        :type action_type_api_name: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,7 +100,7 @@ class ActionTypeClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: ontologies_models.OntologyRid,
+        ontology_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -116,7 +116,7 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: RID
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -155,7 +155,7 @@ class ActionTypeClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: ontologies_models.OntologyRid,
+        ontology_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -171,7 +171,7 @@ class ActionTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: OntologyRid
+        :type ontology_rid: RID
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:

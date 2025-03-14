@@ -12,7 +12,7 @@ Get the UserProviderInfo.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | str |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -29,7 +29,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 user_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -67,7 +67,7 @@ Replace the UserProviderInfo.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | str |  |  |
 **provider_id** | str | The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -85,7 +85,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 user_id = None
 # str | The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
 provider_id = "2838c8f3-d76a-4e99-acf1-1dee537e4c48"

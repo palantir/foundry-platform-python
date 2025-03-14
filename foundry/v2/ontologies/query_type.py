@@ -53,8 +53,8 @@ class QueryTypeClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        query_api_name: ontologies_models.QueryApiName,
+        ontology: str,
+        query_api_name: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -65,9 +65,9 @@ class QueryTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
-        :type query_api_name: QueryApiName
+        :type query_api_name: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,7 +100,7 @@ class QueryTypeClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -116,7 +116,7 @@ class QueryTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -155,7 +155,7 @@ class QueryTypeClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -171,7 +171,7 @@ class QueryTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:

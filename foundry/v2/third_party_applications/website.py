@@ -63,7 +63,7 @@ class WebsiteClient:
     @errors.handle_unexpected
     def deploy(
         self,
-        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
+        third_party_application_rid: core.RID,
         *,
         version: str,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -72,7 +72,7 @@ class WebsiteClient:
         """
         Deploy a version of the Website.
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: RID
         :param version:
         :type version: str
         :param request_timeout: timeout setting for this request in seconds.
@@ -118,7 +118,7 @@ class WebsiteClient:
     @errors.handle_unexpected
     def get(
         self,
-        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
+        third_party_application_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -126,7 +126,7 @@ class WebsiteClient:
         """
         Get the Website.
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -162,7 +162,7 @@ class WebsiteClient:
     @errors.handle_unexpected
     def undeploy(
         self,
-        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
+        third_party_application_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -170,7 +170,7 @@ class WebsiteClient:
         """
         Remove the currently deployed version of the Website.
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
-        :type third_party_application_rid: ThirdPartyApplicationRid
+        :type third_party_application_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

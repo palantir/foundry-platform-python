@@ -54,8 +54,8 @@ class AgentVersionClient:
     @errors.handle_unexpected
     def get(
         self,
-        agent_rid: aip_agents_models.AgentRid,
-        agent_version_string: aip_agents_models.AgentVersionString,
+        agent_rid: core.RID,
+        agent_version_string: str,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -64,9 +64,9 @@ class AgentVersionClient:
         """
         Get version details for an AIP Agent.
         :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
+        :type agent_rid: RID
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
-        :type agent_version_string: AgentVersionString
+        :type agent_version_string: str
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -107,7 +107,7 @@ class AgentVersionClient:
     @errors.handle_unexpected
     def list(
         self,
-        agent_rid: aip_agents_models.AgentRid,
+        agent_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -120,7 +120,7 @@ class AgentVersionClient:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
+        :type agent_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -162,7 +162,7 @@ class AgentVersionClient:
     @errors.handle_unexpected
     def page(
         self,
-        agent_rid: aip_agents_models.AgentRid,
+        agent_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -175,7 +175,7 @@ class AgentVersionClient:
         Versions are returned in descending order, by most recent versions first.
 
         :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
+        :type agent_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.

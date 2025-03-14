@@ -18,7 +18,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch. |  |
+**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset on which to create the Branch. |  |
 **branch_id** | str |  |  |
 **transaction_rid** | Optional[TransactionRid] |  | [optional] |
 
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
+# RID | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # str
 branch_id = "my-branch"
@@ -80,8 +80,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch. |  |
-**branch_id** | BranchId | The identifier (name) of the Branch. |  |
+**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset that contains the Branch. |  |
+**branch_id** | str | The identifier (name) of the Branch. |  |
 
 ### Return type
 **None**
@@ -97,9 +97,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch.
+# RID | The Resource Identifier (RID) of the Dataset that contains the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# BranchId | The identifier (name) of the Branch.
+# str | The identifier (name) of the Branch.
 branch_id = "my-branch"
 
 
@@ -138,8 +138,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch. |  |
-**branch_id** | BranchId | The identifier (name) of the Branch. |  |
+**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset that contains the Branch. |  |
+**branch_id** | str | The identifier (name) of the Branch. |  |
 
 ### Return type
 **Branch**
@@ -155,9 +155,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch.
+# RID | The Resource Identifier (RID) of the Dataset that contains the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# BranchId | The identifier (name) of the Branch.
+# str | The identifier (name) of the Branch.
 branch_id = "master"
 
 
@@ -196,7 +196,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches. |  |
+**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset on which to list Branches. |  |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -214,7 +214,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches.
+# RID | The Resource Identifier (RID) of the Dataset on which to list Branches.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
@@ -257,7 +257,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches. |  |
+**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset on which to list Branches. |  |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -275,7 +275,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches.
+# RID | The Resource Identifier (RID) of the Dataset on which to list Branches.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None

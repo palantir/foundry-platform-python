@@ -151,7 +151,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def delete(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -160,7 +160,7 @@ class ScheduleClient:
         """
         Delete the Schedule with the specified rid.
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -198,7 +198,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def get(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -207,7 +207,7 @@ class ScheduleClient:
         """
         Get the Schedule with the specified rid.
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -247,7 +247,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def pause(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -256,7 +256,7 @@ class ScheduleClient:
         """
 
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -294,7 +294,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def replace(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         action: typing.Union[
             orchestration_models.ReplaceScheduleRequestAction,
@@ -318,7 +318,7 @@ class ScheduleClient:
         """
         Replace the Schedule with the specified rid.
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param action:
         :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
         :param description:
@@ -396,7 +396,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def run(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -405,7 +405,7 @@ class ScheduleClient:
         """
 
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -445,7 +445,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def runs(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -457,7 +457,7 @@ class ScheduleClient:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -499,7 +499,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def runs_page(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -511,7 +511,7 @@ class ScheduleClient:
         Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
 
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -559,7 +559,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def unpause(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -568,7 +568,7 @@ class ScheduleClient:
         """
 
         :param schedule_rid:
-        :type schedule_rid: ScheduleRid
+        :type schedule_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

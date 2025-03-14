@@ -53,8 +53,8 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -65,9 +65,9 @@ class ObjectTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,9 +100,9 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        link_type: ontologies_models.LinkTypeApiName,
+        ontology: str,
+        object_type: str,
+        link_type: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -114,11 +114,11 @@ class ObjectTypeClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
-        :type link_type: LinkTypeApiName
+        :type link_type: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -152,7 +152,7 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -169,7 +169,7 @@ class ObjectTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -208,8 +208,8 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def list_outgoing_link_types(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -223,9 +223,9 @@ class ObjectTypeClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -265,7 +265,7 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -282,7 +282,7 @@ class ObjectTypeClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -327,8 +327,8 @@ class ObjectTypeClient:
     @errors.handle_unexpected
     def page_outgoing_link_types(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
+        ontology: str,
+        object_type: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -342,9 +342,9 @@ class ObjectTypeClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
-        :type object_type: ObjectTypeApiName
+        :type object_type: str
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
         :param page_token:

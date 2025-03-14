@@ -14,7 +14,7 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid |  |  |
+**resource_rid** | RID |  |  |
 **roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -32,7 +32,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid
+# RID
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[Union[ResourceRole, ResourceRoleDict]]
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
@@ -74,7 +74,7 @@ List the roles on a resource.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid |  |  |
+**resource_rid** | RID |  |  |
 **include_inherited** | Optional[bool] | Whether to include inherited roles on the resource. | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
@@ -94,7 +94,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid
+# RID
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[bool] | Whether to include inherited roles on the resource.
 include_inherited = None
@@ -141,7 +141,7 @@ List the roles on a resource.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid |  |  |
+**resource_rid** | RID |  |  |
 **include_inherited** | Optional[bool] | Whether to include inherited roles on the resource. | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
@@ -161,7 +161,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid
+# RID
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[bool] | Whether to include inherited roles on the resource.
 include_inherited = None
@@ -208,7 +208,7 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid |  |  |
+**resource_rid** | RID |  |  |
 **roles** | List[Union[ResourceRole, ResourceRoleDict]] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -226,7 +226,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ResourceRid
+# RID
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[Union[ResourceRole, ResourceRoleDict]]
 roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]

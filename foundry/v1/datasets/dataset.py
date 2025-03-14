@@ -138,7 +138,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def delete_schema(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -150,7 +150,7 @@ class DatasetClient:
         Deletes the Schema from a Dataset and Branch.
 
         :param dataset_rid: The RID of the Dataset on which to delete the schema.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The ID of the Branch on which to delete the schema.
         :type branch_id: Optional[BranchId]
         :param preview:
@@ -190,7 +190,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -201,7 +201,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid:
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -233,7 +233,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def get_schema(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -245,7 +245,7 @@ class DatasetClient:
         Retrieves the Schema for a Dataset and Branch, if it exists.
 
         :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The ID of the Branch.
         :type branch_id: Optional[BranchId]
         :param preview:
@@ -288,7 +288,7 @@ class DatasetClient:
     )
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         stream: typing.Literal[True],
         format: datasets_models.TableExportFormat,
@@ -309,7 +309,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_id: The identifier (name) of the Branch.
@@ -336,7 +336,7 @@ class DatasetClient:
     @typing_extensions.overload
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         format: datasets_models.TableExportFormat,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
@@ -356,7 +356,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_id: The identifier (name) of the Branch.
@@ -384,7 +384,7 @@ class DatasetClient:
     )
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         stream: bool,
         format: datasets_models.TableExportFormat,
@@ -405,7 +405,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_id: The identifier (name) of the Branch.
@@ -434,7 +434,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         format: datasets_models.TableExportFormat,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
@@ -455,7 +455,7 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_id: The identifier (name) of the Branch.
@@ -519,7 +519,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def replace_schema(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         body: typing.Any,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
@@ -531,7 +531,7 @@ class DatasetClient:
         Puts a Schema on an existing Dataset and Branch.
 
         :param dataset_rid: The RID of the Dataset on which to put the Schema.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param body: Body of the request
         :type body: Any
         :param branch_id: The ID of the Branch on which to put the Schema.

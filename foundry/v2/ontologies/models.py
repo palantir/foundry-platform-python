@@ -4046,10 +4046,6 @@ class OntologyFullMetadataDict(typing_extensions.TypedDict):
     sharedPropertyTypes: typing.Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
 
 
-OntologyIdentifier = str
-"""Either an ontology rid or an ontology api name."""
-
-
 class OntologyInterfaceObjectType(pydantic.BaseModel):
     """OntologyInterfaceObjectType"""
 
@@ -4671,10 +4667,6 @@ Represents the value of a property in the following format.
 
 Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer, and Short types can also be encoded as JSON strings.
 """
-
-
-PropertyValueEscapedString = str
-"""Represents the value of a property in string format. This is used in URL parameters."""
 
 
 QueryAggregationKeyType = typing_extensions.Annotated[
@@ -6751,7 +6743,6 @@ __all__ = [
     "OntologyDataTypeDict",
     "OntologyFullMetadata",
     "OntologyFullMetadataDict",
-    "OntologyIdentifier",
     "OntologyInterfaceObjectType",
     "OntologyInterfaceObjectTypeDict",
     "OntologyMapType",
@@ -6803,7 +6794,6 @@ __all__ = [
     "PropertyV2",
     "PropertyV2Dict",
     "PropertyValue",
-    "PropertyValueEscapedString",
     "QueryAggregationKeyType",
     "QueryAggregationKeyTypeDict",
     "QueryAggregationRangeSubType",

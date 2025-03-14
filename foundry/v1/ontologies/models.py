@@ -2183,10 +2183,6 @@ Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer
 """
 
 
-PropertyValueEscapedString = str
-"""Represents the value of a property in string format. This is used in URL parameters."""
-
-
 QueryAggregationKeyTypeDict = typing_extensions.Annotated[
     typing.Union[
         "core_models.DateTypeDict",
@@ -2983,7 +2979,6 @@ __all__ = [
     "PropertyFilter",
     "PropertyId",
     "PropertyValue",
-    "PropertyValueEscapedString",
     "QueryAggregationKeyTypeDict",
     "QueryAggregationRangeSubTypeDict",
     "QueryAggregationRangeTypeDict",

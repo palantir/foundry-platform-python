@@ -189,14 +189,6 @@ class CipherTextTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["cipherText"]
 
 
-ContentLength = core.Long
-"""ContentLength"""
-
-
-ContentType = str
-"""ContentType"""
-
-
 CreatedBy = str
 """The Foundry user who created this resource"""
 
@@ -464,10 +456,6 @@ class FieldSchemaDict(typing_extensions.TypedDict):
 
 FilePath = str
 """The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
-
-
-Filename = str
-"""The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
 class FilterBinaryTypeDict(typing_extensions.TypedDict):
@@ -1383,8 +1371,6 @@ __all__ = [
     "ChangeDataCaptureConfigurationDict",
     "CipherTextType",
     "CipherTextTypeDict",
-    "ContentLength",
-    "ContentType",
     "CreatedBy",
     "CreatedTime",
     "CustomMetadata",
@@ -1411,7 +1397,6 @@ __all__ = [
     "FieldSchema",
     "FieldSchemaDict",
     "FilePath",
-    "Filename",
     "FilterBinaryTypeDict",
     "FilterBooleanTypeDict",
     "FilterDateTimeTypeDict",

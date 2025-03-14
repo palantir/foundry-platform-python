@@ -56,7 +56,7 @@ class TableImportClient:
     @errors.handle_unexpected
     def create(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         config: typing.Union[
             connectivity_models.CreateTableImportRequestTableImportConfig,
@@ -76,7 +76,7 @@ class TableImportClient:
         """
         Creates a new TableImport.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
@@ -161,8 +161,8 @@ class TableImportClient:
     @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        table_import_rid: connectivity_models.TableImportRid,
+        connection_rid: core.RID,
+        table_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -174,9 +174,9 @@ class TableImportClient:
         be updated by this import.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param table_import_rid:
-        :type table_import_rid: TableImportRid
+        :type table_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -215,27 +215,27 @@ class TableImportClient:
     @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        table_import_rid: connectivity_models.TableImportRid,
+        connection_rid: core.RID,
+        table_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> core_models.BuildRid:
+    ) -> core.RID:
         """
         Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param table_import_rid:
-        :type table_import_rid: TableImportRid
+        :type table_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: core_models.BuildRid
+        :rtype: core.RID
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
         """
@@ -256,7 +256,7 @@ class TableImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=core_models.BuildRid,
+                response_type=core.RID,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
@@ -270,8 +270,8 @@ class TableImportClient:
     @errors.handle_unexpected
     def get(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
-        table_import_rid: connectivity_models.TableImportRid,
+        connection_rid: core.RID,
+        table_import_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -280,9 +280,9 @@ class TableImportClient:
         """
         Get the TableImport with the specified rid.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param table_import_rid:
-        :type table_import_rid: TableImportRid
+        :type table_import_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -325,7 +325,7 @@ class TableImportClient:
     @errors.handle_unexpected
     def list(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -338,7 +338,7 @@ class TableImportClient:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -384,7 +384,7 @@ class TableImportClient:
     @errors.handle_unexpected
     def page(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -397,7 +397,7 @@ class TableImportClient:
         Only table imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -449,7 +449,7 @@ class _TableImportClientRaw:
     def __init__(self, client: TableImportClient) -> None:
         def create(_: connectivity_models.TableImport): ...
         def delete(_: None): ...
-        def execute(_: core_models.BuildRid): ...
+        def execute(_: core.RID): ...
         def get(_: connectivity_models.TableImport): ...
         def list(_: connectivity_models.ListTableImportsResponse): ...
         def page(_: connectivity_models.ListTableImportsResponse): ...
@@ -465,7 +465,7 @@ class _TableImportClientRaw:
 class _TableImportClientStreaming:
     def __init__(self, client: TableImportClient) -> None:
         def create(_: connectivity_models.TableImport): ...
-        def execute(_: core_models.BuildRid): ...
+        def execute(_: core.RID): ...
         def get(_: connectivity_models.TableImport): ...
         def list(_: connectivity_models.ListTableImportsResponse): ...
         def page(_: connectivity_models.ListTableImportsResponse): ...

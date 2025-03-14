@@ -13,7 +13,7 @@ Get the MarkingCategory with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**marking_category_id** | MarkingCategoryId |  |  |
+**marking_category_id** | str |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -30,7 +30,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingCategoryId
+# str
 marking_category_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

@@ -163,7 +163,7 @@ class MarkingClient:
     @errors.handle_unexpected
     def get(
         self,
-        marking_id: core_models.MarkingId,
+        marking_id: core.UUID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -172,7 +172,7 @@ class MarkingClient:
         """
         Get the Marking with the specified id.
         :param marking_id:
-        :type marking_id: MarkingId
+        :type marking_id: UUID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

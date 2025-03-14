@@ -86,7 +86,7 @@ Get the Connection with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid |  |  |
+**connection_rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -103,7 +103,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid
+# RID
 connection_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -143,7 +143,7 @@ This operation is intended for use when other Connection data is not required, p
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid |  |  |
+**connection_rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -160,7 +160,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid
+# RID
 connection_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -209,7 +209,7 @@ use the Foundry UI instead.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid |  |  |
+**connection_rid** | RID |  |  |
 **secrets** | Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -227,7 +227,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ConnectionRid
+# RID
 connection_rid = None
 # Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
 secrets = {"Password": "MySecretPassword"}

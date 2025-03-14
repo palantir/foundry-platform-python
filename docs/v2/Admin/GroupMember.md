@@ -14,7 +14,7 @@ Method | HTTP request | Release Stage |
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 **principal_ids** | List[PrincipalId] |  |  |
 **expiration** | Optional[GroupMembershipExpiration] |  | [optional] |
 
@@ -32,7 +32,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 # List[PrincipalId]
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
@@ -80,7 +80,7 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **transitive** | Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.  | [optional] |
@@ -99,7 +99,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -149,7 +149,7 @@ in the response, you are on the last page.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **transitive** | Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.  | [optional] |
@@ -168,7 +168,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -212,7 +212,7 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 **principal_ids** | List[PrincipalId] |  |  |
 
 ### Return type
@@ -229,7 +229,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 # List[PrincipalId]
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]

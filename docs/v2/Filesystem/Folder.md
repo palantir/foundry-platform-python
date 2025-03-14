@@ -18,7 +18,7 @@ provided, this page size will also be used as the default.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**folder_rid** | FolderRid |  |  |
+**folder_rid** | RID |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -37,7 +37,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# FolderRid
+# RID
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -84,7 +84,7 @@ provided, this page size will also be used as the default.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**folder_rid** | FolderRid |  |  |
+**folder_rid** | RID |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -103,7 +103,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# FolderRid
+# RID
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -206,7 +206,7 @@ Get the Folder with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**folder_rid** | FolderRid |  |  |
+**folder_rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -223,7 +223,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# FolderRid
+# RID
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

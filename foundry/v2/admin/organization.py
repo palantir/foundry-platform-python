@@ -53,7 +53,7 @@ class OrganizationClient:
     @errors.handle_unexpected
     def get(
         self,
-        organization_rid: core_models.OrganizationRid,
+        organization_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class OrganizationClient:
         """
         Get the Organization with the specified rid.
         :param organization_rid:
-        :type organization_rid: OrganizationRid
+        :type organization_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -102,7 +102,7 @@ class OrganizationClient:
     @errors.handle_unexpected
     def replace(
         self,
-        organization_rid: core_models.OrganizationRid,
+        organization_rid: core.RID,
         *,
         name: str,
         description: typing.Optional[str] = None,
@@ -114,7 +114,7 @@ class OrganizationClient:
         """
         Replace the Organization with the specified rid.
         :param organization_rid:
-        :type organization_rid: OrganizationRid
+        :type organization_rid: RID
         :param name:
         :type name: str
         :param description:

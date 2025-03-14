@@ -25,8 +25,8 @@ Clients should wait to receive a response before sending the next message.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to. |  |
 **contexts_override** | Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
@@ -46,9 +46,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
@@ -109,8 +109,8 @@ Note that canceling an exchange does not terminate the stream returned by `strea
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **message_id** | UUID | The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **response** | Optional[AgentMarkdownResponse] | When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.  | [optional] |
@@ -129,9 +129,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # UUID | The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
 message_id = "00f8412a-c29d-4063-a417-8052825285a5"
@@ -178,7 +178,7 @@ Use `blockingContinue` or `streamingContinue` to start adding exchanges to the s
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
 **agent_version** | Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -196,7 +196,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[AgentVersionString] | The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
 agent_version = "1.0"
@@ -237,8 +237,8 @@ Get the details of a conversation session between the calling user and an Agent.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -255,9 +255,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -300,7 +300,7 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -319,7 +319,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -366,7 +366,7 @@ Sessions are returned in order of most recently updated first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -385,7 +385,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -431,8 +431,8 @@ This allows clients to pre-retrieve context for a user message before sending it
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message to retrieve relevant context for from the configured Agent data sources. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -451,9 +451,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
 parameter_inputs = {"customerName": {"type": "string", "value": "Titan Technologies"}}
@@ -505,8 +505,8 @@ Clients should wait to receive a response, or cancel the in-progress exchange, b
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **parameter_inputs** | Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.  |  |
 **user_input** | Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to. |  |
 **contexts_override** | Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
@@ -527,9 +527,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
@@ -592,8 +592,8 @@ Use this to set a custom title for a session to help identify it in the list of 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
-**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**agent_rid** | RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | RID | The Resource Identifier (RID) of the conversation session. |  |
 **title** | str | The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -611,9 +611,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# RID | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
-# SessionRid | The Resource Identifier (RID) of the conversation session.
+# RID | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # str | The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.
 title = "Order status 02/01"

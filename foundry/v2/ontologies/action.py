@@ -51,8 +51,8 @@ class ActionClient:
     @errors.handle_unexpected
     def apply(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action: ontologies_models.ActionTypeApiName,
+        ontology: str,
+        action: str,
         *,
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
@@ -80,9 +80,9 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
-        :type action: ActionTypeApiName
+        :type action: str
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -144,8 +144,8 @@ class ActionClient:
     @errors.handle_unexpected
     def apply_batch(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action: ontologies_models.ActionTypeApiName,
+        ontology: str,
+        action: str,
         *,
         requests: typing.List[
             typing.Union[
@@ -177,9 +177,9 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
-        :type action: ActionTypeApiName
+        :type action: str
         :param requests:
         :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
         :param artifact_repository: The repository associated with a marketplace installation.

@@ -17,7 +17,7 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**attachment_rid** | AttachmentRid | The RID of the attachment. |  |
+**attachment_rid** | RID | The RID of the attachment. |  |
 
 ### Return type
 **AttachmentV2**
@@ -33,7 +33,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AttachmentRid | The RID of the attachment.
+# RID | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
 
 
@@ -72,7 +72,7 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**attachment_rid** | AttachmentRid | The RID of the attachment. |  |
+**attachment_rid** | RID | The RID of the attachment. |  |
 
 ### Return type
 **bytes**
@@ -88,7 +88,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# AttachmentRid | The RID of the attachment.
+# RID | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
 
 
@@ -132,9 +132,9 @@ following operation scopes: `api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | bytes | Body of the request |  |
-**content_length** | ContentLength | The size in bytes of the file content being uploaded. |  |
-**content_type** | ContentType | The media type of the file being uploaded. |  |
-**filename** | Filename | The name of the file being uploaded. |  |
+**content_length** | Long | The size in bytes of the file content being uploaded. |  |
+**content_type** | str | The media type of the file being uploaded. |  |
+**filename** | str | The name of the file being uploaded. |  |
 
 ### Return type
 **AttachmentV2**
@@ -152,11 +152,11 @@ foundry_client = FoundryClient(
 
 # bytes | Body of the request
 body = None
-# ContentLength | The size in bytes of the file content being uploaded.
+# Long | The size in bytes of the file content being uploaded.
 content_length = None
-# ContentType | The media type of the file being uploaded.
+# str | The media type of the file being uploaded.
 content_type = None
-# Filename | The name of the file being uploaded.
+# str | The name of the file being uploaded.
 filename = "My Image.jpeg"
 
 

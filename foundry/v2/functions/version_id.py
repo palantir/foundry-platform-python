@@ -53,8 +53,8 @@ class VersionIdClient:
     @errors.handle_unexpected
     def get(
         self,
-        value_type_rid: functions_models.ValueTypeRid,
-        version_id_version_id: functions_models.ValueTypeVersionId,
+        value_type_rid: core.RID,
+        version_id_version_id: core.UUID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -64,9 +64,9 @@ class VersionIdClient:
         Gets a specific value type with the given RID. The specified version is returned.
 
         :param value_type_rid:
-        :type value_type_rid: ValueTypeRid
+        :type value_type_rid: RID
         :param version_id_version_id:
-        :type version_id_version_id: ValueTypeVersionId
+        :type version_id_version_id: UUID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

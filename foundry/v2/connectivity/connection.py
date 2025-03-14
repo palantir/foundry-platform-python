@@ -160,7 +160,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def get(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -169,7 +169,7 @@ class ConnectionClient:
         """
         Get the Connection with the specified rid.
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -213,7 +213,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def get_configuration(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -224,7 +224,7 @@ class ConnectionClient:
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -266,7 +266,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def update_secrets(
         self,
-        connection_rid: connectivity_models.ConnectionRid,
+        connection_rid: core.RID,
         *,
         secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -287,7 +287,7 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param connection_rid:
-        :type connection_rid: ConnectionRid
+        :type connection_rid: RID
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
         :param preview: Enables the use of preview functionality.

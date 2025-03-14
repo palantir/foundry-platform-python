@@ -51,8 +51,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -64,9 +64,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid: The Resource Identifier (RID) of the Transaction.
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -99,8 +99,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -112,9 +112,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid: The Resource Identifier (RID) of the Transaction.
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -147,7 +147,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         transaction_type: typing.Optional[datasets_models.TransactionType] = None,
@@ -160,7 +160,7 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Transaction.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_type:
@@ -206,8 +206,8 @@ class TransactionClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        transaction_rid: datasets_models.TransactionRid,
+        dataset_rid: core.RID,
+        transaction_rid: core.RID,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -218,9 +218,9 @@ class TransactionClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Transaction.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param transaction_rid: The Resource Identifier (RID) of the Transaction.
-        :type transaction_rid: TransactionRid
+        :type transaction_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

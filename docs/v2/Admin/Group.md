@@ -90,7 +90,7 @@ Delete the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 
 ### Return type
 **None**
@@ -106,7 +106,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 
 
@@ -141,7 +141,7 @@ Get the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | str |  |  |
 
 ### Return type
 **Group**
@@ -157,7 +157,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# PrincipalId
+# str
 group_id = None
 
 

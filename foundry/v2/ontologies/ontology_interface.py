@@ -53,8 +53,8 @@ class OntologyInterfaceClient:
     @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        interface_type: ontologies_models.InterfaceTypeApiName,
+        ontology: str,
+        interface_type: str,
         *,
         aggregation: typing.List[
             typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
@@ -90,9 +90,9 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
-        :type interface_type: InterfaceTypeApiName
+        :type interface_type: str
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
@@ -165,8 +165,8 @@ class OntologyInterfaceClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
-        interface_type: ontologies_models.InterfaceTypeApiName,
+        ontology: str,
+        interface_type: str,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -183,9 +183,9 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
-        :type interface_type: InterfaceTypeApiName
+        :type interface_type: str
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -222,7 +222,7 @@ class OntologyInterfaceClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -244,7 +244,7 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -286,7 +286,7 @@ class OntologyInterfaceClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology: ontologies_models.OntologyIdentifier,
+        ontology: str,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -308,7 +308,7 @@ class OntologyInterfaceClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
+        :type ontology: str
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:

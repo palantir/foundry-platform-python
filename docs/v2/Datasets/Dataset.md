@@ -69,7 +69,7 @@ Get the Dataset with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
+**dataset_rid** | RID |  |  |
 
 ### Return type
 **Dataset**
@@ -85,7 +85,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
 
 
@@ -123,7 +123,7 @@ This endpoint currently does not support views (virtual datasets composed of oth
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid |  |  |
+**dataset_rid** | RID |  |  |
 **format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch.  | [optional] |
 **columns** | Optional[List[str]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
@@ -145,7 +145,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetRid
+# RID
 dataset_rid = None
 # TableExportFormat | The export format. Must be `ARROW` or `CSV`.
 format = None

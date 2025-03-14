@@ -21,8 +21,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
-**transaction_id** | TransactionId |  |  |
+**media_set_rid** | RID |  |  |
+**transaction_id** | UUID |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -39,9 +39,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
-# TransactionId
+# UUID
 transaction_id = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -83,8 +83,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
-**transaction_id** | TransactionId |  |  |
+**media_set_rid** | RID |  |  |
+**transaction_id** | UUID |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -101,9 +101,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
-# TransactionId
+# UUID
 transaction_id = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -145,12 +145,12 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
+**media_set_rid** | RID |  |  |
 **branch_name** | Optional[BranchName] | The branch on which to open the transaction. Defaults to `master` for most enrollments.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
-**TransactionId**
+**UUID**
 
 ### Example
 
@@ -163,7 +163,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
 # Optional[BranchName] | The branch on which to open the transaction. Defaults to `master` for most enrollments.
 branch_name = None
@@ -193,7 +193,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | TransactionId  |  | application/json |
+**200** | UUID  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -207,8 +207,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
-**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**media_set_rid** | RID | The RID of the media set.  |  |
+**media_item_rid** | RID | The RID of the media item.  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
@@ -226,9 +226,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | The RID of the media set.
+# RID | The RID of the media set.
 media_set_rid = None
-# MediaItemRid | The RID of the media item.
+# RID | The RID of the media item.
 media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -273,8 +273,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
-**media_item_rid** | MediaItemRid |  |  |
+**media_set_rid** | RID |  |  |
+**media_item_rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
@@ -292,9 +292,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
-# MediaItemRid
+# RID
 media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -339,8 +339,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
-**media_item_rid** | MediaItemRid |  |  |
+**media_set_rid** | RID |  |  |
+**media_item_rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
@@ -358,9 +358,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
-# MediaItemRid
+# RID
 media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -405,8 +405,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
-**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**media_set_rid** | RID | The RID of the media set.  |  |
+**media_item_rid** | RID | The RID of the media item.  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **read_token** | Optional[MediaItemReadToken] |  | [optional] |
 
@@ -424,9 +424,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid | The RID of the media set.
+# RID | The RID of the media set.
 media_set_rid = None
-# MediaItemRid | The RID of the media item.
+# RID | The RID of the media item.
 media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
@@ -473,7 +473,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**media_set_rid** | MediaSetRid |  |  |
+**media_set_rid** | RID |  |  |
 **body** | bytes | Body of the request |  |
 **branch_name** | Optional[BranchName] | Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided. | [optional] |
 **branch_rid** | Optional[BranchRid] | Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided. | [optional] |
@@ -496,7 +496,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MediaSetRid
+# RID
 media_set_rid = None
 # bytes | Body of the request
 body = None

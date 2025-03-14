@@ -53,7 +53,7 @@ class BranchClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: str,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -66,7 +66,7 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id:
         :type branch_id: str
         :param transaction_rid:
@@ -112,8 +112,8 @@ class BranchClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_id: datasets_models.BranchId,
+        dataset_rid: core.RID,
+        branch_id: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -124,9 +124,9 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The identifier (name) of the Branch.
-        :type branch_id: BranchId
+        :type branch_id: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -157,8 +157,8 @@ class BranchClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_id: datasets_models.BranchId,
+        dataset_rid: core.RID,
+        branch_id: str,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -169,9 +169,9 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The identifier (name) of the Branch.
-        :type branch_id: BranchId
+        :type branch_id: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -204,7 +204,7 @@ class BranchClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -217,7 +217,7 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -256,7 +256,7 @@ class BranchClient:
     @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -269,7 +269,7 @@ class BranchClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:

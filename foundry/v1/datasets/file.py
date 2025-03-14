@@ -53,8 +53,8 @@ class FileClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -80,9 +80,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
@@ -120,8 +120,8 @@ class FileClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -156,9 +156,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -201,7 +201,7 @@ class FileClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -240,7 +240,7 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -288,7 +288,7 @@ class FileClient:
     @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -327,7 +327,7 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -382,8 +382,8 @@ class FileClient:
     )
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         stream: typing.Literal[True],
         branch_id: typing.Optional[datasets_models.BranchId] = None,
@@ -421,9 +421,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -444,8 +444,8 @@ class FileClient:
     @typing_extensions.overload
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -482,9 +482,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -506,8 +506,8 @@ class FileClient:
     )
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         stream: bool,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
@@ -545,9 +545,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -570,8 +570,8 @@ class FileClient:
     @errors.handle_unexpected
     def read(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
+        dataset_rid: core.RID,
+        file_path: str,
         *,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -609,9 +609,9 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -667,10 +667,10 @@ class FileClient:
     @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core.RID,
         body: bytes,
         *,
-        file_path: core_models.FilePath,
+        file_path: str,
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         transaction_type: typing.Optional[datasets_models.TransactionType] = None,
@@ -700,11 +700,11 @@ class FileClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param body: Body of the request
         :type body: bytes
         :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
+        :type file_path: str
         :param branch_id: The identifier (name) of the Branch on which to upload the File. Defaults to `master` for most enrollments.
         :type branch_id: Optional[BranchId]
         :param transaction_rid: The Resource Identifier (RID) of the open Transaction on which to upload the File.
