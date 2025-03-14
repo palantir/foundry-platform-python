@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import typing
+from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -103,6 +104,7 @@ class Build(pydantic.BaseModel):
     """The user who created the build."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
+    job_rids: typing.List[core_models.JobRid] = pydantic.Field(alias=str("jobRids"))  # type: ignore[literal-required]
     retry_count: RetryCount = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
@@ -132,6 +134,7 @@ class BuildDict(typing_extensions.TypedDict):
     """The user who created the build."""
 
     fallbackBranches: FallbackBranches
+    jobRids: typing.List[core_models.JobRid]
     retryCount: RetryCount
     retryBackoffDuration: RetryBackoffDurationDict
     abortOnFailure: AbortOnFailure
@@ -429,6 +432,29 @@ and day of week.
 """
 
 
+class DatasetJobOutput(pydantic.BaseModel):
+    """DatasetJobOutput"""
+
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    output_transaction_rid: typing.Optional[datasets_models.TransactionRid] = pydantic.Field(alias=str("outputTransactionRid"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["datasetJobOutput"] = "datasetJobOutput"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "DatasetJobOutputDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(DatasetJobOutputDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class DatasetJobOutputDict(typing_extensions.TypedDict):
+    """DatasetJobOutput"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+    outputTransactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
+    type: typing.Literal["datasetJobOutput"]
+
+
 class DatasetUpdatedTrigger(pydantic.BaseModel):
     """
     Trigger whenever a new transaction is committed to the
@@ -516,6 +542,51 @@ class GetBuildsBatchResponseDict(typing_extensions.TypedDict):
     data: typing.Dict[core_models.BuildRid, BuildDict]
 
 
+class GetJobsBatchRequestElement(pydantic.BaseModel):
+    """GetJobsBatchRequestElement"""
+
+    job_rid: core_models.JobRid = pydantic.Field(alias=str("jobRid"))  # type: ignore[literal-required]
+    """The RID of a Job."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "GetJobsBatchRequestElementDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            GetJobsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class GetJobsBatchRequestElementDict(typing_extensions.TypedDict):
+    """GetJobsBatchRequestElement"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    jobRid: core_models.JobRid
+    """The RID of a Job."""
+
+
+class GetJobsBatchResponse(pydantic.BaseModel):
+    """GetJobsBatchResponse"""
+
+    data: typing.Dict[core_models.JobRid, Job]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "GetJobsBatchResponseDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            GetJobsBatchResponseDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class GetJobsBatchResponseDict(typing_extensions.TypedDict):
+    """GetJobsBatchResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: typing.Dict[core_models.JobRid, JobDict]
+
+
 class Job(pydantic.BaseModel):
     """Job"""
 
@@ -524,6 +595,19 @@ class Job(pydantic.BaseModel):
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     """The RID of the Build that the Job belongs to."""
+
+    started_time: JobStartedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
+    """The time this job started waiting for the dependencies to be resolved."""
+
+    finished_time: typing.Optional[datetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
+    """The time this job was finished."""
+
+    job_status: JobStatus = pydantic.Field(alias=str("jobStatus"))  # type: ignore[literal-required]
+    outputs: typing.List[JobOutput]
+    """
+    Outputs of the Job. Only outputs with supported types are listed here; unsupported types are omitted.
+    Currently supported types are Dataset and Media Set outputs.
+    """
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -542,6 +626,41 @@ class JobDict(typing_extensions.TypedDict):
 
     buildRid: core_models.BuildRid
     """The RID of the Build that the Job belongs to."""
+
+    startedTime: JobStartedTime
+    """The time this job started waiting for the dependencies to be resolved."""
+
+    finishedTime: typing_extensions.NotRequired[datetime]
+    """The time this job was finished."""
+
+    jobStatus: JobStatus
+    outputs: typing.List[JobOutputDict]
+    """
+    Outputs of the Job. Only outputs with supported types are listed here; unsupported types are omitted.
+    Currently supported types are Dataset and Media Set outputs.
+    """
+
+
+JobOutput = typing_extensions.Annotated[
+    typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
+    pydantic.Field(discriminator="type"),
+]
+"""Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
+
+
+JobOutputDict = typing_extensions.Annotated[
+    typing.Union["DatasetJobOutputDict", "TransactionalMediaSetJobOutputDict"],
+    pydantic.Field(discriminator="type"),
+]
+"""Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
+
+
+JobStartedTime = datetime
+"""The time this job started waiting for the dependencies to be resolved."""
+
+
+JobStatus = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"]
+"""The status of the job."""
 
 
 class JobSucceededTrigger(pydantic.BaseModel):
@@ -573,6 +692,29 @@ class JobSucceededTriggerDict(typing_extensions.TypedDict):
     datasetRid: datasets_models.DatasetRid
     branchName: datasets_models.BranchName
     type: typing.Literal["jobSucceeded"]
+
+
+class ListJobsOfBuildResponse(pydantic.BaseModel):
+    """ListJobsOfBuildResponse"""
+
+    data: typing.List[Job]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "ListJobsOfBuildResponseDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            ListJobsOfBuildResponseDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class ListJobsOfBuildResponseDict(typing_extensions.TypedDict):
+    """ListJobsOfBuildResponse"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: typing.List[JobDict]
+    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
 class ListRunsOfScheduleResponse(pydantic.BaseModel):
@@ -1576,6 +1718,31 @@ class TimeTriggerDict(typing_extensions.TypedDict):
     type: typing.Literal["time"]
 
 
+class TransactionalMediaSetJobOutput(pydantic.BaseModel):
+    """TransactionalMediaSetJobOutput"""
+
+    media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
+    transaction_id: typing.Optional[str] = pydantic.Field(alias=str("transactionId"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "TransactionalMediaSetJobOutputDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            TransactionalMediaSetJobOutputDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class TransactionalMediaSetJobOutputDict(typing_extensions.TypedDict):
+    """TransactionalMediaSetJobOutput"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    transactionId: typing_extensions.NotRequired[str]
+    type: typing.Literal["transactionalMediaSetJobOutput"]
+
+
 Trigger = typing_extensions.Annotated[
     typing.Union[
         "JobSucceededTrigger",
@@ -1699,6 +1866,8 @@ __all__ = [
     "CreateScheduleRequestUserScope",
     "CreateScheduleRequestUserScopeDict",
     "CronExpression",
+    "DatasetJobOutput",
+    "DatasetJobOutputDict",
     "DatasetUpdatedTrigger",
     "DatasetUpdatedTriggerDict",
     "FallbackBranches",
@@ -1707,10 +1876,20 @@ __all__ = [
     "GetBuildsBatchRequestElementDict",
     "GetBuildsBatchResponse",
     "GetBuildsBatchResponseDict",
+    "GetJobsBatchRequestElement",
+    "GetJobsBatchRequestElementDict",
+    "GetJobsBatchResponse",
+    "GetJobsBatchResponseDict",
     "Job",
     "JobDict",
+    "JobOutput",
+    "JobOutputDict",
+    "JobStartedTime",
+    "JobStatus",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
+    "ListJobsOfBuildResponse",
+    "ListJobsOfBuildResponseDict",
     "ListRunsOfScheduleResponse",
     "ListRunsOfScheduleResponseDict",
     "ManualTarget",
@@ -1792,6 +1971,8 @@ __all__ = [
     "SearchBuildsResponseDict",
     "TimeTrigger",
     "TimeTriggerDict",
+    "TransactionalMediaSetJobOutput",
+    "TransactionalMediaSetJobOutputDict",
     "Trigger",
     "TriggerDict",
     "UpstreamTarget",

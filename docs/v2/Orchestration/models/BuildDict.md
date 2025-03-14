@@ -10,6 +10,7 @@ Build
 **createdTime** | CreatedTime | Yes | The timestamp that the build was created. |
 **createdBy** | CreatedBy | Yes | The user who created the build. |
 **fallbackBranches** | FallbackBranches | Yes |  |
+**jobRids** | List[JobRid] | Yes |  |
 **retryCount** | RetryCount | Yes |  |
 **retryBackoffDuration** | RetryBackoffDurationDict | Yes |  |
 **abortOnFailure** | AbortOnFailure | Yes |  |

@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -97,16 +98,77 @@ class JobClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[
+                typing.Union[
+                    orchestration_models.GetJobsBatchRequestElement,
+                    orchestration_models.GetJobsBatchRequestElementDict,
+                ]
+            ],
+            annotated_types.Len(min_length=1, max_length=500),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> orchestration_models.GetJobsBatchResponse:
+        """
+        Execute multiple get requests on Job.
+
+        The maximum batch size for this endpoint is 500.
+        :param body: Body of the request
+        :type body: List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: orchestration_models.GetJobsBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/jobs/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetJobsBatchRequestElementDict],
+                    annotated_types.Len(min_length=1, max_length=500),
+                ],
+                response_type=orchestration_models.GetJobsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _JobClientRaw:
     def __init__(self, client: JobClient) -> None:
         def get(_: orchestration_models.Job): ...
+        def get_batch(_: orchestration_models.GetJobsBatchResponse): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_batch = core.with_raw_response(get_batch, client.get_batch)
 
 
 class _JobClientStreaming:
     def __init__(self, client: JobClient) -> None:
         def get(_: orchestration_models.Job): ...
+        def get_batch(_: orchestration_models.GetJobsBatchResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
