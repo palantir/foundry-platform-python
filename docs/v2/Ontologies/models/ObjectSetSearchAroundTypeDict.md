@@ -6,7 +6,7 @@ ObjectSetSearchAroundType
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **objectSet** | ObjectSetDict | Yes |  |
-**link** | LinkTypeApiName | Yes |  |
+**link** | str | Yes |  |
 **type** | Literal["searchAround"] | Yes | None |
 
 

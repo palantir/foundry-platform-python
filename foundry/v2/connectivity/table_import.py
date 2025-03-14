@@ -62,8 +62,8 @@ class TableImportClient:
             connectivity_models.CreateTableImportRequestTableImportConfig,
             connectivity_models.CreateTableImportRequestTableImportConfigDict,
         ],
-        dataset_rid: datasets_models.DatasetRid,
-        display_name: connectivity_models.TableImportDisplayName,
+        dataset_rid: core.RID,
+        display_name: str,
         import_mode: connectivity_models.TableImportMode,
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
@@ -80,9 +80,9 @@ class TableImportClient:
         :param config:
         :type config: Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param display_name:
-        :type display_name: TableImportDisplayName
+        :type display_name: str
         :param import_mode:
         :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
@@ -129,9 +129,9 @@ class TableImportClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
+                        "datasetRid": core.RID,
                         "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
+                        "displayName": str,
                         "allowSchemaChanges": typing.Optional[
                             connectivity_models.TableImportAllowSchemaChanges
                         ],

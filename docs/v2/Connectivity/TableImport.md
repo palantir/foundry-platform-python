@@ -18,8 +18,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **config** | Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
-**display_name** | TableImportDisplayName |  |  |
+**dataset_rid** | RID | The RID of the output dataset. |  |
+**display_name** | str |  |  |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
@@ -43,9 +43,9 @@ foundry_client = FoundryClient(
 connection_rid = None
 # Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
 config = None
-# DatasetRid | The RID of the output dataset.
+# RID | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# TableImportDisplayName
+# str
 display_name = "My table import"
 # TableImportMode
 import_mode = "SNAPSHOT"

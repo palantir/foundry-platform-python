@@ -104,7 +104,7 @@ class UserProviderInfoClient:
         self,
         user_id: core_models.PrincipalId,
         *,
-        provider_id: admin_models.ProviderId,
+        provider_id: str,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -114,7 +114,7 @@ class UserProviderInfoClient:
         :param user_id:
         :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
-        :type provider_id: ProviderId
+        :type provider_id: str
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -145,7 +145,7 @@ class UserProviderInfoClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "providerId": admin_models.ProviderId,
+                        "providerId": str,
                     },
                 ),
                 response_type=admin_models.UserProviderInfo,

@@ -5,7 +5,7 @@ SearchOrderingV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | str | Yes |  |
 **direction** | Optional[str] | No | Specifies the ordering direction (can be either `asc` or `desc`) |
 
 

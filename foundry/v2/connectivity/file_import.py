@@ -58,8 +58,8 @@ class FileImportClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: datasets_models.DatasetRid,
-        display_name: connectivity_models.FileImportDisplayName,
+        dataset_rid: core.RID,
+        display_name: str,
         file_import_filters: typing.List[
             typing.Union[
                 connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
@@ -77,9 +77,9 @@ class FileImportClient:
         :param connection_rid:
         :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: str
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
@@ -133,9 +133,9 @@ class FileImportClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
+                        "datasetRid": core.RID,
                         "importMode": connectivity_models.FileImportMode,
-                        "displayName": connectivity_models.FileImportDisplayName,
+                        "displayName": str,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
                         "fileImportFilters": typing.List[
@@ -451,8 +451,8 @@ class FileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: datasets_models.DatasetRid,
-        display_name: connectivity_models.FileImportDisplayName,
+        dataset_rid: core.RID,
+        display_name: str,
         file_import_filters: typing.List[
             typing.Union[
                 connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
@@ -472,9 +472,9 @@ class FileImportClient:
         :param file_import_rid:
         :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
+        :type dataset_rid: RID
         :param display_name:
-        :type display_name: FileImportDisplayName
+        :type display_name: str
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
@@ -525,9 +525,9 @@ class FileImportClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
+                        "datasetRid": core.RID,
                         "importMode": connectivity_models.FileImportMode,
-                        "displayName": connectivity_models.FileImportDisplayName,
+                        "displayName": str,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
                         "fileImportFilters": typing.List[

@@ -1,6 +1,6 @@
-# PolygonValue
+# Polygon
 
-PolygonValue
+Polygon
 
 ## Properties
 | Name | Type | Required | Description |

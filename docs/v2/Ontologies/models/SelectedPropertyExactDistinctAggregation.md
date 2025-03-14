@@ -6,7 +6,7 @@ Computes an exact number of distinct values for the provided field. May be slowe
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selected_property_api_name** | PropertyApiName | Yes |  |
+**selected_property_api_name** | str | Yes |  |
 **type** | Literal["exactDistinct"] | Yes | None |
 
 

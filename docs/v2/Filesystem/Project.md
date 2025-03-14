@@ -82,10 +82,10 @@ When creating the application, select "No, I won't use an Ontology SDK" on the R
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **default_roles** | List[RoleId] |  |  |
-**display_name** | ResourceDisplayName |  |  |
+**display_name** | str |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
 **role_grants** | Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
-**space_rid** | SpaceRid |  |  |
+**space_rid** | RID |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -105,7 +105,7 @@ foundry_client = FoundryClient(
 
 # List[RoleId]
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
-# ResourceDisplayName
+# str
 display_name = "My Important Project"
 # List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
@@ -115,7 +115,7 @@ role_grants = {
         {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
     ]
 }
-# SpaceRid
+# RID
 space_rid = "ri.compass.main.folder.a86ad5f5-3db5-48e4-9fdd-00aa3e5731ca"
 # Optional[str]
 description = "project description"
@@ -160,7 +160,7 @@ Creates a project from a project template.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**template_rid** | ProjectTemplateRid |  |  |
+**template_rid** | RID |  |  |
 **variable_values** | Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
 **default_roles** | Optional[List[RoleId]] |  | [optional] |
 **organization_rids** | Optional[List[OrganizationRid]] |  | [optional] |
@@ -181,7 +181,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# ProjectTemplateRid
+# RID
 template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
 variable_values = {"name": "my project name"}

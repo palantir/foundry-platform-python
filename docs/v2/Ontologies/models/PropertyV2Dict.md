@@ -8,7 +8,7 @@ Details about some property of an object.
 **description** | NotRequired[str] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
-**rid** | PropertyTypeRid | Yes |  |
+**rid** | RID | Yes |  |
 **status** | NotRequired[PropertyTypeStatusDict] | No |  |
 **visibility** | NotRequired[PropertyTypeVisibility] | No |  |
 

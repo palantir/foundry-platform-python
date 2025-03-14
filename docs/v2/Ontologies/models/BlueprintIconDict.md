@@ -1,6 +1,6 @@
-# Icon
+# BlueprintIconDict
 
-A union currently only consisting of the BlueprintIcon (more icon types may be added in the future).
+BlueprintIcon
 
 ## Properties
 | Name | Type | Required | Description |

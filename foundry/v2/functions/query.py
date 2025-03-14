@@ -172,7 +172,7 @@ class QueryClient:
     def get_by_rid(
         self,
         *,
-        rid: functions_models.FunctionRid,
+        rid: core.RID,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -181,7 +181,7 @@ class QueryClient:
         Gets a specific query type with the given RID.
 
         :param rid:
-        :type rid: FunctionRid
+        :type rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -210,7 +210,7 @@ class QueryClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "rid": functions_models.FunctionRid,
+                        "rid": core.RID,
                     },
                 ),
                 response_type=functions_models.Query,

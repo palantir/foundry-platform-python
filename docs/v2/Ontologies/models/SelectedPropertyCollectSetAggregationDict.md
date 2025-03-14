@@ -12,7 +12,7 @@ Returns an empty list when none of the objects have values for a provided proper
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | PropertyApiName | Yes |  |
+**selectedPropertyApiName** | str | Yes |  |
 **limit** | int | Yes | Maximum number of values to collect. The maximum supported limit is 100.  |
 **type** | Literal["collectSet"] | Yes | None |
 

@@ -5,16 +5,16 @@ Represents an object type in the Ontology.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**apiName** | ObjectTypeApiName | Yes |  |
-**displayName** | DisplayName | Yes |  |
+**apiName** | str | Yes |  |
+**displayName** | str | Yes |  |
 **status** | ReleaseStatus | Yes |  |
 **description** | NotRequired[str] | No | The description of the object type. |
 **pluralDisplayName** | str | Yes | The plural display name of the object type. |
-**icon** | IconDict | Yes |  |
-**primaryKey** | PropertyApiName | Yes |  |
+**icon** | BlueprintIconDict | Yes |  |
+**primaryKey** | str | Yes |  |
 **properties** | Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
-**rid** | ObjectTypeRid | Yes |  |
-**titleProperty** | PropertyApiName | Yes |  |
+**rid** | RID | Yes |  |
+**titleProperty** | str | Yes |  |
 **visibility** | NotRequired[ObjectTypeVisibility] | No |  |
 
 

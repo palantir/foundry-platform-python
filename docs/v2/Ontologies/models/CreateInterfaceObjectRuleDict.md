@@ -5,7 +5,7 @@ CreateInterfaceObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**interfaceTypeApiName** | InterfaceTypeApiName | Yes |  |
+**interfaceTypeApiName** | str | Yes |  |
 **type** | Literal["createInterfaceObject"] | Yes | None |
 
 

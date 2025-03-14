@@ -14,7 +14,7 @@ Deploy a version of the Website.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**version** | VersionVersion |  |  |
+**version** | str |  |  |
 
 ### Return type
 **Website**
@@ -34,7 +34,7 @@ foundry_client = FoundryClient(
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# VersionVersion
+# str
 version = "1.2.0"
 
 

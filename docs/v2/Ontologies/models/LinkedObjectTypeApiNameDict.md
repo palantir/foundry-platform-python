@@ -5,7 +5,7 @@ A reference to the linked object type.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**apiName** | ObjectTypeApiName | Yes |  |
+**apiName** | str | Yes |  |
 **type** | Literal["objectTypeApiName"] | Yes | None |
 
 

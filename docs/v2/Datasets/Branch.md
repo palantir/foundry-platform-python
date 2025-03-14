@@ -17,7 +17,7 @@ Creates a branch on an existing dataset. A branch may optionally point to a (com
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
-**name** | BranchName |  |  |
+**name** | str |  |  |
 **transaction_rid** | Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction. | [optional] |
 
 ### Return type
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
 
 # DatasetRid
 dataset_rid = None
-# BranchName
+# str
 name = "master"
 # Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
 transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"

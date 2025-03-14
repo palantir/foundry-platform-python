@@ -5,12 +5,12 @@ Marking
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**id** | MarkingId | Yes |  |
-**category_id** | MarkingCategoryId | Yes |  |
-**name** | MarkingName | Yes |  |
+**id** | UUID | Yes |  |
+**category_id** | str | Yes |  |
+**name** | str | Yes |  |
 **description** | Optional[str] | No |  |
 **organization** | Optional[OrganizationRid] | No | If this marking is associated with an Organization, its RID will be populated here.  |
-**created_time** | CreatedTime | Yes |  |
+**created_time** | datetime | Yes |  |
 **created_by** | Optional[CreatedBy] | No |  |
 
 

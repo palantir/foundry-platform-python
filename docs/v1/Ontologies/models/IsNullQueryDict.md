@@ -5,7 +5,7 @@ Returns objects based on the existence of the specified field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | FieldNameV1 | Yes |  |
+**field** | str | Yes |  |
 **value** | bool | Yes |  |
 **type** | Literal["isNull"] | Yes | None |
 

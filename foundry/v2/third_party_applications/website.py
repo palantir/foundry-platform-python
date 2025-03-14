@@ -65,7 +65,7 @@ class WebsiteClient:
         self,
         third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
         *,
-        version: third_party_applications_models.VersionVersion,
+        version: str,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> third_party_applications_models.Website:
@@ -74,7 +74,7 @@ class WebsiteClient:
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
         :param version:
-        :type version: VersionVersion
+        :type version: str
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -101,7 +101,7 @@ class WebsiteClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "version": third_party_applications_models.VersionVersion,
+                        "version": str,
                     },
                 ),
                 response_type=third_party_applications_models.Website,

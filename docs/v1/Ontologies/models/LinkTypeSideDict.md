@@ -5,10 +5,10 @@ LinkTypeSide
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**apiName** | LinkTypeApiName | Yes |  |
-**displayName** | DisplayName | Yes |  |
+**apiName** | str | Yes |  |
+**displayName** | str | Yes |  |
 **status** | ReleaseStatus | Yes |  |
-**objectTypeApiName** | ObjectTypeApiName | Yes |  |
+**objectTypeApiName** | str | Yes |  |
 **cardinality** | LinkTypeSideCardinality | Yes |  |
 **foreignKeyPropertyApiName** | NotRequired[PropertyApiName] | No |  |
 

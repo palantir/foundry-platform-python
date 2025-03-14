@@ -104,7 +104,7 @@ class OrganizationClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        name: admin_models.OrganizationName,
+        name: str,
         description: typing.Optional[str] = None,
         host: typing.Optional[admin_models.HostName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -116,7 +116,7 @@ class OrganizationClient:
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param name:
-        :type name: OrganizationName
+        :type name: str
         :param description:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
@@ -154,7 +154,7 @@ class OrganizationClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": admin_models.OrganizationName,
+                        "name": str,
                         "host": typing.Optional[admin_models.HostName],
                         "description": typing.Optional[str],
                     },

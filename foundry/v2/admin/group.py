@@ -78,7 +78,7 @@ class GroupClient:
         self,
         *,
         attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
-        name: admin_models.GroupName,
+        name: str,
         organizations: typing.List[core_models.OrganizationRid],
         description: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -89,7 +89,7 @@ class GroupClient:
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
         :type attributes: Dict[AttributeName, AttributeValues]
         :param name: The name of the Group.
-        :type name: GroupName
+        :type name: str
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
         :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
@@ -125,7 +125,7 @@ class GroupClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": admin_models.GroupName,
+                        "name": str,
                         "organizations": typing.List[core_models.OrganizationRid],
                         "description": typing.Optional[str],
                         "attributes": typing.Dict[

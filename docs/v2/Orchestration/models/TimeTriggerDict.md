@@ -5,8 +5,8 @@ Trigger on a time based schedule.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**cronExpression** | CronExpression | Yes |  |
-**timeZone** | ZoneId | Yes |  |
+**cronExpression** | str | Yes |  |
+**timeZone** | str | Yes |  |
 **type** | Literal["time"] | Yes | None |
 
 

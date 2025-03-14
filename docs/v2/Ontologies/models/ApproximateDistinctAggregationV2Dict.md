@@ -5,7 +5,7 @@ Computes an approximate number of distinct values for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | str | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
 **direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["approximateDistinct"] | Yes | None |

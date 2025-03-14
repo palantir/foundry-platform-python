@@ -115,7 +115,7 @@ class ProjectClient:
         self,
         *,
         default_roles: typing.List[core_models.RoleId],
-        display_name: filesystem_models.ResourceDisplayName,
+        display_name: str,
         organization_rids: typing.List[core_models.OrganizationRid],
         role_grants: typing.Dict[
             core_models.RoleId,
@@ -125,7 +125,7 @@ class ProjectClient:
                 ]
             ],
         ],
-        space_rid: filesystem_models.SpaceRid,
+        space_rid: core.RID,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -141,13 +141,13 @@ class ProjectClient:
         :param default_roles:
         :type default_roles: List[RoleId]
         :param display_name:
-        :type display_name: ResourceDisplayName
+        :type display_name: str
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
         :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
-        :type space_rid: SpaceRid
+        :type space_rid: RID
         :param description:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
@@ -190,9 +190,9 @@ class ProjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": filesystem_models.ResourceDisplayName,
+                        "displayName": str,
                         "description": typing.Optional[str],
-                        "spaceRid": filesystem_models.SpaceRid,
+                        "spaceRid": core.RID,
                         "roleGrants": typing.Dict[
                             core_models.RoleId,
                             typing.List[
@@ -228,7 +228,7 @@ class ProjectClient:
     def create_from_template(
         self,
         *,
-        template_rid: filesystem_models.ProjectTemplateRid,
+        template_rid: core.RID,
         variable_values: typing.Dict[
             filesystem_models.ProjectTemplateVariableId,
             filesystem_models.ProjectTemplateVariableValue,
@@ -243,7 +243,7 @@ class ProjectClient:
         """
         Creates a project from a project template.
         :param template_rid:
-        :type template_rid: ProjectTemplateRid
+        :type template_rid: RID
         :param variable_values:
         :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
         :param default_roles:
@@ -299,7 +299,7 @@ class ProjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "templateRid": filesystem_models.ProjectTemplateRid,
+                        "templateRid": core.RID,
                         "variableValues": typing.Dict[
                             filesystem_models.ProjectTemplateVariableId,
                             filesystem_models.ProjectTemplateVariableValue,

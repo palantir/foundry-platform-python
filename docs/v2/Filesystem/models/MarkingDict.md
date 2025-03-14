@@ -9,8 +9,8 @@ Markings applied to a resource to access it.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**markingId** | MarkingId | Yes |  |
-**isDirectlyApplied** | IsDirectlyApplied | Yes |  |
+**markingId** | UUID | Yes |  |
+**isDirectlyApplied** | bool | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -5,7 +5,7 @@ DeleteObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**objectTypeApiName** | ObjectTypeApiName | Yes |  |
+**objectTypeApiName** | str | Yes |  |
 **type** | Literal["deleteObject"] | Yes | None |
 
 

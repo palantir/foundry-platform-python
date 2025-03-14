@@ -5,7 +5,7 @@ OntologyInterfaceObjectType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**interfaceTypeApiName** | InterfaceTypeApiName | Yes |  |
+**interfaceTypeApiName** | str | Yes |  |
 **type** | Literal["interfaceObject"] | Yes | None |
 
 

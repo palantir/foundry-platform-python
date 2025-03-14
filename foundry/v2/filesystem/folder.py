@@ -175,8 +175,8 @@ class FolderClient:
     def create(
         self,
         *,
-        display_name: filesystem_models.ResourceDisplayName,
-        parent_folder_rid: filesystem_models.FolderRid,
+        display_name: str,
+        parent_folder_rid: core.RID,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -184,9 +184,9 @@ class FolderClient:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: ResourceDisplayName
+        :type display_name: str
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -217,8 +217,8 @@ class FolderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "displayName": filesystem_models.ResourceDisplayName,
+                        "parentFolderRid": core.RID,
+                        "displayName": str,
                     },
                 ),
                 response_type=filesystem_models.Folder,

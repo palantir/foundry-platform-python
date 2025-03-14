@@ -27,7 +27,7 @@ from foundry import _core as core
 class Branch(pydantic.BaseModel):
     """A Branch of a Dataset."""
 
-    branch_id: BranchId = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
+    branch_id: str = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -41,7 +41,7 @@ class BranchDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    branchId: BranchId
+    branchId: str
     transactionRid: typing_extensions.NotRequired[TransactionRid]
 
 
@@ -52,9 +52,9 @@ BranchId = str
 class Dataset(pydantic.BaseModel):
     """Dataset"""
 
-    rid: DatasetRid
-    name: DatasetName
-    parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    rid: core.RID
+    name: str
+    parent_folder_rid: core.RID = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DatasetDict":
@@ -67,9 +67,9 @@ class DatasetDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: DatasetRid
-    name: DatasetName
-    parentFolderRid: core_models.FolderRid
+    rid: core.RID
+    name: str
+    parentFolderRid: core.RID
 
 
 DatasetName = str
@@ -83,8 +83,8 @@ DatasetRid = core.RID
 class File(pydantic.BaseModel):
     """File"""
 
-    path: core_models.FilePath
-    transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
+    path: str
+    transaction_rid: core.RID = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
     size_bytes: typing.Optional[core.Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
     updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -99,8 +99,8 @@ class FileDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    path: core_models.FilePath
-    transactionRid: TransactionRid
+    path: str
+    transactionRid: core.RID
     sizeBytes: typing_extensions.NotRequired[core.Long]
     updatedTime: datetime
 
@@ -159,7 +159,7 @@ TableExportFormat = typing.Literal["ARROW", "CSV"]
 class Transaction(pydantic.BaseModel):
     """An operation that modifies the files within a dataset."""
 
-    rid: TransactionRid
+    rid: core.RID
     transaction_type: TransactionType = pydantic.Field(alias=str("transactionType"))  # type: ignore[literal-required]
     status: TransactionStatus
     created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
@@ -180,7 +180,7 @@ class TransactionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: TransactionRid
+    rid: core.RID
     transactionType: TransactionType
     status: TransactionStatus
     createdTime: datetime

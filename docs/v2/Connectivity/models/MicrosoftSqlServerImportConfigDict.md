@@ -1,6 +1,6 @@
 # MicrosoftSqlServerImportConfigDict
 
-The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server).
+The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server).
 
 
 ## Properties

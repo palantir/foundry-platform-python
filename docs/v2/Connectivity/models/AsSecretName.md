@@ -5,7 +5,7 @@ AsSecretName
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | SecretName | Yes |  |
+**value** | str | Yes |  |
 **type** | Literal["asSecretName"] | Yes | None |
 
 

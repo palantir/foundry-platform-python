@@ -5,7 +5,7 @@ TransactionalMediaSetJobOutput
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**mediaSetRid** | MediaSetRid | Yes |  |
+**mediaSetRid** | RID | Yes |  |
 **transactionId** | NotRequired[str] | No |  |
 **type** | Literal["transactionalMediaSetJobOutput"] | Yes | None |
 

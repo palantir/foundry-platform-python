@@ -5,9 +5,9 @@ MediaSetViewItem
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**mediaSetRid** | MediaSetRid | Yes |  |
-**mediaSetViewRid** | MediaSetViewRid | Yes |  |
-**mediaItemRid** | MediaItemRid | Yes |  |
+**mediaSetRid** | RID | Yes |  |
+**mediaSetViewRid** | RID | Yes |  |
+**mediaItemRid** | RID | Yes |  |
 **token** | NotRequired[MediaItemReadToken] | No |  |
 
 

@@ -9,8 +9,8 @@ eventually (but not necessary immediately) after an update.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**mediaSetRid** | MediaSetRid | Yes |  |
-**branchName** | BranchName | Yes |  |
+**mediaSetRid** | RID | Yes |  |
+**branchName** | str | Yes |  |
 **type** | Literal["mediaSetUpdated"] | Yes | None |
 
 

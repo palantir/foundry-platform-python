@@ -5,9 +5,9 @@ Represents an interface type in the Ontology.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | InterfaceTypeRid | Yes |  |
-**apiName** | InterfaceTypeApiName | Yes |  |
-**displayName** | DisplayName | Yes |  |
+**rid** | RID | Yes |  |
+**apiName** | str | Yes |  |
+**displayName** | str | Yes |  |
 **description** | NotRequired[str] | No | The description of the interface. |
 **properties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has. A shared property type must be unique across all of the properties.  |
 **allProperties** | Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict] | Yes | A map from a shared property type API name to the corresponding shared property type. The map describes the  set of properties the interface has, including properties from all directly and indirectly extended  interfaces.  |

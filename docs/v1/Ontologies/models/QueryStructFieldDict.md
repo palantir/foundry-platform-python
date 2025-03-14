@@ -5,7 +5,7 @@ QueryStructField
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | StructFieldName | Yes |  |
+**name** | str | Yes |  |
 **fieldType** | QueryDataTypeDict | Yes |  |
 
 

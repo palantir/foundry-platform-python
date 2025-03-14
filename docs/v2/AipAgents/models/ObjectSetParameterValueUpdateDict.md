@@ -5,7 +5,7 @@ ObjectSetParameterValueUpdate
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | ObjectSetRid | Yes |  |
+**value** | RID | Yes |  |
 **type** | Literal["objectSet"] | Yes | None |
 
 

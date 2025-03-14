@@ -6,7 +6,7 @@ The coordinate point to use as the center of the distance query.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**center** | CenterPointTypes | Yes |  |
+**center** | GeoPoint | Yes |  |
 **distance** | Distance | Yes |  |
 
 

@@ -85,8 +85,8 @@ class DatasetClient:
     def create(
         self,
         *,
-        name: datasets_models.DatasetName,
-        parent_folder_rid: core_models.FolderRid,
+        name: str,
+        parent_folder_rid: core.RID,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Dataset:
@@ -96,9 +96,9 @@ class DatasetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param name:
-        :type name: DatasetName
+        :type name: str
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -122,8 +122,8 @@ class DatasetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": datasets_models.DatasetName,
-                        "parentFolderRid": core_models.FolderRid,
+                        "name": str,
+                        "parentFolderRid": core.RID,
                     },
                 ),
                 response_type=datasets_models.Dataset,

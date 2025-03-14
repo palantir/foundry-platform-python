@@ -7,7 +7,7 @@ Represents the API response when loading an `ObjectSet`.
 | ------------ | ------------- | ------------- | ------------- |
 **data** | List[OntologyObjectV2] | Yes | The list of objects in the current Page. |
 **next_page_token** | Optional[PageToken] | No |  |
-**total_count** | TotalCount | Yes |  |
+**total_count** | Long | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

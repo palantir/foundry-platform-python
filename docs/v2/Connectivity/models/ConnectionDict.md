@@ -5,10 +5,9 @@ Connection
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | ConnectionRid | Yes |  |
-**parentFolderRid** | FolderRid | Yes |  |
-**displayName** | ConnectionDisplayName | Yes | The display name of the Connection. The display name must not be blank. |
-**runtimePlatform** | RuntimePlatformDict | Yes |  |
+**rid** | RID | Yes |  |
+**parentFolderRid** | RID | Yes |  |
+**displayName** | str | Yes | The display name of the Connection. The display name must not be blank. |
 **configuration** | ConnectionConfigurationDict | Yes |  |
 
 

@@ -9,7 +9,7 @@ variety of means. Either `field` or `propertyIdentifier` must be supplied, but n
 | ------------ | ------------- | ------------- | ------------- |
 **field** | NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
-**value** | PropertyValue | Yes |  |
+**value** | Any | Yes |  |
 **type** | Literal["contains"] | Yes | None |
 
 

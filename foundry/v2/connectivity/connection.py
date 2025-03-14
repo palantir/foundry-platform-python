@@ -24,7 +24,6 @@ from foundry import _errors as errors
 from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity import models as connectivity_models
 from foundry.v2.core import models as core_models
-from foundry.v2.filesystem import models as filesystem_models
 
 
 class ConnectionClient:
@@ -80,18 +79,15 @@ class ConnectionClient:
             connectivity_models.CreateConnectionRequestConnectionConfiguration,
             connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
         ],
-        display_name: connectivity_models.ConnectionDisplayName,
-        parent_folder_rid: filesystem_models.FolderRid,
-        runtime_platform: typing.Union[
-            connectivity_models.CreateConnectionRequestRuntimePlatform,
-            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
-        ],
+        display_name: str,
+        parent_folder_rid: core.RID,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
         """
-        Creates a new Connection.
+        Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
         secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
         be processed as needed. They will stay in plaintext in memory until the garbage collection process cleans
@@ -103,11 +99,9 @@ class ConnectionClient:
         :param configuration:
         :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: ConnectionDisplayName
+        :type display_name: str
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
-        :param runtime_platform:
-        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
+        :type parent_folder_rid: RID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -135,23 +129,18 @@ class ConnectionClient:
                 },
                 body={
                     "parentFolderRid": parent_folder_rid,
-                    "runtimePlatform": runtime_platform,
                     "configuration": configuration,
                     "displayName": display_name,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "runtimePlatform": typing.Union[
-                            connectivity_models.CreateConnectionRequestRuntimePlatform,
-                            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
-                        ],
+                        "parentFolderRid": core.RID,
                         "configuration": typing.Union[
                             connectivity_models.CreateConnectionRequestConnectionConfiguration,
                             connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
                         ],
-                        "displayName": connectivity_models.ConnectionDisplayName,
+                        "displayName": str,
                     },
                 ),
                 response_type=connectivity_models.Connection,

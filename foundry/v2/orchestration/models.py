@@ -34,15 +34,15 @@ class Action(pydantic.BaseModel):
     """Action"""
 
     target: BuildTarget
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     """The target branch the schedule should run on."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
-    force_build: ForceBuild = pydantic.Field(alias=str("forceBuild"))  # type: ignore[literal-required]
+    force_build: bool = pydantic.Field(alias=str("forceBuild"))  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
-    abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
-    notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
+    abort_on_failure: bool = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
+    notifications_enabled: bool = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ActionDict":
@@ -56,15 +56,15 @@ class ActionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     target: BuildTargetDict
-    branchName: datasets_models.BranchName
+    branchName: str
     """The target branch the schedule should run on."""
 
     fallbackBranches: FallbackBranches
-    forceBuild: ForceBuild
+    forceBuild: bool
     retryCount: typing_extensions.NotRequired[RetryCount]
     retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
-    abortOnFailure: AbortOnFailure
-    notificationsEnabled: NotificationsEnabled
+    abortOnFailure: bool
+    notificationsEnabled: bool
 
 
 class AndTrigger(pydantic.BaseModel):
@@ -91,23 +91,23 @@ class AndTriggerDict(typing_extensions.TypedDict):
 class Build(pydantic.BaseModel):
     """Build"""
 
-    rid: core_models.BuildRid
+    rid: core.RID
     """The RID of a Build."""
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     """The branch that the build is running on."""
 
-    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The timestamp that the build was created."""
 
-    created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
+    created_by: str = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
     """The user who created the build."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
     job_rids: typing.List[core_models.JobRid] = pydantic.Field(alias=str("jobRids"))  # type: ignore[literal-required]
-    retry_count: RetryCount = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
-    retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
-    abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
+    retry_count: int = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
+    retry_backoff_duration: core_models.Duration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
+    abort_on_failure: bool = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -121,23 +121,23 @@ class BuildDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core_models.BuildRid
+    rid: core.RID
     """The RID of a Build."""
 
-    branchName: datasets_models.BranchName
+    branchName: str
     """The branch that the build is running on."""
 
-    createdTime: core_models.CreatedTime
+    createdTime: datetime
     """The timestamp that the build was created."""
 
-    createdBy: core_models.CreatedBy
+    createdBy: str
     """The user who created the build."""
 
     fallbackBranches: FallbackBranches
     jobRids: typing.List[core_models.JobRid]
-    retryCount: RetryCount
-    retryBackoffDuration: RetryBackoffDurationDict
-    abortOnFailure: AbortOnFailure
+    retryCount: int
+    retryBackoffDuration: core_models.DurationDict
+    abortOnFailure: bool
     status: BuildStatus
 
 
@@ -435,7 +435,7 @@ and day of week.
 class DatasetJobOutput(pydantic.BaseModel):
     """DatasetJobOutput"""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     output_transaction_rid: typing.Optional[datasets_models.TransactionRid] = pydantic.Field(alias=str("outputTransactionRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["datasetJobOutput"] = "datasetJobOutput"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -450,7 +450,7 @@ class DatasetJobOutputDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core.RID
     outputTransactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
     type: typing.Literal["datasetJobOutput"]
 
@@ -461,8 +461,8 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
     dataset on the target branch.
     """
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -481,12 +481,12 @@ class DatasetUpdatedTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core.RID
+    branchName: str
     type: typing.Literal["datasetUpdated"]
 
 
-FallbackBranches = typing.List["datasets_models.BranchName"]
+FallbackBranches = typing.List[str]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
@@ -500,7 +500,7 @@ ForceBuild = bool
 class GetBuildsBatchRequestElement(pydantic.BaseModel):
     """GetBuildsBatchRequestElement"""
 
-    build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
+    build_rid: core.RID = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     """The RID of a Build."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -517,7 +517,7 @@ class GetBuildsBatchRequestElementDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    buildRid: core_models.BuildRid
+    buildRid: core.RID
     """The RID of a Build."""
 
 
@@ -545,7 +545,7 @@ class GetBuildsBatchResponseDict(typing_extensions.TypedDict):
 class GetJobsBatchRequestElement(pydantic.BaseModel):
     """GetJobsBatchRequestElement"""
 
-    job_rid: core_models.JobRid = pydantic.Field(alias=str("jobRid"))  # type: ignore[literal-required]
+    job_rid: core.RID = pydantic.Field(alias=str("jobRid"))  # type: ignore[literal-required]
     """The RID of a Job."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -562,7 +562,7 @@ class GetJobsBatchRequestElementDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    jobRid: core_models.JobRid
+    jobRid: core.RID
     """The RID of a Job."""
 
 
@@ -590,13 +590,13 @@ class GetJobsBatchResponseDict(typing_extensions.TypedDict):
 class Job(pydantic.BaseModel):
     """Job"""
 
-    rid: core_models.JobRid
+    rid: core.RID
     """The RID of a Job."""
 
-    build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
+    build_rid: core.RID = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     """The RID of the Build that the Job belongs to."""
 
-    started_time: JobStartedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
+    started_time: datetime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
     """The time this job started waiting for the dependencies to be resolved."""
 
     finished_time: typing.Optional[datetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
@@ -621,13 +621,13 @@ class JobDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core_models.JobRid
+    rid: core.RID
     """The RID of a Job."""
 
-    buildRid: core_models.BuildRid
+    buildRid: core.RID
     """The RID of the Build that the Job belongs to."""
 
-    startedTime: JobStartedTime
+    startedTime: datetime
     """The time this job started waiting for the dependencies to be resolved."""
 
     finishedTime: typing_extensions.NotRequired[datetime]
@@ -655,10 +655,6 @@ JobOutputDict = typing_extensions.Annotated[
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
-JobStartedTime = datetime
-"""The time this job started waiting for the dependencies to be resolved."""
-
-
 JobStatus = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELED", "DID_NOT_RUN"]
 """The status of the job."""
 
@@ -669,8 +665,8 @@ class JobSucceededTrigger(pydantic.BaseModel):
     branch.
     """
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["jobSucceeded"] = "jobSucceeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -689,8 +685,8 @@ class JobSucceededTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core.RID
+    branchName: str
     type: typing.Literal["jobSucceeded"]
 
 
@@ -769,8 +765,8 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
     eventually (but not necessary immediately) after an update.
     """
 
-    media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    media_set_rid: core.RID = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["mediaSetUpdated"] = "mediaSetUpdated"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -791,8 +787,8 @@ class MediaSetUpdatedTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mediaSetRid: core_models.MediaSetRid
-    branchName: datasets_models.BranchName
+    mediaSetRid: core.RID
+    branchName: str
     type: typing.Literal["mediaSetUpdated"]
 
 
@@ -802,8 +798,8 @@ class NewLogicTrigger(pydantic.BaseModel):
     that branch.
     """
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     type: typing.Literal["newLogic"] = "newLogic"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -820,8 +816,8 @@ class NewLogicTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    branchName: datasets_models.BranchName
-    datasetRid: datasets_models.DatasetRid
+    branchName: str
+    datasetRid: core.RID
     type: typing.Literal["newLogic"]
 
 
@@ -1092,34 +1088,12 @@ class ReplaceScheduleRequestUserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-class RetryBackoffDuration(pydantic.BaseModel):
-    """The duration to wait before retrying after a Job fails."""
-
-    value: int
-    """The duration value."""
-
-    unit: core_models.TimeUnit
-    """The unit of duration."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "RetryBackoffDurationDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RetryBackoffDurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
+RetryBackoffDuration = "core_models.Duration"
+"""The duration to wait before retrying after a Job fails."""
 
 
-class RetryBackoffDurationDict(typing_extensions.TypedDict):
-    """The duration to wait before retrying after a Job fails."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: int
-    """The duration value."""
-
-    unit: core_models.TimeUnit
-    """The unit of duration."""
+RetryBackoffDurationDict = "core_models.DurationDict"
+"""The duration to wait before retrying after a Job fails."""
 
 
 RetryCount = int
@@ -1133,17 +1107,17 @@ not all types of failures can be retried.
 class Schedule(pydantic.BaseModel):
     """Schedule"""
 
-    rid: ScheduleRid
+    rid: core.RID
     display_name: typing.Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     description: typing.Optional[str] = None
-    current_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("currentVersionRid"))  # type: ignore[literal-required]
+    current_version_rid: core.RID = pydantic.Field(alias=str("currentVersionRid"))  # type: ignore[literal-required]
     """The RID of the current schedule version"""
 
-    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
-    created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
-    updated_time: core_models.UpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-    updated_by: core_models.UpdatedBy = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
-    paused: SchedulePaused
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    created_by: str = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
+    updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
+    updated_by: core.UUID = pydantic.Field(alias=str("updatedBy"))  # type: ignore[literal-required]
+    paused: bool
     trigger: typing.Optional[Trigger] = None
     """
     The schedule trigger. If the requesting user does not have
@@ -1164,17 +1138,17 @@ class ScheduleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: ScheduleRid
+    rid: core.RID
     displayName: typing_extensions.NotRequired[str]
     description: typing_extensions.NotRequired[str]
-    currentVersionRid: ScheduleVersionRid
+    currentVersionRid: core.RID
     """The RID of the current schedule version"""
 
-    createdTime: core_models.CreatedTime
-    createdBy: core_models.CreatedBy
-    updatedTime: core_models.UpdatedTime
-    updatedBy: core_models.UpdatedBy
-    paused: SchedulePaused
+    createdTime: datetime
+    createdBy: str
+    updatedTime: datetime
+    updatedBy: core.UUID
+    paused: bool
     trigger: typing_extensions.NotRequired[TriggerDict]
     """
     The schedule trigger. If the requesting user does not have
@@ -1185,10 +1159,6 @@ class ScheduleDict(typing_extensions.TypedDict):
     scopeMode: ScopeModeDict
 
 
-SchedulePaused = bool
-"""SchedulePaused"""
-
-
 ScheduleRid = core.RID
 """The Resource Identifier (RID) of a Schedule."""
 
@@ -1196,12 +1166,12 @@ ScheduleRid = core.RID
 class ScheduleRun(pydantic.BaseModel):
     """ScheduleRun"""
 
-    rid: ScheduleRunRid
+    rid: core.RID
     """The RID of a schedule run"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-    schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("scheduleVersionRid"))  # type: ignore[literal-required]
-    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    schedule_rid: core.RID = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    schedule_version_rid: core.RID = pydantic.Field(alias=str("scheduleVersionRid"))  # type: ignore[literal-required]
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The time at which the schedule run was created."""
 
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
@@ -1228,12 +1198,12 @@ class ScheduleRunDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: ScheduleRunRid
+    rid: core.RID
     """The RID of a schedule run"""
 
-    scheduleRid: ScheduleRid
-    scheduleVersionRid: ScheduleVersionRid
-    createdTime: core_models.CreatedTime
+    scheduleRid: core.RID
+    scheduleVersionRid: core.RID
+    createdTime: datetime
     """The time at which the schedule run was created."""
 
     createdBy: typing_extensions.NotRequired[core_models.CreatedBy]
@@ -1325,14 +1295,10 @@ ignored if all targets are up-to-date or error.
 """
 
 
-ScheduleRunRid = core.RID
-"""The RID of a schedule run"""
-
-
 class ScheduleRunSubmitted(pydantic.BaseModel):
     """The schedule has been successfully triggered."""
 
-    build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
+    build_rid: core.RID = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     type: typing.Literal["submitted"] = "submitted"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1348,7 +1314,7 @@ class ScheduleRunSubmittedDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    buildRid: core_models.BuildRid
+    buildRid: core.RID
     type: typing.Literal["submitted"]
 
 
@@ -1358,7 +1324,7 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
     successfully.
     """
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    schedule_rid: core.RID = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
     type: typing.Literal["scheduleSucceeded"] = "scheduleSucceeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1377,21 +1343,21 @@ class ScheduleSucceededTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: ScheduleRid
+    scheduleRid: core.RID
     type: typing.Literal["scheduleSucceeded"]
 
 
 class ScheduleVersion(pydantic.BaseModel):
     """ScheduleVersion"""
 
-    rid: ScheduleVersionRid
+    rid: core.RID
     """The RID of a schedule version"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    schedule_rid: core.RID = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The time the schedule version was created"""
 
-    created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
+    created_by: str = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
     """The Foundry user who created the schedule version"""
 
     trigger: typing.Optional[Trigger] = None
@@ -1409,14 +1375,14 @@ class ScheduleVersionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: ScheduleVersionRid
+    rid: core.RID
     """The RID of a schedule version"""
 
-    scheduleRid: ScheduleRid
-    createdTime: core_models.CreatedTime
+    scheduleRid: core.RID
+    createdTime: datetime
     """The time the schedule version was created"""
 
-    createdBy: core_models.CreatedBy
+    createdBy: str
     """The Foundry user who created the schedule version"""
 
     trigger: typing_extensions.NotRequired[TriggerDict]
@@ -1698,8 +1664,8 @@ class SearchBuildsResponseDict(typing_extensions.TypedDict):
 class TimeTrigger(pydantic.BaseModel):
     """Trigger on a time based schedule."""
 
-    cron_expression: CronExpression = pydantic.Field(alias=str("cronExpression"))  # type: ignore[literal-required]
-    time_zone: core_models.ZoneId = pydantic.Field(alias=str("timeZone"))  # type: ignore[literal-required]
+    cron_expression: str = pydantic.Field(alias=str("cronExpression"))  # type: ignore[literal-required]
+    time_zone: str = pydantic.Field(alias=str("timeZone"))  # type: ignore[literal-required]
     type: typing.Literal["time"] = "time"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1713,15 +1679,15 @@ class TimeTriggerDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    cronExpression: CronExpression
-    timeZone: core_models.ZoneId
+    cronExpression: str
+    timeZone: str
     type: typing.Literal["time"]
 
 
 class TransactionalMediaSetJobOutput(pydantic.BaseModel):
     """TransactionalMediaSetJobOutput"""
 
-    media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
+    media_set_rid: core.RID = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
     transaction_id: typing.Optional[str] = pydantic.Field(alias=str("transactionId"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1738,7 +1704,7 @@ class TransactionalMediaSetJobOutputDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mediaSetRid: core_models.MediaSetRid
+    mediaSetRid: core.RID
     transactionId: typing_extensions.NotRequired[str]
     type: typing.Literal["transactionalMediaSetJobOutput"]
 
@@ -1884,7 +1850,6 @@ __all__ = [
     "JobDict",
     "JobOutput",
     "JobOutputDict",
-    "JobStartedTime",
     "JobStatus",
     "JobSucceededTrigger",
     "JobSucceededTriggerDict",
@@ -1924,7 +1889,6 @@ __all__ = [
     "RetryCount",
     "Schedule",
     "ScheduleDict",
-    "SchedulePaused",
     "ScheduleRid",
     "ScheduleRun",
     "ScheduleRunDict",
@@ -1935,7 +1899,6 @@ __all__ = [
     "ScheduleRunIgnoredDict",
     "ScheduleRunResult",
     "ScheduleRunResultDict",
-    "ScheduleRunRid",
     "ScheduleRunSubmitted",
     "ScheduleRunSubmittedDict",
     "ScheduleSucceededTrigger",

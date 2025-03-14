@@ -10,7 +10,7 @@ both.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | Optional[PropertyApiName] | No |  |
 **property_identifier** | Optional[PropertyIdentifier] | No |  |
-**value** | PolygonValue | Yes |  |
+**value** | Polygon | Yes |  |
 **type** | Literal["doesNotIntersectPolygon"] | Yes | None |
 
 

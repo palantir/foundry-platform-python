@@ -5,8 +5,8 @@ DeleteLink
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**linkTypeApiNameAtoB** | LinkTypeApiName | Yes |  |
-**linkTypeApiNameBtoA** | LinkTypeApiName | Yes |  |
+**linkTypeApiNameAtoB** | str | Yes |  |
+**linkTypeApiNameBtoA** | str | Yes |  |
 **aSideObject** | LinkSideObjectDict | Yes |  |
 **bSideObject** | LinkSideObjectDict | Yes |  |
 **type** | Literal["deleteLink"] | Yes | None |

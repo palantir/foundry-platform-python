@@ -5,7 +5,7 @@ Represents a user principal or group principal with an ID.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**principalId** | PrincipalId | Yes |  |
+**principalId** | str | Yes |  |
 **principalType** | PrincipalType | Yes |  |
 **type** | Literal["principalWithId"] | Yes | None |
 

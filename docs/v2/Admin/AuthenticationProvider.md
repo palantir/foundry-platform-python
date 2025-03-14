@@ -134,7 +134,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **enrollment_rid** | EnrollmentRid |  |  |
 **authentication_provider_rid** | AuthenticationProviderRid |  |  |
-**name** | GroupName |  |  |
+**name** | str |  |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations that can view this group.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -156,7 +156,7 @@ foundry_client = FoundryClient(
 enrollment_rid = None
 # AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# GroupName
+# str
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations that can view this group.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
@@ -203,8 +203,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **enrollment_rid** | EnrollmentRid |  |  |
 **authentication_provider_rid** | AuthenticationProviderRid |  |  |
-**organization** | OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.  |  |
-**username** | UserUsername | The new user's username. This must match one of the provider's supported username patterns. |  |
+**organization** | RID | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.  |  |
+**username** | str | The new user's username. This must match one of the provider's supported username patterns. |  |
 **attributes** | Optional[Dict[AttributeName, AttributeValues]] |  | [optional] |
 **email** | Optional[str] |  | [optional] |
 **family_name** | Optional[str] |  | [optional] |
@@ -229,9 +229,9 @@ foundry_client = FoundryClient(
 enrollment_rid = None
 # AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
+# RID | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
 organization = "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
-# UserUsername | The new user's username. This must match one of the provider's supported username patterns.
+# str | The new user's username. This must match one of the provider's supported username patterns.
 username = "jsmith"
 # Optional[Dict[AttributeName, AttributeValues]]
 attributes = {

@@ -2111,6 +2111,42 @@ def aip_agents_agent_session_streaming_continue(
     click.echo(result)
 
 
+@aip_agents_agent_session.command("update_title")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--title",
+    type=str,
+    required=True,
+    help="""The new title for the session.
+The maximum title length is 200 characters. Titles are truncated if they exceed this length.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def aip_agents_agent_session_update_title(
+    client: foundry.v2.FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    title: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Update the title for a session.
+    Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+
+    """
+    result = client.aip_agents.Agent.Session.update_title(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        title=title,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @aip_agents_agent_session.group("content")
 def aip_agents_agent_session_content():
     pass
@@ -2264,7 +2300,6 @@ def connectivity_connection():
     help="""The display name of the Connection. The display name must not be blank.""",
 )
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
-@click.option("--runtime_platform", type=str, required=True, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -2274,11 +2309,11 @@ def connectivity_connection_create(
     configuration: str,
     display_name: str,
     parent_folder_rid: str,
-    runtime_platform: str,
     preview: typing.Optional[bool],
 ):
     """
-    Creates a new Connection.
+    Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+
     Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
     secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
     be processed as needed. They will stay in plaintext in memory until the garbage collection process cleans
@@ -2292,7 +2327,6 @@ def connectivity_connection_create(
         configuration=json.loads(configuration),
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
-        runtime_platform=json.loads(runtime_platform),
         preview=preview,
     )
     click.echo(repr(result))

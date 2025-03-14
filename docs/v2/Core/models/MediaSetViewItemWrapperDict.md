@@ -1,7 +1,6 @@
-# ReferenceDict
+# MediaSetViewItemWrapperDict
 
-A union of the types supported by media reference properties.
-
+MediaSetViewItemWrapper
 
 ## Properties
 | Name | Type | Required | Description |

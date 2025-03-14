@@ -15,10 +15,10 @@ Creates a new Marking.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**category_id** | MarkingCategoryId |  |  |
+**category_id** | str |  |  |
 **initial_members** | List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
 **initial_role_assignments** | List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
-**name** | MarkingName |  |  |
+**name** | str |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -36,7 +36,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# MarkingCategoryId
+# str
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
 # List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
@@ -44,7 +44,7 @@ initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 initial_role_assignments = [
     {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 ]
-# MarkingName
+# str
 name = "PII"
 # Optional[str]
 description = "Contains personally identifiable information about our customers"

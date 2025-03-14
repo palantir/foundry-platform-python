@@ -5,7 +5,7 @@ OntologyStructField
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | StructFieldName | Yes |  |
+**name** | str | Yes |  |
 **fieldType** | OntologyDataTypeDict | Yes |  |
 **required** | bool | Yes |  |
 

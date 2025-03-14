@@ -373,10 +373,6 @@ class StringTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["string"]
 
 
-StructFieldName = str
-"""The name of a field in a `Struct`."""
-
-
 class TimestampType(pydantic.BaseModel):
     """TimestampType"""
 
@@ -394,10 +390,6 @@ class TimestampTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: typing.Literal["timestamp"]
-
-
-TotalCount = core.Long
-"""The total number of items across all pages."""
 
 
 class UnsupportedType(pydantic.BaseModel):
@@ -461,10 +453,8 @@ __all__ = [
     "ShortTypeDict",
     "StringType",
     "StringTypeDict",
-    "StructFieldName",
     "TimestampType",
     "TimestampTypeDict",
-    "TotalCount",
     "UnsupportedType",
     "UnsupportedTypeDict",
 ]

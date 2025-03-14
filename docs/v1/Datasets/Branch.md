@@ -19,7 +19,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch. |  |
-**branch_id** | BranchId |  |  |
+**branch_id** | str |  |  |
 **transaction_rid** | Optional[TransactionRid] |  | [optional] |
 
 ### Return type
@@ -38,7 +38,7 @@ foundry_client = FoundryClient(
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# BranchId
+# str
 branch_id = "my-branch"
 # Optional[TransactionRid]
 transaction_rid = None

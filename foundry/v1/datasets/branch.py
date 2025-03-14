@@ -55,7 +55,7 @@ class BranchClient:
         self,
         dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_id: datasets_models.BranchId,
+        branch_id: str,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -68,7 +68,7 @@ class BranchClient:
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id:
-        :type branch_id: BranchId
+        :type branch_id: str
         :param transaction_rid:
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -96,7 +96,7 @@ class BranchClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "branchId": datasets_models.BranchId,
+                        "branchId": str,
                         "transactionRid": typing.Optional[datasets_models.TransactionRid],
                     },
                 ),

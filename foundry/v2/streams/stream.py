@@ -56,7 +56,7 @@ class StreamClient:
         self,
         dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: datasets_models.BranchName,
+        branch_name: str,
         schema: typing.Union[
             streams_models.CreateStreamRequestStreamSchema,
             streams_models.CreateStreamRequestStreamSchemaDict,
@@ -74,7 +74,7 @@ class StreamClient:
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: BranchName
+        :type branch_name: str
         :param schema: The Foundry schema for this stream.
         :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
@@ -123,7 +123,7 @@ class StreamClient:
                         ],
                         "partitionsCount": typing.Optional[streams_models.PartitionsCount],
                         "streamType": typing.Optional[streams_models.StreamType],
-                        "branchName": datasets_models.BranchName,
+                        "branchName": str,
                         "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),

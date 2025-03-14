@@ -18,7 +18,7 @@ elements MAY be ignored by parsers.
 
 ## Type
 ```python
-List[Coordinate]
+List[float]
 ```
 
 

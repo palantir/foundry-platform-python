@@ -19,8 +19,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | DatasetName |  |  |
-**parent_folder_rid** | FolderRid |  |  |
+**name** | str |  |  |
+**parent_folder_rid** | RID |  |  |
 
 ### Return type
 **Dataset**
@@ -36,9 +36,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetName
+# str
 name = "My Dataset"
-# FolderRid
+# RID
 parent_folder_rid = "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4"
 
 

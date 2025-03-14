@@ -56,7 +56,7 @@ class BranchClient:
         self,
         dataset_rid: datasets_models.DatasetRid,
         *,
-        name: datasets_models.BranchName,
+        name: str,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -67,7 +67,7 @@ class BranchClient:
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param name:
-        :type name: BranchName
+        :type name: str
         :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -100,7 +100,7 @@ class BranchClient:
                     "Body",
                     {  # type: ignore
                         "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "name": datasets_models.BranchName,
+                        "name": str,
                     },
                 ),
                 response_type=datasets_models.Branch,

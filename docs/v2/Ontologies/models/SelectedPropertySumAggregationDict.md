@@ -5,7 +5,7 @@ Computes the sum of values for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | PropertyApiName | Yes |  |
+**selectedPropertyApiName** | str | Yes |  |
 **type** | Literal["sum"] | Yes | None |
 
 

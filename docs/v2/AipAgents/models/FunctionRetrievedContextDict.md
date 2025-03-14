@@ -6,8 +6,8 @@ Context retrieved from running a function to include as additional context in th
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**functionRid** | FunctionRid | Yes |  |
-**functionVersion** | FunctionVersion | Yes |  |
+**functionRid** | RID | Yes |  |
+**functionVersion** | str | Yes |  |
 **retrievedPrompt** | str | Yes | String content returned from a context retrieval function.  |
 **type** | Literal["functionRetrievedContext"] | Yes | None |
 

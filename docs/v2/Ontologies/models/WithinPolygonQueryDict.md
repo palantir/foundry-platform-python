@@ -10,7 +10,7 @@ both.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
-**value** | PolygonValueDict | Yes |  |
+**value** | PolygonDict | Yes |  |
 **type** | Literal["withinPolygon"] | Yes | None |
 
 

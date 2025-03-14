@@ -5,7 +5,7 @@ Computes the maximum value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selected_property_api_name** | PropertyApiName | Yes |  |
+**selected_property_api_name** | str | Yes |  |
 **type** | Literal["max"] | Yes | None |
 
 

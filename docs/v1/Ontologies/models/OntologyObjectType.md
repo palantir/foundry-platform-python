@@ -5,8 +5,8 @@ OntologyObjectType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**object_api_name** | ObjectTypeApiName | Yes |  |
-**object_type_api_name** | ObjectTypeApiName | Yes |  |
+**object_api_name** | str | Yes |  |
+**object_type_api_name** | str | Yes |  |
 **type** | Literal["object"] | Yes | None |
 
 

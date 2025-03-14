@@ -1,6 +1,6 @@
-# WithinBoundingBoxPoint
+# GeoPoint
 
-WithinBoundingBoxPoint
+GeoPoint
 
 ## Properties
 | Name | Type | Required | Description |

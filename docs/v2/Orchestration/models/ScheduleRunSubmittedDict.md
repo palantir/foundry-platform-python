@@ -5,7 +5,7 @@ The schedule has been successfully triggered.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**buildRid** | BuildRid | Yes |  |
+**buildRid** | RID | Yes |  |
 **type** | Literal["submitted"] | Yes | None |
 
 

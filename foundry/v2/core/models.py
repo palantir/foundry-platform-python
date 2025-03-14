@@ -144,73 +144,24 @@ class ByteTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["byte"]
 
 
-class ChangeDataCaptureConfiguration(pydantic.BaseModel):
-    """
-    Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
-    least one key needs to be provided.
+ChangeDataCaptureConfiguration = "FullRowChangeDataCaptureConfiguration"
+"""
+Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
+least one key needs to be provided.
 
-    For more information on CDC in
-    Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
-    """
-
-    deletion_field_name: FieldName = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
-    """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
-
-    ordering_field_name: FieldName = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
-    """
-    The name of an ordering field that determines the newest state for a row in the dataset. 
-
-    The ordering field can only be of the following types:
-    - Byte
-    - Date
-    - Decimal
-    - Integer
-    - Long
-    - Short
-    - String
-    - Timestamp
-    """
-
-    type: typing.Literal["fullRow"] = "fullRow"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "ChangeDataCaptureConfigurationDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ChangeDataCaptureConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
+For more information on CDC in
+Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+"""
 
 
-class ChangeDataCaptureConfigurationDict(typing_extensions.TypedDict):
-    """
-    Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
-    least one key needs to be provided.
+ChangeDataCaptureConfigurationDict = "FullRowChangeDataCaptureConfigurationDict"
+"""
+Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
+least one key needs to be provided.
 
-    For more information on CDC in
-    Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    deletionFieldName: FieldName
-    """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
-
-    orderingFieldName: FieldName
-    """
-    The name of an ordering field that determines the newest state for a row in the dataset. 
-
-    The ordering field can only be of the following types:
-    - Byte
-    - Date
-    - Decimal
-    - Integer
-    - Long
-    - Short
-    - String
-    - Timestamp
-    """
-
-    type: typing.Literal["fullRow"]
+For more information on CDC in
+Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+"""
 
 
 class CipherTextType(pydantic.BaseModel):
@@ -417,7 +368,7 @@ class Field(pydantic.BaseModel):
     [supported field types](/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
     """
 
-    name: FieldName
+    name: str
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -480,7 +431,7 @@ class FieldDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: FieldName
+    name: str
     schema: FieldSchemaDict
 
 
@@ -700,6 +651,72 @@ class FoundryLiveDeploymentDict(typing_extensions.TypedDict):
     type: typing.Literal["foundryLiveDeployment"]
 
 
+class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
+    """
+    Configuration for change data capture which resolves the latest state of the dataset based on new full rows
+    being pushed to the stream. For example, if a value for a row is updated, it is only sufficient to publish
+    the entire new state of that row to the stream.
+    """
+
+    deletion_field_name: str = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
+    """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
+
+    ordering_field_name: str = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
+    """
+    The name of an ordering field that determines the newest state for a row in the dataset. 
+
+    The ordering field can only be of the following types:
+    - Byte
+    - Date
+    - Decimal
+    - Integer
+    - Long
+    - Short
+    - String
+    - Timestamp
+    """
+
+    type: typing.Literal["fullRow"] = "fullRow"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "FullRowChangeDataCaptureConfigurationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            FullRowChangeDataCaptureConfigurationDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class FullRowChangeDataCaptureConfigurationDict(typing_extensions.TypedDict):
+    """
+    Configuration for change data capture which resolves the latest state of the dataset based on new full rows
+    being pushed to the stream. For example, if a value for a row is updated, it is only sufficient to publish
+    the entire new state of that row to the stream.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    deletionFieldName: str
+    """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
+
+    orderingFieldName: str
+    """
+    The name of an ordering field that determines the newest state for a row in the dataset. 
+
+    The ordering field can only be of the following types:
+    - Byte
+    - Date
+    - Decimal
+    - Integer
+    - Long
+    - Short
+    - String
+    - Timestamp
+    """
+
+    type: typing.Literal["fullRow"]
+
+
 class GeoPointType(pydantic.BaseModel):
     """GeoPointType"""
 
@@ -906,8 +923,8 @@ MediaItemRid = core.RID
 class MediaReference(pydantic.BaseModel):
     """The representation of a media reference."""
 
-    mime_type: MediaType = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
-    reference: Reference
+    mime_type: str = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
+    reference: MediaSetViewItemWrapper
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaReferenceDict":
@@ -920,8 +937,8 @@ class MediaReferenceDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mimeType: MediaType
-    reference: ReferenceDict
+    mimeType: str
+    reference: MediaSetViewItemWrapperDict
 
 
 class MediaReferenceType(pydantic.BaseModel):
@@ -952,9 +969,9 @@ MediaSetRid = core.RID
 class MediaSetViewItem(pydantic.BaseModel):
     """MediaSetViewItem"""
 
-    media_set_rid: MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-    media_set_view_rid: MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
-    media_item_rid: MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_set_rid: core.RID = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
+    media_set_view_rid: core.RID = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
+    media_item_rid: core.RID = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     token: typing.Optional[MediaItemReadToken] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -968,21 +985,37 @@ class MediaSetViewItemDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mediaSetRid: MediaSetRid
-    mediaSetViewRid: MediaSetViewRid
-    mediaItemRid: MediaItemRid
+    mediaSetRid: core.RID
+    mediaSetViewRid: core.RID
+    mediaItemRid: core.RID
     token: typing_extensions.NotRequired[MediaItemReadToken]
+
+
+class MediaSetViewItemWrapper(pydantic.BaseModel):
+    """MediaSetViewItemWrapper"""
+
+    media_set_view_item: MediaSetViewItem = pydantic.Field(alias=str("mediaSetViewItem"))  # type: ignore[literal-required]
+    type: typing.Literal["mediaSetViewItem"] = "mediaSetViewItem"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "MediaSetViewItemWrapperDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            MediaSetViewItemWrapperDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class MediaSetViewItemWrapperDict(typing_extensions.TypedDict):
+    """MediaSetViewItemWrapper"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetViewItem: MediaSetViewItemDict
+    type: typing.Literal["mediaSetViewItem"]
 
 
 MediaSetViewRid = core.RID
 """The Resource Identifier (RID) of a single View of a Media Set. A Media Set View is an independent collection of Media Items."""
-
-
-MediaType = str
-"""
-The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
-Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
-"""
 
 
 class NullType(pydantic.BaseModel):
@@ -1045,27 +1078,6 @@ Realm = str
 Identifies which Realm a User or Group is a member of.
 The `palantir-internal-realm` is used for Users or Groups that are created in Foundry by administrators and not associated with any SSO provider.
 """
-
-
-class Reference(pydantic.BaseModel):
-    """A union of the types supported by media reference properties."""
-
-    media_set_view_item: MediaSetViewItem = pydantic.Field(alias=str("mediaSetViewItem"))  # type: ignore[literal-required]
-    type: typing.Literal["mediaSetViewItem"] = "mediaSetViewItem"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "ReferenceDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ReferenceDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ReferenceDict(typing_extensions.TypedDict):
-    """A union of the types supported by media reference properties."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    mediaSetViewItem: MediaSetViewItemDict
-    type: typing.Literal["mediaSetViewItem"]
 
 
 ReleaseStatus = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED"]
@@ -1187,10 +1199,6 @@ class StringTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["string"]
 
 
-StructFieldName = str
-"""The name of a field in a `Struct`."""
-
-
 class StructFieldType(pydantic.BaseModel):
     """StructFieldType"""
 
@@ -1270,10 +1278,6 @@ class TimestampTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["timestamp"]
 
 
-TotalCount = core.Long
-"""The total number of items across all pages."""
-
-
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
@@ -1293,18 +1297,6 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
 
     unsupportedType: str
     type: typing.Literal["unsupported"]
-
-
-UpdatedBy = core.UUID
-"""The Foundry user who last updated this resource"""
-
-
-UpdatedTime = datetime
-"""The time at which the resource was most recently updated."""
-
-
-UserId = core.UUID
-"""A Foundry User ID."""
 
 
 class VectorSimilarityFunction(pydantic.BaseModel):
@@ -1438,6 +1430,8 @@ __all__ = [
     "FolderRid",
     "FoundryLiveDeployment",
     "FoundryLiveDeploymentDict",
+    "FullRowChangeDataCaptureConfiguration",
+    "FullRowChangeDataCaptureConfigurationDict",
     "GeoPointType",
     "GeoPointTypeDict",
     "GeoShapeType",
@@ -1469,8 +1463,9 @@ __all__ = [
     "MediaSetRid",
     "MediaSetViewItem",
     "MediaSetViewItemDict",
+    "MediaSetViewItemWrapper",
+    "MediaSetViewItemWrapperDict",
     "MediaSetViewRid",
-    "MediaType",
     "NullType",
     "NullTypeDict",
     "OperationScope",
@@ -1482,8 +1477,6 @@ __all__ = [
     "PrincipalId",
     "PrincipalType",
     "Realm",
-    "Reference",
-    "ReferenceDict",
     "ReleaseStatus",
     "RoleId",
     "ShortType",
@@ -1493,7 +1486,6 @@ __all__ = [
     "StreamSchemaDict",
     "StringType",
     "StringTypeDict",
-    "StructFieldName",
     "StructFieldType",
     "StructFieldTypeDict",
     "TimeSeriesItemType",
@@ -1503,12 +1495,8 @@ __all__ = [
     "TimeseriesTypeDict",
     "TimestampType",
     "TimestampTypeDict",
-    "TotalCount",
     "UnsupportedType",
     "UnsupportedTypeDict",
-    "UpdatedBy",
-    "UpdatedTime",
-    "UserId",
     "VectorSimilarityFunction",
     "VectorSimilarityFunctionDict",
     "VectorSimilarityFunctionValue",

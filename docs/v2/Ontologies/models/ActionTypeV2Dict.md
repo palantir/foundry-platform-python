@@ -5,12 +5,12 @@ Represents an action type in the Ontology.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**apiName** | ActionTypeApiName | Yes |  |
+**apiName** | str | Yes |  |
 **description** | NotRequired[str] | No |  |
 **displayName** | NotRequired[DisplayName] | No |  |
 **status** | ReleaseStatus | Yes |  |
 **parameters** | Dict[ParameterId, ActionParameterV2Dict] | Yes |  |
-**rid** | ActionTypeRid | Yes |  |
+**rid** | RID | Yes |  |
 **operations** | List[LogicRuleDict] | Yes |  |
 
 

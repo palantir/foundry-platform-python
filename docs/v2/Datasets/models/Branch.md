@@ -5,7 +5,7 @@ Branch
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | BranchName | Yes |  |
+**name** | str | Yes |  |
 **transaction_rid** | Optional[TransactionRid] | No | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction. |
 
 

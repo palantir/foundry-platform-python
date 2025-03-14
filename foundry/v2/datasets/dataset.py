@@ -25,7 +25,6 @@ from foundry import _errors as errors
 from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets import models as datasets_models
 from foundry.v2.filesystem import errors as filesystem_errors
-from foundry.v2.filesystem import models as filesystem_models
 
 
 class DatasetClient:
@@ -87,8 +86,8 @@ class DatasetClient:
     def create(
         self,
         *,
-        name: datasets_models.DatasetName,
-        parent_folder_rid: filesystem_models.FolderRid,
+        name: str,
+        parent_folder_rid: core.RID,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Dataset:
@@ -96,9 +95,9 @@ class DatasetClient:
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
         :param name:
-        :type name: DatasetName
+        :type name: str
         :param parent_folder_rid:
-        :type parent_folder_rid: FolderRid
+        :type parent_folder_rid: RID
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,8 +123,8 @@ class DatasetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": core.RID,
+                        "name": str,
                     },
                 ),
                 response_type=datasets_models.Dataset,

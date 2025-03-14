@@ -132,7 +132,7 @@ Gets a specific query type with the given RID.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**rid** | FunctionRid |  |  |
+**rid** | RID |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -149,7 +149,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# FunctionRid
+# RID
 rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

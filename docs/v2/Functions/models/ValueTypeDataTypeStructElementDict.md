@@ -5,7 +5,7 @@ ValueTypeDataTypeStructElement
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | ValueTypeDataTypeStructFieldIdentifier | Yes |  |
+**name** | str | Yes |  |
 **fieldType** | ValueTypeDataTypeDict | Yes |  |
 
 

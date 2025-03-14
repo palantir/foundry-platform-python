@@ -18,7 +18,7 @@ Creates a new branch on the backing streaming dataset, and creates a new stream 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
-**branch_name** | BranchName |  |  |
+**branch_name** | str |  |  |
 **schema** | Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream. |  |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  | [optional] |
@@ -41,7 +41,7 @@ foundry_client = FoundryClient(
 
 # DatasetRid
 dataset_rid = None
-# BranchName
+# str
 branch_name = "master"
 # Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream.
 schema = None

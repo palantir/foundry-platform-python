@@ -5,10 +5,10 @@ Organization
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | OrganizationRid | Yes |  |
-**name** | OrganizationName | Yes |  |
+**rid** | RID | Yes |  |
+**name** | str | Yes |  |
 **description** | Optional[str] | No |  |
-**marking_id** | MarkingId | Yes | The ID of this Organization's underlying marking. Organization guest access can be managed by updating the membership of this Marking.  |
+**marking_id** | UUID | Yes | The ID of this Organization's underlying marking. Organization guest access can be managed by updating the membership of this Marking.  |
 **host** | Optional[HostName] | No | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  |
 
 

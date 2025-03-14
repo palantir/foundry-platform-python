@@ -53,7 +53,7 @@ Subdomain = str
 class ThirdPartyApplication(pydantic.BaseModel):
     """ThirdPartyApplication"""
 
-    rid: ThirdPartyApplicationRid
+    rid: core.RID
     """An RID identifying a third-party application created in Developer Console."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -70,7 +70,7 @@ class ThirdPartyApplicationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: ThirdPartyApplicationRid
+    rid: core.RID
     """An RID identifying a third-party application created in Developer Console."""
 
 
@@ -81,7 +81,7 @@ ThirdPartyApplicationRid = core.RID
 class Version(pydantic.BaseModel):
     """Version"""
 
-    version: VersionVersion
+    version: str
     """The semantic version of the Website."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -96,7 +96,7 @@ class VersionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    version: VersionVersion
+    version: str
     """The semantic version of the Website."""
 
 

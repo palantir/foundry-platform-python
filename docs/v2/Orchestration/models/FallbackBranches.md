@@ -6,7 +6,7 @@ target branch.
 
 ## Type
 ```python
-List[BranchName]
+List[str]
 ```
 
 

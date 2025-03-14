@@ -6,7 +6,7 @@ A Branch of a Dataset.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**branchId** | BranchId | Yes |  |
+**branchId** | str | Yes |  |
 **transactionRid** | NotRequired[TransactionRid] | No |  |
 
 

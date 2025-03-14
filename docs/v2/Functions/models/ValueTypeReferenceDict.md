@@ -6,8 +6,8 @@ A reference to a value type that has been registered in the Ontology.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | ValueTypeRid | Yes |  |
-**versionId** | ValueTypeVersionId | Yes |  |
+**rid** | RID | Yes |  |
+**versionId** | UUID | Yes |  |
 **type** | Literal["valueTypeReference"] | Yes | None |
 
 

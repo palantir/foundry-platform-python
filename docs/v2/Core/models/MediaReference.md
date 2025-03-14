@@ -5,8 +5,8 @@ The representation of a media reference.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**mime_type** | MediaType | Yes |  |
-**reference** | Reference | Yes |  |
+**mime_type** | str | Yes |  |
+**reference** | MediaSetViewItemWrapper | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

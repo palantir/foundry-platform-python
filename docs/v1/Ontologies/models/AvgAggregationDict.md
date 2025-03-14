@@ -5,7 +5,7 @@ Computes the average value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | FieldNameV1 | Yes |  |
+**field** | str | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
 **type** | Literal["avg"] | Yes | None |
 

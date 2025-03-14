@@ -18,8 +18,8 @@ Creates a new FileImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
-**display_name** | FileImportDisplayName |  |  |
+**dataset_rid** | RID | The RID of the output dataset. |  |
+**display_name** | str |  |  |
 **file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
@@ -42,9 +42,9 @@ foundry_client = FoundryClient(
 
 # ConnectionRid
 connection_rid = None
-# DatasetRid | The RID of the output dataset.
+# RID | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# FileImportDisplayName
+# str
 display_name = "My file import"
 # List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
@@ -409,8 +409,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **file_import_rid** | FileImportRid |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
-**display_name** | FileImportDisplayName |  |  |
+**dataset_rid** | RID | The RID of the output dataset. |  |
+**display_name** | str |  |  |
 **file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
@@ -435,9 +435,9 @@ foundry_client = FoundryClient(
 connection_rid = None
 # FileImportRid
 file_import_rid = None
-# DatasetRid | The RID of the output dataset.
+# RID | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# FileImportDisplayName
+# str
 display_name = "My file import"
 # List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None

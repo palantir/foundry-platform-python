@@ -156,7 +156,7 @@ class AuthenticationProviderClient:
         enrollment_rid: core_models.EnrollmentRid,
         authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        name: admin_models.GroupName,
+        name: str,
         organizations: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -171,7 +171,7 @@ class AuthenticationProviderClient:
         :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
-        :type name: GroupName
+        :type name: str
         :param organizations: The RIDs of the Organizations that can view this group.
         :type organizations: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.
@@ -206,7 +206,7 @@ class AuthenticationProviderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": admin_models.GroupName,
+                        "name": str,
                         "organizations": typing.List[core_models.OrganizationRid],
                     },
                 ),
@@ -227,8 +227,8 @@ class AuthenticationProviderClient:
         enrollment_rid: core_models.EnrollmentRid,
         authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        organization: core_models.OrganizationRid,
-        username: admin_models.UserUsername,
+        organization: core.RID,
+        username: str,
         attributes: typing.Optional[
             typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
         ] = None,
@@ -248,9 +248,9 @@ class AuthenticationProviderClient:
         :param authentication_provider_rid:
         :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: OrganizationRid
+        :type organization: RID
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: UserUsername
+        :type username: str
         :param attributes:
         :type attributes: Optional[Dict[AttributeName, AttributeValues]]
         :param email:
@@ -295,8 +295,8 @@ class AuthenticationProviderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "username": admin_models.UserUsername,
-                        "organization": core_models.OrganizationRid,
+                        "username": str,
+                        "organization": core.RID,
                         "givenName": typing.Optional[str],
                         "familyName": typing.Optional[str],
                         "email": typing.Optional[str],

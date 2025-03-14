@@ -194,7 +194,7 @@ class SessionClient:
         agent_rid: aip_agents_models.AgentRid,
         session_rid: aip_agents_models.SessionRid,
         *,
-        message_id: aip_agents_models.MessageId,
+        message_id: core.UUID,
         preview: typing.Optional[core_models.PreviewMode] = None,
         response: typing.Optional[aip_agents_models.AgentMarkdownResponse] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -210,7 +210,7 @@ class SessionClient:
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
         :param message_id: The identifier for the in-progress exchange to cancel. This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
-        :type message_id: MessageId
+        :type message_id: UUID
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param response: When specified, the exchange is added to the session with the client-provided response as the result. When omitted, the exchange is not added to the session.
@@ -248,7 +248,7 @@ class SessionClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "messageId": aip_agents_models.MessageId,
+                        "messageId": core.UUID,
                         "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
                     },
                 ),
@@ -957,6 +957,75 @@ class SessionClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def update_title(
+        self,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
+        *,
+        title: str,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Update the title for a session.
+        Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+        :type agent_rid: AgentRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
+        :type session_rid: SessionRid
+        :param title: The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.
+        :type title: str
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises SessionNotFound: The given Session could not be found.
+        :raises UpdateSessionTitlePermissionDenied: Could not updateTitle the Session.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "agentRid": agent_rid,
+                    "sessionRid": session_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "title": title,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "title": str,
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                    "UpdateSessionTitlePermissionDenied": aip_agents_errors.UpdateSessionTitlePermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _SessionClientRaw:
     def __init__(self, client: SessionClient) -> None:
@@ -968,6 +1037,7 @@ class _SessionClientRaw:
         def page(_: aip_agents_models.ListSessionsResponse): ...
         def rag_context(_: aip_agents_models.AgentSessionRagContextResponse): ...
         def streaming_continue(_: bytes): ...
+        def update_title(_: None): ...
 
         self.blocking_continue = core.with_raw_response(blocking_continue, client.blocking_continue)
         self.cancel = core.with_raw_response(cancel, client.cancel)
@@ -979,6 +1049,7 @@ class _SessionClientRaw:
         self.streaming_continue = core.with_raw_response(
             streaming_continue, client.streaming_continue
         )
+        self.update_title = core.with_raw_response(update_title, client.update_title)
 
 
 class _SessionClientStreaming:

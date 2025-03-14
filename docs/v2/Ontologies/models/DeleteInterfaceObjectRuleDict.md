@@ -5,7 +5,7 @@ DeleteInterfaceObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**interfaceTypeApiName** | InterfaceTypeApiName | Yes |  |
+**interfaceTypeApiName** | str | Yes |  |
 **type** | Literal["deleteInterfaceObject"] | Yes | None |
 
 

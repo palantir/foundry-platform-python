@@ -14,8 +14,8 @@ Creates a new Dataset. A default branch - `master` for most enrollments - will b
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | DatasetName |  |  |
-**parent_folder_rid** | FolderRid |  |  |
+**name** | str |  |  |
+**parent_folder_rid** | RID |  |  |
 
 ### Return type
 **Dataset**
@@ -31,9 +31,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# DatasetName
+# str
 name = "My Dataset"
-# FolderRid
+# RID
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 
 

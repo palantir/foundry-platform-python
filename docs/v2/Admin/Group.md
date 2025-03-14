@@ -18,7 +18,7 @@ Creates a new Group.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **attributes** | Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
-**name** | GroupName | The name of the Group. |  |
+**name** | str | The name of the Group. |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
 **description** | Optional[str] | A description of the Group. | [optional] |
 
@@ -48,7 +48,7 @@ attributes = {
     "department": ["Finance"],
     "jobTitle": ["Accountant"],
 }
-# GroupName | The name of the Group.
+# str | The name of the Group.
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
