@@ -18,7 +18,7 @@ Request a cancellation for all unfinished jobs in a build. The build's status wi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | RID | The RID of a Build. |  |
+**build_rid** | BuildRid | The RID of a Build. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -35,7 +35,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of a Build.
+# BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes |
 **force_build** | Optional[ForceBuild] |  | [optional] |
 **notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
+**retry_backoff_duration** | Optional[Union[Duration, DurationDict]] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
 ### Return type
@@ -111,7 +111,7 @@ force_build = None
 notifications_enabled = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+# Optional[Union[Duration, DurationDict]]
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1
@@ -156,7 +156,7 @@ Get the Build with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | RID | The RID of a Build. |  |
+**build_rid** | BuildRid | The RID of a Build. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -173,7 +173,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of a Build.
+# BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -268,7 +268,7 @@ Get the Jobs in the Build.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | RID | The RID of a Build. |  |
+**build_rid** | BuildRid | The RID of a Build. |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -287,7 +287,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of a Build.
+# BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -330,7 +330,7 @@ Get the Jobs in the Build.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**build_rid** | RID | The RID of a Build. |  |
+**build_rid** | BuildRid | The RID of a Build. |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -349,7 +349,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of a Build.
+# BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None

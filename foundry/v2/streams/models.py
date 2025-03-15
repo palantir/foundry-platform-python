@@ -57,7 +57,7 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
     """
 
     fields: typing.List[core_models.Field]
-    change_data_capture: typing.Optional[core_models.ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
+    change_data_capture: typing.Optional[core_models.FullRowChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateStreamRequestStreamSchemaDict":
@@ -95,15 +95,17 @@ class CreateStreamRequestStreamSchemaDict(typing_extensions.TypedDict):
     """
 
     fields: typing.List[core_models.FieldDict]
-    changeDataCapture: typing_extensions.NotRequired[core_models.ChangeDataCaptureConfigurationDict]
+    changeDataCapture: typing_extensions.NotRequired[
+        core_models.FullRowChangeDataCaptureConfigurationDict
+    ]
 
 
 class Dataset(pydantic.BaseModel):
     """Dataset"""
 
-    rid: core.RID
-    name: str
-    parent_folder_rid: core.RID = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    rid: datasets_models.DatasetRid
+    name: datasets_models.DatasetName
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DatasetDict":
@@ -116,9 +118,9 @@ class DatasetDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    name: str
-    parentFolderRid: core.RID
+    rid: datasets_models.DatasetRid
+    name: datasets_models.DatasetName
+    parentFolderRid: filesystem_models.FolderRid
 
 
 PartitionsCount = int
@@ -132,14 +134,14 @@ Record = typing.Dict[str, typing.Any]
 class Stream(pydantic.BaseModel):
     """Stream"""
 
-    branch_name: str = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     schema_: core_models.StreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     """The Foundry schema for this stream."""
 
-    view_rid: core.RID = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
+    view_rid: ViewRid = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
     """The view that this stream corresponds to."""
 
-    partitions_count: int = pydantic.Field(alias=str("partitionsCount"))  # type: ignore[literal-required]
+    partitions_count: PartitionsCount = pydantic.Field(alias=str("partitionsCount"))  # type: ignore[literal-required]
     """
     The number of partitions for the Foundry stream. Defaults to 1.
 
@@ -153,7 +155,7 @@ class Stream(pydantic.BaseModel):
     LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
     """
 
-    compressed: bool
+    compressed: Compressed
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -168,14 +170,14 @@ class StreamDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    branchName: str
+    branchName: datasets_models.BranchName
     schema: core_models.StreamSchemaDict
     """The Foundry schema for this stream."""
 
-    viewRid: core.RID
+    viewRid: ViewRid
     """The view that this stream corresponds to."""
 
-    partitionsCount: int
+    partitionsCount: PartitionsCount
     """
     The number of partitions for the Foundry stream. Defaults to 1.
 
@@ -189,7 +191,7 @@ class StreamDict(typing_extensions.TypedDict):
     LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
     """
 
-    compressed: bool
+    compressed: Compressed
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
 
@@ -214,6 +216,8 @@ ViewRid = core.RID
 
 
 from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 __all__ = [
     "Compressed",

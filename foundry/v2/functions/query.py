@@ -53,7 +53,7 @@ class QueryClient:
     @errors.handle_unexpected
     def execute(
         self,
-        query_api_name: str,
+        query_api_name: functions_models.QueryApiName,
         *,
         parameters: typing.Dict[
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
@@ -68,7 +68,7 @@ class QueryClient:
         Optional parameters do not need to be supplied.
 
         :param query_api_name:
-        :type query_api_name: str
+        :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: Enables the use of preview functionality.
@@ -121,7 +121,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get(
         self,
-        query_api_name: str,
+        query_api_name: functions_models.QueryApiName,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -131,7 +131,7 @@ class QueryClient:
         Gets a specific query type with the given API name.
 
         :param query_api_name:
-        :type query_api_name: str
+        :type query_api_name: QueryApiName
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -172,7 +172,7 @@ class QueryClient:
     def get_by_rid(
         self,
         *,
-        rid: core.RID,
+        rid: functions_models.FunctionRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -181,7 +181,7 @@ class QueryClient:
         Gets a specific query type with the given RID.
 
         :param rid:
-        :type rid: RID
+        :type rid: FunctionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -210,7 +210,7 @@ class QueryClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "rid": core.RID,
+                        "rid": functions_models.FunctionRid,
                     },
                 ),
                 response_type=functions_models.Query,

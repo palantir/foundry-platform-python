@@ -53,8 +53,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def abort(
         self,
-        media_set_rid: core.RID,
-        transaction_id: core.UUID,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -66,9 +66,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param transaction_id:
-        :type transaction_id: UUID
+        :type transaction_id: TransactionId
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -103,8 +103,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def commit(
         self,
-        media_set_rid: core.RID,
-        transaction_id: core.UUID,
+        media_set_rid: core_models.MediaSetRid,
+        transaction_id: media_sets_models.TransactionId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -116,9 +116,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param transaction_id:
-        :type transaction_id: UUID
+        :type transaction_id: TransactionId
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -153,20 +153,20 @@ class MediaSetClient:
     @errors.handle_unexpected
     def create(
         self,
-        media_set_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
         *,
         branch_name: typing.Optional[media_sets_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> core.UUID:
+    ) -> media_sets_models.TransactionId:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param branch_name: The branch on which to open the transaction. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -174,7 +174,7 @@ class MediaSetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: core.UUID
+        :rtype: media_sets_models.TransactionId
         """
 
         return self._api_client.call_api(
@@ -193,7 +193,7 @@ class MediaSetClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=core.UUID,
+                response_type=media_sets_models.TransactionId,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -205,8 +205,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def info(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -219,9 +219,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -262,8 +262,8 @@ class MediaSetClient:
     )
     def read(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: typing.Literal[True],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -278,9 +278,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -299,8 +299,8 @@ class MediaSetClient:
     @typing_extensions.overload
     def read(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -314,9 +314,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -336,8 +336,8 @@ class MediaSetClient:
     )
     def read(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: bool,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -352,9 +352,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -375,8 +375,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def read(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -391,9 +391,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -447,8 +447,8 @@ class MediaSetClient:
     )
     def read_original(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: typing.Literal[True],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -463,9 +463,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -484,8 +484,8 @@ class MediaSetClient:
     @typing_extensions.overload
     def read_original(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -499,9 +499,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -521,8 +521,8 @@ class MediaSetClient:
     )
     def read_original(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         stream: bool,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -537,9 +537,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -560,8 +560,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def read_original(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -576,9 +576,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid:
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -631,8 +631,8 @@ class MediaSetClient:
     @errors.handle_unexpected
     def reference(
         self,
-        media_set_rid: core.RID,
-        media_item_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
@@ -645,9 +645,9 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
-        :type media_item_rid: RID
+        :type media_item_rid: MediaItemRid
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param read_token:
@@ -687,7 +687,7 @@ class MediaSetClient:
     @errors.handle_unexpected
     def upload(
         self,
-        media_set_rid: core.RID,
+        media_set_rid: core_models.MediaSetRid,
         body: bytes,
         *,
         branch_name: typing.Optional[media_sets_models.BranchName] = None,
@@ -707,7 +707,7 @@ class MediaSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
-        :type media_set_rid: RID
+        :type media_set_rid: MediaSetRid
         :param body: Body of the request
         :type body: bytes
         :param branch_name: Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided.
@@ -761,7 +761,7 @@ class _MediaSetClientRaw:
     def __init__(self, client: MediaSetClient) -> None:
         def abort(_: None): ...
         def commit(_: None): ...
-        def create(_: core.UUID): ...
+        def create(_: media_sets_models.TransactionId): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
@@ -780,7 +780,7 @@ class _MediaSetClientRaw:
 
 class _MediaSetClientStreaming:
     def __init__(self, client: MediaSetClient) -> None:
-        def create(_: core.UUID): ...
+        def create(_: media_sets_models.TransactionId): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...

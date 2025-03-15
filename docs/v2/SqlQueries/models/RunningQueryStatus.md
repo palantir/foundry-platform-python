@@ -5,7 +5,7 @@ RunningQueryStatus
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**query_id** | str | Yes |  |
+**query_id** | QueryId | Yes |  |
 **type** | Literal["running"] | Yes | None |
 
 

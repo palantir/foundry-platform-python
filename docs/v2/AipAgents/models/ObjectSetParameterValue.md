@@ -6,7 +6,7 @@ A value passed for `ObjectSetParameter` application variable types.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **object_set** | ObjectSet | Yes |  |
-**ontology** | str | Yes | The API name of the Ontology for the provided `ObjectSet`. To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).  |
+**ontology** | OntologyIdentifier | Yes | The API name of the Ontology for the provided `ObjectSet`. To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).  |
 **type** | Literal["objectSet"] | Yes | None |
 
 

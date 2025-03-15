@@ -18,8 +18,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
-**transaction_rid** | RID | The Resource Identifier (RID) of the Transaction. |  |
+**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
+**transaction_rid** | TransactionRid | The Resource Identifier (RID) of the Transaction. |  |
 
 ### Return type
 **Transaction**
@@ -35,9 +35,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The Resource Identifier (RID) of the Dataset that contains the Transaction.
+# DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# RID | The Resource Identifier (RID) of the Transaction.
+# TransactionRid | The Resource Identifier (RID) of the Transaction.
 transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 
@@ -77,8 +77,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
-**transaction_rid** | RID | The Resource Identifier (RID) of the Transaction. |  |
+**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
+**transaction_rid** | TransactionRid | The Resource Identifier (RID) of the Transaction. |  |
 
 ### Return type
 **Transaction**
@@ -94,9 +94,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The Resource Identifier (RID) of the Dataset that contains the Transaction.
+# DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# RID | The Resource Identifier (RID) of the Transaction.
+# TransactionRid | The Resource Identifier (RID) of the Transaction.
 transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 
@@ -135,7 +135,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset on which to create the Transaction. |  |
+**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Transaction. |  |
 **branch_id** | Optional[BranchId] | The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.  | [optional] |
 **transaction_type** | Optional[TransactionType] |  | [optional] |
 
@@ -153,7 +153,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The Resource Identifier (RID) of the Dataset on which to create the Transaction.
+# DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # Optional[BranchId] | The identifier (name) of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.
 branch_id = None
@@ -219,8 +219,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
-**transaction_rid** | RID | The Resource Identifier (RID) of the Transaction. |  |
+**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction. |  |
+**transaction_rid** | TransactionRid | The Resource Identifier (RID) of the Transaction. |  |
 
 ### Return type
 **Transaction**
@@ -236,9 +236,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The Resource Identifier (RID) of the Dataset that contains the Transaction.
+# DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# RID | The Resource Identifier (RID) of the Transaction.
+# TransactionRid | The Resource Identifier (RID) of the Transaction.
 transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565496"
 
 

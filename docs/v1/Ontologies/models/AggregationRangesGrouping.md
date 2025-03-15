@@ -5,7 +5,7 @@ Divides objects into groups according to specified ranges.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **ranges** | List[AggregationRange] | Yes |  |
 **type** | Literal["ranges"] | Yes | None |
 

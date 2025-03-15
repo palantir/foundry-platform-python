@@ -14,8 +14,8 @@ Creates a new Dataset. A default branch - `master` for most enrollments - will b
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | str |  |  |
-**parent_folder_rid** | RID |  |  |
+**name** | DatasetName |  |  |
+**parent_folder_rid** | FolderRid |  |  |
 
 ### Return type
 **Dataset**
@@ -31,9 +31,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# DatasetName
 name = "My Dataset"
-# RID
+# FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 
 
@@ -69,7 +69,7 @@ Get the Dataset with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 
 ### Return type
 **Dataset**
@@ -85,7 +85,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
 
 
@@ -123,7 +123,7 @@ This endpoint currently does not support views (virtual datasets composed of oth
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 **format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch.  | [optional] |
 **columns** | Optional[List[str]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
@@ -145,7 +145,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
 # TableExportFormat | The export format. Must be `ARROW` or `CSV`.
 format = None

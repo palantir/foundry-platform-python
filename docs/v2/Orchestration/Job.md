@@ -12,7 +12,7 @@ Get the Job with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**job_rid** | RID | The RID of a Job. |  |
+**job_rid** | JobRid | The RID of a Job. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -29,7 +29,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of a Job.
+# JobRid | The RID of a Job.
 job_rid = "ri.foundry.main.job.aaf94076-d773-4732-a1df-3b638eb50448"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

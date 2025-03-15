@@ -18,7 +18,7 @@ Creates a new Group.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **attributes** | Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
-**name** | str | The name of the Group. |  |
+**name** | GroupName | The name of the Group. |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
 **description** | Optional[str] | A description of the Group. | [optional] |
 
@@ -48,7 +48,7 @@ attributes = {
     "department": ["Finance"],
     "jobTitle": ["Accountant"],
 }
-# str | The name of the Group.
+# GroupName | The name of the Group.
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
@@ -90,7 +90,7 @@ Delete the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | str |  |  |
+**group_id** | PrincipalId |  |  |
 
 ### Return type
 **None**
@@ -106,7 +106,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 group_id = None
 
 
@@ -141,7 +141,7 @@ Get the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | str |  |  |
+**group_id** | PrincipalId |  |  |
 
 ### Return type
 **Group**
@@ -157,7 +157,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 group_id = None
 
 

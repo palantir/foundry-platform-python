@@ -82,7 +82,7 @@ class OntologyClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: core.RID,
+        ontology_rid: ontologies_models.OntologyRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -93,7 +93,7 @@ class OntologyClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -5,7 +5,7 @@ Computes the minimum value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | PropertyApiName | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
 **direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["min"] | Yes | None |

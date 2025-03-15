@@ -5,10 +5,10 @@ File
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**path** | str | Yes |  |
-**transactionRid** | RID | Yes |  |
+**path** | FilePath | Yes |  |
+**transactionRid** | TransactionRid | Yes |  |
 **sizeBytes** | NotRequired[Long] | No |  |
-**updatedTime** | datetime | Yes |  |
+**updatedTime** | FileUpdatedTime | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

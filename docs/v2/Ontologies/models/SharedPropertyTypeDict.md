@@ -5,9 +5,9 @@ A property type that can be shared across object types.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**apiName** | str | Yes |  |
-**displayName** | str | Yes |  |
+**rid** | SharedPropertyTypeRid | Yes |  |
+**apiName** | SharedPropertyTypeApiName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | NotRequired[str] | No | A short text that describes the SharedPropertyType. |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
 

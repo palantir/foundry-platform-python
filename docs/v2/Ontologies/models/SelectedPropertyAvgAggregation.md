@@ -5,7 +5,7 @@ Computes the average value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selected_property_api_name** | str | Yes |  |
+**selected_property_api_name** | PropertyApiName | Yes |  |
 **type** | Literal["avg"] | Yes | None |
 
 

@@ -7,7 +7,7 @@ successfully.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**schedule_rid** | RID | Yes |  |
+**schedule_rid** | ScheduleRid | Yes |  |
 **type** | Literal["scheduleSucceeded"] | Yes | None |
 
 

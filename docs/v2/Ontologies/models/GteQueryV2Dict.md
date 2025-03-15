@@ -9,7 +9,7 @@ to query on by a variety of means. Either `field` or `propertyIdentifier` must b
 | ------------ | ------------- | ------------- | ------------- |
 **field** | NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
-**value** | Any | Yes |  |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["gte"] | Yes | None |
 
 

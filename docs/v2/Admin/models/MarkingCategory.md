@@ -5,13 +5,13 @@ MarkingCategory
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**id** | str | Yes |  |
-**name** | str | Yes |  |
+**id** | MarkingCategoryId | Yes |  |
+**name** | MarkingCategoryName | Yes |  |
 **description** | Optional[str] | No |  |
 **category_type** | MarkingCategoryType | Yes |  |
 **marking_type** | MarkingType | Yes |  |
 **markings** | List[MarkingId] | Yes |  |
-**created_time** | datetime | Yes |  |
+**created_time** | CreatedTime | Yes |  |
 **created_by** | Optional[CreatedBy] | No |  |
 
 

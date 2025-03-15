@@ -1,11 +1,10 @@
-# RetryBackoffDuration
+# EnrollmentName
 
-The duration to wait before retrying after a Job fails.
-
+EnrollmentName
 
 ## Type
 ```python
-Duration
+str
 ```
 
 

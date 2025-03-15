@@ -24,6 +24,7 @@ from foundry import _errors as errors
 from foundry.v2.connectivity import errors as connectivity_errors
 from foundry.v2.connectivity import models as connectivity_models
 from foundry.v2.core import models as core_models
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class ConnectionClient:
@@ -79,8 +80,8 @@ class ConnectionClient:
             connectivity_models.CreateConnectionRequestConnectionConfiguration,
             connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
         ],
-        display_name: str,
-        parent_folder_rid: core.RID,
+        display_name: connectivity_models.ConnectionDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -99,9 +100,9 @@ class ConnectionClient:
         :param configuration:
         :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
         :param display_name: The display name of the Connection. The display name must not be blank.
-        :type display_name: str
+        :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
-        :type parent_folder_rid: RID
+        :type parent_folder_rid: FolderRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -135,12 +136,12 @@ class ConnectionClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": core.RID,
+                        "parentFolderRid": filesystem_models.FolderRid,
                         "configuration": typing.Union[
                             connectivity_models.CreateConnectionRequestConnectionConfiguration,
                             connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
                         ],
-                        "displayName": str,
+                        "displayName": connectivity_models.ConnectionDisplayName,
                     },
                 ),
                 response_type=connectivity_models.Connection,
@@ -160,7 +161,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def get(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -169,7 +170,7 @@ class ConnectionClient:
         """
         Get the Connection with the specified rid.
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -213,7 +214,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def get_configuration(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -224,7 +225,7 @@ class ConnectionClient:
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -266,7 +267,7 @@ class ConnectionClient:
     @errors.handle_unexpected
     def update_secrets(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
         secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -287,7 +288,7 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
         :param preview: Enables the use of preview functionality.

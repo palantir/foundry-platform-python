@@ -7,7 +7,7 @@ ReplaceScheduleRequestAction
 | ------------ | ------------- | ------------- | ------------- |
 **abort_on_failure** | Optional[AbortOnFailure] | No |  |
 **force_build** | Optional[ForceBuild] | No |  |
-**retry_backoff_duration** | Optional[RetryBackoffDuration] | No |  |
+**retry_backoff_duration** | Optional[Duration] | No |  |
 **retry_count** | Optional[RetryCount] | No |  |
 **fallback_branches** | Optional[FallbackBranches] | No |  |
 **branch_name** | Optional[BranchName] | No | The target branch the schedule should run on. |

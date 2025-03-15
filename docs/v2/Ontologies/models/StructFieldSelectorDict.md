@@ -9,8 +9,8 @@ where applicable.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**propertyApiName** | str | Yes |  |
-**structFieldApiName** | str | Yes |  |
+**propertyApiName** | PropertyApiName | Yes |  |
+**structFieldApiName** | StructFieldApiName | Yes |  |
 **type** | Literal["structField"] | Yes | None |
 
 

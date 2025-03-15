@@ -6,7 +6,7 @@ Details about a parameter of an action or query.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **description** | NotRequired[str] | No |  |
-**baseType** | str | Yes |  |
+**baseType** | ValueType | Yes |  |
 **dataType** | NotRequired[OntologyDataTypeDict] | No |  |
 **required** | bool | Yes |  |
 

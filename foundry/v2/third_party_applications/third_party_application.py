@@ -64,7 +64,7 @@ class ThirdPartyApplicationClient:
     @errors.handle_unexpected
     def get(
         self,
-        third_party_application_rid: core.RID,
+        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -73,7 +73,7 @@ class ThirdPartyApplicationClient:
         """
         Get the ThirdPartyApplication with the specified rid.
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
-        :type third_party_application_rid: RID
+        :type third_party_application_rid: ThirdPartyApplicationRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

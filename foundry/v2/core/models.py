@@ -144,26 +144,6 @@ class ByteTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["byte"]
 
 
-ChangeDataCaptureConfiguration = "FullRowChangeDataCaptureConfiguration"
-"""
-Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
-least one key needs to be provided.
-
-For more information on CDC in
-Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
-"""
-
-
-ChangeDataCaptureConfigurationDict = "FullRowChangeDataCaptureConfigurationDict"
-"""
-Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
-least one key needs to be provided.
-
-For more information on CDC in
-Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
-"""
-
-
 class CipherTextType(pydantic.BaseModel):
     """CipherTextType"""
 
@@ -187,6 +167,14 @@ class CipherTextTypeDict(typing_extensions.TypedDict):
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: typing.Literal["cipherText"]
+
+
+ContentLength = core.Long
+"""ContentLength"""
+
+
+ContentType = str
+"""ContentType"""
 
 
 CreatedBy = str
@@ -360,7 +348,7 @@ class Field(pydantic.BaseModel):
     [supported field types](/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
     """
 
-    name: str
+    name: FieldName
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -423,7 +411,7 @@ class FieldDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: FieldName
     schema: FieldSchemaDict
 
 
@@ -456,6 +444,10 @@ class FieldSchemaDict(typing_extensions.TypedDict):
 
 FilePath = str
 """The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
+
+
+Filename = str
+"""The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
 class FilterBinaryTypeDict(typing_extensions.TypedDict):
@@ -646,10 +638,10 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     the entire new state of that row to the stream.
     """
 
-    deletion_field_name: str = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
+    deletion_field_name: FieldName = pydantic.Field(alias=str("deletionFieldName"))  # type: ignore[literal-required]
     """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
 
-    ordering_field_name: str = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
+    ordering_field_name: FieldName = pydantic.Field(alias=str("orderingFieldName"))  # type: ignore[literal-required]
     """
     The name of an ordering field that determines the newest state for a row in the dataset. 
 
@@ -684,10 +676,10 @@ class FullRowChangeDataCaptureConfigurationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    deletionFieldName: str
+    deletionFieldName: FieldName
     """The name of a boolean field in the schema that indicates whether or not a row has been deleted."""
 
-    orderingFieldName: str
+    orderingFieldName: FieldName
     """
     The name of an ordering field that determines the newest state for a row in the dataset. 
 
@@ -911,7 +903,7 @@ MediaItemRid = core.RID
 class MediaReference(pydantic.BaseModel):
     """The representation of a media reference."""
 
-    mime_type: str = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
+    mime_type: MediaType = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
     reference: MediaSetViewItemWrapper
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -925,7 +917,7 @@ class MediaReferenceDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mimeType: str
+    mimeType: MediaType
     reference: MediaSetViewItemWrapperDict
 
 
@@ -957,9 +949,9 @@ MediaSetRid = core.RID
 class MediaSetViewItem(pydantic.BaseModel):
     """MediaSetViewItem"""
 
-    media_set_rid: core.RID = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-    media_set_view_rid: core.RID = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
-    media_item_rid: core.RID = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_set_rid: MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
+    media_set_view_rid: MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
+    media_item_rid: MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     token: typing.Optional[MediaItemReadToken] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -973,9 +965,9 @@ class MediaSetViewItemDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mediaSetRid: core.RID
-    mediaSetViewRid: core.RID
-    mediaItemRid: core.RID
+    mediaSetRid: MediaSetRid
+    mediaSetViewRid: MediaSetViewRid
+    mediaItemRid: MediaItemRid
     token: typing_extensions.NotRequired[MediaItemReadToken]
 
 
@@ -1004,6 +996,13 @@ class MediaSetViewItemWrapperDict(typing_extensions.TypedDict):
 
 MediaSetViewRid = core.RID
 """The Resource Identifier (RID) of a single View of a Media Set. A Media Set View is an independent collection of Media Items."""
+
+
+MediaType = str
+"""
+The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
+Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
+"""
 
 
 class NullType(pydantic.BaseModel):
@@ -1129,7 +1128,7 @@ class StreamSchema(pydantic.BaseModel):
     [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
-    change_data_capture: typing.Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
+    change_data_capture: typing.Optional[FullRowChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StreamSchemaDict":
@@ -1165,7 +1164,7 @@ class StreamSchemaDict(typing_extensions.TypedDict):
     [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
-    changeDataCapture: typing_extensions.NotRequired[ChangeDataCaptureConfigurationDict]
+    changeDataCapture: typing_extensions.NotRequired[FullRowChangeDataCaptureConfigurationDict]
 
 
 class StringType(pydantic.BaseModel):
@@ -1185,6 +1184,10 @@ class StringTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: typing.Literal["string"]
+
+
+StructFieldName = str
+"""The name of a field in a `Struct`."""
 
 
 class StructFieldType(pydantic.BaseModel):
@@ -1266,6 +1269,10 @@ class TimestampTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["timestamp"]
 
 
+TotalCount = core.Long
+"""The total number of items across all pages."""
+
+
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
@@ -1285,6 +1292,18 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
 
     unsupportedType: str
     type: typing.Literal["unsupported"]
+
+
+UpdatedBy = core.UUID
+"""The Foundry user who last updated this resource"""
+
+
+UpdatedTime = datetime
+"""The time at which the resource was most recently updated."""
+
+
+UserId = core.UUID
+"""A Foundry User ID."""
 
 
 class VectorSimilarityFunction(pydantic.BaseModel):
@@ -1367,10 +1386,10 @@ __all__ = [
     "BuildRid",
     "ByteType",
     "ByteTypeDict",
-    "ChangeDataCaptureConfiguration",
-    "ChangeDataCaptureConfigurationDict",
     "CipherTextType",
     "CipherTextTypeDict",
+    "ContentLength",
+    "ContentType",
     "CreatedBy",
     "CreatedTime",
     "CustomMetadata",
@@ -1397,6 +1416,7 @@ __all__ = [
     "FieldSchema",
     "FieldSchemaDict",
     "FilePath",
+    "Filename",
     "FilterBinaryTypeDict",
     "FilterBooleanTypeDict",
     "FilterDateTimeTypeDict",
@@ -1451,6 +1471,7 @@ __all__ = [
     "MediaSetViewItemWrapper",
     "MediaSetViewItemWrapperDict",
     "MediaSetViewRid",
+    "MediaType",
     "NullType",
     "NullTypeDict",
     "OperationScope",
@@ -1471,6 +1492,7 @@ __all__ = [
     "StreamSchemaDict",
     "StringType",
     "StringTypeDict",
+    "StructFieldName",
     "StructFieldType",
     "StructFieldTypeDict",
     "TimeSeriesItemType",
@@ -1480,8 +1502,12 @@ __all__ = [
     "TimeseriesTypeDict",
     "TimestampType",
     "TimestampTypeDict",
+    "TotalCount",
     "UnsupportedType",
     "UnsupportedTypeDict",
+    "UpdatedBy",
+    "UpdatedTime",
+    "UserId",
     "VectorSimilarityFunction",
     "VectorSimilarityFunctionDict",
     "VectorSimilarityFunctionValue",

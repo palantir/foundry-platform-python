@@ -95,7 +95,7 @@ QueryStatusDict = typing_extensions.Annotated[
 class RunningQueryStatus(pydantic.BaseModel):
     """RunningQueryStatus"""
 
-    query_id: str = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
+    query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
     type: typing.Literal["running"] = "running"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -111,14 +111,14 @@ class RunningQueryStatusDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: str
+    queryId: QueryId
     type: typing.Literal["running"]
 
 
 class SucceededQueryStatus(pydantic.BaseModel):
     """SucceededQueryStatus"""
 
-    query_id: str = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
+    query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
     type: typing.Literal["succeeded"] = "succeeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -134,7 +134,7 @@ class SucceededQueryStatusDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: str
+    queryId: QueryId
     type: typing.Literal["succeeded"]
 
 

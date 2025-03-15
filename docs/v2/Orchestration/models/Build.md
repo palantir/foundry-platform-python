@@ -5,15 +5,15 @@ Build
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes | The RID of a Build. |
-**branch_name** | str | Yes | The branch that the build is running on. |
-**created_time** | datetime | Yes | The timestamp that the build was created. |
-**created_by** | str | Yes | The user who created the build. |
+**rid** | BuildRid | Yes | The RID of a Build. |
+**branch_name** | BranchName | Yes | The branch that the build is running on. |
+**created_time** | CreatedTime | Yes | The timestamp that the build was created. |
+**created_by** | CreatedBy | Yes | The user who created the build. |
 **fallback_branches** | FallbackBranches | Yes |  |
 **job_rids** | List[JobRid] | Yes |  |
-**retry_count** | int | Yes |  |
+**retry_count** | RetryCount | Yes |  |
 **retry_backoff_duration** | Duration | Yes |  |
-**abort_on_failure** | bool | Yes |  |
+**abort_on_failure** | AbortOnFailure | Yes |  |
 **status** | BuildStatus | Yes |  |
 
 

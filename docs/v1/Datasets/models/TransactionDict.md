@@ -6,7 +6,7 @@ An operation that modifies the files within a dataset.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
+**rid** | TransactionRid | Yes |  |
 **transactionType** | TransactionType | Yes |  |
 **status** | TransactionStatus | Yes |  |
 **createdTime** | datetime | Yes | The timestamp when the transaction was created, in ISO 8601 timestamp format. |

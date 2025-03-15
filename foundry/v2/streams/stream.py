@@ -21,6 +21,7 @@ import typing_extensions
 from foundry import _core as core
 from foundry import _errors as errors
 from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
 from foundry.v2.streams import errors as streams_errors
 from foundry.v2.streams import models as streams_models
 
@@ -53,9 +54,9 @@ class StreamClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        branch_name: str,
+        branch_name: datasets_models.BranchName,
         schema: typing.Union[
             streams_models.CreateStreamRequestStreamSchema,
             streams_models.CreateStreamRequestStreamSchemaDict,
@@ -71,9 +72,9 @@ class StreamClient:
         Creates a new branch on the backing streaming dataset, and creates a new stream on that branch.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: str
+        :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
         :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
@@ -122,7 +123,7 @@ class StreamClient:
                         ],
                         "partitionsCount": typing.Optional[streams_models.PartitionsCount],
                         "streamType": typing.Optional[streams_models.StreamType],
-                        "branchName": str,
+                        "branchName": datasets_models.BranchName,
                         "compressed": typing.Optional[streams_models.Compressed],
                     },
                 ),
@@ -140,8 +141,8 @@ class StreamClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: core.RID,
-        stream_branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -152,9 +153,9 @@ class StreamClient:
         user does not have permission to access the stream, a 404 error will be returned.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param stream_branch_name:
-        :type stream_branch_name: str
+        :type stream_branch_name: BranchName
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -195,8 +196,8 @@ class StreamClient:
     @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: core.RID,
-        stream_branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         body: bytes,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -208,9 +209,9 @@ class StreamClient:
         Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param stream_branch_name:
-        :type stream_branch_name: str
+        :type stream_branch_name: BranchName
         :param body: The binary record to publish to the stream
         :type body: bytes
         :param preview: Enables the use of preview functionality.
@@ -256,8 +257,8 @@ class StreamClient:
     @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: core.RID,
-        stream_branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
         record: streams_models.Record,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -270,9 +271,9 @@ class StreamClient:
         rejected if it is invalid.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param stream_branch_name:
-        :type stream_branch_name: str
+        :type stream_branch_name: BranchName
         :param record: The record to publish to the stream
         :type record: Record
         :param preview: Enables the use of preview functionality.
@@ -326,8 +327,8 @@ class StreamClient:
     @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: core.RID,
-        stream_branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
         records: typing.List[streams_models.Record],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -340,9 +341,9 @@ class StreamClient:
         the batch will be rejected if one or more of the records are invalid.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param stream_branch_name:
-        :type stream_branch_name: str
+        :type stream_branch_name: BranchName
         :param records: The records to publish to the stream
         :type records: List[Record]
         :param preview: Enables the use of preview functionality.
@@ -396,8 +397,8 @@ class StreamClient:
     @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: core.RID,
-        stream_branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        stream_branch_name: datasets_models.BranchName,
         *,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -419,9 +420,9 @@ class StreamClient:
         which will be the new stream view that will be written to for the branch.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param stream_branch_name:
-        :type stream_branch_name: str
+        :type stream_branch_name: BranchName
         :param compressed: Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.

@@ -5,7 +5,7 @@ DatasetJobOutput
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | Yes |  |
+**dataset_rid** | DatasetRid | Yes |  |
 **output_transaction_rid** | Optional[TransactionRid] | No |  |
 **type** | Literal["datasetJobOutput"] | Yes | None |
 

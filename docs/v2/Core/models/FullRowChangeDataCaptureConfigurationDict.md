@@ -8,8 +8,8 @@ the entire new state of that row to the stream.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**deletionFieldName** | str | Yes | The name of a boolean field in the schema that indicates whether or not a row has been deleted.  |
-**orderingFieldName** | str | Yes | The name of an ordering field that determines the newest state for a row in the dataset.   The ordering field can only be of the following types: - Byte - Date - Decimal - Integer - Long - Short - String - Timestamp  |
+**deletionFieldName** | FieldName | Yes | The name of a boolean field in the schema that indicates whether or not a row has been deleted.  |
+**orderingFieldName** | FieldName | Yes | The name of an ordering field that determines the newest state for a row in the dataset.   The ordering field can only be of the following types: - Byte - Date - Decimal - Integer - Long - Short - String - Timestamp  |
 **type** | Literal["fullRow"] | Yes | None |
 
 

@@ -29,12 +29,12 @@ ActionRid = core.RID
 class ActionType(pydantic.BaseModel):
     """Represents an action type in the Ontology."""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    api_name: ActionTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     description: typing.Optional[str] = None
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     status: core_models.ReleaseStatus
     parameters: typing.Dict[ParameterId, Parameter]
-    rid: core.RID
+    rid: ActionTypeRid
     operations: typing.List[LogicRule]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -55,12 +55,12 @@ class ActionTypeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
+    apiName: ActionTypeApiName
     description: typing_extensions.NotRequired[str]
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
     status: core_models.ReleaseStatus
     parameters: typing.Dict[ParameterId, ParameterDict]
-    rid: core.RID
+    rid: ActionTypeRid
     operations: typing.List[LogicRuleDict]
 
 
@@ -150,8 +150,8 @@ class AggregationDurationGrouping(pydantic.BaseModel):
     The interval uses the ISO 8601 notation. For example, "PT1H2M34S" represents a duration of 3754 seconds.
     """
 
-    field: str
-    duration: str
+    field: FieldNameV1
+    duration: Duration
     type: typing.Literal["duration"] = "duration"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -170,15 +170,15 @@ class AggregationDurationGroupingDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    duration: str
+    field: FieldNameV1
+    duration: Duration
     type: typing.Literal["duration"]
 
 
 class AggregationExactGrouping(pydantic.BaseModel):
     """Divides objects into groups according to an exact value."""
 
-    field: str
+    field: FieldNameV1
     max_group_count: typing.Optional[int] = pydantic.Field(alias=str("maxGroupCount"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["exact"] = "exact"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -195,7 +195,7 @@ class AggregationExactGroupingDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     maxGroupCount: typing_extensions.NotRequired[int]
     type: typing.Literal["exact"]
 
@@ -203,7 +203,7 @@ class AggregationExactGroupingDict(typing_extensions.TypedDict):
 class AggregationFixedWidthGrouping(pydantic.BaseModel):
     """Divides objects into groups with the specified width."""
 
-    field: str
+    field: FieldNameV1
     fixed_width: int = pydantic.Field(alias=str("fixedWidth"))  # type: ignore[literal-required]
     type: typing.Literal["fixedWidth"] = "fixedWidth"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -220,7 +220,7 @@ class AggregationFixedWidthGroupingDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     fixedWidth: int
     type: typing.Literal["fixedWidth"]
 
@@ -330,7 +330,7 @@ class AggregationRangeDict(typing_extensions.TypedDict):
 class AggregationRangesGrouping(pydantic.BaseModel):
     """Divides objects into groups according to specified ranges."""
 
-    field: str
+    field: FieldNameV1
     ranges: typing.List[AggregationRange]
     type: typing.Literal["ranges"] = "ranges"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -347,7 +347,7 @@ class AggregationRangesGroupingDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     ranges: typing.List[AggregationRangeDict]
     type: typing.Literal["ranges"]
 
@@ -358,7 +358,7 @@ class AllTermsQuery(pydantic.BaseModel):
     order in the provided value. This query supports fuzzy matching.
     """
 
-    field: str
+    field: FieldNameV1
     value: str
     fuzzy: typing.Optional[Fuzzy] = None
     type: typing.Literal["allTerms"] = "allTerms"
@@ -377,7 +377,7 @@ class AllTermsQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     value: str
     fuzzy: typing_extensions.NotRequired[Fuzzy]
     type: typing.Literal["allTerms"]
@@ -410,7 +410,7 @@ class AnyTermQuery(pydantic.BaseModel):
     order in the provided value. This query supports fuzzy matching.
     """
 
-    field: str
+    field: FieldNameV1
     value: str
     fuzzy: typing.Optional[Fuzzy] = None
     type: typing.Literal["anyTerm"] = "anyTerm"
@@ -429,7 +429,7 @@ class AnyTermQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     value: str
     fuzzy: typing_extensions.NotRequired[Fuzzy]
     type: typing.Literal["anyTerm"]
@@ -504,7 +504,7 @@ class ApplyActionResponseDict(typing_extensions.TypedDict):
 class ApproximateDistinctAggregation(pydantic.BaseModel):
     """Computes an approximate number of distinct values for the provided field."""
 
-    field: str
+    field: FieldNameV1
     name: typing.Optional[AggregationMetricName] = None
     type: typing.Literal["approximateDistinct"] = "approximateDistinct"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -521,7 +521,7 @@ class ApproximateDistinctAggregationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     name: typing_extensions.NotRequired[AggregationMetricName]
     type: typing.Literal["approximateDistinct"]
 
@@ -582,7 +582,7 @@ AttachmentRid = core.RID
 class AvgAggregation(pydantic.BaseModel):
     """Computes the average value for the provided field."""
 
-    field: str
+    field: FieldNameV1
     name: typing.Optional[AggregationMetricName] = None
     type: typing.Literal["avg"] = "avg"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -597,7 +597,7 @@ class AvgAggregationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     name: typing_extensions.NotRequired[AggregationMetricName]
     type: typing.Literal["avg"]
 
@@ -623,8 +623,8 @@ class BatchApplyActionResponseDict(typing_extensions.TypedDict):
 class ContainsQuery(pydantic.BaseModel):
     """Returns objects where the specified array contains a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["contains"] = "contains"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -638,8 +638,8 @@ class ContainsQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["contains"]
 
 
@@ -667,7 +667,7 @@ class CountAggregationDict(typing_extensions.TypedDict):
 class CreateInterfaceObjectRule(pydantic.BaseModel):
     """CreateInterfaceObjectRule"""
 
-    interface_type_api_name: str = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createInterfaceObject"] = "createInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -683,17 +683,17 @@ class CreateInterfaceObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    interfaceTypeApiName: str
+    interfaceTypeApiName: InterfaceTypeApiName
     type: typing.Literal["createInterfaceObject"]
 
 
 class CreateLinkRule(pydantic.BaseModel):
     """CreateLinkRule"""
 
-    link_type_api_name_ato_b: str = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
-    link_type_api_name_bto_a: str = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
-    a_side_object_type_api_name: str = pydantic.Field(alias=str("aSideObjectTypeApiName"))  # type: ignore[literal-required]
-    b_side_object_type_api_name: str = pydantic.Field(alias=str("bSideObjectTypeApiName"))  # type: ignore[literal-required]
+    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
+    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
+    a_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("aSideObjectTypeApiName"))  # type: ignore[literal-required]
+    b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("bSideObjectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createLink"] = "createLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -707,17 +707,17 @@ class CreateLinkRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    linkTypeApiNameAtoB: str
-    linkTypeApiNameBtoA: str
-    aSideObjectTypeApiName: str
-    bSideObjectTypeApiName: str
+    linkTypeApiNameAtoB: LinkTypeApiName
+    linkTypeApiNameBtoA: LinkTypeApiName
+    aSideObjectTypeApiName: ObjectTypeApiName
+    bSideObjectTypeApiName: ObjectTypeApiName
     type: typing.Literal["createLink"]
 
 
 class CreateObjectRule(pydantic.BaseModel):
     """CreateObjectRule"""
 
-    object_type_api_name: str = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createObject"] = "createObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -731,7 +731,7 @@ class CreateObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectTypeApiName: str
+    objectTypeApiName: ObjectTypeApiName
     type: typing.Literal["createObject"]
 
 
@@ -771,7 +771,7 @@ Represents the value of data in the following format. Note that these values can
 class DeleteInterfaceObjectRule(pydantic.BaseModel):
     """DeleteInterfaceObjectRule"""
 
-    interface_type_api_name: str = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["deleteInterfaceObject"] = "deleteInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -787,17 +787,17 @@ class DeleteInterfaceObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    interfaceTypeApiName: str
+    interfaceTypeApiName: InterfaceTypeApiName
     type: typing.Literal["deleteInterfaceObject"]
 
 
 class DeleteLinkRule(pydantic.BaseModel):
     """DeleteLinkRule"""
 
-    link_type_api_name_ato_b: str = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
-    link_type_api_name_bto_a: str = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
-    a_side_object_type_api_name: str = pydantic.Field(alias=str("aSideObjectTypeApiName"))  # type: ignore[literal-required]
-    b_side_object_type_api_name: str = pydantic.Field(alias=str("bSideObjectTypeApiName"))  # type: ignore[literal-required]
+    link_type_api_name_ato_b: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameAtoB"))  # type: ignore[literal-required]
+    link_type_api_name_bto_a: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiNameBtoA"))  # type: ignore[literal-required]
+    a_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("aSideObjectTypeApiName"))  # type: ignore[literal-required]
+    b_side_object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("bSideObjectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["deleteLink"] = "deleteLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -811,17 +811,17 @@ class DeleteLinkRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    linkTypeApiNameAtoB: str
-    linkTypeApiNameBtoA: str
-    aSideObjectTypeApiName: str
-    bSideObjectTypeApiName: str
+    linkTypeApiNameAtoB: LinkTypeApiName
+    linkTypeApiNameBtoA: LinkTypeApiName
+    aSideObjectTypeApiName: ObjectTypeApiName
+    bSideObjectTypeApiName: ObjectTypeApiName
     type: typing.Literal["deleteLink"]
 
 
 class DeleteObjectRule(pydantic.BaseModel):
     """DeleteObjectRule"""
 
-    object_type_api_name: str = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["deleteObject"] = "deleteObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -835,12 +835,16 @@ class DeleteObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectTypeApiName: str
+    objectTypeApiName: ObjectTypeApiName
     type: typing.Literal["deleteObject"]
 
 
 DerivedPropertyApiName = str
 """The name of the derived property that will be returned."""
+
+
+Duration = str
+"""An ISO 8601 formatted duration."""
 
 
 class EntrySetTypeDict(typing_extensions.TypedDict):
@@ -856,8 +860,8 @@ class EntrySetTypeDict(typing_extensions.TypedDict):
 class EqualsQuery(pydantic.BaseModel):
     """Returns objects where the specified field is equal to a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["eq"] = "eq"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -871,15 +875,15 @@ class EqualsQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["eq"]
 
 
 class ExecuteQueryResponse(pydantic.BaseModel):
     """ExecuteQueryResponse"""
 
-    value: typing.Any
+    value: DataValue
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ExecuteQueryResponseDict":
@@ -894,7 +898,11 @@ class ExecuteQueryResponseDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: typing.Any
+    value: DataValue
+
+
+FieldNameV1 = str
+"""A reference to an Ontology object property with the form `properties.{propertyApiName}`."""
 
 
 FilterValue = str
@@ -943,8 +951,8 @@ class GroupMemberConstraintDict(typing_extensions.TypedDict):
 class GtQuery(pydantic.BaseModel):
     """Returns objects where the specified field is greater than a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["gt"] = "gt"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -958,16 +966,16 @@ class GtQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["gt"]
 
 
 class GteQuery(pydantic.BaseModel):
     """Returns objects where the specified field is greater than or equal to a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["gte"] = "gte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -981,8 +989,8 @@ class GteQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["gte"]
 
 
@@ -1000,7 +1008,7 @@ InterfaceTypeRid = core.RID
 class IsNullQuery(pydantic.BaseModel):
     """Returns objects based on the existence of the specified field."""
 
-    field: str
+    field: FieldNameV1
     value: bool
     type: typing.Literal["isNull"] = "isNull"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1015,7 +1023,7 @@ class IsNullQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     value: bool
     type: typing.Literal["isNull"]
 
@@ -1030,10 +1038,10 @@ application.
 class LinkTypeSide(pydantic.BaseModel):
     """LinkTypeSide"""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    api_name: LinkTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     status: core_models.ReleaseStatus
-    object_type_api_name: str = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     cardinality: LinkTypeSideCardinality
     foreign_key_property_api_name: typing.Optional[PropertyApiName] = pydantic.Field(alias=str("foreignKeyPropertyApiName"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1052,10 +1060,10 @@ class LinkTypeSideDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
-    displayName: str
+    apiName: LinkTypeApiName
+    displayName: core_models.DisplayName
     status: core_models.ReleaseStatus
-    objectTypeApiName: str
+    objectTypeApiName: ObjectTypeApiName
     cardinality: LinkTypeSideCardinality
     foreignKeyPropertyApiName: typing_extensions.NotRequired[PropertyApiName]
 
@@ -1139,7 +1147,7 @@ class ListObjectsResponse(pydantic.BaseModel):
     data: typing.List[OntologyObject]
     """The list of objects in the current page."""
 
-    total_count: core.Long = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ListObjectsResponseDict":
@@ -1158,7 +1166,7 @@ class ListObjectsResponseDict(typing_extensions.TypedDict):
     data: typing.List[OntologyObjectDict]
     """The list of objects in the current page."""
 
-    totalCount: core.Long
+    totalCount: core_models.TotalCount
 
 
 class ListOntologiesResponse(pydantic.BaseModel):
@@ -1269,8 +1277,8 @@ LogicRuleDict = typing_extensions.Annotated[
 class LtQuery(pydantic.BaseModel):
     """Returns objects where the specified field is less than a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["lt"] = "lt"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1284,16 +1292,16 @@ class LtQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["lt"]
 
 
 class LteQuery(pydantic.BaseModel):
     """Returns objects where the specified field is less than or equal to a value."""
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["lte"] = "lte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1307,15 +1315,15 @@ class LteQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
-    value: typing.Any
+    field: FieldNameV1
+    value: PropertyValue
     type: typing.Literal["lte"]
 
 
 class MaxAggregation(pydantic.BaseModel):
     """Computes the maximum value for the provided field."""
 
-    field: str
+    field: FieldNameV1
     name: typing.Optional[AggregationMetricName] = None
     type: typing.Literal["max"] = "max"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1330,7 +1338,7 @@ class MaxAggregationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     name: typing_extensions.NotRequired[AggregationMetricName]
     type: typing.Literal["max"]
 
@@ -1338,7 +1346,7 @@ class MaxAggregationDict(typing_extensions.TypedDict):
 class MinAggregation(pydantic.BaseModel):
     """Computes the minimum value for the provided field."""
 
-    field: str
+    field: FieldNameV1
     name: typing.Optional[AggregationMetricName] = None
     type: typing.Literal["min"] = "min"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1353,7 +1361,7 @@ class MinAggregationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     name: typing_extensions.NotRequired[AggregationMetricName]
     type: typing.Literal["min"]
 
@@ -1361,7 +1369,7 @@ class MinAggregationDict(typing_extensions.TypedDict):
 class ModifyInterfaceObjectRule(pydantic.BaseModel):
     """ModifyInterfaceObjectRule"""
 
-    interface_type_api_name: str = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["modifyInterfaceObject"] = "modifyInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1377,14 +1385,14 @@ class ModifyInterfaceObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    interfaceTypeApiName: str
+    interfaceTypeApiName: InterfaceTypeApiName
     type: typing.Literal["modifyInterfaceObject"]
 
 
 class ModifyObjectRule(pydantic.BaseModel):
     """ModifyObjectRule"""
 
-    object_type_api_name: str = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["modifyObject"] = "modifyObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1398,7 +1406,7 @@ class ModifyObjectRuleDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectTypeApiName: str
+    objectTypeApiName: ObjectTypeApiName
     type: typing.Literal["modifyObject"]
 
 
@@ -1465,6 +1473,10 @@ class ObjectQueryResultConstraintDict(typing_extensions.TypedDict):
     type: typing.Literal["objectQueryResult"]
 
 
+ObjectRid = core.RID
+"""The unique resource identifier of an object, useful for interacting with other Foundry APIs."""
+
+
 ObjectSetRid = core.RID
 """ObjectSetRid"""
 
@@ -1472,7 +1484,7 @@ ObjectSetRid = core.RID
 class ObjectType(pydantic.BaseModel):
     """Represents an object type in the Ontology."""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     status: core_models.ReleaseStatus
     description: typing.Optional[str] = None
@@ -1485,7 +1497,7 @@ class ObjectType(pydantic.BaseModel):
     properties: typing.Dict[PropertyApiName, Property]
     """A map of the properties of the object type."""
 
-    rid: core.RID
+    rid: ObjectTypeRid
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ObjectTypeDict":
@@ -1505,7 +1517,7 @@ class ObjectTypeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
+    apiName: ObjectTypeApiName
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
     status: core_models.ReleaseStatus
     description: typing_extensions.NotRequired[str]
@@ -1518,7 +1530,7 @@ class ObjectTypeDict(typing_extensions.TypedDict):
     properties: typing.Dict[PropertyApiName, PropertyDict]
     """A map of the properties of the object type."""
 
-    rid: core.RID
+    rid: ObjectTypeRid
 
 
 ObjectTypeRid = core.RID
@@ -1559,10 +1571,10 @@ class OneOfConstraintDict(typing_extensions.TypedDict):
 class Ontology(pydantic.BaseModel):
     """Metadata about an Ontology."""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    api_name: OntologyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     description: str
-    rid: core.RID
+    rid: OntologyRid
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OntologyDict":
@@ -1660,10 +1672,10 @@ class OntologyDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
-    displayName: str
+    apiName: OntologyApiName
+    displayName: core_models.DisplayName
     description: str
-    rid: core.RID
+    rid: OntologyRid
 
 
 class OntologyMapType(pydantic.BaseModel):
@@ -1695,7 +1707,7 @@ class OntologyObject(pydantic.BaseModel):
     properties: typing.Dict[PropertyApiName, typing.Optional[PropertyValue]]
     """A map of the property values of the object."""
 
-    rid: core.RID
+    rid: ObjectRid
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "OntologyObjectDict":
@@ -1711,7 +1723,7 @@ class OntologyObjectDict(typing_extensions.TypedDict):
     properties: typing.Dict[PropertyApiName, typing.Optional[PropertyValue]]
     """A map of the property values of the object."""
 
-    rid: core.RID
+    rid: ObjectRid
 
 
 class OntologyObjectSetType(pydantic.BaseModel):
@@ -1742,8 +1754,8 @@ class OntologyObjectSetTypeDict(typing_extensions.TypedDict):
 class OntologyObjectType(pydantic.BaseModel):
     """OntologyObjectType"""
 
-    object_api_name: str = pydantic.Field(alias=str("objectApiName"))  # type: ignore[literal-required]
-    object_type_api_name: str = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    object_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectApiName"))  # type: ignore[literal-required]
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["object"] = "object"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1759,8 +1771,8 @@ class OntologyObjectTypeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectApiName: str
-    objectTypeApiName: str
+    objectApiName: ObjectTypeApiName
+    objectTypeApiName: ObjectTypeApiName
     type: typing.Literal["object"]
 
 
@@ -1795,7 +1807,7 @@ class OntologySetTypeDict(typing_extensions.TypedDict):
 class OntologyStructField(pydantic.BaseModel):
     """OntologyStructField"""
 
-    name: str
+    name: core_models.StructFieldName
     field_type: OntologyDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     required: bool
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1812,7 +1824,7 @@ class OntologyStructFieldDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: core_models.StructFieldName
     fieldType: OntologyDataTypeDict
     required: bool
 
@@ -1880,7 +1892,7 @@ class Parameter(pydantic.BaseModel):
     """Details about a parameter of an action or query."""
 
     description: typing.Optional[str] = None
-    base_type: str = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
+    base_type: ValueType = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
     data_type: typing.Optional[OntologyDataType] = pydantic.Field(alias=str("dataType"), default=None)  # type: ignore[literal-required]
     required: bool
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1896,7 +1908,7 @@ class ParameterDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     description: typing_extensions.NotRequired[str]
-    baseType: str
+    baseType: ValueType
     dataType: typing_extensions.NotRequired[OntologyDataTypeDict]
     required: bool
 
@@ -2033,7 +2045,7 @@ class ParameterOptionDict(typing_extensions.TypedDict):
 class PhraseQuery(pydantic.BaseModel):
     """Returns objects where the specified field contains the provided value as a substring."""
 
-    field: str
+    field: FieldNameV1
     value: str
     type: typing.Literal["phrase"] = "phrase"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2048,7 +2060,7 @@ class PhraseQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     value: str
     type: typing.Literal["phrase"]
 
@@ -2062,7 +2074,7 @@ PreciseTimeUnit = typing.Literal[
 class PrefixQuery(pydantic.BaseModel):
     """Returns objects where the specified field starts with the provided value."""
 
-    field: str
+    field: FieldNameV1
     value: str
     type: typing.Literal["prefix"] = "prefix"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2077,7 +2089,7 @@ class PrefixQueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     value: str
     type: typing.Literal["prefix"]
 
@@ -2091,7 +2103,7 @@ class Property(pydantic.BaseModel):
 
     description: typing.Optional[str] = None
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
-    base_type: str = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
+    base_type: ValueType = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "PropertyDict":
@@ -2113,7 +2125,7 @@ class PropertyDict(typing_extensions.TypedDict):
 
     description: typing_extensions.NotRequired[str]
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
-    baseType: str
+    baseType: ValueType
 
 
 PropertyFilter = str
@@ -2181,6 +2193,10 @@ Represents the value of a property in the following format.
 
 Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer, and Short types can also be encoded as JSON strings.
 """
+
+
+PropertyValueEscapedString = str
+"""Represents the value of a property in string format. This is used in URL parameters."""
 
 
 QueryAggregationKeyTypeDict = typing_extensions.Annotated[
@@ -2287,7 +2303,7 @@ class QueryStructFieldDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: core_models.StructFieldName
     fieldType: QueryDataTypeDict
 
 
@@ -2303,13 +2319,13 @@ class QueryStructTypeDict(typing_extensions.TypedDict):
 class QueryType(pydantic.BaseModel):
     """Represents a query type in the Ontology."""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    api_name: QueryApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     description: typing.Optional[str] = None
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     parameters: typing.Dict[ParameterId, Parameter]
     output: typing.Optional[OntologyDataType] = None
-    rid: core.RID
-    version: str
+    rid: FunctionRid
+    version: FunctionVersion
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryTypeDict":
@@ -2322,13 +2338,13 @@ class QueryTypeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
+    apiName: QueryApiName
     description: typing_extensions.NotRequired[str]
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
     parameters: typing.Dict[ParameterId, ParameterDict]
     output: typing_extensions.NotRequired[OntologyDataTypeDict]
-    rid: core.RID
-    version: str
+    rid: FunctionRid
+    version: FunctionVersion
 
 
 class QueryUnionTypeDict(typing_extensions.TypedDict):
@@ -2440,7 +2456,7 @@ class SearchObjectsResponse(pydantic.BaseModel):
 
     data: typing.List[OntologyObject]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    total_count: core.Long = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "SearchObjectsResponseDict":
@@ -2457,7 +2473,7 @@ class SearchObjectsResponseDict(typing_extensions.TypedDict):
 
     data: typing.List[OntologyObjectDict]
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    totalCount: core.Long
+    totalCount: core_models.TotalCount
 
 
 class SearchOrderBy(pydantic.BaseModel):
@@ -2486,7 +2502,7 @@ SearchOrderByType = typing.Literal["fields", "relevance"]
 class SearchOrdering(pydantic.BaseModel):
     """SearchOrdering"""
 
-    field: str
+    field: FieldNameV1
     direction: typing.Optional[str] = None
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
 
@@ -2502,7 +2518,7 @@ class SearchOrderingDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     direction: typing_extensions.NotRequired[str]
     """Specifies the ordering direction (can be either `asc` or `desc`)"""
 
@@ -2672,7 +2688,7 @@ class SubmissionCriteriaEvaluationDict(typing_extensions.TypedDict):
 class SumAggregation(pydantic.BaseModel):
     """Computes the sum of values for the provided field."""
 
-    field: str
+    field: FieldNameV1
     name: typing.Optional[AggregationMetricName] = None
     type: typing.Literal["sum"] = "sum"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2687,7 +2703,7 @@ class SumAggregationDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    field: str
+    field: FieldNameV1
     name: typing_extensions.NotRequired[AggregationMetricName]
     type: typing.Literal["sum"]
 
@@ -2868,11 +2884,13 @@ __all__ = [
     "DeleteObjectRule",
     "DeleteObjectRuleDict",
     "DerivedPropertyApiName",
+    "Duration",
     "EntrySetTypeDict",
     "EqualsQuery",
     "EqualsQueryDict",
     "ExecuteQueryResponse",
     "ExecuteQueryResponseDict",
+    "FieldNameV1",
     "FilterValue",
     "FunctionRid",
     "FunctionVersion",
@@ -2925,6 +2943,7 @@ __all__ = [
     "ObjectPropertyValueConstraintDict",
     "ObjectQueryResultConstraint",
     "ObjectQueryResultConstraintDict",
+    "ObjectRid",
     "ObjectSetRid",
     "ObjectType",
     "ObjectTypeApiName",
@@ -2979,6 +2998,7 @@ __all__ = [
     "PropertyFilter",
     "PropertyId",
     "PropertyValue",
+    "PropertyValueEscapedString",
     "QueryAggregationKeyTypeDict",
     "QueryAggregationRangeSubTypeDict",
     "QueryAggregationRangeTypeDict",

@@ -7,9 +7,9 @@ object type that implements the interface, or whether it is optional.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**apiName** | str | Yes |  |
-**displayName** | str | Yes |  |
+**rid** | SharedPropertyTypeRid | Yes |  |
+**apiName** | SharedPropertyTypeApiName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | NotRequired[str] | No | A short text that describes the SharedPropertyType. |
 **dataType** | ObjectPropertyTypeDict | Yes |  |
 **required** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |

@@ -7,8 +7,8 @@ that branch.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**branch_name** | str | Yes |  |
-**dataset_rid** | RID | Yes |  |
+**branch_name** | BranchName | Yes |  |
+**dataset_rid** | DatasetRid | Yes |  |
 **type** | Literal["newLogic"] | Yes | None |
 
 

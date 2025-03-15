@@ -15,7 +15,7 @@ Cancels a query. If the query is no longer running this is effectively a no-op.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | str | The id of a query.  |  |
+**query_id** | QueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -32,7 +32,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The id of a query.
+# QueryId | The id of a query.
 query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -132,7 +132,7 @@ one minute.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | str | The id of a query.  |  |
+**query_id** | QueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -149,7 +149,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The id of a query.
+# QueryId | The id of a query.
 query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -188,7 +188,7 @@ Gets the status of a query.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | str | The id of a query.  |  |
+**query_id** | QueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -205,7 +205,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The id of a query.
+# QueryId | The id of a query.
 query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

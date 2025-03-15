@@ -56,7 +56,7 @@ class BuildClient:
     @errors.handle_unexpected
     def cancel(
         self,
-        build_rid: core.RID,
+        build_rid: core_models.BuildRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -66,7 +66,7 @@ class BuildClient:
         Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
 
         :param build_rid: The RID of a Build.
-        :type build_rid: RID
+        :type build_rid: BuildRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -115,10 +115,7 @@ class BuildClient:
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         retry_backoff_duration: typing.Optional[
-            typing.Union[
-                orchestration_models.RetryBackoffDuration,
-                orchestration_models.RetryBackoffDurationDict,
-            ]
+            typing.Union[core_models.Duration, core_models.DurationDict]
         ] = None,
         retry_count: typing.Optional[orchestration_models.RetryCount] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -141,7 +138,7 @@ class BuildClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+        :type retry_backoff_duration: Optional[Union[Duration, DurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -185,10 +182,7 @@ class BuildClient:
                         "forceBuild": typing.Optional[orchestration_models.ForceBuild],
                         "retryCount": typing.Optional[orchestration_models.RetryCount],
                         "retryBackoffDuration": typing.Optional[
-                            typing.Union[
-                                orchestration_models.RetryBackoffDuration,
-                                orchestration_models.RetryBackoffDurationDict,
-                            ]
+                            typing.Union[core_models.Duration, core_models.DurationDict]
                         ],
                         "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
                         "notificationsEnabled": typing.Optional[
@@ -210,7 +204,7 @@ class BuildClient:
     @errors.handle_unexpected
     def get(
         self,
-        build_rid: core.RID,
+        build_rid: core_models.BuildRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -219,7 +213,7 @@ class BuildClient:
         """
         Get the Build with the specified rid.
         :param build_rid: The RID of a Build.
-        :type build_rid: RID
+        :type build_rid: BuildRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -316,7 +310,7 @@ class BuildClient:
     @errors.handle_unexpected
     def jobs(
         self,
-        build_rid: core.RID,
+        build_rid: core_models.BuildRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -327,7 +321,7 @@ class BuildClient:
         """
         Get the Jobs in the Build.
         :param build_rid: The RID of a Build.
-        :type build_rid: RID
+        :type build_rid: BuildRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -369,7 +363,7 @@ class BuildClient:
     @errors.handle_unexpected
     def jobs_page(
         self,
-        build_rid: core.RID,
+        build_rid: core_models.BuildRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -380,7 +374,7 @@ class BuildClient:
         """
         Get the Jobs in the Build.
         :param build_rid: The RID of a Build.
-        :type build_rid: RID
+        :type build_rid: BuildRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.

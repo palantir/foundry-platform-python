@@ -27,10 +27,10 @@ from foundry import _core as core
 class Agent(pydantic.BaseModel):
     """Agent"""
 
-    rid: core.RID
+    rid: AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
-    version: str
+    version: AgentVersionString
     """The version of this instance of the Agent."""
 
     metadata: AgentMetadata
@@ -52,10 +52,10 @@ class AgentDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
+    rid: AgentRid
     """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
 
-    version: str
+    version: AgentVersionString
     """The version of this instance of the Agent."""
 
     metadata: AgentMetadataDict
@@ -140,7 +140,7 @@ class AgentSessionRagContextResponseDict(typing_extensions.TypedDict):
 class AgentVersion(pydantic.BaseModel):
     """AgentVersion"""
 
-    string: str
+    string: AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
     version: AgentVersionDetails
@@ -188,7 +188,7 @@ class AgentVersionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    string: str
+    string: AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
     version: AgentVersionDetailsDict
@@ -301,8 +301,8 @@ class ContentDict(typing_extensions.TypedDict):
 class FunctionRetrievedContext(pydantic.BaseModel):
     """Context retrieved from running a function to include as additional context in the prompt to the Agent."""
 
-    function_rid: core.RID = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
-    function_version: str = pydantic.Field(alias=str("functionVersion"))  # type: ignore[literal-required]
+    function_rid: functions_models.FunctionRid = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
+    function_version: functions_models.FunctionVersion = pydantic.Field(alias=str("functionVersion"))  # type: ignore[literal-required]
     retrieved_prompt: str = pydantic.Field(alias=str("retrievedPrompt"))  # type: ignore[literal-required]
     """String content returned from a context retrieval function."""
 
@@ -321,8 +321,8 @@ class FunctionRetrievedContextDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    functionRid: core.RID
-    functionVersion: str
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
     retrievedPrompt: str
     """String content returned from a context retrieval function."""
 
@@ -457,7 +457,7 @@ class ObjectSetParameterValue(pydantic.BaseModel):
     """A value passed for `ObjectSetParameter` application variable types."""
 
     object_set: ontologies_models.ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
-    ontology: str
+    ontology: ontologies_models.OntologyIdentifier
     """
     The API name of the Ontology for the provided `ObjectSet`.
     To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).
@@ -479,7 +479,7 @@ class ObjectSetParameterValueDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     objectSet: ontologies_models.ObjectSetDict
-    ontology: str
+    ontology: ontologies_models.OntologyIdentifier
     """
     The API name of the Ontology for the provided `ObjectSet`.
     To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).
@@ -491,7 +491,7 @@ class ObjectSetParameterValueDict(typing_extensions.TypedDict):
 class ObjectSetParameterValueUpdate(pydantic.BaseModel):
     """ObjectSetParameterValueUpdate"""
 
-    value: core.RID
+    value: ontologies_models.ObjectSetRid
     type: typing.Literal["objectSet"] = "objectSet"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -507,7 +507,7 @@ class ObjectSetParameterValueUpdateDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: core.RID
+    value: ontologies_models.ObjectSetRid
     type: typing.Literal["objectSet"]
 
 
@@ -614,16 +614,16 @@ For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the
 class Session(pydantic.BaseModel):
     """Session"""
 
-    rid: core.RID
+    rid: SessionRid
     """The Resource Identifier (RID) of the conversation session."""
 
     metadata: SessionMetadata
     """Metadata about the session."""
 
-    agent_rid: core.RID = pydantic.Field(alias=str("agentRid"))  # type: ignore[literal-required]
+    agent_rid: AgentRid = pydantic.Field(alias=str("agentRid"))  # type: ignore[literal-required]
     """The Resource Identifier (RID) of the Agent associated with the session."""
 
-    agent_version: str = pydantic.Field(alias=str("agentVersion"))  # type: ignore[literal-required]
+    agent_version: AgentVersionString = pydantic.Field(alias=str("agentVersion"))  # type: ignore[literal-required]
     """
     The version of the Agent associated with the session.
     This can be set by clients on session creation.
@@ -642,16 +642,16 @@ class SessionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
+    rid: SessionRid
     """The Resource Identifier (RID) of the conversation session."""
 
     metadata: SessionMetadataDict
     """Metadata about the session."""
 
-    agentRid: core.RID
+    agentRid: AgentRid
     """The Resource Identifier (RID) of the Agent associated with the session."""
 
-    agentVersion: str
+    agentVersion: AgentVersionString
     """
     The version of the Agent associated with the session.
     This can be set by clients on session creation.
@@ -728,7 +728,7 @@ class SessionExchangeDict(typing_extensions.TypedDict):
 class SessionExchangeResult(pydantic.BaseModel):
     """The returned result from the Agent for a session exchange."""
 
-    agent_markdown_response: str = pydantic.Field(alias=str("agentMarkdownResponse"))  # type: ignore[literal-required]
+    agent_markdown_response: AgentMarkdownResponse = pydantic.Field(alias=str("agentMarkdownResponse"))  # type: ignore[literal-required]
     """The final text response generated by the Agent. Responses are formatted using markdown."""
 
     parameter_updates: typing.Dict[ParameterId, ParameterValueUpdate] = pydantic.Field(alias=str("parameterUpdates"))  # type: ignore[literal-required]
@@ -760,7 +760,7 @@ class SessionExchangeResultDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    agentMarkdownResponse: str
+    agentMarkdownResponse: AgentMarkdownResponse
     """The final text response generated by the Agent. Responses are formatted using markdown."""
 
     parameterUpdates: typing.Dict[ParameterId, ParameterValueUpdateDict]
@@ -914,6 +914,7 @@ class UserTextInputDict(typing_extensions.TypedDict):
 
 
 from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.functions import models as functions_models  # noqa: E402
 from foundry.v2.ontologies import models as ontologies_models  # noqa: E402
 
 __all__ = [

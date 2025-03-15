@@ -17,10 +17,10 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_type** | str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**primary_key** | str | The primary key of the object with the time series property.  |  |
-**property** | str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
+**property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
@@ -38,13 +38,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# str | The primary key of the object with the time series property.
+# PropertyValueEscapedString | The primary key of the object with the time series property.
 primary_key = 50030
-# str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
+# PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
@@ -92,10 +92,10 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_type** | str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**primary_key** | str | The primary key of the object with the time series property.  |  |
-**property** | str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
+**property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
@@ -113,13 +113,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# str | The primary key of the object with the time series property.
+# PropertyValueEscapedString | The primary key of the object with the time series property.
 primary_key = 50030
-# str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
+# PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
@@ -167,10 +167,10 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_type** | str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**primary_key** | str | The primary key of the object with the time series property.  |  |
-**property** | str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
+**property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **aggregate** | Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **format** | Optional[StreamingOutputFormat] | The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.  | [optional] |
@@ -191,13 +191,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# str | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# str | The primary key of the object with the time series property.
+# PropertyValueEscapedString | The primary key of the object with the time series property.
 primary_key = 50030
-# str | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
+# PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
 # Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
 aggregate = None

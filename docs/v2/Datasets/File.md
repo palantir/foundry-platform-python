@@ -33,8 +33,8 @@ To **get a file's content from a specific transaction** specify the Transaction'
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**file_path** | str |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**file_path** | FilePath |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch that contains the File. Defaults to `master` for most enrollments.  | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.  | [optional] |
@@ -53,9 +53,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# str
+# FilePath
 file_path = None
 # Optional[BranchName] | The name of the Branch that contains the File. Defaults to `master` for most enrollments.
 branch_name = None
@@ -110,8 +110,8 @@ open a transaction.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**file_path** | str |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**file_path** | FilePath |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.  | [optional] |
 **transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the open delete Transaction on which to delete the File.  | [optional] |
 
@@ -129,9 +129,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# str
+# FilePath
 file_path = None
 # Optional[BranchName] | The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
 branch_name = None
@@ -189,8 +189,8 @@ To **get a file's metadata from a specific transaction** specify the Transaction
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**file_path** | str |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**file_path** | FilePath |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch that contains the File. Defaults to `master` for most enrollments.  | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.  | [optional] |
@@ -209,9 +209,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# str
+# FilePath
 file_path = None
 # Optional[BranchName] | The name of the Branch that contains the File. Defaults to `master` for most enrollments.
 branch_name = None
@@ -274,7 +274,7 @@ Transaction.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch on which to list Files. Defaults to `master` for most enrollments.  | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
@@ -295,7 +295,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
 # Optional[BranchName] | The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
 branch_name = None
@@ -362,7 +362,7 @@ Transaction.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch on which to list Files. Defaults to `master` for most enrollments.  | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
@@ -383,7 +383,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
 # Optional[BranchName] | The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
 branch_name = None
@@ -446,8 +446,8 @@ See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**file_path** | str |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**file_path** | FilePath |  |  |
 **body** | bytes | Body of the request |  |
 **branch_name** | Optional[BranchName] | The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.  | [optional] |
 **transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the open Transaction on which to upload the File.  | [optional] |
@@ -467,9 +467,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# str
+# FilePath
 file_path = None
 # bytes | Body of the request
 body = None

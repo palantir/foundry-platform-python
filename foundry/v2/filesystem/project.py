@@ -54,7 +54,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def add_organizations(
         self,
-        project_rid: core.RID,
+        project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -64,7 +64,7 @@ class ProjectClient:
         """
         Adds a list of Organizations to a Project.
         :param project_rid:
-        :type project_rid: RID
+        :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.
@@ -115,7 +115,7 @@ class ProjectClient:
         self,
         *,
         default_roles: typing.List[core_models.RoleId],
-        display_name: str,
+        display_name: filesystem_models.ResourceDisplayName,
         organization_rids: typing.List[core_models.OrganizationRid],
         role_grants: typing.Dict[
             core_models.RoleId,
@@ -125,7 +125,7 @@ class ProjectClient:
                 ]
             ],
         ],
-        space_rid: core.RID,
+        space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -141,13 +141,13 @@ class ProjectClient:
         :param default_roles:
         :type default_roles: List[RoleId]
         :param display_name:
-        :type display_name: str
+        :type display_name: ResourceDisplayName
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
         :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
         :param space_rid:
-        :type space_rid: RID
+        :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
@@ -190,9 +190,9 @@ class ProjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "displayName": str,
+                        "displayName": filesystem_models.ResourceDisplayName,
                         "description": typing.Optional[str],
-                        "spaceRid": core.RID,
+                        "spaceRid": filesystem_models.SpaceRid,
                         "roleGrants": typing.Dict[
                             core_models.RoleId,
                             typing.List[
@@ -228,7 +228,7 @@ class ProjectClient:
     def create_from_template(
         self,
         *,
-        template_rid: core.RID,
+        template_rid: filesystem_models.ProjectTemplateRid,
         variable_values: typing.Dict[
             filesystem_models.ProjectTemplateVariableId,
             filesystem_models.ProjectTemplateVariableValue,
@@ -243,7 +243,7 @@ class ProjectClient:
         """
         Creates a project from a project template.
         :param template_rid:
-        :type template_rid: RID
+        :type template_rid: ProjectTemplateRid
         :param variable_values:
         :type variable_values: Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue]
         :param default_roles:
@@ -299,7 +299,7 @@ class ProjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "templateRid": core.RID,
+                        "templateRid": filesystem_models.ProjectTemplateRid,
                         "variableValues": typing.Dict[
                             filesystem_models.ProjectTemplateVariableId,
                             filesystem_models.ProjectTemplateVariableValue,
@@ -340,7 +340,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def get(
         self,
-        project_rid: core.RID,
+        project_rid: filesystem_models.ProjectRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -349,7 +349,7 @@ class ProjectClient:
         """
         Get the Project with the specified rid.
         :param project_rid:
-        :type project_rid: RID
+        :type project_rid: ProjectRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -389,7 +389,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def organizations(
         self,
-        project_rid: core.RID,
+        project_rid: filesystem_models.ProjectRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -402,7 +402,7 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid:
-        :type project_rid: RID
+        :type project_rid: ProjectRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -444,7 +444,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def organizations_page(
         self,
-        project_rid: core.RID,
+        project_rid: filesystem_models.ProjectRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -457,7 +457,7 @@ class ProjectClient:
         typically small so the `pageSize` and `pageToken` parameters are not required.
 
         :param project_rid:
-        :type project_rid: RID
+        :type project_rid: ProjectRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -505,7 +505,7 @@ class ProjectClient:
     @errors.handle_unexpected
     def remove_organizations(
         self,
-        project_rid: core.RID,
+        project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -515,7 +515,7 @@ class ProjectClient:
         """
         Removes Organizations from a Project.
         :param project_rid:
-        :type project_rid: RID
+        :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.

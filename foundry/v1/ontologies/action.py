@@ -51,8 +51,8 @@ class ActionClient:
     @errors.handle_unexpected
     def apply(
         self,
-        ontology_rid: core.RID,
-        action_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        action_type: ontologies_models.ActionTypeApiName,
         *,
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
@@ -71,9 +71,9 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
-        :type action_type: str
+        :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -119,8 +119,8 @@ class ActionClient:
     @errors.handle_unexpected
     def apply_batch(
         self,
-        ontology_rid: core.RID,
-        action_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        action_type: ontologies_models.ActionTypeApiName,
         *,
         requests: typing.List[
             typing.Union[
@@ -144,9 +144,9 @@ class ActionClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
-        :type action_type: str
+        :type action_type: ActionTypeApiName
         :param requests:
         :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -194,8 +194,8 @@ class ActionClient:
     @errors.handle_unexpected
     def validate(
         self,
-        ontology_rid: core.RID,
-        action_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        action_type: ontologies_models.ActionTypeApiName,
         *,
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
@@ -216,9 +216,9 @@ class ActionClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to validate. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
-        :type action_type: str
+        :type action_type: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.

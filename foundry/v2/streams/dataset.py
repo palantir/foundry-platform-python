@@ -24,6 +24,7 @@ from foundry import _errors as errors
 from foundry.v2.core import models as core_models
 from foundry.v2.datasets import models as datasets_models
 from foundry.v2.filesystem import errors as filesystem_errors
+from foundry.v2.filesystem import models as filesystem_models
 from foundry.v2.streams import errors as streams_errors
 from foundry.v2.streams import models as streams_models
 
@@ -67,8 +68,8 @@ class DatasetClient:
     def create(
         self,
         *,
-        name: str,
-        parent_folder_rid: core.RID,
+        name: datasets_models.DatasetName,
+        parent_folder_rid: filesystem_models.FolderRid,
         schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict],
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         compressed: typing.Optional[streams_models.Compressed] = None,
@@ -84,9 +85,9 @@ class DatasetClient:
         [streams](/docs/foundry/data-integration/streams/) user documentation.
 
         :param name:
-        :type name: str
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: RID
+        :type parent_folder_rid: FolderRid
         :param schema: The Foundry schema to apply to the new stream.
         :type schema: Union[StreamSchema, StreamSchemaDict]
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
@@ -132,8 +133,8 @@ class DatasetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": str,
-                        "parentFolderRid": core.RID,
+                        "name": datasets_models.DatasetName,
+                        "parentFolderRid": filesystem_models.FolderRid,
                         "schema": typing.Union[
                             core_models.StreamSchema, core_models.StreamSchemaDict
                         ],

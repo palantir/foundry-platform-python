@@ -54,9 +54,9 @@ class BranchClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
-        name: str,
+        name: datasets_models.BranchName,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -65,9 +65,9 @@ class BranchClient:
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param name:
-        :type name: str
+        :type name: BranchName
         :param transaction_rid: The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
         :type transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -100,7 +100,7 @@ class BranchClient:
                     "Body",
                     {  # type: ignore
                         "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "name": str,
+                        "name": datasets_models.BranchName,
                     },
                 ),
                 response_type=datasets_models.Branch,
@@ -119,8 +119,8 @@ class BranchClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: core.RID,
-        branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -129,9 +129,9 @@ class BranchClient:
         Deletes the Branch with the given BranchName.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: str
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -170,8 +170,8 @@ class BranchClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: core.RID,
-        branch_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -180,9 +180,9 @@ class BranchClient:
         Get a Branch of a Dataset.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param branch_name:
-        :type branch_name: str
+        :type branch_name: BranchName
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -223,7 +223,7 @@ class BranchClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -234,7 +234,7 @@ class BranchClient:
         Lists the Branches of a Dataset.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -279,7 +279,7 @@ class BranchClient:
     @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -290,7 +290,7 @@ class BranchClient:
         Lists the Branches of a Dataset.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.

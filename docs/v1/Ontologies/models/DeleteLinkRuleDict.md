@@ -5,10 +5,10 @@ DeleteLinkRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**linkTypeApiNameAtoB** | str | Yes |  |
-**linkTypeApiNameBtoA** | str | Yes |  |
-**aSideObjectTypeApiName** | str | Yes |  |
-**bSideObjectTypeApiName** | str | Yes |  |
+**linkTypeApiNameAtoB** | LinkTypeApiName | Yes |  |
+**linkTypeApiNameBtoA** | LinkTypeApiName | Yes |  |
+**aSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
+**bSideObjectTypeApiName** | ObjectTypeApiName | Yes |  |
 **type** | Literal["deleteLink"] | Yes | None |
 
 

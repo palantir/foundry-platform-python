@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry import _core as core
 from foundry import _errors as errors
+from foundry.v2.core import models as core_models
 from foundry.v2.ontologies import models as ontologies_models
 
 
@@ -52,7 +53,7 @@ class AttachmentClient:
     @errors.handle_unexpected
     def get(
         self,
-        attachment_rid: core.RID,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -64,7 +65,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: RID
+        :type attachment_rid: AttachmentRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -97,7 +98,7 @@ class AttachmentClient:
     )
     def read(
         self,
-        attachment_rid: core.RID,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: typing.Literal[True],
         chunk_size: typing.Optional[int] = None,
@@ -111,7 +112,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: RID
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -126,7 +127,7 @@ class AttachmentClient:
     @typing_extensions.overload
     def read(
         self,
-        attachment_rid: core.RID,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -139,7 +140,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: RID
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
@@ -155,7 +156,7 @@ class AttachmentClient:
     )
     def read(
         self,
-        attachment_rid: core.RID,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: bool,
         chunk_size: typing.Optional[int] = None,
@@ -169,7 +170,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: RID
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -186,7 +187,7 @@ class AttachmentClient:
     @errors.handle_unexpected
     def read(
         self,
-        attachment_rid: core.RID,
+        attachment_rid: ontologies_models.AttachmentRid,
         *,
         stream: bool = False,
         chunk_size: typing.Optional[int] = None,
@@ -200,7 +201,7 @@ class AttachmentClient:
         following operation scopes: `api:ontologies-read`.
 
         :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: RID
+        :type attachment_rid: AttachmentRid
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
         :type stream: bool
         :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
@@ -247,9 +248,9 @@ class AttachmentClient:
         self,
         body: bytes,
         *,
-        content_length: core.Long,
-        content_type: str,
-        filename: str,
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AttachmentV2:
@@ -266,11 +267,11 @@ class AttachmentClient:
         :param body: Body of the request
         :type body: bytes
         :param content_length: The size in bytes of the file content being uploaded.
-        :type content_length: Long
+        :type content_length: ContentLength
         :param content_type: The media type of the file being uploaded.
-        :type content_type: str
+        :type content_type: ContentType
         :param filename: The name of the file being uploaded.
-        :type filename: str
+        :type filename: Filename
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -51,8 +51,8 @@ class QueryClient:
     @errors.handle_unexpected
     def execute(
         self,
-        ontology_rid: core.RID,
-        query_api_name: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        query_api_name: ontologies_models.QueryApiName,
         *,
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
@@ -66,9 +66,9 @@ class QueryClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param query_api_name: The API name of the Query to execute.
-        :type query_api_name: str
+        :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param request_timeout: timeout setting for this request in seconds.

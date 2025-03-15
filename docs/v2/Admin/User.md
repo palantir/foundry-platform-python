@@ -19,7 +19,7 @@ Delete the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | str |  |  |
+**user_id** | PrincipalId |  |  |
 
 ### Return type
 **None**
@@ -35,7 +35,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 user_id = None
 
 
@@ -70,7 +70,7 @@ Get the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | str |  |  |
+**user_id** | PrincipalId |  |  |
 
 ### Return type
 **User**
@@ -86,7 +86,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 user_id = None
 
 
@@ -219,7 +219,7 @@ Retrieve Markings that the user is currently a member of.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | str |  |  |
+**user_id** | PrincipalId |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -236,7 +236,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 user_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -387,7 +387,7 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | str |  |  |
+**user_id** | PrincipalId |  |  |
 
 ### Return type
 **Optional[bytes]**
@@ -403,7 +403,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# PrincipalId
 user_id = None
 
 

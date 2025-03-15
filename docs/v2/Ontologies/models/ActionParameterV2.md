@@ -5,7 +5,7 @@ Details about a parameter of an action.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**display_name** | str | Yes |  |
+**display_name** | DisplayName | Yes |  |
 **description** | Optional[str] | No |  |
 **data_type** | ActionParameterType | Yes |  |
 **required** | bool | Yes |  |

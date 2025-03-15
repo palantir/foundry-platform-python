@@ -54,7 +54,7 @@ class JobClient:
     @errors.handle_unexpected
     def get(
         self,
-        job_rid: core.RID,
+        job_rid: core_models.JobRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -63,7 +63,7 @@ class JobClient:
         """
         Get the Job with the specified rid.
         :param job_rid: The RID of a Job.
-        :type job_rid: RID
+        :type job_rid: JobRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

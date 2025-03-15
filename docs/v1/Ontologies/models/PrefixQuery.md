@@ -5,7 +5,7 @@ Returns objects where the specified field starts with the provided value.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
 **type** | Literal["prefix"] | Yes | None |
 

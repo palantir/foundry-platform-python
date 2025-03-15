@@ -5,7 +5,7 @@ AsPlaintextValue
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**value** | str | Yes |  |
+**value** | PlaintextValue | Yes |  |
 **type** | Literal["asPlaintextValue"] | Yes | None |
 
 

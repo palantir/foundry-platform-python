@@ -5,9 +5,9 @@ GetMediaItemInfoResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**viewRid** | RID | Yes |  |
+**viewRid** | MediaSetViewRid | Yes |  |
 **path** | NotRequired[MediaItemPath] | No |  |
-**logicalTimestamp** | Long | Yes |  |
+**logicalTimestamp** | LogicalTimestamp | Yes |  |
 **attribution** | NotRequired[MediaAttributionDict] | No |  |
 
 

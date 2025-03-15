@@ -7,7 +7,7 @@ order in the provided value. This query supports fuzzy matching.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
 **fuzzy** | Optional[Fuzzy] | No |  |
 **type** | Literal["anyTerm"] | Yes | None |

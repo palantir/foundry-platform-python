@@ -53,7 +53,7 @@ class ScheduleVersionClient:
     @errors.handle_unexpected
     def get(
         self,
-        schedule_version_rid: core.RID,
+        schedule_version_rid: orchestration_models.ScheduleVersionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class ScheduleVersionClient:
         """
         Get the ScheduleVersion with the specified rid.
         :param schedule_version_rid: The RID of a schedule version
-        :type schedule_version_rid: RID
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -102,7 +102,7 @@ class ScheduleVersionClient:
     @errors.handle_unexpected
     def schedule(
         self,
-        schedule_version_rid: core.RID,
+        schedule_version_rid: orchestration_models.ScheduleVersionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -111,7 +111,7 @@ class ScheduleVersionClient:
         """
 
         :param schedule_version_rid: The RID of a schedule version
-        :type schedule_version_rid: RID
+        :type schedule_version_rid: ScheduleVersionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

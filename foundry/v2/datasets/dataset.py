@@ -25,6 +25,7 @@ from foundry import _errors as errors
 from foundry.v2.datasets import errors as datasets_errors
 from foundry.v2.datasets import models as datasets_models
 from foundry.v2.filesystem import errors as filesystem_errors
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class DatasetClient:
@@ -86,8 +87,8 @@ class DatasetClient:
     def create(
         self,
         *,
-        name: str,
-        parent_folder_rid: core.RID,
+        name: datasets_models.DatasetName,
+        parent_folder_rid: filesystem_models.FolderRid,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Dataset:
@@ -95,9 +96,9 @@ class DatasetClient:
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
         :param name:
-        :type name: str
+        :type name: DatasetName
         :param parent_folder_rid:
-        :type parent_folder_rid: RID
+        :type parent_folder_rid: FolderRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -123,8 +124,8 @@ class DatasetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": core.RID,
-                        "name": str,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "name": datasets_models.DatasetName,
                     },
                 ),
                 response_type=datasets_models.Dataset,
@@ -141,7 +142,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -149,7 +150,7 @@ class DatasetClient:
         """
         Get the Dataset with the specified rid.
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -190,7 +191,7 @@ class DatasetClient:
     )
     def read_table(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         stream: typing.Literal[True],
         format: datasets_models.TableExportFormat,
@@ -209,7 +210,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -244,7 +245,7 @@ class DatasetClient:
     @typing_extensions.overload
     def read_table(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         format: datasets_models.TableExportFormat,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -262,7 +263,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -298,7 +299,7 @@ class DatasetClient:
     )
     def read_table(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         stream: bool,
         format: datasets_models.TableExportFormat,
@@ -317,7 +318,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.
@@ -354,7 +355,7 @@ class DatasetClient:
     @errors.handle_unexpected
     def read_table(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         format: datasets_models.TableExportFormat,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -373,7 +374,7 @@ class DatasetClient:
         This endpoint currently does not support views (virtual datasets composed of other datasets).
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param format: The export format. Must be `ARROW` or `CSV`.
         :type format: TableExportFormat
         :param branch_name: The name of the Branch.

@@ -55,7 +55,7 @@ class QueryClient:
     @errors.handle_unexpected
     def cancel(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -65,7 +65,7 @@ class QueryClient:
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -173,7 +173,7 @@ class QueryClient:
     )
     def get_results(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         stream: typing.Literal[True],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -186,7 +186,7 @@ class QueryClient:
         one minute.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -208,7 +208,7 @@ class QueryClient:
     @typing_extensions.overload
     def get_results(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stream: typing.Literal[False] = False,
@@ -220,7 +220,7 @@ class QueryClient:
         one minute.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -243,7 +243,7 @@ class QueryClient:
     )
     def get_results(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         stream: bool,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -256,7 +256,7 @@ class QueryClient:
         one minute.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -280,7 +280,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get_results(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stream: bool = False,
@@ -293,7 +293,7 @@ class QueryClient:
         one minute.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
@@ -352,7 +352,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get_status(
         self,
-        query_id: str,
+        query_id: sql_queries_models.QueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -362,7 +362,7 @@ class QueryClient:
         Gets the status of a query.
 
         :param query_id: The id of a query.
-        :type query_id: str
+        :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

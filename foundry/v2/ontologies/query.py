@@ -51,8 +51,8 @@ class QueryClient:
     @errors.handle_unexpected
     def execute(
         self,
-        ontology: str,
-        query_api_name: str,
+        ontology: ontologies_models.OntologyIdentifier,
+        query_api_name: ontologies_models.QueryApiName,
         *,
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
@@ -71,9 +71,9 @@ class QueryClient:
         following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the Query to execute.
-        :type query_api_name: str
+        :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: The repository associated with a marketplace installation.

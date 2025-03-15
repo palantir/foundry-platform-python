@@ -53,8 +53,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def aggregate(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
         aggregation: typing.List[
             typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]
@@ -76,9 +76,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The type of the object to aggregate on.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param aggregation:
         :type aggregation: List[Union[Aggregation, AggregationDict]]
         :param group_by:
@@ -143,9 +143,9 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
-        primary_key: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
         *,
         properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -157,11 +157,11 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: str
+        :type primary_key: PropertyValueEscapedString
         :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -199,11 +199,11 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def get_linked_object(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
-        primary_key: str,
-        link_type: str,
-        linked_object_primary_key: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
+        linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
         properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -216,15 +216,15 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the object from which the link originates. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: str
+        :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
-        :type link_type: str
+        :type link_type: LinkTypeApiName
         :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
-        :type linked_object_primary_key: str
+        :type linked_object_primary_key: PropertyValueEscapedString
         :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type properties: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -264,8 +264,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def list(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -295,9 +295,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -343,10 +343,10 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def list_linked_objects(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
-        primary_key: str,
-        link_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -376,13 +376,13 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: str
+        :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
-        :type link_type: str
+        :type link_type: LinkTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -430,8 +430,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def page(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -461,9 +461,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -515,10 +515,10 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def page_linked_objects(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
-        primary_key: str,
-        link_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
+        primary_key: ontologies_models.PropertyValueEscapedString,
+        link_type: ontologies_models.LinkTypeApiName,
         *,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -548,13 +548,13 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: str
+        :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
-        :type link_type: str
+        :type link_type: LinkTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -608,8 +608,8 @@ class OntologyObjectClient:
     @errors.handle_unexpected
     def search(
         self,
-        ontology_rid: core.RID,
-        object_type: str,
+        ontology_rid: ontologies_models.OntologyRid,
+        object_type: ontologies_models.ObjectTypeApiName,
         *,
         fields: typing.List[ontologies_models.PropertyApiName],
         query: typing.Union[
@@ -650,9 +650,9 @@ class OntologyObjectClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
-        :type ontology_rid: RID
+        :type ontology_rid: OntologyRid
         :param object_type: The type of the requested objects.
-        :type object_type: str
+        :type object_type: ObjectTypeApiName
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
         :param query:

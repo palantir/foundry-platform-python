@@ -1,11 +1,10 @@
-# RetryBackoffDurationDict
+# GroupName
 
-The duration to wait before retrying after a Job fails.
-
+The name of the Group.
 
 ## Type
 ```python
-DurationDict
+str
 ```
 
 

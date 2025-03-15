@@ -52,7 +52,7 @@ Represents the value of data in the following format. Note that these values can
 class ExecuteQueryResponse(pydantic.BaseModel):
     """ExecuteQueryResponse"""
 
-    value: typing.Any
+    value: DataValue
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "ExecuteQueryResponseDict":
@@ -67,7 +67,7 @@ class ExecuteQueryResponseDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: typing.Any
+    value: DataValue
 
 
 FunctionRid = core.RID
@@ -112,13 +112,13 @@ Parameters can be viewed and managed in the **Ontology Manager**.
 class Query(pydantic.BaseModel):
     """Query"""
 
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    api_name: QueryApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     description: typing.Optional[str] = None
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     parameters: typing.Dict[ParameterId, Parameter]
     output: QueryDataType
-    rid: core.RID
-    version: str
+    rid: FunctionRid
+    version: FunctionVersion
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "QueryDict":
@@ -301,13 +301,13 @@ class QueryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    apiName: str
+    apiName: QueryApiName
     description: typing_extensions.NotRequired[str]
     displayName: typing_extensions.NotRequired[core_models.DisplayName]
     parameters: typing.Dict[ParameterId, ParameterDict]
     output: QueryDataTypeDict
-    rid: core.RID
-    version: str
+    rid: FunctionRid
+    version: FunctionVersion
 
 
 QueryRuntimeErrorParameter = str
@@ -338,7 +338,7 @@ class QuerySetTypeDict(typing_extensions.TypedDict):
 class QueryStructField(pydantic.BaseModel):
     """QueryStructField"""
 
-    name: str
+    name: StructFieldName
     field_type: QueryDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -352,7 +352,7 @@ class QueryStructFieldDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: StructFieldName
     fieldType: QueryDataTypeDict
 
 
@@ -396,6 +396,10 @@ class QueryUnionTypeDict(typing_extensions.TypedDict):
 
     unionTypes: typing.List[QueryDataTypeDict]
     type: typing.Literal["union"]
+
+
+StructFieldName = str
+"""The name of a field in a `Struct`."""
 
 
 class ThreeDimensionalAggregation(pydantic.BaseModel):
@@ -451,11 +455,11 @@ class TwoDimensionalAggregationDict(typing_extensions.TypedDict):
 class ValueType(pydantic.BaseModel):
     """ValueType"""
 
-    rid: core.RID
-    version: str
-    version_id: core.UUID = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    rid: ValueTypeRid
+    version: ValueTypeVersion
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     description: typing.Optional[ValueTypeDescription] = None
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -463,6 +467,10 @@ class ValueType(pydantic.BaseModel):
     def to_dict(self) -> "ValueTypeDict":
         """Return the dictionary representation of the model using the field aliases."""
         return typing.cast(ValueTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+ValueTypeApiName = str
+"""The registered API name for the value type."""
 
 
 ValueTypeDataType = typing_extensions.Annotated[
@@ -822,7 +830,7 @@ class ValueTypeDataTypeStringTypeDict(typing_extensions.TypedDict):
 class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     """ValueTypeDataTypeStructElement"""
 
-    name: str
+    name: ValueTypeDataTypeStructFieldIdentifier
     field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -838,8 +846,12 @@ class ValueTypeDataTypeStructElementDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: ValueTypeDataTypeStructFieldIdentifier
     fieldType: ValueTypeDataTypeDict
+
+
+ValueTypeDataTypeStructFieldIdentifier = str
+"""ValueTypeDataTypeStructFieldIdentifier"""
 
 
 class ValueTypeDataTypeStructType(pydantic.BaseModel):
@@ -912,8 +924,8 @@ class ValueTypeDataTypeUnionTypeDict(typing_extensions.TypedDict):
 class ValueTypeDataTypeValueTypeReference(pydantic.BaseModel):
     """ValueTypeDataTypeValueTypeReference"""
 
-    rid: core.RID
-    version_id: core.UUID = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    rid: ValueTypeRid
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -930,8 +942,8 @@ class ValueTypeDataTypeValueTypeReferenceDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    versionId: core.UUID
+    rid: ValueTypeRid
+    versionId: ValueTypeVersionId
     type: typing.Literal["valueTypeReference"]
 
 
@@ -944,11 +956,11 @@ class ValueTypeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    version: str
-    versionId: core.UUID
-    apiName: str
-    displayName: str
+    rid: ValueTypeRid
+    version: ValueTypeVersion
+    versionId: ValueTypeVersionId
+    apiName: ValueTypeApiName
+    displayName: core_models.DisplayName
     description: typing_extensions.NotRequired[ValueTypeDescription]
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
@@ -956,8 +968,8 @@ class ValueTypeDict(typing_extensions.TypedDict):
 class ValueTypeReference(pydantic.BaseModel):
     """A reference to a value type that has been registered in the Ontology."""
 
-    rid: core.RID
-    version_id: core.UUID = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    rid: ValueTypeRid
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -973,13 +985,17 @@ class ValueTypeReferenceDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    versionId: core.UUID
+    rid: ValueTypeRid
+    versionId: ValueTypeVersionId
     type: typing.Literal["valueTypeReference"]
 
 
 ValueTypeRid = core.RID
 """The RID of a value type that has been registered in the Ontology."""
+
+
+ValueTypeVersion = str
+"""The version of a value type that has been registered in the Ontology."""
 
 
 ValueTypeVersionId = core.UUID
@@ -989,11 +1005,11 @@ ValueTypeVersionId = core.UUID
 class VersionId(pydantic.BaseModel):
     """VersionId"""
 
-    rid: core.RID
-    version: str
-    version_id: core.UUID = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    rid: ValueTypeRid
+    version: ValueTypeVersion
+    version_id: ValueTypeVersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     description: typing.Optional[ValueTypeDescription] = None
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1008,11 +1024,11 @@ class VersionIdDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    version: str
-    versionId: core.UUID
-    apiName: str
-    displayName: str
+    rid: ValueTypeRid
+    version: ValueTypeVersion
+    versionId: ValueTypeVersionId
+    apiName: ValueTypeApiName
+    displayName: core_models.DisplayName
     description: typing_extensions.NotRequired[ValueTypeDescription]
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
@@ -1052,11 +1068,13 @@ __all__ = [
     "QueryStructTypeDict",
     "QueryUnionType",
     "QueryUnionTypeDict",
+    "StructFieldName",
     "ThreeDimensionalAggregation",
     "ThreeDimensionalAggregationDict",
     "TwoDimensionalAggregation",
     "TwoDimensionalAggregationDict",
     "ValueType",
+    "ValueTypeApiName",
     "ValueTypeDataType",
     "ValueTypeDataTypeArrayType",
     "ValueTypeDataTypeArrayTypeDict",
@@ -1089,6 +1107,7 @@ __all__ = [
     "ValueTypeDataTypeStringTypeDict",
     "ValueTypeDataTypeStructElement",
     "ValueTypeDataTypeStructElementDict",
+    "ValueTypeDataTypeStructFieldIdentifier",
     "ValueTypeDataTypeStructType",
     "ValueTypeDataTypeStructTypeDict",
     "ValueTypeDataTypeTimestampType",
@@ -1102,6 +1121,7 @@ __all__ = [
     "ValueTypeReference",
     "ValueTypeReferenceDict",
     "ValueTypeRid",
+    "ValueTypeVersion",
     "ValueTypeVersionId",
     "VersionId",
     "VersionIdDict",

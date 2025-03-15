@@ -5,8 +5,8 @@ Enrollment
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**name** | str | Yes |  |
+**rid** | EnrollmentRid | Yes |  |
+**name** | EnrollmentName | Yes |  |
 **createdTime** | NotRequired[CreatedTime] | No |  |
 
 

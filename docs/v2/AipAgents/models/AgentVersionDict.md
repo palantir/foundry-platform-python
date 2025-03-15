@@ -5,7 +5,7 @@ AgentVersion
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**string** | str | Yes | The semantic version of the Agent, formatted as "majorVersion.minorVersion". |
+**string** | AgentVersionString | Yes | The semantic version of the Agent, formatted as "majorVersion.minorVersion". |
 **version** | AgentVersionDetailsDict | Yes | Semantic version details of the Agent. |
 
 

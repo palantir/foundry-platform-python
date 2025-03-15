@@ -18,8 +18,8 @@ not updated.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**transaction_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**transaction_rid** | TransactionRid |  |  |
 
 ### Return type
 **Transaction**
@@ -35,9 +35,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# RID
+# TransactionRid
 transaction_rid = None
 
 
@@ -76,8 +76,8 @@ is updated by a User uploading a CSV file into the browser, no Build will be tie
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**transaction_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**transaction_rid** | TransactionRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -94,9 +94,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# RID
+# TransactionRid
 transaction_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -137,8 +137,8 @@ updated to point to the Transaction.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**transaction_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**transaction_rid** | TransactionRid |  |  |
 
 ### Return type
 **Transaction**
@@ -154,9 +154,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# RID
+# TransactionRid
 transaction_rid = None
 
 
@@ -193,7 +193,7 @@ Creates a Transaction on a Branch of a Dataset.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 **transaction_type** | TransactionType |  |  |
 **branch_name** | Optional[BranchName] | The name of the Branch on which to create the Transaction. Defaults to `master` for most enrollments.  | [optional] |
 
@@ -211,7 +211,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
 # TransactionType
 transaction_type = "APPEND"
@@ -275,8 +275,8 @@ Gets a Transaction of a Dataset.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**transaction_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**transaction_rid** | TransactionRid |  |  |
 
 ### Return type
 **Transaction**
@@ -292,9 +292,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# RID
+# TransactionRid
 transaction_rid = None
 
 
@@ -333,8 +333,8 @@ is updated by a User uploading a CSV file into the browser, no Job will be tied 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
-**transaction_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
+**transaction_rid** | TransactionRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -351,9 +351,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = None
-# RID
+# TransactionRid
 transaction_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

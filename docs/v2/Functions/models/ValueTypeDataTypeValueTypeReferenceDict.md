@@ -5,8 +5,8 @@ ValueTypeDataTypeValueTypeReference
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**versionId** | UUID | Yes |  |
+**rid** | ValueTypeRid | Yes |  |
+**versionId** | ValueTypeVersionId | Yes |  |
 **type** | Literal["valueTypeReference"] | Yes | None |
 
 

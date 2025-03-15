@@ -5,10 +5,10 @@ Space
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**displayName** | str | Yes |  |
+**rid** | SpaceRid | Yes |  |
+**displayName** | ResourceDisplayName | Yes |  |
 **description** | NotRequired[str] | No | The description of the Space. |
-**path** | str | Yes |  |
+**path** | ResourcePath | Yes |  |
 **fileSystemId** | NotRequired[FileSystemId] | No |  |
 **usageAccountRid** | NotRequired[UsageAccountRid] | No |  |
 **organizations** | List[OrganizationRid] | Yes |  |

@@ -37,9 +37,9 @@ BranchRid = core.RID
 class GetMediaItemInfoResponse(pydantic.BaseModel):
     """GetMediaItemInfoResponse"""
 
-    view_rid: core.RID = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
+    view_rid: core_models.MediaSetViewRid = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
     path: typing.Optional[core_models.MediaItemPath] = None
-    logical_timestamp: core.Long = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
+    logical_timestamp: LogicalTimestamp = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
     attribution: typing.Optional[MediaAttribution] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -55,16 +55,26 @@ class GetMediaItemInfoResponseDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewRid: core.RID
+    viewRid: core_models.MediaSetViewRid
     path: typing_extensions.NotRequired[core_models.MediaItemPath]
-    logicalTimestamp: core.Long
+    logicalTimestamp: LogicalTimestamp
     attribution: typing_extensions.NotRequired[MediaAttributionDict]
+
+
+LogicalTimestamp = core.Long
+"""
+A number representing a logical ordering to be used for transactions, etc.
+This can be interpreted as a timestamp in microseconds, but may differ slightly from system clock time due 
+to clock drift and slight adjustments for the sake of ordering.
+
+Only positive timestamps (representing times after epoch) are supported.
+"""
 
 
 class MediaAttribution(pydantic.BaseModel):
     """MediaAttribution"""
 
-    creator_id: core.UUID = pydantic.Field(alias=str("creatorId"))  # type: ignore[literal-required]
+    creator_id: core_models.UserId = pydantic.Field(alias=str("creatorId"))  # type: ignore[literal-required]
     creation_timestamp: datetime = pydantic.Field(alias=str("creationTimestamp"))  # type: ignore[literal-required]
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
@@ -80,7 +90,7 @@ class MediaAttributionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    creatorId: core.UUID
+    creatorId: core_models.UserId
     creationTimestamp: datetime
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
@@ -88,7 +98,7 @@ class MediaAttributionDict(typing_extensions.TypedDict):
 class PutMediaItemResponse(pydantic.BaseModel):
     """PutMediaItemResponse"""
 
-    media_item_rid: core.RID = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "PutMediaItemResponseDict":
@@ -103,7 +113,7 @@ class PutMediaItemResponseDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    mediaItemRid: core.RID
+    mediaItemRid: core_models.MediaItemRid
 
 
 TransactionId = core.UUID
@@ -117,6 +127,7 @@ __all__ = [
     "BranchRid",
     "GetMediaItemInfoResponse",
     "GetMediaItemInfoResponseDict",
+    "LogicalTimestamp",
     "MediaAttribution",
     "MediaAttributionDict",
     "PutMediaItemResponse",

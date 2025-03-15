@@ -5,7 +5,7 @@ A property api name that references properties to query on.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**api_name** | str | Yes |  |
+**api_name** | PropertyApiName | Yes |  |
 **type** | Literal["property"] | Yes | None |
 
 

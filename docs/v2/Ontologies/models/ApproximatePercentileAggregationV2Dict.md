@@ -5,7 +5,7 @@ Computes the approximate percentile value for the provided field. Requires Objec
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | PropertyApiName | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
 **approximatePercentile** | float | Yes |  |
 **direction** | NotRequired[OrderByDirection] | No |  |

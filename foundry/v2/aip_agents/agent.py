@@ -189,7 +189,7 @@ class AgentClient:
     @errors.handle_unexpected
     def get(
         self,
-        agent_rid: core.RID,
+        agent_rid: aip_agents_models.AgentRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[aip_agents_models.AgentVersionString] = None,
@@ -199,7 +199,7 @@ class AgentClient:
         """
         Get details for an AIP Agent.
         :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: RID
+        :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version: The version of the Agent to retrieve. If not specified, the latest published version will be returned.

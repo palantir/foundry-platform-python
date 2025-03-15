@@ -5,8 +5,8 @@ AddObject
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**primary_key** | Any | Yes |  |
-**object_type** | str | Yes |  |
+**primary_key** | PropertyValue | Yes |  |
+**object_type** | ObjectTypeApiName | Yes |  |
 **type** | Literal["addObject"] | Yes | None |
 
 

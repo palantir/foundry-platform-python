@@ -14,8 +14,8 @@ Get the AuthenticationProvider with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | RID |  |  |
-**authentication_provider_rid** | RID |  |  |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -32,9 +32,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# EnrollmentRid
 enrollment_rid = None
-# RID
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -75,7 +75,7 @@ Lists all AuthenticationProviders.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | RID |  |  |
+**enrollment_rid** | EnrollmentRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -92,7 +92,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# EnrollmentRid
 enrollment_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -132,14 +132,14 @@ Preregistered groups can be used anywhere other groups are used in the platform.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | RID |  |  |
-**authentication_provider_rid** | RID |  |  |
-**name** | str |  |  |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
+**name** | GroupName |  |  |
 **organizations** | List[OrganizationRid] | The RIDs of the Organizations that can view this group.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**str**
+**PrincipalId**
 
 ### Example
 
@@ -152,11 +152,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# EnrollmentRid
 enrollment_rid = None
-# RID
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# str
+# GroupName
 name = "Data Source Admins"
 # List[OrganizationRid] | The RIDs of the Organizations that can view this group.
 organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
@@ -188,7 +188,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | str  |  | application/json |
+**200** | PrincipalId  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -201,10 +201,10 @@ Authentication Provider. Preregistered users can be assigned to groups and roles
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | RID |  |  |
-**authentication_provider_rid** | RID |  |  |
-**organization** | RID | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.  |  |
-**username** | str | The new user's username. This must match one of the provider's supported username patterns. |  |
+**enrollment_rid** | EnrollmentRid |  |  |
+**authentication_provider_rid** | AuthenticationProviderRid |  |  |
+**organization** | OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.  |  |
+**username** | UserUsername | The new user's username. This must match one of the provider's supported username patterns. |  |
 **attributes** | Optional[Dict[AttributeName, AttributeValues]] |  | [optional] |
 **email** | Optional[str] |  | [optional] |
 **family_name** | Optional[str] |  | [optional] |
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**str**
+**PrincipalId**
 
 ### Example
 
@@ -225,13 +225,13 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# EnrollmentRid
 enrollment_rid = None
-# RID
+# AuthenticationProviderRid
 authentication_provider_rid = "ri.control-panel.main.saml.3faf689c-eaa1-4137-851f-81d58afe4c86"
-# RID | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
+# OrganizationRid | The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
 organization = "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
-# str | The new user's username. This must match one of the provider's supported username patterns.
+# UserUsername | The new user's username. This must match one of the provider's supported username patterns.
 username = "jsmith"
 # Optional[Dict[AttributeName, AttributeValues]]
 attributes = {
@@ -283,7 +283,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | str  |  | application/json |
+**200** | PrincipalId  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

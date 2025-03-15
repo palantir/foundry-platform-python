@@ -5,10 +5,10 @@ ScheduleVersion
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes | The RID of a schedule version |
-**scheduleRid** | RID | Yes |  |
-**createdTime** | datetime | Yes | The time the schedule version was created |
-**createdBy** | str | Yes | The Foundry user who created the schedule version |
+**rid** | ScheduleVersionRid | Yes | The RID of a schedule version |
+**scheduleRid** | ScheduleRid | Yes |  |
+**createdTime** | CreatedTime | Yes | The time the schedule version was created |
+**createdBy** | CreatedBy | Yes | The Foundry user who created the schedule version |
 **trigger** | NotRequired[TriggerDict] | No |  |
 **action** | ActionDict | Yes |  |
 **scopeMode** | ScopeModeDict | Yes |  |

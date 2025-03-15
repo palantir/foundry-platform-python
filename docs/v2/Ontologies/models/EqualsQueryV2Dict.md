@@ -9,7 +9,7 @@ by a variety of means. Either `field` or `propertyIdentifier` must be supplied, 
 | ------------ | ------------- | ------------- | ------------- |
 **field** | NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
-**value** | Any | Yes |  |
+**value** | PropertyValue | Yes |  |
 **type** | Literal["eq"] | Yes | None |
 
 

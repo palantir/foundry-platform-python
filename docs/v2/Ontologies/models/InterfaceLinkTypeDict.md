@@ -7,9 +7,9 @@ by the implementing object types.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**apiName** | str | Yes |  |
-**displayName** | str | Yes |  |
+**rid** | InterfaceLinkTypeRid | Yes |  |
+**apiName** | InterfaceLinkTypeApiName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | NotRequired[str] | No | The description of the interface link type. |
 **linkedEntityApiName** | InterfaceLinkTypeLinkedEntityApiNameDict | Yes |  |
 **cardinality** | InterfaceLinkTypeCardinality | Yes |  |

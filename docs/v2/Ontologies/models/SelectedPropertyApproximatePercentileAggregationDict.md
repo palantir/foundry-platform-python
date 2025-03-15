@@ -5,7 +5,7 @@ Computes the approximate percentile value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | str | Yes |  |
+**selectedPropertyApiName** | PropertyApiName | Yes |  |
 **approximatePercentile** | float | Yes |  |
 **type** | Literal["approximatePercentile"] | Yes | None |
 

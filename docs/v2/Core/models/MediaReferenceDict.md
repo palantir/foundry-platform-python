@@ -5,7 +5,7 @@ The representation of a media reference.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**mimeType** | str | Yes |  |
+**mimeType** | MediaType | Yes |  |
 **reference** | MediaSetViewItemWrapperDict | Yes |  |
 
 

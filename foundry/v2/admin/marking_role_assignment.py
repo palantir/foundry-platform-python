@@ -54,7 +54,7 @@ class MarkingRoleAssignmentClient:
     @errors.handle_unexpected
     def add(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[
             typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
@@ -66,7 +66,7 @@ class MarkingRoleAssignmentClient:
         """
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: Enables the use of preview functionality.
@@ -119,7 +119,7 @@ class MarkingRoleAssignmentClient:
     @errors.handle_unexpected
     def list(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -131,7 +131,7 @@ class MarkingRoleAssignmentClient:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -173,7 +173,7 @@ class MarkingRoleAssignmentClient:
     @errors.handle_unexpected
     def page(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -185,7 +185,7 @@ class MarkingRoleAssignmentClient:
         List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -233,7 +233,7 @@ class MarkingRoleAssignmentClient:
     @errors.handle_unexpected
     def remove(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[
             typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
@@ -245,7 +245,7 @@ class MarkingRoleAssignmentClient:
         """
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param preview: Enables the use of preview functionality.

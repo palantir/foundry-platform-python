@@ -54,7 +54,7 @@ class MarkingMemberClient:
     @errors.handle_unexpected
     def add(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -64,7 +64,7 @@ class MarkingMemberClient:
         """
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param preview: Enables the use of preview functionality.
@@ -119,7 +119,7 @@ class MarkingMemberClient:
     @errors.handle_unexpected
     def list(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -133,7 +133,7 @@ class MarkingMemberClient:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -182,7 +182,7 @@ class MarkingMemberClient:
     @errors.handle_unexpected
     def page(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -196,7 +196,7 @@ class MarkingMemberClient:
         Requires `api:admin-write` because only marking administrators can view marking members.
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -251,7 +251,7 @@ class MarkingMemberClient:
     @errors.handle_unexpected
     def remove(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -261,7 +261,7 @@ class MarkingMemberClient:
         """
 
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param preview: Enables the use of preview functionality.

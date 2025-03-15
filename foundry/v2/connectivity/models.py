@@ -66,7 +66,7 @@ class ApiKeyAuthenticationDict(typing_extensions.TypedDict):
 class AsPlaintextValue(pydantic.BaseModel):
     """AsPlaintextValue"""
 
-    value: str
+    value: PlaintextValue
     type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -80,14 +80,14 @@ class AsPlaintextValueDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: str
+    value: PlaintextValue
     type: typing.Literal["asPlaintextValue"]
 
 
 class AsSecretName(pydantic.BaseModel):
     """AsSecretName"""
 
-    value: str
+    value: SecretName
     type: typing.Literal["asSecretName"] = "asSecretName"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -101,7 +101,7 @@ class AsSecretNameDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    value: str
+    value: SecretName
     type: typing.Literal["asSecretName"]
 
 
@@ -190,7 +190,7 @@ class CloudIdentity(pydantic.BaseModel):
     cloud provider resources without the use of static credentials.
     """
 
-    cloud_identity_rid: core.RID = pydantic.Field(alias=str("cloudIdentityRid"))  # type: ignore[literal-required]
+    cloud_identity_rid: CloudIdentityRid = pydantic.Field(alias=str("cloudIdentityRid"))  # type: ignore[literal-required]
     type: typing.Literal["cloudIdentity"] = "cloudIdentity"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -207,16 +207,20 @@ class CloudIdentityDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    cloudIdentityRid: core.RID
+    cloudIdentityRid: CloudIdentityRid
     type: typing.Literal["cloudIdentity"]
+
+
+CloudIdentityRid = core.RID
+"""The Resource Identifier (RID) of a Cloud Identity."""
 
 
 class Connection(pydantic.BaseModel):
     """Connection"""
 
-    rid: core.RID
-    parent_folder_rid: core.RID = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    rid: ConnectionRid
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     """The display name of the Connection. The display name must not be blank."""
 
     configuration: ConnectionConfiguration
@@ -252,12 +256,16 @@ class ConnectionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    parentFolderRid: core.RID
-    displayName: str
+    rid: ConnectionRid
+    parentFolderRid: filesystem_models.FolderRid
+    displayName: ConnectionDisplayName
     """The display name of the Connection. The display name must not be blank."""
 
     configuration: ConnectionConfigurationDict
+
+
+ConnectionDisplayName = str
+"""The display name of the Connection. The display name must not be blank."""
 
 
 ConnectionRid = core.RID
@@ -970,17 +978,17 @@ class FileChangedSinceLastUploadFilterDict(typing_extensions.TypedDict):
 class FileImport(pydantic.BaseModel):
     """FileImport"""
 
-    rid: core.RID
-    connection_rid: core.RID = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
+    rid: FileImportRid
+    connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
     """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
@@ -1029,23 +1037,27 @@ class FileImportDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    connectionRid: core.RID
+    rid: FileImportRid
+    connectionRid: ConnectionRid
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
-    datasetRid: core.RID
+    datasetRid: datasets_models.DatasetRid
     """The RID of the output dataset."""
 
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
-    displayName: str
+    displayName: FileImportDisplayName
     fileImportFilters: typing.List[FileImportFilterDict]
     """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     importMode: FileImportMode
     subfolder: typing_extensions.NotRequired[str]
     """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
+
+
+FileImportDisplayName = str
+"""FileImportDisplayName"""
 
 
 FileImportFilter = typing_extensions.Annotated[
@@ -1560,7 +1572,7 @@ class Oidc(pydantic.BaseModel):
     issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
     """The URL that identifies Foundry as an OIDC identity provider."""
 
-    subject: core.RID
+    subject: ConnectionRid
     """The RID of the Connection that is connecting to the external system."""
 
     type: typing.Literal["oidc"] = "oidc"
@@ -1585,7 +1597,7 @@ class OidcDict(typing_extensions.TypedDict):
     issuerUrl: str
     """The URL that identifies Foundry as an OIDC identity provider."""
 
-    subject: core.RID
+    subject: ConnectionRid
     """The RID of the Connection that is connecting to the external system."""
 
     type: typing.Literal["oidc"]
@@ -2277,19 +2289,19 @@ class StsRoleConfigurationDict(typing_extensions.TypedDict):
 class TableImport(pydantic.BaseModel):
     """TableImport"""
 
-    rid: core.RID
-    connection_rid: core.RID = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
+    rid: TableImportRid
+    connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
-    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
-    display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
-    allow_schema_changes: bool = pydantic.Field(alias=str("allowSchemaChanges"))  # type: ignore[literal-required]
+    allow_schema_changes: TableImportAllowSchemaChanges = pydantic.Field(alias=str("allowSchemaChanges"))  # type: ignore[literal-required]
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfig
@@ -2335,22 +2347,26 @@ class TableImportDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    connectionRid: core.RID
+    rid: TableImportRid
+    connectionRid: ConnectionRid
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
-    datasetRid: core.RID
+    datasetRid: datasets_models.DatasetRid
     """The RID of the output dataset."""
 
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
 
-    displayName: str
+    displayName: TableImportDisplayName
     importMode: TableImportMode
-    allowSchemaChanges: bool
+    allowSchemaChanges: TableImportAllowSchemaChanges
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
     config: TableImportConfigDict
+
+
+TableImportDisplayName = str
+"""TableImportDisplayName"""
 
 
 TableImportMode = typing.Literal["SNAPSHOT", "APPEND"]
@@ -2372,6 +2388,7 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 
 from foundry.v2.core import models as core_models  # noqa: E402
 from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 __all__ = [
     "ApiKeyAuthentication",
@@ -2388,10 +2405,12 @@ __all__ = [
     "BearerTokenDict",
     "CloudIdentity",
     "CloudIdentityDict",
+    "CloudIdentityRid",
     "Connection",
     "ConnectionConfiguration",
     "ConnectionConfigurationDict",
     "ConnectionDict",
+    "ConnectionDisplayName",
     "ConnectionRid",
     "CreateConnectionRequestConnectionConfiguration",
     "CreateConnectionRequestConnectionConfigurationDict",
@@ -2427,6 +2446,7 @@ __all__ = [
     "FileImportCustomFilter",
     "FileImportCustomFilterDict",
     "FileImportDict",
+    "FileImportDisplayName",
     "FileImportFilter",
     "FileImportFilterDict",
     "FileImportMode",
@@ -2497,6 +2517,7 @@ __all__ = [
     "TableImportConfig",
     "TableImportConfigDict",
     "TableImportDict",
+    "TableImportDisplayName",
     "TableImportMode",
     "TableImportRid",
     "UriScheme",

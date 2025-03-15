@@ -5,7 +5,7 @@ ModifyObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**object_type_api_name** | str | Yes |  |
+**object_type_api_name** | ObjectTypeApiName | Yes |  |
 **type** | Literal["modifyObject"] | Yes | None |
 
 

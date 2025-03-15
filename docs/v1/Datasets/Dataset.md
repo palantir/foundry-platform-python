@@ -19,8 +19,8 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | str |  |  |
-**parent_folder_rid** | RID |  |  |
+**name** | DatasetName |  |  |
+**parent_folder_rid** | FolderRid |  |  |
 
 ### Return type
 **Dataset**
@@ -36,9 +36,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# DatasetName
 name = "My Dataset"
-# RID
+# FolderRid
 parent_folder_rid = "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4"
 
 
@@ -75,7 +75,7 @@ Deletes the Schema from a Dataset and Branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The RID of the Dataset on which to delete the schema.  |  |
+**dataset_rid** | DatasetRid | The RID of the Dataset on which to delete the schema.  |  |
 **branch_id** | Optional[BranchId] | The ID of the Branch on which to delete the schema.  | [optional] |
 **preview** | Optional[PreviewMode] |  | [optional] |
 **transaction_rid** | Optional[TransactionRid] | The RID of the Transaction on which to delete the schema.  | [optional] |
@@ -94,7 +94,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of the Dataset on which to delete the schema.
+# DatasetRid | The RID of the Dataset on which to delete the schema.
 dataset_rid = None
 # Optional[BranchId] | The ID of the Branch on which to delete the schema.
 branch_id = None
@@ -141,7 +141,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID |  |  |
+**dataset_rid** | DatasetRid |  |  |
 
 ### Return type
 **Dataset**
@@ -157,7 +157,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# DatasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 
@@ -193,7 +193,7 @@ Retrieves the Schema for a Dataset and Branch, if it exists.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The RID of the Dataset.  |  |
+**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
 **branch_id** | Optional[BranchId] | The ID of the Branch.  | [optional] |
 **preview** | Optional[PreviewMode] |  | [optional] |
 **transaction_rid** | Optional[TransactionRid] | The TransactionRid that contains the Schema.  | [optional] |
@@ -212,7 +212,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of the Dataset.
+# DatasetRid | The RID of the Dataset.
 dataset_rid = None
 # Optional[BranchId] | The ID of the Branch.
 branch_id = None
@@ -261,7 +261,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The RID of the Dataset.  |  |
+**dataset_rid** | DatasetRid | The RID of the Dataset.  |  |
 **format** | TableExportFormat | The export format. Must be `ARROW` or `CSV`.  |  |
 **branch_id** | Optional[BranchId] | The identifier (name) of the Branch. | [optional] |
 **columns** | Optional[List[str]] | A subset of the dataset columns to include in the result. Defaults to all columns.  | [optional] |
@@ -283,7 +283,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of the Dataset.
+# DatasetRid | The RID of the Dataset.
 dataset_rid = None
 # TableExportFormat | The export format. Must be `ARROW` or `CSV`.
 format = "CSV"
@@ -394,7 +394,7 @@ Puts a Schema on an existing Dataset and Branch.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | RID | The RID of the Dataset on which to put the Schema.  |  |
+**dataset_rid** | DatasetRid | The RID of the Dataset on which to put the Schema.  |  |
 **body** | Any | Body of the request |  |
 **branch_id** | Optional[BranchId] | The ID of the Branch on which to put the Schema.  | [optional] |
 **preview** | Optional[PreviewMode] |  | [optional] |
@@ -413,7 +413,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | The RID of the Dataset on which to put the Schema.
+# DatasetRid | The RID of the Dataset on which to put the Schema.
 dataset_rid = None
 # Any | Body of the request
 body = None

@@ -74,7 +74,7 @@ class EnrollmentClient:
     @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: core.RID,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -83,7 +83,7 @@ class EnrollmentClient:
         """
         Get the Enrollment with the specified rid.
         :param enrollment_rid:
-        :type enrollment_rid: RID
+        :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

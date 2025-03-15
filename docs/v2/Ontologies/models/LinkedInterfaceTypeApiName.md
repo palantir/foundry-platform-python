@@ -5,7 +5,7 @@ A reference to the linked interface type.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**api_name** | str | Yes |  |
+**api_name** | InterfaceTypeApiName | Yes |  |
 **type** | Literal["interfaceTypeApiName"] | Yes | None |
 
 

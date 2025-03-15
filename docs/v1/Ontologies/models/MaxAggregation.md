@@ -5,7 +5,7 @@ Computes the maximum value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **name** | Optional[AggregationMetricName] | No |  |
 **type** | Literal["max"] | Yes | None |
 

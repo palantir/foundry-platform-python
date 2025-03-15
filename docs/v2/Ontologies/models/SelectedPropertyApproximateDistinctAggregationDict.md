@@ -5,7 +5,7 @@ Computes an approximate number of distinct values for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | str | Yes |  |
+**selectedPropertyApiName** | PropertyApiName | Yes |  |
 **type** | Literal["approximateDistinct"] | Yes | None |
 
 

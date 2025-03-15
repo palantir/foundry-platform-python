@@ -5,7 +5,7 @@ Computes the minimum value for the provided field.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | str | Yes |  |
+**selectedPropertyApiName** | PropertyApiName | Yes |  |
 **type** | Literal["min"] | Yes | None |
 
 

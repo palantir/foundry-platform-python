@@ -5,7 +5,7 @@ MediaAttribution
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**creator_id** | UUID | Yes |  |
+**creator_id** | UserId | Yes |  |
 **creation_timestamp** | datetime | Yes | The timestamp when the media item was created, in ISO 8601 timestamp format. |
 
 

@@ -13,8 +13,8 @@ Deploy a version of the Website.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | RID | An RID identifying a third-party application created in Developer Console. |  |
-**version** | str |  |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
+**version** | VersionVersion |  |  |
 
 ### Return type
 **Website**
@@ -30,11 +30,11 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | An RID identifying a third-party application created in Developer Console.
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# str
+# VersionVersion
 version = "1.2.0"
 
 
@@ -70,7 +70,7 @@ Get the Website.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | RID | An RID identifying a third-party application created in Developer Console. |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
 
 ### Return type
 **Website**
@@ -86,7 +86,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | An RID identifying a third-party application created in Developer Console.
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
@@ -123,7 +123,7 @@ Remove the currently deployed version of the Website.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | RID | An RID identifying a third-party application created in Developer Console. |  |
+**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
 
 ### Return type
 **Website**
@@ -139,7 +139,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID | An RID identifying a third-party application created in Developer Console.
+# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )

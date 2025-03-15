@@ -52,7 +52,7 @@ class OntologyObjectSetClient:
     @errors.handle_unexpected
     def aggregate(
         self,
-        ontology: str,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
         aggregation: typing.List[
             typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
@@ -75,7 +75,7 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
         :param group_by:
@@ -147,7 +147,7 @@ class OntologyObjectSetClient:
     @errors.handle_unexpected
     def create_temporary(
         self,
-        ontology: str,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -160,7 +160,7 @@ class OntologyObjectSetClient:
         following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param request_timeout: timeout setting for this request in seconds.
@@ -204,8 +204,8 @@ class OntologyObjectSetClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: str,
-        object_set_rid: core.RID,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_set_rid: ontologies_models.ObjectSetRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -216,9 +216,9 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
-        :type object_set_rid: RID
+        :type object_set_rid: ObjectSetRid
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -251,7 +251,7 @@ class OntologyObjectSetClient:
     @errors.handle_unexpected
     def load(
         self,
-        ontology: str,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
         select: typing.List[ontologies_models.SelectedPropertyApiName],
@@ -277,7 +277,7 @@ class OntologyObjectSetClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: Union[ObjectSet, ObjectSetDict]
         :param select:

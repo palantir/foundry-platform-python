@@ -82,7 +82,7 @@ class OntologyClient:
     @errors.handle_unexpected
     def get(
         self,
-        ontology: str,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -93,7 +93,7 @@ class OntologyClient:
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -125,7 +125,7 @@ class OntologyClient:
     @errors.handle_unexpected
     def get_full_metadata(
         self,
-        ontology: str,
+        ontology: ontologies_models.OntologyIdentifier,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -134,7 +134,7 @@ class OntologyClient:
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: str
+        :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

@@ -5,7 +5,7 @@ Divides objects into groups according to specified ranges.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | PropertyApiName | Yes |  |
 **ranges** | List[AggregationRangeV2Dict] | Yes |  |
 **type** | Literal["ranges"] | Yes | None |
 

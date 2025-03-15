@@ -27,7 +27,7 @@ from foundry import _core as core
 class Branch(pydantic.BaseModel):
     """Branch"""
 
-    name: str
+    name: BranchName
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
 
@@ -43,7 +43,7 @@ class BranchDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    name: str
+    name: BranchName
     transactionRid: typing_extensions.NotRequired[TransactionRid]
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
 
@@ -55,9 +55,9 @@ BranchName = str
 class Dataset(pydantic.BaseModel):
     """Dataset"""
 
-    rid: core.RID
-    name: str
-    parent_folder_rid: core.RID = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    rid: DatasetRid
+    name: DatasetName
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "DatasetDict":
@@ -70,9 +70,9 @@ class DatasetDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
-    name: str
-    parentFolderRid: core.RID
+    rid: DatasetRid
+    name: DatasetName
+    parentFolderRid: filesystem_models.FolderRid
 
 
 DatasetName = str
@@ -86,10 +86,10 @@ DatasetRid = core.RID
 class File(pydantic.BaseModel):
     """File"""
 
-    path: str
-    transaction_rid: core.RID = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
+    path: core_models.FilePath
+    transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
     size_bytes: typing.Optional[core.Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
-    updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
+    updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "FileDict":
@@ -102,10 +102,14 @@ class FileDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    path: str
-    transactionRid: core.RID
+    path: core_models.FilePath
+    transactionRid: TransactionRid
     sizeBytes: typing_extensions.NotRequired[core.Long]
-    updatedTime: datetime
+    updatedTime: FileUpdatedTime
+
+
+FileUpdatedTime = datetime
+"""FileUpdatedTime"""
 
 
 class ListBranchesResponse(pydantic.BaseModel):
@@ -159,10 +163,10 @@ TableExportFormat = typing.Literal["ARROW", "CSV"]
 class Transaction(pydantic.BaseModel):
     """Transaction"""
 
-    rid: core.RID
+    rid: TransactionRid
     transaction_type: TransactionType = pydantic.Field(alias=str("transactionType"))  # type: ignore[literal-required]
     status: TransactionStatus
-    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    created_time: TransactionCreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
     closed_time: typing.Optional[datetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
@@ -175,15 +179,19 @@ class Transaction(pydantic.BaseModel):
         return typing.cast(TransactionDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
+TransactionCreatedTime = datetime
+"""The timestamp when the transaction was created, in ISO 8601 timestamp format."""
+
+
 class TransactionDict(typing_extensions.TypedDict):
     """Transaction"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    rid: core.RID
+    rid: TransactionRid
     transactionType: TransactionType
     status: TransactionStatus
-    createdTime: datetime
+    createdTime: TransactionCreatedTime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
     closedTime: typing_extensions.NotRequired[datetime]
@@ -203,6 +211,7 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 
 
 from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 __all__ = [
     "Branch",
@@ -214,12 +223,14 @@ __all__ = [
     "DatasetRid",
     "File",
     "FileDict",
+    "FileUpdatedTime",
     "ListBranchesResponse",
     "ListBranchesResponseDict",
     "ListFilesResponse",
     "ListFilesResponseDict",
     "TableExportFormat",
     "Transaction",
+    "TransactionCreatedTime",
     "TransactionDict",
     "TransactionRid",
     "TransactionStatus",

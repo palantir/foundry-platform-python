@@ -14,8 +14,8 @@ default branch ('master' for most enrollments). For more information on streamin
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | str |  |  |
-**parent_folder_rid** | RID |  |  |
+**name** | DatasetName |  |  |
+**parent_folder_rid** | FolderRid |  |  |
 **schema** | Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.  |  |
 **branch_name** | Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).  | [optional] |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
@@ -37,9 +37,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str
+# DatasetName
 name = "My Dataset"
-# RID
+# FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # Union[StreamSchema, StreamSchemaDict] | The Foundry schema to apply to the new stream.
 schema = None

@@ -5,7 +5,7 @@ Divides objects into groups with the specified width.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | PropertyApiName | Yes |  |
 **fixed_width** | int | Yes |  |
 **type** | Literal["fixedWidth"] | Yes | None |
 

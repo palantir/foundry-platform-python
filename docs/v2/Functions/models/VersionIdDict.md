@@ -5,11 +5,11 @@ VersionId
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**version** | str | Yes |  |
-**versionId** | UUID | Yes |  |
-**apiName** | str | Yes |  |
-**displayName** | str | Yes |  |
+**rid** | ValueTypeRid | Yes |  |
+**version** | ValueTypeVersion | Yes |  |
+**versionId** | ValueTypeVersionId | Yes |  |
+**apiName** | ValueTypeApiName | Yes |  |
+**displayName** | DisplayName | Yes |  |
 **description** | NotRequired[ValueTypeDescription] | No |  |
 **baseType** | NotRequired[ValueTypeDataTypeDict] | No |  |
 

@@ -12,7 +12,7 @@ Get the Enrollment with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**enrollment_rid** | RID |  |  |
+**enrollment_rid** | EnrollmentRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -29,7 +29,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# EnrollmentRid
 enrollment_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

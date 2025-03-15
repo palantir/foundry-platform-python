@@ -56,10 +56,10 @@ class FileImportClient:
     @errors.handle_unexpected
     def create(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: core.RID,
-        display_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[
             typing.Union[
                 connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
@@ -75,11 +75,11 @@ class FileImportClient:
         """
         Creates a new FileImport.
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: str
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
@@ -133,9 +133,9 @@ class FileImportClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": core.RID,
+                        "datasetRid": datasets_models.DatasetRid,
                         "importMode": connectivity_models.FileImportMode,
-                        "displayName": str,
+                        "displayName": connectivity_models.FileImportDisplayName,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
                         "fileImportFilters": typing.List[
@@ -170,8 +170,8 @@ class FileImportClient:
     @errors.handle_unexpected
     def delete(
         self,
-        connection_rid: core.RID,
-        file_import_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -183,9 +183,9 @@ class FileImportClient:
         be updated by this import.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param file_import_rid:
-        :type file_import_rid: RID
+        :type file_import_rid: FileImportRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -224,27 +224,27 @@ class FileImportClient:
     @errors.handle_unexpected
     def execute(
         self,
-        connection_rid: core.RID,
-        file_import_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> core.RID:
+    ) -> core_models.BuildRid:
         """
         Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param file_import_rid:
-        :type file_import_rid: RID
+        :type file_import_rid: FileImportRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: core.RID
+        :rtype: core_models.BuildRid
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
         """
@@ -265,7 +265,7 @@ class FileImportClient:
                 },
                 body=None,
                 body_type=None,
-                response_type=core.RID,
+                response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
@@ -279,8 +279,8 @@ class FileImportClient:
     @errors.handle_unexpected
     def get(
         self,
-        connection_rid: core.RID,
-        file_import_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -289,9 +289,9 @@ class FileImportClient:
         """
         Get the FileImport with the specified rid.
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param file_import_rid:
-        :type file_import_rid: RID
+        :type file_import_rid: FileImportRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -332,7 +332,7 @@ class FileImportClient:
     @errors.handle_unexpected
     def list(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -345,7 +345,7 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -387,7 +387,7 @@ class FileImportClient:
     @errors.handle_unexpected
     def page(
         self,
-        connection_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -400,7 +400,7 @@ class FileImportClient:
         Only file imports that the user has permissions to view will be returned.
 
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -448,11 +448,11 @@ class FileImportClient:
     @errors.handle_unexpected
     def replace(
         self,
-        connection_rid: core.RID,
-        file_import_rid: core.RID,
+        connection_rid: connectivity_models.ConnectionRid,
+        file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: core.RID,
-        display_name: str,
+        dataset_rid: datasets_models.DatasetRid,
+        display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[
             typing.Union[
                 connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
@@ -468,13 +468,13 @@ class FileImportClient:
         """
         Replace the FileImport with the specified rid.
         :param connection_rid:
-        :type connection_rid: RID
+        :type connection_rid: ConnectionRid
         :param file_import_rid:
-        :type file_import_rid: RID
+        :type file_import_rid: FileImportRid
         :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param display_name:
-        :type display_name: str
+        :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
@@ -525,9 +525,9 @@ class FileImportClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": core.RID,
+                        "datasetRid": datasets_models.DatasetRid,
                         "importMode": connectivity_models.FileImportMode,
-                        "displayName": str,
+                        "displayName": connectivity_models.FileImportDisplayName,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
                         "fileImportFilters": typing.List[
@@ -558,7 +558,7 @@ class _FileImportClientRaw:
     def __init__(self, client: FileImportClient) -> None:
         def create(_: connectivity_models.FileImport): ...
         def delete(_: None): ...
-        def execute(_: core.RID): ...
+        def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
         def page(_: connectivity_models.ListFileImportsResponse): ...
@@ -576,7 +576,7 @@ class _FileImportClientRaw:
 class _FileImportClientStreaming:
     def __init__(self, client: FileImportClient) -> None:
         def create(_: connectivity_models.FileImport): ...
-        def execute(_: core.RID): ...
+        def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
         def page(_: connectivity_models.ListFileImportsResponse): ...

@@ -6,7 +6,7 @@ MarkingRoleAssignment
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **principalType** | PrincipalType | Yes |  |
-**principalId** | str | Yes |  |
+**principalId** | PrincipalId | Yes |  |
 **role** | MarkingRole | Yes |  |
 
 

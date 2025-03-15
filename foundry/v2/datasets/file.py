@@ -55,8 +55,8 @@ class FileClient:
     )
     def content(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         stream: typing.Literal[True],
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -86,9 +86,9 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -114,8 +114,8 @@ class FileClient:
     @typing_extensions.overload
     def content(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -144,9 +144,9 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -173,8 +173,8 @@ class FileClient:
     )
     def content(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         stream: bool,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -204,9 +204,9 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -234,8 +234,8 @@ class FileClient:
     @errors.handle_unexpected
     def content(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -265,9 +265,9 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -333,8 +333,8 @@ class FileClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -354,9 +354,9 @@ class FileClient:
         open a transaction.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch on which to delete the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param transaction_rid: The Resource Identifier (RID) of the open delete Transaction on which to delete the File.
@@ -404,8 +404,8 @@ class FileClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -432,9 +432,9 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param branch_name: The name of the Branch that contains the File. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -487,7 +487,7 @@ class FileClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -518,7 +518,7 @@ class FileClient:
         Transaction.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -572,7 +572,7 @@ class FileClient:
     @errors.handle_unexpected
     def page(
         self,
-        dataset_rid: core.RID,
+        dataset_rid: datasets_models.DatasetRid,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
@@ -603,7 +603,7 @@ class FileClient:
         Transaction.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
@@ -663,8 +663,8 @@ class FileClient:
     @errors.handle_unexpected
     def upload(
         self,
-        dataset_rid: core.RID,
-        file_path: str,
+        dataset_rid: datasets_models.DatasetRid,
+        file_path: core_models.FilePath,
         body: bytes,
         *,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
@@ -689,9 +689,9 @@ class FileClient:
         See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
         :param dataset_rid:
-        :type dataset_rid: RID
+        :type dataset_rid: DatasetRid
         :param file_path:
-        :type file_path: str
+        :type file_path: FilePath
         :param body: Body of the request
         :type body: bytes
         :param branch_name: The name of the Branch on which to upload the File. Defaults to `master` for most enrollments.

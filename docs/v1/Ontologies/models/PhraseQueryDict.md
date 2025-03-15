@@ -5,7 +5,7 @@ Returns objects where the specified field contains the provided value as a subst
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **value** | str | Yes |  |
 **type** | Literal["phrase"] | Yes | None |
 

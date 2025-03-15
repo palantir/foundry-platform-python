@@ -7,8 +7,8 @@ The interval uses the ISO 8601 notation. For example, "PT1H2M34S" represents a d
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
-**duration** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
+**duration** | Duration | Yes |  |
 **type** | Literal["duration"] | Yes | None |
 
 

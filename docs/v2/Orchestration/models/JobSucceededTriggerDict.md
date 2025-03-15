@@ -7,8 +7,8 @@ branch.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**datasetRid** | RID | Yes |  |
-**branchName** | str | Yes |  |
+**datasetRid** | DatasetRid | Yes |  |
+**branchName** | BranchName | Yes |  |
 **type** | Literal["jobSucceeded"] | Yes | None |
 
 

@@ -54,7 +54,7 @@ class FolderClient:
     @errors.handle_unexpected
     def children(
         self,
-        folder_rid: core.RID,
+        folder_rid: filesystem_models.FolderRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -69,7 +69,7 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid:
-        :type folder_rid: RID
+        :type folder_rid: FolderRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -111,7 +111,7 @@ class FolderClient:
     @errors.handle_unexpected
     def children_page(
         self,
-        folder_rid: core.RID,
+        folder_rid: filesystem_models.FolderRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -126,7 +126,7 @@ class FolderClient:
         provided, this page size will also be used as the default.
 
         :param folder_rid:
-        :type folder_rid: RID
+        :type folder_rid: FolderRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -175,8 +175,8 @@ class FolderClient:
     def create(
         self,
         *,
-        display_name: str,
-        parent_folder_rid: core.RID,
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -184,9 +184,9 @@ class FolderClient:
         """
         Creates a new Folder.
         :param display_name:
-        :type display_name: str
+        :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
-        :type parent_folder_rid: RID
+        :type parent_folder_rid: FolderRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -217,8 +217,8 @@ class FolderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "parentFolderRid": core.RID,
-                        "displayName": str,
+                        "parentFolderRid": filesystem_models.FolderRid,
+                        "displayName": filesystem_models.ResourceDisplayName,
                     },
                 ),
                 response_type=filesystem_models.Folder,
@@ -236,7 +236,7 @@ class FolderClient:
     @errors.handle_unexpected
     def get(
         self,
-        folder_rid: core.RID,
+        folder_rid: filesystem_models.FolderRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -245,7 +245,7 @@ class FolderClient:
         """
         Get the Folder with the specified rid.
         :param folder_rid:
-        :type folder_rid: RID
+        :type folder_rid: FolderRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

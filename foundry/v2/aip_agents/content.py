@@ -53,8 +53,8 @@ class ContentClient:
     @errors.handle_unexpected
     def get(
         self,
-        agent_rid: core.RID,
-        session_rid: core.RID,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -63,9 +63,9 @@ class ContentClient:
         """
         Get the conversation content for a session between the calling user and an Agent.
         :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: RID
+        :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
-        :type session_rid: RID
+        :type session_rid: SessionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

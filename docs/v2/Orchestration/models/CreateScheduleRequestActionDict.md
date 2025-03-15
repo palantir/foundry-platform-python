@@ -7,7 +7,7 @@ CreateScheduleRequestAction
 | ------------ | ------------- | ------------- | ------------- |
 **abortOnFailure** | NotRequired[AbortOnFailure] | No |  |
 **forceBuild** | NotRequired[ForceBuild] | No |  |
-**retryBackoffDuration** | NotRequired[RetryBackoffDurationDict] | No |  |
+**retryBackoffDuration** | NotRequired[DurationDict] | No |  |
 **retryCount** | NotRequired[RetryCount] | No |  |
 **fallbackBranches** | NotRequired[FallbackBranches] | No |  |
 **branchName** | NotRequired[BranchName] | No | The target branch the schedule should run on. |

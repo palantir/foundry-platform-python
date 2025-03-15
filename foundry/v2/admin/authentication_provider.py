@@ -53,8 +53,8 @@ class AuthenticationProviderClient:
     @errors.handle_unexpected
     def get(
         self,
-        enrollment_rid: core.RID,
-        authentication_provider_rid: core.RID,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -63,9 +63,9 @@ class AuthenticationProviderClient:
         """
         Get the AuthenticationProvider with the specified rid.
         :param enrollment_rid:
-        :type enrollment_rid: RID
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid:
-        :type authentication_provider_rid: RID
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -106,7 +106,7 @@ class AuthenticationProviderClient:
     @errors.handle_unexpected
     def list(
         self,
-        enrollment_rid: core.RID,
+        enrollment_rid: core_models.EnrollmentRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -117,7 +117,7 @@ class AuthenticationProviderClient:
 
 
         :param enrollment_rid:
-        :type enrollment_rid: RID
+        :type enrollment_rid: EnrollmentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -153,25 +153,25 @@ class AuthenticationProviderClient:
     @errors.handle_unexpected
     def preregister_group(
         self,
-        enrollment_rid: core.RID,
-        authentication_provider_rid: core.RID,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        name: str,
+        name: admin_models.GroupName,
         organizations: typing.List[core_models.OrganizationRid],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> str:
+    ) -> core_models.PrincipalId:
         """
         Register a Group with a given name before any users with this group log in through this Authentication Provider.
         Preregistered groups can be used anywhere other groups are used in the platform.
 
         :param enrollment_rid:
-        :type enrollment_rid: RID
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid:
-        :type authentication_provider_rid: RID
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param name:
-        :type name: str
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations that can view this group.
         :type organizations: List[OrganizationRid]
         :param preview: Enables the use of preview functionality.
@@ -179,7 +179,7 @@ class AuthenticationProviderClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: str
+        :rtype: core_models.PrincipalId
 
         :raises PreregisterGroupPermissionDenied: Could not preregisterGroup the AuthenticationProvider.
         """
@@ -206,11 +206,11 @@ class AuthenticationProviderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": str,
+                        "name": admin_models.GroupName,
                         "organizations": typing.List[core_models.OrganizationRid],
                     },
                 ),
-                response_type=str,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterGroupPermissionDenied": admin_errors.PreregisterGroupPermissionDenied,
@@ -224,11 +224,11 @@ class AuthenticationProviderClient:
     @errors.handle_unexpected
     def preregister_user(
         self,
-        enrollment_rid: core.RID,
-        authentication_provider_rid: core.RID,
+        enrollment_rid: core_models.EnrollmentRid,
+        authentication_provider_rid: admin_models.AuthenticationProviderRid,
         *,
-        organization: core.RID,
-        username: str,
+        organization: core_models.OrganizationRid,
+        username: admin_models.UserUsername,
         attributes: typing.Optional[
             typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
         ] = None,
@@ -238,19 +238,19 @@ class AuthenticationProviderClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> str:
+    ) -> core_models.PrincipalId:
         """
         Register a User with a given username before they log in to the platform for the first time through this
         Authentication Provider. Preregistered users can be assigned to groups and roles prior to first login.
 
         :param enrollment_rid:
-        :type enrollment_rid: RID
+        :type enrollment_rid: EnrollmentRid
         :param authentication_provider_rid:
-        :type authentication_provider_rid: RID
+        :type authentication_provider_rid: AuthenticationProviderRid
         :param organization: The RID of the user's primary Organization. This may be changed when the user logs in for the first time depending on any configured Organization assignment rules.
-        :type organization: RID
+        :type organization: OrganizationRid
         :param username: The new user's username. This must match one of the provider's supported username patterns.
-        :type username: str
+        :type username: UserUsername
         :param attributes:
         :type attributes: Optional[Dict[AttributeName, AttributeValues]]
         :param email:
@@ -264,7 +264,7 @@ class AuthenticationProviderClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: str
+        :rtype: core_models.PrincipalId
 
         :raises PreregisterUserPermissionDenied: Could not preregisterUser the AuthenticationProvider.
         """
@@ -295,8 +295,8 @@ class AuthenticationProviderClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "username": str,
-                        "organization": core.RID,
+                        "username": admin_models.UserUsername,
+                        "organization": core_models.OrganizationRid,
                         "givenName": typing.Optional[str],
                         "familyName": typing.Optional[str],
                         "email": typing.Optional[str],
@@ -305,7 +305,7 @@ class AuthenticationProviderClient:
                         ],
                     },
                 ),
-                response_type=str,
+                response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PreregisterUserPermissionDenied": admin_errors.PreregisterUserPermissionDenied,
@@ -319,8 +319,8 @@ class _AuthenticationProviderClientRaw:
     def __init__(self, client: AuthenticationProviderClient) -> None:
         def get(_: admin_models.AuthenticationProvider): ...
         def list(_: admin_models.ListAuthenticationProvidersResponse): ...
-        def preregister_group(_: str): ...
-        def preregister_user(_: str): ...
+        def preregister_group(_: core_models.PrincipalId): ...
+        def preregister_user(_: core_models.PrincipalId): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
@@ -332,8 +332,8 @@ class _AuthenticationProviderClientStreaming:
     def __init__(self, client: AuthenticationProviderClient) -> None:
         def get(_: admin_models.AuthenticationProvider): ...
         def list(_: admin_models.ListAuthenticationProvidersResponse): ...
-        def preregister_group(_: str): ...
-        def preregister_user(_: str): ...
+        def preregister_group(_: core_models.PrincipalId): ...
+        def preregister_user(_: core_models.PrincipalId): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)

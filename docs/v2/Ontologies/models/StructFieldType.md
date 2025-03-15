@@ -5,7 +5,7 @@ StructFieldType
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**api_name** | str | Yes |  |
+**api_name** | StructFieldApiName | Yes |  |
 **data_type** | ObjectPropertyType | Yes |  |
 
 

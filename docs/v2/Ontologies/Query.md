@@ -17,8 +17,8 @@ following operation scopes: `api:ontologies-read`.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**query_api_name** | str | The API name of the Query to execute.  |  |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
@@ -37,9 +37,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# str | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# str | The API name of the Query to execute.
+# QueryApiName | The API name of the Query to execute.
 query_api_name = "getEmployeesInCity"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"city": "New York"}

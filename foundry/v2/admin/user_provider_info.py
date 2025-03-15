@@ -53,7 +53,7 @@ class UserProviderInfoClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: str,
+        user_id: core_models.PrincipalId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class UserProviderInfoClient:
         """
         Get the UserProviderInfo.
         :param user_id:
-        :type user_id: str
+        :type user_id: PrincipalId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -102,9 +102,9 @@ class UserProviderInfoClient:
     @errors.handle_unexpected
     def replace(
         self,
-        user_id: str,
+        user_id: core_models.PrincipalId,
         *,
-        provider_id: str,
+        provider_id: admin_models.ProviderId,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -112,9 +112,9 @@ class UserProviderInfoClient:
         """
         Replace the UserProviderInfo.
         :param user_id:
-        :type user_id: str
+        :type user_id: PrincipalId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
-        :type provider_id: str
+        :type provider_id: ProviderId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -145,7 +145,7 @@ class UserProviderInfoClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "providerId": str,
+                        "providerId": admin_models.ProviderId,
                     },
                 ),
                 response_type=admin_models.UserProviderInfo,

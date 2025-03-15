@@ -5,8 +5,8 @@ File
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**path** | str | Yes |  |
-**transactionRid** | RID | Yes |  |
+**path** | FilePath | Yes |  |
+**transactionRid** | TransactionRid | Yes |  |
 **sizeBytes** | NotRequired[Long] | No |  |
 **updatedTime** | datetime | Yes |  |
 

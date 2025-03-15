@@ -78,7 +78,7 @@ class GroupClient:
         self,
         *,
         attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
-        name: str,
+        name: admin_models.GroupName,
         organizations: typing.List[core_models.OrganizationRid],
         description: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -89,7 +89,7 @@ class GroupClient:
         :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
         :type attributes: Dict[AttributeName, AttributeValues]
         :param name: The name of the Group.
-        :type name: str
+        :type name: GroupName
         :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
         :type organizations: List[OrganizationRid]
         :param description: A description of the Group.
@@ -125,7 +125,7 @@ class GroupClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": str,
+                        "name": admin_models.GroupName,
                         "organizations": typing.List[core_models.OrganizationRid],
                         "description": typing.Optional[str],
                         "attributes": typing.Dict[
@@ -151,7 +151,7 @@ class GroupClient:
     @errors.handle_unexpected
     def delete(
         self,
-        group_id: str,
+        group_id: core_models.PrincipalId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -159,7 +159,7 @@ class GroupClient:
         """
         Delete the Group with the specified id.
         :param group_id:
-        :type group_id: str
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -193,7 +193,7 @@ class GroupClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: str,
+        group_id: core_models.PrincipalId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -201,7 +201,7 @@ class GroupClient:
         """
         Get the Group with the specified id.
         :param group_id:
-        :type group_id: str
+        :type group_id: PrincipalId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

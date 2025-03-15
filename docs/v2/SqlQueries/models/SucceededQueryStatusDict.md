@@ -5,7 +5,7 @@ SucceededQueryStatus
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**queryId** | str | Yes |  |
+**queryId** | QueryId | Yes |  |
 **type** | Literal["succeeded"] | Yes | None |
 
 

@@ -65,7 +65,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def add_markings(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -75,7 +75,7 @@ class ResourceClient:
         """
         Adds a list of Markings to a resource.
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
         :param preview: Enables the use of preview functionality.
@@ -124,7 +124,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def delete(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -135,7 +135,7 @@ class ResourceClient:
         `restore` operation, or permanently deleted using the `permanentlyDelete` operation.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -173,7 +173,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def get(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -182,7 +182,7 @@ class ResourceClient:
         """
         Get the Resource with the specified rid.
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -222,7 +222,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def get_access_requirements(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -233,7 +233,7 @@ class ResourceClient:
         composed of Organizations and Markings, and can either be applied directly to the resource or inherited.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -274,7 +274,7 @@ class ResourceClient:
     def get_by_path(
         self,
         *,
-        path: str,
+        path: filesystem_models.ResourcePath,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -282,7 +282,7 @@ class ResourceClient:
         """
         Get a Resource by its absolute path.
         :param path: The path to the Resource. The leading slash is optional.
-        :type path: str
+        :type path: ResourcePath
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -321,7 +321,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def markings(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -334,7 +334,7 @@ class ResourceClient:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -376,7 +376,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def markings_page(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -389,7 +389,7 @@ class ResourceClient:
         so the `pageSize` and `pageToken` parameters are not required.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -437,7 +437,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def permanently_delete(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -448,7 +448,7 @@ class ResourceClient:
         `ResourceNotTrashed` error will be thrown.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -486,7 +486,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def remove_markings(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -496,7 +496,7 @@ class ResourceClient:
         """
         Removes Markings from a resource.
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
         :param preview: Enables the use of preview functionality.
@@ -545,7 +545,7 @@ class ResourceClient:
     @errors.handle_unexpected
     def restore(
         self,
-        resource_rid: core.RID,
+        resource_rid: filesystem_models.ResourceRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -556,7 +556,7 @@ class ResourceClient:
         trashed, this operation will be ignored.
 
         :param resource_rid:
-        :type resource_rid: RID
+        :type resource_rid: ResourceRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

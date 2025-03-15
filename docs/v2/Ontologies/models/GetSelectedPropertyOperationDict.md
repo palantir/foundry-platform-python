@@ -9,7 +9,7 @@ Use collectList or collectSet which will return a list of values in that case.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**selectedPropertyApiName** | str | Yes |  |
+**selectedPropertyApiName** | PropertyApiName | Yes |  |
 **type** | Literal["get"] | Yes | None |
 
 

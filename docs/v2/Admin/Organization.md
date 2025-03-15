@@ -12,7 +12,7 @@ Get the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | RID |  |  |
+**organization_rid** | OrganizationRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -29,7 +29,7 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# OrganizationRid
 organization_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -67,8 +67,8 @@ Replace the Organization with the specified rid.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**organization_rid** | RID |  |  |
-**name** | str |  |  |
+**organization_rid** | OrganizationRid |  |  |
+**name** | OrganizationName |  |  |
 **description** | Optional[str] |  | [optional] |
 **host** | Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -87,9 +87,9 @@ foundry_client = FoundryClient(
     auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
 )
 
-# RID
+# OrganizationRid
 organization_rid = None
-# str
+# OrganizationName
 name = "Example Organization"
 # Optional[str]
 description = None

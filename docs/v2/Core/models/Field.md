@@ -7,7 +7,7 @@ A field in a Foundry schema. For more information on supported data types, see t
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | str | Yes |  |
+**name** | FieldName | Yes |  |
 **schema_** | FieldSchema | Yes |  |
 
 

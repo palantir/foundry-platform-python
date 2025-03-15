@@ -5,7 +5,7 @@ SearchOrdering
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | FieldNameV1 | Yes |  |
 **direction** | NotRequired[str] | No | Specifies the ordering direction (can be either `asc` or `desc`) |
 
 

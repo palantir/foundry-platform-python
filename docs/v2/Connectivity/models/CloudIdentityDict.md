@@ -7,7 +7,7 @@ cloud provider resources without the use of static credentials.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**cloudIdentityRid** | RID | Yes |  |
+**cloudIdentityRid** | CloudIdentityRid | Yes |  |
 **type** | Literal["cloudIdentity"] | Yes | None |
 
 

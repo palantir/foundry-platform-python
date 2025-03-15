@@ -10,9 +10,9 @@ Organizations are inherited via the file hierarchy and direct dependencies.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**markingId** | UUID | Yes |  |
-**organizationRid** | RID | Yes |  |
-**isDirectlyApplied** | bool | Yes |  |
+**markingId** | MarkingId | Yes |  |
+**organizationRid** | OrganizationRid | Yes |  |
+**isDirectlyApplied** | IsDirectlyApplied | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -5,7 +5,7 @@ CreateObjectRule
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**objectTypeApiName** | str | Yes |  |
+**objectTypeApiName** | ObjectTypeApiName | Yes |  |
 **type** | Literal["createObject"] | Yes | None |
 
 

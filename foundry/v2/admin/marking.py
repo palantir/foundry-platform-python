@@ -77,12 +77,12 @@ class MarkingClient:
     def create(
         self,
         *,
-        category_id: str,
+        category_id: admin_models.MarkingCategoryId,
         initial_members: typing.List[core_models.PrincipalId],
         initial_role_assignments: typing.List[
             typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
         ],
-        name: str,
+        name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -91,13 +91,13 @@ class MarkingClient:
         """
         Creates a new Marking.
         :param category_id:
-        :type category_id: str
+        :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
         :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
         :param name:
-        :type name: str
+        :type name: MarkingName
         :param description:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
@@ -141,9 +141,9 @@ class MarkingClient:
                             ]
                         ],
                         "initialMembers": typing.List[core_models.PrincipalId],
-                        "name": str,
+                        "name": admin_models.MarkingName,
                         "description": typing.Optional[str],
-                        "categoryId": str,
+                        "categoryId": admin_models.MarkingCategoryId,
                     },
                 ),
                 response_type=admin_models.Marking,
@@ -163,7 +163,7 @@ class MarkingClient:
     @errors.handle_unexpected
     def get(
         self,
-        marking_id: core.UUID,
+        marking_id: core_models.MarkingId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -172,7 +172,7 @@ class MarkingClient:
         """
         Get the Marking with the specified id.
         :param marking_id:
-        :type marking_id: UUID
+        :type marking_id: MarkingId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

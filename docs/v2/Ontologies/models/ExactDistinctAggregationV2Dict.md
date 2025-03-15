@@ -5,7 +5,7 @@ Computes an exact number of distinct values for the provided field. May be slowe
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | str | Yes |  |
+**field** | PropertyApiName | Yes |  |
 **name** | NotRequired[AggregationMetricName] | No |  |
 **direction** | NotRequired[OrderByDirection] | No |  |
 **type** | Literal["exactDistinct"] | Yes | None |

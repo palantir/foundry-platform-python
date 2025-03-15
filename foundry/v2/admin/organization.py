@@ -53,7 +53,7 @@ class OrganizationClient:
     @errors.handle_unexpected
     def get(
         self,
-        organization_rid: core.RID,
+        organization_rid: core_models.OrganizationRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class OrganizationClient:
         """
         Get the Organization with the specified rid.
         :param organization_rid:
-        :type organization_rid: RID
+        :type organization_rid: OrganizationRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -102,9 +102,9 @@ class OrganizationClient:
     @errors.handle_unexpected
     def replace(
         self,
-        organization_rid: core.RID,
+        organization_rid: core_models.OrganizationRid,
         *,
-        name: str,
+        name: admin_models.OrganizationName,
         description: typing.Optional[str] = None,
         host: typing.Optional[admin_models.HostName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -114,9 +114,9 @@ class OrganizationClient:
         """
         Replace the Organization with the specified rid.
         :param organization_rid:
-        :type organization_rid: RID
+        :type organization_rid: OrganizationRid
         :param name:
-        :type name: str
+        :type name: OrganizationName
         :param description:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
@@ -154,7 +154,7 @@ class OrganizationClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "name": str,
+                        "name": admin_models.OrganizationName,
                         "host": typing.Optional[admin_models.HostName],
                         "description": typing.Optional[str],
                     },

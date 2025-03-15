@@ -21,7 +21,7 @@ import annotated_types
 import pydantic
 import typing_extensions
 
-BBox = typing.List[float]
+BBox = typing.List["Coordinate"]
 """
 A GeoJSON object MAY have a member named "bbox" to include
 information on the coordinate range for its Geometries, Features, or
@@ -31,6 +31,10 @@ contained geometries, with all axes of the most southwesterly point
 followed by all axes of the more northeasterly point. The axes order
 of a bbox follows the axes order of geometries.
 """
+
+
+Coordinate = float
+"""Coordinate"""
 
 
 class GeoPoint(pydantic.BaseModel):
@@ -96,7 +100,7 @@ class PolygonDict(typing_extensions.TypedDict):
 
 
 Position = typing_extensions.Annotated[
-    typing.List[float], annotated_types.Len(min_length=2, max_length=3)
+    typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
 GeoJSon fundamental geometry construct.
@@ -118,6 +122,7 @@ elements MAY be ignored by parsers.
 
 __all__ = [
     "BBox",
+    "Coordinate",
     "GeoPoint",
     "GeoPointDict",
     "LinearRing",

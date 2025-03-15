@@ -5,9 +5,9 @@ Connection
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | RID | Yes |  |
-**parent_folder_rid** | RID | Yes |  |
-**display_name** | str | Yes | The display name of the Connection. The display name must not be blank. |
+**rid** | ConnectionRid | Yes |  |
+**parent_folder_rid** | FolderRid | Yes |  |
+**display_name** | ConnectionDisplayName | Yes | The display name of the Connection. The display name must not be blank. |
 **configuration** | ConnectionConfiguration | Yes |  |
 
 

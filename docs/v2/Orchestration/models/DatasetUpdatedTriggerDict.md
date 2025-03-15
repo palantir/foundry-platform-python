@@ -7,8 +7,8 @@ dataset on the target branch.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**datasetRid** | RID | Yes |  |
-**branchName** | str | Yes |  |
+**datasetRid** | DatasetRid | Yes |  |
+**branchName** | BranchName | Yes |  |
 **type** | Literal["datasetUpdated"] | Yes | None |
 
 
