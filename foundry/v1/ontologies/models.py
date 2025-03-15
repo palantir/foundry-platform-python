@@ -21,7 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
-from foundry.v1.core import models as core_models  # noqa: E402
+from foundry.v1.core import models as core_models
 
 ActionRid = core.RID
 """The unique resource identifier for an action."""
