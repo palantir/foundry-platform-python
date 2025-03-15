@@ -14,6 +14,7 @@
 
 
 import inspect
+import typing
 import warnings
 from functools import wraps
 from typing import Any
@@ -78,3 +79,19 @@ def maybe_ignore_preview(func: AnyCallableT) -> AnyCallableT:
         return func(*args, **kwargs)
 
     return wrapper  # type: ignore
+
+
+def resolve_forward_references(type_obj: Any, globalns, localns):
+    if not hasattr(type_obj, "__origin__") or not hasattr(type_obj, "__args__"):
+        return type_obj
+
+    args = tuple(
+        (
+            typing._eval_type(arg, globalns, localns)  # type: ignore
+            if isinstance(arg, typing.ForwardRef)
+            else resolve_forward_references(arg, globalns, localns)
+        )
+        for arg in type_obj.__args__  # type: ignore
+    )
+
+    setattr(type_obj, "__args__", args)

@@ -22,6 +22,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 AbortOnFailure = bool
 """
@@ -40,7 +43,7 @@ class Action(pydantic.BaseModel):
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
     force_build: ForceBuild = pydantic.Field(alias=str("forceBuild"))  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
-    retry_backoff_duration: typing.Optional[core_models.Duration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
+    retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -62,7 +65,7 @@ class ActionDict(typing_extensions.TypedDict):
     fallbackBranches: FallbackBranches
     forceBuild: ForceBuild
     retryCount: typing_extensions.NotRequired[RetryCount]
-    retryBackoffDuration: typing_extensions.NotRequired[core_models.DurationDict]
+    retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
     abortOnFailure: AbortOnFailure
     notificationsEnabled: NotificationsEnabled
 
@@ -106,7 +109,7 @@ class Build(pydantic.BaseModel):
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
     job_rids: typing.List[core_models.JobRid] = pydantic.Field(alias=str("jobRids"))  # type: ignore[literal-required]
     retry_count: RetryCount = pydantic.Field(alias=str("retryCount"))  # type: ignore[literal-required]
-    retry_backoff_duration: core_models.Duration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
+    retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -136,7 +139,7 @@ class BuildDict(typing_extensions.TypedDict):
     fallbackBranches: FallbackBranches
     jobRids: typing.List[core_models.JobRid]
     retryCount: RetryCount
-    retryBackoffDuration: core_models.DurationDict
+    retryBackoffDuration: RetryBackoffDurationDict
     abortOnFailure: AbortOnFailure
     status: BuildStatus
 
@@ -214,7 +217,7 @@ class CreateScheduleRequestAction(pydantic.BaseModel):
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
     force_build: typing.Optional[ForceBuild] = pydantic.Field(alias=str("forceBuild"), default=None)  # type: ignore[literal-required]
-    retry_backoff_duration: typing.Optional[core_models.Duration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
+    retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
@@ -238,7 +241,7 @@ class CreateScheduleRequestActionDict(typing_extensions.TypedDict):
 
     abortOnFailure: typing_extensions.NotRequired[AbortOnFailure]
     forceBuild: typing_extensions.NotRequired[ForceBuild]
-    retryBackoffDuration: typing_extensions.NotRequired[core_models.DurationDict]
+    retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
     retryCount: typing_extensions.NotRequired[RetryCount]
     fallbackBranches: typing_extensions.NotRequired[FallbackBranches]
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
@@ -357,14 +360,14 @@ class CreateScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
+    typing.Union[CreateScheduleRequestProjectScope, "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 CreateScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union["CreateScheduleRequestProjectScopeDict", "CreateScheduleRequestUserScopeDict"],
+    typing.Union[CreateScheduleRequestProjectScopeDict, "CreateScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -486,7 +489,7 @@ class DatasetUpdatedTriggerDict(typing_extensions.TypedDict):
     type: typing.Literal["datasetUpdated"]
 
 
-FallbackBranches = typing.List["datasets_models.BranchName"]
+FallbackBranches = typing.List[datasets_models.BranchName]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
@@ -642,14 +645,14 @@ class JobDict(typing_extensions.TypedDict):
 
 
 JobOutput = typing_extensions.Annotated[
-    typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
+    typing.Union[DatasetJobOutput, "TransactionalMediaSetJobOutput"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
 JobOutputDict = typing_extensions.Annotated[
-    typing.Union["DatasetJobOutputDict", "TransactionalMediaSetJobOutputDict"],
+    typing.Union[DatasetJobOutputDict, "TransactionalMediaSetJobOutputDict"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
@@ -879,7 +882,7 @@ class ReplaceScheduleRequestAction(pydantic.BaseModel):
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
     force_build: typing.Optional[ForceBuild] = pydantic.Field(alias=str("forceBuild"), default=None)  # type: ignore[literal-required]
-    retry_backoff_duration: typing.Optional[core_models.Duration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
+    retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
@@ -903,7 +906,7 @@ class ReplaceScheduleRequestActionDict(typing_extensions.TypedDict):
 
     abortOnFailure: typing_extensions.NotRequired[AbortOnFailure]
     forceBuild: typing_extensions.NotRequired[ForceBuild]
-    retryBackoffDuration: typing_extensions.NotRequired[core_models.DurationDict]
+    retryBackoffDuration: typing_extensions.NotRequired[RetryBackoffDurationDict]
     retryCount: typing_extensions.NotRequired[RetryCount]
     fallbackBranches: typing_extensions.NotRequired[FallbackBranches]
     branchName: typing_extensions.NotRequired[datasets_models.BranchName]
@@ -1024,14 +1027,14 @@ class ReplaceScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
+    typing.Union[ReplaceScheduleRequestProjectScope, "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 ReplaceScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union["ReplaceScheduleRequestProjectScopeDict", "ReplaceScheduleRequestUserScopeDict"],
+    typing.Union[ReplaceScheduleRequestProjectScopeDict, "ReplaceScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -1276,7 +1279,7 @@ class ScheduleRunIgnoredDict(typing_extensions.TypedDict):
 
 
 ScheduleRunResult = typing_extensions.Annotated[
-    typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
+    typing.Union[ScheduleRunIgnored, "ScheduleRunSubmitted", ScheduleRunError],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1286,7 +1289,7 @@ ignored if all targets are up-to-date or error.
 
 
 ScheduleRunResultDict = typing_extensions.Annotated[
-    typing.Union["ScheduleRunIgnoredDict", "ScheduleRunSubmittedDict", "ScheduleRunErrorDict"],
+    typing.Union[ScheduleRunIgnoredDict, "ScheduleRunSubmittedDict", ScheduleRunErrorDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1399,13 +1402,13 @@ ScheduleVersionRid = core.RID
 
 
 ScopeMode = typing_extensions.Annotated[
-    typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScope, "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
 
 ScopeModeDict = typing_extensions.Annotated[
-    typing.Union["ProjectScopeDict", "UserScopeDict"], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScopeDict, "UserScopeDict"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
@@ -1466,10 +1469,10 @@ SearchBuildsFilter = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
-        "SearchBuildsAndFilter",
+        SearchBuildsAndFilter,
         "SearchBuildsLtFilter",
         "SearchBuildsGteFilter",
-        "SearchBuildsEqualsFilter",
+        SearchBuildsEqualsFilter,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1480,10 +1483,10 @@ SearchBuildsFilterDict = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilterDict",
         "SearchBuildsOrFilterDict",
-        "SearchBuildsAndFilterDict",
+        SearchBuildsAndFilterDict,
         "SearchBuildsLtFilterDict",
         "SearchBuildsGteFilterDict",
-        "SearchBuildsEqualsFilterDict",
+        SearchBuildsEqualsFilterDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1715,14 +1718,14 @@ class TransactionalMediaSetJobOutputDict(typing_extensions.TypedDict):
 
 Trigger = typing_extensions.Annotated[
     typing.Union[
-        "JobSucceededTrigger",
-        "OrTrigger",
-        "NewLogicTrigger",
-        "AndTrigger",
-        "DatasetUpdatedTrigger",
-        "ScheduleSucceededTrigger",
-        "MediaSetUpdatedTrigger",
-        "TimeTrigger",
+        JobSucceededTrigger,
+        OrTrigger,
+        NewLogicTrigger,
+        AndTrigger,
+        DatasetUpdatedTrigger,
+        ScheduleSucceededTrigger,
+        MediaSetUpdatedTrigger,
+        TimeTrigger,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1731,14 +1734,14 @@ Trigger = typing_extensions.Annotated[
 
 TriggerDict = typing_extensions.Annotated[
     typing.Union[
-        "JobSucceededTriggerDict",
-        "OrTriggerDict",
-        "NewLogicTriggerDict",
-        "AndTriggerDict",
-        "DatasetUpdatedTriggerDict",
-        "ScheduleSucceededTriggerDict",
-        "MediaSetUpdatedTriggerDict",
-        "TimeTriggerDict",
+        JobSucceededTriggerDict,
+        OrTriggerDict,
+        NewLogicTriggerDict,
+        AndTriggerDict,
+        DatasetUpdatedTriggerDict,
+        ScheduleSucceededTriggerDict,
+        MediaSetUpdatedTriggerDict,
+        TimeTriggerDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1801,9 +1804,51 @@ class UserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+RetryBackoffDuration = core_models.Duration
+"""The duration to wait before retrying after a Job fails."""
+
+
+RetryBackoffDurationDict = core_models.DurationDict
+"""The duration to wait before retrying after a Job fails."""
+
+
+core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
+core.resolve_forward_references(BuildTargetDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestBuildTargetDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestScopeModeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
+core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(JobOutputDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestBuildTargetDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestScopeModeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScheduleRunResultDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScopeModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchBuildsFilterDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+core.resolve_forward_references(TriggerDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbortOnFailure",
@@ -1889,6 +1934,8 @@ __all__ = [
     "ReplaceScheduleRequestUpstreamTargetDict",
     "ReplaceScheduleRequestUserScope",
     "ReplaceScheduleRequestUserScopeDict",
+    "RetryBackoffDuration",
+    "RetryBackoffDurationDict",
     "RetryCount",
     "Schedule",
     "ScheduleDict",

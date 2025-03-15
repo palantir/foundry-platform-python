@@ -1,10 +1,11 @@
-# UpdatedBy
+# RetryBackoffDuration
 
-The Foundry user who last updated this resource
+The duration to wait before retrying after a Job fails.
+
 
 ## Type
 ```python
-UserId
+Duration
 ```
 
 

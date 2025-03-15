@@ -22,6 +22,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
 
 AttributeName = str
 """AttributeName"""
@@ -31,7 +32,7 @@ AttributeValue = str
 """AttributeValue"""
 
 
-AttributeValues = typing.List["AttributeValue"]
+AttributeValues = typing.List[AttributeValue]
 """AttributeValues"""
 
 
@@ -1197,7 +1198,9 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
+core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
+core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+core.resolve_forward_references(AuthenticationProtocolDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "AttributeName",

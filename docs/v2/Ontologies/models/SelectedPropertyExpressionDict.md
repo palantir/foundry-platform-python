@@ -5,7 +5,7 @@ Definition for a selected property over a MethodObjectSet.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**objectSet** | ObjectSetDict | Yes |  |
+**objectSet** | MethodObjectSetDict | Yes |  |
 **operation** | SelectedPropertyOperationDict | Yes |  |
 **type** | Literal["selection"] | Yes | None |
 

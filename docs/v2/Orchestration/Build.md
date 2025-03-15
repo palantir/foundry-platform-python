@@ -80,7 +80,7 @@ Name | Type | Description  | Notes |
 **force_build** | Optional[ForceBuild] |  | [optional] |
 **notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**retry_backoff_duration** | Optional[Union[Duration, DurationDict]] |  | [optional] |
+**retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
 ### Return type
@@ -111,7 +111,7 @@ force_build = None
 notifications_enabled = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[Duration, DurationDict]]
+# Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1

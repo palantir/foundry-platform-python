@@ -10,7 +10,7 @@ Represents an object type in the Ontology.
 **status** | ReleaseStatus | Yes |  |
 **description** | NotRequired[str] | No | The description of the object type. |
 **pluralDisplayName** | str | Yes | The plural display name of the object type. |
-**icon** | BlueprintIconDict | Yes |  |
+**icon** | IconDict | Yes |  |
 **primaryKey** | PropertyApiName | Yes |  |
 **properties** | Dict[PropertyApiName, PropertyV2Dict] | Yes | A map of the properties of the object type. |
 **rid** | ObjectTypeRid | Yes |  |

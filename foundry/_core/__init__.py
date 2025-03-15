@@ -34,3 +34,4 @@ from foundry._core.utils import UUID
 from foundry._core.utils import Long
 from foundry._core.utils import Timeout
 from foundry._core.utils import maybe_ignore_preview
+from foundry._core.utils import resolve_forward_references

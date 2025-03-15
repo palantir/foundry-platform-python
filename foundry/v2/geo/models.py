@@ -21,6 +21,8 @@ import annotated_types
 import pydantic
 import typing_extensions
 
+from foundry import _core as core
+
 BBox = typing.List["Coordinate"]
 """
 A GeoJSON object MAY have a member named "bbox" to include
@@ -100,7 +102,7 @@ class PolygonDict(typing_extensions.TypedDict):
 
 
 Position = typing_extensions.Annotated[
-    typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
+    typing.List[Coordinate], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
 GeoJSon fundamental geometry construct.
@@ -119,6 +121,10 @@ elements is beyond the scope of this specification, and additional
 elements MAY be ignored by parsers.
 """
 
+
+core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
+core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
+core.resolve_forward_references(Position, globalns=globals(), localns=locals())
 
 __all__ = [
     "BBox",

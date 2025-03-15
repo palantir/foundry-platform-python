@@ -21,6 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
 
 
 class ListVersionsResponse(pydantic.BaseModel):
@@ -131,8 +132,6 @@ class WebsiteDict(typing_extensions.TypedDict):
     subdomains: typing.List[Subdomain]
     """The subdomains from which the Website is currently served."""
 
-
-from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "ListVersionsResponse",

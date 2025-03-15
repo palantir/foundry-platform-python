@@ -22,6 +22,8 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.geo import models as geo_models  # noqa: E402
 
 
 class AbsoluteTimeRange(pydantic.BaseModel):
@@ -95,22 +97,22 @@ class ActionParameterArrayTypeDict(typing_extensions.TypedDict):
 
 ActionParameterType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
+        core_models.DateType,
         "OntologyInterfaceObjectType",
         "OntologyStructType",
-        "core_models.StringType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
-        "core_models.LongType",
+        core_models.StringType,
+        core_models.DoubleType,
+        core_models.IntegerType,
+        core_models.LongType,
         "OntologyObjectTypeReferenceType",
-        "core_models.BooleanType",
-        "core_models.MarkingType",
-        "core_models.AttachmentType",
-        "core_models.MediaReferenceType",
-        "ActionParameterArrayType",
+        core_models.BooleanType,
+        core_models.MarkingType,
+        core_models.AttachmentType,
+        core_models.MediaReferenceType,
+        ActionParameterArrayType,
         "OntologyObjectSetType",
         "OntologyObjectType",
-        "core_models.TimestampType",
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -119,22 +121,22 @@ ActionParameterType = typing_extensions.Annotated[
 
 ActionParameterTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
+        core_models.DateTypeDict,
         "OntologyInterfaceObjectTypeDict",
         "OntologyStructTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.LongTypeDict",
+        core_models.StringTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
+        core_models.LongTypeDict,
         "OntologyObjectTypeReferenceTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.MarkingTypeDict",
-        "core_models.AttachmentTypeDict",
-        "core_models.MediaReferenceTypeDict",
-        "ActionParameterArrayTypeDict",
+        core_models.BooleanTypeDict,
+        core_models.MarkingTypeDict,
+        core_models.AttachmentTypeDict,
+        core_models.MediaReferenceTypeDict,
+        ActionParameterArrayTypeDict,
         "OntologyObjectSetTypeDict",
         "OntologyObjectTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -490,10 +492,10 @@ class AggregationFixedWidthGroupingV2Dict(typing_extensions.TypedDict):
 
 AggregationGroupByV2 = typing_extensions.Annotated[
     typing.Union[
-        "AggregationDurationGroupingV2",
-        "AggregationFixedWidthGroupingV2",
+        AggregationDurationGroupingV2,
+        AggregationFixedWidthGroupingV2,
         "AggregationRangesGroupingV2",
-        "AggregationExactGroupingV2",
+        AggregationExactGroupingV2,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -502,10 +504,10 @@ AggregationGroupByV2 = typing_extensions.Annotated[
 
 AggregationGroupByV2Dict = typing_extensions.Annotated[
     typing.Union[
-        "AggregationDurationGroupingV2Dict",
-        "AggregationFixedWidthGroupingV2Dict",
+        AggregationDurationGroupingV2Dict,
+        AggregationFixedWidthGroupingV2Dict,
         "AggregationRangesGroupingV2Dict",
-        "AggregationExactGroupingV2Dict",
+        AggregationExactGroupingV2Dict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -867,13 +869,13 @@ class AvgAggregationV2Dict(typing_extensions.TypedDict):
 
 
 BatchActionObjectEdit = typing_extensions.Annotated[
-    typing.Union["ModifyObject", "AddObject", "AddLink"], pydantic.Field(discriminator="type")
+    typing.Union["ModifyObject", AddObject, AddLink], pydantic.Field(discriminator="type")
 ]
 """BatchActionObjectEdit"""
 
 
 BatchActionObjectEditDict = typing_extensions.Annotated[
-    typing.Union["ModifyObjectDict", "AddObjectDict", "AddLinkDict"],
+    typing.Union["ModifyObjectDict", AddObjectDict, AddLinkDict],
     pydantic.Field(discriminator="type"),
 ]
 """BatchActionObjectEdit"""
@@ -913,13 +915,13 @@ class BatchActionObjectEditsDict(typing_extensions.TypedDict):
 
 
 BatchActionResults = typing_extensions.Annotated[
-    typing.Union["BatchActionObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
+    typing.Union[BatchActionObjectEdits, "ObjectTypeEdits"], pydantic.Field(discriminator="type")
 ]
 """BatchActionResults"""
 
 
 BatchActionResultsDict = typing_extensions.Annotated[
-    typing.Union["BatchActionObjectEditsDict", "ObjectTypeEditsDict"],
+    typing.Union[BatchActionObjectEditsDict, "ObjectTypeEditsDict"],
     pydantic.Field(discriminator="type"),
 ]
 """BatchActionResults"""
@@ -1032,8 +1034,8 @@ class BlueprintIconDict(typing_extensions.TypedDict):
 class BoundingBoxValue(pydantic.BaseModel):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
-    top_left: geo_models.GeoPoint = pydantic.Field(alias=str("topLeft"))  # type: ignore[literal-required]
-    bottom_right: geo_models.GeoPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
+    top_left: WithinBoundingBoxPoint = pydantic.Field(alias=str("topLeft"))  # type: ignore[literal-required]
+    bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "BoundingBoxValueDict":
@@ -1046,14 +1048,14 @@ class BoundingBoxValueDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    topLeft: geo_models.GeoPointDict
-    bottomRight: geo_models.GeoPointDict
+    topLeft: WithinBoundingBoxPointDict
+    bottomRight: WithinBoundingBoxPointDict
 
 
 class CenterPoint(pydantic.BaseModel):
     """The coordinate point to use as the center of the distance query."""
 
-    center: geo_models.GeoPoint
+    center: CenterPointTypes
     distance: core_models.Distance
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1067,7 +1069,7 @@ class CenterPointDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    center: geo_models.GeoPointDict
+    center: CenterPointTypesDict
     distance: core_models.DistanceDict
 
 
@@ -1583,8 +1585,8 @@ DerivedPropertyApiName = str
 
 DerivedPropertyDefinition = typing_extensions.Annotated[
     typing.Union[
-        "AddPropertyExpression",
-        "AbsoluteValuePropertyExpression",
+        AddPropertyExpression,
+        AbsoluteValuePropertyExpression,
         "ExtractPropertyExpression",
         "SelectedPropertyExpression",
         "NegatePropertyExpression",
@@ -1602,8 +1604,8 @@ DerivedPropertyDefinition = typing_extensions.Annotated[
 
 DerivedPropertyDefinitionDict = typing_extensions.Annotated[
     typing.Union[
-        "AddPropertyExpressionDict",
-        "AbsoluteValuePropertyExpressionDict",
+        AddPropertyExpressionDict,
+        AbsoluteValuePropertyExpressionDict,
         "ExtractPropertyExpressionDict",
         "SelectedPropertyExpressionDict",
         "NegatePropertyExpressionDict",
@@ -1688,7 +1690,7 @@ class DoesNotIntersectPolygonQuery(pydantic.BaseModel):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
-    value: geo_models.Polygon
+    value: PolygonValue
     type: typing.Literal["doesNotIntersectPolygon"] = "doesNotIntersectPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1710,7 +1712,7 @@ class DoesNotIntersectPolygonQueryDict(typing_extensions.TypedDict):
 
     field: typing_extensions.NotRequired[PropertyApiName]
     propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: geo_models.PolygonDict
+    value: PolygonValueDict
     type: typing.Literal["doesNotIntersectPolygon"]
 
 
@@ -2385,7 +2387,7 @@ class IntersectsPolygonQuery(pydantic.BaseModel):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
-    value: geo_models.Polygon
+    value: PolygonValue
     type: typing.Literal["intersectsPolygon"] = "intersectsPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -2406,7 +2408,7 @@ class IntersectsPolygonQueryDict(typing_extensions.TypedDict):
 
     field: typing_extensions.NotRequired[PropertyApiName]
     propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: geo_models.PolygonDict
+    value: PolygonValueDict
     type: typing.Literal["intersectsPolygon"]
 
 
@@ -2806,14 +2808,14 @@ class LoadObjectSetResponseV2Dict(typing_extensions.TypedDict):
 
 LogicRule = typing_extensions.Annotated[
     typing.Union[
-        "DeleteInterfaceObjectRule",
+        DeleteInterfaceObjectRule,
         "ModifyInterfaceObjectRule",
         "ModifyObjectRule",
-        "DeleteObjectRule",
-        "CreateInterfaceObjectRule",
-        "DeleteLinkRule",
-        "CreateObjectRule",
-        "CreateLinkRule",
+        DeleteObjectRule,
+        CreateInterfaceObjectRule,
+        DeleteLinkRule,
+        CreateObjectRule,
+        CreateLinkRule,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2822,14 +2824,14 @@ LogicRule = typing_extensions.Annotated[
 
 LogicRuleDict = typing_extensions.Annotated[
     typing.Union[
-        "DeleteInterfaceObjectRuleDict",
+        DeleteInterfaceObjectRuleDict,
         "ModifyInterfaceObjectRuleDict",
         "ModifyObjectRuleDict",
-        "DeleteObjectRuleDict",
-        "CreateInterfaceObjectRuleDict",
-        "DeleteLinkRuleDict",
-        "CreateObjectRuleDict",
-        "CreateLinkRuleDict",
+        DeleteObjectRuleDict,
+        CreateInterfaceObjectRuleDict,
+        DeleteLinkRuleDict,
+        CreateObjectRuleDict,
+        CreateLinkRuleDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3039,7 +3041,7 @@ class MultiplyPropertyExpressionDict(typing_extensions.TypedDict):
 
 
 NearestNeighborsQuery = typing_extensions.Annotated[
-    typing.Union["DoubleVector", "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
+    typing.Union[DoubleVector, "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
 ]
 """
 Queries support either a vector matching the embedding model defined on the property, or text that is 
@@ -3048,7 +3050,7 @@ automatically embedded.
 
 
 NearestNeighborsQueryDict = typing_extensions.Annotated[
-    typing.Union["DoubleVectorDict", "NearestNeighborsQueryTextDict"],
+    typing.Union[DoubleVectorDict, "NearestNeighborsQueryTextDict"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -3125,16 +3127,14 @@ class NotQueryV2Dict(typing_extensions.TypedDict):
 
 
 ObjectEdit = typing_extensions.Annotated[
-    typing.Union["ModifyObject", "DeleteObject", "AddObject", "DeleteLink", "AddLink"],
+    typing.Union[ModifyObject, DeleteObject, AddObject, DeleteLink, AddLink],
     pydantic.Field(discriminator="type"),
 ]
 """ObjectEdit"""
 
 
 ObjectEditDict = typing_extensions.Annotated[
-    typing.Union[
-        "ModifyObjectDict", "DeleteObjectDict", "AddObjectDict", "DeleteLinkDict", "AddLinkDict"
-    ],
+    typing.Union[ModifyObjectDict, DeleteObjectDict, AddObjectDict, DeleteLinkDict, AddLinkDict],
     pydantic.Field(discriminator="type"),
 ]
 """ObjectEdit"""
@@ -3173,28 +3173,28 @@ class ObjectEditsDict(typing_extensions.TypedDict):
 
 ObjectPropertyType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
+        core_models.DateType,
         "StructType",
-        "core_models.StringType",
-        "core_models.ByteType",
-        "core_models.DoubleType",
-        "core_models.GeoPointType",
-        "core_models.GeotimeSeriesReferenceType",
-        "core_models.IntegerType",
-        "core_models.FloatType",
-        "core_models.GeoShapeType",
-        "core_models.LongType",
-        "core_models.BooleanType",
-        "core_models.CipherTextType",
-        "core_models.MarkingType",
-        "core_models.AttachmentType",
-        "core_models.MediaReferenceType",
-        "core_models.TimeseriesType",
+        core_models.StringType,
+        core_models.ByteType,
+        core_models.DoubleType,
+        core_models.GeoPointType,
+        core_models.GeotimeSeriesReferenceType,
+        core_models.IntegerType,
+        core_models.FloatType,
+        core_models.GeoShapeType,
+        core_models.LongType,
+        core_models.BooleanType,
+        core_models.CipherTextType,
+        core_models.MarkingType,
+        core_models.AttachmentType,
+        core_models.MediaReferenceType,
+        core_models.TimeseriesType,
         "OntologyObjectArrayType",
-        "core_models.ShortType",
-        "core_models.VectorType",
-        "core_models.DecimalType",
-        "core_models.TimestampType",
+        core_models.ShortType,
+        core_models.VectorType,
+        core_models.DecimalType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3203,28 +3203,28 @@ ObjectPropertyType = typing_extensions.Annotated[
 
 ObjectPropertyTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
+        core_models.DateTypeDict,
         "StructTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.ByteTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.GeoPointTypeDict",
-        "core_models.GeotimeSeriesReferenceTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.FloatTypeDict",
-        "core_models.GeoShapeTypeDict",
-        "core_models.LongTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.CipherTextTypeDict",
-        "core_models.MarkingTypeDict",
-        "core_models.AttachmentTypeDict",
-        "core_models.MediaReferenceTypeDict",
-        "core_models.TimeseriesTypeDict",
+        core_models.StringTypeDict,
+        core_models.ByteTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.GeoPointTypeDict,
+        core_models.GeotimeSeriesReferenceTypeDict,
+        core_models.IntegerTypeDict,
+        core_models.FloatTypeDict,
+        core_models.GeoShapeTypeDict,
+        core_models.LongTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.CipherTextTypeDict,
+        core_models.MarkingTypeDict,
+        core_models.AttachmentTypeDict,
+        core_models.MediaReferenceTypeDict,
+        core_models.TimeseriesTypeDict,
         "OntologyObjectArrayTypeDict",
-        "core_models.ShortTypeDict",
-        "core_models.VectorTypeDict",
-        "core_models.DecimalTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.ShortTypeDict,
+        core_models.VectorTypeDict,
+        core_models.DecimalTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3401,13 +3401,13 @@ ObjectSetDict = typing_extensions.Annotated[
         "ObjectSetSubtractTypeDict",
         "ObjectSetNearestNeighborsTypeDict",
         "ObjectSetUnionTypeDict",
-        "ObjectSetAsTypeTypeDict",
+        ObjectSetAsTypeTypeDict,
         "ObjectSetMethodInputTypeDict",
         "ObjectSetReferenceTypeDict",
         "ObjectSetFilterTypeDict",
         "ObjectSetInterfaceBaseTypeDict",
-        "ObjectSetAsBaseObjectTypesTypeDict",
-        "ObjectSetBaseTypeDict",
+        ObjectSetAsBaseObjectTypesTypeDict,
+        ObjectSetBaseTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3868,7 +3868,7 @@ class ObjectTypeV2(pydantic.BaseModel):
     plural_display_name: str = pydantic.Field(alias=str("pluralDisplayName"))  # type: ignore[literal-required]
     """The plural display name of the object type."""
 
-    icon: BlueprintIcon
+    icon: Icon
     primary_key: PropertyApiName = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     properties: typing.Dict[PropertyApiName, PropertyV2]
     """A map of the properties of the object type."""
@@ -3897,7 +3897,7 @@ class ObjectTypeV2Dict(typing_extensions.TypedDict):
     pluralDisplayName: str
     """The plural display name of the object type."""
 
-    icon: BlueprintIconDict
+    icon: IconDict
     primaryKey: PropertyApiName
     properties: typing.Dict[PropertyApiName, PropertyV2Dict]
     """A map of the properties of the object type."""
@@ -3965,27 +3965,27 @@ class OntologyArrayTypeDict(typing_extensions.TypedDict):
 
 OntologyDataType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
+        core_models.DateType,
         "OntologyStructType",
         "OntologySetType",
-        "core_models.StringType",
-        "core_models.ByteType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
-        "core_models.FloatType",
-        "core_models.AnyType",
-        "core_models.LongType",
-        "core_models.BooleanType",
-        "core_models.CipherTextType",
-        "core_models.MarkingType",
-        "core_models.UnsupportedType",
-        "OntologyArrayType",
+        core_models.StringType,
+        core_models.ByteType,
+        core_models.DoubleType,
+        core_models.IntegerType,
+        core_models.FloatType,
+        core_models.AnyType,
+        core_models.LongType,
+        core_models.BooleanType,
+        core_models.CipherTextType,
+        core_models.MarkingType,
+        core_models.UnsupportedType,
+        OntologyArrayType,
         "OntologyObjectSetType",
-        "core_models.BinaryType",
-        "core_models.ShortType",
-        "core_models.DecimalType",
+        core_models.BinaryType,
+        core_models.ShortType,
+        core_models.DecimalType,
         "OntologyMapType",
-        "core_models.TimestampType",
+        core_models.TimestampType,
         "OntologyObjectType",
     ],
     pydantic.Field(discriminator="type"),
@@ -3995,27 +3995,27 @@ OntologyDataType = typing_extensions.Annotated[
 
 OntologyDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
+        core_models.DateTypeDict,
         "OntologyStructTypeDict",
         "OntologySetTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.ByteTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.FloatTypeDict",
-        "core_models.AnyTypeDict",
-        "core_models.LongTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.CipherTextTypeDict",
-        "core_models.MarkingTypeDict",
-        "core_models.UnsupportedTypeDict",
-        "OntologyArrayTypeDict",
+        core_models.StringTypeDict,
+        core_models.ByteTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
+        core_models.FloatTypeDict,
+        core_models.AnyTypeDict,
+        core_models.LongTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.CipherTextTypeDict,
+        core_models.MarkingTypeDict,
+        core_models.UnsupportedTypeDict,
+        OntologyArrayTypeDict,
         "OntologyObjectSetTypeDict",
-        "core_models.BinaryTypeDict",
-        "core_models.ShortTypeDict",
-        "core_models.DecimalTypeDict",
+        core_models.BinaryTypeDict,
+        core_models.ShortTypeDict,
+        core_models.DecimalTypeDict,
         "OntologyMapTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.TimestampTypeDict,
         "OntologyObjectTypeDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -4345,12 +4345,12 @@ OrderByDirection = typing.Literal["ASC", "DESC"]
 
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        "OneOfConstraint",
-        "GroupMemberConstraint",
-        "ObjectPropertyValueConstraint",
+        OneOfConstraint,
+        GroupMemberConstraint,
+        ObjectPropertyValueConstraint,
         "RangeConstraint",
-        "ArraySizeConstraint",
-        "ObjectQueryResultConstraint",
+        ArraySizeConstraint,
+        ObjectQueryResultConstraint,
         "StringLengthConstraint",
         "StringRegexMatchConstraint",
         "UnevaluableConstraint",
@@ -4380,12 +4380,12 @@ The type of the constraint.
 
 ParameterEvaluatedConstraintDict = typing_extensions.Annotated[
     typing.Union[
-        "OneOfConstraintDict",
-        "GroupMemberConstraintDict",
-        "ObjectPropertyValueConstraintDict",
+        OneOfConstraintDict,
+        GroupMemberConstraintDict,
+        ObjectPropertyValueConstraintDict,
         "RangeConstraintDict",
-        "ArraySizeConstraintDict",
-        "ObjectQueryResultConstraintDict",
+        ArraySizeConstraintDict,
+        ObjectQueryResultConstraintDict,
         "StringLengthConstraintDict",
         "StringRegexMatchConstraintDict",
         "UnevaluableConstraintDict",
@@ -4577,14 +4577,14 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyIdentifier = typing_extensions.Annotated[
-    typing.Union["PropertyApiNameSelector", "StructFieldSelector"],
+    typing.Union[PropertyApiNameSelector, "StructFieldSelector"],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
 
 
 PropertyIdentifierDict = typing_extensions.Annotated[
-    typing.Union["PropertyApiNameSelectorDict", "StructFieldSelectorDict"],
+    typing.Union[PropertyApiNameSelectorDict, "StructFieldSelectorDict"],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
@@ -4596,10 +4596,10 @@ PropertyTypeRid = core.RID
 
 PropertyTypeStatus = typing_extensions.Annotated[
     typing.Union[
-        "DeprecatedPropertyTypeStatus",
-        "ActivePropertyTypeStatus",
-        "ExperimentalPropertyTypeStatus",
-        "ExamplePropertyTypeStatus",
+        DeprecatedPropertyTypeStatus,
+        ActivePropertyTypeStatus,
+        ExperimentalPropertyTypeStatus,
+        ExamplePropertyTypeStatus,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4608,10 +4608,10 @@ PropertyTypeStatus = typing_extensions.Annotated[
 
 PropertyTypeStatusDict = typing_extensions.Annotated[
     typing.Union[
-        "DeprecatedPropertyTypeStatusDict",
-        "ActivePropertyTypeStatusDict",
-        "ExperimentalPropertyTypeStatusDict",
-        "ExamplePropertyTypeStatusDict",
+        DeprecatedPropertyTypeStatusDict,
+        ActivePropertyTypeStatusDict,
+        ExperimentalPropertyTypeStatusDict,
+        ExamplePropertyTypeStatusDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4687,13 +4687,13 @@ PropertyValueEscapedString = str
 
 QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
-        "core_models.BooleanType",
-        "core_models.StringType",
-        "core_models.DoubleType",
+        core_models.DateType,
+        core_models.BooleanType,
+        core_models.StringType,
+        core_models.DoubleType,
         "QueryAggregationRangeType",
-        "core_models.IntegerType",
-        "core_models.TimestampType",
+        core_models.IntegerType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4702,13 +4702,13 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 
 QueryAggregationKeyTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.DoubleTypeDict",
+        core_models.DateTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.StringTypeDict,
+        core_models.DoubleTypeDict,
         "QueryAggregationRangeTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.IntegerTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4717,10 +4717,10 @@ QueryAggregationKeyTypeDict = typing_extensions.Annotated[
 
 QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
-        "core_models.TimestampType",
+        core_models.DateType,
+        core_models.DoubleType,
+        core_models.IntegerType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4729,10 +4729,10 @@ QueryAggregationRangeSubType = typing_extensions.Annotated[
 
 QueryAggregationRangeSubTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.DateTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4763,7 +4763,7 @@ class QueryAggregationRangeTypeDict(typing_extensions.TypedDict):
 
 
 QueryAggregationValueType = typing_extensions.Annotated[
-    typing.Union["core_models.DateType", "core_models.DoubleType", "core_models.TimestampType"],
+    typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
@@ -4771,7 +4771,7 @@ QueryAggregationValueType = typing_extensions.Annotated[
 
 QueryAggregationValueTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict", "core_models.DoubleTypeDict", "core_models.TimestampTypeDict"
+        core_models.DateTypeDict, core_models.DoubleTypeDict, core_models.TimestampTypeDict
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4805,26 +4805,26 @@ class QueryArrayTypeDict(typing_extensions.TypedDict):
 
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
+        core_models.DateType,
         "QueryStructType",
         "QuerySetType",
-        "core_models.StringType",
-        "EntrySetType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
+        core_models.StringType,
+        EntrySetType,
+        core_models.DoubleType,
+        core_models.IntegerType,
         "ThreeDimensionalAggregation",
         "QueryUnionType",
-        "core_models.FloatType",
-        "core_models.LongType",
-        "core_models.BooleanType",
-        "core_models.UnsupportedType",
-        "core_models.AttachmentType",
-        "core_models.NullType",
-        "QueryArrayType",
-        "OntologyObjectSetType",
+        core_models.FloatType,
+        core_models.LongType,
+        core_models.BooleanType,
+        core_models.UnsupportedType,
+        core_models.AttachmentType,
+        core_models.NullType,
+        QueryArrayType,
+        OntologyObjectSetType,
         "TwoDimensionalAggregation",
-        "OntologyObjectType",
-        "core_models.TimestampType",
+        OntologyObjectType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4833,26 +4833,26 @@ QueryDataType = typing_extensions.Annotated[
 
 QueryDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
+        core_models.DateTypeDict,
         "QueryStructTypeDict",
         "QuerySetTypeDict",
-        "core_models.StringTypeDict",
-        "EntrySetTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
+        core_models.StringTypeDict,
+        EntrySetTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
         "ThreeDimensionalAggregationDict",
         "QueryUnionTypeDict",
-        "core_models.FloatTypeDict",
-        "core_models.LongTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.UnsupportedTypeDict",
-        "core_models.AttachmentTypeDict",
-        "core_models.NullTypeDict",
-        "QueryArrayTypeDict",
-        "OntologyObjectSetTypeDict",
+        core_models.FloatTypeDict,
+        core_models.LongTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.UnsupportedTypeDict,
+        core_models.AttachmentTypeDict,
+        core_models.NullTypeDict,
+        QueryArrayTypeDict,
+        OntologyObjectSetTypeDict,
         "TwoDimensionalAggregationDict",
-        "OntologyObjectTypeDict",
-        "core_models.TimestampTypeDict",
+        OntologyObjectTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -5131,28 +5131,28 @@ SdkPackageName = str
 
 SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
-        "OrQueryV2",
-        "InQuery",
-        "DoesNotIntersectPolygonQuery",
-        "LtQueryV2",
-        "DoesNotIntersectBoundingBoxQuery",
-        "EqualsQueryV2",
-        "ContainsAllTermsQuery",
-        "GtQueryV2",
+        OrQueryV2,
+        InQuery,
+        DoesNotIntersectPolygonQuery,
+        LtQueryV2,
+        DoesNotIntersectBoundingBoxQuery,
+        EqualsQueryV2,
+        ContainsAllTermsQuery,
+        GtQueryV2,
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
-        "ContainsQueryV2",
-        "NotQueryV2",
-        "IntersectsBoundingBoxQuery",
-        "AndQueryV2",
-        "IsNullQueryV2",
-        "ContainsAllTermsInOrderPrefixLastTerm",
-        "ContainsAnyTermQuery",
-        "GteQueryV2",
-        "ContainsAllTermsInOrderQuery",
+        ContainsQueryV2,
+        NotQueryV2,
+        IntersectsBoundingBoxQuery,
+        AndQueryV2,
+        IsNullQueryV2,
+        ContainsAllTermsInOrderPrefixLastTerm,
+        ContainsAnyTermQuery,
+        GteQueryV2,
+        ContainsAllTermsInOrderQuery,
         "WithinPolygonQuery",
-        "IntersectsPolygonQuery",
-        "LteQueryV2",
+        IntersectsPolygonQuery,
+        LteQueryV2,
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -5162,28 +5162,28 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
 
 SearchJsonQueryV2Dict = typing_extensions.Annotated[
     typing.Union[
-        "OrQueryV2Dict",
-        "InQueryDict",
-        "DoesNotIntersectPolygonQueryDict",
-        "LtQueryV2Dict",
-        "DoesNotIntersectBoundingBoxQueryDict",
-        "EqualsQueryV2Dict",
-        "ContainsAllTermsQueryDict",
-        "GtQueryV2Dict",
+        OrQueryV2Dict,
+        InQueryDict,
+        DoesNotIntersectPolygonQueryDict,
+        LtQueryV2Dict,
+        DoesNotIntersectBoundingBoxQueryDict,
+        EqualsQueryV2Dict,
+        ContainsAllTermsQueryDict,
+        GtQueryV2Dict,
         "WithinDistanceOfQueryDict",
         "WithinBoundingBoxQueryDict",
-        "ContainsQueryV2Dict",
-        "NotQueryV2Dict",
-        "IntersectsBoundingBoxQueryDict",
-        "AndQueryV2Dict",
-        "IsNullQueryV2Dict",
-        "ContainsAllTermsInOrderPrefixLastTermDict",
-        "ContainsAnyTermQueryDict",
-        "GteQueryV2Dict",
-        "ContainsAllTermsInOrderQueryDict",
+        ContainsQueryV2Dict,
+        NotQueryV2Dict,
+        IntersectsBoundingBoxQueryDict,
+        AndQueryV2Dict,
+        IsNullQueryV2Dict,
+        ContainsAllTermsInOrderPrefixLastTermDict,
+        ContainsAnyTermQueryDict,
+        GteQueryV2Dict,
+        ContainsAllTermsInOrderQueryDict,
         "WithinPolygonQueryDict",
-        "IntersectsPolygonQueryDict",
-        "LteQueryV2Dict",
+        IntersectsPolygonQueryDict,
+        LteQueryV2Dict,
         "StartsWithQueryDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -5498,7 +5498,7 @@ class SelectedPropertyExactDistinctAggregationDict(typing_extensions.TypedDict):
 class SelectedPropertyExpression(pydantic.BaseModel):
     """Definition for a selected property over a MethodObjectSet."""
 
-    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    object_set: MethodObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     operation: SelectedPropertyOperation
     type: typing.Literal["selection"] = "selection"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -5515,7 +5515,7 @@ class SelectedPropertyExpressionDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectSet: ObjectSetDict
+    objectSet: MethodObjectSetDict
     operation: SelectedPropertyOperationDict
     type: typing.Literal["selection"]
 
@@ -5568,17 +5568,17 @@ class SelectedPropertyMinAggregationDict(typing_extensions.TypedDict):
 
 SelectedPropertyOperation = typing_extensions.Annotated[
     typing.Union[
-        "SelectedPropertyApproximateDistinctAggregation",
-        "SelectedPropertyMinAggregation",
-        "SelectedPropertyAvgAggregation",
-        "SelectedPropertyMaxAggregation",
-        "SelectedPropertyApproximatePercentileAggregation",
-        "GetSelectedPropertyOperation",
-        "SelectedPropertyCountAggregation",
+        SelectedPropertyApproximateDistinctAggregation,
+        SelectedPropertyMinAggregation,
+        SelectedPropertyAvgAggregation,
+        SelectedPropertyMaxAggregation,
+        SelectedPropertyApproximatePercentileAggregation,
+        GetSelectedPropertyOperation,
+        SelectedPropertyCountAggregation,
         "SelectedPropertySumAggregation",
-        "SelectedPropertyCollectListAggregation",
-        "SelectedPropertyExactDistinctAggregation",
-        "SelectedPropertyCollectSetAggregation",
+        SelectedPropertyCollectListAggregation,
+        SelectedPropertyExactDistinctAggregation,
+        SelectedPropertyCollectSetAggregation,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -5587,17 +5587,17 @@ SelectedPropertyOperation = typing_extensions.Annotated[
 
 SelectedPropertyOperationDict = typing_extensions.Annotated[
     typing.Union[
-        "SelectedPropertyApproximateDistinctAggregationDict",
-        "SelectedPropertyMinAggregationDict",
-        "SelectedPropertyAvgAggregationDict",
-        "SelectedPropertyMaxAggregationDict",
-        "SelectedPropertyApproximatePercentileAggregationDict",
-        "GetSelectedPropertyOperationDict",
-        "SelectedPropertyCountAggregationDict",
+        SelectedPropertyApproximateDistinctAggregationDict,
+        SelectedPropertyMinAggregationDict,
+        SelectedPropertyAvgAggregationDict,
+        SelectedPropertyMaxAggregationDict,
+        SelectedPropertyApproximatePercentileAggregationDict,
+        GetSelectedPropertyOperationDict,
+        SelectedPropertyCountAggregationDict,
         "SelectedPropertySumAggregationDict",
-        "SelectedPropertyCollectListAggregationDict",
-        "SelectedPropertyExactDistinctAggregationDict",
-        "SelectedPropertyCollectSetAggregationDict",
+        SelectedPropertyCollectListAggregationDict,
+        SelectedPropertyExactDistinctAggregationDict,
+        SelectedPropertyCollectSetAggregationDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -6020,14 +6020,13 @@ class ThreeDimensionalAggregationDict(typing_extensions.TypedDict):
 
 
 TimeRange = typing_extensions.Annotated[
-    typing.Union["AbsoluteTimeRange", "RelativeTimeRange"], pydantic.Field(discriminator="type")
+    typing.Union[AbsoluteTimeRange, RelativeTimeRange], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
 
 TimeRangeDict = typing_extensions.Annotated[
-    typing.Union["AbsoluteTimeRangeDict", "RelativeTimeRangeDict"],
-    pydantic.Field(discriminator="type"),
+    typing.Union[AbsoluteTimeRangeDict, RelativeTimeRangeDict], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
@@ -6204,7 +6203,7 @@ class TimeSeriesRollingAggregateDict(typing_extensions.TypedDict):
 
 
 TimeSeriesRollingAggregateWindow = typing_extensions.Annotated[
-    typing.Union["PreciseDuration", "RollingAggregateWindowPoints"],
+    typing.Union[PreciseDuration, RollingAggregateWindowPoints],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -6218,7 +6217,7 @@ in time series analysis.
 
 
 TimeSeriesRollingAggregateWindowDict = typing_extensions.Annotated[
-    typing.Union["PreciseDurationDict", "RollingAggregateWindowPointsDict"],
+    typing.Union[PreciseDurationDict, RollingAggregateWindowPointsDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -6429,7 +6428,7 @@ class WithinPolygonQuery(pydantic.BaseModel):
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
-    value: geo_models.Polygon
+    value: PolygonValue
     type: typing.Literal["withinPolygon"] = "withinPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -6451,12 +6450,121 @@ class WithinPolygonQueryDict(typing_extensions.TypedDict):
 
     field: typing_extensions.NotRequired[PropertyApiName]
     propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: geo_models.PolygonDict
+    value: PolygonValueDict
     type: typing.Literal["withinPolygon"]
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.geo import models as geo_models  # noqa: E402
+CenterPointTypes = geo_models.GeoPoint
+"""CenterPointTypes"""
+
+
+CenterPointTypesDict = geo_models.GeoPointDict
+"""CenterPointTypes"""
+
+
+Icon = BlueprintIcon
+"""A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+
+
+IconDict = BlueprintIconDict
+"""A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
+
+
+MethodObjectSet = ObjectSet
+"""MethodObjectSet"""
+
+
+MethodObjectSetDict = ObjectSetDict
+"""MethodObjectSet"""
+
+
+PolygonValue = geo_models.Polygon
+"""PolygonValue"""
+
+
+PolygonValueDict = geo_models.PolygonDict
+"""PolygonValue"""
+
+
+WithinBoundingBoxPoint = geo_models.GeoPoint
+"""WithinBoundingBoxPoint"""
+
+
+WithinBoundingBoxPointDict = geo_models.GeoPointDict
+"""WithinBoundingBoxPoint"""
+
+
+core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ActionParameterTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
+core.resolve_forward_references(ActionResultsDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
+core.resolve_forward_references(AggregationGroupByV2Dict, globalns=globals(), localns=locals())
+core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
+core.resolve_forward_references(AggregationV2Dict, globalns=globals(), localns=locals())
+core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    AttachmentMetadataResponseDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
+core.resolve_forward_references(BatchActionObjectEditDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
+core.resolve_forward_references(BatchActionResultsDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
+core.resolve_forward_references(DerivedPropertyDefinitionDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    InterfaceLinkTypeLinkedEntityApiNameDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+core.resolve_forward_references(LogicRuleDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
+core.resolve_forward_references(NearestNeighborsQueryDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectEditDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectPropertyTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectSetDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(OntologyDataTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ParameterEvaluatedConstraintDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
+core.resolve_forward_references(PropertyIdentifierDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
+core.resolve_forward_references(PropertyTypeStatusDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationKeyTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    QueryAggregationRangeSubTypeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationValueTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchJsonQueryV2Dict, globalns=globals(), localns=locals())
+core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(SelectedPropertyOperationDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeRangeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    TimeSeriesAggregationStrategyDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    TimeSeriesRollingAggregateWindowDict, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AbsoluteTimeRange",
@@ -6549,6 +6657,8 @@ __all__ = [
     "BoundingBoxValueDict",
     "CenterPoint",
     "CenterPointDict",
+    "CenterPointTypes",
+    "CenterPointTypesDict",
     "ContainsAllTermsInOrderPrefixLastTerm",
     "ContainsAllTermsInOrderPrefixLastTermDict",
     "ContainsAllTermsInOrderQuery",
@@ -6624,6 +6734,8 @@ __all__ = [
     "GtQueryV2Dict",
     "GteQueryV2",
     "GteQueryV2Dict",
+    "Icon",
+    "IconDict",
     "InQuery",
     "InQueryDict",
     "InterfaceLinkType",
@@ -6684,6 +6796,8 @@ __all__ = [
     "LteQueryV2Dict",
     "MaxAggregationV2",
     "MaxAggregationV2Dict",
+    "MethodObjectSet",
+    "MethodObjectSetDict",
     "MinAggregationV2",
     "MinAggregationV2Dict",
     "ModifyInterfaceObjectRule",
@@ -6799,6 +6913,8 @@ __all__ = [
     "ParameterId",
     "ParameterOption",
     "ParameterOptionDict",
+    "PolygonValue",
+    "PolygonValueDict",
     "PreciseDuration",
     "PreciseDurationDict",
     "PreciseTimeUnit",
@@ -6943,6 +7059,8 @@ __all__ = [
     "ValidateActionResponseV2Dict",
     "ValidationResult",
     "ValueType",
+    "WithinBoundingBoxPoint",
+    "WithinBoundingBoxPointDict",
     "WithinBoundingBoxQuery",
     "WithinBoundingBoxQueryDict",
     "WithinDistanceOfQuery",

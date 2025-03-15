@@ -22,6 +22,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 
 class ApiKeyAuthentication(pydantic.BaseModel):
@@ -766,11 +769,11 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        "CreateTableImportRequestJdbcImportConfig",
-        "CreateTableImportRequestMicrosoftSqlServerImportConfig",
-        "CreateTableImportRequestPostgreSqlImportConfig",
-        "CreateTableImportRequestMicrosoftAccessImportConfig",
-        "CreateTableImportRequestOracleImportConfig",
+        CreateTableImportRequestJdbcImportConfig,
+        CreateTableImportRequestMicrosoftSqlServerImportConfig,
+        CreateTableImportRequestPostgreSqlImportConfig,
+        CreateTableImportRequestMicrosoftAccessImportConfig,
+        CreateTableImportRequestOracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -779,11 +782,11 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
 
 CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        "CreateTableImportRequestJdbcImportConfigDict",
-        "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
-        "CreateTableImportRequestPostgreSqlImportConfigDict",
-        "CreateTableImportRequestMicrosoftAccessImportConfigDict",
-        "CreateTableImportRequestOracleImportConfigDict",
+        CreateTableImportRequestJdbcImportConfigDict,
+        CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
+        CreateTableImportRequestPostgreSqlImportConfigDict,
+        CreateTableImportRequestMicrosoftAccessImportConfigDict,
+        CreateTableImportRequestOracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -843,7 +846,7 @@ class DomainDict(typing_extensions.TypedDict):
 
 
 EncryptedProperty = typing_extensions.Annotated[
-    typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
+    typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -855,7 +858,7 @@ When writing to an encrypted property:
 
 
 EncryptedPropertyDict = typing_extensions.Annotated[
-    typing.Union["AsSecretNameDict", "AsPlaintextValueDict"], pydantic.Field(discriminator="type")
+    typing.Union[AsSecretNameDict, AsPlaintextValueDict], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -1063,13 +1066,13 @@ FileImportDisplayName = str
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
-        "FileAnyPathMatchesFilter",
+        FileAnyPathMatchesFilter,
         "FilesCountLimitFilter",
-        "FileChangedSinceLastUploadFilter",
-        "FileImportCustomFilter",
+        FileChangedSinceLastUploadFilter,
+        FileImportCustomFilter,
         "FileLastModifiedAfterFilter",
         "FilePathMatchesFilter",
-        "FileAtLeastCountFilter",
+        FileAtLeastCountFilter,
         "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
@@ -1083,13 +1086,13 @@ before they are imported into Foundry.
 FileImportFilterDict = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilterDict",
-        "FileAnyPathMatchesFilterDict",
+        FileAnyPathMatchesFilterDict,
         "FilesCountLimitFilterDict",
-        "FileChangedSinceLastUploadFilterDict",
-        "FileImportCustomFilterDict",
+        FileChangedSinceLastUploadFilterDict,
+        FileImportCustomFilterDict,
         "FileLastModifiedAfterFilterDict",
         "FilePathMatchesFilterDict",
-        "FileAtLeastCountFilterDict",
+        FileAtLeastCountFilterDict,
         "FileSizeFilterDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -1713,7 +1716,7 @@ Region = str
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
+    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -1721,10 +1724,7 @@ RestAuthenticationMode = typing_extensions.Annotated[
 
 RestAuthenticationModeDict = typing_extensions.Annotated[
     typing.Union[
-        "BearerTokenDict",
-        "ApiKeyAuthenticationDict",
-        "BasicCredentialsDict",
-        "RestConnectionOAuth2Dict",
+        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, "RestConnectionOAuth2Dict"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1837,26 +1837,25 @@ class RestConnectionOAuth2Dict(typing_extensions.TypedDict):
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
-    typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
+    typing.Union[HeaderApiKey, QueryParameterApiKey], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 RestRequestApiKeyLocationDict = typing_extensions.Annotated[
-    typing.Union["HeaderApiKeyDict", "QueryParameterApiKeyDict"],
-    pydantic.Field(discriminator="type"),
+    typing.Union[HeaderApiKeyDict, QueryParameterApiKeyDict], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union["AwsAccessKey", "CloudIdentity", "Oidc"], pydantic.Field(discriminator="type")
+    typing.Union[AwsAccessKey, CloudIdentity, Oidc], pydantic.Field(discriminator="type")
 ]
 """S3AuthenticationMode"""
 
 
 S3AuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union["AwsAccessKeyDict", "CloudIdentityDict", "OidcDict"],
+    typing.Union[AwsAccessKeyDict, CloudIdentityDict, OidcDict],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -2318,11 +2317,11 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        "JdbcImportConfig",
-        "MicrosoftSqlServerImportConfig",
-        "PostgreSqlImportConfig",
-        "MicrosoftAccessImportConfig",
-        "OracleImportConfig",
+        JdbcImportConfig,
+        MicrosoftSqlServerImportConfig,
+        PostgreSqlImportConfig,
+        MicrosoftAccessImportConfig,
+        OracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2331,11 +2330,11 @@ TableImportConfig = typing_extensions.Annotated[
 
 TableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        "JdbcImportConfigDict",
-        "MicrosoftSqlServerImportConfigDict",
-        "PostgreSqlImportConfigDict",
-        "MicrosoftAccessImportConfigDict",
-        "OracleImportConfigDict",
+        JdbcImportConfigDict,
+        MicrosoftSqlServerImportConfigDict,
+        PostgreSqlImportConfigDict,
+        MicrosoftAccessImportConfigDict,
+        OracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2386,9 +2385,38 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
+core.resolve_forward_references(ConnectionConfigurationDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionConfigurationDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateTableImportRequestTableImportConfigDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
+core.resolve_forward_references(EncryptedPropertyDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(FileImportFilterDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestAuthenticationModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    RestConnectionAdditionalSecretsDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestRequestApiKeyLocationDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(S3AuthenticationModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(TableImportConfigDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "ApiKeyAuthentication",

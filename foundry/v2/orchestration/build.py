@@ -115,7 +115,10 @@ class BuildClient:
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         retry_backoff_duration: typing.Optional[
-            typing.Union[core_models.Duration, core_models.DurationDict]
+            typing.Union[
+                orchestration_models.RetryBackoffDuration,
+                orchestration_models.RetryBackoffDurationDict,
+            ]
         ] = None,
         retry_count: typing.Optional[orchestration_models.RetryCount] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -138,7 +141,7 @@ class BuildClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[Duration, DurationDict]]
+        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -182,7 +185,10 @@ class BuildClient:
                         "forceBuild": typing.Optional[orchestration_models.ForceBuild],
                         "retryCount": typing.Optional[orchestration_models.RetryCount],
                         "retryBackoffDuration": typing.Optional[
-                            typing.Union[core_models.Duration, core_models.DurationDict]
+                            typing.Union[
+                                orchestration_models.RetryBackoffDuration,
+                                orchestration_models.RetryBackoffDurationDict,
+                            ]
                         ],
                         "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
                         "notificationsEnabled": typing.Optional[

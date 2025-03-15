@@ -1032,6 +1032,8 @@ Namespace | Name | Import |
 **Core** | [BuildRid](docs/v2/Core/models/BuildRid.md) | `from foundry.v2.core.models import BuildRid` |
 **Core** | [ByteType](docs/v2/Core/models/ByteType.md) | `from foundry.v2.core.models import ByteType` |
 **Core** | [ByteTypeDict](docs/v2/Core/models/ByteTypeDict.md) | `from foundry.v2.core.models import ByteTypeDict` |
+**Core** | [ChangeDataCaptureConfiguration](docs/v2/Core/models/ChangeDataCaptureConfiguration.md) | `from foundry.v2.core.models import ChangeDataCaptureConfiguration` |
+**Core** | [ChangeDataCaptureConfigurationDict](docs/v2/Core/models/ChangeDataCaptureConfigurationDict.md) | `from foundry.v2.core.models import ChangeDataCaptureConfigurationDict` |
 **Core** | [CipherTextType](docs/v2/Core/models/CipherTextType.md) | `from foundry.v2.core.models import CipherTextType` |
 **Core** | [CipherTextTypeDict](docs/v2/Core/models/CipherTextTypeDict.md) | `from foundry.v2.core.models import CipherTextTypeDict` |
 **Core** | [ContentLength](docs/v2/Core/models/ContentLength.md) | `from foundry.v2.core.models import ContentLength` |
@@ -1129,6 +1131,8 @@ Namespace | Name | Import |
 **Core** | [PrincipalId](docs/v2/Core/models/PrincipalId.md) | `from foundry.v2.core.models import PrincipalId` |
 **Core** | [PrincipalType](docs/v2/Core/models/PrincipalType.md) | `from foundry.v2.core.models import PrincipalType` |
 **Core** | [Realm](docs/v2/Core/models/Realm.md) | `from foundry.v2.core.models import Realm` |
+**Core** | [Reference](docs/v2/Core/models/Reference.md) | `from foundry.v2.core.models import Reference` |
+**Core** | [ReferenceDict](docs/v2/Core/models/ReferenceDict.md) | `from foundry.v2.core.models import ReferenceDict` |
 **Core** | [ReleaseStatus](docs/v2/Core/models/ReleaseStatus.md) | `from foundry.v2.core.models import ReleaseStatus` |
 **Core** | [RoleId](docs/v2/Core/models/RoleId.md) | `from foundry.v2.core.models import RoleId` |
 **Core** | [ShortType](docs/v2/Core/models/ShortType.md) | `from foundry.v2.core.models import ShortType` |
@@ -1425,6 +1429,8 @@ Namespace | Name | Import |
 **Ontologies** | [BoundingBoxValueDict](docs/v2/Ontologies/models/BoundingBoxValueDict.md) | `from foundry.v2.ontologies.models import BoundingBoxValueDict` |
 **Ontologies** | [CenterPoint](docs/v2/Ontologies/models/CenterPoint.md) | `from foundry.v2.ontologies.models import CenterPoint` |
 **Ontologies** | [CenterPointDict](docs/v2/Ontologies/models/CenterPointDict.md) | `from foundry.v2.ontologies.models import CenterPointDict` |
+**Ontologies** | [CenterPointTypes](docs/v2/Ontologies/models/CenterPointTypes.md) | `from foundry.v2.ontologies.models import CenterPointTypes` |
+**Ontologies** | [CenterPointTypesDict](docs/v2/Ontologies/models/CenterPointTypesDict.md) | `from foundry.v2.ontologies.models import CenterPointTypesDict` |
 **Ontologies** | [ContainsAllTermsInOrderPrefixLastTerm](docs/v2/Ontologies/models/ContainsAllTermsInOrderPrefixLastTerm.md) | `from foundry.v2.ontologies.models import ContainsAllTermsInOrderPrefixLastTerm` |
 **Ontologies** | [ContainsAllTermsInOrderPrefixLastTermDict](docs/v2/Ontologies/models/ContainsAllTermsInOrderPrefixLastTermDict.md) | `from foundry.v2.ontologies.models import ContainsAllTermsInOrderPrefixLastTermDict` |
 **Ontologies** | [ContainsAllTermsInOrderQuery](docs/v2/Ontologies/models/ContainsAllTermsInOrderQuery.md) | `from foundry.v2.ontologies.models import ContainsAllTermsInOrderQuery` |
@@ -1500,6 +1506,8 @@ Namespace | Name | Import |
 **Ontologies** | [GteQueryV2Dict](docs/v2/Ontologies/models/GteQueryV2Dict.md) | `from foundry.v2.ontologies.models import GteQueryV2Dict` |
 **Ontologies** | [GtQueryV2](docs/v2/Ontologies/models/GtQueryV2.md) | `from foundry.v2.ontologies.models import GtQueryV2` |
 **Ontologies** | [GtQueryV2Dict](docs/v2/Ontologies/models/GtQueryV2Dict.md) | `from foundry.v2.ontologies.models import GtQueryV2Dict` |
+**Ontologies** | [Icon](docs/v2/Ontologies/models/Icon.md) | `from foundry.v2.ontologies.models import Icon` |
+**Ontologies** | [IconDict](docs/v2/Ontologies/models/IconDict.md) | `from foundry.v2.ontologies.models import IconDict` |
 **Ontologies** | [InQuery](docs/v2/Ontologies/models/InQuery.md) | `from foundry.v2.ontologies.models import InQuery` |
 **Ontologies** | [InQueryDict](docs/v2/Ontologies/models/InQueryDict.md) | `from foundry.v2.ontologies.models import InQueryDict` |
 **Ontologies** | [InterfaceLinkType](docs/v2/Ontologies/models/InterfaceLinkType.md) | `from foundry.v2.ontologies.models import InterfaceLinkType` |
@@ -1560,6 +1568,8 @@ Namespace | Name | Import |
 **Ontologies** | [LtQueryV2Dict](docs/v2/Ontologies/models/LtQueryV2Dict.md) | `from foundry.v2.ontologies.models import LtQueryV2Dict` |
 **Ontologies** | [MaxAggregationV2](docs/v2/Ontologies/models/MaxAggregationV2.md) | `from foundry.v2.ontologies.models import MaxAggregationV2` |
 **Ontologies** | [MaxAggregationV2Dict](docs/v2/Ontologies/models/MaxAggregationV2Dict.md) | `from foundry.v2.ontologies.models import MaxAggregationV2Dict` |
+**Ontologies** | [MethodObjectSet](docs/v2/Ontologies/models/MethodObjectSet.md) | `from foundry.v2.ontologies.models import MethodObjectSet` |
+**Ontologies** | [MethodObjectSetDict](docs/v2/Ontologies/models/MethodObjectSetDict.md) | `from foundry.v2.ontologies.models import MethodObjectSetDict` |
 **Ontologies** | [MinAggregationV2](docs/v2/Ontologies/models/MinAggregationV2.md) | `from foundry.v2.ontologies.models import MinAggregationV2` |
 **Ontologies** | [MinAggregationV2Dict](docs/v2/Ontologies/models/MinAggregationV2Dict.md) | `from foundry.v2.ontologies.models import MinAggregationV2Dict` |
 **Ontologies** | [ModifyInterfaceObjectRule](docs/v2/Ontologies/models/ModifyInterfaceObjectRule.md) | `from foundry.v2.ontologies.models import ModifyInterfaceObjectRule` |
@@ -1675,6 +1685,8 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterId](docs/v2/Ontologies/models/ParameterId.md) | `from foundry.v2.ontologies.models import ParameterId` |
 **Ontologies** | [ParameterOption](docs/v2/Ontologies/models/ParameterOption.md) | `from foundry.v2.ontologies.models import ParameterOption` |
 **Ontologies** | [ParameterOptionDict](docs/v2/Ontologies/models/ParameterOptionDict.md) | `from foundry.v2.ontologies.models import ParameterOptionDict` |
+**Ontologies** | [PolygonValue](docs/v2/Ontologies/models/PolygonValue.md) | `from foundry.v2.ontologies.models import PolygonValue` |
+**Ontologies** | [PolygonValueDict](docs/v2/Ontologies/models/PolygonValueDict.md) | `from foundry.v2.ontologies.models import PolygonValueDict` |
 **Ontologies** | [PreciseDuration](docs/v2/Ontologies/models/PreciseDuration.md) | `from foundry.v2.ontologies.models import PreciseDuration` |
 **Ontologies** | [PreciseDurationDict](docs/v2/Ontologies/models/PreciseDurationDict.md) | `from foundry.v2.ontologies.models import PreciseDurationDict` |
 **Ontologies** | [PreciseTimeUnit](docs/v2/Ontologies/models/PreciseTimeUnit.md) | `from foundry.v2.ontologies.models import PreciseTimeUnit` |
@@ -1819,6 +1831,8 @@ Namespace | Name | Import |
 **Ontologies** | [ValidateActionResponseV2Dict](docs/v2/Ontologies/models/ValidateActionResponseV2Dict.md) | `from foundry.v2.ontologies.models import ValidateActionResponseV2Dict` |
 **Ontologies** | [ValidationResult](docs/v2/Ontologies/models/ValidationResult.md) | `from foundry.v2.ontologies.models import ValidationResult` |
 **Ontologies** | [ValueType](docs/v2/Ontologies/models/ValueType.md) | `from foundry.v2.ontologies.models import ValueType` |
+**Ontologies** | [WithinBoundingBoxPoint](docs/v2/Ontologies/models/WithinBoundingBoxPoint.md) | `from foundry.v2.ontologies.models import WithinBoundingBoxPoint` |
+**Ontologies** | [WithinBoundingBoxPointDict](docs/v2/Ontologies/models/WithinBoundingBoxPointDict.md) | `from foundry.v2.ontologies.models import WithinBoundingBoxPointDict` |
 **Ontologies** | [WithinBoundingBoxQuery](docs/v2/Ontologies/models/WithinBoundingBoxQuery.md) | `from foundry.v2.ontologies.models import WithinBoundingBoxQuery` |
 **Ontologies** | [WithinBoundingBoxQueryDict](docs/v2/Ontologies/models/WithinBoundingBoxQueryDict.md) | `from foundry.v2.ontologies.models import WithinBoundingBoxQueryDict` |
 **Ontologies** | [WithinDistanceOfQuery](docs/v2/Ontologies/models/WithinDistanceOfQuery.md) | `from foundry.v2.ontologies.models import WithinDistanceOfQuery` |
@@ -1908,6 +1922,8 @@ Namespace | Name | Import |
 **Orchestration** | [ReplaceScheduleRequestUpstreamTargetDict](docs/v2/Orchestration/models/ReplaceScheduleRequestUpstreamTargetDict.md) | `from foundry.v2.orchestration.models import ReplaceScheduleRequestUpstreamTargetDict` |
 **Orchestration** | [ReplaceScheduleRequestUserScope](docs/v2/Orchestration/models/ReplaceScheduleRequestUserScope.md) | `from foundry.v2.orchestration.models import ReplaceScheduleRequestUserScope` |
 **Orchestration** | [ReplaceScheduleRequestUserScopeDict](docs/v2/Orchestration/models/ReplaceScheduleRequestUserScopeDict.md) | `from foundry.v2.orchestration.models import ReplaceScheduleRequestUserScopeDict` |
+**Orchestration** | [RetryBackoffDuration](docs/v2/Orchestration/models/RetryBackoffDuration.md) | `from foundry.v2.orchestration.models import RetryBackoffDuration` |
+**Orchestration** | [RetryBackoffDurationDict](docs/v2/Orchestration/models/RetryBackoffDurationDict.md) | `from foundry.v2.orchestration.models import RetryBackoffDurationDict` |
 **Orchestration** | [RetryCount](docs/v2/Orchestration/models/RetryCount.md) | `from foundry.v2.orchestration.models import RetryCount` |
 **Orchestration** | [Schedule](docs/v2/Orchestration/models/Schedule.md) | `from foundry.v2.orchestration.models import Schedule` |
 **Orchestration** | [ScheduleDict](docs/v2/Orchestration/models/ScheduleDict.md) | `from foundry.v2.orchestration.models import ScheduleDict` |

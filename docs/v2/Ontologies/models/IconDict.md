@@ -1,10 +1,10 @@
-# UpdatedBy
+# IconDict
 
-The Foundry user who last updated this resource
+A union currently only consisting of the BlueprintIcon (more icon types may be added in the future).
 
 ## Type
 ```python
-UserId
+BlueprintIconDict
 ```
 
 

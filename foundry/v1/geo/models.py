@@ -15,4 +15,6 @@
 
 from __future__ import annotations
 
+from foundry import _core as core
+
 __all__ = []

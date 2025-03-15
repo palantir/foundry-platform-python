@@ -1,10 +1,10 @@
-# UpdatedBy
+# MethodObjectSetDict
 
-The Foundry user who last updated this resource
+MethodObjectSet
 
 ## Type
 ```python
-UserId
+ObjectSetDict
 ```
 
 

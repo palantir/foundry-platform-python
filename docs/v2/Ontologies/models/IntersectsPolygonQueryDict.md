@@ -9,7 +9,7 @@ query on by a variety of means. Either `field` or `propertyIdentifier` must be s
 | ------------ | ------------- | ------------- | ------------- |
 **field** | NotRequired[PropertyApiName] | No |  |
 **propertyIdentifier** | NotRequired[PropertyIdentifierDict] | No |  |
-**value** | PolygonDict | Yes |  |
+**value** | PolygonValueDict | Yes |  |
 **type** | Literal["intersectsPolygon"] | Yes | None |
 
 

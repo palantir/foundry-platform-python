@@ -1,10 +1,10 @@
-# UpdatedBy
+# WithinBoundingBoxPoint
 
-The Foundry user who last updated this resource
+WithinBoundingBoxPoint
 
 ## Type
 ```python
-UserId
+GeoPoint
 ```
 
 

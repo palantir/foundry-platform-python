@@ -1,10 +1,11 @@
-# UpdatedBy
+# Reference
 
-The Foundry user who last updated this resource
+A union of the types supported by media reference properties.
+
 
 ## Type
 ```python
-UserId
+MediaSetViewItemWrapper
 ```
 
 

@@ -21,6 +21,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
+from foundry.v2.datasets import models as datasets_models  # noqa: E402
+from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
 
 Compressed = bool
 """
@@ -57,7 +60,7 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
     """
 
     fields: typing.List[core_models.Field]
-    change_data_capture: typing.Optional[core_models.FullRowChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
+    change_data_capture: typing.Optional[core_models.ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "CreateStreamRequestStreamSchemaDict":
@@ -95,9 +98,7 @@ class CreateStreamRequestStreamSchemaDict(typing_extensions.TypedDict):
     """
 
     fields: typing.List[core_models.FieldDict]
-    changeDataCapture: typing_extensions.NotRequired[
-        core_models.FullRowChangeDataCaptureConfigurationDict
-    ]
+    changeDataCapture: typing_extensions.NotRequired[core_models.ChangeDataCaptureConfigurationDict]
 
 
 class Dataset(pydantic.BaseModel):
@@ -215,9 +216,7 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "Compressed",

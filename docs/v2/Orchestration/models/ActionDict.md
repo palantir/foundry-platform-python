@@ -10,7 +10,7 @@ Action
 **fallbackBranches** | FallbackBranches | Yes |  |
 **forceBuild** | ForceBuild | Yes |  |
 **retryCount** | NotRequired[RetryCount] | No |  |
-**retryBackoffDuration** | NotRequired[DurationDict] | No |  |
+**retryBackoffDuration** | NotRequired[RetryBackoffDurationDict] | No |  |
 **abortOnFailure** | AbortOnFailure | Yes |  |
 **notificationsEnabled** | NotificationsEnabled | Yes |  |
 

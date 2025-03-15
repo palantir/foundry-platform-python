@@ -1,10 +1,10 @@
-# UpdatedBy
+# CenterPointTypes
 
-The Foundry user who last updated this resource
+CenterPointTypes
 
 ## Type
 ```python
-UserId
+GeoPoint
 ```
 
 

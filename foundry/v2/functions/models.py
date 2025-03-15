@@ -21,6 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models  # noqa: E402
 
 DataValue = typing.Any
 """
@@ -128,13 +129,13 @@ class Query(pydantic.BaseModel):
 
 QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
-        "core_models.BooleanType",
-        "core_models.StringType",
-        "core_models.DoubleType",
+        core_models.DateType,
+        core_models.BooleanType,
+        core_models.StringType,
+        core_models.DoubleType,
         "QueryAggregationRangeType",
-        "core_models.IntegerType",
-        "core_models.TimestampType",
+        core_models.IntegerType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -143,13 +144,13 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 
 QueryAggregationKeyTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.DoubleTypeDict",
+        core_models.DateTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.StringTypeDict,
+        core_models.DoubleTypeDict,
         "QueryAggregationRangeTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.IntegerTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -158,10 +159,10 @@ QueryAggregationKeyTypeDict = typing_extensions.Annotated[
 
 QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
-        "core_models.TimestampType",
+        core_models.DateType,
+        core_models.DoubleType,
+        core_models.IntegerType,
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -170,10 +171,10 @@ QueryAggregationRangeSubType = typing_extensions.Annotated[
 
 QueryAggregationRangeSubTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
-        "core_models.TimestampTypeDict",
+        core_models.DateTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -204,7 +205,7 @@ class QueryAggregationRangeTypeDict(typing_extensions.TypedDict):
 
 
 QueryAggregationValueType = typing_extensions.Annotated[
-    typing.Union["core_models.DateType", "core_models.DoubleType", "core_models.TimestampType"],
+    typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
@@ -212,7 +213,7 @@ QueryAggregationValueType = typing_extensions.Annotated[
 
 QueryAggregationValueTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict", "core_models.DoubleTypeDict", "core_models.TimestampTypeDict"
+        core_models.DateTypeDict, core_models.DoubleTypeDict, core_models.TimestampTypeDict
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -246,24 +247,24 @@ class QueryArrayTypeDict(typing_extensions.TypedDict):
 
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateType",
+        core_models.DateType,
         "QueryStructType",
         "QuerySetType",
-        "core_models.StringType",
-        "core_models.DoubleType",
-        "core_models.IntegerType",
+        core_models.StringType,
+        core_models.DoubleType,
+        core_models.IntegerType,
         "ThreeDimensionalAggregation",
         "QueryUnionType",
-        "core_models.FloatType",
-        "core_models.LongType",
-        "core_models.BooleanType",
-        "core_models.UnsupportedType",
-        "core_models.AttachmentType",
-        "core_models.NullType",
-        "QueryArrayType",
+        core_models.FloatType,
+        core_models.LongType,
+        core_models.BooleanType,
+        core_models.UnsupportedType,
+        core_models.AttachmentType,
+        core_models.NullType,
+        QueryArrayType,
         "TwoDimensionalAggregation",
         "ValueTypeReference",
-        "core_models.TimestampType",
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -272,24 +273,24 @@ QueryDataType = typing_extensions.Annotated[
 
 QueryDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "core_models.DateTypeDict",
+        core_models.DateTypeDict,
         "QueryStructTypeDict",
         "QuerySetTypeDict",
-        "core_models.StringTypeDict",
-        "core_models.DoubleTypeDict",
-        "core_models.IntegerTypeDict",
+        core_models.StringTypeDict,
+        core_models.DoubleTypeDict,
+        core_models.IntegerTypeDict,
         "ThreeDimensionalAggregationDict",
         "QueryUnionTypeDict",
-        "core_models.FloatTypeDict",
-        "core_models.LongTypeDict",
-        "core_models.BooleanTypeDict",
-        "core_models.UnsupportedTypeDict",
-        "core_models.AttachmentTypeDict",
-        "core_models.NullTypeDict",
-        "QueryArrayTypeDict",
+        core_models.FloatTypeDict,
+        core_models.LongTypeDict,
+        core_models.BooleanTypeDict,
+        core_models.UnsupportedTypeDict,
+        core_models.AttachmentTypeDict,
+        core_models.NullTypeDict,
+        QueryArrayTypeDict,
         "TwoDimensionalAggregationDict",
         "ValueTypeReferenceDict",
-        "core_models.TimestampTypeDict",
+        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -629,22 +630,22 @@ class ValueTypeDataTypeDecimalTypeDict(typing_extensions.TypedDict):
 
 ValueTypeDataTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "ValueTypeDataTypeDateTypeDict",
+        ValueTypeDataTypeDateTypeDict,
         "ValueTypeDataTypeStructTypeDict",
         "ValueTypeDataTypeStringTypeDict",
-        "ValueTypeDataTypeByteTypeDict",
+        ValueTypeDataTypeByteTypeDict,
         "ValueTypeDataTypeDoubleTypeDict",
         "ValueTypeDataTypeOptionalTypeDict",
         "ValueTypeDataTypeIntegerTypeDict",
         "ValueTypeDataTypeUnionTypeDict",
         "ValueTypeDataTypeFloatTypeDict",
         "ValueTypeDataTypeLongTypeDict",
-        "ValueTypeDataTypeBooleanTypeDict",
-        "ValueTypeDataTypeArrayTypeDict",
-        "ValueTypeDataTypeBinaryTypeDict",
+        ValueTypeDataTypeBooleanTypeDict,
+        ValueTypeDataTypeArrayTypeDict,
+        ValueTypeDataTypeBinaryTypeDict,
         "ValueTypeDataTypeValueTypeReferenceDict",
         "ValueTypeDataTypeShortTypeDict",
-        "ValueTypeDataTypeDecimalTypeDict",
+        ValueTypeDataTypeDecimalTypeDict,
         "ValueTypeDataTypeMapTypeDict",
         "ValueTypeDataTypeTimestampTypeDict",
     ],
@@ -1033,7 +1034,18 @@ class VersionIdDict(typing_extensions.TypedDict):
     baseType: typing_extensions.NotRequired[ValueTypeDataTypeDict]
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
+core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationKeyTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    QueryAggregationRangeSubTypeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationValueTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ValueTypeDataTypeDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "DataValue",

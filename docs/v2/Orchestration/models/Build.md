@@ -12,7 +12,7 @@ Build
 **fallback_branches** | FallbackBranches | Yes |  |
 **job_rids** | List[JobRid] | Yes |  |
 **retry_count** | RetryCount | Yes |  |
-**retry_backoff_duration** | Duration | Yes |  |
+**retry_backoff_duration** | RetryBackoffDuration | Yes |  |
 **abort_on_failure** | AbortOnFailure | Yes |  |
 **status** | BuildStatus | Yes |  |
 

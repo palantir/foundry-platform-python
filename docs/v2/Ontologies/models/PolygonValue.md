@@ -1,10 +1,10 @@
-# UpdatedBy
+# PolygonValue
 
-The Foundry user who last updated this resource
+PolygonValue
 
 ## Type
 ```python
-UserId
+Polygon
 ```
 
 

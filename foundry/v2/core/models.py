@@ -177,10 +177,6 @@ ContentType = str
 """ContentType"""
 
 
-CreatedBy = str
-"""The Foundry user who created this resource"""
-
-
 CreatedTime = datetime
 """The time at which the resource was created."""
 
@@ -360,18 +356,18 @@ class Field(pydantic.BaseModel):
 FieldDataType = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
-        "DateType",
+        DateType,
         "StringType",
-        "ByteType",
-        "DoubleType",
+        ByteType,
+        DoubleType,
         "IntegerType",
         "FloatType",
         "LongType",
-        "BooleanType",
-        "ArrayFieldType",
-        "BinaryType",
+        BooleanType,
+        ArrayFieldType,
+        BinaryType,
         "ShortType",
-        "DecimalType",
+        DecimalType,
         "MapFieldType",
         "TimestampType",
     ],
@@ -383,18 +379,18 @@ FieldDataType = typing_extensions.Annotated[
 FieldDataTypeDict = typing_extensions.Annotated[
     typing.Union[
         "StructFieldTypeDict",
-        "DateTypeDict",
+        DateTypeDict,
         "StringTypeDict",
-        "ByteTypeDict",
-        "DoubleTypeDict",
+        ByteTypeDict,
+        DoubleTypeDict,
         "IntegerTypeDict",
         "FloatTypeDict",
         "LongTypeDict",
-        "BooleanTypeDict",
-        "ArrayFieldTypeDict",
-        "BinaryTypeDict",
+        BooleanTypeDict,
+        ArrayFieldTypeDict,
+        BinaryTypeDict,
         "ShortTypeDict",
-        "DecimalTypeDict",
+        DecimalTypeDict,
         "MapFieldTypeDict",
         "TimestampTypeDict",
     ],
@@ -543,18 +539,18 @@ class FilterStringTypeDict(typing_extensions.TypedDict):
 
 FilterTypeDict = typing_extensions.Annotated[
     typing.Union[
-        "FilterDateTimeTypeDict",
-        "FilterDateTypeDict",
-        "FilterBooleanTypeDict",
-        "FilterStringTypeDict",
-        "FilterDoubleTypeDict",
-        "FilterBinaryTypeDict",
-        "FilterIntegerTypeDict",
-        "FilterFloatTypeDict",
-        "FilterRidTypeDict",
+        FilterDateTimeTypeDict,
+        FilterDateTypeDict,
+        FilterBooleanTypeDict,
+        FilterStringTypeDict,
+        FilterDoubleTypeDict,
+        FilterBinaryTypeDict,
+        FilterIntegerTypeDict,
+        FilterFloatTypeDict,
+        FilterRidTypeDict,
         "FilterUuidTypeDict",
-        "FilterEnumTypeDict",
-        "FilterLongTypeDict",
+        FilterEnumTypeDict,
+        FilterLongTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -904,7 +900,7 @@ class MediaReference(pydantic.BaseModel):
     """The representation of a media reference."""
 
     mime_type: MediaType = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
-    reference: MediaSetViewItemWrapper
+    reference: Reference
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "MediaReferenceDict":
@@ -918,7 +914,7 @@ class MediaReferenceDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     mimeType: MediaType
-    reference: MediaSetViewItemWrapperDict
+    reference: ReferenceDict
 
 
 class MediaReferenceType(pydantic.BaseModel):
@@ -1128,7 +1124,7 @@ class StreamSchema(pydantic.BaseModel):
     [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
-    change_data_capture: typing.Optional[FullRowChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
+    change_data_capture: typing.Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> "StreamSchemaDict":
@@ -1164,7 +1160,7 @@ class StreamSchemaDict(typing_extensions.TypedDict):
     [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
-    changeDataCapture: typing_extensions.NotRequired[FullRowChangeDataCaptureConfigurationDict]
+    changeDataCapture: typing_extensions.NotRequired[ChangeDataCaptureConfigurationDict]
 
 
 class StringType(pydantic.BaseModel):
@@ -1212,13 +1208,13 @@ class StructFieldTypeDict(typing_extensions.TypedDict):
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
-    typing.Union["StringType", "DoubleType"], pydantic.Field(discriminator="type")
+    typing.Union[StringType, DoubleType], pydantic.Field(discriminator="type")
 ]
 """A union of the types supported by time series properties."""
 
 
 TimeSeriesItemTypeDict = typing_extensions.Annotated[
-    typing.Union["StringTypeDict", "DoubleTypeDict"], pydantic.Field(discriminator="type")
+    typing.Union[StringTypeDict, DoubleTypeDict], pydantic.Field(discriminator="type")
 ]
 """A union of the types supported by time series properties."""
 
@@ -1292,10 +1288,6 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
 
     unsupportedType: str
     type: typing.Literal["unsupported"]
-
-
-UpdatedBy = core.UUID
-"""The Foundry user who last updated this resource"""
 
 
 UpdatedTime = datetime
@@ -1372,6 +1364,51 @@ ZoneId = str
 """A string representation of a java.time.ZoneId"""
 
 
+ChangeDataCaptureConfiguration = FullRowChangeDataCaptureConfiguration
+"""
+Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
+least one key needs to be provided.
+
+For more information on CDC in
+Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+"""
+
+
+ChangeDataCaptureConfigurationDict = FullRowChangeDataCaptureConfigurationDict
+"""
+Configuration for utilizing the stream as a change data capture (CDC) dataset. To configure CDC on a stream, at
+least one key needs to be provided.
+
+For more information on CDC in
+Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+"""
+
+
+CreatedBy = PrincipalId
+"""The Foundry user who created this resource"""
+
+
+Reference = MediaSetViewItemWrapper
+"""A union of the types supported by media reference properties."""
+
+
+ReferenceDict = MediaSetViewItemWrapperDict
+"""A union of the types supported by media reference properties."""
+
+
+UpdatedBy = UserId
+"""The Foundry user who last updated this resource"""
+
+
+core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
+core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
+core.resolve_forward_references(EmbeddingModelDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(FieldDataTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(FilterTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeSeriesItemTypeDict, globalns=globals(), localns=locals())
+
 __all__ = [
     "AnyType",
     "AnyTypeDict",
@@ -1386,6 +1423,8 @@ __all__ = [
     "BuildRid",
     "ByteType",
     "ByteTypeDict",
+    "ChangeDataCaptureConfiguration",
+    "ChangeDataCaptureConfigurationDict",
     "CipherTextType",
     "CipherTextTypeDict",
     "ContentLength",
@@ -1483,6 +1522,8 @@ __all__ = [
     "PrincipalId",
     "PrincipalType",
     "Realm",
+    "Reference",
+    "ReferenceDict",
     "ReleaseStatus",
     "RoleId",
     "ShortType",

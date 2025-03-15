@@ -1,10 +1,10 @@
-# UpdatedBy
+# WithinBoundingBoxPointDict
 
-The Foundry user who last updated this resource
+WithinBoundingBoxPoint
 
 ## Type
 ```python
-UserId
+GeoPointDict
 ```
 
 
