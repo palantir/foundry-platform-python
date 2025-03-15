@@ -22,6 +22,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models
 
 BranchName = str
 """
@@ -119,8 +120,6 @@ class PutMediaItemResponseDict(typing_extensions.TypedDict):
 TransactionId = core.UUID
 """An identifier which represents a transaction on a media set."""
 
-
-from foundry.v2.core import models as core_models  # noqa: E402
 
 __all__ = [
     "BranchName",

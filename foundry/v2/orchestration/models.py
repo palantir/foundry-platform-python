@@ -22,6 +22,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
+from foundry.v2.filesystem import models as filesystem_models
 
 AbortOnFailure = bool
 """
@@ -357,14 +360,14 @@ class CreateScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
+    typing.Union[CreateScheduleRequestProjectScope, "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 CreateScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union["CreateScheduleRequestProjectScopeDict", "CreateScheduleRequestUserScopeDict"],
+    typing.Union[CreateScheduleRequestProjectScopeDict, "CreateScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -486,7 +489,7 @@ class DatasetUpdatedTriggerDict(typing_extensions.TypedDict):
     type: typing.Literal["datasetUpdated"]
 
 
-FallbackBranches = typing.List["datasets_models.BranchName"]
+FallbackBranches = typing.List[datasets_models.BranchName]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
@@ -642,14 +645,14 @@ class JobDict(typing_extensions.TypedDict):
 
 
 JobOutput = typing_extensions.Annotated[
-    typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
+    typing.Union[DatasetJobOutput, "TransactionalMediaSetJobOutput"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
 JobOutputDict = typing_extensions.Annotated[
-    typing.Union["DatasetJobOutputDict", "TransactionalMediaSetJobOutputDict"],
+    typing.Union[DatasetJobOutputDict, "TransactionalMediaSetJobOutputDict"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
@@ -1024,14 +1027,14 @@ class ReplaceScheduleRequestProjectScopeDict(typing_extensions.TypedDict):
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
+    typing.Union[ReplaceScheduleRequestProjectScope, "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
 
 
 ReplaceScheduleRequestScopeModeDict = typing_extensions.Annotated[
-    typing.Union["ReplaceScheduleRequestProjectScopeDict", "ReplaceScheduleRequestUserScopeDict"],
+    typing.Union[ReplaceScheduleRequestProjectScopeDict, "ReplaceScheduleRequestUserScopeDict"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -1090,36 +1093,6 @@ class ReplaceScheduleRequestUserScopeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: typing.Literal["user"]
-
-
-class RetryBackoffDuration(pydantic.BaseModel):
-    """The duration to wait before retrying after a Job fails."""
-
-    value: int
-    """The duration value."""
-
-    unit: core_models.TimeUnit
-    """The unit of duration."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "RetryBackoffDurationDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RetryBackoffDurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class RetryBackoffDurationDict(typing_extensions.TypedDict):
-    """The duration to wait before retrying after a Job fails."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: int
-    """The duration value."""
-
-    unit: core_models.TimeUnit
-    """The unit of duration."""
 
 
 RetryCount = int
@@ -1306,7 +1279,7 @@ class ScheduleRunIgnoredDict(typing_extensions.TypedDict):
 
 
 ScheduleRunResult = typing_extensions.Annotated[
-    typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
+    typing.Union[ScheduleRunIgnored, "ScheduleRunSubmitted", ScheduleRunError],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1316,7 +1289,7 @@ ignored if all targets are up-to-date or error.
 
 
 ScheduleRunResultDict = typing_extensions.Annotated[
-    typing.Union["ScheduleRunIgnoredDict", "ScheduleRunSubmittedDict", "ScheduleRunErrorDict"],
+    typing.Union[ScheduleRunIgnoredDict, "ScheduleRunSubmittedDict", ScheduleRunErrorDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -1429,13 +1402,13 @@ ScheduleVersionRid = core.RID
 
 
 ScopeMode = typing_extensions.Annotated[
-    typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScope, "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
 
 ScopeModeDict = typing_extensions.Annotated[
-    typing.Union["ProjectScopeDict", "UserScopeDict"], pydantic.Field(discriminator="type")
+    typing.Union[ProjectScopeDict, "UserScopeDict"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
@@ -1496,10 +1469,10 @@ SearchBuildsFilter = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
-        "SearchBuildsAndFilter",
+        SearchBuildsAndFilter,
         "SearchBuildsLtFilter",
         "SearchBuildsGteFilter",
-        "SearchBuildsEqualsFilter",
+        SearchBuildsEqualsFilter,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1510,10 +1483,10 @@ SearchBuildsFilterDict = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilterDict",
         "SearchBuildsOrFilterDict",
-        "SearchBuildsAndFilterDict",
+        SearchBuildsAndFilterDict,
         "SearchBuildsLtFilterDict",
         "SearchBuildsGteFilterDict",
-        "SearchBuildsEqualsFilterDict",
+        SearchBuildsEqualsFilterDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1745,14 +1718,14 @@ class TransactionalMediaSetJobOutputDict(typing_extensions.TypedDict):
 
 Trigger = typing_extensions.Annotated[
     typing.Union[
-        "JobSucceededTrigger",
-        "OrTrigger",
-        "NewLogicTrigger",
-        "AndTrigger",
-        "DatasetUpdatedTrigger",
-        "ScheduleSucceededTrigger",
-        "MediaSetUpdatedTrigger",
-        "TimeTrigger",
+        JobSucceededTrigger,
+        OrTrigger,
+        NewLogicTrigger,
+        AndTrigger,
+        DatasetUpdatedTrigger,
+        ScheduleSucceededTrigger,
+        MediaSetUpdatedTrigger,
+        TimeTrigger,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1761,14 +1734,14 @@ Trigger = typing_extensions.Annotated[
 
 TriggerDict = typing_extensions.Annotated[
     typing.Union[
-        "JobSucceededTriggerDict",
-        "OrTriggerDict",
-        "NewLogicTriggerDict",
-        "AndTriggerDict",
-        "DatasetUpdatedTriggerDict",
-        "ScheduleSucceededTriggerDict",
-        "MediaSetUpdatedTriggerDict",
-        "TimeTriggerDict",
+        JobSucceededTriggerDict,
+        OrTriggerDict,
+        NewLogicTriggerDict,
+        AndTriggerDict,
+        DatasetUpdatedTriggerDict,
+        ScheduleSucceededTriggerDict,
+        MediaSetUpdatedTriggerDict,
+        TimeTriggerDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1831,9 +1804,51 @@ class UserScopeDict(typing_extensions.TypedDict):
     type: typing.Literal["user"]
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+RetryBackoffDuration = core_models.Duration
+"""The duration to wait before retrying after a Job fails."""
+
+
+RetryBackoffDurationDict = core_models.DurationDict
+"""The duration to wait before retrying after a Job fails."""
+
+
+core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
+core.resolve_forward_references(BuildTargetDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestBuildTargetDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestScopeModeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
+core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(JobOutputDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestBuildTargetDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestScopeModeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScheduleRunResultDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScopeModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchBuildsFilterDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+core.resolve_forward_references(TriggerDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbortOnFailure",

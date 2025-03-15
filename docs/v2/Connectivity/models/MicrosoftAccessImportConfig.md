@@ -1,6 +1,6 @@
 # MicrosoftAccessImportConfig
 
-The import configuration for a [Microsoft Access connection](docs/foundry/available-connectors/microsoft-access).
+The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access).
 
 
 ## Properties

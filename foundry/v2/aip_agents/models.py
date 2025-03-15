@@ -22,6 +22,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models
+from foundry.v2.functions import models as functions_models
+from foundry.v2.ontologies import models as ontologies_models
 
 
 class Agent(pydantic.BaseModel):
@@ -330,13 +333,13 @@ class FunctionRetrievedContextDict(typing_extensions.TypedDict):
 
 
 InputContext = typing_extensions.Annotated[
-    typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
+    typing.Union[FunctionRetrievedContext, "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
 InputContextDict = typing_extensions.Annotated[
-    typing.Union["FunctionRetrievedContextDict", "ObjectContextDict"],
+    typing.Union[FunctionRetrievedContextDict, "ObjectContextDict"],
     pydantic.Field(discriminator="type"),
 ]
 """Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
@@ -563,34 +566,34 @@ ParameterId = str
 
 
 ParameterType = typing_extensions.Annotated[
-    typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
+    typing.Union["StringParameter", ObjectSetParameter], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
 ParameterTypeDict = typing_extensions.Annotated[
-    typing.Union["StringParameterDict", "ObjectSetParameterDict"],
+    typing.Union["StringParameterDict", ObjectSetParameterDict],
     pydantic.Field(discriminator="type"),
 ]
 """ParameterType"""
 
 
 ParameterValue = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", "ObjectSetParameterValue"],
+    typing.Union["StringParameterValue", ObjectSetParameterValue],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueDict = typing_extensions.Annotated[
-    typing.Union["StringParameterValueDict", "ObjectSetParameterValueDict"],
+    typing.Union["StringParameterValueDict", ObjectSetParameterValueDict],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueUpdate = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
+    typing.Union["StringParameterValue", ObjectSetParameterValueUpdate],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -601,7 +604,7 @@ For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the
 
 
 ParameterValueUpdateDict = typing_extensions.Annotated[
-    typing.Union["StringParameterValueDict", "ObjectSetParameterValueUpdateDict"],
+    typing.Union["StringParameterValueDict", ObjectSetParameterValueUpdateDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -913,9 +916,14 @@ class UserTextInputDict(typing_extensions.TypedDict):
     """The user message text."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.functions import models as functions_models  # noqa: E402
-from foundry.v2.ontologies import models as ontologies_models  # noqa: E402
+core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
+core.resolve_forward_references(InputContextDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterTypeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValueDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValueUpdateDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "Agent",

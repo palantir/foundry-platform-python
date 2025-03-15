@@ -22,6 +22,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v1.core import models as core_models
 
 
 class Branch(pydantic.BaseModel):
@@ -201,8 +202,6 @@ TransactionStatus = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
 TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 """The type of a Transaction."""
 
-
-from foundry.v1.core import models as core_models  # noqa: E402
 
 __all__ = [
     "Branch",

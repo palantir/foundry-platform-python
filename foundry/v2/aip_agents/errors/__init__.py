@@ -56,6 +56,9 @@ from foundry.v2.aip_agents.errors._session_not_found import SessionNotFound
 from foundry.v2.aip_agents.errors._streaming_continue_session_permission_denied import (
     StreamingContinueSessionPermissionDenied,
 )  # NOQA
+from foundry.v2.aip_agents.errors._update_session_title_permission_denied import (
+    UpdateSessionTitlePermissionDenied,
+)  # NOQA
 
 __all__ = [
     "AgentIterationsExceededLimit",
@@ -81,4 +84,5 @@ __all__ = [
     "SessionExecutionFailed",
     "SessionNotFound",
     "StreamingContinueSessionPermissionDenied",
+    "UpdateSessionTitlePermissionDenied",
 ]

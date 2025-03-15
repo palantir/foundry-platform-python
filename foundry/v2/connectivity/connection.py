@@ -82,16 +82,13 @@ class ConnectionClient:
         ],
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
-        runtime_platform: typing.Union[
-            connectivity_models.CreateConnectionRequestRuntimePlatform,
-            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
-        ],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
         """
-        Creates a new Connection.
+        Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
         secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
         be processed as needed. They will stay in plaintext in memory until the garbage collection process cleans
@@ -106,8 +103,6 @@ class ConnectionClient:
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
-        :param runtime_platform:
-        :type runtime_platform: Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -135,7 +130,6 @@ class ConnectionClient:
                 },
                 body={
                     "parentFolderRid": parent_folder_rid,
-                    "runtimePlatform": runtime_platform,
                     "configuration": configuration,
                     "displayName": display_name,
                 },
@@ -143,10 +137,6 @@ class ConnectionClient:
                     "Body",
                     {  # type: ignore
                         "parentFolderRid": filesystem_models.FolderRid,
-                        "runtimePlatform": typing.Union[
-                            connectivity_models.CreateConnectionRequestRuntimePlatform,
-                            connectivity_models.CreateConnectionRequestRuntimePlatformDict,
-                        ],
                         "configuration": typing.Union[
                             connectivity_models.CreateConnectionRequestConnectionConfiguration,
                             connectivity_models.CreateConnectionRequestConnectionConfigurationDict,

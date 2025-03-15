@@ -8,7 +8,6 @@ Connection
 **rid** | ConnectionRid | Yes |  |
 **parentFolderRid** | FolderRid | Yes |  |
 **displayName** | ConnectionDisplayName | Yes | The display name of the Connection. The display name must not be blank. |
-**runtimePlatform** | RuntimePlatformDict | Yes |  |
 **configuration** | ConnectionConfigurationDict | Yes |  |
 
 

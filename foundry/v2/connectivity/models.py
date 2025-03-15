@@ -22,104 +22,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
-
-
-class AgentProxyRuntime(pydantic.BaseModel):
-    """
-    The [agent proxy runtime](/docs/foundry/data-connection/core-concepts/#agent-proxy-runtime) is used to connect
-    to data sources not accessible over the Internet. The agent acts as an inverting network proxy, forwarding
-    network traffic originating in Foundry into the network where the agent is deployed, and relaying traffic
-    back to Foundry. This allows capabilities in Foundry to work almost exactly the same as when using a
-    direct connection but without requiring you to allow inbound network traffic to your systems originating
-    from Foundry's IP addresses.
-    """
-
-    agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentProxyRuntime"] = "agentProxyRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "AgentProxyRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AgentProxyRuntimeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AgentProxyRuntimeDict(typing_extensions.TypedDict):
-    """
-    The [agent proxy runtime](/docs/foundry/data-connection/core-concepts/#agent-proxy-runtime) is used to connect
-    to data sources not accessible over the Internet. The agent acts as an inverting network proxy, forwarding
-    network traffic originating in Foundry into the network where the agent is deployed, and relaying traffic
-    back to Foundry. This allows capabilities in Foundry to work almost exactly the same as when using a
-    direct connection but without requiring you to allow inbound network traffic to your systems originating
-    from Foundry's IP addresses.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    agentRids: typing.List[AgentRid]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentProxyRuntime"]
-
-
-AgentRid = core.RID
-"""The Resource Identifier (RID) of an Agent."""
-
-
-class AgentWorkerRuntime(pydantic.BaseModel):
-    """
-    The [agent worker runtime](/docs/foundry/data-connection/core-concepts/#agent-worker-runtime) is used to
-    connect to data sources not accessible over the Internet. An agent worker should only be used when the desired
-    connector does not support the agent proxy runtime. Agent worker runtimes are associated with a single or
-    multiple agents that store the source configuration and credentials locally in an encrypted format,
-    and run source capabilities on the agent itself.
-    """
-
-    agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "AgentWorkerRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AgentWorkerRuntimeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AgentWorkerRuntimeDict(typing_extensions.TypedDict):
-    """
-    The [agent worker runtime](/docs/foundry/data-connection/core-concepts/#agent-worker-runtime) is used to
-    connect to data sources not accessible over the Internet. An agent worker should only be used when the desired
-    connector does not support the agent proxy runtime. Agent worker runtimes are associated with a single or
-    multiple agents that store the source configuration and credentials locally in an encrypted format,
-    and run source capabilities on the agent itself.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    agentRids: typing.List[AgentRid]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentWorkerRuntime"]
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
+from foundry.v2.filesystem import models as filesystem_models
 
 
 class ApiKeyAuthentication(pydantic.BaseModel):
@@ -321,7 +226,6 @@ class Connection(pydantic.BaseModel):
     display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     """The display name of the Connection. The display name must not be blank."""
 
-    runtime_platform: RuntimePlatform = pydantic.Field(alias=str("runtimePlatform"))  # type: ignore[literal-required]
     configuration: ConnectionConfiguration
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -360,7 +264,6 @@ class ConnectionDict(typing_extensions.TypedDict):
     displayName: ConnectionDisplayName
     """The display name of the Connection. The display name must not be blank."""
 
-    runtimePlatform: RuntimePlatformDict
     configuration: ConnectionConfigurationDict
 
 
@@ -370,78 +273,6 @@ ConnectionDisplayName = str
 
 ConnectionRid = core.RID
 """The Resource Identifier (RID) of a Connection (also known as a source)."""
-
-
-class CreateConnectionRequestAgentProxyRuntime(pydantic.BaseModel):
-    """CreateConnectionRequestAgentProxyRuntime"""
-
-    agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentProxyRuntime"] = "agentProxyRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "CreateConnectionRequestAgentProxyRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestAgentProxyRuntimeDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestAgentProxyRuntimeDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestAgentProxyRuntime"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    agentRids: typing.List[AgentRid]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentProxyRuntime"]
-
-
-class CreateConnectionRequestAgentWorkerRuntime(pydantic.BaseModel):
-    """CreateConnectionRequestAgentWorkerRuntime"""
-
-    agent_rids: typing.List[AgentRid] = pydantic.Field(alias=str("agentRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentWorkerRuntime"] = "agentWorkerRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "CreateConnectionRequestAgentWorkerRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestAgentWorkerRuntimeDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestAgentWorkerRuntimeDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestAgentWorkerRuntime"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    agentRids: typing.List[AgentRid]
-    """
-    The RIDs of the [agents](/docs/foundry/data-connection/set-up-agent/) configured on the connection.
-    These agents are used to provide network connectivity to the external systems or APIs configured on the
-    connection.
-    """
-
-    type: typing.Literal["agentWorkerRuntime"]
 
 
 CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
@@ -464,44 +295,6 @@ CreateConnectionRequestConnectionConfigurationDict = typing_extensions.Annotated
     pydantic.Field(discriminator="type"),
 ]
 """CreateConnectionRequestConnectionConfiguration"""
-
-
-class CreateConnectionRequestDirectConnectionRuntime(pydantic.BaseModel):
-    """CreateConnectionRequestDirectConnectionRuntime"""
-
-    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
-    configured on the connection.
-    These network egress policies represent the set of external destinations that the connection is allowed
-    to egress to from a Foundry enrollment
-    """
-
-    type: typing.Literal["directConnectionRuntime"] = "directConnectionRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "CreateConnectionRequestDirectConnectionRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestDirectConnectionRuntimeDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestDirectConnectionRuntimeDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestDirectConnectionRuntime"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    networkEgressPolicyRids: typing.List[NetworkEgressPolicyRid]
-    """
-    The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
-    configured on the connection.
-    These network egress policies represent the set of external destinations that the connection is allowed
-    to egress to from a Foundry enrollment
-    """
-
-    type: typing.Literal["directConnectionRuntime"]
 
 
 class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
@@ -612,34 +405,6 @@ class CreateConnectionRequestRestConnectionConfigurationDict(typing_extensions.T
     """
 
     type: typing.Literal["rest"]
-
-
-CreateConnectionRequestRuntimePlatform = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestDirectConnectionRuntime",
-        "CreateConnectionRequestAgentProxyRuntime",
-        "CreateConnectionRequestAgentWorkerRuntime",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""
-[The runtime of a Connection](/docs/foundry/data-connection/core-concepts/#runtimes), which defines the
-networking configuration and where capabilities are executed.
-"""
-
-
-CreateConnectionRequestRuntimePlatformDict = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestDirectConnectionRuntimeDict",
-        "CreateConnectionRequestAgentProxyRuntimeDict",
-        "CreateConnectionRequestAgentWorkerRuntimeDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""
-[The runtime of a Connection](/docs/foundry/data-connection/core-concepts/#runtimes), which defines the
-networking configuration and where capabilities are executed.
-"""
 
 
 class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
@@ -1004,77 +769,28 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        "CreateTableImportRequestJdbcImportConfig",
-        "CreateTableImportRequestMicrosoftSqlServerImportConfig",
-        "CreateTableImportRequestPostgreSqlImportConfig",
-        "CreateTableImportRequestMicrosoftAccessImportConfig",
-        "CreateTableImportRequestOracleImportConfig",
+        CreateTableImportRequestJdbcImportConfig,
+        CreateTableImportRequestMicrosoftSqlServerImportConfig,
+        CreateTableImportRequestPostgreSqlImportConfig,
+        CreateTableImportRequestMicrosoftAccessImportConfig,
+        CreateTableImportRequestOracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
 
 
 CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        "CreateTableImportRequestJdbcImportConfigDict",
-        "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
-        "CreateTableImportRequestPostgreSqlImportConfigDict",
-        "CreateTableImportRequestMicrosoftAccessImportConfigDict",
-        "CreateTableImportRequestOracleImportConfigDict",
+        CreateTableImportRequestJdbcImportConfigDict,
+        CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
+        CreateTableImportRequestPostgreSqlImportConfigDict,
+        CreateTableImportRequestMicrosoftAccessImportConfigDict,
+        CreateTableImportRequestOracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](docs/foundry/data-integration/source-type-overview)."""
-
-
-class DirectConnectionRuntime(pydantic.BaseModel):
-    """
-    [Direct connections](/docs/foundry/data-connection/core-concepts/#direct-connection) enable users to connect
-    to data sources accessible over the Internet without needing to set up an agent. If your Foundry stack is
-    hosted on-premises, you can also connect to data sources within your on-premises network.
-
-    This is the preferred source connection method if the data source is accessible over the Internet.
-    """
-
-    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
-    """
-    The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
-    configured on the connection.
-    These network egress policies represent the set of external destinations that the connection is allowed
-    to egress to from a Foundry enrollment
-    """
-
-    type: typing.Literal["directConnectionRuntime"] = "directConnectionRuntime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "DirectConnectionRuntimeDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DirectConnectionRuntimeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DirectConnectionRuntimeDict(typing_extensions.TypedDict):
-    """
-    [Direct connections](/docs/foundry/data-connection/core-concepts/#direct-connection) enable users to connect
-    to data sources accessible over the Internet without needing to set up an agent. If your Foundry stack is
-    hosted on-premises, you can also connect to data sources within your on-premises network.
-
-    This is the preferred source connection method if the data source is accessible over the Internet.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    networkEgressPolicyRids: typing.List[NetworkEgressPolicyRid]
-    """
-    The RIDs of the [network egress policies](/docs/foundry/administration/configure-egress/#network-egress-policies) 
-    configured on the connection.
-    These network egress policies represent the set of external destinations that the connection is allowed
-    to egress to from a Foundry enrollment
-    """
-
-    type: typing.Literal["directConnectionRuntime"]
+"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
 
 
 class Domain(pydantic.BaseModel):
@@ -1130,7 +846,7 @@ class DomainDict(typing_extensions.TypedDict):
 
 
 EncryptedProperty = typing_extensions.Annotated[
-    typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
+    typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -1142,7 +858,7 @@ When writing to an encrypted property:
 
 
 EncryptedPropertyDict = typing_extensions.Annotated[
-    typing.Union["AsSecretNameDict", "AsPlaintextValueDict"], pydantic.Field(discriminator="type")
+    typing.Union[AsSecretNameDict, AsPlaintextValueDict], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -1350,13 +1066,13 @@ FileImportDisplayName = str
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
-        "FileAnyPathMatchesFilter",
+        FileAnyPathMatchesFilter,
         "FilesCountLimitFilter",
-        "FileChangedSinceLastUploadFilter",
-        "FileImportCustomFilter",
+        FileChangedSinceLastUploadFilter,
+        FileImportCustomFilter,
         "FileLastModifiedAfterFilter",
         "FilePathMatchesFilter",
-        "FileAtLeastCountFilter",
+        FileAtLeastCountFilter,
         "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
@@ -1370,13 +1086,13 @@ before they are imported into Foundry.
 FileImportFilterDict = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilterDict",
-        "FileAnyPathMatchesFilterDict",
+        FileAnyPathMatchesFilterDict,
         "FilesCountLimitFilterDict",
-        "FileChangedSinceLastUploadFilterDict",
-        "FileImportCustomFilterDict",
+        FileChangedSinceLastUploadFilterDict,
+        FileImportCustomFilterDict,
         "FileLastModifiedAfterFilterDict",
         "FilePathMatchesFilterDict",
-        "FileAtLeastCountFilterDict",
+        FileAtLeastCountFilterDict,
         "FileSizeFilterDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -1699,7 +1415,7 @@ class JdbcConnectionConfigurationDict(typing_extensions.TypedDict):
 
 
 class JdbcImportConfig(pydantic.BaseModel):
-    """The import configuration for a [custom JDBC connection](docs/foundry/available-connectors/custom-jdbc-sources)."""
+    """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     query: str
     """
@@ -1717,7 +1433,7 @@ class JdbcImportConfig(pydantic.BaseModel):
 
 
 class JdbcImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [custom JDBC connection](docs/foundry/available-connectors/custom-jdbc-sources)."""
+    """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1778,7 +1494,7 @@ class ListTableImportsResponseDict(typing_extensions.TypedDict):
 
 
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
-    """The import configuration for a [Microsoft Access connection](docs/foundry/available-connectors/microsoft-access)."""
+    """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
 
     query: str
     """
@@ -1798,7 +1514,7 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
 
 
 class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft Access connection](docs/foundry/available-connectors/microsoft-access)."""
+    """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1813,7 +1529,7 @@ class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
 
 
 class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
-    """The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server)."""
+    """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
 
     query: str
     """
@@ -1833,7 +1549,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
 
 
 class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft SQL Server connection](docs/foundry/available-connectors/microsoft-sql-server)."""
+    """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1845,10 +1561,6 @@ class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
     """
 
     type: typing.Literal["microsoftSqlServerImportConfig"]
-
-
-NetworkEgressPolicyRid = core.RID
-"""The Resource Identifier (RID) of a Network Egress Policy."""
 
 
 class Oidc(pydantic.BaseModel):
@@ -1934,7 +1646,7 @@ PlaintextValue = str
 
 
 class PostgreSqlImportConfig(pydantic.BaseModel):
-    """The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql)."""
+    """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
 
     query: str
     """
@@ -1954,7 +1666,7 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
 
 
 class PostgreSqlImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql)."""
+    """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -2004,7 +1716,7 @@ Region = str
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
+    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -2012,10 +1724,7 @@ RestAuthenticationMode = typing_extensions.Annotated[
 
 RestAuthenticationModeDict = typing_extensions.Annotated[
     typing.Union[
-        "BearerTokenDict",
-        "ApiKeyAuthenticationDict",
-        "BasicCredentialsDict",
-        "RestConnectionOAuth2Dict",
+        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, "RestConnectionOAuth2Dict"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2128,46 +1837,25 @@ class RestConnectionOAuth2Dict(typing_extensions.TypedDict):
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
-    typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
+    typing.Union[HeaderApiKey, QueryParameterApiKey], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 RestRequestApiKeyLocationDict = typing_extensions.Annotated[
-    typing.Union["HeaderApiKeyDict", "QueryParameterApiKeyDict"],
-    pydantic.Field(discriminator="type"),
+    typing.Union[HeaderApiKeyDict, QueryParameterApiKeyDict], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
-RuntimePlatform = typing_extensions.Annotated[
-    typing.Union["DirectConnectionRuntime", "AgentProxyRuntime", "AgentWorkerRuntime"],
-    pydantic.Field(discriminator="type"),
-]
-"""
-[The runtime of a Connection](/docs/foundry/data-connection/core-concepts/#runtimes), which defines the
-networking configuration and where capabilities are executed.
-"""
-
-
-RuntimePlatformDict = typing_extensions.Annotated[
-    typing.Union["DirectConnectionRuntimeDict", "AgentProxyRuntimeDict", "AgentWorkerRuntimeDict"],
-    pydantic.Field(discriminator="type"),
-]
-"""
-[The runtime of a Connection](/docs/foundry/data-connection/core-concepts/#runtimes), which defines the
-networking configuration and where capabilities are executed.
-"""
-
-
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union["AwsAccessKey", "CloudIdentity", "Oidc"], pydantic.Field(discriminator="type")
+    typing.Union[AwsAccessKey, CloudIdentity, Oidc], pydantic.Field(discriminator="type")
 ]
 """S3AuthenticationMode"""
 
 
 S3AuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union["AwsAccessKeyDict", "CloudIdentityDict", "OidcDict"],
+    typing.Union[AwsAccessKeyDict, CloudIdentityDict, OidcDict],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -2629,28 +2317,28 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        "JdbcImportConfig",
-        "MicrosoftSqlServerImportConfig",
-        "PostgreSqlImportConfig",
-        "MicrosoftAccessImportConfig",
-        "OracleImportConfig",
+        JdbcImportConfig,
+        MicrosoftSqlServerImportConfig,
+        PostgreSqlImportConfig,
+        MicrosoftAccessImportConfig,
+        OracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
 
 
 TableImportConfigDict = typing_extensions.Annotated[
     typing.Union[
-        "JdbcImportConfigDict",
-        "MicrosoftSqlServerImportConfigDict",
-        "PostgreSqlImportConfigDict",
-        "MicrosoftAccessImportConfigDict",
-        "OracleImportConfigDict",
+        JdbcImportConfigDict,
+        MicrosoftSqlServerImportConfigDict,
+        PostgreSqlImportConfigDict,
+        MicrosoftAccessImportConfigDict,
+        OracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
 
 
 class TableImportDict(typing_extensions.TypedDict):
@@ -2697,16 +2385,40 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
+core.resolve_forward_references(ConnectionConfigurationDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionConfigurationDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateTableImportRequestTableImportConfigDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
+core.resolve_forward_references(EncryptedPropertyDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(FileImportFilterDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestAuthenticationModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    RestConnectionAdditionalSecretsDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
+core.resolve_forward_references(RestRequestApiKeyLocationDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(S3AuthenticationModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(TableImportConfigDict, globalns=globals(), localns=locals())
 
 __all__ = [
-    "AgentProxyRuntime",
-    "AgentProxyRuntimeDict",
-    "AgentRid",
-    "AgentWorkerRuntime",
-    "AgentWorkerRuntimeDict",
     "ApiKeyAuthentication",
     "ApiKeyAuthenticationDict",
     "AsPlaintextValue",
@@ -2728,20 +2440,12 @@ __all__ = [
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
-    "CreateConnectionRequestAgentProxyRuntime",
-    "CreateConnectionRequestAgentProxyRuntimeDict",
-    "CreateConnectionRequestAgentWorkerRuntime",
-    "CreateConnectionRequestAgentWorkerRuntimeDict",
     "CreateConnectionRequestConnectionConfiguration",
     "CreateConnectionRequestConnectionConfigurationDict",
-    "CreateConnectionRequestDirectConnectionRuntime",
-    "CreateConnectionRequestDirectConnectionRuntimeDict",
     "CreateConnectionRequestJdbcConnectionConfiguration",
     "CreateConnectionRequestJdbcConnectionConfigurationDict",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestRestConnectionConfigurationDict",
-    "CreateConnectionRequestRuntimePlatform",
-    "CreateConnectionRequestRuntimePlatformDict",
     "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfigurationDict",
     "CreateTableImportRequestJdbcImportConfig",
@@ -2756,8 +2460,6 @@ __all__ = [
     "CreateTableImportRequestPostgreSqlImportConfigDict",
     "CreateTableImportRequestTableImportConfig",
     "CreateTableImportRequestTableImportConfigDict",
-    "DirectConnectionRuntime",
-    "DirectConnectionRuntimeDict",
     "Domain",
     "DomainDict",
     "EncryptedProperty",
@@ -2802,7 +2504,6 @@ __all__ = [
     "MicrosoftAccessImportConfigDict",
     "MicrosoftSqlServerImportConfig",
     "MicrosoftSqlServerImportConfigDict",
-    "NetworkEgressPolicyRid",
     "Oidc",
     "OidcDict",
     "OracleImportConfig",
@@ -2824,8 +2525,6 @@ __all__ = [
     "RestConnectionOAuth2Dict",
     "RestRequestApiKeyLocation",
     "RestRequestApiKeyLocationDict",
-    "RuntimePlatform",
-    "RuntimePlatformDict",
     "S3AuthenticationMode",
     "S3AuthenticationModeDict",
     "S3ConnectionConfiguration",

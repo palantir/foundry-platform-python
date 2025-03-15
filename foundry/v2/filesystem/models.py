@@ -21,6 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models
 
 
 class AccessRequirements(pydantic.BaseModel):
@@ -613,13 +614,13 @@ class ResourceRoleDict(typing_extensions.TypedDict):
 
 
 ResourceRolePrincipal = typing_extensions.Annotated[
-    typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
+    typing.Union[PrincipalWithId, Everyone], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
 ResourceRolePrincipalDict = typing_extensions.Annotated[
-    typing.Union["PrincipalWithIdDict", "EveryoneDict"], pydantic.Field(discriminator="type")
+    typing.Union[PrincipalWithIdDict, EveryoneDict], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
@@ -724,7 +725,8 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
+core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
+core.resolve_forward_references(ResourceRolePrincipalDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "AccessRequirements",

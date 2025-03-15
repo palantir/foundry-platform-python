@@ -18,7 +18,10 @@ from __future__ import annotations
 import typing
 
 import annotated_types
+import pydantic
 import typing_extensions
+
+from foundry import _core as core
 
 BBox = typing.List["Coordinate"]
 """
@@ -34,6 +37,29 @@ of a bbox follows the axes order of geometries.
 
 Coordinate = float
 """Coordinate"""
+
+
+class GeoPoint(pydantic.BaseModel):
+    """GeoPoint"""
+
+    coordinates: Position
+    bbox: typing.Optional[BBox] = None
+    type: typing.Literal["Point"] = "Point"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "GeoPointDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(GeoPointDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class GeoPointDict(typing_extensions.TypedDict):
+    """GeoPoint"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: Position
+    bbox: typing_extensions.NotRequired[BBox]
+    type: typing.Literal["Point"]
 
 
 LinearRing = typing_extensions.Annotated[typing.List["Position"], annotated_types.Len(min_length=4)]
@@ -52,8 +78,31 @@ clockwise.
 """
 
 
+class Polygon(pydantic.BaseModel):
+    """Polygon"""
+
+    coordinates: typing.List[LinearRing]
+    bbox: typing.Optional[BBox] = None
+    type: typing.Literal["Polygon"] = "Polygon"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "PolygonDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(PolygonDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class PolygonDict(typing_extensions.TypedDict):
+    """Polygon"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    coordinates: typing.List[LinearRing]
+    bbox: typing_extensions.NotRequired[BBox]
+    type: typing.Literal["Polygon"]
+
+
 Position = typing_extensions.Annotated[
-    typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
+    typing.List[Coordinate], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
 GeoJSon fundamental geometry construct.
@@ -73,9 +122,17 @@ elements MAY be ignored by parsers.
 """
 
 
+core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
+core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
+core.resolve_forward_references(Position, globalns=globals(), localns=locals())
+
 __all__ = [
     "BBox",
     "Coordinate",
+    "GeoPoint",
+    "GeoPointDict",
     "LinearRing",
+    "Polygon",
+    "PolygonDict",
     "Position",
 ]

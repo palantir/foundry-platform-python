@@ -8,7 +8,8 @@ Method | HTTP request | Release Stage |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
 # **create**
-Creates a new Connection.
+Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+
 Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
 secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
 be processed as needed. They will stay in plaintext in memory until the garbage collection process cleans
@@ -25,7 +26,6 @@ Name | Type | Description  | Notes |
 **configuration** | Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |  |  |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
-**runtime_platform** | Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -48,8 +48,6 @@ configuration = None
 display_name = "Connection to my external system"
 # FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
-# Union[CreateConnectionRequestRuntimePlatform, CreateConnectionRequestRuntimePlatformDict]
-runtime_platform = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -59,7 +57,6 @@ try:
         configuration=configuration,
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
-        runtime_platform=runtime_platform,
         preview=preview,
     )
     print("The create response:\n")

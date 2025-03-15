@@ -1,6 +1,6 @@
 # PostgreSqlImportConfigDict
 
-The import configuration for a [PostgreSQL connection](docs/foundry/available-connectors/postgresql).
+The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql).
 
 
 ## Properties

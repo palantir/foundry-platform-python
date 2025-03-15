@@ -525,6 +525,7 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**page**](docs/v2/AipAgents/Session.md#page) | **GET** /v2/aipAgents/agents/{agentRid}/sessions |
 **AipAgents** | Session | [**rag_context**](docs/v2/AipAgents/Session.md#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
 **AipAgents** | Session | [**streaming_continue**](docs/v2/AipAgents/Session.md#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
+**AipAgents** | Session | [**update_title**](docs/v2/AipAgents/Session.md#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle |
 **Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
 **Connectivity** | FileImport | [**create**](docs/v2/Connectivity/FileImport.md#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports |
 **Connectivity** | FileImport | [**delete**](docs/v2/Connectivity/FileImport.md#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
@@ -888,11 +889,6 @@ Namespace | Name | Import |
 **AipAgents** | [StringParameterValueDict](docs/v2/AipAgents/models/StringParameterValueDict.md) | `from foundry.v2.aip_agents.models import StringParameterValueDict` |
 **AipAgents** | [UserTextInput](docs/v2/AipAgents/models/UserTextInput.md) | `from foundry.v2.aip_agents.models import UserTextInput` |
 **AipAgents** | [UserTextInputDict](docs/v2/AipAgents/models/UserTextInputDict.md) | `from foundry.v2.aip_agents.models import UserTextInputDict` |
-**Connectivity** | [AgentProxyRuntime](docs/v2/Connectivity/models/AgentProxyRuntime.md) | `from foundry.v2.connectivity.models import AgentProxyRuntime` |
-**Connectivity** | [AgentProxyRuntimeDict](docs/v2/Connectivity/models/AgentProxyRuntimeDict.md) | `from foundry.v2.connectivity.models import AgentProxyRuntimeDict` |
-**Connectivity** | [AgentRid](docs/v2/Connectivity/models/AgentRid.md) | `from foundry.v2.connectivity.models import AgentRid` |
-**Connectivity** | [AgentWorkerRuntime](docs/v2/Connectivity/models/AgentWorkerRuntime.md) | `from foundry.v2.connectivity.models import AgentWorkerRuntime` |
-**Connectivity** | [AgentWorkerRuntimeDict](docs/v2/Connectivity/models/AgentWorkerRuntimeDict.md) | `from foundry.v2.connectivity.models import AgentWorkerRuntimeDict` |
 **Connectivity** | [ApiKeyAuthentication](docs/v2/Connectivity/models/ApiKeyAuthentication.md) | `from foundry.v2.connectivity.models import ApiKeyAuthentication` |
 **Connectivity** | [ApiKeyAuthenticationDict](docs/v2/Connectivity/models/ApiKeyAuthenticationDict.md) | `from foundry.v2.connectivity.models import ApiKeyAuthenticationDict` |
 **Connectivity** | [AsPlaintextValue](docs/v2/Connectivity/models/AsPlaintextValue.md) | `from foundry.v2.connectivity.models import AsPlaintextValue` |
@@ -914,20 +910,12 @@ Namespace | Name | Import |
 **Connectivity** | [ConnectionDict](docs/v2/Connectivity/models/ConnectionDict.md) | `from foundry.v2.connectivity.models import ConnectionDict` |
 **Connectivity** | [ConnectionDisplayName](docs/v2/Connectivity/models/ConnectionDisplayName.md) | `from foundry.v2.connectivity.models import ConnectionDisplayName` |
 **Connectivity** | [ConnectionRid](docs/v2/Connectivity/models/ConnectionRid.md) | `from foundry.v2.connectivity.models import ConnectionRid` |
-**Connectivity** | [CreateConnectionRequestAgentProxyRuntime](docs/v2/Connectivity/models/CreateConnectionRequestAgentProxyRuntime.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestAgentProxyRuntime` |
-**Connectivity** | [CreateConnectionRequestAgentProxyRuntimeDict](docs/v2/Connectivity/models/CreateConnectionRequestAgentProxyRuntimeDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestAgentProxyRuntimeDict` |
-**Connectivity** | [CreateConnectionRequestAgentWorkerRuntime](docs/v2/Connectivity/models/CreateConnectionRequestAgentWorkerRuntime.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestAgentWorkerRuntime` |
-**Connectivity** | [CreateConnectionRequestAgentWorkerRuntimeDict](docs/v2/Connectivity/models/CreateConnectionRequestAgentWorkerRuntimeDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestAgentWorkerRuntimeDict` |
 **Connectivity** | [CreateConnectionRequestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestConnectionConfigurationDict` |
-**Connectivity** | [CreateConnectionRequestDirectConnectionRuntime](docs/v2/Connectivity/models/CreateConnectionRequestDirectConnectionRuntime.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestDirectConnectionRuntime` |
-**Connectivity** | [CreateConnectionRequestDirectConnectionRuntimeDict](docs/v2/Connectivity/models/CreateConnectionRequestDirectConnectionRuntimeDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestDirectConnectionRuntimeDict` |
 **Connectivity** | [CreateConnectionRequestJdbcConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestJdbcConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestJdbcConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestJdbcConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestJdbcConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestJdbcConnectionConfigurationDict` |
 **Connectivity** | [CreateConnectionRequestRestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestRestConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRestConnectionConfigurationDict` |
-**Connectivity** | [CreateConnectionRequestRuntimePlatform](docs/v2/Connectivity/models/CreateConnectionRequestRuntimePlatform.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRuntimePlatform` |
-**Connectivity** | [CreateConnectionRequestRuntimePlatformDict](docs/v2/Connectivity/models/CreateConnectionRequestRuntimePlatformDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestRuntimePlatformDict` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfiguration.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfigurationDict](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfigurationDict` |
 **Connectivity** | [CreateTableImportRequestJdbcImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestJdbcImportConfig` |
@@ -942,8 +930,6 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestPostgreSqlImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfigDict` |
-**Connectivity** | [DirectConnectionRuntime](docs/v2/Connectivity/models/DirectConnectionRuntime.md) | `from foundry.v2.connectivity.models import DirectConnectionRuntime` |
-**Connectivity** | [DirectConnectionRuntimeDict](docs/v2/Connectivity/models/DirectConnectionRuntimeDict.md) | `from foundry.v2.connectivity.models import DirectConnectionRuntimeDict` |
 **Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry.v2.connectivity.models import Domain` |
 **Connectivity** | [DomainDict](docs/v2/Connectivity/models/DomainDict.md) | `from foundry.v2.connectivity.models import DomainDict` |
 **Connectivity** | [EncryptedProperty](docs/v2/Connectivity/models/EncryptedProperty.md) | `from foundry.v2.connectivity.models import EncryptedProperty` |
@@ -988,7 +974,6 @@ Namespace | Name | Import |
 **Connectivity** | [MicrosoftAccessImportConfigDict](docs/v2/Connectivity/models/MicrosoftAccessImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfigDict` |
 **Connectivity** | [MicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfig` |
 **Connectivity** | [MicrosoftSqlServerImportConfigDict](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfigDict` |
-**Connectivity** | [NetworkEgressPolicyRid](docs/v2/Connectivity/models/NetworkEgressPolicyRid.md) | `from foundry.v2.connectivity.models import NetworkEgressPolicyRid` |
 **Connectivity** | [Oidc](docs/v2/Connectivity/models/Oidc.md) | `from foundry.v2.connectivity.models import Oidc` |
 **Connectivity** | [OidcDict](docs/v2/Connectivity/models/OidcDict.md) | `from foundry.v2.connectivity.models import OidcDict` |
 **Connectivity** | [OracleImportConfig](docs/v2/Connectivity/models/OracleImportConfig.md) | `from foundry.v2.connectivity.models import OracleImportConfig` |
@@ -1010,8 +995,6 @@ Namespace | Name | Import |
 **Connectivity** | [RestConnectionOAuth2Dict](docs/v2/Connectivity/models/RestConnectionOAuth2Dict.md) | `from foundry.v2.connectivity.models import RestConnectionOAuth2Dict` |
 **Connectivity** | [RestRequestApiKeyLocation](docs/v2/Connectivity/models/RestRequestApiKeyLocation.md) | `from foundry.v2.connectivity.models import RestRequestApiKeyLocation` |
 **Connectivity** | [RestRequestApiKeyLocationDict](docs/v2/Connectivity/models/RestRequestApiKeyLocationDict.md) | `from foundry.v2.connectivity.models import RestRequestApiKeyLocationDict` |
-**Connectivity** | [RuntimePlatform](docs/v2/Connectivity/models/RuntimePlatform.md) | `from foundry.v2.connectivity.models import RuntimePlatform` |
-**Connectivity** | [RuntimePlatformDict](docs/v2/Connectivity/models/RuntimePlatformDict.md) | `from foundry.v2.connectivity.models import RuntimePlatformDict` |
 **Connectivity** | [S3AuthenticationMode](docs/v2/Connectivity/models/S3AuthenticationMode.md) | `from foundry.v2.connectivity.models import S3AuthenticationMode` |
 **Connectivity** | [S3AuthenticationModeDict](docs/v2/Connectivity/models/S3AuthenticationModeDict.md) | `from foundry.v2.connectivity.models import S3AuthenticationModeDict` |
 **Connectivity** | [S3ConnectionConfiguration](docs/v2/Connectivity/models/S3ConnectionConfiguration.md) | `from foundry.v2.connectivity.models import S3ConnectionConfiguration` |
@@ -1100,6 +1083,8 @@ Namespace | Name | Import |
 **Core** | [FolderRid](docs/v2/Core/models/FolderRid.md) | `from foundry.v2.core.models import FolderRid` |
 **Core** | [FoundryLiveDeployment](docs/v2/Core/models/FoundryLiveDeployment.md) | `from foundry.v2.core.models import FoundryLiveDeployment` |
 **Core** | [FoundryLiveDeploymentDict](docs/v2/Core/models/FoundryLiveDeploymentDict.md) | `from foundry.v2.core.models import FoundryLiveDeploymentDict` |
+**Core** | [FullRowChangeDataCaptureConfiguration](docs/v2/Core/models/FullRowChangeDataCaptureConfiguration.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfiguration` |
+**Core** | [FullRowChangeDataCaptureConfigurationDict](docs/v2/Core/models/FullRowChangeDataCaptureConfigurationDict.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfigurationDict` |
 **Core** | [GeoPointType](docs/v2/Core/models/GeoPointType.md) | `from foundry.v2.core.models import GeoPointType` |
 **Core** | [GeoPointTypeDict](docs/v2/Core/models/GeoPointTypeDict.md) | `from foundry.v2.core.models import GeoPointTypeDict` |
 **Core** | [GeoShapeType](docs/v2/Core/models/GeoShapeType.md) | `from foundry.v2.core.models import GeoShapeType` |
@@ -1131,6 +1116,8 @@ Namespace | Name | Import |
 **Core** | [MediaSetRid](docs/v2/Core/models/MediaSetRid.md) | `from foundry.v2.core.models import MediaSetRid` |
 **Core** | [MediaSetViewItem](docs/v2/Core/models/MediaSetViewItem.md) | `from foundry.v2.core.models import MediaSetViewItem` |
 **Core** | [MediaSetViewItemDict](docs/v2/Core/models/MediaSetViewItemDict.md) | `from foundry.v2.core.models import MediaSetViewItemDict` |
+**Core** | [MediaSetViewItemWrapper](docs/v2/Core/models/MediaSetViewItemWrapper.md) | `from foundry.v2.core.models import MediaSetViewItemWrapper` |
+**Core** | [MediaSetViewItemWrapperDict](docs/v2/Core/models/MediaSetViewItemWrapperDict.md) | `from foundry.v2.core.models import MediaSetViewItemWrapperDict` |
 **Core** | [MediaSetViewRid](docs/v2/Core/models/MediaSetViewRid.md) | `from foundry.v2.core.models import MediaSetViewRid` |
 **Core** | [MediaType](docs/v2/Core/models/MediaType.md) | `from foundry.v2.core.models import MediaType` |
 **Core** | [NullType](docs/v2/Core/models/NullType.md) | `from foundry.v2.core.models import NullType` |
@@ -1336,7 +1323,11 @@ Namespace | Name | Import |
 **Functions** | [VersionIdDict](docs/v2/Functions/models/VersionIdDict.md) | `from foundry.v2.functions.models import VersionIdDict` |
 **Geo** | [BBox](docs/v2/Geo/models/BBox.md) | `from foundry.v2.geo.models import BBox` |
 **Geo** | [Coordinate](docs/v2/Geo/models/Coordinate.md) | `from foundry.v2.geo.models import Coordinate` |
+**Geo** | [GeoPoint](docs/v2/Geo/models/GeoPoint.md) | `from foundry.v2.geo.models import GeoPoint` |
+**Geo** | [GeoPointDict](docs/v2/Geo/models/GeoPointDict.md) | `from foundry.v2.geo.models import GeoPointDict` |
 **Geo** | [LinearRing](docs/v2/Geo/models/LinearRing.md) | `from foundry.v2.geo.models import LinearRing` |
+**Geo** | [Polygon](docs/v2/Geo/models/Polygon.md) | `from foundry.v2.geo.models import Polygon` |
+**Geo** | [PolygonDict](docs/v2/Geo/models/PolygonDict.md) | `from foundry.v2.geo.models import PolygonDict` |
 **Geo** | [Position](docs/v2/Geo/models/Position.md) | `from foundry.v2.geo.models import Position` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry.v2.media_sets.models import BranchRid` |
@@ -1432,6 +1423,8 @@ Namespace | Name | Import |
 **Ontologies** | [BatchApplyActionResponseV2](docs/v2/Ontologies/models/BatchApplyActionResponseV2.md) | `from foundry.v2.ontologies.models import BatchApplyActionResponseV2` |
 **Ontologies** | [BatchApplyActionResponseV2Dict](docs/v2/Ontologies/models/BatchApplyActionResponseV2Dict.md) | `from foundry.v2.ontologies.models import BatchApplyActionResponseV2Dict` |
 **Ontologies** | [BatchReturnEditsMode](docs/v2/Ontologies/models/BatchReturnEditsMode.md) | `from foundry.v2.ontologies.models import BatchReturnEditsMode` |
+**Ontologies** | [BlueprintIcon](docs/v2/Ontologies/models/BlueprintIcon.md) | `from foundry.v2.ontologies.models import BlueprintIcon` |
+**Ontologies** | [BlueprintIconDict](docs/v2/Ontologies/models/BlueprintIconDict.md) | `from foundry.v2.ontologies.models import BlueprintIconDict` |
 **Ontologies** | [BoundingBoxValue](docs/v2/Ontologies/models/BoundingBoxValue.md) | `from foundry.v2.ontologies.models import BoundingBoxValue` |
 **Ontologies** | [BoundingBoxValueDict](docs/v2/Ontologies/models/BoundingBoxValueDict.md) | `from foundry.v2.ontologies.models import BoundingBoxValueDict` |
 **Ontologies** | [CenterPoint](docs/v2/Ontologies/models/CenterPoint.md) | `from foundry.v2.ontologies.models import CenterPoint` |
@@ -2402,6 +2395,7 @@ Namespace | Name | Import |
 **AipAgents** | SessionExecutionFailed | `from foundry.v2.aip_agents.errors import SessionExecutionFailed` |
 **AipAgents** | SessionNotFound | `from foundry.v2.aip_agents.errors import SessionNotFound` |
 **AipAgents** | StreamingContinueSessionPermissionDenied | `from foundry.v2.aip_agents.errors import StreamingContinueSessionPermissionDenied` |
+**AipAgents** | UpdateSessionTitlePermissionDenied | `from foundry.v2.aip_agents.errors import UpdateSessionTitlePermissionDenied` |
 **Connectivity** | AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap | `from foundry.v2.connectivity.errors import AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap` |
 **Connectivity** | ChangingBranchNameNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingBranchNameNotSupportedForImports` |
 **Connectivity** | ChangingOutputDatasetNotSupportedForImports | `from foundry.v2.connectivity.errors import ChangingOutputDatasetNotSupportedForImports` |

@@ -1,6 +1,8 @@
+import typing
 import warnings
 
 import pytest
+import typing_extensions
 from pydantic import BaseModel
 from pydantic import ValidationError
 
@@ -9,6 +11,7 @@ from foundry._core.utils import UUID
 from foundry._core.utils import Long
 from foundry._core.utils import maybe_ignore_preview
 from foundry._core.utils import remove_prefixes
+from foundry._core.utils import resolve_forward_references
 
 
 def test_remove_prefixes():
@@ -109,3 +112,21 @@ def test_long_serializes_to_string():
         long: Long
 
     assert WithLong(long=123).model_dump_json() == '{"long":"123"}'
+
+
+def test_resolve_dict_forward_references():
+    A = typing.Dict[str, "B"]
+    B = str
+
+    assert A == typing.Dict[str, "B"]
+    resolve_forward_references(A, globals(), locals())
+    assert A == typing.Dict[str, str]
+
+
+def test_resolve_annotated_union_forward_references():
+    A = typing_extensions.Annotated[typing.Union["B", "C"], "Foo Bar"]
+    B = str
+    C = int
+
+    resolve_forward_references(A, globals(), locals())
+    assert A == typing_extensions.Annotated[typing.Union[str, int], "Foo Bar"]

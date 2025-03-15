@@ -1,14 +1,13 @@
-# Connection
+# PolygonDict
 
-Connection
+Polygon
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**rid** | ConnectionRid | Yes |  |
-**parent_folder_rid** | FolderRid | Yes |  |
-**display_name** | ConnectionDisplayName | Yes | The display name of the Connection. The display name must not be blank. |
-**configuration** | ConnectionConfiguration | Yes |  |
+**coordinates** | List[LinearRing] | Yes |  |
+**bbox** | NotRequired[BBox] | No |  |
+**type** | Literal["Polygon"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

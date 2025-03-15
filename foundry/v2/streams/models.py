@@ -21,6 +21,9 @@ import pydantic
 import typing_extensions
 
 from foundry import _core as core
+from foundry.v2.core import models as core_models
+from foundry.v2.datasets import models as datasets_models
+from foundry.v2.filesystem import models as filesystem_models
 
 Compressed = bool
 """
@@ -213,9 +216,7 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-from foundry.v2.core import models as core_models  # noqa: E402
-from foundry.v2.datasets import models as datasets_models  # noqa: E402
-from foundry.v2.filesystem import models as filesystem_models  # noqa: E402
+core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "Compressed",

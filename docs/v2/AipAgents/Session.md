@@ -10,6 +10,7 @@ Method | HTTP request | Release Stage |
 [**page**](#page) | **GET** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
 [**rag_context**](#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext | Public Beta |
 [**streaming_continue**](#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue | Public Beta |
+[**update_title**](#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle | Public Beta |
 
 # **blocking_continue**
 Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -579,6 +580,71 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | bytes  |  | application/octet-stream |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **update_title**
+Update the title for a session.
+Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**title** | str | The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
+# SessionRid | The Resource Identifier (RID) of the conversation session.
+session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
+# str | The new title for the session. The maximum title length is 200 characters. Titles are truncated if they exceed this length.
+title = "Order status 02/01"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = foundry_client.aip_agents.Agent.Session.update_title(
+        agent_rid,
+        session_rid,
+        title=title,
+        preview=preview,
+    )
+    print("The update_title response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling Session.update_title: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
