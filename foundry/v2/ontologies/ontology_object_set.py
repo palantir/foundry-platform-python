@@ -348,6 +348,230 @@ class OntologyObjectSetClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def load_multiple_object_types(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        select: typing.List[ontologies_models.SelectedPropertyApiName],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse:
+        """
+        Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting
+        objects may be scoped to an object type, in which all the selected properties on the object type are returned, or scoped
+        to an interface, in which only the object type properties that implement the properties of any interfaces in its
+        scope are returned. For objects that are scoped to an interface in the result, a mapping from interface to
+        object implementation is returned in order to interpret the objects as the interfaces that they implement.
+
+        For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+        are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+        Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+        will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param object_set:
+        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :param select:
+        :type select: List[SelectedPropertyApiName]
+        :param artifact_repository: The repository associated with a marketplace installation.
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+        :type exclude_rid: Optional[bool]
+        :param order_by:
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :param package_name: The package name of the generated SDK.
+        :type package_name: Optional[SdkPackageName]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
+                query_params={
+                    "artifactRepository": artifact_repository,
+                    "packageName": package_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "objectSet": object_set,
+                    "orderBy": order_by,
+                    "select": select,
+                    "pageToken": page_token,
+                    "pageSize": page_size,
+                    "excludeRid": exclude_rid,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "select": typing.List[ontologies_models.SelectedPropertyApiName],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "excludeRid": typing.Optional[bool],
+                    },
+                ),
+                response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def load_objects_or_interfaces(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        select: typing.List[ontologies_models.SelectedPropertyApiName],
+        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        exclude_rid: typing.Optional[bool] = None,
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse:
+        """
+        Load the ontology objects present in the `ObjectSet` from the provided object set definition. If the requested
+        object set contains interfaces and the object can be viewed as an interface, it will contain the properties
+        defined by the interface. If not, it will contain the properties defined by its object type. This allows directly
+        loading all objects of an interface where all objects are viewed as the interface, for example.
+
+        Note that the result object set cannot contain a mix of objects with "interface" properties and "object type"
+        properties. Attempting to load an object set like this will result in an error.
+
+        For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+        are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+        Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+        will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param object_set:
+        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :param select:
+        :type select: List[SelectedPropertyApiName]
+        :param artifact_repository: The repository associated with a marketplace installation.
+        :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+        :type exclude_rid: Optional[bool]
+        :param order_by:
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :param package_name: The package name of the generated SDK.
+        :type package_name: Optional[SdkPackageName]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
+                query_params={
+                    "artifactRepository": artifact_repository,
+                    "packageName": package_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "objectSet": object_set,
+                    "orderBy": order_by,
+                    "select": select,
+                    "pageToken": page_token,
+                    "pageSize": page_size,
+                    "excludeRid": exclude_rid,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "objectSet": typing.Union[
+                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "select": typing.List[ontologies_models.SelectedPropertyApiName],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "excludeRid": typing.Optional[bool],
+                    },
+                ),
+                response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OntologyObjectSetClientRaw:
     def __init__(self, client: OntologyObjectSetClient) -> None:
@@ -355,11 +579,23 @@ class _OntologyObjectSetClientRaw:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_multiple_object_types(
+            _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
+        ): ...
+        def load_objects_or_interfaces(
+            _: ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
+        ): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
         self.create_temporary = core.with_raw_response(create_temporary, client.create_temporary)
         self.get = core.with_raw_response(get, client.get)
         self.load = core.with_raw_response(load, client.load)
+        self.load_multiple_object_types = core.with_raw_response(
+            load_multiple_object_types, client.load_multiple_object_types
+        )
+        self.load_objects_or_interfaces = core.with_raw_response(
+            load_objects_or_interfaces, client.load_objects_or_interfaces
+        )
 
 
 class _OntologyObjectSetClientStreaming:
@@ -368,6 +604,12 @@ class _OntologyObjectSetClientStreaming:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_multiple_object_types(
+            _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
+        ): ...
+        def load_objects_or_interfaces(
+            _: ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
+        ): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
         self.create_temporary = core.with_streaming_response(
@@ -375,3 +617,9 @@ class _OntologyObjectSetClientStreaming:
         )
         self.get = core.with_streaming_response(get, client.get)
         self.load = core.with_streaming_response(load, client.load)
+        self.load_multiple_object_types = core.with_streaming_response(
+            load_multiple_object_types, client.load_multiple_object_types
+        )
+        self.load_objects_or_interfaces = core.with_streaming_response(
+            load_objects_or_interfaces, client.load_objects_or_interfaces
+        )

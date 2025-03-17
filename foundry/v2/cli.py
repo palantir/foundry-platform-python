@@ -5021,6 +5021,108 @@ def ontologies():
     pass
 
 
+@ontologies.group("time_series_value_bank_property")
+def ontologies_time_series_value_bank_property():
+    pass
+
+
+@ontologies_time_series_value_bank_property.command("get_latest_value")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property_name", type=str, required=True)
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_time_series_value_bank_property_get_latest_value(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property_name: str,
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
+):
+    """
+    Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.TimeSeriesValueBankProperty.get_latest_value(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property_name=property_name,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_time_series_value_bank_property.command("stream_values")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option("--range", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_time_series_value_bank_property_stream_values(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
+    range: typing.Optional[str],
+):
+    """
+    Stream all of the points of a time series property (this includes geotime series references).
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.TimeSeriesValueBankProperty.stream_values(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+        range=None if range is None else json.loads(range),
+    )
+    click.echo(result)
+
+
 @ontologies.group("time_series_property_v2")
 def ontologies_time_series_property_v2():
     pass
@@ -5401,6 +5503,170 @@ def ontologies_ontology_object_set_load(
         package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_set.command("load_multiple_object_types")
+@click.argument("ontology", type=str, required=True)
+@click.option("--object_set", type=str, required=True, help="""""")
+@click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `$rid` property.
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_set_load_multiple_object_types(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_set: str,
+    select: str,
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting
+    objects may be scoped to an object type, in which all the selected properties on the object type are returned, or scoped
+    to an interface, in which only the object type properties that implement the properties of any interfaces in its
+    scope are returned. For objects that are scoped to an interface in the result, a mapping from interface to
+    object implementation is returned in order to interpret the objects as the interfaces that they implement.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+    will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObjectSet.load_multiple_object_types(
+        ontology=ontology,
+        object_set=json.loads(object_set),
+        select=json.loads(select),
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=None if order_by is None else json.loads(order_by),
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_set.command("load_objects_or_interfaces")
+@click.argument("ontology", type=str, required=True)
+@click.option("--object_set", type=str, required=True, help="""""")
+@click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `$rid` property.
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_set_load_objects_or_interfaces(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_set: str,
+    select: str,
+    artifact_repository: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    package_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Load the ontology objects present in the `ObjectSet` from the provided object set definition. If the requested
+    object set contains interfaces and the object can be viewed as an interface, it will contain the properties
+    defined by the interface. If not, it will contain the properties defined by its object type. This allows directly
+    loading all objects of an interface where all objects are viewed as the interface, for example.
+
+    Note that the result object set cannot contain a mix of objects with "interface" properties and "object type"
+    properties. Attempting to load an object set like this will result in an error.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+    will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
+        ontology=ontology,
+        object_set=json.loads(object_set),
+        select=json.loads(select),
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=None if order_by is None else json.loads(order_by),
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6036,6 +6302,135 @@ def ontologies_ontology_interface_page(
     click.echo(repr(result))
 
 
+@ontologies_ontology_interface.command("search")
+@click.argument("ontology", type=str, required=True)
+@click.argument("interface_type", type=str, required=True)
+@click.option(
+    "--augmented_properties",
+    type=str,
+    required=True,
+    help="""A map from object type API name to a list of property type API names. For each returned object, if the 
+object’s object type is a key in the map, then we augment the response for that object type with the list 
+of properties specified in the value.
+""",
+)
+@click.option(
+    "--augmented_shared_property_types",
+    type=str,
+    required=True,
+    help="""A map from interface type API name to a list of shared property type API names. For each returned object, if
+the object implements an interface that is a key in the map, then we augment the response for that object 
+type with the list of properties specified in the value.
+""",
+)
+@click.option(
+    "--other_interface_types",
+    type=str,
+    required=True,
+    help="""A list of interface type API names. Object types must implement all the mentioned interfaces in order to be 
+included in the response.
+""",
+)
+@click.option(
+    "--selected_object_types",
+    type=str,
+    required=True,
+    help="""A list of object type API names that should be included in the response. If non-empty, object types that are
+not mentioned will not be included in the response even if they implement the specified interface. Omit the 
+parameter to include all object types.
+""",
+)
+@click.option(
+    "--selected_shared_property_types",
+    type=str,
+    required=True,
+    help="""A list of shared property type API names of the interface type that should be included in the response. 
+Omit this parameter to include all properties of the interface type in the response.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_ontology_interface_search(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    interface_type: str,
+    augmented_properties: str,
+    augmented_shared_property_types: str,
+    other_interface_types: str,
+    selected_object_types: str,
+    selected_shared_property_types: str,
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    :::callout{theme=warning title=Warning}
+      This endpoint will be removed once TS OSDK is updated to use `objectSets/loadObjects` with interface object
+      sets.
+    :::
+    :::callout{theme=warning title=Warning}
+      This endpoint is in preview and may be modified or removed at any time.
+      To use this endpoint, add `preview=true` to the request query parameters.
+    :::
+
+    Search for objects in the specified ontology and interface type. Any properties specified in the "where" or
+    "orderBy" parameters must be shared property type API names defined on the interface. The following search
+    queries are supported:
+
+    | Query type                              | Description                                                                                                       | Supported Types                 |
+    |-----------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
+    | lt                                      | The provided property is less than the provided value.                                                            | number, string, date, timestamp |
+    | gt                                      | The provided property is greater than the provided value.                                                         | number, string, date, timestamp |
+    | lte                                     | The provided property is less than or equal to the provided value.                                                | number, string, date, timestamp |
+    | gte                                     | The provided property is greater than or equal to the provided value.                                             | number, string, date, timestamp |
+    | eq                                      | The provided property is exactly equal to the provided value.                                                     | number, string, date, timestamp |
+    | isNull                                  | The provided property is (or is not) null.                                                                        | all                             |
+    | contains                                | The provided property contains the provided value.                                                                | array                           |
+    | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
+    | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
+    | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
+    | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
+    | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
+    | containsAllTermsInOrder                 | The provided property contains the provided terms as a substring.                                                 | string                          |
+    | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
+    | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
+
+    Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
+    Partial terms are not matched by terms filters except where explicitly noted.
+
+    Attempting to use an unsupported query will result in a validation error. Third-party applications using this
+    endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyInterface.search(
+        ontology=ontology,
+        interface_type=interface_type,
+        augmented_properties=json.loads(augmented_properties),
+        augmented_shared_property_types=json.loads(augmented_shared_property_types),
+        other_interface_types=json.loads(other_interface_types),
+        selected_object_types=json.loads(selected_object_types),
+        selected_shared_property_types=json.loads(selected_shared_property_types),
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("ontology")
 def ontologies_ontology():
     pass
@@ -6074,6 +6469,21 @@ def ontologies_ontology_get_full_metadata(
     result = client.ontologies.Ontology.get_full_metadata(
         ontology=ontology,
     )
+    click.echo(repr(result))
+
+
+@ontologies_ontology.command("list")
+@click.pass_obj
+def ontologies_ontology_list(
+    client: foundry.v2.FoundryClient,
+):
+    """
+    Lists the Ontologies visible to the current user.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.list()
     click.echo(repr(result))
 
 
@@ -6197,6 +6607,37 @@ def ontologies_ontology_object_type_get(
     result = client.ontologies.Ontology.ObjectType.get(
         ontology=ontology,
         object_type=object_type,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("get_full_metadata")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_get_full_metadata(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the full metadata for a specific object type with the given API name.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_full_metadata(
+        ontology=ontology,
+        object_type=object_type,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6388,6 +6829,28 @@ def ontologies_ontology_action_type_get(
     click.echo(repr(result))
 
 
+@ontologies_ontology_action_type.command("get_by_rid")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action_type_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_action_type_get_by_rid(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    action_type_rid: str,
+):
+    """
+    Gets a specific action type with the given RID.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Ontology.ActionType.get_by_rid(
+        ontology=ontology,
+        action_type_rid=action_type_rid,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
@@ -6454,6 +6917,168 @@ def ontologies_ontology_action_type_page(
         ontology=ontology,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies.group("media_reference_property")
+def ontologies_media_reference_property():
+    pass
+
+
+@ontologies_media_reference_property.command("get_media_content")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_media_reference_property_get_media_content(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the content of a media item referenced by this property.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.MediaReferenceProperty.get_media_content(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@ontologies_media_reference_property.command("get_media_metadata")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.option(
+    "--artifact_repository",
+    type=str,
+    required=False,
+    help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--package_name",
+    type=str,
+    required=False,
+    help="""The package name of the generated SDK.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_media_reference_property_get_media_metadata(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+    artifact_repository: typing.Optional[str],
+    package_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets metadata about the media item referenced by this property.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.MediaReferenceProperty.get_media_metadata(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+        artifact_repository=artifact_repository,
+        package_name=package_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_media_reference_property.command("upload")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=False,
+    help="""A path for the media item within its backing media set. Required if the backing media set requires paths.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_media_reference_property_upload(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    property: str,
+    body: io.BufferedReader,
+    media_item_path: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
+    The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+    """
+    result = client.ontologies.MediaReferenceProperty.upload(
+        ontology=ontology,
+        object_type=object_type,
+        property=property,
+        body=body.read(),
+        media_item_path=media_item_path,
+        preview=preview,
     )
     click.echo(repr(result))
 

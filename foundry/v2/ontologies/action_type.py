@@ -98,6 +98,53 @@ class ActionTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_rid(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        action_type_rid: ontologies_models.ActionTypeRid,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.ActionTypeV2:
+        """
+        Gets a specific action type with the given RID.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param action_type_rid: The RID of the action type.
+        :type action_type_rid: ActionTypeRid
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.ActionTypeV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/byRid/{actionTypeRid}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "actionTypeRid": action_type_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.ActionTypeV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -215,10 +262,12 @@ class ActionTypeClient:
 class _ActionTypeClientRaw:
     def __init__(self, client: ActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid(_: ontologies_models.ActionTypeV2): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
         def page(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_by_rid = core.with_raw_response(get_by_rid, client.get_by_rid)
         self.list = core.with_raw_response(list, client.list)
         self.page = core.with_raw_response(page, client.page)
 
@@ -226,9 +275,11 @@ class _ActionTypeClientRaw:
 class _ActionTypeClientStreaming:
     def __init__(self, client: ActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid(_: ontologies_models.ActionTypeV2): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
         def page(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_by_rid = core.with_streaming_response(get_by_rid, client.get_by_rid)
         self.list = core.with_streaming_response(list, client.list)
         self.page = core.with_streaming_response(page, client.page)

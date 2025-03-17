@@ -351,6 +351,171 @@ class OntologyInterfaceClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def search(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
+        *,
+        augmented_properties: typing.Dict[
+            ontologies_models.ObjectTypeApiName, typing.List[ontologies_models.PropertyApiName]
+        ],
+        augmented_shared_property_types: typing.Dict[
+            ontologies_models.InterfaceTypeApiName,
+            typing.List[ontologies_models.SharedPropertyTypeApiName],
+        ],
+        other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
+        selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
+        selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
+        order_by: typing.Optional[
+            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
+        ] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[
+            typing.Union[
+                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
+            ]
+        ] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.SearchObjectsResponseV2:
+        """
+        :::callout{theme=warning title=Warning}
+          This endpoint will be removed once TS OSDK is updated to use `objectSets/loadObjects` with interface object
+          sets.
+        :::
+        :::callout{theme=warning title=Warning}
+          This endpoint is in preview and may be modified or removed at any time.
+          To use this endpoint, add `preview=true` to the request query parameters.
+        :::
+
+        Search for objects in the specified ontology and interface type. Any properties specified in the "where" or
+        "orderBy" parameters must be shared property type API names defined on the interface. The following search
+        queries are supported:
+
+        | Query type                              | Description                                                                                                       | Supported Types                 |
+        |-----------------------------------------|-------------------------------------------------------------------------------------------------------------------|---------------------------------|
+        | lt                                      | The provided property is less than the provided value.                                                            | number, string, date, timestamp |
+        | gt                                      | The provided property is greater than the provided value.                                                         | number, string, date, timestamp |
+        | lte                                     | The provided property is less than or equal to the provided value.                                                | number, string, date, timestamp |
+        | gte                                     | The provided property is greater than or equal to the provided value.                                             | number, string, date, timestamp |
+        | eq                                      | The provided property is exactly equal to the provided value.                                                     | number, string, date, timestamp |
+        | isNull                                  | The provided property is (or is not) null.                                                                        | all                             |
+        | contains                                | The provided property contains the provided value.                                                                | array                           |
+        | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
+        | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
+        | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
+        | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
+        | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
+        | containsAllTermsInOrder                 | The provided property contains the provided terms as a substring.                                                 | string                          |
+        | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
+        | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
+
+        Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
+        Partial terms are not matched by terms filters except where explicitly noted.
+
+        Attempting to use an unsupported query will result in a validation error. Third-party applications using this
+        endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
+        :type interface_type: InterfaceTypeApiName
+        :param augmented_properties: A map from object type API name to a list of property type API names. For each returned object, if the  object’s object type is a key in the map, then we augment the response for that object type with the list  of properties specified in the value.
+        :type augmented_properties: Dict[ObjectTypeApiName, List[PropertyApiName]]
+        :param augmented_shared_property_types: A map from interface type API name to a list of shared property type API names. For each returned object, if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
+        :type augmented_shared_property_types: Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]]
+        :param other_interface_types: A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.
+        :type other_interface_types: List[InterfaceTypeApiName]
+        :param selected_object_types: A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.
+        :type selected_object_types: List[ObjectTypeApiName]
+        :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
+        :type selected_shared_property_types: List[SharedPropertyTypeApiName]
+        :param order_by:
+        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param where:
+        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.SearchObjectsResponseV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/search",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "interfaceType": interface_type,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "orderBy": order_by,
+                    "augmentedProperties": augmented_properties,
+                    "augmentedSharedPropertyTypes": augmented_shared_property_types,
+                    "selectedSharedPropertyTypes": selected_shared_property_types,
+                    "selectedObjectTypes": selected_object_types,
+                    "otherInterfaceTypes": other_interface_types,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchJsonQueryV2,
+                                ontologies_models.SearchJsonQueryV2Dict,
+                            ]
+                        ],
+                        "orderBy": typing.Optional[
+                            typing.Union[
+                                ontologies_models.SearchOrderByV2,
+                                ontologies_models.SearchOrderByV2Dict,
+                            ]
+                        ],
+                        "augmentedProperties": typing.Dict[
+                            ontologies_models.ObjectTypeApiName,
+                            typing.List[ontologies_models.PropertyApiName],
+                        ],
+                        "augmentedSharedPropertyTypes": typing.Dict[
+                            ontologies_models.InterfaceTypeApiName,
+                            typing.List[ontologies_models.SharedPropertyTypeApiName],
+                        ],
+                        "selectedSharedPropertyTypes": typing.List[
+                            ontologies_models.SharedPropertyTypeApiName
+                        ],
+                        "selectedObjectTypes": typing.List[ontologies_models.ObjectTypeApiName],
+                        "otherInterfaceTypes": typing.List[ontologies_models.InterfaceTypeApiName],
+                        "pageSize": typing.Optional[core_models.PageSize],
+                        "pageToken": typing.Optional[core_models.PageToken],
+                    },
+                ),
+                response_type=ontologies_models.SearchObjectsResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OntologyInterfaceClientRaw:
     def __init__(self, client: OntologyInterfaceClient) -> None:
@@ -358,11 +523,13 @@ class _OntologyInterfaceClientRaw:
         def get(_: ontologies_models.InterfaceType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
         def page(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
         self.page = core.with_raw_response(page, client.page)
+        self.search = core.with_raw_response(search, client.search)
 
 
 class _OntologyInterfaceClientStreaming:
@@ -371,8 +538,10 @@ class _OntologyInterfaceClientStreaming:
         def get(_: ontologies_models.InterfaceType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
         def page(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
         self.page = core.with_streaming_response(page, client.page)
+        self.search = core.with_streaming_response(search, client.search)
