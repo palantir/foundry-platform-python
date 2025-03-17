@@ -626,6 +626,7 @@ ResourceRolePrincipalDict = typing_extensions.Annotated[
 
 
 ResourceType = typing.Literal[
+    "AIP_ASSIST_WALKTHROUGH",
     "ARTIFACTS_REPOSITORY",
     "BELLASO_CIPHER_CHANNEL",
     "BLOBSTER_CODE",
@@ -646,6 +647,7 @@ ResourceType = typing.Literal[
     "FOUNDRY_ML_OBJECTIVE",
     "FOUNDRY_TEMPLATES_TEMPLATE",
     "FUSION_DOCUMENT",
+    "GPS_VIEW",
     "HUBBLE_EXPLORATION_LAYOUT",
     "MACHINERY_DOCUMENT",
     "MAGRITTE_AGENT",
