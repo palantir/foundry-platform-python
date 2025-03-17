@@ -4,6 +4,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 
 | **Value** |
 | --------- |
+| `"AIP_ASSIST_WALKTHROUGH"` |
 | `"ARTIFACTS_REPOSITORY"` |
 | `"BELLASO_CIPHER_CHANNEL"` |
 | `"BLOBSTER_CODE"` |
@@ -24,6 +25,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"FOUNDRY_ML_OBJECTIVE"` |
 | `"FOUNDRY_TEMPLATES_TEMPLATE"` |
 | `"FUSION_DOCUMENT"` |
+| `"GPS_VIEW"` |
 | `"HUBBLE_EXPLORATION_LAYOUT"` |
 | `"MACHINERY_DOCUMENT"` |
 | `"MAGRITTE_AGENT"` |
