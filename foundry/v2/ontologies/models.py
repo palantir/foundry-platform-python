@@ -2233,6 +2233,14 @@ class InterfaceSharedPropertyTypeDict(typing_extensions.TypedDict):
     """Whether each implementing object type must declare an implementation for this property."""
 
 
+InterfaceToObjectTypeMapping = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
+"""Represents an implementation of an interface (the mapping of interface property to local property)."""
+
+
+InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", InterfaceToObjectTypeMapping]
+"""Map from object type to the interface-to-object-type mapping for that object type."""
+
+
 class InterfaceType(pydantic.BaseModel):
     """Represents an interface type in the Ontology."""
 
@@ -2728,6 +2736,30 @@ class ListObjectsResponseV2Dict(typing_extensions.TypedDict):
     totalCount: core_models.TotalCount
 
 
+class ListOntologiesV2Response(pydantic.BaseModel):
+    """ListOntologiesV2Response"""
+
+    data: typing.List[OntologyV2]
+    """The list of Ontologies the user has access to."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "ListOntologiesV2ResponseDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            ListOntologiesV2ResponseDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class ListOntologiesV2ResponseDict(typing_extensions.TypedDict):
+    """ListOntologiesV2Response"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: typing.List[OntologyV2Dict]
+    """The list of Ontologies the user has access to."""
+
+
 class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
     """ListOutgoingLinkTypesResponseV2"""
 
@@ -2801,6 +2833,92 @@ class LoadObjectSetResponseV2Dict(typing_extensions.TypedDict):
 
     data: typing.List[OntologyObjectV2]
     """The list of objects in the current Page."""
+
+    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+    totalCount: core_models.TotalCount
+
+
+class LoadObjectSetV2MultipleObjectTypesResponse(pydantic.BaseModel):
+    """
+    Represents the API response when loading an `ObjectSet`. An `interfaceToObjectTypeMappings` field is
+    optionally returned if the type scope of the returned object set includes any interfaces. The "type scope"
+    of an object set refers to whether objects contain all their properties (object-type type scope) or just the
+    properties that implement interface properties (interface type scope). There can be multiple type scopes in a
+    single object set- some objects may have all their properties and some may only have interface properties.
+
+    The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to
+    `PropertyApiName` for properties on the object(s).
+    """
+
+    data: typing.List[OntologyObjectV2]
+    """The list of objects in the current page."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "LoadObjectSetV2MultipleObjectTypesResponseDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            LoadObjectSetV2MultipleObjectTypesResponseDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class LoadObjectSetV2MultipleObjectTypesResponseDict(typing_extensions.TypedDict):
+    """
+    Represents the API response when loading an `ObjectSet`. An `interfaceToObjectTypeMappings` field is
+    optionally returned if the type scope of the returned object set includes any interfaces. The "type scope"
+    of an object set refers to whether objects contain all their properties (object-type type scope) or just the
+    properties that implement interface properties (interface type scope). There can be multiple type scopes in a
+    single object set- some objects may have all their properties and some may only have interface properties.
+
+    The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to
+    `PropertyApiName` for properties on the object(s).
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: typing.List[OntologyObjectV2]
+    """The list of objects in the current page."""
+
+    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+    totalCount: core_models.TotalCount
+    interfaceToObjectTypeMappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings]
+
+
+class LoadObjectSetV2ObjectsOrInterfacesResponse(pydantic.BaseModel):
+    """
+    Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties
+    defined by an interface that the objects belong to or properties defined by the object type of the object.
+    """
+
+    data: typing.List[OntologyObjectV2]
+    """The list of objects in the current page."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "LoadObjectSetV2ObjectsOrInterfacesResponseDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            LoadObjectSetV2ObjectsOrInterfacesResponseDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class LoadObjectSetV2ObjectsOrInterfacesResponseDict(typing_extensions.TypedDict):
+    """
+    Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties
+    defined by an interface that the objects belong to or properties defined by the object type of the object.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    data: typing.List[OntologyObjectV2]
+    """The list of objects in the current page."""
 
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
     totalCount: core_models.TotalCount
@@ -2923,6 +3041,29 @@ class MaxAggregationV2Dict(typing_extensions.TypedDict):
     name: typing_extensions.NotRequired[AggregationMetricName]
     direction: typing_extensions.NotRequired[OrderByDirection]
     type: typing.Literal["max"]
+
+
+class MediaMetadata(pydantic.BaseModel):
+    """MediaMetadata"""
+
+    path: typing.Optional[core_models.MediaItemPath] = None
+    size_bytes: core_models.SizeBytes = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
+    media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "MediaMetadataDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(MediaMetadataDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class MediaMetadataDict(typing_extensions.TypedDict):
+    """MediaMetadata"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+    sizeBytes: core_models.SizeBytes
+    mediaType: core_models.MediaType
 
 
 class MinAggregationV2(pydantic.BaseModel):
@@ -6240,6 +6381,34 @@ TimeUnit = typing.Literal[
 """TimeUnit"""
 
 
+class TimeseriesEntry(pydantic.BaseModel):
+    """A time and value pair."""
+
+    time: datetime
+    """An ISO 8601 timestamp"""
+
+    value: typing.Any
+    """An object which is either an enum String, double number, or a geopoint."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "TimeseriesEntryDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(TimeseriesEntryDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class TimeseriesEntryDict(typing_extensions.TypedDict):
+    """A time and value pair."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    time: datetime
+    """An ISO 8601 timestamp"""
+
+    value: typing.Any
+    """An object which is either an enum String, double number, or a geopoint."""
+
+
 class TwoDimensionalAggregation(pydantic.BaseModel):
     """TwoDimensionalAggregation"""
 
@@ -6518,6 +6687,8 @@ core.resolve_forward_references(
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiNameDict, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
+core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRuleDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
@@ -6747,6 +6918,8 @@ __all__ = [
     "InterfaceLinkTypeRid",
     "InterfaceSharedPropertyType",
     "InterfaceSharedPropertyTypeDict",
+    "InterfaceToObjectTypeMapping",
+    "InterfaceToObjectTypeMappings",
     "InterfaceType",
     "InterfaceTypeApiName",
     "InterfaceTypeDict",
@@ -6782,12 +6955,18 @@ __all__ = [
     "ListObjectTypesV2ResponseDict",
     "ListObjectsResponseV2",
     "ListObjectsResponseV2Dict",
+    "ListOntologiesV2Response",
+    "ListOntologiesV2ResponseDict",
     "ListOutgoingLinkTypesResponseV2",
     "ListOutgoingLinkTypesResponseV2Dict",
     "ListQueryTypesResponseV2",
     "ListQueryTypesResponseV2Dict",
     "LoadObjectSetResponseV2",
     "LoadObjectSetResponseV2Dict",
+    "LoadObjectSetV2MultipleObjectTypesResponse",
+    "LoadObjectSetV2MultipleObjectTypesResponseDict",
+    "LoadObjectSetV2ObjectsOrInterfacesResponse",
+    "LoadObjectSetV2ObjectsOrInterfacesResponseDict",
     "LogicRule",
     "LogicRuleDict",
     "LtQueryV2",
@@ -6796,6 +6975,8 @@ __all__ = [
     "LteQueryV2Dict",
     "MaxAggregationV2",
     "MaxAggregationV2Dict",
+    "MediaMetadata",
+    "MediaMetadataDict",
     "MethodObjectSet",
     "MethodObjectSetDict",
     "MinAggregationV2",
@@ -7051,6 +7232,8 @@ __all__ = [
     "TimeSeriesRollingAggregateWindowDict",
     "TimeSeriesWindowType",
     "TimeUnit",
+    "TimeseriesEntry",
+    "TimeseriesEntryDict",
     "TwoDimensionalAggregation",
     "TwoDimensionalAggregationDict",
     "UnevaluableConstraint",

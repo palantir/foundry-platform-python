@@ -98,6 +98,58 @@ class ObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_full_metadata(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.ObjectTypeFullMetadata:
+        """
+        Gets the full metadata for a specific object type with the given API name.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
+        :type object_type: ObjectTypeApiName
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.ObjectTypeFullMetadata
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.ObjectTypeFullMetadata,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_outgoing_link_type(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -389,6 +441,7 @@ class ObjectTypeClient:
 class _ObjectTypeClientRaw:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
@@ -396,6 +449,7 @@ class _ObjectTypeClientRaw:
         def page_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
         self.get_outgoing_link_type = core.with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
         )
@@ -412,6 +466,7 @@ class _ObjectTypeClientRaw:
 class _ObjectTypeClientStreaming:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
@@ -419,6 +474,9 @@ class _ObjectTypeClientStreaming:
         def page_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_full_metadata = core.with_streaming_response(
+            get_full_metadata, client.get_full_metadata
+        )
         self.get_outgoing_link_type = core.with_streaming_response(
             get_outgoing_link_type, client.get_outgoing_link_type
         )

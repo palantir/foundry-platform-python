@@ -161,22 +161,64 @@ class OntologyClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list(
+        self,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.ListOntologiesV2Response:
+        """
+        Lists the Ontologies visible to the current user.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.ListOntologiesV2Response
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies",
+                query_params={},
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.ListOntologiesV2Response,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OntologyClientRaw:
     def __init__(self, client: OntologyClient) -> None:
         def get(_: ontologies_models.OntologyV2): ...
         def get_full_metadata(_: ontologies_models.OntologyFullMetadata): ...
+        def list(_: ontologies_models.ListOntologiesV2Response): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
+        self.list = core.with_raw_response(list, client.list)
 
 
 class _OntologyClientStreaming:
     def __init__(self, client: OntologyClient) -> None:
         def get(_: ontologies_models.OntologyV2): ...
         def get_full_metadata(_: ontologies_models.OntologyFullMetadata): ...
+        def list(_: ontologies_models.ListOntologiesV2Response): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_full_metadata = core.with_streaming_response(
             get_full_metadata, client.get_full_metadata
         )
+        self.list = core.with_streaming_response(list, client.list)

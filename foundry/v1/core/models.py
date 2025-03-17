@@ -132,6 +132,14 @@ class CipherTextTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["cipherText"]
 
 
+ContentLength = core.Long
+"""ContentLength"""
+
+
+ContentType = str
+"""ContentType"""
+
+
 class DateType(pydantic.BaseModel):
     """DateType"""
 
@@ -223,6 +231,10 @@ FilePath = str
 """The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
+Filename = str
+"""The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
+
+
 class FloatType(pydantic.BaseModel):
     """FloatType"""
 
@@ -303,6 +315,13 @@ class MarkingTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["marking"]
 
 
+MediaType = str
+"""
+The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
+Examples: `application/json`, `application/pdf`, `application/octet-stream`, `image/jpeg`
+"""
+
+
 class NullTypeDict(typing_extensions.TypedDict):
     """NullType"""
 
@@ -352,6 +371,10 @@ class ShortTypeDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     type: typing.Literal["short"]
+
+
+SizeBytes = core.Long
+"""The size of the file or attachment in bytes."""
 
 
 class StringType(pydantic.BaseModel):
@@ -433,6 +456,8 @@ __all__ = [
     "ByteTypeDict",
     "CipherTextType",
     "CipherTextTypeDict",
+    "ContentLength",
+    "ContentType",
     "DateType",
     "DateTypeDict",
     "DecimalType",
@@ -442,6 +467,7 @@ __all__ = [
     "DoubleType",
     "DoubleTypeDict",
     "FilePath",
+    "Filename",
     "FloatType",
     "FloatTypeDict",
     "FolderRid",
@@ -451,6 +477,7 @@ __all__ = [
     "LongTypeDict",
     "MarkingType",
     "MarkingTypeDict",
+    "MediaType",
     "NullTypeDict",
     "OperationScope",
     "PageSize",
@@ -459,6 +486,7 @@ __all__ = [
     "ReleaseStatus",
     "ShortType",
     "ShortTypeDict",
+    "SizeBytes",
     "StringType",
     "StringTypeDict",
     "StructFieldName",

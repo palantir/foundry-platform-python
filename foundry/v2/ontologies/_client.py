@@ -79,6 +79,18 @@ class OntologiesClient:
         )
 
     @cached_property
+    def MediaReferenceProperty(self):
+        from foundry.v2.ontologies.media_reference_property import (
+            MediaReferencePropertyClient,
+        )  # NOQA
+
+        return MediaReferencePropertyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Ontology(self):
         from foundry.v2.ontologies.ontology import OntologyClient
 
@@ -133,6 +145,18 @@ class OntologiesClient:
         from foundry.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client  # NOQA
 
         return TimeSeriesPropertyV2Client(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def TimeSeriesValueBankProperty(self):
+        from foundry.v2.ontologies.time_series_value_bank_property import (
+            TimeSeriesValueBankPropertyClient,
+        )  # NOQA
+
+        return TimeSeriesValueBankPropertyClient(
             auth=self._auth,
             hostname=self._hostname,
             config=self._config,

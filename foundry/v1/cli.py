@@ -1848,6 +1848,93 @@ def ontologies_ontology_action_type_page(
     click.echo(repr(result))
 
 
+@ontologies.group("attachment")
+def ontologies_attachment():
+    pass
+
+
+@ontologies_attachment.command("get")
+@click.argument("attachment_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_attachment_get(
+    client: foundry.v1.FoundryClient,
+    attachment_rid: str,
+):
+    """
+    Get the metadata of an attachment.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Attachment.get(
+        attachment_rid=attachment_rid,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_attachment.command("read")
+@click.argument("attachment_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_attachment_read(
+    client: foundry.v1.FoundryClient,
+    attachment_rid: str,
+):
+    """
+    Get the content of an attachment.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.Attachment.read(
+        attachment_rid=attachment_rid,
+    )
+    click.echo(result)
+
+
+@ontologies_attachment.command("upload")
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option(
+    "--content_length",
+    type=int,
+    required=True,
+    help="""The size in bytes of the file content being uploaded.""",
+)
+@click.option(
+    "--content_type", type=str, required=True, help="""The media type of the file being uploaded."""
+)
+@click.option(
+    "--filename", type=str, required=True, help="""The name of the file being uploaded."""
+)
+@click.pass_obj
+def ontologies_attachment_upload(
+    client: foundry.v1.FoundryClient,
+    body: io.BufferedReader,
+    content_length: int,
+    content_type: str,
+    filename: str,
+):
+    """
+    Upload an attachment to use in an action. Any attachment which has not been linked to an object via
+    an action within one hour after upload will be removed.
+    Previously mapped attachments which are not connected to any object anymore are also removed on
+    a biweekly basis.
+    The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-write`.
+
+    """
+    result = client.ontologies.Attachment.upload(
+        body=body.read(),
+        content_length=content_length,
+        content_type=content_type,
+        filename=filename,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("action")
 def ontologies_action():
     pass

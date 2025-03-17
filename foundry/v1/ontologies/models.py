@@ -576,6 +576,31 @@ ArtifactRepositoryRid = core.RID
 """ArtifactRepositoryRid"""
 
 
+class Attachment(pydantic.BaseModel):
+    """The representation of an attachment."""
+
+    rid: AttachmentRid
+    filename: core_models.Filename
+    size_bytes: core_models.SizeBytes = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
+    media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "AttachmentDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(AttachmentDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class AttachmentDict(typing_extensions.TypedDict):
+    """The representation of an attachment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    rid: AttachmentRid
+    filename: core_models.Filename
+    sizeBytes: core_models.SizeBytes
+    mediaType: core_models.MediaType
+
+
 AttachmentRid = core.RID
 """The unique resource identifier of an attachment."""
 
@@ -2881,6 +2906,8 @@ __all__ = [
     "ArraySizeConstraint",
     "ArraySizeConstraintDict",
     "ArtifactRepositoryRid",
+    "Attachment",
+    "AttachmentDict",
     "AttachmentRid",
     "AvgAggregation",
     "AvgAggregationDict",

@@ -6,6 +6,8 @@ Method | HTTP request | Release Stage |
 [**create_temporary**](#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary | Public Beta |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectSets/{objectSetRid} | Private Beta |
 [**load**](#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects | Stable |
+[**load_multiple_object_types**](#load_multiple_object_types) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes | Public Beta |
+[**load_objects_or_interfaces**](#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces | Public Beta |
 
 # **aggregate**
 Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.        
@@ -290,6 +292,208 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | LoadObjectSetResponseV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **load_multiple_object_types**
+Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting 
+objects may be scoped to an object type, in which all the selected properties on the object type are returned, or scoped 
+to an interface, in which only the object type properties that implement the properties of any interfaces in its 
+scope are returned. For objects that are scoped to an interface in the result, a mapping from interface to 
+object implementation is returned in order to interpret the objects as the interfaces that they implement.
+
+For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**select** | List[SelectedPropertyApiName] |  |  |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**LoadObjectSetV2MultipleObjectTypesResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# Union[ObjectSet, ObjectSetDict]
+object_set = {"type": "base", "objectType": "Employee"}
+# List[SelectedPropertyApiName]
+select = None
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
+artifact_repository = None
+# Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+exclude_rid = None
+# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+order_by = None
+# Optional[SdkPackageName] | The package name of the generated SDK.
+package_name = None
+# Optional[PageSize]
+page_size = 10000
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = foundry_client.ontologies.OntologyObjectSet.load_multiple_object_types(
+        ontology,
+        object_set=object_set,
+        select=select,
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The load_multiple_object_types response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling OntologyObjectSet.load_multiple_object_types: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | LoadObjectSetV2MultipleObjectTypesResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **load_objects_or_interfaces**
+Load the ontology objects present in the `ObjectSet` from the provided object set definition. If the requested 
+object set contains interfaces and the object can be viewed as an interface, it will contain the properties 
+defined by the interface. If not, it will contain the properties defined by its object type. This allows directly
+loading all objects of an interface where all objects are viewed as the interface, for example.
+
+Note that the result object set cannot contain a mix of objects with "interface" properties and "object type"
+properties. Attempting to load an object set like this will result in an error.
+
+For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
+will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**select** | List[SelectedPropertyApiName] |  |  |
+**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**LoadObjectSetV2ObjectsOrInterfacesResponse**
+
+### Example
+
+```python
+from foundry.v2 import FoundryClient
+import foundry
+from pprint import pprint
+
+foundry_client = FoundryClient(
+    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
+)
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# Union[ObjectSet, ObjectSetDict]
+object_set = {"type": "base", "interfaceBase": "Person"}
+# List[SelectedPropertyApiName]
+select = None
+# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
+artifact_repository = None
+# Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
+exclude_rid = None
+# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+order_by = None
+# Optional[SdkPackageName] | The package name of the generated SDK.
+package_name = None
+# Optional[PageSize]
+page_size = 10000
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = foundry_client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
+        ontology,
+        object_set=object_set,
+        select=select,
+        artifact_repository=artifact_repository,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        package_name=package_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    print("The load_objects_or_interfaces response:\n")
+    pprint(api_response)
+except foundry.PalantirRPCException as e:
+    print("HTTP error when calling OntologyObjectSet.load_objects_or_interfaces: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | LoadObjectSetV2ObjectsOrInterfacesResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

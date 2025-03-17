@@ -34,6 +34,12 @@ def test_ontologies_v1_action_type_import():
     assert ActionTypeClient is not None
 
 
+def test_ontologies_v1_attachment_import():
+    from foundry.v1.ontologies.attachment import AttachmentClient
+
+    assert AttachmentClient is not None
+
+
 def test_ontologies_v1_object_type_import():
     from foundry.v1.ontologies.object_type import ObjectTypeClient
 
@@ -298,6 +304,12 @@ def test_ontologies_v2_linked_object_import():
     assert LinkedObjectClient is not None
 
 
+def test_ontologies_v2_media_reference_property_import():
+    from foundry.v2.ontologies.media_reference_property import MediaReferencePropertyClient  # NOQA
+
+    assert MediaReferencePropertyClient is not None
+
+
 def test_ontologies_v2_object_type_import():
     from foundry.v2.ontologies.object_type import ObjectTypeClient
 
@@ -344,6 +356,14 @@ def test_ontologies_v2_time_series_property_v2_import():
     from foundry.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client
 
     assert TimeSeriesPropertyV2Client is not None
+
+
+def test_ontologies_v2_time_series_value_bank_property_import():
+    from foundry.v2.ontologies.time_series_value_bank_property import (
+        TimeSeriesValueBankPropertyClient,
+    )  # NOQA
+
+    assert TimeSeriesValueBankPropertyClient is not None
 
 
 def test_orchestration_v2_build_import():

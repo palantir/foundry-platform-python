@@ -594,6 +594,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | Action | [**apply**](docs/v2/Ontologies/Action.md#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply |
 **Ontologies** | Action | [**apply_batch**](docs/v2/Ontologies/Action.md#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch |
 **Ontologies** | ActionType | [**get**](docs/v2/Ontologies/ActionType.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
+**Ontologies** | ActionType | [**get_by_rid**](docs/v2/Ontologies/ActionType.md#get_by_rid) | **GET** /v2/ontologies/{ontology}/actionTypes/byRid/{actionTypeRid} |
 **Ontologies** | ActionType | [**list**](docs/v2/Ontologies/ActionType.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **Ontologies** | ActionType | [**page**](docs/v2/Ontologies/ActionType.md#page) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **Ontologies** | Attachment | [**get**](docs/v2/Ontologies/Attachment.md#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
@@ -606,6 +607,8 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | LinkedObject | [**get_linked_object**](docs/v2/Ontologies/LinkedObject.md#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
 **Ontologies** | LinkedObject | [**list_linked_objects**](docs/v2/Ontologies/LinkedObject.md#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
 **Ontologies** | LinkedObject | [**page_linked_objects**](docs/v2/Ontologies/LinkedObject.md#page_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
+**Ontologies** | MediaReferenceProperty | [**get_media_content**](docs/v2/Ontologies/MediaReferenceProperty.md#get_media_content) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content |
+**Ontologies** | MediaReferenceProperty | [**upload**](docs/v2/Ontologies/MediaReferenceProperty.md#upload) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/media/{property}/upload |
 **Ontologies** | ObjectType | [**get**](docs/v2/Ontologies/ObjectType.md#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} |
 **Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/v2/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
 **Ontologies** | ObjectType | [**list**](docs/v2/Ontologies/ObjectType.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
@@ -614,6 +617,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | ObjectType | [**page_outgoing_link_types**](docs/v2/Ontologies/ObjectType.md#page_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
 **Ontologies** | Ontology | [**get**](docs/v2/Ontologies/Ontology.md#get) | **GET** /v2/ontologies/{ontology} |
 **Ontologies** | Ontology | [**get_full_metadata**](docs/v2/Ontologies/Ontology.md#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata |
+**Ontologies** | Ontology | [**list**](docs/v2/Ontologies/Ontology.md#list) | **GET** /v2/ontologies |
 **Ontologies** | OntologyInterface | [**get**](docs/v2/Ontologies/OntologyInterface.md#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} |
 **Ontologies** | OntologyInterface | [**list**](docs/v2/Ontologies/OntologyInterface.md#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
 **Ontologies** | OntologyInterface | [**page**](docs/v2/Ontologies/OntologyInterface.md#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes |
@@ -625,6 +629,8 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | OntologyObjectSet | [**aggregate**](docs/v2/Ontologies/OntologyObjectSet.md#aggregate) | **POST** /v2/ontologies/{ontology}/objectSets/aggregate |
 **Ontologies** | OntologyObjectSet | [**create_temporary**](docs/v2/Ontologies/OntologyObjectSet.md#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary |
 **Ontologies** | OntologyObjectSet | [**load**](docs/v2/Ontologies/OntologyObjectSet.md#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
+**Ontologies** | OntologyObjectSet | [**load_multiple_object_types**](docs/v2/Ontologies/OntologyObjectSet.md#load_multiple_object_types) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes |
+**Ontologies** | OntologyObjectSet | [**load_objects_or_interfaces**](docs/v2/Ontologies/OntologyObjectSet.md#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces |
 **Ontologies** | Query | [**execute**](docs/v2/Ontologies/Query.md#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
 **Ontologies** | QueryType | [**get**](docs/v2/Ontologies/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
 **Ontologies** | QueryType | [**list**](docs/v2/Ontologies/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
@@ -632,6 +638,8 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | TimeSeriesPropertyV2 | [**get_first_point**](docs/v2/Ontologies/TimeSeriesPropertyV2.md#get_first_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint |
 **Ontologies** | TimeSeriesPropertyV2 | [**get_last_point**](docs/v2/Ontologies/TimeSeriesPropertyV2.md#get_last_point) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint |
 **Ontologies** | TimeSeriesPropertyV2 | [**stream_points**](docs/v2/Ontologies/TimeSeriesPropertyV2.md#stream_points) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints |
+**Ontologies** | TimeSeriesValueBankProperty | [**get_latest_value**](docs/v2/Ontologies/TimeSeriesValueBankProperty.md#get_latest_value) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{propertyName}/latestValue |
+**Ontologies** | TimeSeriesValueBankProperty | [**stream_values**](docs/v2/Ontologies/TimeSeriesValueBankProperty.md#stream_values) | **POST** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamValues |
 **Orchestration** | Build | [**cancel**](docs/v2/Orchestration/Build.md#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel |
 **Orchestration** | Build | [**create**](docs/v2/Orchestration/Build.md#create) | **POST** /v2/orchestration/builds/create |
 **Orchestration** | Build | [**get**](docs/v2/Orchestration/Build.md#get) | **GET** /v2/orchestration/builds/{buildRid} |
@@ -695,6 +703,9 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | ActionType | [**get**](docs/v1/Ontologies/ActionType.md#get) | **GET** /v1/ontologies/{ontologyRid}/actionTypes/{actionTypeApiName} |
 **Ontologies** | ActionType | [**list**](docs/v1/Ontologies/ActionType.md#list) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
 **Ontologies** | ActionType | [**page**](docs/v1/Ontologies/ActionType.md#page) | **GET** /v1/ontologies/{ontologyRid}/actionTypes |
+**Ontologies** | Attachment | [**get**](docs/v1/Ontologies/Attachment.md#get) | **GET** /v1/attachments/{attachmentRid} |
+**Ontologies** | Attachment | [**read**](docs/v1/Ontologies/Attachment.md#read) | **GET** /v1/attachments/{attachmentRid}/content |
+**Ontologies** | Attachment | [**upload**](docs/v1/Ontologies/Attachment.md#upload) | **POST** /v1/attachments/upload |
 **Ontologies** | ObjectType | [**get**](docs/v1/Ontologies/ObjectType.md#get) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType} |
 **Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/v1/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v1/ontologies/{ontologyRid}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
 **Ontologies** | ObjectType | [**list**](docs/v1/Ontologies/ObjectType.md#list) | **GET** /v1/ontologies/{ontologyRid}/objectTypes |
@@ -1519,6 +1530,8 @@ Namespace | Name | Import |
 **Ontologies** | [InterfaceLinkTypeRid](docs/v2/Ontologies/models/InterfaceLinkTypeRid.md) | `from foundry.v2.ontologies.models import InterfaceLinkTypeRid` |
 **Ontologies** | [InterfaceSharedPropertyType](docs/v2/Ontologies/models/InterfaceSharedPropertyType.md) | `from foundry.v2.ontologies.models import InterfaceSharedPropertyType` |
 **Ontologies** | [InterfaceSharedPropertyTypeDict](docs/v2/Ontologies/models/InterfaceSharedPropertyTypeDict.md) | `from foundry.v2.ontologies.models import InterfaceSharedPropertyTypeDict` |
+**Ontologies** | [InterfaceToObjectTypeMapping](docs/v2/Ontologies/models/InterfaceToObjectTypeMapping.md) | `from foundry.v2.ontologies.models import InterfaceToObjectTypeMapping` |
+**Ontologies** | [InterfaceToObjectTypeMappings](docs/v2/Ontologies/models/InterfaceToObjectTypeMappings.md) | `from foundry.v2.ontologies.models import InterfaceToObjectTypeMappings` |
 **Ontologies** | [InterfaceType](docs/v2/Ontologies/models/InterfaceType.md) | `from foundry.v2.ontologies.models import InterfaceType` |
 **Ontologies** | [InterfaceTypeApiName](docs/v2/Ontologies/models/InterfaceTypeApiName.md) | `from foundry.v2.ontologies.models import InterfaceTypeApiName` |
 **Ontologies** | [InterfaceTypeDict](docs/v2/Ontologies/models/InterfaceTypeDict.md) | `from foundry.v2.ontologies.models import InterfaceTypeDict` |
@@ -1554,12 +1567,18 @@ Namespace | Name | Import |
 **Ontologies** | [ListObjectsResponseV2Dict](docs/v2/Ontologies/models/ListObjectsResponseV2Dict.md) | `from foundry.v2.ontologies.models import ListObjectsResponseV2Dict` |
 **Ontologies** | [ListObjectTypesV2Response](docs/v2/Ontologies/models/ListObjectTypesV2Response.md) | `from foundry.v2.ontologies.models import ListObjectTypesV2Response` |
 **Ontologies** | [ListObjectTypesV2ResponseDict](docs/v2/Ontologies/models/ListObjectTypesV2ResponseDict.md) | `from foundry.v2.ontologies.models import ListObjectTypesV2ResponseDict` |
+**Ontologies** | [ListOntologiesV2Response](docs/v2/Ontologies/models/ListOntologiesV2Response.md) | `from foundry.v2.ontologies.models import ListOntologiesV2Response` |
+**Ontologies** | [ListOntologiesV2ResponseDict](docs/v2/Ontologies/models/ListOntologiesV2ResponseDict.md) | `from foundry.v2.ontologies.models import ListOntologiesV2ResponseDict` |
 **Ontologies** | [ListOutgoingLinkTypesResponseV2](docs/v2/Ontologies/models/ListOutgoingLinkTypesResponseV2.md) | `from foundry.v2.ontologies.models import ListOutgoingLinkTypesResponseV2` |
 **Ontologies** | [ListOutgoingLinkTypesResponseV2Dict](docs/v2/Ontologies/models/ListOutgoingLinkTypesResponseV2Dict.md) | `from foundry.v2.ontologies.models import ListOutgoingLinkTypesResponseV2Dict` |
 **Ontologies** | [ListQueryTypesResponseV2](docs/v2/Ontologies/models/ListQueryTypesResponseV2.md) | `from foundry.v2.ontologies.models import ListQueryTypesResponseV2` |
 **Ontologies** | [ListQueryTypesResponseV2Dict](docs/v2/Ontologies/models/ListQueryTypesResponseV2Dict.md) | `from foundry.v2.ontologies.models import ListQueryTypesResponseV2Dict` |
 **Ontologies** | [LoadObjectSetResponseV2](docs/v2/Ontologies/models/LoadObjectSetResponseV2.md) | `from foundry.v2.ontologies.models import LoadObjectSetResponseV2` |
 **Ontologies** | [LoadObjectSetResponseV2Dict](docs/v2/Ontologies/models/LoadObjectSetResponseV2Dict.md) | `from foundry.v2.ontologies.models import LoadObjectSetResponseV2Dict` |
+**Ontologies** | [LoadObjectSetV2MultipleObjectTypesResponse](docs/v2/Ontologies/models/LoadObjectSetV2MultipleObjectTypesResponse.md) | `from foundry.v2.ontologies.models import LoadObjectSetV2MultipleObjectTypesResponse` |
+**Ontologies** | [LoadObjectSetV2MultipleObjectTypesResponseDict](docs/v2/Ontologies/models/LoadObjectSetV2MultipleObjectTypesResponseDict.md) | `from foundry.v2.ontologies.models import LoadObjectSetV2MultipleObjectTypesResponseDict` |
+**Ontologies** | [LoadObjectSetV2ObjectsOrInterfacesResponse](docs/v2/Ontologies/models/LoadObjectSetV2ObjectsOrInterfacesResponse.md) | `from foundry.v2.ontologies.models import LoadObjectSetV2ObjectsOrInterfacesResponse` |
+**Ontologies** | [LoadObjectSetV2ObjectsOrInterfacesResponseDict](docs/v2/Ontologies/models/LoadObjectSetV2ObjectsOrInterfacesResponseDict.md) | `from foundry.v2.ontologies.models import LoadObjectSetV2ObjectsOrInterfacesResponseDict` |
 **Ontologies** | [LogicRule](docs/v2/Ontologies/models/LogicRule.md) | `from foundry.v2.ontologies.models import LogicRule` |
 **Ontologies** | [LogicRuleDict](docs/v2/Ontologies/models/LogicRuleDict.md) | `from foundry.v2.ontologies.models import LogicRuleDict` |
 **Ontologies** | [LteQueryV2](docs/v2/Ontologies/models/LteQueryV2.md) | `from foundry.v2.ontologies.models import LteQueryV2` |
@@ -1568,6 +1587,8 @@ Namespace | Name | Import |
 **Ontologies** | [LtQueryV2Dict](docs/v2/Ontologies/models/LtQueryV2Dict.md) | `from foundry.v2.ontologies.models import LtQueryV2Dict` |
 **Ontologies** | [MaxAggregationV2](docs/v2/Ontologies/models/MaxAggregationV2.md) | `from foundry.v2.ontologies.models import MaxAggregationV2` |
 **Ontologies** | [MaxAggregationV2Dict](docs/v2/Ontologies/models/MaxAggregationV2Dict.md) | `from foundry.v2.ontologies.models import MaxAggregationV2Dict` |
+**Ontologies** | [MediaMetadata](docs/v2/Ontologies/models/MediaMetadata.md) | `from foundry.v2.ontologies.models import MediaMetadata` |
+**Ontologies** | [MediaMetadataDict](docs/v2/Ontologies/models/MediaMetadataDict.md) | `from foundry.v2.ontologies.models import MediaMetadataDict` |
 **Ontologies** | [MethodObjectSet](docs/v2/Ontologies/models/MethodObjectSet.md) | `from foundry.v2.ontologies.models import MethodObjectSet` |
 **Ontologies** | [MethodObjectSetDict](docs/v2/Ontologies/models/MethodObjectSetDict.md) | `from foundry.v2.ontologies.models import MethodObjectSetDict` |
 **Ontologies** | [MinAggregationV2](docs/v2/Ontologies/models/MinAggregationV2.md) | `from foundry.v2.ontologies.models import MinAggregationV2` |
@@ -1813,6 +1834,8 @@ Namespace | Name | Import |
 **Ontologies** | [TimeSeriesAggregationStrategyDict](docs/v2/Ontologies/models/TimeSeriesAggregationStrategyDict.md) | `from foundry.v2.ontologies.models import TimeSeriesAggregationStrategyDict` |
 **Ontologies** | [TimeSeriesCumulativeAggregate](docs/v2/Ontologies/models/TimeSeriesCumulativeAggregate.md) | `from foundry.v2.ontologies.models import TimeSeriesCumulativeAggregate` |
 **Ontologies** | [TimeSeriesCumulativeAggregateDict](docs/v2/Ontologies/models/TimeSeriesCumulativeAggregateDict.md) | `from foundry.v2.ontologies.models import TimeSeriesCumulativeAggregateDict` |
+**Ontologies** | [TimeseriesEntry](docs/v2/Ontologies/models/TimeseriesEntry.md) | `from foundry.v2.ontologies.models import TimeseriesEntry` |
+**Ontologies** | [TimeseriesEntryDict](docs/v2/Ontologies/models/TimeseriesEntryDict.md) | `from foundry.v2.ontologies.models import TimeseriesEntryDict` |
 **Ontologies** | [TimeSeriesPeriodicAggregate](docs/v2/Ontologies/models/TimeSeriesPeriodicAggregate.md) | `from foundry.v2.ontologies.models import TimeSeriesPeriodicAggregate` |
 **Ontologies** | [TimeSeriesPeriodicAggregateDict](docs/v2/Ontologies/models/TimeSeriesPeriodicAggregateDict.md) | `from foundry.v2.ontologies.models import TimeSeriesPeriodicAggregateDict` |
 **Ontologies** | [TimeSeriesPoint](docs/v2/Ontologies/models/TimeSeriesPoint.md) | `from foundry.v2.ontologies.models import TimeSeriesPoint` |
@@ -2032,6 +2055,8 @@ Namespace | Name | Import |
 **Core** | [ByteTypeDict](docs/v1/Core/models/ByteTypeDict.md) | `from foundry.v1.core.models import ByteTypeDict` |
 **Core** | [CipherTextType](docs/v1/Core/models/CipherTextType.md) | `from foundry.v1.core.models import CipherTextType` |
 **Core** | [CipherTextTypeDict](docs/v1/Core/models/CipherTextTypeDict.md) | `from foundry.v1.core.models import CipherTextTypeDict` |
+**Core** | [ContentLength](docs/v1/Core/models/ContentLength.md) | `from foundry.v1.core.models import ContentLength` |
+**Core** | [ContentType](docs/v1/Core/models/ContentType.md) | `from foundry.v1.core.models import ContentType` |
 **Core** | [DateType](docs/v1/Core/models/DateType.md) | `from foundry.v1.core.models import DateType` |
 **Core** | [DateTypeDict](docs/v1/Core/models/DateTypeDict.md) | `from foundry.v1.core.models import DateTypeDict` |
 **Core** | [DecimalType](docs/v1/Core/models/DecimalType.md) | `from foundry.v1.core.models import DecimalType` |
@@ -2040,6 +2065,7 @@ Namespace | Name | Import |
 **Core** | [DistanceUnit](docs/v1/Core/models/DistanceUnit.md) | `from foundry.v1.core.models import DistanceUnit` |
 **Core** | [DoubleType](docs/v1/Core/models/DoubleType.md) | `from foundry.v1.core.models import DoubleType` |
 **Core** | [DoubleTypeDict](docs/v1/Core/models/DoubleTypeDict.md) | `from foundry.v1.core.models import DoubleTypeDict` |
+**Core** | [Filename](docs/v1/Core/models/Filename.md) | `from foundry.v1.core.models import Filename` |
 **Core** | [FilePath](docs/v1/Core/models/FilePath.md) | `from foundry.v1.core.models import FilePath` |
 **Core** | [FloatType](docs/v1/Core/models/FloatType.md) | `from foundry.v1.core.models import FloatType` |
 **Core** | [FloatTypeDict](docs/v1/Core/models/FloatTypeDict.md) | `from foundry.v1.core.models import FloatTypeDict` |
@@ -2050,6 +2076,7 @@ Namespace | Name | Import |
 **Core** | [LongTypeDict](docs/v1/Core/models/LongTypeDict.md) | `from foundry.v1.core.models import LongTypeDict` |
 **Core** | [MarkingType](docs/v1/Core/models/MarkingType.md) | `from foundry.v1.core.models import MarkingType` |
 **Core** | [MarkingTypeDict](docs/v1/Core/models/MarkingTypeDict.md) | `from foundry.v1.core.models import MarkingTypeDict` |
+**Core** | [MediaType](docs/v1/Core/models/MediaType.md) | `from foundry.v1.core.models import MediaType` |
 **Core** | [NullTypeDict](docs/v1/Core/models/NullTypeDict.md) | `from foundry.v1.core.models import NullTypeDict` |
 **Core** | [OperationScope](docs/v1/Core/models/OperationScope.md) | `from foundry.v1.core.models import OperationScope` |
 **Core** | [PageSize](docs/v1/Core/models/PageSize.md) | `from foundry.v1.core.models import PageSize` |
@@ -2058,6 +2085,7 @@ Namespace | Name | Import |
 **Core** | [ReleaseStatus](docs/v1/Core/models/ReleaseStatus.md) | `from foundry.v1.core.models import ReleaseStatus` |
 **Core** | [ShortType](docs/v1/Core/models/ShortType.md) | `from foundry.v1.core.models import ShortType` |
 **Core** | [ShortTypeDict](docs/v1/Core/models/ShortTypeDict.md) | `from foundry.v1.core.models import ShortTypeDict` |
+**Core** | [SizeBytes](docs/v1/Core/models/SizeBytes.md) | `from foundry.v1.core.models import SizeBytes` |
 **Core** | [StringType](docs/v1/Core/models/StringType.md) | `from foundry.v1.core.models import StringType` |
 **Core** | [StringTypeDict](docs/v1/Core/models/StringTypeDict.md) | `from foundry.v1.core.models import StringTypeDict` |
 **Core** | [StructFieldName](docs/v1/Core/models/StructFieldName.md) | `from foundry.v1.core.models import StructFieldName` |
@@ -2131,6 +2159,8 @@ Namespace | Name | Import |
 **Ontologies** | [ArraySizeConstraint](docs/v1/Ontologies/models/ArraySizeConstraint.md) | `from foundry.v1.ontologies.models import ArraySizeConstraint` |
 **Ontologies** | [ArraySizeConstraintDict](docs/v1/Ontologies/models/ArraySizeConstraintDict.md) | `from foundry.v1.ontologies.models import ArraySizeConstraintDict` |
 **Ontologies** | [ArtifactRepositoryRid](docs/v1/Ontologies/models/ArtifactRepositoryRid.md) | `from foundry.v1.ontologies.models import ArtifactRepositoryRid` |
+**Ontologies** | [Attachment](docs/v1/Ontologies/models/Attachment.md) | `from foundry.v1.ontologies.models import Attachment` |
+**Ontologies** | [AttachmentDict](docs/v1/Ontologies/models/AttachmentDict.md) | `from foundry.v1.ontologies.models import AttachmentDict` |
 **Ontologies** | [AttachmentRid](docs/v1/Ontologies/models/AttachmentRid.md) | `from foundry.v1.ontologies.models import AttachmentRid` |
 **Ontologies** | [AvgAggregation](docs/v1/Ontologies/models/AvgAggregation.md) | `from foundry.v1.ontologies.models import AvgAggregation` |
 **Ontologies** | [AvgAggregationDict](docs/v1/Ontologies/models/AvgAggregationDict.md) | `from foundry.v1.ontologies.models import AvgAggregationDict` |

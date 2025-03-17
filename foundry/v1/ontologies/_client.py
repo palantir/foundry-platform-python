@@ -49,6 +49,16 @@ class OntologiesClient:
         )
 
     @cached_property
+    def Attachment(self):
+        from foundry.v1.ontologies.attachment import AttachmentClient
+
+        return AttachmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Ontology(self):
         from foundry.v1.ontologies.ontology import OntologyClient
 
