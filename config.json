@@ -75,7 +75,6 @@
           "DerivedPropertyDefinition",
           "DerivedPropertyApiName",
           "MethodObjectSet",
-          "SelectedPropertyDefinition",
           "SelectedPropertyOperation",
           "SelectedPropertyMaxAggregation",
           "SelectedPropertyMinAggregation",
