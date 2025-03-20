@@ -87,6 +87,9 @@ from foundry.v2.ontologies.errors._invalid_apply_action_option_combination impor
 )  # NOQA
 from foundry.v2.ontologies.errors._invalid_content_length import InvalidContentLength
 from foundry.v2.ontologies.errors._invalid_content_type import InvalidContentType
+from foundry.v2.ontologies.errors._invalid_derived_property_definition import (
+    InvalidDerivedPropertyDefinition,
+)  # NOQA
 from foundry.v2.ontologies.errors._invalid_duration_group_by_property_type import (
     InvalidDurationGroupByPropertyType,
 )  # NOQA
@@ -224,8 +227,8 @@ from foundry.v2.ontologies.errors._view_object_permission_denied import (
 __all__ = [
     "ActionTypeNotFound",
     "MarketplaceLinkMappingNotFound",
-    "MalformedPropertyFilters",
     "InvalidAggregationRangeValue",
+    "MalformedPropertyFilters",
     "ObjectTypeNotSynced",
     "OntologyEditsExceededLimit",
     "ActionParameterObjectTypeNotFound",
@@ -267,6 +270,7 @@ __all__ = [
     "ApplyActionFailed",
     "InvalidRangeQuery",
     "ActionParameterObjectNotFound",
+    "InvalidDerivedPropertyDefinition",
     "ViewObjectPermissionDenied",
     "QueryNotFound",
     "InvalidPropertyValue",

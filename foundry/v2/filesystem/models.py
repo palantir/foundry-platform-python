@@ -632,6 +632,7 @@ ResourceType = typing.Literal[
     "BLOBSTER_CODE",
     "BLOBSTER_DOCUMENT",
     "BLOBSTER_IMAGE",
+    "BLOBSTER_PDF",
     "BLOBSTER_SPREADSHEET",
     "CARBON_WORKSPACE",
     "COMPASS_FOLDER",
