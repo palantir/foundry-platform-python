@@ -2091,12 +2091,6 @@ class PhraseQueryDict(typing_extensions.TypedDict):
     type: typing.Literal["phrase"]
 
 
-PreciseTimeUnit = typing.Literal[
-    "NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
-]
-"""The unit of duration."""
-
-
 class PrefixQuery(pydantic.BaseModel):
     """Returns objects where the specified field starts with the provided value."""
 
@@ -3035,7 +3029,6 @@ __all__ = [
     "ParameterOptionDict",
     "PhraseQuery",
     "PhraseQueryDict",
-    "PreciseTimeUnit",
     "PrefixQuery",
     "PrefixQueryDict",
     "PrimaryKeyValue",

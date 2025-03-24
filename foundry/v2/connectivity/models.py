@@ -143,6 +143,51 @@ class AwsAccessKeyDict(typing_extensions.TypedDict):
     type: typing.Literal["awsAccessKey"]
 
 
+class AwsOidcAuthentication(pydantic.BaseModel):
+    """
+    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
+    you to authenticate to external system resources without the use of static credentials.
+    """
+
+    audience: str
+    """The configured audience that identifies the external system."""
+
+    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
+    """The URL that identifies Foundry as an OIDC identity provider."""
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["oidc"] = "oidc"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "AwsOidcAuthenticationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            AwsOidcAuthenticationDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class AwsOidcAuthenticationDict(typing_extensions.TypedDict):
+    """
+    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
+    you to authenticate to external system resources without the use of static credentials.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    audience: str
+    """The configured audience that identifies the external system."""
+
+    issuerUrl: str
+    """The URL that identifies Foundry as an OIDC identity provider."""
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["oidc"]
+
+
 class BasicCredentials(pydantic.BaseModel):
     """BasicCredentials"""
 
@@ -1563,49 +1608,6 @@ class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
     type: typing.Literal["microsoftSqlServerImportConfig"]
 
 
-class Oidc(pydantic.BaseModel):
-    """
-    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
-    you to authenticate to external system resources without the use of static credentials.
-    """
-
-    audience: str
-    """The configured audience that identifies the external system."""
-
-    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
-    """The URL that identifies Foundry as an OIDC identity provider."""
-
-    subject: ConnectionRid
-    """The RID of the Connection that is connecting to the external system."""
-
-    type: typing.Literal["oidc"] = "oidc"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> "OidcDict":
-        """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OidcDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OidcDict(typing_extensions.TypedDict):
-    """
-    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
-    you to authenticate to external system resources without the use of static credentials.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    audience: str
-    """The configured audience that identifies the external system."""
-
-    issuerUrl: str
-    """The URL that identifies Foundry as an OIDC identity provider."""
-
-    subject: ConnectionRid
-    """The RID of the Connection that is connecting to the external system."""
-
-    type: typing.Literal["oidc"]
-
-
 class OracleImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
@@ -1849,13 +1851,14 @@ RestRequestApiKeyLocationDict = typing_extensions.Annotated[
 
 
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union[AwsAccessKey, CloudIdentity, Oidc], pydantic.Field(discriminator="type")
+    typing.Union[AwsAccessKey, CloudIdentity, AwsOidcAuthentication],
+    pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
 
 
 S3AuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union[AwsAccessKeyDict, CloudIdentityDict, OidcDict],
+    typing.Union[AwsAccessKeyDict, CloudIdentityDict, AwsOidcAuthenticationDict],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -2427,6 +2430,8 @@ __all__ = [
     "AsSecretNameDict",
     "AwsAccessKey",
     "AwsAccessKeyDict",
+    "AwsOidcAuthentication",
+    "AwsOidcAuthenticationDict",
     "BasicCredentials",
     "BasicCredentialsDict",
     "BearerToken",
@@ -2504,8 +2509,6 @@ __all__ = [
     "MicrosoftAccessImportConfigDict",
     "MicrosoftSqlServerImportConfig",
     "MicrosoftSqlServerImportConfigDict",
-    "Oidc",
-    "OidcDict",
     "OracleImportConfig",
     "OracleImportConfigDict",
     "PlaintextValue",

@@ -1,6 +1,6 @@
 # PreciseTimeUnit
 
-The unit of duration.
+The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days.
 
 | **Value** |
 | --------- |
@@ -10,8 +10,6 @@ The unit of duration.
 | `"HOURS"` |
 | `"DAYS"` |
 | `"WEEKS"` |
-| `"MONTHS"` |
-| `"YEARS"` |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

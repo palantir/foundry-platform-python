@@ -4640,10 +4640,8 @@ class PreciseDurationDict(typing_extensions.TypedDict):
     type: typing.Literal["duration"]
 
 
-PreciseTimeUnit = typing.Literal[
-    "NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
-]
-"""The unit of duration."""
+PreciseTimeUnit = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"]
+"""The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days."""
 
 
 PrimaryKeyValue = typing.Any
@@ -6259,7 +6257,18 @@ class TimeSeriesPeriodicAggregate(pydantic.BaseModel):
     """
 
     window_size: PreciseDuration = pydantic.Field(alias=str("windowSize"))  # type: ignore[literal-required]
-    alignment_timestamp: datetime = pydantic.Field(alias=str("alignmentTimestamp"))  # type: ignore[literal-required]
+    alignment_timestamp: typing.Optional[datetime] = pydantic.Field(alias=str("alignmentTimestamp"), default=None)  # type: ignore[literal-required]
+    """
+    The timestamp used to align the result, such that ticks in the result time series will lie at integer
+    multiples of the window duration from the alignment timestamp.
+
+    Default is the first epoch timestamp (January 1, 1970, 00:00:00 UTC) so that all aggregated points have
+    timestamps at midnight UTC at the start of each window duration.
+
+    For example, for a weekly aggregate with alignment timestamp 5 January, 8:33PM, 
+    each aggregated timestamp will lie on the 7 day intervals at 8:33PM starting at 5 January.
+    """
+
     window_type: TimeSeriesWindowType = pydantic.Field(alias=str("windowType"))  # type: ignore[literal-required]
     type: typing.Literal["periodic"] = "periodic"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -6287,7 +6296,18 @@ class TimeSeriesPeriodicAggregateDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     windowSize: PreciseDurationDict
-    alignmentTimestamp: datetime
+    alignmentTimestamp: typing_extensions.NotRequired[datetime]
+    """
+    The timestamp used to align the result, such that ticks in the result time series will lie at integer
+    multiples of the window duration from the alignment timestamp.
+
+    Default is the first epoch timestamp (January 1, 1970, 00:00:00 UTC) so that all aggregated points have
+    timestamps at midnight UTC at the start of each window duration.
+
+    For example, for a weekly aggregate with alignment timestamp 5 January, 8:33PM, 
+    each aggregated timestamp will lie on the 7 day intervals at 8:33PM starting at 5 January.
+    """
+
     windowType: TimeSeriesWindowType
     type: typing.Literal["periodic"]
 
