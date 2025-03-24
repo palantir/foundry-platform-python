@@ -11,7 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 AwsAccessKey | awsAccessKey
 CloudIdentity | cloudIdentity
-Oidc | oidc
+AwsOidcAuthentication | oidc
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

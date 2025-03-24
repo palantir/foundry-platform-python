@@ -55,7 +55,6 @@ from foundry.v1.ontologies.errors._derived_property_api_names_not_unique import 
     DerivedPropertyApiNamesNotUnique,
 )  # NOQA
 from foundry.v1.ontologies.errors._duplicate_order_by import DuplicateOrderBy
-from foundry.v1.ontologies.errors._duration_out_of_bounds import DurationOutOfBounds
 from foundry.v1.ontologies.errors._edit_object_permission_denied import (
     EditObjectPermissionDenied,
 )  # NOQA
@@ -225,8 +224,8 @@ from foundry.v1.ontologies.errors._view_object_permission_denied import (
 )  # NOQA
 
 __all__ = [
-    "InvalidAggregationRangeValue",
     "MalformedPropertyFilters",
+    "InvalidAggregationRangeValue",
     "ActionParameterInterfaceTypeNotFound",
     "MarketplaceObjectMappingNotFound",
     "InvalidDurationGroupByValue",
@@ -280,7 +279,6 @@ __all__ = [
     "PropertiesNotFound",
     "FunctionInvalidInput",
     "InvalidSortOrder",
-    "DurationOutOfBounds",
     "InvalidPropertyFiltersCombination",
     "ObjectsExceededLimit",
     "DuplicateOrderBy",

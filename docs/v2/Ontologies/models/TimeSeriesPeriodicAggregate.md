@@ -15,7 +15,7 @@ hourly, daily, monthly.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **window_size** | PreciseDuration | Yes |  |
-**alignment_timestamp** | datetime | Yes |  |
+**alignment_timestamp** | Optional[datetime] | No | The timestamp used to align the result, such that ticks in the result time series will lie at integer multiples of the window duration from the alignment timestamp.  Default is the first epoch timestamp (January 1, 1970, 00:00:00 UTC) so that all aggregated points have timestamps at midnight UTC at the start of each window duration.  For example, for a weekly aggregate with alignment timestamp 5 January, 8:33PM,  each aggregated timestamp will lie on the 7 day intervals at 8:33PM starting at 5 January.  |
 **window_type** | TimeSeriesWindowType | Yes |  |
 **type** | Literal["periodic"] | Yes | None |
 

@@ -908,6 +908,8 @@ Namespace | Name | Import |
 **Connectivity** | [AsSecretNameDict](docs/v2/Connectivity/models/AsSecretNameDict.md) | `from foundry.v2.connectivity.models import AsSecretNameDict` |
 **Connectivity** | [AwsAccessKey](docs/v2/Connectivity/models/AwsAccessKey.md) | `from foundry.v2.connectivity.models import AwsAccessKey` |
 **Connectivity** | [AwsAccessKeyDict](docs/v2/Connectivity/models/AwsAccessKeyDict.md) | `from foundry.v2.connectivity.models import AwsAccessKeyDict` |
+**Connectivity** | [AwsOidcAuthentication](docs/v2/Connectivity/models/AwsOidcAuthentication.md) | `from foundry.v2.connectivity.models import AwsOidcAuthentication` |
+**Connectivity** | [AwsOidcAuthenticationDict](docs/v2/Connectivity/models/AwsOidcAuthenticationDict.md) | `from foundry.v2.connectivity.models import AwsOidcAuthenticationDict` |
 **Connectivity** | [BasicCredentials](docs/v2/Connectivity/models/BasicCredentials.md) | `from foundry.v2.connectivity.models import BasicCredentials` |
 **Connectivity** | [BasicCredentialsDict](docs/v2/Connectivity/models/BasicCredentialsDict.md) | `from foundry.v2.connectivity.models import BasicCredentialsDict` |
 **Connectivity** | [BearerToken](docs/v2/Connectivity/models/BearerToken.md) | `from foundry.v2.connectivity.models import BearerToken` |
@@ -985,8 +987,6 @@ Namespace | Name | Import |
 **Connectivity** | [MicrosoftAccessImportConfigDict](docs/v2/Connectivity/models/MicrosoftAccessImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfigDict` |
 **Connectivity** | [MicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfig` |
 **Connectivity** | [MicrosoftSqlServerImportConfigDict](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfigDict` |
-**Connectivity** | [Oidc](docs/v2/Connectivity/models/Oidc.md) | `from foundry.v2.connectivity.models import Oidc` |
-**Connectivity** | [OidcDict](docs/v2/Connectivity/models/OidcDict.md) | `from foundry.v2.connectivity.models import OidcDict` |
 **Connectivity** | [OracleImportConfig](docs/v2/Connectivity/models/OracleImportConfig.md) | `from foundry.v2.connectivity.models import OracleImportConfig` |
 **Connectivity** | [OracleImportConfigDict](docs/v2/Connectivity/models/OracleImportConfigDict.md) | `from foundry.v2.connectivity.models import OracleImportConfigDict` |
 **Connectivity** | [PlaintextValue](docs/v2/Connectivity/models/PlaintextValue.md) | `from foundry.v2.connectivity.models import PlaintextValue` |
@@ -2308,7 +2308,6 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterOptionDict](docs/v1/Ontologies/models/ParameterOptionDict.md) | `from foundry.v1.ontologies.models import ParameterOptionDict` |
 **Ontologies** | [PhraseQuery](docs/v1/Ontologies/models/PhraseQuery.md) | `from foundry.v1.ontologies.models import PhraseQuery` |
 **Ontologies** | [PhraseQueryDict](docs/v1/Ontologies/models/PhraseQueryDict.md) | `from foundry.v1.ontologies.models import PhraseQueryDict` |
-**Ontologies** | [PreciseTimeUnit](docs/v1/Ontologies/models/PreciseTimeUnit.md) | `from foundry.v1.ontologies.models import PreciseTimeUnit` |
 **Ontologies** | [PrefixQuery](docs/v1/Ontologies/models/PrefixQuery.md) | `from foundry.v1.ontologies.models import PrefixQuery` |
 **Ontologies** | [PrefixQueryDict](docs/v1/Ontologies/models/PrefixQueryDict.md) | `from foundry.v1.ontologies.models import PrefixQueryDict` |
 **Ontologies** | [PrimaryKeyValue](docs/v1/Ontologies/models/PrimaryKeyValue.md) | `from foundry.v1.ontologies.models import PrimaryKeyValue` |
@@ -2622,7 +2621,6 @@ Namespace | Name | Import |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v2.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v2.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
 **Ontologies** | DuplicateOrderBy | `from foundry.v2.ontologies.errors import DuplicateOrderBy` |
-**Ontologies** | DurationOutOfBounds | `from foundry.v2.ontologies.errors import DurationOutOfBounds` |
 **Ontologies** | EditObjectPermissionDenied | `from foundry.v2.ontologies.errors import EditObjectPermissionDenied` |
 **Ontologies** | FunctionEncounteredUserFacingError | `from foundry.v2.ontologies.errors import FunctionEncounteredUserFacingError` |
 **Ontologies** | FunctionExecutionFailed | `from foundry.v2.ontologies.errors import FunctionExecutionFailed` |
@@ -2836,7 +2834,6 @@ Namespace | Name | Import |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v1.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v1.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
 **Ontologies** | DuplicateOrderBy | `from foundry.v1.ontologies.errors import DuplicateOrderBy` |
-**Ontologies** | DurationOutOfBounds | `from foundry.v1.ontologies.errors import DurationOutOfBounds` |
 **Ontologies** | EditObjectPermissionDenied | `from foundry.v1.ontologies.errors import EditObjectPermissionDenied` |
 **Ontologies** | FunctionEncounteredUserFacingError | `from foundry.v1.ontologies.errors import FunctionEncounteredUserFacingError` |
 **Ontologies** | FunctionExecutionFailed | `from foundry.v1.ontologies.errors import FunctionExecutionFailed` |

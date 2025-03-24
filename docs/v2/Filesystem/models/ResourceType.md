@@ -4,23 +4,36 @@ The type of the Resource derived from the Resource Identifier (RID).
 
 | **Value** |
 | --------- |
+| `"AIP_PROFILE"` |
 | `"AIP_ASSIST_WALKTHROUGH"` |
 | `"ARTIFACTS_REPOSITORY"` |
 | `"BELLASO_CIPHER_CHANNEL"` |
+| `"BELLASO_CIPHER_LICENSE"` |
+| `"BLACKSMITH_DOCUMENT"` |
+| `"BLOBSTER_ARCHIVE"` |
+| `"BLOBSTER_AUDIO"` |
+| `"BLOBSTER_BLOB"` |
 | `"BLOBSTER_CODE"` |
+| `"BLOBSTER_CONFIGURATION"` |
 | `"BLOBSTER_DOCUMENT"` |
 | `"BLOBSTER_IMAGE"` |
 | `"BLOBSTER_PDF"` |
+| `"BLOBSTER_PRESENTATION"` |
 | `"BLOBSTER_SPREADSHEET"` |
+| `"BLOBSTER_VIDEO"` |
+| `"BLOBSTER_XML"` |
 | `"CARBON_WORKSPACE"` |
 | `"COMPASS_FOLDER"` |
 | `"COMPASS_WEB_LINK"` |
 | `"CONTOUR_ANALYSIS"` |
 | `"DATA_HEALTH_MONITORING_VIEW"` |
+| `"DECISIONS_EXPLORATION"` |
+| `"DREDDIE_PIPELINE"` |
 | `"EDDIE_LOGIC"` |
 | `"EDDIE_PIPELINE"` |
 | `"FFORMS_FORM"` |
 | `"FOUNDRY_DATASET"` |
+| `"FOUNDRY_DEPLOYED_APP"` |
 | `"FOUNDRY_ACADEMY_TUTORIAL"` |
 | `"FOUNDRY_CONTAINER_SERVICE_CONTAINER"` |
 | `"FOUNDRY_ML_OBJECTIVE"` |
@@ -28,10 +41,13 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"FUSION_DOCUMENT"` |
 | `"GPS_VIEW"` |
 | `"HUBBLE_EXPLORATION_LAYOUT"` |
+| `"HYPERAUTO_INTEGRATION"` |
+| `"LOGIC_FLOWS_CONNECTED_FLOW"` |
 | `"MACHINERY_DOCUMENT"` |
 | `"MAGRITTE_AGENT"` |
 | `"MAGRITTE_SOURCE"` |
 | `"MARKETPLACE_BLOCK_SET_INSTALLATION"` |
+| `"MARKETPLACE_BLOCK_SET_REPO"` |
 | `"MARKETPLACE_LOCAL"` |
 | `"MARKETPLACE_REMOTE_STORE"` |
 | `"MIO_MEDIA_SET"` |
@@ -43,9 +59,13 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"OBJECT_SENTINEL_MONITOR"` |
 | `"OBJECT_SET_VERSIONED_OBJECT_SET"` |
 | `"OPUS_GRAPH"` |
+| `"OPUS_GRAPH_TEMPLATE"` |
 | `"OPUS_MAP"` |
 | `"OPUS_MAP_LAYER"` |
+| `"OPUS_SEARCH_AROUND"` |
 | `"QUIVER_ANALYSIS"` |
+| `"QUIVER_ARTIFACT"` |
+| `"QUIVER_DASHBOARD"` |
 | `"REPORT_REPORT"` |
 | `"SLATE_DOCUMENT"` |
 | `"SOLUTION_DESIGN_DIAGRAM"` |
@@ -53,8 +73,11 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"TABLES_TABLE"` |
 | `"TAURUS_WORKFLOW"` |
 | `"THIRD_PARTY_APPLICATIONS_APPLICATION"` |
+| `"TIME_SERIES_CATALOG_SYNC"` |
+| `"VECTOR_TEMPLATE"` |
 | `"VECTOR_WORKBOOK"` |
 | `"WORKSHOP_MODULE"` |
+| `"WORKSHOP_STATE"` |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
