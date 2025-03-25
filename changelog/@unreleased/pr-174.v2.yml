@@ -1,0 +1,5 @@
+type: improvement
+improvement:
+  description: Merge Error Classes
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/174
