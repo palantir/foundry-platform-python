@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -167,51 +166,14 @@ class QueryClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def get_results(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        stream: typing.Literal[True],
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_results(
         self,
         query_id: sql_queries_models.QueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -223,8 +185,6 @@ class QueryClient:
         :type query_id: QueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -235,88 +195,6 @@ class QueryClient:
         :raises QueryFailed: The query failed.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def get_results(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        stream: bool,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def get_results(
-        self,
-        query_id: sql_queries_models.QueryId,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
-
-        :param query_id: The id of a query.
-        :type query_id: QueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.sql_queries.Query.get_results(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.sql_queries.Query.with_streaming_response.get_results(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -334,8 +212,6 @@ class QueryClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetResultsPermissionDenied": sql_queries_errors.GetResultsPermissionDenied,

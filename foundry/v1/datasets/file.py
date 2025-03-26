@@ -376,72 +376,9 @@ class FileClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
-        *,
-        stream: typing.Literal[True],
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
-        view of the default branch - `master` for most enrollments.
-
-        #### Advanced Usage
-
-        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-
-        To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will
-        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
-        earliest ancestor transaction of the branch if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
-        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
-        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
-        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
-        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
-        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
-        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
-
-        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
-        `startTransactionRid` and `endTransactionRid`.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
-        :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
-        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
-        :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -450,7 +387,6 @@ class FileClient:
         branch_id: typing.Optional[datasets_models.BranchId] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -491,149 +427,11 @@ class FileClient:
         :type end_transaction_rid: Optional[TransactionRid]
         :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
-        *,
-        stream: bool,
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
-        view of the default branch - `master` for most enrollments.
-
-        #### Advanced Usage
-
-        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-
-        To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will
-        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
-        earliest ancestor transaction of the branch if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
-        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
-        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
-        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
-        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
-        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
-        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
-
-        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
-        `startTransactionRid` and `endTransactionRid`.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
-        :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
-        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
-        :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        file_path: core_models.FilePath,
-        *,
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
-        view of the default branch - `master` for most enrollments.
-
-        #### Advanced Usage
-
-        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-
-        To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will
-        retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
-        earliest ancestor transaction of the branch if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a transaction** specify the Transaction's resource identifier
-        as `endTransactionRid`. This will retrieve the content for the most recent version of the file since the latest
-        snapshot transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-
-        To **get a file's content from the resolved view of a range of transactions** specify the the start transaction's
-        resource identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`.
-        This will retrieve the content for the most recent version of the file since the `startTransactionRid` up to the
-        `endTransactionRid`. Note that an intermediate snapshot transaction will remove all files from the view. Behavior
-        is undefined when the start and end transactions do not belong to the same root-to-leaf path.
-
-        To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
-        `startTransactionRid` and `endTransactionRid`.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
-        :type dataset_rid: DatasetRid
-        :param file_path: The File's path within the Dataset.
-        :type file_path: FilePath
-        :param branch_id: The identifier (name) of the Branch that contains the File. Defaults to `master` for most enrollments.
-        :type branch_id: Optional[BranchId]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.datasets.Dataset.File.read(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.datasets.Dataset.File.with_streaming_response.read(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -654,8 +452,6 @@ class FileClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),

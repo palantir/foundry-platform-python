@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -256,47 +255,9 @@ class MediaSetClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        stream: typing.Literal[True],
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the content of a media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -304,7 +265,6 @@ class MediaSetClient:
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -321,99 +281,11 @@ class MediaSetClient:
         :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        stream: bool,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.media_sets.MediaSet.read(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.media_sets.MediaSet.with_streaming_response.read(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -433,55 +305,15 @@ class MediaSetClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_original(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        stream: typing.Literal[True],
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_original(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -489,7 +321,6 @@ class MediaSetClient:
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -506,99 +337,11 @@ class MediaSetClient:
         :type preview: Optional[PreviewMode]
         :param read_token:
         :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_original(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        stream: bool,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_original(
-        self,
-        media_set_rid: core_models.MediaSetRid,
-        media_item_rid: core_models.MediaItemRid,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
-        :param media_set_rid:
-        :type media_set_rid: MediaSetRid
-        :param media_item_rid:
-        :type media_item_rid: MediaItemRid
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param read_token:
-        :type read_token: Optional[MediaItemReadToken]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.media_sets.MediaSet.read_original(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.media_sets.MediaSet.with_streaming_response.read_original(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -618,8 +361,6 @@ class MediaSetClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),

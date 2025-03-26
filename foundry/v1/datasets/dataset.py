@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import pydantic
@@ -282,58 +281,9 @@ class DatasetClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        stream: typing.Literal[True],
-        format: datasets_models.TableExportFormat,
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_id: The identifier (name) of the Branch.
-        :type branch_id: Optional[BranchId]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -344,7 +294,6 @@ class DatasetClient:
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         row_limit: typing.Optional[int] = None,
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -369,121 +318,11 @@ class DatasetClient:
         :type row_limit: Optional[int]
         :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        stream: bool,
-        format: datasets_models.TableExportFormat,
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_id: The identifier (name) of the Branch.
-        :type branch_id: Optional[BranchId]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        format: datasets_models.TableExportFormat,
-        branch_id: typing.Optional[datasets_models.BranchId] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The RID of the Dataset.
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_id: The identifier (name) of the Branch.
-        :type branch_id: Optional[BranchId]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.datasets.Dataset.read(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.datasets.Dataset.with_streaming_response.read(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -506,8 +345,6 @@ class DatasetClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
