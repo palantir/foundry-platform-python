@@ -159,15 +159,10 @@ class RequestInfo:
     throwable_errors: Dict[str, Type[PalantirRPCException]]
     response_mode: Optional[ResponseMode] = None
 
-    # DEPRECATED: Remove the streaming details
-    stream: bool = False
-    chunk_size: Optional[int] = None
-
     def update(
         self,
         query_params: Optional[Dict[str, Any]] = None,
         header_params: Optional[Dict[str, Any]] = None,
-        stream: Optional[bool] = None,
         response_mode: Optional[ResponseMode] = None,
     ):
         return RequestInfo(
@@ -180,7 +175,6 @@ class RequestInfo:
             body=self.body,
             body_type=self.body_type,
             request_timeout=self.request_timeout,
-            stream=stream if stream is not None else self.stream,
             throwable_errors=self.throwable_errors,
             response_mode=response_mode if response_mode is not None else self.response_mode,
         )
@@ -197,8 +191,6 @@ class RequestInfo:
         body: Any = None,
         body_type: Any = None,
         request_timeout: Optional[int] = None,
-        stream: bool = False,
-        chunk_size: Optional[int] = None,
         throwable_errors: Dict[str, Type[PalantirRPCException]] = {},
         response_mode: Optional[ResponseMode] = None,
     ):
@@ -212,8 +204,6 @@ class RequestInfo:
             body=body,
             body_type=body_type,
             request_timeout=request_timeout,
-            stream=stream,
-            chunk_size=chunk_size,
             throwable_errors=throwable_errors,
             response_mode=response_mode,
         )
@@ -260,16 +250,7 @@ class ApiResponse(Generic[T]):
 
     def decode(self) -> T:
         if self._request_info.response_type is bytes:
-            # DEPRECATED
-            if self._request_info.stream:
-                return cast(
-                    T,
-                    BinaryStream(
-                        self._response.iter_bytes(chunk_size=self._request_info.chunk_size)
-                    ),
-                )
-            else:
-                return cast(T, self._response.content)
+            return cast(T, self._response.content)
         elif self._request_info.response_type is None:
             return cast(T, None)
 
@@ -413,8 +394,7 @@ class ApiClient:
 
                 return self._session.send(
                     request=request,
-                    # DEPRECATED: We will be removing the stream parameter from the request_info
-                    stream=response_mode == "STREAMING" or request_info.stream,
+                    stream=response_mode == "STREAMING",
                 )
 
             res = self._auth.execute_with_token(make_request)
@@ -485,7 +465,7 @@ class ApiClient:
         # wait for the entire response to be streamed back before we can access
         # the content. If we don't do this, accessing "text" or calling ".json()"
         # will raise an exception.
-        if req.stream or req.response_mode == "STREAMING":
+        if req.response_mode == "STREAMING":
             res.read()
 
         if res.status_code == 404 and res.text == "":

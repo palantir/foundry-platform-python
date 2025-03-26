@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import pydantic
@@ -185,64 +184,9 @@ class DatasetClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_table(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        stream: typing.Literal[True],
-        format: datasets_models.TableExportFormat,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_table(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -253,7 +197,6 @@ class DatasetClient:
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         row_limit: typing.Optional[int] = None,
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -276,8 +219,6 @@ class DatasetClient:
         :type row_limit: Optional[int]
         :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -291,126 +232,6 @@ class DatasetClient:
         :raises ReadTableTimeout: The request to read the table timed out.
         :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_table(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        stream: bool,
-        format: datasets_models.TableExportFormat,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_table(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        format: datasets_models.TableExportFormat,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        columns: typing.Optional[typing.List[str]] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        row_limit: typing.Optional[int] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Gets the content of a dataset as a table in the specified format.
-
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.datasets.Dataset.read_table(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.datasets.Dataset.with_streaming_response.read_table(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -433,8 +254,6 @@ class DatasetClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,

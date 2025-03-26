@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -181,54 +180,9 @@ class AttachmentPropertyClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        stream: typing.Literal[True],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Get the content of an attachment.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_attachment(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -238,7 +192,6 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -260,113 +213,11 @@ class AttachmentPropertyClient:
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        stream: bool,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Get the content of an attachment.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Get the content of an attachment.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.ontologies.AttachmentProperty.read_attachment(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.ontologies.AttachmentProperty.with_streaming_response.read_attachment(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -388,67 +239,15 @@ class AttachmentPropertyClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        stream: typing.Literal[True],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Get the content of an attachment by its RID.
-
-        The RID must exist in the attachment array of the property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_attachment_by_rid(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -459,7 +258,6 @@ class AttachmentPropertyClient:
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -485,123 +283,11 @@ class AttachmentPropertyClient:
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def read_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        stream: bool,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Get the content of an attachment by its RID.
-
-        The RID must exist in the attachment array of the property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def read_attachment_by_rid(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        property: ontologies_models.PropertyApiName,
-        attachment_rid: ontologies_models.AttachmentRid,
-        *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Get the content of an attachment by its RID.
-
-        The RID must exist in the attachment array of the property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object containing the attachment.
-        :type primary_key: PropertyValueEscapedString
-        :param property: The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
-        :type property: PropertyApiName
-        :param attachment_rid: The RID of the attachment.
-        :type attachment_rid: AttachmentRid
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.ontologies.AttachmentProperty.read_attachment_by_rid(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.ontologies.AttachmentProperty.with_streaming_response.read_attachment_by_rid(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -624,8 +310,6 @@ class AttachmentPropertyClient:
                 body=None,
                 body_type=None,
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),

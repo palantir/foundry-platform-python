@@ -611,78 +611,9 @@ class SessionClient:
             ),
         )
 
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def streaming_continue(
-        self,
-        agent_rid: aip_agents_models.AgentRid,
-        session_rid: aip_agents_models.SessionRid,
-        *,
-        stream: typing.Literal[True],
-        parameter_inputs: typing.Dict[
-            aip_agents_models.ParameterId,
-            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
-        ],
-        user_input: typing.Union[
-            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
-        ],
-        contexts_override: typing.Optional[
-            typing.List[
-                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
-            ]
-        ] = None,
-        message_id: typing.Optional[aip_agents_models.MessageId] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core.BinaryStream:
-        """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
-        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
-        Streamed exchanges also support cancellation; see `cancel` for details.
-        Concurrent requests to continue the same session are not supported.
-        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
-
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
-        :param session_rid: The Resource Identifier (RID) of the conversation session.
-        :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
-        :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core.BinaryStream
-
-        :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises SessionNotFound: The given Session could not be found.
-        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
-        """
-        ...
-
-    @typing_extensions.overload
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def streaming_continue(
         self,
         agent_rid: aip_agents_models.AgentRid,
@@ -702,7 +633,6 @@ class SessionClient:
         ] = None,
         message_id: typing.Optional[aip_agents_models.MessageId] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        stream: typing.Literal[False] = False,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -729,8 +659,6 @@ class SessionClient:
         :type message_id: Optional[MessageId]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -745,154 +673,6 @@ class SessionClient:
         :raises SessionNotFound: The given Session could not be found.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
-        ...
-
-    @typing_extensions.overload
-    @typing_extensions.deprecated(
-        "Using the `stream` parameter is deprecated. Please use the `with_streaming_response` instead."
-    )
-    def streaming_continue(
-        self,
-        agent_rid: aip_agents_models.AgentRid,
-        session_rid: aip_agents_models.SessionRid,
-        *,
-        stream: bool,
-        parameter_inputs: typing.Dict[
-            aip_agents_models.ParameterId,
-            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
-        ],
-        user_input: typing.Union[
-            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
-        ],
-        contexts_override: typing.Optional[
-            typing.List[
-                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
-            ]
-        ] = None,
-        message_id: typing.Optional[aip_agents_models.MessageId] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
-        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
-        Streamed exchanges also support cancellation; see `cancel` for details.
-        Concurrent requests to continue the same session are not supported.
-        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
-
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
-        :param session_rid: The Resource Identifier (RID) of the conversation session.
-        :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
-        :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises SessionNotFound: The given Session could not be found.
-        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
-        """
-        ...
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def streaming_continue(
-        self,
-        agent_rid: aip_agents_models.AgentRid,
-        session_rid: aip_agents_models.SessionRid,
-        *,
-        parameter_inputs: typing.Dict[
-            aip_agents_models.ParameterId,
-            typing.Union[aip_agents_models.ParameterValue, aip_agents_models.ParameterValueDict],
-        ],
-        user_input: typing.Union[
-            aip_agents_models.UserTextInput, aip_agents_models.UserTextInputDict
-        ],
-        contexts_override: typing.Optional[
-            typing.List[
-                typing.Union[aip_agents_models.InputContext, aip_agents_models.InputContextDict]
-            ]
-        ] = None,
-        message_id: typing.Optional[aip_agents_models.MessageId] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        stream: bool = False,
-        chunk_size: typing.Optional[int] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Union[bytes, core.BinaryStream]:
-        """
-        Continue a conversation session with an Agent, or add the first exchange to a session after creation.
-        Adds a new exchange to the session with the provided inputs, and generates a response from the Agent.
-        Returns a stream of the Agent response text (formatted using markdown) for clients to consume as the response is generated.
-        On completion of the streamed response, clients can load the full details of the exchange that was added to the session by reloading the session content.
-        Streamed exchanges also support cancellation; see `cancel` for details.
-        Concurrent requests to continue the same session are not supported.
-        Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
-
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
-        :type agent_rid: AgentRid
-        :param session_rid: The Resource Identifier (RID) of the conversation session.
-        :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
-        :type parameter_inputs: Dict[ParameterId, Union[ParameterValue, ParameterValueDict]]
-        :param user_input: The user message for the Agent to respond to.
-        :type user_input: Union[UserTextInput, UserTextInputDict]
-        :param contexts_override: If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
-        :type contexts_override: Optional[List[Union[InputContext, InputContextDict]]]
-        :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
-        :type message_id: Optional[MessageId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param stream: Whether to stream back the binary data in an iterator. This avoids reading the entire content of the response into memory at once.
-        :type stream: bool
-        :param chunk_size: The number of bytes that should be read into memory for each chunk. If set to None, the data will become available as it arrives in whatever size is sent from the host.
-        :type chunk_size: Optional[int]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Union[bytes, core.BinaryStream]
-
-        :raises AgentNotFound: The given Agent could not be found.
-        :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
-        :raises SessionNotFound: The given Session could not be found.
-        :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
-        """
-
-        if stream:
-            warnings.warn(
-                f"client.aip_agents.Agent.Session.streaming_continue(..., stream=True, chunk_size={chunk_size}) is deprecated. Please use:\n\nwith client.aip_agents.Agent.Session.with_streaming_response.streaming_continue(...) as response:\n    response.iter_bytes(chunk_size={chunk_size})\n",
-                DeprecationWarning,
-                stacklevel=2,
-            )
 
         return self._api_client.call_api(
             core.RequestInfo(
@@ -940,8 +720,6 @@ class SessionClient:
                     },
                 ),
                 response_type=bytes,
-                stream=stream,
-                chunk_size=chunk_size,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
