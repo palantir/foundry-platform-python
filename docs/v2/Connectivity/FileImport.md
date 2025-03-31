@@ -36,9 +36,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -113,9 +111,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -127,9 +123,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.FileImport.delete(
-        connection_rid,
-        file_import_rid,
-        preview=preview,
+        connection_rid, file_import_rid, preview=preview
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -174,9 +168,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -188,9 +180,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.FileImport.execute(
-        connection_rid,
-        file_import_rid,
-        preview=preview,
+        connection_rid, file_import_rid, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -233,9 +223,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -247,9 +235,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.FileImport.get(
-        connection_rid,
-        file_import_rid,
-        preview=preview,
+        connection_rid, file_import_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -295,9 +281,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -310,11 +294,8 @@ preview = None
 
 
 try:
-    for file_import in foundry_client.connectivity.Connection.FileImport.list(
-        connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for file_import in client.connectivity.Connection.FileImport.list(
+        connection_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(file_import)
 except foundry.PalantirRPCException as e:
@@ -359,9 +340,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -375,10 +354,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.FileImport.page(
-        connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        connection_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)
@@ -427,9 +403,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None

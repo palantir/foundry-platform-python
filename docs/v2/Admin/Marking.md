@@ -32,9 +32,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingCategoryId
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
@@ -101,9 +99,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -112,10 +108,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.get(
-        marking_id,
-        preview=preview,
-    )
+    api_response = foundry_client.admin.Marking.get(marking_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -158,9 +151,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
@@ -169,10 +160,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.get_batch(
-        body,
-        preview=preview,
-    )
+    api_response = foundry_client.admin.Marking.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -214,9 +202,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -227,10 +213,8 @@ preview = None
 
 
 try:
-    for marking in foundry_client.admin.Marking.list(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for marking in client.admin.Marking.list(
+        page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(marking)
 except foundry.PalantirRPCException as e:
@@ -272,9 +256,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -286,9 +268,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)

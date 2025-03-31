@@ -28,18 +28,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.get(
-        ontology,
-    )
+    api_response = foundry_client.ontologies.Ontology.get(ontology)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -80,18 +76,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.get_full_metadata(
-        ontology,
-    )
+    api_response = foundry_client.ontologies.Ontology.get_full_metadata(ontology)
     print("The get_full_metadata response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -133,9 +125,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 
 try:

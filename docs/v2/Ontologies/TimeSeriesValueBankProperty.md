@@ -33,9 +33,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -109,9 +107,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"

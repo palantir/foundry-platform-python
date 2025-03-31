@@ -189,7 +189,6 @@ class BranchClient:
         :rtype: datasets_models.Branch
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
-        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
@@ -210,7 +209,6 @@ class BranchClient:
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "BranchNotFound": datasets_errors.BranchNotFound,
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                 },

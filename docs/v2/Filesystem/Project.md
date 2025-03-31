@@ -31,9 +31,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -45,9 +43,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Project.add_organizations(
-        project_rid,
-        organization_rids=organization_rids,
-        preview=preview,
+        project_rid, organization_rids=organization_rids, preview=preview
     )
     print("The add_organizations response:\n")
     pprint(api_response)
@@ -99,9 +95,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[RoleId]
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
@@ -177,9 +171,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectTemplateRid
 template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
@@ -244,9 +236,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -255,10 +245,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.get(
-        project_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Project.get(project_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -303,9 +290,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -318,11 +303,8 @@ preview = None
 
 
 try:
-    for project in foundry_client.filesystem.Project.organizations(
-        project_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for project in client.filesystem.Project.organizations(
+        project_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(project)
 except foundry.PalantirRPCException as e:
@@ -367,9 +349,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -383,10 +363,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Project.organizations_page(
-        project_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        project_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The organizations_page response:\n")
     pprint(api_response)
@@ -429,9 +406,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -443,9 +418,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Project.remove_organizations(
-        project_rid,
-        organization_rids=organization_rids,
-        preview=preview,
+        project_rid, organization_rids=organization_rids, preview=preview
     )
     print("The remove_organizations response:\n")
     pprint(api_response)

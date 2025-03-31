@@ -33,9 +33,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FolderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -48,11 +46,8 @@ preview = None
 
 
 try:
-    for folder in foundry_client.filesystem.Folder.children(
-        folder_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for folder in client.filesystem.Folder.children(
+        folder_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(folder)
 except foundry.PalantirRPCException as e:
@@ -99,9 +94,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FolderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -115,10 +108,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Folder.children_page(
-        folder_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        folder_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The children_page response:\n")
     pprint(api_response)
@@ -161,9 +151,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceDisplayName
 display_name = "My Folder"
@@ -175,9 +163,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Folder.create(
-        display_name=display_name,
-        parent_folder_rid=parent_folder_rid,
-        preview=preview,
+        display_name=display_name, parent_folder_rid=parent_folder_rid, preview=preview
     )
     print("The create response:\n")
     pprint(api_response)
@@ -219,9 +205,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FolderRid
 folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -230,10 +214,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Folder.get(
-        folder_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Folder.get(folder_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

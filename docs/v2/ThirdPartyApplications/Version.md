@@ -29,9 +29,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -44,8 +42,7 @@ version_version = "1.2.0"
 try:
     api_response = (
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.delete(
-            third_party_application_rid,
-            version_version,
+            third_party_application_rid, version_version
         )
     )
     print("The delete response:\n")
@@ -88,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -103,8 +98,7 @@ version_version = "1.2.0"
 try:
     api_response = (
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.get(
-            third_party_application_rid,
-            version_version,
+            third_party_application_rid, version_version
         )
     )
     print("The get response:\n")
@@ -150,9 +144,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -165,12 +157,8 @@ page_token = None
 
 
 try:
-    for (
-        version
-    ) in foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.list(
-        third_party_application_rid,
-        page_size=page_size,
-        page_token=page_token,
+    for version in client.third_party_applications.ThirdPartyApplication.Website.Version.list(
+        third_party_application_rid, page_size=page_size, page_token=page_token
     ):
         pprint(version)
 except foundry.PalantirRPCException as e:
@@ -214,9 +202,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -231,9 +217,7 @@ page_token = None
 try:
     api_response = (
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.page(
-            third_party_application_rid,
-            page_size=page_size,
-            page_token=page_token,
+            third_party_application_rid, page_size=page_size, page_token=page_token
         )
     )
     print("The page response:\n")
@@ -277,9 +261,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -294,9 +276,7 @@ version = None
 try:
     api_response = (
         foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.upload(
-            third_party_application_rid,
-            body,
-            version=version,
+            third_party_application_rid, body, version=version
         )
     )
     print("The upload response:\n")
@@ -343,9 +323,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (

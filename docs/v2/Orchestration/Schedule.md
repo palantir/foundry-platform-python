@@ -36,9 +36,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
 action = {
@@ -118,9 +116,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -129,10 +125,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.delete(
-        schedule_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Schedule.delete(schedule_rid, preview=preview)
     print("The delete response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -173,9 +166,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -184,10 +175,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.get(
-        schedule_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Schedule.get(schedule_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -228,9 +216,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -239,10 +225,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.pause(
-        schedule_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Schedule.pause(schedule_rid, preview=preview)
     print("The pause response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -288,9 +271,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -373,9 +354,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -384,10 +363,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.run(
-        schedule_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Schedule.run(schedule_rid, preview=preview)
     print("The run response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -431,9 +407,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -446,11 +420,8 @@ preview = None
 
 
 try:
-    for schedule in foundry_client.orchestration.Schedule.runs(
-        schedule_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for schedule in client.orchestration.Schedule.runs(
+        schedule_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(schedule)
 except foundry.PalantirRPCException as e:
@@ -494,9 +465,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -510,10 +479,7 @@ preview = None
 
 try:
     api_response = foundry_client.orchestration.Schedule.runs_page(
-        schedule_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        schedule_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The runs_page response:\n")
     pprint(api_response)
@@ -555,9 +521,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleRid
 schedule_rid = None
@@ -566,10 +530,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.unpause(
-        schedule_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Schedule.unpause(schedule_rid, preview=preview)
     print("The unpause response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

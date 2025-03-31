@@ -25,9 +25,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
@@ -39,9 +37,7 @@ preview = None
 
 try:
     api_response = foundry_client.aip_agents.Agent.Session.Content.get(
-        agent_rid,
-        session_rid,
-        preview=preview,
+        agent_rid, session_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)

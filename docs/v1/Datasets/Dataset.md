@@ -32,9 +32,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetName
 name = "My Dataset"
@@ -44,8 +42,7 @@ parent_folder_rid = "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4
 
 try:
     api_response = foundry_client.datasets.Dataset.create(
-        name=name,
-        parent_folder_rid=parent_folder_rid,
+        name=name, parent_folder_rid=parent_folder_rid
     )
     print("The create response:\n")
     pprint(api_response)
@@ -90,9 +87,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset on which to delete the schema.
 dataset_rid = None
@@ -106,10 +101,7 @@ transaction_rid = None
 
 try:
     api_response = foundry_client.datasets.Dataset.delete_schema(
-        dataset_rid,
-        branch_id=branch_id,
-        preview=preview,
-        transaction_rid=transaction_rid,
+        dataset_rid, branch_id=branch_id, preview=preview, transaction_rid=transaction_rid
     )
     print("The delete_schema response:\n")
     pprint(api_response)
@@ -153,18 +145,14 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.get(
-        dataset_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.get(dataset_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -208,9 +196,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset.
 dataset_rid = None
@@ -224,10 +210,7 @@ transaction_rid = None
 
 try:
     api_response = foundry_client.datasets.Dataset.get_schema(
-        dataset_rid,
-        branch_id=branch_id,
-        preview=preview,
-        transaction_rid=transaction_rid,
+        dataset_rid, branch_id=branch_id, preview=preview, transaction_rid=transaction_rid
     )
     print("The get_schema response:\n")
     pprint(api_response)
@@ -279,9 +262,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset.
 dataset_rid = None
@@ -409,9 +390,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset on which to put the Schema.
 dataset_rid = None
@@ -425,10 +404,7 @@ preview = True
 
 try:
     api_response = foundry_client.datasets.Dataset.replace_schema(
-        dataset_rid,
-        body,
-        branch_id=branch_id,
-        preview=preview,
+        dataset_rid, body, branch_id=branch_id, preview=preview
     )
     print("The replace_schema response:\n")
     pprint(api_response)

@@ -26,9 +26,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -40,8 +38,7 @@ version = "1.2.0"
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.deploy(
-        third_party_application_rid,
-        version=version,
+        third_party_application_rid, version=version
     )
     print("The deploy response:\n")
     pprint(api_response)
@@ -82,9 +79,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -94,7 +89,7 @@ third_party_application_rid = (
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.get(
-        third_party_application_rid,
+        third_party_application_rid
     )
     print("The get response:\n")
     pprint(api_response)
@@ -135,9 +130,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -147,7 +140,7 @@ third_party_application_rid = (
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.undeploy(
-        third_party_application_rid,
+        third_party_application_rid
     )
     print("The undeploy response:\n")
     pprint(api_response)

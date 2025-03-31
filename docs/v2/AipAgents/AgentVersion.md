@@ -27,9 +27,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
@@ -41,9 +39,7 @@ preview = None
 
 try:
     api_response = foundry_client.aip_agents.Agent.AgentVersion.get(
-        agent_rid,
-        agent_version_string,
-        preview=preview,
+        agent_rid, agent_version_string, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -89,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
@@ -104,11 +98,8 @@ preview = None
 
 
 try:
-    for agent_version in foundry_client.aip_agents.Agent.AgentVersion.list(
-        agent_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for agent_version in client.aip_agents.Agent.AgentVersion.list(
+        agent_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(agent_version)
 except foundry.PalantirRPCException as e:
@@ -153,9 +144,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
@@ -169,10 +158,7 @@ preview = None
 
 try:
     api_response = foundry_client.aip_agents.Agent.AgentVersion.page(
-        agent_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        agent_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)

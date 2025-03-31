@@ -3,10 +3,48 @@
   "packageUrl": "https://github.com/palantir/foundry-platform-python",
   "projectName": "foundry-platform-sdk",
   "clientName": "FoundryClient",
+  "platformName": "Foundry",
   "userHeader": "python-foundry-platform-sdk",
   "description": "The official Python library for the Foundry API",
+  "promotedMajorVersion": "v2",
   "extraDocsDir": "assets/docs_examples",
-  "exampleOperationName": "createBranch",
+  "exampleOperation": {
+    "majorVersion": "v2",
+    "operationName": "createBranch"
+  },
+  "validation": {
+    "exampleOperation": {
+      "majorVersion": "v2",
+      "operationName": "createBranch"
+    },
+    "exampleParameter": "transaction_rid",
+    "exampleVerb": "create"
+  },
+  "exceptions": {
+    "exampleOperation": {
+      "majorVersion": "v2",
+      "operationName": "getDataset"
+    },
+    "packageName": "datasets",
+    "exampleError": "DatasetNotFound",
+    "exampleGenericError": "UnauthorizedError",
+    "exampleErrorMessage": "There was an error with the request"
+  },
+  "paginationExampleOperation": {
+    "majorVersion": "v2",
+    "operationName": "listBranches"
+  },
+  "streamingExampleOperation": {
+    "majorVersion": "v2",
+    "operationName": "getProfilePictureOfUser"
+  },
+  "staticTypes": {
+    "exampleNamespace": "Admin",
+    "exampleOperation": {
+      "majorVersion": "v2",
+      "operationName": "searchUsers"
+    }
+  },
   "majorVersionConfigs": {
     "v1": {
       "additionalRelationships": [

@@ -7,18 +7,19 @@
 > [!WARNING]
 > This SDK is incubating and subject to change.
 
-The Foundry Platform SDK is a Python SDK built on top of the Foundry API. Review [Foundry API documentation](https://www.palantir.com/docs/foundry/api/) for more details.
+The Foundry Platform SDK is a Python SDK built on top of the Foundry API.
+Review [Foundry API documentation](https://www.palantir.com/docs/foundry/api/) for more details.
 
 > [!NOTE]
 > This Python package is automatically generated based on the Foundry API specification.
 
 
 <a id="sdk-vs-sdk"></a>
-## Foundry Platform SDK vs. Ontology SDK
-Palantir provides two different Python Software Development Kits (SDKs) for interacting with Foundry. Make sure to choose the correct SDK for your use case. As a general rule of thumb, any applications which leverage the Ontology should use the Ontology SDK for a superior development experience.
+## Gotham Platform SDK vs. Foundry Platform SDK vs. Ontology SDK
+Palantir provides two platform APIs for interacting with the Gotham and Foundry platforms. Each has a corresponding Software Development Kit (SDK). There is also the OSDK for interacting with Foundry ontologies. Make sure to choose the correct SDK for your use case. As a general rule of thumb, any applications which leverage the Ontology should use the Ontology SDK over the Foundry platform SDK for a superior development experience.
 
 > [!IMPORTANT]
-> Make sure to understand the difference between the Foundry SDK and the Ontology SDK. Review this section before continuing with the installation of this library.
+> Make sure to understand the difference between the Foundry, Gotham, and Ontology SDKs. Review this section before continuing with the installation of this library.
 
 ### Ontology SDK
 The Ontology SDK allows you to access the full power of the Ontology directly from your development environment. You can generate the Ontology SDK using the Developer Console, a portal for creating and managing applications using Palantir APIs. Review the [Ontology SDK documentation](https://www.palantir.com/docs/foundry/ontology-sdk) for more information.
@@ -26,8 +27,13 @@ The Ontology SDK allows you to access the full power of the Ontology directly fr
 ### Foundry Platform SDK
 The Foundry Platform Software Development Kit (SDK) is generated from the Foundry API specification
 file. The intention of this SDK is to encompass endpoints related to interacting
-with the platform itself. Although there are Ontology services included by this SDK, this SDK surfaces endpoints
+with the Foundry platform itself. Although there are Ontology services included by this SDK, this SDK surfaces endpoints
 for interacting with Ontological resources such as object types, link types, and action types. In contrast, the OSDK allows you to interact with objects, links and Actions (for example, querying your objects, applying an action).
+
+### Gotham Platform SDK
+The Gotham Platform Software Development Kit (SDK) is generated from the Gotham API specification
+file. The intention of this SDK is to encompass endpoints related to interacting
+with the Gotham platform itself. This includes Gotham apps and data, such as Gaia, Target Workbench, and geotemporal data.
 
 <a id="installation"></a>
 ## Installation
@@ -59,7 +65,7 @@ There are two options for authorizing the SDK.
 
 ### User token
 > [!WARNING]
-> User tokens are associated with your personal Foundry user account and must not be used in
+> User tokens are associated with your personal user account and must not be used in
 > production applications or committed to shared or public code repositories. We recommend
 > you store test API tokens as environment variables during development. For authorizing
 > production applications, you should register an OAuth2 application (see
@@ -84,10 +90,11 @@ initializing the `UserTokenAuth`:
 import foundry
 import foundry.v2
 
-foundry_client = foundry.v2.FoundryClient(
+client = foundry.v2.FoundryClient(
     auth=foundry.UserTokenAuth(token=os.environ["BEARER_TOKEN"]),
     hostname="example.palantirfoundry.com",
 )
+
 ```
 
 <a id="oauth2-client"></a>
@@ -97,7 +104,7 @@ natively supports the [client credentials grant flow](https://www.palantir.com/d
 The token obtained by this grant can be used to access resources on behalf of the created service user. To use this
 authentication method, you will first need to register a third-party application in Foundry by following [the guide on third-party application registration](https://www.palantir.com/docs/foundry/platform-security-third-party/register-3pa).
 
-To use the confidential client functionality, you first need to contstruct a
+To use the confidential client functionality, you first need to construct a
 `ConfidentialClientAuth` object. As these service user tokens have a short
 lifespan (one hour), we automatically retry all operations one time if a `401`
 (Unauthorized) error is thrown after refreshing the token.
@@ -110,6 +117,7 @@ auth = foundry.ConfidentialClientAuth(
     client_secret=os.environ["CLIENT_SECRET"],
     scopes=[...],  # optional list of scopes
 )
+
 ```
 
 > [!IMPORTANT]
@@ -121,7 +129,8 @@ After creating the `ConfidentialClientAuth` object, pass it in to the `FoundryCl
 ```python
 import foundry.v2
 
-foundry_client = foundry.v2.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
+client = foundry.v2.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
+
 ```
 
 > [!TIP]
@@ -137,27 +146,23 @@ best suited for your instance before following this example. For simplicity, the
 purposes.
 
 ```python
-from foundry.v1 import FoundryClient
+from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# BranchId
-branch_id = "my-branch"
-# Optional[TransactionRid]
-transaction_rid = None
+# DatasetRid
+dataset_rid = None
+# BranchName
+name = "master"
+# Optional[TransactionRid] | The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction.
+transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
 
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.create(
-        dataset_rid,
-        branch_id=branch_id,
-        transaction_rid=transaction_rid,
+        dataset_rid, name=name, transaction_rid=transaction_rid
     )
     print("The create response:\n")
     pprint(api_response)
@@ -182,20 +187,20 @@ of arguments. In the example below, we are passing in a number to `transaction_r
 which should actually be a string type:
 
 ```python
-foundry_client.datasets.Dataset.Branch.create(
-    "ri.foundry.main.dataset.abc",
-    name="123",
-    transaction_rid=123,
-)
+client.datasets.Dataset.Branch.create(
+	dataset_rid, 
+	name=name, 
+	transaction_rid=123)
 ```
 
 If you did this, you would receive an error that looks something like:
 
-```
+```python
 pydantic_core._pydantic_core.ValidationError: 1 validation error for create
 transaction_rid
   Input should be a valid string [type=string_type, input_value=123, input_type=int]
     For further information visit https://errors.pydantic.dev/2.5/v/string_type
+
 ```
 
 To handle these errors, you can catch `pydantic.ValidationError`. To learn more, see
@@ -207,9 +212,7 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-Each operation includes a list of possible exceptions that can be thrown which can be thrown by
-the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts
-with datasets might throw a `DatasetNotFound` error, which is defined as follows:
+Each operation includes a list of possible exceptions that can be thrown which can be thrown by the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts with datasets might throw a `DatasetNotFound` error, which is defined as follows:
 
 ```python
 class DatasetNotFoundParameters(TypedDict):
@@ -225,6 +228,7 @@ class DatasetNotFound(NotFoundError):
     name: Literal["DatasetNotFound"]
     parameters: DatasetNotFoundParameters
     error_instance_id: str
+
 ```
 
 As a user, you can catch this exception and handle it accordingly.
@@ -233,10 +237,11 @@ As a user, you can catch this exception and handle it accordingly.
 from foundry.v2.datasets.errors import DatasetNotFound
 
 try:
-    dataset = foundry_client.datasets.Dataset.get("ri.foundry.main.dataset.abc")
+    response = client.datasets.Dataset.get(dataset_rid)
     ...
 except DatasetNotFound as e:
-    print("Dataset not found", e.parameters["datasetRid"])
+    print("There was an error with the request", e.parameters[...])
+
 ```
 
 You can refer to the method documentation to see which exceptions can be thrown. It is also possible to
@@ -257,22 +262,22 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 
 ```python
 from foundry import PalantirRPCException
-from foundry import NotFoundError
-
+from foundry import UnauthorizedError
 
 try:
-    api_response = foundry_client.datasets.Transaction.abort(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.get(dataset_rid)
     ...
-except NotFoundError as e:
-    print("Dataset or Transaction not found", e)
+except UnauthorizedError as e:
+    print("There was an error with the request", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
+
 ```
 
 All HTTP exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
 
-| Property          | Type                   | Description                                                                                                                    |
-| ----------------- | -----------------------| ------------------------------------------------------------------------------------------------------------------------------ |
+| Property          | Type                   | Description                                                                                                                                                       |
+| ----------------- | -----------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
 | error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
 | parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
@@ -303,19 +308,24 @@ of data, while handling the underlying pagination logic.
 To iterate over all items, you can simply create a `Pager` instance and use it in a for loop, like this:
 
 ```python
-for branch in foundry_client.datasets.Dataset.Branch.list(dataset_rid):
-    print(branch)
+for item in client.datasets.Dataset.Branch.list(dataset_rid):
+    print(item)
+
 ```
 
 This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the `next_page_token`.
 
 ```python
-page = foundry_client.datasets.Dataset.Branch.list(dataset_rid)
+page = client.datasets.Dataset.Branch.list(dataset_rid, page_size=page_size)
+
 while page.next_page_token:
     for branch in page.data:
         print(branch)
 
-    page = foundry_client.datasets.Dataset.Branch.list(dataset_rid, page_token=page.next_page_token)
+    page = client.datasets.Dataset.Branch.list(
+        dataset_rid, page_size=page_size, page_token=page.next_page_token
+    )
+
 ```
 
 
@@ -327,14 +337,15 @@ manager when making a request with this client.
 
 ```python
 # Non-streaming response
-with open("profile_picture.png", "wb") as f:
-    f.write(foundry_client.admin.User.profile_picture(user_id))
+with open("result.png", "wb") as f:
+    f.write(client.admin.User.profile_picture(user_id))
 
 # Streaming response
-with open("profile_picture.png", "wb") as f:
-    with foundry_client.admin.User.with_streaming_response.profile_picture(user_id) as response:
+with open("result.png", "wb") as f:
+    with client.admin.User.with_streaming_response.profile_picture(user_id) as response:
         for chunk in response.iter_bytes():
             f.write(chunk)
+
 ```
 
 <a id="static-types"></a>
@@ -357,6 +368,7 @@ class. For example, here is how `Group.search` method is defined in the `Admin` 
         request_timeout: Optional[Annotated[int, pydantic.Field(gt=0)]] = None,
     ) -> SearchGroupsResponse:
         ...
+
 ```
 
 In this example, `GroupSearchFilter` is a `BaseModel` class and `GroupSearchFilterDict` is a `TypedDict` class. When calling this method,
@@ -373,6 +385,7 @@ result = client.admin.Group.search(where=GroupSearchFilter(type="queryString", v
 
 # Dict
 result = client.admin.Group.search(where={"type": "queryString", "value": "John Doe"})
+
 ```
 
 > [!TIP]
@@ -394,8 +407,8 @@ branch = foundry_client.datasets.Dataset.Branch.create(
 )
 # ERROR: Cannot access member "branchName" for type "Branch"
 print(branch.branchName)
-```
 
+```
 
 <a id="session-config"></a>
 ## HTTP Session Configuration
@@ -404,7 +417,7 @@ You can configure various parts of the HTTP session using the `Config` class.
 ```python
 from foundry import Config
 from foundry import UserTokenAuth
-from foundry.v2 imoprt FoundryClient
+from foundry.v2 import FoundryClient
 
 client = FoundryClient(
     auth=UserTokenAuth(...),
@@ -415,11 +428,10 @@ client = FoundryClient(
         # Default to a 60 second timeout
         timeout=60,
         # Create a proxy for the https protocol
-        proxies={
-            "https": "https://10.10.1.10:1080"
-        },
-    )
+        proxies={"https": "https://10.10.1.10:1080"},
+    ),
 )
+
 ```
 
 The full list of options can be found below.

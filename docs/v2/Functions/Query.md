@@ -30,9 +30,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryApiName
 query_api_name = None
@@ -44,9 +42,7 @@ preview = None
 
 try:
     api_response = foundry_client.functions.Query.execute(
-        query_api_name,
-        parameters=parameters,
-        preview=preview,
+        query_api_name, parameters=parameters, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -89,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryApiName
 query_api_name = None
@@ -100,10 +94,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.functions.Query.get(
-        query_api_name,
-        preview=preview,
-    )
+    api_response = foundry_client.functions.Query.get(query_api_name, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -145,9 +136,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FunctionRid
 rid = None
@@ -156,10 +145,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.functions.Query.get_by_rid(
-        rid=rid,
-        preview=preview,
-    )
+    api_response = foundry_client.functions.Query.get_by_rid(rid=rid, preview=preview)
     print("The get_by_rid response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

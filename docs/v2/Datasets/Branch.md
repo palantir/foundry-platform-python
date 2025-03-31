@@ -30,9 +30,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -44,9 +42,7 @@ transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa393
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.create(
-        dataset_rid,
-        name=name,
-        transaction_rid=transaction_rid,
+        dataset_rid, name=name, transaction_rid=transaction_rid
     )
     print("The create response:\n")
     pprint(api_response)
@@ -89,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -100,10 +94,7 @@ branch_name = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.delete(
-        dataset_rid,
-        branch_name,
-    )
+    api_response = foundry_client.datasets.Dataset.Branch.delete(dataset_rid, branch_name)
     print("The delete response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -145,9 +136,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -156,10 +145,7 @@ branch_name = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.get(
-        dataset_rid,
-        branch_name,
-    )
+    api_response = foundry_client.datasets.Dataset.Branch.get(dataset_rid, branch_name)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -202,9 +188,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -215,10 +199,8 @@ page_token = None
 
 
 try:
-    for branch in foundry_client.datasets.Dataset.Branch.list(
-        dataset_rid,
-        page_size=page_size,
-        page_token=page_token,
+    for branch in client.datasets.Dataset.Branch.list(
+        dataset_rid, page_size=page_size, page_token=page_token
     ):
         pprint(branch)
 except foundry.PalantirRPCException as e:
@@ -261,9 +243,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -275,9 +255,7 @@ page_token = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.page(
-        dataset_rid,
-        page_size=page_size,
-        page_token=page_token,
+        dataset_rid, page_size=page_size, page_token=page_token
     )
     print("The page response:\n")
     pprint(api_response)

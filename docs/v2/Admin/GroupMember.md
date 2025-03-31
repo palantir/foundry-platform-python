@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -42,9 +40,7 @@ expiration = None
 
 try:
     api_response = foundry_client.admin.Group.GroupMember.add(
-        group_id,
-        principal_ids=principal_ids,
-        expiration=expiration,
+        group_id, principal_ids=principal_ids, expiration=expiration
     )
     print("The add response:\n")
     pprint(api_response)
@@ -95,9 +91,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -110,11 +104,8 @@ transitive = None
 
 
 try:
-    for group_member in foundry_client.admin.Group.GroupMember.list(
-        group_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
+    for group_member in client.admin.Group.GroupMember.list(
+        group_id, page_size=page_size, page_token=page_token, transitive=transitive
     ):
         pprint(group_member)
 except foundry.PalantirRPCException as e:
@@ -164,9 +155,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -180,10 +169,7 @@ transitive = None
 
 try:
     api_response = foundry_client.admin.Group.GroupMember.page(
-        group_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
+        group_id, page_size=page_size, page_token=page_token, transitive=transitive
     )
     print("The page response:\n")
     pprint(api_response)
@@ -225,9 +211,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -237,8 +221,7 @@ principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 
 try:
     api_response = foundry_client.admin.Group.GroupMember.remove(
-        group_id,
-        principal_ids=principal_ids,
+        group_id, principal_ids=principal_ids
     )
     print("The remove response:\n")
     pprint(api_response)

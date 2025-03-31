@@ -34,9 +34,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -49,11 +47,8 @@ transitive = None
 
 
 try:
-    for group_membership in foundry_client.admin.User.GroupMembership.list(
-        user_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
+    for group_membership in client.admin.User.GroupMembership.list(
+        user_id, page_size=page_size, page_token=page_token, transitive=transitive
     ):
         pprint(group_membership)
 except foundry.PalantirRPCException as e:
@@ -103,9 +98,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -119,10 +112,7 @@ transitive = None
 
 try:
     api_response = foundry_client.admin.User.GroupMembership.page(
-        user_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
+        user_id, page_size=page_size, page_token=page_token, transitive=transitive
     )
     print("The page response:\n")
     pprint(api_response)

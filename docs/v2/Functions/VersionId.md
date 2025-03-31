@@ -26,9 +26,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ValueTypeRid
 value_type_rid = None
@@ -40,9 +38,7 @@ preview = None
 
 try:
     api_response = foundry_client.functions.ValueType.VersionId.get(
-        value_type_rid,
-        version_id_version_id,
-        preview=preview,
+        value_type_rid, version_id_version_id, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)

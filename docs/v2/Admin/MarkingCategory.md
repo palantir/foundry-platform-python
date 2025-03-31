@@ -26,9 +26,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingCategoryId
 marking_category_id = None
@@ -37,10 +35,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.MarkingCategory.get(
-        marking_category_id,
-        preview=preview,
-    )
+    api_response = foundry_client.admin.MarkingCategory.get(marking_category_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -82,9 +77,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -95,10 +88,8 @@ preview = None
 
 
 try:
-    for marking_category in foundry_client.admin.MarkingCategory.list(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for marking_category in client.admin.MarkingCategory.list(
+        page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(marking_category)
 except foundry.PalantirRPCException as e:
@@ -140,9 +131,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -154,9 +143,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.MarkingCategory.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)

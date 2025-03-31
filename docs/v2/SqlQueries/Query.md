@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryId | The id of a query.
 query_id = None
@@ -39,10 +37,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.cancel(
-        query_id,
-        preview=preview,
-    )
+    api_response = foundry_client.sql_queries.Query.cancel(query_id, preview=preview)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -85,9 +80,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
 query = None
@@ -99,9 +92,7 @@ preview = None
 
 try:
     api_response = foundry_client.sql_queries.Query.execute(
-        query=query,
-        fallback_branch_ids=fallback_branch_ids,
-        preview=preview,
+        query=query, fallback_branch_ids=fallback_branch_ids, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -145,9 +136,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryId | The id of a query.
 query_id = None
@@ -156,10 +145,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.get_results(
-        query_id,
-        preview=preview,
-    )
+    api_response = foundry_client.sql_queries.Query.get_results(query_id, preview=preview)
     print("The get_results response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -201,9 +187,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryId | The id of a query.
 query_id = None
@@ -212,10 +196,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.get_status(
-        query_id,
-        preview=preview,
-    )
+    api_response = foundry_client.sql_queries.Query.get_status(query_id, preview=preview)
     print("The get_status response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

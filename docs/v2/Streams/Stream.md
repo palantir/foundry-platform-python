@@ -35,9 +35,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -108,9 +106,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -122,9 +118,7 @@ preview = None
 
 try:
     api_response = foundry_client.streams.Dataset.Stream.get(
-        dataset_rid,
-        stream_branch_name,
-        preview=preview,
+        dataset_rid, stream_branch_name, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -170,9 +164,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -188,11 +180,7 @@ view_rid = None
 
 try:
     api_response = foundry_client.streams.Dataset.Stream.publish_binary_record(
-        dataset_rid,
-        stream_branch_name,
-        body,
-        preview=preview,
-        view_rid=view_rid,
+        dataset_rid, stream_branch_name, body, preview=preview, view_rid=view_rid
     )
     print("The publish_binary_record response:\n")
     pprint(api_response)
@@ -239,9 +227,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -257,11 +243,7 @@ view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 try:
     api_response = foundry_client.streams.Dataset.Stream.publish_record(
-        dataset_rid,
-        stream_branch_name,
-        record=record,
-        preview=preview,
-        view_rid=view_rid,
+        dataset_rid, stream_branch_name, record=record, preview=preview, view_rid=view_rid
     )
     print("The publish_record response:\n")
     pprint(api_response)
@@ -308,9 +290,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -326,11 +306,7 @@ view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 try:
     api_response = foundry_client.streams.Dataset.Stream.publish_records(
-        dataset_rid,
-        stream_branch_name,
-        records=records,
-        preview=preview,
-        view_rid=view_rid,
+        dataset_rid, stream_branch_name, records=records, preview=preview, view_rid=view_rid
     )
     print("The publish_records response:\n")
     pprint(api_response)
@@ -384,9 +360,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None

@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -42,9 +40,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Enrollment.AuthenticationProvider.get(
-        enrollment_rid,
-        authentication_provider_rid,
-        preview=preview,
+        enrollment_rid, authentication_provider_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -88,9 +84,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -100,8 +94,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Enrollment.AuthenticationProvider.list(
-        enrollment_rid,
-        preview=preview,
+        enrollment_rid, preview=preview
     )
     print("The list response:\n")
     pprint(api_response)
@@ -148,9 +141,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -221,9 +212,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None

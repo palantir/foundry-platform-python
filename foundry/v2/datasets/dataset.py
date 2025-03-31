@@ -156,7 +156,6 @@ class DatasetClient:
         :rtype: datasets_models.Dataset
 
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -176,7 +175,6 @@ class DatasetClient:
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
@@ -226,7 +224,6 @@ class DatasetClient:
 
         :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
         :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
         :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
         :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
         :raises ReadTableTimeout: The request to read the table timed out.
@@ -257,7 +254,6 @@ class DatasetClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
-                    "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
                     "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
                     "ReadTableError": datasets_errors.ReadTableError,
                     "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,

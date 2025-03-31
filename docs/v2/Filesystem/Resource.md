@@ -34,9 +34,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -48,9 +46,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.add_markings(
-        resource_rid,
-        marking_ids=marking_ids,
-        preview=preview,
+        resource_rid, marking_ids=marking_ids, preview=preview
     )
     print("The add_markings response:\n")
     pprint(api_response)
@@ -94,9 +90,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -105,10 +99,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.delete(
-        resource_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Resource.delete(resource_rid, preview=preview)
     print("The delete response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -149,9 +140,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -160,10 +149,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.get(
-        resource_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Resource.get(resource_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -206,9 +192,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -218,8 +202,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.get_access_requirements(
-        resource_rid,
-        preview=preview,
+        resource_rid, preview=preview
     )
     print("The get_access_requirements response:\n")
     pprint(api_response)
@@ -261,9 +244,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourcePath | The path to the Resource. The leading slash is optional.
 path = "/My Organization-abcd/My Important Project/My Dataset"
@@ -272,10 +253,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.get_by_path(
-        path=path,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Resource.get_by_path(path=path, preview=preview)
     print("The get_by_path response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -320,9 +298,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -335,11 +311,8 @@ preview = None
 
 
 try:
-    for resource in foundry_client.filesystem.Resource.markings(
-        resource_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for resource in client.filesystem.Resource.markings(
+        resource_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(resource)
 except foundry.PalantirRPCException as e:
@@ -384,9 +357,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -400,10 +371,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.markings_page(
-        resource_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        resource_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The markings_page response:\n")
     pprint(api_response)
@@ -447,9 +415,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -459,8 +425,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.permanently_delete(
-        resource_rid,
-        preview=preview,
+        resource_rid, preview=preview
     )
     print("The permanently_delete response:\n")
     pprint(api_response)
@@ -503,9 +468,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -517,9 +480,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.remove_markings(
-        resource_rid,
-        marking_ids=marking_ids,
-        preview=preview,
+        resource_rid, marking_ids=marking_ids, preview=preview
     )
     print("The remove_markings response:\n")
     pprint(api_response)
@@ -563,9 +524,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -574,10 +533,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.restore(
-        resource_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.filesystem.Resource.restore(resource_rid, preview=preview)
     print("The restore response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

@@ -35,9 +35,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -112,9 +110,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -126,9 +122,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.TableImport.delete(
-        connection_rid,
-        table_import_rid,
-        preview=preview,
+        connection_rid, table_import_rid, preview=preview
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -173,9 +167,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -187,9 +179,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.TableImport.execute(
-        connection_rid,
-        table_import_rid,
-        preview=preview,
+        connection_rid, table_import_rid, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -232,9 +222,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -246,9 +234,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.TableImport.get(
-        connection_rid,
-        table_import_rid,
-        preview=preview,
+        connection_rid, table_import_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -294,9 +280,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -309,11 +293,8 @@ preview = None
 
 
 try:
-    for table_import in foundry_client.connectivity.Connection.TableImport.list(
-        connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for table_import in client.connectivity.Connection.TableImport.list(
+        connection_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(table_import)
 except foundry.PalantirRPCException as e:
@@ -358,9 +339,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -374,10 +353,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.TableImport.page(
-        connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        connection_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)

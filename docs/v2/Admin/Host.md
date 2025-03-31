@@ -29,9 +29,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -44,11 +42,8 @@ preview = None
 
 
 try:
-    for host in foundry_client.admin.Enrollment.Host.list(
-        enrollment_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for host in client.admin.Enrollment.Host.list(
+        enrollment_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(host)
 except foundry.PalantirRPCException as e:
@@ -93,9 +88,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -109,10 +102,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Enrollment.Host.page(
-        enrollment_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        enrollment_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)
