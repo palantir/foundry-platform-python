@@ -3,8 +3,10 @@
   "packageUrl": "https://github.com/palantir/foundry-platform-python",
   "projectName": "foundry-platform-sdk",
   "clientName": "FoundryClient",
+  "platformName": "Foundry",
   "userHeader": "python-foundry-platform-sdk",
   "description": "The official Python library for the Foundry API",
+  "promotedMajorVersion": "v2",
   "extraDocsDir": "assets/docs_examples",
   "exampleOperation": {
     "majorVersion": "v2",
