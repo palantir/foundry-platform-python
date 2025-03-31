@@ -31,9 +31,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -42,10 +40,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.abort(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
     print("The abort response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -90,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -104,9 +97,7 @@ preview = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.build(
-        dataset_rid,
-        transaction_rid,
-        preview=preview,
+        dataset_rid, transaction_rid, preview=preview
     )
     print("The build response:\n")
     pprint(api_response)
@@ -150,9 +141,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -161,10 +150,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.commit(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
     print("The commit response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -207,9 +193,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -221,9 +205,7 @@ branch_name = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.create(
-        dataset_rid,
-        transaction_type=transaction_type,
-        branch_name=branch_name,
+        dataset_rid, transaction_type=transaction_type, branch_name=branch_name
     )
     print("The create response:\n")
     pprint(api_response)
@@ -288,9 +270,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -299,10 +279,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.get(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -347,9 +324,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -361,9 +336,7 @@ preview = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.job(
-        dataset_rid,
-        transaction_rid,
-        preview=preview,
+        dataset_rid, transaction_rid, preview=preview
     )
     print("The job response:\n")
     pprint(api_response)

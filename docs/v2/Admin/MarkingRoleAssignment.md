@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -42,9 +40,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.MarkingRoleAssignment.add(
-        marking_id,
-        role_assignments=role_assignments,
-        preview=preview,
+        marking_id, role_assignments=role_assignments, preview=preview
     )
     print("The add response:\n")
     pprint(api_response)
@@ -89,9 +85,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -104,11 +98,8 @@ preview = None
 
 
 try:
-    for marking_role_assignment in foundry_client.admin.Marking.MarkingRoleAssignment.list(
-        marking_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for marking_role_assignment in client.admin.Marking.MarkingRoleAssignment.list(
+        marking_id, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(marking_role_assignment)
 except foundry.PalantirRPCException as e:
@@ -152,9 +143,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -168,10 +157,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.MarkingRoleAssignment.page(
-        marking_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        marking_id, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The page response:\n")
     pprint(api_response)
@@ -214,9 +200,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -228,9 +212,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.MarkingRoleAssignment.remove(
-        marking_id,
-        role_assignments=role_assignments,
-        preview=preview,
+        marking_id, role_assignments=role_assignments, preview=preview
     )
     print("The remove response:\n")
     pprint(api_response)

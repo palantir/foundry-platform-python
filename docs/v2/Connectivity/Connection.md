@@ -38,9 +38,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
 configuration = None
@@ -99,9 +97,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -110,10 +106,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.get(
-        connection_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.connectivity.Connection.get(connection_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -156,9 +149,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -168,8 +159,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.get_configuration(
-        connection_rid,
-        preview=preview,
+        connection_rid, preview=preview
     )
     print("The get_configuration response:\n")
     pprint(api_response)
@@ -223,9 +213,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -237,9 +225,7 @@ preview = None
 
 try:
     api_response = foundry_client.connectivity.Connection.update_secrets(
-        connection_rid,
-        secrets=secrets,
-        preview=preview,
+        connection_rid, secrets=secrets, preview=preview
     )
     print("The update_secrets response:\n")
     pprint(api_response)

@@ -24,9 +24,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -38,8 +36,7 @@ preview = None
 
 try:
     api_response = foundry_client.third_party_applications.ThirdPartyApplication.get(
-        third_party_application_rid,
-        preview=preview,
+        third_party_application_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)

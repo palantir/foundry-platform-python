@@ -32,9 +32,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
 attributes = {
@@ -58,10 +56,7 @@ description = "Create and modify data sources in the platform"
 
 try:
     api_response = foundry_client.admin.Group.create(
-        attributes=attributes,
-        name=name,
-        organizations=organizations,
-        description=description,
+        attributes=attributes, name=name, organizations=organizations, description=description
     )
     print("The create response:\n")
     pprint(api_response)
@@ -102,18 +97,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
 
 
 try:
-    api_response = foundry_client.admin.Group.delete(
-        group_id,
-    )
+    api_response = foundry_client.admin.Group.delete(group_id)
     print("The delete response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -153,18 +144,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
 
 
 try:
-    api_response = foundry_client.admin.Group.get(
-        group_id,
-    )
+    api_response = foundry_client.admin.Group.get(group_id)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -206,18 +193,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
 try:
-    api_response = foundry_client.admin.Group.get_batch(
-        body,
-    )
+    api_response = foundry_client.admin.Group.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -260,9 +243,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -271,10 +252,7 @@ page_token = None
 
 
 try:
-    for group in foundry_client.admin.Group.list(
-        page_size=page_size,
-        page_token=page_token,
-    ):
+    for group in client.admin.Group.list(page_size=page_size, page_token=page_token):
         pprint(group)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Group.list: %s\n" % e)
@@ -316,9 +294,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -327,10 +303,7 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.admin.Group.page(
-        page_size=page_size,
-        page_token=page_token,
-    )
+    api_response = foundry_client.admin.Group.page(page_size=page_size, page_token=page_token)
     print("The page response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -373,9 +346,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[GroupSearchFilter, GroupSearchFilterDict]
 where = {"type": "queryString"}
@@ -387,9 +358,7 @@ page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmV
 
 try:
     api_response = foundry_client.admin.Group.search(
-        where=where,
-        page_size=page_size,
-        page_token=page_token,
+        where=where, page_size=page_size, page_token=page_token
     )
     print("The search response:\n")
     pprint(api_response)

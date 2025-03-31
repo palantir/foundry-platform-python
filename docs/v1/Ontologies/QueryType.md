@@ -29,9 +29,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -40,10 +38,7 @@ query_api_name = "getEmployeesInCity"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.QueryType.get(
-        ontology_rid,
-        query_api_name,
-    )
+    api_response = foundry_client.ontologies.Ontology.QueryType.get(ontology_rid, query_api_name)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -91,9 +86,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -104,10 +97,8 @@ page_token = None
 
 
 try:
-    for query_type in foundry_client.ontologies.Ontology.QueryType.list(
-        ontology_rid,
-        page_size=page_size,
-        page_token=page_token,
+    for query_type in client.ontologies.Ontology.QueryType.list(
+        ontology_rid, page_size=page_size, page_token=page_token
     ):
         pprint(query_type)
 except foundry.PalantirRPCException as e:
@@ -155,9 +146,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -169,9 +158,7 @@ page_token = None
 
 try:
     api_response = foundry_client.ontologies.Ontology.QueryType.page(
-        ontology_rid,
-        page_size=page_size,
-        page_token=page_token,
+        ontology_rid, page_size=page_size, page_token=page_token
     )
     print("The page response:\n")
     pprint(api_response)

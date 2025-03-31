@@ -47,9 +47,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to delete the File.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -63,10 +61,7 @@ transaction_rid = None
 
 try:
     api_response = foundry_client.datasets.Dataset.File.delete(
-        dataset_rid,
-        file_path,
-        branch_id=branch_id,
-        transaction_rid=transaction_rid,
+        dataset_rid, file_path, branch_id=branch_id, transaction_rid=transaction_rid
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -135,9 +130,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the File.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -229,9 +222,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Files.
 dataset_rid = None
@@ -248,7 +239,7 @@ start_transaction_rid = None
 
 
 try:
-    for file in foundry_client.datasets.Dataset.File.list(
+    for file in client.datasets.Dataset.File.list(
         dataset_rid,
         branch_id=branch_id,
         end_transaction_rid=end_transaction_rid,
@@ -345,9 +336,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Files.
 dataset_rid = None
@@ -440,9 +429,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the File.
 dataset_rid = None
@@ -528,9 +515,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to upload the File.
 dataset_rid = None

@@ -29,18 +29,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AttachmentRid | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
 
 
 try:
-    api_response = foundry_client.ontologies.Attachment.get(
-        attachment_rid,
-    )
+    api_response = foundry_client.ontologies.Attachment.get(attachment_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -84,18 +80,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # AttachmentRid | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
 
 
 try:
-    api_response = foundry_client.ontologies.Attachment.read(
-        attachment_rid,
-    )
+    api_response = foundry_client.ontologies.Attachment.read(attachment_rid)
     print("The read response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -146,9 +138,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # bytes | Body of the request
 body = None
@@ -162,10 +152,7 @@ filename = "My Image.jpeg"
 
 try:
     api_response = foundry_client.ontologies.Attachment.upload(
-        body,
-        content_length=content_length,
-        content_type=content_type,
-        filename=filename,
+        body, content_length=content_length, content_type=content_type, filename=filename
     )
     print("The upload response:\n")
     pprint(api_response)

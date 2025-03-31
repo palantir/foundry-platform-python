@@ -28,9 +28,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -42,9 +40,7 @@ parameters = {"city": "New York"}
 
 try:
     api_response = foundry_client.ontologies.Query.execute(
-        ontology_rid,
-        query_api_name,
-        parameters=parameters,
+        ontology_rid, query_api_name, parameters=parameters
     )
     print("The execute response:\n")
     pprint(api_response)

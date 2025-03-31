@@ -29,9 +29,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action type.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -41,8 +39,7 @@ action_type_api_name = "promote-employee"
 
 try:
     api_response = foundry_client.ontologies.Ontology.ActionType.get(
-        ontology_rid,
-        action_type_api_name,
+        ontology_rid, action_type_api_name
     )
     print("The get response:\n")
     pprint(api_response)
@@ -91,9 +88,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -104,10 +99,8 @@ page_token = None
 
 
 try:
-    for action_type in foundry_client.ontologies.Ontology.ActionType.list(
-        ontology_rid,
-        page_size=page_size,
-        page_token=page_token,
+    for action_type in client.ontologies.Ontology.ActionType.list(
+        ontology_rid, page_size=page_size, page_token=page_token
     ):
         pprint(action_type)
 except foundry.PalantirRPCException as e:
@@ -155,9 +148,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -169,9 +160,7 @@ page_token = None
 
 try:
     api_response = foundry_client.ontologies.Ontology.ActionType.page(
-        ontology_rid,
-        page_size=page_size,
-        page_token=page_token,
+        ontology_rid, page_size=page_size, page_token=page_token
     )
     print("The page response:\n")
     pprint(api_response)

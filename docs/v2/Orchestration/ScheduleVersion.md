@@ -25,9 +25,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleVersionRid | The RID of a schedule version
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
@@ -37,8 +35,7 @@ preview = None
 
 try:
     api_response = foundry_client.orchestration.ScheduleVersion.get(
-        schedule_version_rid,
-        preview=preview,
+        schedule_version_rid, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)
@@ -80,9 +77,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ScheduleVersionRid | The RID of a schedule version
 schedule_version_rid = "ri.scheduler.main.schedule-version.4d1eb55f-6c13-411c-a911-5d84e08d8017"
@@ -92,8 +87,7 @@ preview = None
 
 try:
     api_response = foundry_client.orchestration.ScheduleVersion.schedule(
-        schedule_version_rid,
-        preview=preview,
+        schedule_version_rid, preview=preview
     )
     print("The schedule response:\n")
     pprint(api_response)

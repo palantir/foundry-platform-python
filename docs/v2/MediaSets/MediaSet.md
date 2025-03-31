@@ -35,9 +35,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None
@@ -49,9 +47,7 @@ preview = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.abort(
-        media_set_rid,
-        transaction_id,
-        preview=preview,
+        media_set_rid, transaction_id, preview=preview
     )
     print("The abort response:\n")
     pprint(api_response)
@@ -97,9 +93,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None
@@ -111,9 +105,7 @@ preview = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.commit(
-        media_set_rid,
-        transaction_id,
-        preview=preview,
+        media_set_rid, transaction_id, preview=preview
     )
     print("The commit response:\n")
     pprint(api_response)
@@ -159,9 +151,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None
@@ -173,9 +163,7 @@ preview = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.create(
-        media_set_rid,
-        branch_name=branch_name,
-        preview=preview,
+        media_set_rid, branch_name=branch_name, preview=preview
     )
     print("The create response:\n")
     pprint(api_response)
@@ -222,9 +210,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid | The RID of the media set.
 media_set_rid = None
@@ -238,10 +224,7 @@ read_token = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.info(
-        media_set_rid,
-        media_item_rid,
-        preview=preview,
-        read_token=read_token,
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The info response:\n")
     pprint(api_response)
@@ -288,9 +271,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None
@@ -304,10 +285,7 @@ read_token = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.read(
-        media_set_rid,
-        media_item_rid,
-        preview=preview,
-        read_token=read_token,
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The read response:\n")
     pprint(api_response)
@@ -354,9 +332,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None
@@ -370,10 +346,7 @@ read_token = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.read_original(
-        media_set_rid,
-        media_item_rid,
-        preview=preview,
-        read_token=read_token,
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The read_original response:\n")
     pprint(api_response)
@@ -420,9 +393,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid | The RID of the media set.
 media_set_rid = None
@@ -436,10 +407,7 @@ read_token = None
 
 try:
     api_response = foundry_client.media_sets.MediaSet.reference(
-        media_set_rid,
-        media_item_rid,
-        preview=preview,
-        read_token=read_token,
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The reference response:\n")
     pprint(api_response)
@@ -492,9 +460,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MediaSetRid
 media_set_rid = None

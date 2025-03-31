@@ -32,9 +32,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -46,9 +44,7 @@ transaction_rid = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.create(
-        dataset_rid,
-        branch_id=branch_id,
-        transaction_rid=transaction_rid,
+        dataset_rid, branch_id=branch_id, transaction_rid=transaction_rid
     )
     print("The create response:\n")
     pprint(api_response)
@@ -93,9 +89,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -104,10 +98,7 @@ branch_id = "my-branch"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.delete(
-        dataset_rid,
-        branch_id,
-    )
+    api_response = foundry_client.datasets.Dataset.Branch.delete(dataset_rid, branch_id)
     print("The delete response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -151,9 +142,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Branch.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -162,10 +151,7 @@ branch_id = "master"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.get(
-        dataset_rid,
-        branch_id,
-    )
+    api_response = foundry_client.datasets.Dataset.Branch.get(dataset_rid, branch_id)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -210,9 +196,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -223,10 +207,8 @@ page_token = None
 
 
 try:
-    for branch in foundry_client.datasets.Dataset.Branch.list(
-        dataset_rid,
-        page_size=page_size,
-        page_token=page_token,
+    for branch in client.datasets.Dataset.Branch.list(
+        dataset_rid, page_size=page_size, page_token=page_token
     ):
         pprint(branch)
 except foundry.PalantirRPCException as e:
@@ -271,9 +253,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Branches.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -285,9 +265,7 @@ page_token = None
 
 try:
     api_response = foundry_client.datasets.Dataset.Branch.page(
-        dataset_rid,
-        page_size=page_size,
-        page_token=page_token,
+        dataset_rid, page_size=page_size, page_token=page_token
     )
     print("The page response:\n")
     pprint(api_response)

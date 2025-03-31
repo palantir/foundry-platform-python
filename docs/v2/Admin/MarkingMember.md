@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -42,9 +40,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.MarkingMember.add(
-        marking_id,
-        principal_ids=principal_ids,
-        preview=preview,
+        marking_id, principal_ids=principal_ids, preview=preview
     )
     print("The add response:\n")
     pprint(api_response)
@@ -91,9 +87,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -108,7 +102,7 @@ transitive = None
 
 
 try:
-    for marking_member in foundry_client.admin.Marking.MarkingMember.list(
+    for marking_member in client.admin.Marking.MarkingMember.list(
         marking_id,
         page_size=page_size,
         page_token=page_token,
@@ -159,9 +153,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -224,9 +216,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # MarkingId
 marking_id = None
@@ -238,9 +228,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Marking.MarkingMember.remove(
-        marking_id,
-        principal_ids=principal_ids,
-        preview=preview,
+        marking_id, principal_ids=principal_ids, preview=preview
     )
     print("The remove response:\n")
     pprint(api_response)

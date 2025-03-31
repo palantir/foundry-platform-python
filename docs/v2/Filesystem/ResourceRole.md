@@ -28,9 +28,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -42,9 +40,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.Role.add(
-        resource_rid,
-        roles=roles,
-        preview=preview,
+        resource_rid, roles=roles, preview=preview
     )
     print("The add response:\n")
     pprint(api_response)
@@ -90,9 +86,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -107,7 +101,7 @@ preview = None
 
 
 try:
-    for resource_role in foundry_client.filesystem.Resource.Role.list(
+    for resource_role in client.filesystem.Resource.Role.list(
         resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -157,9 +151,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -222,9 +214,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -236,9 +226,7 @@ preview = None
 
 try:
     api_response = foundry_client.filesystem.Resource.Role.remove(
-        resource_rid,
-        roles=roles,
-        preview=preview,
+        resource_rid, roles=roles, preview=preview
     )
     print("The remove response:\n")
     pprint(api_response)

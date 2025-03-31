@@ -35,9 +35,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -49,9 +47,7 @@ parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 
 try:
     api_response = foundry_client.ontologies.Action.apply(
-        ontology_rid,
-        action_type,
-        parameters=parameters,
+        ontology_rid, action_type, parameters=parameters
     )
     print("The apply response:\n")
     pprint(api_response)
@@ -105,9 +101,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -122,9 +116,7 @@ requests = [
 
 try:
     api_response = foundry_client.ontologies.Action.apply_batch(
-        ontology_rid,
-        action_type,
-        requests=requests,
+        ontology_rid, action_type, requests=requests
     )
     print("The apply_batch response:\n")
     pprint(api_response)
@@ -177,9 +169,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -203,9 +193,7 @@ parameters = {
 
 try:
     api_response = foundry_client.ontologies.Action.validate(
-        ontology_rid,
-        action_type,
-        parameters=parameters,
+        ontology_rid, action_type, parameters=parameters
     )
     print("The validate response:\n")
     pprint(api_response)

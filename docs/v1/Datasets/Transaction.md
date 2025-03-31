@@ -31,9 +31,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -42,10 +40,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.abort(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
     print("The abort response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -90,9 +85,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -101,10 +94,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.commit(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
     print("The commit response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -149,9 +139,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset on which to create the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -163,9 +151,7 @@ transaction_type = "SNAPSHOT"
 
 try:
     api_response = foundry_client.datasets.Dataset.Transaction.create(
-        dataset_rid,
-        branch_id=branch_id,
-        transaction_type=transaction_type,
+        dataset_rid, branch_id=branch_id, transaction_type=transaction_type
     )
     print("The create response:\n")
     pprint(api_response)
@@ -232,9 +218,7 @@ from foundry.v1 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The Resource Identifier (RID) of the Dataset that contains the Transaction.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -243,10 +227,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.get(
-        dataset_rid,
-        transaction_rid,
-    )
+    api_response = foundry_client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

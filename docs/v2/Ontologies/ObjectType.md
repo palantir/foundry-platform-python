@@ -33,9 +33,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -44,10 +42,7 @@ object_type = "employee"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get(
-        ontology,
-        object_type,
-    )
+    api_response = foundry_client.ontologies.Ontology.ObjectType.get(ontology, object_type)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -92,9 +87,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -106,9 +99,7 @@ preview = None
 
 try:
     api_response = foundry_client.ontologies.Ontology.ObjectType.get_full_metadata(
-        ontology,
-        object_type,
-        preview=preview,
+        ontology, object_type, preview=preview
     )
     print("The get_full_metadata response:\n")
     pprint(api_response)
@@ -155,9 +146,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -169,9 +158,7 @@ link_type = "directReport"
 
 try:
     api_response = foundry_client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
-        ontology,
-        object_type,
-        link_type,
+        ontology, object_type, link_type
     )
     print("The get_outgoing_link_type response:\n")
     pprint(api_response)
@@ -221,9 +208,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -234,10 +219,8 @@ page_token = None
 
 
 try:
-    for object_type in foundry_client.ontologies.Ontology.ObjectType.list(
-        ontology,
-        page_size=page_size,
-        page_token=page_token,
+    for object_type in client.ontologies.Ontology.ObjectType.list(
+        ontology, page_size=page_size, page_token=page_token
     ):
         pprint(object_type)
 except foundry.PalantirRPCException as e:
@@ -284,9 +267,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -299,11 +280,8 @@ page_token = None
 
 
 try:
-    for object_type in foundry_client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
-        ontology,
-        object_type,
-        page_size=page_size,
-        page_token=page_token,
+    for object_type in client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
+        ontology, object_type, page_size=page_size, page_token=page_token
     ):
         pprint(object_type)
 except foundry.PalantirRPCException as e:
@@ -352,9 +330,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -366,9 +342,7 @@ page_token = None
 
 try:
     api_response = foundry_client.ontologies.Ontology.ObjectType.page(
-        ontology,
-        page_size=page_size,
-        page_token=page_token,
+        ontology, page_size=page_size, page_token=page_token
     )
     print("The page response:\n")
     pprint(api_response)
@@ -416,9 +390,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -432,10 +404,7 @@ page_token = None
 
 try:
     api_response = foundry_client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
-        ontology,
-        object_type,
-        page_size=page_size,
-        page_token=page_token,
+        ontology, object_type, page_size=page_size, page_token=page_token
     )
     print("The page_outgoing_link_types response:\n")
     pprint(api_response)

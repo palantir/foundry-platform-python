@@ -25,9 +25,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -36,10 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Group.ProviderInfo.get(
-        group_id,
-        preview=preview,
-    )
+    api_response = foundry_client.admin.Group.ProviderInfo.get(group_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -81,9 +76,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -95,9 +88,7 @@ preview = None
 
 try:
     api_response = foundry_client.admin.Group.ProviderInfo.replace(
-        group_id,
-        provider_id=provider_id,
-        preview=preview,
+        group_id, provider_id=provider_id, preview=preview
     )
     print("The replace response:\n")
     pprint(api_response)

@@ -31,9 +31,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -42,10 +40,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.cancel(
-        build_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Build.cancel(build_rid, preview=preview)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -93,14 +88,18 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FallbackBranches
 fallback_branches = ["master"]
 # Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
-target = None
+target = {
+    "type": "manual",
+    "targetRids": [
+        "ri.foundry.main.dataset.4263bdd9-d6bc-4244-9cca-893c1a2aef62",
+        "ri.foundry.main.dataset.86939c1e-4256-41db-9fe7-e7ee9e0f752a",
+    ],
+}
 # Optional[AbortOnFailure]
 abort_on_failure = False
 # Optional[BranchName] | The target branch the build should run on.
@@ -169,9 +168,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -180,10 +177,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get(
-        build_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Build.get(build_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -226,9 +220,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
@@ -237,10 +229,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get_batch(
-        body,
-        preview=preview,
-    )
+    api_response = foundry_client.orchestration.Build.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -283,9 +272,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -298,11 +285,8 @@ preview = None
 
 
 try:
-    for build in foundry_client.orchestration.Build.jobs(
-        build_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+    for build in client.orchestration.Build.jobs(
+        build_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(build)
 except foundry.PalantirRPCException as e:
@@ -345,9 +329,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -361,10 +343,7 @@ preview = None
 
 try:
     api_response = foundry_client.orchestration.Build.jobs_page(
-        build_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        build_rid, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The jobs_page response:\n")
     pprint(api_response)
@@ -409,9 +388,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[SearchBuildsFilter, SearchBuildsFilterDict]
 where = None
@@ -427,11 +404,7 @@ preview = None
 
 try:
     api_response = foundry_client.orchestration.Build.search(
-        where=where,
-        order_by=order_by,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
+        where=where, order_by=order_by, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The search response:\n")
     pprint(api_response)

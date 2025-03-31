@@ -25,9 +25,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # EnrollmentRid
 enrollment_rid = None
@@ -36,10 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.get(
-        enrollment_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.admin.Enrollment.get(enrollment_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -80,18 +75,14 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.get_current(
-        preview=preview,
-    )
+    api_response = foundry_client.admin.Enrollment.get_current(preview=preview)
     print("The get_current response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:

@@ -25,9 +25,7 @@ from foundry.v2 import FoundryClient
 import foundry
 from pprint import pprint
 
-foundry_client = FoundryClient(
-    auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com"
-)
+client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ValueTypeRid
 value_type_rid = None
@@ -36,10 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.functions.ValueType.get(
-        value_type_rid,
-        preview=preview,
-    )
+    api_response = foundry_client.functions.ValueType.get(value_type_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
