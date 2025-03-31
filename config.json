@@ -16,7 +16,7 @@
       "operationName": "createBranch"
     },
     "exampleParameter": "transaction_rid",
-    "exampleVerb": "upload"
+    "exampleVerb": "create"
   },
   "exceptions": {
     "exampleOperation": {

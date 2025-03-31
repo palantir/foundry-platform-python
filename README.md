@@ -196,7 +196,7 @@ client.datasets.Dataset.Branch.create(
 If you did this, you would receive an error that looks something like:
 
 ```python
-pydantic_core._pydantic_core.ValidationError: 1 validation error for upload
+pydantic_core._pydantic_core.ValidationError: 1 validation error for create
 transaction_rid
   Input should be a valid string [type=string_type, input_value=123, input_type=int]
     For further information visit https://errors.pydantic.dev/2.5/v/string_type
@@ -308,9 +308,7 @@ of data, while handling the underlying pagination logic.
 To iterate over all items, you can simply create a `Pager` instance and use it in a for loop, like this:
 
 ```python
-for item in client.datasets.Dataset.Branch.list(
-    dataset_rid, page_size=page_size, page_token=page_token
-):
+for item in client.datasets.Dataset.Branch.list(dataset_rid):
     print(item)
 
 ```
