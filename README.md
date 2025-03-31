@@ -316,7 +316,7 @@ for item in client.datasets.Dataset.Branch.list(dataset_rid):
 This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the `next_page_token`.
 
 ```python
-page = client.datasets.Dataset.Branch.list(dataset_rid, page_size=page_size, page_token=page_token)
+page = client.datasets.Dataset.Branch.list(dataset_rid, page_size=page_size)
 
 while page.next_page_token:
     for branch in page.data:
