@@ -41,11 +41,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -85,7 +85,7 @@ try:
     )
     print("The aggregate response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.aggregate: %s\n" % e)
 
 ```
@@ -128,11 +128,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -148,7 +148,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.get: %s\n" % e)
 
 ```
@@ -195,11 +195,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -216,7 +216,7 @@ try:
         ontology, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(ontology_interface)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.list: %s\n" % e)
 
 ```
@@ -296,11 +296,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -345,7 +345,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.search: %s\n" % e)
 
 ```

@@ -24,11 +24,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -46,7 +46,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.delete: %s\n" % e)
 
 ```
@@ -80,11 +80,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -102,7 +102,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.get: %s\n" % e)
 
 ```
@@ -139,11 +139,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -160,7 +160,7 @@ try:
         third_party_application_rid, page_size=page_size, page_token=page_token
     ):
         pprint(version)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.list: %s\n" % e)
 
 ```
@@ -195,11 +195,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -219,7 +219,7 @@ try:
     )
     print("The upload response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.upload: %s\n" % e)
 
 ```
@@ -257,11 +257,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -289,7 +289,7 @@ try:
     )
     print("The upload_snapshot response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.upload_snapshot: %s\n" % e)
 
 ```

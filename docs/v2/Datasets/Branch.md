@@ -25,11 +25,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -45,7 +45,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Branch.create: %s\n" % e)
 
 ```
@@ -80,11 +80,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -96,7 +96,7 @@ try:
     api_response = foundry_client.datasets.Dataset.Branch.delete(dataset_rid, branch_name)
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Branch.delete: %s\n" % e)
 
 ```
@@ -131,11 +131,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -147,7 +147,7 @@ try:
     api_response = foundry_client.datasets.Dataset.Branch.get(dataset_rid, branch_name)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Branch.get: %s\n" % e)
 
 ```
@@ -183,11 +183,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -202,7 +202,7 @@ try:
         dataset_rid, page_size=page_size, page_token=page_token
     ):
         pprint(branch)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Branch.list: %s\n" % e)
 
 ```

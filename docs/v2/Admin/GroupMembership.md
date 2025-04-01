@@ -29,11 +29,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -50,7 +50,7 @@ try:
         user_id, page_size=page_size, page_token=page_token, transitive=transitive
     ):
         pprint(group_membership)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.list: %s\n" % e)
 
 ```

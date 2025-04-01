@@ -26,11 +26,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -42,7 +42,7 @@ try:
     api_response = foundry_client.orchestration.Build.cancel(build_rid, preview=preview)
     print("The cancel response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.cancel: %s\n" % e)
 
 ```
@@ -83,11 +83,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FallbackBranches
 fallback_branches = ["master"]
@@ -129,7 +129,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.create: %s\n" % e)
 
 ```
@@ -163,11 +163,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -179,7 +179,7 @@ try:
     api_response = foundry_client.orchestration.Build.get(build_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.get: %s\n" % e)
 
 ```
@@ -215,11 +215,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[GetBuildsBatchRequestElement] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
@@ -231,7 +231,7 @@ try:
     api_response = foundry_client.orchestration.Build.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.get_batch: %s\n" % e)
 
 ```
@@ -267,11 +267,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
@@ -288,7 +288,7 @@ try:
         build_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(build)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.jobs: %s\n" % e)
 
 ```
@@ -325,11 +325,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v2 import FoundryClient
-import foundry
+from foundry_sdk.v2 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # SearchBuildsFilter
 where = None
@@ -349,7 +349,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Build.search: %s\n" % e)
 
 ```

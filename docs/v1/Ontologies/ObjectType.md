@@ -26,11 +26,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -42,7 +42,7 @@ try:
     api_response = foundry_client.ontologies.Ontology.ObjectType.get(ontology_rid, object_type)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling ObjectType.get: %s\n" % e)
 
 ```
@@ -81,11 +81,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -101,7 +101,7 @@ try:
     )
     print("The get_outgoing_link_type response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling ObjectType.get_outgoing_link_type: %s\n" % e)
 
 ```
@@ -143,11 +143,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -162,7 +162,7 @@ try:
         ontology_rid, page_size=page_size, page_token=page_token
     ):
         pprint(object_type)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling ObjectType.list: %s\n" % e)
 
 ```
@@ -202,11 +202,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -223,7 +223,7 @@ try:
         ontology_rid, object_type, page_size=page_size, page_token=page_token
     ):
         pprint(object_type)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling ObjectType.list_outgoing_link_types: %s\n" % e)
 
 ```

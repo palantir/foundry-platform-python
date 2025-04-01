@@ -17,7 +17,7 @@ import warnings
 
 import pytest
 
-from foundry import UserTokenAuth
+from foundry_sdk import UserTokenAuth
 
 
 def test_missing_token_raises_type_error():

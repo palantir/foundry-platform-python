@@ -16,24 +16,26 @@
 import pydantic
 import pytest
 
-from foundry.v1.core import models as models_core_v1
-from foundry.v1.datasets import models as models_datasets_v1
-from foundry.v1.geo import models as models_geo_v1
-from foundry.v1.ontologies import models as models_ontologies_v1
-from foundry.v2.admin import models as models_admin_v2
-from foundry.v2.aip_agents import models as models_aip_agents_v2
-from foundry.v2.connectivity import models as models_connectivity_v2
-from foundry.v2.core import models as models_core_v2
-from foundry.v2.datasets import models as models_datasets_v2
-from foundry.v2.filesystem import models as models_filesystem_v2
-from foundry.v2.functions import models as models_functions_v2
-from foundry.v2.geo import models as models_geo_v2
-from foundry.v2.media_sets import models as models_media_sets_v2
-from foundry.v2.ontologies import models as models_ontologies_v2
-from foundry.v2.orchestration import models as models_orchestration_v2
-from foundry.v2.sql_queries import models as models_sql_queries_v2
-from foundry.v2.streams import models as models_streams_v2
-from foundry.v2.third_party_applications import models as models_third_party_applications_v2  # NOQA
+from foundry_sdk.v1.core import models as models_core_v1
+from foundry_sdk.v1.datasets import models as models_datasets_v1
+from foundry_sdk.v1.geo import models as models_geo_v1
+from foundry_sdk.v1.ontologies import models as models_ontologies_v1
+from foundry_sdk.v2.admin import models as models_admin_v2
+from foundry_sdk.v2.aip_agents import models as models_aip_agents_v2
+from foundry_sdk.v2.connectivity import models as models_connectivity_v2
+from foundry_sdk.v2.core import models as models_core_v2
+from foundry_sdk.v2.datasets import models as models_datasets_v2
+from foundry_sdk.v2.filesystem import models as models_filesystem_v2
+from foundry_sdk.v2.functions import models as models_functions_v2
+from foundry_sdk.v2.geo import models as models_geo_v2
+from foundry_sdk.v2.media_sets import models as models_media_sets_v2
+from foundry_sdk.v2.ontologies import models as models_ontologies_v2
+from foundry_sdk.v2.orchestration import models as models_orchestration_v2
+from foundry_sdk.v2.sql_queries import models as models_sql_queries_v2
+from foundry_sdk.v2.streams import models as models_streams_v2
+from foundry_sdk.v2.third_party_applications import (
+    models as models_third_party_applications_v2,
+)  # NOQA
 
 
 def test_can_validate_types():

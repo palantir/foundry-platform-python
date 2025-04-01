@@ -28,11 +28,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetName
 name = "My Dataset"
@@ -46,7 +46,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.create: %s\n" % e)
 
 ```
@@ -83,11 +83,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset on which to delete the schema.
 dataset_rid = None
@@ -105,7 +105,7 @@ try:
     )
     print("The delete_schema response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.delete_schema: %s\n" % e)
 
 ```
@@ -141,11 +141,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -155,7 +155,7 @@ try:
     api_response = foundry_client.datasets.Dataset.get(dataset_rid)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.get: %s\n" % e)
 
 ```
@@ -192,11 +192,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset.
 dataset_rid = None
@@ -214,7 +214,7 @@ try:
     )
     print("The get_schema response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.get_schema: %s\n" % e)
 
 ```
@@ -258,11 +258,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset.
 dataset_rid = None
@@ -292,7 +292,7 @@ try:
     )
     print("The read response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.read: %s\n" % e)
 
 ```
@@ -386,11 +386,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid | The RID of the Dataset on which to put the Schema.
 dataset_rid = None
@@ -408,7 +408,7 @@ try:
     )
     print("The replace_schema response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.replace_schema: %s\n" % e)
 
 ```

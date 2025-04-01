@@ -24,8 +24,8 @@ from mockito import unstub
 from mockito import verify
 from mockito import when
 
-from foundry._core.confidential_client_auth import ConfidentialClientAuth
-from foundry._core.oauth_utils import SignInResponse
+from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
+from foundry_sdk._core.oauth_utils import SignInResponse
 
 RESPONSE = {
     "access_token": "access_token",

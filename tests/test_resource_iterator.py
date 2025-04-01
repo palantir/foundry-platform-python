@@ -18,7 +18,7 @@ from typing import Optional
 
 import pytest
 
-from foundry._core.resource_iterator import ResourceIterator
+from foundry_sdk._core.resource_iterator import ResourceIterator
 
 
 def test_empty_iterator():

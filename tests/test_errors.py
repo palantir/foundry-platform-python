@@ -2,10 +2,10 @@ import warnings
 
 import pytest
 
-from foundry import PalantirRPCException
-from foundry._errors.utils import deserialize_error
-from foundry.v1.datasets.errors import AbortTransactionPermissionDenied
-from foundry.v1.datasets.errors import BranchNotFound
+from foundry_sdk import PalantirRPCException
+from foundry_sdk._errors.utils import deserialize_error
+from foundry_sdk.v1.datasets.errors import AbortTransactionPermissionDenied
+from foundry_sdk.v1.datasets.errors import BranchNotFound
 
 ERRORS_MAP = {
     "AbortTransactionPermissionDenied": AbortTransactionPermissionDenied,

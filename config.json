@@ -1,5 +1,5 @@
 {
-  "packageName": "foundry",
+  "packageName": "foundry_sdk",
   "packageUrl": "https://github.com/palantir/foundry-platform-python",
   "projectName": "foundry-platform-sdk",
   "clientName": "FoundryClient",

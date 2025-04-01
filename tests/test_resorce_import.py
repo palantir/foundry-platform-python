@@ -1,365 +1,367 @@
 def test_datasets_v1_branch_import():
-    from foundry.v1.datasets.branch import BranchClient
+    from foundry_sdk.v1.datasets.branch import BranchClient
 
     assert BranchClient is not None
 
 
 def test_datasets_v1_dataset_import():
-    from foundry.v1.datasets.dataset import DatasetClient
+    from foundry_sdk.v1.datasets.dataset import DatasetClient
 
     assert DatasetClient is not None
 
 
 def test_datasets_v1_file_import():
-    from foundry.v1.datasets.file import FileClient
+    from foundry_sdk.v1.datasets.file import FileClient
 
     assert FileClient is not None
 
 
 def test_datasets_v1_transaction_import():
-    from foundry.v1.datasets.transaction import TransactionClient
+    from foundry_sdk.v1.datasets.transaction import TransactionClient
 
     assert TransactionClient is not None
 
 
 def test_ontologies_v1_action_import():
-    from foundry.v1.ontologies.action import ActionClient
+    from foundry_sdk.v1.ontologies.action import ActionClient
 
     assert ActionClient is not None
 
 
 def test_ontologies_v1_action_type_import():
-    from foundry.v1.ontologies.action_type import ActionTypeClient
+    from foundry_sdk.v1.ontologies.action_type import ActionTypeClient
 
     assert ActionTypeClient is not None
 
 
 def test_ontologies_v1_attachment_import():
-    from foundry.v1.ontologies.attachment import AttachmentClient
+    from foundry_sdk.v1.ontologies.attachment import AttachmentClient
 
     assert AttachmentClient is not None
 
 
 def test_ontologies_v1_object_type_import():
-    from foundry.v1.ontologies.object_type import ObjectTypeClient
+    from foundry_sdk.v1.ontologies.object_type import ObjectTypeClient
 
     assert ObjectTypeClient is not None
 
 
 def test_ontologies_v1_ontology_import():
-    from foundry.v1.ontologies.ontology import OntologyClient
+    from foundry_sdk.v1.ontologies.ontology import OntologyClient
 
     assert OntologyClient is not None
 
 
 def test_ontologies_v1_ontology_object_import():
-    from foundry.v1.ontologies.ontology_object import OntologyObjectClient
+    from foundry_sdk.v1.ontologies.ontology_object import OntologyObjectClient
 
     assert OntologyObjectClient is not None
 
 
 def test_ontologies_v1_query_import():
-    from foundry.v1.ontologies.query import QueryClient
+    from foundry_sdk.v1.ontologies.query import QueryClient
 
     assert QueryClient is not None
 
 
 def test_ontologies_v1_query_type_import():
-    from foundry.v1.ontologies.query_type import QueryTypeClient
+    from foundry_sdk.v1.ontologies.query_type import QueryTypeClient
 
     assert QueryTypeClient is not None
 
 
 def test_admin_v2_authentication_provider_import():
-    from foundry.v2.admin.authentication_provider import AuthenticationProviderClient
+    from foundry_sdk.v2.admin.authentication_provider import AuthenticationProviderClient  # NOQA
 
     assert AuthenticationProviderClient is not None
 
 
 def test_admin_v2_enrollment_import():
-    from foundry.v2.admin.enrollment import EnrollmentClient
+    from foundry_sdk.v2.admin.enrollment import EnrollmentClient
 
     assert EnrollmentClient is not None
 
 
 def test_admin_v2_group_import():
-    from foundry.v2.admin.group import GroupClient
+    from foundry_sdk.v2.admin.group import GroupClient
 
     assert GroupClient is not None
 
 
 def test_admin_v2_group_member_import():
-    from foundry.v2.admin.group_member import GroupMemberClient
+    from foundry_sdk.v2.admin.group_member import GroupMemberClient
 
     assert GroupMemberClient is not None
 
 
 def test_admin_v2_group_membership_import():
-    from foundry.v2.admin.group_membership import GroupMembershipClient
+    from foundry_sdk.v2.admin.group_membership import GroupMembershipClient
 
     assert GroupMembershipClient is not None
 
 
 def test_admin_v2_group_provider_info_import():
-    from foundry.v2.admin.group_provider_info import GroupProviderInfoClient
+    from foundry_sdk.v2.admin.group_provider_info import GroupProviderInfoClient
 
     assert GroupProviderInfoClient is not None
 
 
 def test_admin_v2_host_import():
-    from foundry.v2.admin.host import HostClient
+    from foundry_sdk.v2.admin.host import HostClient
 
     assert HostClient is not None
 
 
 def test_admin_v2_marking_import():
-    from foundry.v2.admin.marking import MarkingClient
+    from foundry_sdk.v2.admin.marking import MarkingClient
 
     assert MarkingClient is not None
 
 
 def test_admin_v2_marking_category_import():
-    from foundry.v2.admin.marking_category import MarkingCategoryClient
+    from foundry_sdk.v2.admin.marking_category import MarkingCategoryClient
 
     assert MarkingCategoryClient is not None
 
 
 def test_admin_v2_marking_member_import():
-    from foundry.v2.admin.marking_member import MarkingMemberClient
+    from foundry_sdk.v2.admin.marking_member import MarkingMemberClient
 
     assert MarkingMemberClient is not None
 
 
 def test_admin_v2_marking_role_assignment_import():
-    from foundry.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient
+    from foundry_sdk.v2.admin.marking_role_assignment import MarkingRoleAssignmentClient
 
     assert MarkingRoleAssignmentClient is not None
 
 
 def test_admin_v2_organization_import():
-    from foundry.v2.admin.organization import OrganizationClient
+    from foundry_sdk.v2.admin.organization import OrganizationClient
 
     assert OrganizationClient is not None
 
 
 def test_admin_v2_user_import():
-    from foundry.v2.admin.user import UserClient
+    from foundry_sdk.v2.admin.user import UserClient
 
     assert UserClient is not None
 
 
 def test_admin_v2_user_provider_info_import():
-    from foundry.v2.admin.user_provider_info import UserProviderInfoClient
+    from foundry_sdk.v2.admin.user_provider_info import UserProviderInfoClient
 
     assert UserProviderInfoClient is not None
 
 
 def test_aip_agents_v2_agent_import():
-    from foundry.v2.aip_agents.agent import AgentClient
+    from foundry_sdk.v2.aip_agents.agent import AgentClient
 
     assert AgentClient is not None
 
 
 def test_aip_agents_v2_agent_version_import():
-    from foundry.v2.aip_agents.agent_version import AgentVersionClient
+    from foundry_sdk.v2.aip_agents.agent_version import AgentVersionClient
 
     assert AgentVersionClient is not None
 
 
 def test_aip_agents_v2_content_import():
-    from foundry.v2.aip_agents.content import ContentClient
+    from foundry_sdk.v2.aip_agents.content import ContentClient
 
     assert ContentClient is not None
 
 
 def test_aip_agents_v2_session_import():
-    from foundry.v2.aip_agents.session import SessionClient
+    from foundry_sdk.v2.aip_agents.session import SessionClient
 
     assert SessionClient is not None
 
 
 def test_connectivity_v2_connection_import():
-    from foundry.v2.connectivity.connection import ConnectionClient
+    from foundry_sdk.v2.connectivity.connection import ConnectionClient
 
     assert ConnectionClient is not None
 
 
 def test_connectivity_v2_file_import_import():
-    from foundry.v2.connectivity.file_import import FileImportClient
+    from foundry_sdk.v2.connectivity.file_import import FileImportClient
 
     assert FileImportClient is not None
 
 
 def test_connectivity_v2_table_import_import():
-    from foundry.v2.connectivity.table_import import TableImportClient
+    from foundry_sdk.v2.connectivity.table_import import TableImportClient
 
     assert TableImportClient is not None
 
 
 def test_datasets_v2_branch_import():
-    from foundry.v2.datasets.branch import BranchClient
+    from foundry_sdk.v2.datasets.branch import BranchClient
 
     assert BranchClient is not None
 
 
 def test_datasets_v2_dataset_import():
-    from foundry.v2.datasets.dataset import DatasetClient
+    from foundry_sdk.v2.datasets.dataset import DatasetClient
 
     assert DatasetClient is not None
 
 
 def test_datasets_v2_file_import():
-    from foundry.v2.datasets.file import FileClient
+    from foundry_sdk.v2.datasets.file import FileClient
 
     assert FileClient is not None
 
 
 def test_datasets_v2_transaction_import():
-    from foundry.v2.datasets.transaction import TransactionClient
+    from foundry_sdk.v2.datasets.transaction import TransactionClient
 
     assert TransactionClient is not None
 
 
 def test_filesystem_v2_folder_import():
-    from foundry.v2.filesystem.folder import FolderClient
+    from foundry_sdk.v2.filesystem.folder import FolderClient
 
     assert FolderClient is not None
 
 
 def test_filesystem_v2_project_import():
-    from foundry.v2.filesystem.project import ProjectClient
+    from foundry_sdk.v2.filesystem.project import ProjectClient
 
     assert ProjectClient is not None
 
 
 def test_filesystem_v2_resource_import():
-    from foundry.v2.filesystem.resource import ResourceClient
+    from foundry_sdk.v2.filesystem.resource import ResourceClient
 
     assert ResourceClient is not None
 
 
 def test_filesystem_v2_resource_role_import():
-    from foundry.v2.filesystem.resource_role import ResourceRoleClient
+    from foundry_sdk.v2.filesystem.resource_role import ResourceRoleClient
 
     assert ResourceRoleClient is not None
 
 
 def test_filesystem_v2_space_import():
-    from foundry.v2.filesystem.space import SpaceClient
+    from foundry_sdk.v2.filesystem.space import SpaceClient
 
     assert SpaceClient is not None
 
 
 def test_functions_v2_query_import():
-    from foundry.v2.functions.query import QueryClient
+    from foundry_sdk.v2.functions.query import QueryClient
 
     assert QueryClient is not None
 
 
 def test_functions_v2_value_type_import():
-    from foundry.v2.functions.value_type import ValueTypeClient
+    from foundry_sdk.v2.functions.value_type import ValueTypeClient
 
     assert ValueTypeClient is not None
 
 
 def test_functions_v2_version_id_import():
-    from foundry.v2.functions.version_id import VersionIdClient
+    from foundry_sdk.v2.functions.version_id import VersionIdClient
 
     assert VersionIdClient is not None
 
 
 def test_media_sets_v2_media_set_import():
-    from foundry.v2.media_sets.media_set import MediaSetClient
+    from foundry_sdk.v2.media_sets.media_set import MediaSetClient
 
     assert MediaSetClient is not None
 
 
 def test_ontologies_v2_action_import():
-    from foundry.v2.ontologies.action import ActionClient
+    from foundry_sdk.v2.ontologies.action import ActionClient
 
     assert ActionClient is not None
 
 
 def test_ontologies_v2_action_type_import():
-    from foundry.v2.ontologies.action_type import ActionTypeClient
+    from foundry_sdk.v2.ontologies.action_type import ActionTypeClient
 
     assert ActionTypeClient is not None
 
 
 def test_ontologies_v2_attachment_import():
-    from foundry.v2.ontologies.attachment import AttachmentClient
+    from foundry_sdk.v2.ontologies.attachment import AttachmentClient
 
     assert AttachmentClient is not None
 
 
 def test_ontologies_v2_attachment_property_import():
-    from foundry.v2.ontologies.attachment_property import AttachmentPropertyClient
+    from foundry_sdk.v2.ontologies.attachment_property import AttachmentPropertyClient
 
     assert AttachmentPropertyClient is not None
 
 
 def test_ontologies_v2_linked_object_import():
-    from foundry.v2.ontologies.linked_object import LinkedObjectClient
+    from foundry_sdk.v2.ontologies.linked_object import LinkedObjectClient
 
     assert LinkedObjectClient is not None
 
 
 def test_ontologies_v2_media_reference_property_import():
-    from foundry.v2.ontologies.media_reference_property import MediaReferencePropertyClient  # NOQA
+    from foundry_sdk.v2.ontologies.media_reference_property import (
+        MediaReferencePropertyClient,
+    )  # NOQA
 
     assert MediaReferencePropertyClient is not None
 
 
 def test_ontologies_v2_object_type_import():
-    from foundry.v2.ontologies.object_type import ObjectTypeClient
+    from foundry_sdk.v2.ontologies.object_type import ObjectTypeClient
 
     assert ObjectTypeClient is not None
 
 
 def test_ontologies_v2_ontology_import():
-    from foundry.v2.ontologies.ontology import OntologyClient
+    from foundry_sdk.v2.ontologies.ontology import OntologyClient
 
     assert OntologyClient is not None
 
 
 def test_ontologies_v2_ontology_interface_import():
-    from foundry.v2.ontologies.ontology_interface import OntologyInterfaceClient
+    from foundry_sdk.v2.ontologies.ontology_interface import OntologyInterfaceClient
 
     assert OntologyInterfaceClient is not None
 
 
 def test_ontologies_v2_ontology_object_import():
-    from foundry.v2.ontologies.ontology_object import OntologyObjectClient
+    from foundry_sdk.v2.ontologies.ontology_object import OntologyObjectClient
 
     assert OntologyObjectClient is not None
 
 
 def test_ontologies_v2_ontology_object_set_import():
-    from foundry.v2.ontologies.ontology_object_set import OntologyObjectSetClient
+    from foundry_sdk.v2.ontologies.ontology_object_set import OntologyObjectSetClient
 
     assert OntologyObjectSetClient is not None
 
 
 def test_ontologies_v2_query_import():
-    from foundry.v2.ontologies.query import QueryClient
+    from foundry_sdk.v2.ontologies.query import QueryClient
 
     assert QueryClient is not None
 
 
 def test_ontologies_v2_query_type_import():
-    from foundry.v2.ontologies.query_type import QueryTypeClient
+    from foundry_sdk.v2.ontologies.query_type import QueryTypeClient
 
     assert QueryTypeClient is not None
 
 
 def test_ontologies_v2_time_series_property_v2_import():
-    from foundry.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client
+    from foundry_sdk.v2.ontologies.time_series_property_v2 import TimeSeriesPropertyV2Client  # NOQA
 
     assert TimeSeriesPropertyV2Client is not None
 
 
 def test_ontologies_v2_time_series_value_bank_property_import():
-    from foundry.v2.ontologies.time_series_value_bank_property import (
+    from foundry_sdk.v2.ontologies.time_series_value_bank_property import (
         TimeSeriesValueBankPropertyClient,
     )  # NOQA
 
@@ -367,49 +369,49 @@ def test_ontologies_v2_time_series_value_bank_property_import():
 
 
 def test_orchestration_v2_build_import():
-    from foundry.v2.orchestration.build import BuildClient
+    from foundry_sdk.v2.orchestration.build import BuildClient
 
     assert BuildClient is not None
 
 
 def test_orchestration_v2_job_import():
-    from foundry.v2.orchestration.job import JobClient
+    from foundry_sdk.v2.orchestration.job import JobClient
 
     assert JobClient is not None
 
 
 def test_orchestration_v2_schedule_import():
-    from foundry.v2.orchestration.schedule import ScheduleClient
+    from foundry_sdk.v2.orchestration.schedule import ScheduleClient
 
     assert ScheduleClient is not None
 
 
 def test_orchestration_v2_schedule_version_import():
-    from foundry.v2.orchestration.schedule_version import ScheduleVersionClient
+    from foundry_sdk.v2.orchestration.schedule_version import ScheduleVersionClient
 
     assert ScheduleVersionClient is not None
 
 
 def test_sql_queries_v2_query_import():
-    from foundry.v2.sql_queries.query import QueryClient
+    from foundry_sdk.v2.sql_queries.query import QueryClient
 
     assert QueryClient is not None
 
 
 def test_streams_v2_dataset_import():
-    from foundry.v2.streams.dataset import DatasetClient
+    from foundry_sdk.v2.streams.dataset import DatasetClient
 
     assert DatasetClient is not None
 
 
 def test_streams_v2_stream_import():
-    from foundry.v2.streams.stream import StreamClient
+    from foundry_sdk.v2.streams.stream import StreamClient
 
     assert StreamClient is not None
 
 
 def test_third_party_applications_v2_third_party_application_import():
-    from foundry.v2.third_party_applications.third_party_application import (
+    from foundry_sdk.v2.third_party_applications.third_party_application import (
         ThirdPartyApplicationClient,
     )  # NOQA
 
@@ -417,12 +419,12 @@ def test_third_party_applications_v2_third_party_application_import():
 
 
 def test_third_party_applications_v2_version_import():
-    from foundry.v2.third_party_applications.version import VersionClient
+    from foundry_sdk.v2.third_party_applications.version import VersionClient
 
     assert VersionClient is not None
 
 
 def test_third_party_applications_v2_website_import():
-    from foundry.v2.third_party_applications.website import WebsiteClient
+    from foundry_sdk.v2.third_party_applications.website import WebsiteClient
 
     assert WebsiteClient is not None
