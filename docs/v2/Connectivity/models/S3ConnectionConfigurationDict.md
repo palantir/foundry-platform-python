@@ -1,7 +1,7 @@
 # S3ConnectionConfigurationDict
 
 The configuration needed to connect to an [AWS S3 external system (or any other S3-like external systems that
-implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
+implement the s3a protocol)](https://palantir.com/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
 
 
 ## Properties

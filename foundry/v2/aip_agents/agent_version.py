@@ -63,7 +63,7 @@ class AgentVersionClient:
     ) -> aip_agents_models.AgentVersion:
         """
         Get version details for an AIP Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
@@ -119,7 +119,7 @@ class AgentVersionClient:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -174,7 +174,7 @@ class AgentVersionClient:
         List all versions for an AIP Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]

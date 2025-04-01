@@ -20,7 +20,7 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -44,7 +44,7 @@ connection_rid = None
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
-# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
 # FileImportMode
 import_mode = "SNAPSHOT"
@@ -146,7 +146,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **execute**
-Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
 The returned BuildRid can be used to check the status via the Orchestration API.
 
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes |
 **file_import_rid** | FileImportRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -413,7 +413,7 @@ file_import_rid = None
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
-# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = None
 # FileImportMode
 import_mode = "SNAPSHOT"

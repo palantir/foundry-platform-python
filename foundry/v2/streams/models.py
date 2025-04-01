@@ -56,7 +56,7 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
     - Timestamp
 
     For additional information on keys for Foundry streams, see the
-    [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
+    [streaming keys](https://palantir.com/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
     fields: typing.List[core_models.Field]
@@ -94,7 +94,7 @@ class CreateStreamRequestStreamSchemaDict(typing_extensions.TypedDict):
     - Timestamp
 
     For additional information on keys for Foundry streams, see the
-    [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
+    [streaming keys](https://palantir.com/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
     fields: typing.List[core_models.FieldDict]
@@ -207,7 +207,7 @@ to the max match size, or if jobs using the stream are failing due to Kafka prod
 additional information on inspecting stream metrics, refer to the 
 (stream monitoring)[/docs/foundry/data-integration/stream-monitoring/#viewing-metrics] documentation.
 
-For more information, refer to the [stream types](/docs/foundry/data-integration/streams/#stream-types)
+For more information, refer to the [stream types](https://palantir.com/docs/foundry/data-integration/streams/#stream-types)
 documentation.
 """
 

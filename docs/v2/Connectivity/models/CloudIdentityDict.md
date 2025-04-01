@@ -1,6 +1,6 @@
 # CloudIdentityDict
 
-[Cloud identities](/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to 
+[Cloud identities](https://palantir.com/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to 
 cloud provider resources without the use of static credentials.
 
 

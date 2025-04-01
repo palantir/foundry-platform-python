@@ -1,6 +1,6 @@
 # AwsOidcAuthenticationDict
 
-[OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows 
+[OpenID Connect (OIDC)](https://palantir.com/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows 
 you to authenticate to external system resources without the use of static credentials.
 
 

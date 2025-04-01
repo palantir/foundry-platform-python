@@ -1,6 +1,6 @@
 # CreateTableImportRequestTableImportConfigDict
 
-The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview).
+The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview).
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union

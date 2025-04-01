@@ -1,6 +1,6 @@
 # Parameter
 
-A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+A variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 
 
 ## Properties

@@ -1,6 +1,6 @@
 # JdbcImportConfigDict
 
-The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources).
+The import configuration for a [custom JDBC connection](https://palantir.com/docs/foundry/available-connectors/custom-jdbc-sources).
 
 
 ## Properties

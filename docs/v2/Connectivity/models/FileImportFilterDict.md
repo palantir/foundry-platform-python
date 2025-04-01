@@ -1,6 +1,6 @@
 # FileImportFilterDict
 
-[Filters](/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
+[Filters](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
 before they are imported into Foundry.
 
 

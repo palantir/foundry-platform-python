@@ -4,7 +4,7 @@ Configuration for utilizing the stream as a change data capture (CDC) dataset. T
 least one key needs to be provided.
 
 For more information on CDC in
-Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+Foundry, see the [Change Data Capture](https://palantir.com/docs/foundry/data-integration/change-data-capture/) user documentation.
 
 
 ## Type

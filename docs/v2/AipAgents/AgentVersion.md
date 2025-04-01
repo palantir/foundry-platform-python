@@ -13,7 +13,7 @@ Get version details for an AIP Agent.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/). |  |
 **agent_version_string** | AgentVersionString | The semantic version of the Agent, formatted as "majorVersion.minorVersion". |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -29,7 +29,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # AgentVersionString | The semantic version of the Agent, formatted as "majorVersion.minorVersion".
 agent_version_string = "1.0"
@@ -70,7 +70,7 @@ Versions are returned in descending order, by most recent versions first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/). |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -87,7 +87,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -129,7 +129,7 @@ Versions are returned in descending order, by most recent versions first.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/). |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -146,7 +146,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None

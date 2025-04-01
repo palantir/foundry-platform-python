@@ -1,7 +1,7 @@
 # FieldDict
 
 A field in a Foundry schema. For more information on supported data types, see the
-[supported field types](/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
+[supported field types](https://palantir.com/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
 
 
 ## Properties

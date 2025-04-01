@@ -64,7 +64,7 @@ class ActionClient:
         Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
         some time to be visible.
 
-        Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+        Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
 
         Third-party applications using this endpoint via OAuth2 must request the
@@ -137,8 +137,8 @@ class ActionClient:
         Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
         call Functions may receive a higher limit.
 
-        Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) and
-        [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+        Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
+        [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
         Third-party applications using this endpoint via OAuth2 must request the
         following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -209,7 +209,7 @@ class ActionClient:
         that determine if the request is `VALID` or `INVALID`.
         For performance reasons, validations will not consider existing objects or other data in Foundry.
         For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
-        Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+        Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint. Unspecified parameters will be given a default value of `null`.
 
         Third-party applications using this endpoint via OAuth2 must request the

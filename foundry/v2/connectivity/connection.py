@@ -87,7 +87,7 @@ class ConnectionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
         """
-        Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+        Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
 
         Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
         secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
@@ -221,7 +221,7 @@ class ConnectionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.ConnectionConfiguration:
         """
-        Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+        Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
         This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
         :param connection_rid:

@@ -31,7 +31,7 @@ class Agent(pydantic.BaseModel):
     """Agent"""
 
     rid: AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     version: AgentVersionString
     """The version of this instance of the Agent."""
@@ -39,7 +39,7 @@ class Agent(pydantic.BaseModel):
     metadata: AgentMetadata
     parameters: typing.Dict[ParameterId, Parameter]
     """
-    The types and names of variables configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/) in the [application state](/docs/foundry/agent-studio/application-state/).
+    The types and names of variables configured for the Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/) in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/).
     These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """
 
@@ -56,7 +56,7 @@ class AgentDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     rid: AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     version: AgentVersionString
     """The version of this instance of the Agent."""
@@ -64,7 +64,7 @@ class AgentDict(typing_extensions.TypedDict):
     metadata: AgentMetadataDict
     parameters: typing.Dict[ParameterId, ParameterDict]
     """
-    The types and names of variables configured for the Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/) in the [application state](/docs/foundry/agent-studio/application-state/).
+    The types and names of variables configured for the Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/) in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/).
     These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """
 
@@ -114,7 +114,7 @@ class AgentMetadataDict(typing_extensions.TypedDict):
 
 
 AgentRid = core.RID
-"""An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+"""An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
 class AgentSessionRagContextResponse(pydantic.BaseModel):
@@ -335,14 +335,14 @@ class FunctionRetrievedContextDict(typing_extensions.TypedDict):
 InputContext = typing_extensions.Annotated[
     typing.Union[FunctionRetrievedContext, "ObjectContext"], pydantic.Field(discriminator="type")
 ]
-"""Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
+"""Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
 InputContextDict = typing_extensions.Annotated[
     typing.Union[FunctionRetrievedContextDict, "ObjectContextDict"],
     pydantic.Field(discriminator="type"),
 ]
-"""Custom retrieved [context](/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
+"""Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
 class ListAgentVersionsResponse(pydantic.BaseModel):
@@ -463,7 +463,7 @@ class ObjectSetParameterValue(pydantic.BaseModel):
     ontology: ontologies_models.OntologyIdentifier
     """
     The API name of the Ontology for the provided `ObjectSet`.
-    To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+    To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
 
     type: typing.Literal["objectSet"] = "objectSet"
@@ -485,7 +485,7 @@ class ObjectSetParameterValueDict(typing_extensions.TypedDict):
     ontology: ontologies_models.OntologyIdentifier
     """
     The API name of the Ontology for the provided `ObjectSet`.
-    To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+    To find the API name, use the `List ontologies` endpoint or check the [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
 
     type: typing.Literal["objectSet"]
@@ -515,7 +515,7 @@ class ObjectSetParameterValueUpdateDict(typing_extensions.TypedDict):
 
 
 class Parameter(pydantic.BaseModel):
-    """A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """A variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     parameter_type: ParameterType = pydantic.Field(alias=str("parameterType"))  # type: ignore[literal-required]
     """Details of the types of values accepted and defaults for this variable."""
@@ -544,7 +544,7 @@ READ_WRITE: Allows the variable to be read and updated by the Agent.
 
 
 class ParameterDict(typing_extensions.TypedDict):
-    """A variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """A variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -562,7 +562,7 @@ class ParameterDict(typing_extensions.TypedDict):
 
 
 ParameterId = str
-"""The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+"""The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
 ParameterType = typing_extensions.Annotated[
@@ -582,14 +582,14 @@ ParameterValue = typing_extensions.Annotated[
     typing.Union["StringParameterValue", ObjectSetParameterValue],
     pydantic.Field(discriminator="type"),
 ]
-"""The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
+"""The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueDict = typing_extensions.Annotated[
     typing.Union["StringParameterValueDict", ObjectSetParameterValueDict],
     pydantic.Field(discriminator="type"),
 ]
-"""The value provided for a variable configured in the [application state](/docs/foundry/agent-studio/application-state/) of an Agent."""
+"""The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueUpdate = typing_extensions.Annotated[
@@ -597,7 +597,7 @@ ParameterValueUpdate = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """
-A value update for an [application variable](/docs/foundry/agent-studio/application-state/) generated by the Agent.
+A value update for an [application variable](https://palantir.com/docs/foundry/agent-studio/application-state/) generated by the Agent.
 For `StringParameter` types, this will be the updated string value.
 For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the updated object set.
 """
@@ -608,7 +608,7 @@ ParameterValueUpdateDict = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """
-A value update for an [application variable](/docs/foundry/agent-studio/application-state/) generated by the Agent.
+A value update for an [application variable](https://palantir.com/docs/foundry/agent-studio/application-state/) generated by the Agent.
 For `StringParameter` types, this will be the updated string value.
 For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the updated object set.
 """

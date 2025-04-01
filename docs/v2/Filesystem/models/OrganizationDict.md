@@ -1,6 +1,6 @@
 # OrganizationDict
 
-[Organizations](/docs/foundry/security/orgs-and-spaces/#organizations) are access requirements applied to 
+[Organizations](https://palantir.com/docs/foundry/security/orgs-and-spaces/#organizations) are access requirements applied to 
 Projects that enforce strict silos between groups of users and resources. Every user is a member of only 
 one Organization, but can be a guest member of multiple Organizations. In order to meet access requirements, 
 users must be a member or guest member of at least one Organization applied to a Project.

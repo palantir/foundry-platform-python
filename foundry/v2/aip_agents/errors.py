@@ -52,7 +52,7 @@ class AgentNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
 @dataclass
@@ -68,7 +68,7 @@ class AgentVersionNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     agentVersionString: aip_agents_models.AgentVersionString
     """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
@@ -87,7 +87,7 @@ class BlockingContinueSessionPermissionDeniedParameters(typing_extensions.TypedD
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -135,7 +135,7 @@ class CancelSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -154,7 +154,7 @@ class ContentNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -194,7 +194,7 @@ class CreateSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
 @dataclass
@@ -249,7 +249,7 @@ class GetRagContextForSessionPermissionDeniedParameters(typing_extensions.TypedD
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -357,7 +357,7 @@ class ObjectTypeIdsNotFoundParameters(typing_extensions.TypedDict):
     """
     Some object types are configured for use by the Agent but could not be found.
     The object types either do not exist or the client token does not have access.
-    Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+    Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -380,7 +380,7 @@ class ObjectTypeRidsNotFoundParameters(typing_extensions.TypedDict):
     """
     Some object types are configured for use by the Agent but could not be found.
     The object types either do not exist or the client token does not have access.
-    Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](/docs/foundry/ontology-manager/overview/).
+    Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -444,7 +444,7 @@ class SessionNotFoundParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -463,7 +463,7 @@ class StreamingContinueSessionPermissionDeniedParameters(typing_extensions.Typed
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""
@@ -482,7 +482,7 @@ class UpdateSessionTitlePermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     agentRid: aip_agents_models.AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     sessionRid: aip_agents_models.SessionRid
     """The Resource Identifier (RID) of the conversation session."""

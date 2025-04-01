@@ -80,7 +80,7 @@ class FileImportClient:
         :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: FileImportDisplayName
-        :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+        :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode
@@ -232,7 +232,7 @@ class FileImportClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.BuildRid:
         """
-        Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+        Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid:
@@ -475,7 +475,7 @@ class FileImportClient:
         :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: FileImportDisplayName
-        :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+        :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
         :param import_mode:
         :type import_mode: FileImportMode

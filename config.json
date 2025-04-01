@@ -7,6 +7,7 @@
   "userHeader": "python-foundry-platform-sdk",
   "description": "The official Python library for the Foundry API",
   "promotedMajorVersion": "v2",
+  "documentationBaseUrl": "https://palantir.com",
   "extraDocsDir": "assets/docs_examples",
   "exampleOperation": {
     "majorVersion": "v2",

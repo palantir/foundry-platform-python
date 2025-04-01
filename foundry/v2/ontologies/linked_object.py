@@ -179,7 +179,7 @@ class LinkedObjectClient:
         :type order_by: Optional[OrderBy]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
@@ -275,7 +275,7 @@ class LinkedObjectClient:
         :type order_by: Optional[OrderBy]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]

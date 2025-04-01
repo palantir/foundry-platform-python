@@ -145,7 +145,7 @@ class AwsAccessKeyDict(typing_extensions.TypedDict):
 
 class AwsOidcAuthentication(pydantic.BaseModel):
     """
-    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
+    [OpenID Connect (OIDC)](https://palantir.com/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
     you to authenticate to external system resources without the use of static credentials.
     """
 
@@ -170,7 +170,7 @@ class AwsOidcAuthentication(pydantic.BaseModel):
 
 class AwsOidcAuthenticationDict(typing_extensions.TypedDict):
     """
-    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
+    [OpenID Connect (OIDC)](https://palantir.com/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
     you to authenticate to external system resources without the use of static credentials.
     """
 
@@ -234,7 +234,7 @@ class BearerTokenDict(typing_extensions.TypedDict):
 
 class CloudIdentity(pydantic.BaseModel):
     """
-    [Cloud identities](/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
+    [Cloud identities](https://palantir.com/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
     cloud provider resources without the use of static credentials.
     """
 
@@ -249,7 +249,7 @@ class CloudIdentity(pydantic.BaseModel):
 
 class CloudIdentityDict(typing_extensions.TypedDict):
     """
-    [Cloud identities](/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
+    [Cloud identities](https://palantir.com/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
     cloud provider resources without the use of static credentials.
     """
 
@@ -403,7 +403,7 @@ class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
 
     oauth2_client_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
     """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
+    The RID of the [Outbound application](https://palantir.com/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
     Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
     """
@@ -438,7 +438,7 @@ class CreateConnectionRequestRestConnectionConfigurationDict(typing_extensions.T
 
     oauth2ClientRid: typing_extensions.NotRequired[core.RID]
     """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
+    The RID of the [Outbound application](https://palantir.com/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
     Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
     """
@@ -822,7 +822,7 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
 CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
@@ -835,7 +835,7 @@ CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
 class Domain(pydantic.BaseModel):
@@ -1038,7 +1038,7 @@ class FileImport(pydantic.BaseModel):
 
     display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
-    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
+    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     import_mode: FileImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
     subfolder: typing.Optional[str] = None
@@ -1097,7 +1097,7 @@ class FileImportDict(typing_extensions.TypedDict):
 
     displayName: FileImportDisplayName
     fileImportFilters: typing.List[FileImportFilterDict]
-    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
+    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
 
     importMode: FileImportMode
     subfolder: typing_extensions.NotRequired[str]
@@ -1123,7 +1123,7 @@ FileImportFilter = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """
-[Filters](/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
+[Filters](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
 before they are imported into Foundry.
 """
 
@@ -1143,7 +1143,7 @@ FileImportFilterDict = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """
-[Filters](/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
+[Filters](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
 before they are imported into Foundry.
 """
 
@@ -1460,7 +1460,7 @@ class JdbcConnectionConfigurationDict(typing_extensions.TypedDict):
 
 
 class JdbcImportConfig(pydantic.BaseModel):
-    """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
+    """The import configuration for a [custom JDBC connection](https://palantir.com/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     query: str
     """
@@ -1478,7 +1478,7 @@ class JdbcImportConfig(pydantic.BaseModel):
 
 
 class JdbcImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
+    """The import configuration for a [custom JDBC connection](https://palantir.com/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1539,7 +1539,7 @@ class ListTableImportsResponseDict(typing_extensions.TypedDict):
 
 
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
-    """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
+    """The import configuration for a [Microsoft Access connection](https://palantir.com/docs/foundry/available-connectors/microsoft-access)."""
 
     query: str
     """
@@ -1559,7 +1559,7 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
 
 
 class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
+    """The import configuration for a [Microsoft Access connection](https://palantir.com/docs/foundry/available-connectors/microsoft-access)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1574,7 +1574,7 @@ class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
 
 
 class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
-    """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
+    """The import configuration for a [Microsoft SQL Server connection](https://palantir.com/docs/foundry/available-connectors/microsoft-sql-server)."""
 
     query: str
     """
@@ -1594,7 +1594,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
 
 
 class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
+    """The import configuration for a [Microsoft SQL Server connection](https://palantir.com/docs/foundry/available-connectors/microsoft-sql-server)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1648,7 +1648,7 @@ PlaintextValue = str
 
 
 class PostgreSqlImportConfig(pydantic.BaseModel):
-    """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
+    """The import configuration for a [PostgreSQL connection](https://palantir.com/docs/foundry/available-connectors/postgresql)."""
 
     query: str
     """
@@ -1668,7 +1668,7 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
 
 
 class PostgreSqlImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
+    """The import configuration for a [PostgreSQL connection](https://palantir.com/docs/foundry/available-connectors/postgresql)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1753,7 +1753,7 @@ When fetching the RestConnectionConfiguration, SecretsNames will be provided.
 
 
 class RestConnectionConfiguration(pydantic.BaseModel):
-    """The configuration needed to connect to a [REST external system](/docs/foundry/available-connectors/rest-apis)."""
+    """The configuration needed to connect to a [REST external system](https://palantir.com/docs/foundry/available-connectors/rest-apis)."""
 
     domains: typing.List[Domain]
     """
@@ -1769,7 +1769,7 @@ class RestConnectionConfiguration(pydantic.BaseModel):
 
     oauth2_client_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("oauth2ClientRid"), default=None)  # type: ignore[literal-required]
     """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
+    The RID of the [Outbound application](https://palantir.com/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
     Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
     """
@@ -1785,7 +1785,7 @@ class RestConnectionConfiguration(pydantic.BaseModel):
 
 
 class RestConnectionConfigurationDict(typing_extensions.TypedDict):
-    """The configuration needed to connect to a [REST external system](/docs/foundry/available-connectors/rest-apis)."""
+    """The configuration needed to connect to a [REST external system](https://palantir.com/docs/foundry/available-connectors/rest-apis)."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -1803,7 +1803,7 @@ class RestConnectionConfigurationDict(typing_extensions.TypedDict):
 
     oauth2ClientRid: typing_extensions.NotRequired[core.RID]
     """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
+    The RID of the [Outbound application](https://palantir.com/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
     Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
     Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
     """
@@ -1813,7 +1813,7 @@ class RestConnectionConfigurationDict(typing_extensions.TypedDict):
 
 class RestConnectionOAuth2(pydantic.BaseModel):
     """
-    In order to use OAuth2 you must have an Outbound application configured in the [Foundry Control Panel Organization settings](/docs/foundry/administration/configure-outbound-applications#create-an-outbound-application).
+    In order to use OAuth2 you must have an Outbound application configured in the [Foundry Control Panel Organization settings](https://palantir.com/docs/foundry/administration/configure-outbound-applications#create-an-outbound-application).
     The RID of the Outbound application must be configured in the RestConnectionConfiguration in the `oauth2ClientRid` field.
     """
 
@@ -1829,7 +1829,7 @@ class RestConnectionOAuth2(pydantic.BaseModel):
 
 class RestConnectionOAuth2Dict(typing_extensions.TypedDict):
     """
-    In order to use OAuth2 you must have an Outbound application configured in the [Foundry Control Panel Organization settings](/docs/foundry/administration/configure-outbound-applications#create-an-outbound-application).
+    In order to use OAuth2 you must have an Outbound application configured in the [Foundry Control Panel Organization settings](https://palantir.com/docs/foundry/administration/configure-outbound-applications#create-an-outbound-application).
     The RID of the Outbound application must be configured in the RestConnectionConfiguration in the `oauth2ClientRid` field.
     """
 
@@ -1867,7 +1867,7 @@ S3AuthenticationModeDict = typing_extensions.Annotated[
 class S3ConnectionConfiguration(pydantic.BaseModel):
     """
     The configuration needed to connect to an [AWS S3 external system (or any other S3-like external systems that
-    implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
+    implement the s3a protocol)](https://palantir.com/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
     """
 
     bucket_url: str = pydantic.Field(alias=str("bucketUrl"))  # type: ignore[literal-required]
@@ -1962,7 +1962,7 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
 class S3ConnectionConfigurationDict(typing_extensions.TypedDict):
     """
     The configuration needed to connect to an [AWS S3 external system (or any other S3-like external systems that
-    implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
+    implement the s3a protocol)](https://palantir.com/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
@@ -2328,7 +2328,7 @@ TableImportConfig = typing_extensions.Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
 TableImportConfigDict = typing_extensions.Annotated[
@@ -2341,7 +2341,7 @@ TableImportConfigDict = typing_extensions.Annotated[
     ],
     pydantic.Field(discriminator="type"),
 ]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+"""The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
 class TableImportDict(typing_extensions.TypedDict):
