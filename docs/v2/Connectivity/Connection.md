@@ -41,7 +41,11 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
-configuration = None
+configuration = {
+    "type": "jdbc",
+    "url": "jdbc:postgresql://localhost:5432/test",
+    "driverClass": "org.postgresql.Driver",
+}
 # ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"
 # FolderRid

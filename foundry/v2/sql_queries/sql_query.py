@@ -26,9 +26,9 @@ from foundry.v2.sql_queries import errors as sql_queries_errors
 from foundry.v2.sql_queries import models as sql_queries_models
 
 
-class QueryClient:
+class SqlQueryClient:
     """
-    The API client for the Query Resource.
+    The API client for the SqlQuery Resource.
 
     :param auth: Your auth configuration.
     :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
@@ -46,15 +46,15 @@ class QueryClient:
         self._config = config
         self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
 
-        self.with_streaming_response = _QueryClientStreaming(self)
-        self.with_raw_response = _QueryClientRaw(self)
+        self.with_streaming_response = _SqlQueryClientStreaming(self)
+        self.with_raw_response = _SqlQueryClientRaw(self)
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
     def cancel(
         self,
-        query_id: sql_queries_models.QueryId,
+        sql_query_id: sql_queries_models.SqlQueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -63,8 +63,8 @@ class QueryClient:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param query_id: The id of a query.
-        :type query_id: QueryId
+        :param sql_query_id: The id of a query.
+        :type sql_query_id: SqlQueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -72,19 +72,19 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: None
 
-        :raises CancelQueryPermissionDenied: Could not cancel the Query.
+        :raises CancelSqlQueryPermissionDenied: Could not cancel the SqlQuery.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/{queryId}/cancel",
+                resource_path="/v2/sqlQueries/{sqlQueryId}/cancel",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "queryId": query_id,
+                    "sqlQueryId": sql_query_id,
                 },
                 header_params={},
                 body=None,
@@ -92,7 +92,7 @@ class QueryClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "CancelQueryPermissionDenied": sql_queries_errors.CancelQueryPermissionDenied,
+                    "CancelSqlQueryPermissionDenied": sql_queries_errors.CancelSqlQueryPermissionDenied,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -125,7 +125,7 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: sql_queries_models.QueryStatus
 
-        :raises ExecuteQueryPermissionDenied: Could not execute the Query.
+        :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
         :raises QueryParseError: The query cannot be parsed.
         :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
@@ -133,7 +133,7 @@ class QueryClient:
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/sqlQueries/queries/execute",
+                resource_path="/v2/sqlQueries/execute",
                 query_params={
                     "preview": preview,
                 },
@@ -158,7 +158,7 @@ class QueryClient:
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "ExecuteQueryPermissionDenied": sql_queries_errors.ExecuteQueryPermissionDenied,
+                    "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
                     "QueryParseError": sql_queries_errors.QueryParseError,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
@@ -171,7 +171,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get_results(
         self,
-        query_id: sql_queries_models.QueryId,
+        sql_query_id: sql_queries_models.SqlQueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -181,8 +181,8 @@ class QueryClient:
         Gets the results of a query. This endpoint implements long polling and requests will time out after
         one minute.
 
-        :param query_id: The id of a query.
-        :type query_id: QueryId
+        :param sql_query_id: The id of a query.
+        :type sql_query_id: SqlQueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -190,7 +190,7 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: bytes
 
-        :raises GetResultsPermissionDenied: Could not getResults the Query.
+        :raises GetResultsSqlQueryPermissionDenied: Could not getResults the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
@@ -199,12 +199,12 @@ class QueryClient:
         return self._api_client.call_api(
             core.RequestInfo(
                 method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getResults",
+                resource_path="/v2/sqlQueries/{sqlQueryId}/getResults",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "queryId": query_id,
+                    "sqlQueryId": sql_query_id,
                 },
                 header_params={
                     "Accept": "application/octet-stream",
@@ -214,7 +214,7 @@ class QueryClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "GetResultsPermissionDenied": sql_queries_errors.GetResultsPermissionDenied,
+                    "GetResultsSqlQueryPermissionDenied": sql_queries_errors.GetResultsSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
@@ -228,7 +228,7 @@ class QueryClient:
     @errors.handle_unexpected
     def get_status(
         self,
-        query_id: sql_queries_models.QueryId,
+        sql_query_id: sql_queries_models.SqlQueryId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -237,8 +237,8 @@ class QueryClient:
         """
         Gets the status of a query.
 
-        :param query_id: The id of a query.
-        :type query_id: QueryId
+        :param sql_query_id: The id of a query.
+        :type sql_query_id: SqlQueryId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -246,19 +246,19 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: sql_queries_models.QueryStatus
 
-        :raises GetStatusPermissionDenied: Could not getStatus the Query.
+        :raises GetStatusSqlQueryPermissionDenied: Could not getStatus the SqlQuery.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="GET",
-                resource_path="/v2/sqlQueries/queries/{queryId}/getStatus",
+                resource_path="/v2/sqlQueries/{sqlQueryId}/getStatus",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
-                    "queryId": query_id,
+                    "sqlQueryId": sql_query_id,
                 },
                 header_params={
                     "Accept": "application/json",
@@ -268,7 +268,7 @@ class QueryClient:
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "GetStatusPermissionDenied": sql_queries_errors.GetStatusPermissionDenied,
+                    "GetStatusSqlQueryPermissionDenied": sql_queries_errors.GetStatusSqlQueryPermissionDenied,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -276,8 +276,8 @@ class QueryClient:
         )
 
 
-class _QueryClientRaw:
-    def __init__(self, client: QueryClient) -> None:
+class _SqlQueryClientRaw:
+    def __init__(self, client: SqlQueryClient) -> None:
         def cancel(_: None): ...
         def execute(_: sql_queries_models.QueryStatus): ...
         def get_results(_: bytes): ...
@@ -289,8 +289,8 @@ class _QueryClientRaw:
         self.get_status = core.with_raw_response(get_status, client.get_status)
 
 
-class _QueryClientStreaming:
-    def __init__(self, client: QueryClient) -> None:
+class _SqlQueryClientStreaming:
+    def __init__(self, client: SqlQueryClient) -> None:
         def execute(_: sql_queries_models.QueryStatus): ...
         def get_results(_: bytes): ...
         def get_status(_: sql_queries_models.QueryStatus): ...

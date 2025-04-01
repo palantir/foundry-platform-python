@@ -1,6 +1,6 @@
-# QueryId
+# SqlQueryId
 
-The identifier of a Query.
+The identifier of a SQL Query.
 
 ## Type
 ```python
