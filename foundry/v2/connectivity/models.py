@@ -281,7 +281,10 @@ class Connection(pydantic.BaseModel):
 
 ConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
-        "S3ConnectionConfiguration", "RestConnectionConfiguration", "JdbcConnectionConfiguration"
+        "S3ConnectionConfiguration",
+        "RestConnectionConfiguration",
+        "SnowflakeConnectionConfiguration",
+        "JdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -292,6 +295,7 @@ ConnectionConfigurationDict = typing_extensions.Annotated[
     typing.Union[
         "S3ConnectionConfigurationDict",
         "RestConnectionConfigurationDict",
+        "SnowflakeConnectionConfigurationDict",
         "JdbcConnectionConfigurationDict",
     ],
     pydantic.Field(discriminator="type"),
@@ -320,10 +324,85 @@ ConnectionRid = core.RID
 """The Resource Identifier (RID) of a Connection (also known as a source)."""
 
 
+class CreateConnectionRequestAsPlaintextValue(pydantic.BaseModel):
+    """CreateConnectionRequestAsPlaintextValue"""
+
+    value: PlaintextValue
+    type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestAsPlaintextValueDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestAsPlaintextValueDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestAsPlaintextValueDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestAsPlaintextValue"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: PlaintextValue
+    type: typing.Literal["asPlaintextValue"]
+
+
+class CreateConnectionRequestAsSecretName(pydantic.BaseModel):
+    """CreateConnectionRequestAsSecretName"""
+
+    value: SecretName
+    type: typing.Literal["asSecretName"] = "asSecretName"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestAsSecretNameDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestAsSecretNameDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestAsSecretNameDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestAsSecretName"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: SecretName
+    type: typing.Literal["asSecretName"]
+
+
+class CreateConnectionRequestBasicCredentials(pydantic.BaseModel):
+    """CreateConnectionRequestBasicCredentials"""
+
+    password: CreateConnectionRequestEncryptedProperty
+    username: str
+    type: typing.Literal["basic"] = "basic"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestBasicCredentialsDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestBasicCredentialsDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestBasicCredentialsDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestBasicCredentials"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    password: CreateConnectionRequestEncryptedPropertyDict
+    username: str
+    type: typing.Literal["basic"]
+
+
 CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
         "CreateConnectionRequestS3ConnectionConfiguration",
         "CreateConnectionRequestRestConnectionConfiguration",
+        "CreateConnectionRequestSnowflakeConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -335,11 +414,40 @@ CreateConnectionRequestConnectionConfigurationDict = typing_extensions.Annotated
     typing.Union[
         "CreateConnectionRequestS3ConnectionConfigurationDict",
         "CreateConnectionRequestRestConnectionConfigurationDict",
+        "CreateConnectionRequestSnowflakeConnectionConfigurationDict",
         "CreateConnectionRequestJdbcConnectionConfigurationDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
 """CreateConnectionRequestConnectionConfiguration"""
+
+
+CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
+    typing.Union[CreateConnectionRequestAsSecretName, CreateConnectionRequestAsPlaintextValue],
+    pydantic.Field(discriminator="type"),
+]
+"""
+When reading an encrypted property, the secret name representing the encrypted value will be returned.
+When writing to an encrypted property:
+- If a plaintext value is passed as an input, the plaintext value will be encrypted and saved to the property.
+- If a secret name is passed as an input, the secret name must match the existing secret name of the property
+  and the property will retain its previously encrypted value.
+"""
+
+
+CreateConnectionRequestEncryptedPropertyDict = typing_extensions.Annotated[
+    typing.Union[
+        CreateConnectionRequestAsSecretNameDict, CreateConnectionRequestAsPlaintextValueDict
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+When reading an encrypted property, the secret name representing the encrypted value will be returned.
+When writing to an encrypted property:
+- If a plaintext value is passed as an input, the plaintext value will be encrypted and saved to the property.
+- If a secret name is passed as an input, the secret name must match the existing secret name of the property
+  and the property will retain its previously encrypted value.
+"""
 
 
 class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
@@ -351,8 +459,8 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
 
     jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -381,8 +489,8 @@ class CreateConnectionRequestJdbcConnectionConfigurationDict(typing_extensions.T
 
     jdbcProperties: typing.Dict[str, str]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -630,6 +738,212 @@ class CreateConnectionRequestS3ConnectionConfigurationDict(typing_extensions.Typ
     """
 
     type: typing.Literal["s3"]
+
+
+CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestSnowflakeExternalOauth",
+        "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+        CreateConnectionRequestBasicCredentials,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""CreateConnectionRequestSnowflakeAuthenticationMode"""
+
+
+CreateConnectionRequestSnowflakeAuthenticationModeDict = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestSnowflakeExternalOauthDict",
+        "CreateConnectionRequestSnowflakeKeyPairAuthenticationDict",
+        CreateConnectionRequestBasicCredentialsDict,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""CreateConnectionRequestSnowflakeAuthenticationMode"""
+
+
+class CreateConnectionRequestSnowflakeConnectionConfiguration(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeConnectionConfiguration"""
+
+    schema_: typing.Optional[str] = pydantic.Field(alias=str("schema"), default=None)  # type: ignore[literal-required]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    database: typing.Optional[str] = None
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing.Optional[str] = None
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    account_identifier: str = pydantic.Field(alias=str("accountIdentifier"))  # type: ignore[literal-required]
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    warehouse: typing.Optional[str] = None
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authentication_mode: CreateConnectionRequestSnowflakeAuthenticationMode = pydantic.Field(alias=str("authenticationMode"))  # type: ignore[literal-required]
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    type: typing.Literal["snowflake"] = "snowflake"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestSnowflakeConnectionConfigurationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestSnowflakeConnectionConfigurationDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestSnowflakeConnectionConfigurationDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestSnowflakeConnectionConfiguration"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    schema: typing_extensions.NotRequired[str]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    database: typing_extensions.NotRequired[str]
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing_extensions.NotRequired[str]
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    accountIdentifier: str
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    jdbcProperties: typing.Dict[str, str]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    warehouse: typing_extensions.NotRequired[str]
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authenticationMode: CreateConnectionRequestSnowflakeAuthenticationModeDict
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    type: typing.Literal["snowflake"]
+
+
+class CreateConnectionRequestSnowflakeExternalOauth(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeExternalOauth"""
+
+    type: typing.Literal["externalOauth"] = "externalOauth"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestSnowflakeExternalOauthDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestSnowflakeExternalOauthDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestSnowflakeExternalOauthDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestSnowflakeExternalOauth"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    type: typing.Literal["externalOauth"]
+
+
+class CreateConnectionRequestSnowflakeKeyPairAuthentication(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeKeyPairAuthentication"""
+
+    private_key: CreateConnectionRequestEncryptedProperty = pydantic.Field(alias=str("privateKey"))  # type: ignore[literal-required]
+    user: str
+    type: typing.Literal["keyPair"] = "keyPair"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateConnectionRequestSnowflakeKeyPairAuthenticationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateConnectionRequestSnowflakeKeyPairAuthenticationDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateConnectionRequestSnowflakeKeyPairAuthenticationDict(typing_extensions.TypedDict):
+    """CreateConnectionRequestSnowflakeKeyPairAuthentication"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    privateKey: CreateConnectionRequestEncryptedPropertyDict
+    user: str
+    type: typing.Literal["keyPair"]
 
 
 class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
@@ -1421,8 +1735,8 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
 
     jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -1450,8 +1764,8 @@ class JdbcConnectionConfigurationDict(typing_extensions.TypedDict):
 
     jdbcProperties: typing.Dict[str, str]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -2206,6 +2520,237 @@ class SecretsWithPlaintextValuesDict(typing_extensions.TypedDict):
     type: typing.Literal["asSecretsWithPlaintextValues"]
 
 
+SnowflakeAuthenticationMode = typing_extensions.Annotated[
+    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", BasicCredentials],
+    pydantic.Field(discriminator="type"),
+]
+"""SnowflakeAuthenticationMode"""
+
+
+SnowflakeAuthenticationModeDict = typing_extensions.Annotated[
+    typing.Union[
+        "SnowflakeExternalOauthDict", "SnowflakeKeyPairAuthenticationDict", BasicCredentialsDict
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""SnowflakeAuthenticationMode"""
+
+
+class SnowflakeConnectionConfiguration(pydantic.BaseModel):
+    """The configuration needed to connect to a Snowflake database."""
+
+    account_identifier: str = pydantic.Field(alias=str("accountIdentifier"))  # type: ignore[literal-required]
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    database: typing.Optional[str] = None
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing.Optional[str] = None
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    schema_: typing.Optional[str] = pydantic.Field(alias=str("schema"), default=None)  # type: ignore[literal-required]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    warehouse: typing.Optional[str] = None
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authentication_mode: SnowflakeAuthenticationMode = pydantic.Field(alias=str("authenticationMode"))  # type: ignore[literal-required]
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    type: typing.Literal["snowflake"] = "snowflake"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "SnowflakeConnectionConfigurationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            SnowflakeConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class SnowflakeConnectionConfigurationDict(typing_extensions.TypedDict):
+    """The configuration needed to connect to a Snowflake database."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    accountIdentifier: str
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    database: typing_extensions.NotRequired[str]
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing_extensions.NotRequired[str]
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    schema: typing_extensions.NotRequired[str]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    warehouse: typing_extensions.NotRequired[str]
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authenticationMode: SnowflakeAuthenticationModeDict
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    jdbcProperties: typing.Dict[str, str]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    type: typing.Literal["snowflake"]
+
+
+class SnowflakeExternalOauth(pydantic.BaseModel):
+    """
+    Use an External OAuth security integration to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/oauth-ext-custom
+    """
+
+    audience: str
+    """Identifies the recipients that the access token is intended for as a string URI."""
+
+    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
+    """Identifies the principal that issued the access token as a string URI."""
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["externalOauth"] = "externalOauth"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "SnowflakeExternalOauthDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            SnowflakeExternalOauthDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class SnowflakeExternalOauthDict(typing_extensions.TypedDict):
+    """
+    Use an External OAuth security integration to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/oauth-ext-custom
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    audience: str
+    """Identifies the recipients that the access token is intended for as a string URI."""
+
+    issuerUrl: str
+    """Identifies the principal that issued the access token as a string URI."""
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["externalOauth"]
+
+
+class SnowflakeKeyPairAuthentication(pydantic.BaseModel):
+    """
+    Use a key-pair to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/key-pair-auth
+    """
+
+    user: str
+    private_key: EncryptedProperty = pydantic.Field(alias=str("privateKey"))  # type: ignore[literal-required]
+    type: typing.Literal["keyPair"] = "keyPair"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "SnowflakeKeyPairAuthenticationDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            SnowflakeKeyPairAuthenticationDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class SnowflakeKeyPairAuthenticationDict(typing_extensions.TypedDict):
+    """
+    Use a key-pair to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/key-pair-auth
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    user: str
+    privateKey: EncryptedPropertyDict
+    type: typing.Literal["keyPair"]
+
+
 class StsRoleConfiguration(pydantic.BaseModel):
     """StsRoleConfiguration"""
 
@@ -2397,6 +2942,18 @@ core.resolve_forward_references(
     CreateConnectionRequestConnectionConfigurationDict, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
+    CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestEncryptedPropertyDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestSnowflakeAuthenticationModeDict, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
@@ -2418,6 +2975,10 @@ core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), l
 core.resolve_forward_references(RestRequestApiKeyLocationDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
 core.resolve_forward_references(S3AuthenticationModeDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    SnowflakeAuthenticationModeDict, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
 core.resolve_forward_references(TableImportConfigDict, globalns=globals(), localns=locals())
 
@@ -2445,14 +3006,30 @@ __all__ = [
     "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
+    "CreateConnectionRequestAsPlaintextValue",
+    "CreateConnectionRequestAsPlaintextValueDict",
+    "CreateConnectionRequestAsSecretName",
+    "CreateConnectionRequestAsSecretNameDict",
+    "CreateConnectionRequestBasicCredentials",
+    "CreateConnectionRequestBasicCredentialsDict",
     "CreateConnectionRequestConnectionConfiguration",
     "CreateConnectionRequestConnectionConfigurationDict",
+    "CreateConnectionRequestEncryptedProperty",
+    "CreateConnectionRequestEncryptedPropertyDict",
     "CreateConnectionRequestJdbcConnectionConfiguration",
     "CreateConnectionRequestJdbcConnectionConfigurationDict",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestRestConnectionConfigurationDict",
     "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfigurationDict",
+    "CreateConnectionRequestSnowflakeAuthenticationMode",
+    "CreateConnectionRequestSnowflakeAuthenticationModeDict",
+    "CreateConnectionRequestSnowflakeConnectionConfiguration",
+    "CreateConnectionRequestSnowflakeConnectionConfigurationDict",
+    "CreateConnectionRequestSnowflakeExternalOauth",
+    "CreateConnectionRequestSnowflakeExternalOauthDict",
+    "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+    "CreateConnectionRequestSnowflakeKeyPairAuthenticationDict",
     "CreateTableImportRequestJdbcImportConfig",
     "CreateTableImportRequestJdbcImportConfigDict",
     "CreateTableImportRequestMicrosoftAccessImportConfig",
@@ -2541,6 +3118,14 @@ __all__ = [
     "SecretsNamesDict",
     "SecretsWithPlaintextValues",
     "SecretsWithPlaintextValuesDict",
+    "SnowflakeAuthenticationMode",
+    "SnowflakeAuthenticationModeDict",
+    "SnowflakeConnectionConfiguration",
+    "SnowflakeConnectionConfigurationDict",
+    "SnowflakeExternalOauth",
+    "SnowflakeExternalOauthDict",
+    "SnowflakeKeyPairAuthentication",
+    "SnowflakeKeyPairAuthenticationDict",
     "StsRoleConfiguration",
     "StsRoleConfigurationDict",
     "TableImport",

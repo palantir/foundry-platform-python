@@ -39,10 +39,10 @@ class SqlQueriesClient:
         self._config = config
 
     @cached_property
-    def Query(self):
-        from foundry.v2.sql_queries.query import QueryClient
+    def SqlQuery(self):
+        from foundry.v2.sql_queries.sql_query import SqlQueryClient
 
-        return QueryClient(
+        return SqlQueryClient(
             auth=self._auth,
             hostname=self._hostname,
             config=self._config,

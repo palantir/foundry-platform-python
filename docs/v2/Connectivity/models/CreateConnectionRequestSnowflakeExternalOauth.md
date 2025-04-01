@@ -1,12 +1,11 @@
-# SucceededQueryStatus
+# CreateConnectionRequestSnowflakeExternalOauth
 
-SucceededQueryStatus
+CreateConnectionRequestSnowflakeExternalOauth
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**query_id** | SqlQueryId | Yes |  |
-**type** | Literal["succeeded"] | Yes | None |
+**type** | Literal["externalOauth"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 CreateConnectionRequestS3ConnectionConfiguration | s3
 CreateConnectionRequestRestConnectionConfiguration | rest
+CreateConnectionRequestSnowflakeConnectionConfiguration | snowflake
 CreateConnectionRequestJdbcConnectionConfiguration | jdbc
 
 

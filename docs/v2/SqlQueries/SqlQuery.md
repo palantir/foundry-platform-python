@@ -1,11 +1,11 @@
-# Query
+# SqlQuery
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**cancel**](#cancel) | **POST** /v2/sqlQueries/queries/{queryId}/cancel | Private Beta |
-[**execute**](#execute) | **POST** /v2/sqlQueries/queries/execute | Private Beta |
-[**get_results**](#get_results) | **GET** /v2/sqlQueries/queries/{queryId}/getResults | Private Beta |
-[**get_status**](#get_status) | **GET** /v2/sqlQueries/queries/{queryId}/getStatus | Private Beta |
+[**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Private Beta |
+[**execute**](#execute) | **POST** /v2/sqlQueries/execute | Private Beta |
+[**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Private Beta |
+[**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Private Beta |
 
 # **cancel**
 Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -15,7 +15,7 @@ Cancels a query. If the query is no longer running this is effectively a no-op.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | The id of a query.  |  |
+**sql_query_id** | SqlQueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -30,18 +30,18 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# QueryId | The id of a query.
-query_id = None
+# SqlQueryId | The id of a query.
+sql_query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.cancel(query_id, preview=preview)
+    api_response = foundry_client.sql_queries.SqlQuery.cancel(sql_query_id, preview=preview)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.cancel: %s\n" % e)
+    print("HTTP error when calling SqlQuery.cancel: %s\n" % e)
 
 ```
 
@@ -91,13 +91,13 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.execute(
+    api_response = foundry_client.sql_queries.SqlQuery.execute(
         query=query, fallback_branch_ids=fallback_branch_ids, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.execute: %s\n" % e)
+    print("HTTP error when calling SqlQuery.execute: %s\n" % e)
 
 ```
 
@@ -123,7 +123,7 @@ one minute.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | The id of a query.  |  |
+**sql_query_id** | SqlQueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -138,18 +138,18 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# QueryId | The id of a query.
-query_id = None
+# SqlQueryId | The id of a query.
+sql_query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.get_results(query_id, preview=preview)
+    api_response = foundry_client.sql_queries.SqlQuery.get_results(sql_query_id, preview=preview)
     print("The get_results response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.get_results: %s\n" % e)
+    print("HTTP error when calling SqlQuery.get_results: %s\n" % e)
 
 ```
 
@@ -174,7 +174,7 @@ Gets the status of a query.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query_id** | QueryId | The id of a query.  |  |
+**sql_query_id** | SqlQueryId | The id of a query.  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -189,18 +189,18 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# QueryId | The id of a query.
-query_id = None
+# SqlQueryId | The id of a query.
+sql_query_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.Query.get_status(query_id, preview=preview)
+    api_response = foundry_client.sql_queries.SqlQuery.get_status(sql_query_id, preview=preview)
     print("The get_status response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Query.get_status: %s\n" % e)
+    print("HTTP error when calling SqlQuery.get_status: %s\n" % e)
 
 ```
 

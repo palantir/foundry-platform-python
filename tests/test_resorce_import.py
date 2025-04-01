@@ -390,10 +390,10 @@ def test_orchestration_v2_schedule_version_import():
     assert ScheduleVersionClient is not None
 
 
-def test_sql_queries_v2_query_import():
-    from foundry.v2.sql_queries.query import QueryClient
+def test_sql_queries_v2_sql_query_import():
+    from foundry.v2.sql_queries.sql_query import SqlQueryClient
 
-    assert QueryClient is not None
+    assert SqlQueryClient is not None
 
 
 def test_streams_v2_dataset_import():

@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**cancel**](#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel | Public Beta |
-[**create**](#create) | **POST** /v2/orchestration/builds/create | Public Beta |
-[**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Public Beta |
-[**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Public Beta |
+[**cancel**](#cancel) | **POST** /v2/orchestration/builds/{buildRid}/cancel | Stable |
+[**create**](#create) | **POST** /v2/orchestration/builds/create | Stable |
+[**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Stable |
+[**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Stable |
 [**jobs**](#jobs) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
 [**jobs_page**](#jobs_page) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
 [**search**](#search) | **POST** /v2/orchestration/builds/search | Private Beta |
@@ -19,7 +19,6 @@ Request a cancellation for all unfinished jobs in a build. The build's status wi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **build_rid** | BuildRid | The RID of a Build. |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -35,12 +34,10 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.cancel(build_rid, preview=preview)
+    api_response = foundry_client.orchestration.Build.cancel(build_rid)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -74,7 +71,6 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | The target branch the build should run on. | [optional] |
 **force_build** | Optional[ForceBuild] |  | [optional] |
 **notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
@@ -108,8 +104,6 @@ branch_name = "master"
 force_build = None
 # Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
 notifications_enabled = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
@@ -124,7 +118,6 @@ try:
         branch_name=branch_name,
         force_build=force_build,
         notifications_enabled=notifications_enabled,
-        preview=preview,
         retry_backoff_duration=retry_backoff_duration,
         retry_count=retry_count,
     )
@@ -156,7 +149,6 @@ Get the Build with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **build_rid** | BuildRid | The RID of a Build. |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Build**
@@ -172,12 +164,10 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # BuildRid | The RID of a Build.
 build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get(build_rid, preview=preview)
+    api_response = foundry_client.orchestration.Build.get(build_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
@@ -208,7 +198,6 @@ The maximum batch size for this endpoint is 100.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetBuildsBatchResponse**
@@ -224,12 +213,10 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get_batch(body, preview=preview)
+    api_response = foundry_client.orchestration.Build.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry.PalantirRPCException as e:
