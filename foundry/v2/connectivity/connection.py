@@ -76,10 +76,7 @@ class ConnectionClient:
     def create(
         self,
         *,
-        configuration: typing.Union[
-            connectivity_models.CreateConnectionRequestConnectionConfiguration,
-            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
-        ],
+        configuration: connectivity_models.CreateConnectionRequestConnectionConfiguration,
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -98,7 +95,7 @@ class ConnectionClient:
         use the Foundry UI instead.
 
         :param configuration:
-        :type configuration: Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+        :type configuration: CreateConnectionRequestConnectionConfiguration
         :param display_name: The display name of the Connection. The display name must not be blank.
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
@@ -137,10 +134,7 @@ class ConnectionClient:
                     "Body",
                     {  # type: ignore
                         "parentFolderRid": filesystem_models.FolderRid,
-                        "configuration": typing.Union[
-                            connectivity_models.CreateConnectionRequestConnectionConfiguration,
-                            connectivity_models.CreateConnectionRequestConnectionConfigurationDict,
-                        ],
+                        "configuration": connectivity_models.CreateConnectionRequestConnectionConfiguration,
                         "displayName": connectivity_models.ConnectionDisplayName,
                     },
                 ),

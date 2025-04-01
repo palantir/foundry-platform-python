@@ -23,8 +23,8 @@ from typing import Union
 
 import httpx
 
-from foundry._core.foundry_token_auth_client import Auth
-from foundry._core.foundry_token_auth_client import Token
+from foundry._core.user_token_auth_client import Auth
+from foundry._core.user_token_auth_client import Token
 from foundry._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry._errors.not_authenticated import NotAuthenticated
 

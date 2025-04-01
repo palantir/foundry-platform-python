@@ -70,7 +70,7 @@ class DatasetClient:
         *,
         name: datasets_models.DatasetName,
         parent_folder_rid: filesystem_models.FolderRid,
-        schema: typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict],
+        schema: core_models.StreamSchema,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -89,7 +89,7 @@ class DatasetClient:
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
         :param schema: The Foundry schema to apply to the new stream.
-        :type schema: Union[StreamSchema, StreamSchemaDict]
+        :type schema: StreamSchema
         :param branch_name: The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
         :type branch_name: Optional[BranchName]
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
@@ -135,9 +135,7 @@ class DatasetClient:
                     {  # type: ignore
                         "name": datasets_models.DatasetName,
                         "parentFolderRid": filesystem_models.FolderRid,
-                        "schema": typing.Union[
-                            core_models.StreamSchema, core_models.StreamSchemaDict
-                        ],
+                        "schema": core_models.StreamSchema,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "partitionsCount": typing.Optional[streams_models.PartitionsCount],
                         "streamType": typing.Optional[streams_models.StreamType],

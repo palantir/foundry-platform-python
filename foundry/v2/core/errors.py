@@ -136,7 +136,7 @@ class InvalidFilterValueParameters(typing_extensions.TypedDict):
 
     field: str
     value: typing.Any
-    expectedType: core_models.FilterTypeDict
+    expectedType: core_models.FilterType
 
 
 @dataclass

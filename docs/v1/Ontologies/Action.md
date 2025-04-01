@@ -89,7 +89,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action_type** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
-**requests** | List[Union[ApplyActionRequest, ApplyActionRequestDict]] |  |  |
+**requests** | List[ApplyActionRequest] |  |  |
 
 ### Return type
 **BatchApplyActionResponse**
@@ -107,7 +107,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
 action_type = "rename-employee"
-# List[Union[ApplyActionRequest, ApplyActionRequestDict]]
+# List[ApplyActionRequest]
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},

@@ -19,7 +19,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **branch_name** | BranchName |  |  |
-**schema** | Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream. |  |
+**schema** | CreateStreamRequestStreamSchema | The Foundry schema for this stream. |  |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -41,7 +41,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 dataset_rid = None
 # BranchName
 branch_name = "master"
-# Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict] | The Foundry schema for this stream.
+# CreateStreamRequestStreamSchema | The Foundry schema for this stream.
 schema = None
 # Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.
 compressed = False
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes |
 **compressed** | Optional[Compressed] | Whether or not compression is enabled for the stream.  If omitted, the compression setting of the existing stream on the branch will be used.  | [optional] |
 **partitions_count** | Optional[PartitionsCount] | The number of partitions for the Foundry stream. Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.  If omitted, the partitions count of the existing stream on the branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**schema** | Optional[Union[StreamSchema, StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.  | [optional] |
+**schema** | Optional[StreamSchema] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.  | [optional] |
 **stream_type** | Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.  | [optional] |
 
 ### Return type
@@ -372,7 +372,7 @@ compressed = False
 partitions_count = 1
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[StreamSchema, StreamSchemaDict]] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
+# Optional[StreamSchema] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
 schema = None
 # Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
 stream_type = "LOW_LATENCY"

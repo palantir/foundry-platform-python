@@ -171,36 +171,6 @@ def admin_user_list(
     click.echo(repr(result))
 
 
-@admin_user.command("page")
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.pass_obj
-def admin_user_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists all Users.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-    """
-    result = client.admin.User.page(
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
 @admin_user.command("profile_picture")
 @click.argument("user_id", type=str, required=True)
 @click.pass_obj
@@ -287,58 +257,6 @@ def admin_user_group_membership_list(
 
     """
     result = client.admin.User.GroupMembership.list(
-        user_id=user_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@admin_user_group_membership.command("page")
-@click.argument("user_id", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--transitive",
-    type=bool,
-    required=False,
-    help="""When true, includes the transitive memberships of the Groups the User is a member of. For example, say the
-User is a member of Group A, and Group A is a member of Group B. If `transitive=false` only Group A will
-be returned, but if `transitive=true` then Groups A and B will be returned. This
-will recursively resolve Groups through all layers of nesting.
-
-Defaults to false.
-""",
-)
-@click.pass_obj
-def admin_user_group_membership_page(
-    client: foundry.v2.FoundryClient,
-    user_id: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    transitive: typing.Optional[bool],
-):
-    """
-    Lists all Groups a given User is a member of.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
-    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
-    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
-    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
-    in the response, you are on the last page.
-
-    """
-    result = client.admin.User.GroupMembership.page(
         user_id=user_id,
         page_size=page_size,
         page_token=page_token,
@@ -526,39 +444,6 @@ def admin_marking_category_list(
     click.echo(repr(result))
 
 
-@admin_marking_category.command("page")
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def admin_marking_category_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Maximum page size 100.
-    """
-    result = client.admin.MarkingCategory.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @admin.group("marking")
 def admin_marking():
     pass
@@ -690,39 +575,6 @@ def admin_marking_list(
     click.echo(repr(result))
 
 
-@admin_marking.command("page")
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def admin_marking_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Maximum page size 100.
-    """
-    result = client.admin.Marking.page(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @admin_marking.group("marking_role_assignment")
 def admin_marking_marking_role_assignment():
     pass
@@ -779,43 +631,6 @@ def admin_marking_marking_role_assignment_list(
 
     """
     result = client.admin.Marking.MarkingRoleAssignment.list(
-        marking_id=marking_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@admin_marking_marking_role_assignment.command("page")
-@click.argument("marking_id", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def admin_marking_marking_role_assignment_page(
-    client: foundry.v2.FoundryClient,
-    marking_id: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
-
-    """
-    result = client.admin.Marking.MarkingRoleAssignment.page(
         marking_id=marking_id,
         page_size=page_size,
         page_token=page_token,
@@ -916,58 +731,6 @@ def admin_marking_marking_member_list(
 
     """
     result = client.admin.Marking.MarkingMember.list(
-        marking_id=marking_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@admin_marking_marking_member.command("page")
-@click.argument("marking_id", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
-    "--transitive",
-    type=bool,
-    required=False,
-    help="""When true, includes the transitive members of groups contained within groups that are members of this 
-Marking. For example, say the Marking has member Group A, and Group A has member User B. If 
-`transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B 
-will be returned. This will recursively resolve Groups through all layers of nesting.
-
-Defaults to false.
-""",
-)
-@click.pass_obj
-def admin_marking_marking_member_page(
-    client: foundry.v2.FoundryClient,
-    marking_id: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-    transitive: typing.Optional[bool],
-):
-    """
-    Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
-    Requires `api:admin-write` because only marking administrators can view marking members.
-
-    """
-    result = client.admin.Marking.MarkingMember.page(
         marking_id=marking_id,
         page_size=page_size,
         page_token=page_token,
@@ -1120,36 +883,6 @@ def admin_group_list(
     click.echo(repr(result))
 
 
-@admin_group.command("page")
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.pass_obj
-def admin_group_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists all Groups.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-    """
-    result = client.admin.Group.page(
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
 @admin_group.command("search")
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
@@ -1242,58 +975,6 @@ def admin_group_group_member_list(
 
     """
     result = client.admin.Group.GroupMember.list(
-        group_id=group_id,
-        page_size=page_size,
-        page_token=page_token,
-        transitive=transitive,
-    )
-    click.echo(repr(result))
-
-
-@admin_group_group_member.command("page")
-@click.argument("group_id", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--transitive",
-    type=bool,
-    required=False,
-    help="""When true, includes the transitive members of groups contained within this group. For example, say the
-Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will
-be returned, but if `transitive=true` then Group A and User B will be returned. This
-will recursively resolve Groups through all layers of nesting.
-
-Defaults to false.
-""",
-)
-@click.pass_obj
-def admin_group_group_member_page(
-    client: foundry.v2.FoundryClient,
-    group_id: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    transitive: typing.Optional[bool],
-):
-    """
-    Lists all members (which can be a User or a Group) of a given Group.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
-    it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
-    To get the next page, make the same request again, but set the value of the `pageToken` query parameter
-    to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
-    in the response, you are on the last page.
-
-    """
-    result = client.admin.Group.GroupMember.page(
         group_id=group_id,
         page_size=page_size,
         page_token=page_token,
@@ -1610,44 +1291,6 @@ def admin_enrollment_host_list(
     click.echo(repr(result))
 
 
-@admin_enrollment_host.command("page")
-@click.argument("enrollment_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def admin_enrollment_host_page(
-    client: foundry.v2.FoundryClient,
-    enrollment_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Lists all Hosts.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-    """
-    result = client.admin.Enrollment.Host.page(
-        enrollment_rid=enrollment_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @cli.group("aip_agents")
 def aip_agents():
     pass
@@ -1684,39 +1327,6 @@ def aip_agents_agent_all_sessions(
 
     """
     result = client.aip_agents.Agent.all_sessions(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@aip_agents_agent.command("all_sessions_page")
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The maximum number of sessions to return in a single page. The maximum allowed value is 100.
-Defaults to 100 if not specified.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def aip_agents_agent_all_sessions_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List all conversation sessions between the calling user and all accessible Agents that were created by this client.
-    Sessions are returned in order of most recently updated first.
-
-    """
-    result = client.aip_agents.Agent.all_sessions_page(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -1961,46 +1571,6 @@ def aip_agents_agent_session_list(
     click.echo(repr(result))
 
 
-@aip_agents_agent_session.command("page")
-@click.argument("agent_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def aip_agents_agent_session_page(
-    client: foundry.v2.FoundryClient,
-    agent_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List all conversation sessions between the calling user and an Agent that was created by this client.
-    This does not list sessions for the user created by other clients.
-    For example, any sessions created by the user in AIP Agent Studio will not be listed here.
-    Sessions are returned in order of most recently updated first.
-
-    """
-    result = client.aip_agents.Agent.Session.page(
-        agent_rid=agent_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @aip_agents_agent_session.command("rag_context")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("session_rid", type=str, required=True)
@@ -2235,44 +1805,6 @@ def aip_agents_agent_agent_version_list(
 
     """
     result = client.aip_agents.Agent.AgentVersion.list(
-        agent_rid=agent_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@aip_agents_agent_agent_version.command("page")
-@click.argument("agent_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def aip_agents_agent_agent_version_page(
-    client: foundry.v2.FoundryClient,
-    agent_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List all versions for an AIP Agent.
-    Versions are returned in descending order, by most recent versions first.
-
-    """
-    result = client.aip_agents.Agent.AgentVersion.page(
         agent_rid=agent_rid,
         page_size=page_size,
         page_token=page_token,
@@ -2588,44 +2120,6 @@ def connectivity_connection_table_import_list(
     click.echo(repr(result))
 
 
-@connectivity_connection_table_import.command("page")
-@click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def connectivity_connection_table_import_page(
-    client: foundry.v2.FoundryClient,
-    connection_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Lists all table imports defined for this connection.
-    Only table imports that the user has permissions to view will be returned.
-
-    """
-    result = client.connectivity.Connection.TableImport.page(
-        connection_rid=connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @connectivity_connection.group("file_import")
 def connectivity_connection_file_import():
     pass
@@ -2794,44 +2288,6 @@ def connectivity_connection_file_import_list(
 
     """
     result = client.connectivity.Connection.FileImport.list(
-        connection_rid=connection_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@connectivity_connection_file_import.command("page")
-@click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def connectivity_connection_file_import_page(
-    client: foundry.v2.FoundryClient,
-    connection_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Lists all file imports defined for this connection.
-    Only file imports that the user has permissions to view will be returned.
-
-    """
-    result = client.connectivity.Connection.FileImport.page(
         connection_rid=connection_rid,
         page_size=page_size,
         page_token=page_token,
@@ -3276,82 +2732,6 @@ def datasets_dataset_file_list(
     click.echo(repr(result))
 
 
-@datasets_dataset_file.command("page")
-@click.argument("dataset_rid", type=str, required=True)
-@click.option(
-    "--branch_name",
-    type=str,
-    required=False,
-    help="""The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
-""",
-)
-@click.option(
-    "--end_transaction_rid",
-    type=str,
-    required=False,
-    help="""The Resource Identifier (RID) of the end Transaction.
-""",
-)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--start_transaction_rid",
-    type=str,
-    required=False,
-    help="""The Resource Identifier (RID) of the start Transaction.
-""",
-)
-@click.pass_obj
-def datasets_dataset_file_page(
-    client: foundry.v2.FoundryClient,
-    dataset_rid: str,
-    branch_name: typing.Optional[str],
-    end_transaction_rid: typing.Optional[str],
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    start_transaction_rid: typing.Optional[str],
-):
-    """
-    Lists Files contained in a Dataset. By default files are listed on the latest view of the default
-    branch - `master` for most enrollments.
-    #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-    To **list files on a specific Branch** specify the Branch's name as `branchName`. This will include the most
-    recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the
-    branch if there are no snapshot transactions.
-    To **list files on the resolved view of a transaction** specify the Transaction's resource identifier
-    as `endTransactionRid`. This will include the most recent version of all files since the latest snapshot
-    transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-    To **list files on the resolved view of a range of transactions** specify the the start transaction's resource
-    identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This
-    will include the most recent version of all files since the `startTransactionRid` up to the `endTransactionRid`.
-    Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when
-    the start and end transactions do not belong to the same root-to-leaf path.
-    To **list files on a specific transaction** specify the Transaction's resource identifier as both the
-    `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
-    Transaction.
-
-    """
-    result = client.datasets.Dataset.File.page(
-        dataset_rid=dataset_rid,
-        branch_name=branch_name,
-        end_transaction_rid=end_transaction_rid,
-        page_size=page_size,
-        page_token=page_token,
-        start_transaction_rid=start_transaction_rid,
-    )
-    click.echo(repr(result))
-
-
 @datasets_dataset_file.command("upload")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("file_path", type=str, required=True)
@@ -3674,38 +3054,6 @@ def datasets_dataset_branch_list(
     click.echo(repr(result))
 
 
-@datasets_dataset_branch.command("page")
-@click.argument("dataset_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.pass_obj
-def datasets_dataset_branch_page(
-    client: foundry.v2.FoundryClient,
-    dataset_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists the Branches of a Dataset.
-
-    """
-    result = client.datasets.Dataset.Branch.page(
-        dataset_rid=dataset_rid,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
 @cli.group("filesystem")
 def filesystem():
     pass
@@ -3744,41 +3092,6 @@ def filesystem_space_list(
     This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.filesystem.Space.list(
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@filesystem_space.command("page")
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def filesystem_space_page(
-    client: foundry.v2.FoundryClient,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Lists all Spaces.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-    """
-    result = client.filesystem.Space.page(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -3946,44 +3259,6 @@ def filesystem_resource_markings(
     click.echo(repr(result))
 
 
-@filesystem_resource.command("markings_page")
-@click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def filesystem_resource_markings_page(
-    client: foundry.v2.FoundryClient,
-    resource_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List of Markings directly applied to a resource. The number of Markings on a resource is typically small
-    so the `pageSize` and `pageToken` parameters are not required.
-
-    """
-    result = client.filesystem.Resource.markings_page(
-        resource_rid=resource_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @filesystem_resource.command("permanently_delete")
 @click.argument("resource_rid", type=str, required=True)
 @click.option(
@@ -4117,51 +3392,6 @@ def filesystem_resource_resource_role_list(
 
     """
     result = client.filesystem.Resource.Role.list(
-        resource_rid=resource_rid,
-        include_inherited=include_inherited,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@filesystem_resource_resource_role.command("page")
-@click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--include_inherited",
-    type=bool,
-    required=False,
-    help="""Whether to include inherited roles on the resource.""",
-)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def filesystem_resource_resource_role_page(
-    client: foundry.v2.FoundryClient,
-    resource_rid: str,
-    include_inherited: typing.Optional[bool],
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List the roles on a resource.
-
-    """
-    result = client.filesystem.Resource.Role.page(
         resource_rid=resource_rid,
         include_inherited=include_inherited,
         page_size=page_size,
@@ -4355,44 +3585,6 @@ def filesystem_project_organizations(
     click.echo(repr(result))
 
 
-@filesystem_project.command("organizations_page")
-@click.argument("project_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def filesystem_project_organizations_page(
-    client: foundry.v2.FoundryClient,
-    project_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List of Organizations directly applied to a Project. The number of Organizations on a Project is
-    typically small so the `pageSize` and `pageToken` parameters are not required.
-
-    """
-    result = client.filesystem.Project.organizations_page(
-        project_rid=project_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @filesystem_project.command("remove_organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--organization_rids", type=str, required=True, help="""""")
@@ -4454,46 +3646,6 @@ def filesystem_folder_children(
 
     """
     result = client.filesystem.Folder.children(
-        folder_rid=folder_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@filesystem_folder.command("children_page")
-@click.argument("folder_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def filesystem_folder_children_page(
-    client: foundry.v2.FoundryClient,
-    folder_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    List all child Resources of the Folder.
-
-    This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
-    provided, this page size will also be used as the default.
-
-    """
-    result = client.filesystem.Folder.children_page(
         folder_rid=folder_rid,
         page_size=page_size,
         page_token=page_token,
@@ -5924,94 +5076,6 @@ def ontologies_ontology_object_list(
     click.echo(repr(result))
 
 
-@ontologies_ontology_object.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
-    "--exclude_rid",
-    type=bool,
-    required=False,
-    help="""A flag to exclude the retrieval of the `__rid` property. 
-Setting this to true may improve performance of this endpoint for object types in OSV2.
-""",
-)
-@click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--select",
-    type=str,
-    required=False,
-    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
-the properties.
-""",
-)
-@click.pass_obj
-def ontologies_ontology_object_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    artifact_repository: typing.Optional[str],
-    exclude_rid: typing.Optional[bool],
-    order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    select: typing.Optional[str],
-):
-    """
-    Lists the objects for the given Ontology and object type.
-
-    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-    repeated objects in the response pages.
-
-    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-    Each page may be smaller or larger than the requested page size. However, it
-    is guaranteed that if there are more results available, at least one result will be present
-    in the response.
-
-    Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyObject.page(
-        ontology=ontology,
-        object_type=object_type,
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        order_by=order_by,
-        package_name=package_name,
-        page_size=page_size,
-        page_token=page_token,
-        select=None if select is None else json.loads(select),
-    )
-    click.echo(repr(result))
-
-
 @ontologies_ontology_object.command("search")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
@@ -6245,55 +5309,6 @@ def ontologies_ontology_interface_list(
 
     """
     result = client.ontologies.OntologyInterface.list(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_interface.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
-@click.pass_obj
-def ontologies_ontology_interface_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    :::callout{theme=warning title=Warning}
-      This endpoint is in preview and may be modified or removed at any time.
-      To use this endpoint, add `preview=true` to the request query parameters.
-    :::
-
-    Lists the interface types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.OntologyInterface.page(
         ontology=ontology,
         page_size=page_size,
         page_token=page_token,
@@ -6549,41 +5564,6 @@ def ontologies_ontology_query_type_list(
     click.echo(repr(result))
 
 
-@ontologies_ontology_query_type.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 100.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_ontology_query_type_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists the query types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.QueryType.page(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
 @ontologies_ontology.group("object_type")
 def ontologies_ontology_object_type():
     pass
@@ -6735,73 +5715,6 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     click.echo(repr(result))
 
 
-@ontologies_ontology_object_type.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_ontology_object_type_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists the object types for the given Ontology.
-
-    Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are
-    more results available, at least one result will be present in the
-    response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.page(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_object_type.command("page_outgoing_link_types")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_ontology_object_type_page_outgoing_link_types(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    List the outgoing links for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ObjectType.page_outgoing_link_types(
-        ontology=ontology,
-        object_type=object_type,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
 @ontologies_ontology.group("action_type")
 def ontologies_ontology_action_type():
     pass
@@ -6879,41 +5792,6 @@ def ontologies_ontology_action_type_list(
 
     """
     result = client.ontologies.Ontology.ActionType.list(
-        ontology=ontology,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@ontologies_ontology_action_type.command("page")
-@click.argument("ontology", type=str, required=True)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.pass_obj
-def ontologies_ontology_action_type_page(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists the action types for the given Ontology.
-
-    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-    results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.Ontology.ActionType.page(
         ontology=ontology,
         page_size=page_size,
         page_token=page_token,
@@ -7238,100 +6116,6 @@ def ontologies_linked_object_list_linked_objects(
 
     """
     result = client.ontologies.LinkedObject.list_linked_objects(
-        ontology=ontology,
-        object_type=object_type,
-        primary_key=primary_key,
-        link_type=link_type,
-        artifact_repository=artifact_repository,
-        exclude_rid=exclude_rid,
-        order_by=order_by,
-        package_name=package_name,
-        page_size=page_size,
-        page_token=page_token,
-        select=None if select is None else json.loads(select),
-    )
-    click.echo(repr(result))
-
-
-@ontologies_linked_object.command("page_linked_objects")
-@click.argument("ontology", type=str, required=True)
-@click.argument("object_type", type=str, required=True)
-@click.argument("primary_key", type=str, required=True)
-@click.argument("link_type", type=str, required=True)
-@click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
-    "--exclude_rid",
-    type=bool,
-    required=False,
-    help="""A flag to exclude the retrieval of the `__rid` property. 
-Setting this to true may improve performance of this endpoint for object types in OSV2.
-""",
-)
-@click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
-@click.option(
-    "--page_size",
-    type=int,
-    required=False,
-    help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-""",
-)
-@click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--select",
-    type=str,
-    required=False,
-    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
-the properties.
-""",
-)
-@click.pass_obj
-def ontologies_linked_object_page_linked_objects(
-    client: foundry.v2.FoundryClient,
-    ontology: str,
-    object_type: str,
-    primary_key: str,
-    link_type: str,
-    artifact_repository: typing.Optional[str],
-    exclude_rid: typing.Optional[bool],
-    order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    select: typing.Optional[str],
-):
-    """
-    Lists the linked objects for a specific object and the given link type.
-
-    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-    repeated objects in the response pages.
-
-    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-    Each page may be smaller or larger than the requested page size. However, it
-    is guaranteed that if there are more results available, at least one result will be present
-    in the response.
-
-    Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-    """
-    result = client.ontologies.LinkedObject.page_linked_objects(
         ontology=ontology,
         object_type=object_type,
         primary_key=primary_key,
@@ -8000,43 +6784,6 @@ def orchestration_schedule_runs(
     click.echo(repr(result))
 
 
-@orchestration_schedule.command("runs_page")
-@click.argument("schedule_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def orchestration_schedule_runs_page(
-    client: foundry.v2.FoundryClient,
-    schedule_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
-
-    """
-    result = client.orchestration.Schedule.runs_page(
-        schedule_rid=schedule_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @orchestration_schedule.command("unpause")
 @click.argument("schedule_rid", type=str, required=True)
 @click.option(
@@ -8259,42 +7006,6 @@ def orchestration_build_jobs(
     Get the Jobs in the Build.
     """
     result = client.orchestration.Build.jobs(
-        build_rid=build_rid,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@orchestration_build.command("jobs_page")
-@click.argument("build_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def orchestration_build_jobs_page(
-    client: foundry.v2.FoundryClient,
-    build_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Get the Jobs in the Build.
-    """
-    result = client.orchestration.Build.jobs_page(
         build_rid=build_rid,
         page_size=page_size,
         page_token=page_token,
@@ -9012,39 +7723,6 @@ def third_party_applications_third_party_application_website_version_list(
     This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.third_party_applications.ThirdPartyApplication.Website.Version.list(
-        third_party_application_rid=third_party_application_rid,
-        page_size=page_size,
-        page_token=page_token,
-    )
-    click.echo(repr(result))
-
-
-@third_party_applications_third_party_application_website_version.command("page")
-@click.argument("third_party_application_rid", type=str, required=True)
-@click.option(
-    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
-)
-@click.option(
-    "--page_token",
-    type=str,
-    required=False,
-    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
-To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
-and use it to populate the `pageToken` field of the next request.""",
-)
-@click.pass_obj
-def third_party_applications_third_party_application_website_version_page(
-    client: foundry.v2.FoundryClient,
-    third_party_application_rid: str,
-    page_size: typing.Optional[int],
-    page_token: typing.Optional[str],
-):
-    """
-    Lists all Versions.
-
-    This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-    """
-    result = client.third_party_applications.ThirdPartyApplication.Website.Version.page(
         third_party_application_rid=third_party_application_rid,
         page_size=page_size,
         page_token=page_token,

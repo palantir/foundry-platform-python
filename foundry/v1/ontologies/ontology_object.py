@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -56,17 +55,9 @@ class OntologyObjectClient:
         ontology_rid: ontologies_models.OntologyRid,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
-        aggregation: typing.List[
-            typing.Union[ontologies_models.Aggregation, ontologies_models.AggregationDict]
-        ],
-        group_by: typing.List[
-            typing.Union[
-                ontologies_models.AggregationGroupBy, ontologies_models.AggregationGroupByDict
-            ]
-        ],
-        query: typing.Optional[
-            typing.Union[ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict]
-        ] = None,
+        aggregation: typing.List[ontologies_models.Aggregation],
+        group_by: typing.List[ontologies_models.AggregationGroupBy],
+        query: typing.Optional[ontologies_models.SearchJsonQuery] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AggregateObjectsResponse:
@@ -80,11 +71,11 @@ class OntologyObjectClient:
         :param object_type: The type of the object to aggregate on.
         :type object_type: ObjectTypeApiName
         :param aggregation:
-        :type aggregation: List[Union[Aggregation, AggregationDict]]
+        :type aggregation: List[Aggregation]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupBy, AggregationGroupByDict]]
+        :type group_by: List[AggregationGroupBy]
         :param query:
-        :type query: Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
+        :type query: Optional[SearchJsonQuery]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -112,23 +103,9 @@ class OntologyObjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": typing.List[
-                            typing.Union[
-                                ontologies_models.Aggregation, ontologies_models.AggregationDict
-                            ]
-                        ],
-                        "query": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchJsonQuery,
-                                ontologies_models.SearchJsonQueryDict,
-                            ]
-                        ],
-                        "groupBy": typing.List[
-                            typing.Union[
-                                ontologies_models.AggregationGroupBy,
-                                ontologies_models.AggregationGroupByDict,
-                            ]
-                        ],
+                        "aggregation": typing.List[ontologies_models.Aggregation],
+                        "query": typing.Optional[ontologies_models.SearchJsonQuery],
+                        "groupBy": typing.List[ontologies_models.AggregationGroupBy],
                     },
                 ),
                 response_type=ontologies_models.AggregateObjectsResponse,
@@ -428,196 +405,14 @@ class OntologyObjectClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        ontology_rid: ontologies_models.OntologyRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        *,
-        order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListObjectsResponse:
-        """
-        Lists the objects for the given Ontology and object type.
-
-        This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
-
-        Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-        repeated objects in the response pages.
-
-        For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-        are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-        Each page may be smaller or larger than the requested page size. However, it
-        is guaranteed that if there are more results available, at least one result will be present
-        in the response.
-
-        Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: OntologyRid
-        :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param order_by:
-        :type order_by: Optional[OrderBy]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
-        :type properties: Optional[List[SelectedPropertyApiName]]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListObjectsResponse
-        """
-
-        warnings.warn(
-            "The client.ontologies.OntologyObject.page(...) method has been deprecated. Please use client.ontologies.OntologyObject.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}",
-                query_params={
-                    "orderBy": order_by,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "properties": properties,
-                },
-                path_params={
-                    "ontologyRid": ontology_rid,
-                    "objectType": object_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListObjectsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page_linked_objects(
-        self,
-        ontology_rid: ontologies_models.OntologyRid,
-        object_type: ontologies_models.ObjectTypeApiName,
-        primary_key: ontologies_models.PropertyValueEscapedString,
-        link_type: ontologies_models.LinkTypeApiName,
-        *,
-        order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        properties: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListLinkedObjectsResponse:
-        """
-        Lists the linked objects for a specific object and the given link type.
-
-        This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
-
-        Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-        repeated objects in the response pages.
-
-        For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-        are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-        Each page may be smaller or larger than the requested page size. However, it
-        is guaranteed that if there are more results available, at least one result will be present
-        in the response.
-
-        Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology_rid: OntologyRid
-        :param object_type: The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-        :type object_type: ObjectTypeApiName
-        :param primary_key: The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-        :type primary_key: PropertyValueEscapedString
-        :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
-        :type link_type: LinkTypeApiName
-        :param order_by:
-        :type order_by: Optional[OrderBy]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param properties: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
-        :type properties: Optional[List[SelectedPropertyApiName]]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListLinkedObjectsResponse
-        """
-
-        warnings.warn(
-            "The client.ontologies.OntologyObject.page_linked_objects(...) method has been deprecated. Please use client.ontologies.OntologyObject.list_linked_objects(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}",
-                query_params={
-                    "orderBy": order_by,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "properties": properties,
-                },
-                path_params={
-                    "ontologyRid": ontology_rid,
-                    "objectType": object_type,
-                    "primaryKey": primary_key,
-                    "linkType": link_type,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListLinkedObjectsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         ontology_rid: ontologies_models.OntologyRid,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         fields: typing.List[ontologies_models.PropertyApiName],
-        query: typing.Union[
-            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
-        ],
-        order_by: typing.Optional[
-            typing.Union[ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict]
-        ] = None,
+        query: ontologies_models.SearchJsonQuery,
+        order_by: typing.Optional[ontologies_models.SearchOrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -656,9 +451,9 @@ class OntologyObjectClient:
         :param fields: The API names of the object type properties to include in the response.
         :type fields: List[PropertyApiName]
         :param query:
-        :type query: Union[SearchJsonQuery, SearchJsonQueryDict]
+        :type query: SearchJsonQuery
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderBy, SearchOrderByDict]]
+        :type order_by: Optional[SearchOrderBy]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -692,14 +487,8 @@ class OntologyObjectClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "query": typing.Union[
-                            ontologies_models.SearchJsonQuery, ontologies_models.SearchJsonQueryDict
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchOrderBy, ontologies_models.SearchOrderByDict
-                            ]
-                        ],
+                        "query": ontologies_models.SearchJsonQuery,
+                        "orderBy": typing.Optional[ontologies_models.SearchOrderBy],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "pageToken": typing.Optional[core_models.PageToken],
                         "fields": typing.List[ontologies_models.PropertyApiName],
@@ -720,8 +509,6 @@ class _OntologyObjectClientRaw:
         def get_linked_object(_: ontologies_models.OntologyObject): ...
         def list(_: ontologies_models.ListObjectsResponse): ...
         def list_linked_objects(_: ontologies_models.ListLinkedObjectsResponse): ...
-        def page(_: ontologies_models.ListObjectsResponse): ...
-        def page_linked_objects(_: ontologies_models.ListLinkedObjectsResponse): ...
         def search(_: ontologies_models.SearchObjectsResponse): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
@@ -730,10 +517,6 @@ class _OntologyObjectClientRaw:
         self.list = core.with_raw_response(list, client.list)
         self.list_linked_objects = core.with_raw_response(
             list_linked_objects, client.list_linked_objects
-        )
-        self.page = core.with_raw_response(page, client.page)
-        self.page_linked_objects = core.with_raw_response(
-            page_linked_objects, client.page_linked_objects
         )
         self.search = core.with_raw_response(search, client.search)
 
@@ -745,8 +528,6 @@ class _OntologyObjectClientStreaming:
         def get_linked_object(_: ontologies_models.OntologyObject): ...
         def list(_: ontologies_models.ListObjectsResponse): ...
         def list_linked_objects(_: ontologies_models.ListLinkedObjectsResponse): ...
-        def page(_: ontologies_models.ListObjectsResponse): ...
-        def page_linked_objects(_: ontologies_models.ListLinkedObjectsResponse): ...
         def search(_: ontologies_models.SearchObjectsResponse): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
@@ -757,9 +538,5 @@ class _OntologyObjectClientStreaming:
         self.list = core.with_streaming_response(list, client.list)
         self.list_linked_objects = core.with_streaming_response(
             list_linked_objects, client.list_linked_objects
-        )
-        self.page = core.with_streaming_response(page, client.page)
-        self.page_linked_objects = core.with_streaming_response(
-            page_linked_objects, client.page_linked_objects
         )
         self.search = core.with_streaming_response(search, client.search)

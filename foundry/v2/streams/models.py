@@ -18,7 +18,6 @@ from __future__ import annotations
 import typing
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 from foundry.v2.core import models as core_models
@@ -63,42 +62,9 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
     change_data_capture: typing.Optional[core_models.ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateStreamRequestStreamSchemaDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateStreamRequestStreamSchemaDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class CreateStreamRequestStreamSchemaDict(typing_extensions.TypedDict):
-    """CreateStreamRequestStreamSchema"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    keyFieldNames: typing_extensions.NotRequired[typing.List[core_models.FieldName]]
-    """
-    The names of the fields to be used as keys for partitioning records. These key fields are used to group
-    all records with the same key into the same partition, to guarantee processing order of grouped records. These
-    keys are not meant to uniquely identify records, and do not by themselves deduplicate records. To deduplicate
-    records, provide a change data capture configuration for the schema.
-
-    Key fields can only be of the following types:
-    - Boolean
-    - Byte
-    - Date
-    - Decimal
-    - Integer
-    - Long
-    - Short
-    - String
-    - Timestamp
-
-    For additional information on keys for Foundry streams, see the
-    [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
-    """
-
-    fields: typing.List[core_models.FieldDict]
-    changeDataCapture: typing_extensions.NotRequired[core_models.ChangeDataCaptureConfigurationDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Dataset(pydantic.BaseModel):
@@ -109,19 +75,9 @@ class Dataset(pydantic.BaseModel):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DatasetDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DatasetDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DatasetDict(typing_extensions.TypedDict):
-    """Dataset"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: datasets_models.DatasetRid
-    name: datasets_models.DatasetName
-    parentFolderRid: filesystem_models.FolderRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PartitionsCount = int
@@ -161,39 +117,9 @@ class Stream(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StreamDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(StreamDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class StreamDict(typing_extensions.TypedDict):
-    """Stream"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    branchName: datasets_models.BranchName
-    schema: core_models.StreamSchemaDict
-    """The Foundry schema for this stream."""
-
-    viewRid: ViewRid
-    """The view that this stream corresponds to."""
-
-    partitionsCount: PartitionsCount
-    """
-    The number of partitions for the Foundry stream. Defaults to 1.
-
-    Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
-    are recommended.
-    """
-
-    streamType: StreamType
-    """
-    A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
-    LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
-    """
-
-    compressed: Compressed
-    """Whether or not compression is enabled for the stream. Defaults to false."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StreamType = typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]
@@ -221,13 +147,10 @@ core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 __all__ = [
     "Compressed",
     "CreateStreamRequestStreamSchema",
-    "CreateStreamRequestStreamSchemaDict",
     "Dataset",
-    "DatasetDict",
     "PartitionsCount",
     "Record",
     "Stream",
-    "StreamDict",
     "StreamType",
     "ViewRid",
 ]

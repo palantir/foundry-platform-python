@@ -186,17 +186,11 @@ class TimeSeriesPropertyV2Client:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
-        aggregate: typing.Optional[
-            typing.Union[
-                ontologies_models.AggregateTimeSeries, ontologies_models.AggregateTimeSeriesDict
-            ]
-        ] = None,
+        aggregate: typing.Optional[ontologies_models.AggregateTimeSeries] = None,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        range: typing.Optional[
-            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
-        ] = None,
+        range: typing.Optional[ontologies_models.TimeRange] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -215,7 +209,7 @@ class TimeSeriesPropertyV2Client:
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
         :param aggregate:
-        :type aggregate: Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+        :type aggregate: Optional[AggregateTimeSeries]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
@@ -223,7 +217,7 @@ class TimeSeriesPropertyV2Client:
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[Union[TimeRange, TimeRangeDict]]
+        :type range: Optional[TimeRange]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -256,17 +250,8 @@ class TimeSeriesPropertyV2Client:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": typing.Optional[
-                            typing.Union[
-                                ontologies_models.TimeRange, ontologies_models.TimeRangeDict
-                            ]
-                        ],
-                        "aggregate": typing.Optional[
-                            typing.Union[
-                                ontologies_models.AggregateTimeSeries,
-                                ontologies_models.AggregateTimeSeriesDict,
-                            ]
-                        ],
+                        "range": typing.Optional[ontologies_models.TimeRange],
+                        "aggregate": typing.Optional[ontologies_models.AggregateTimeSeries],
                     },
                 ),
                 response_type=bytes,

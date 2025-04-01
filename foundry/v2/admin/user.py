@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import annotated_types
@@ -163,12 +162,7 @@ class UserClient:
     def get_batch(
         self,
         body: typing_extensions.Annotated[
-            typing.List[
-                typing.Union[
-                    admin_models.GetUsersBatchRequestElement,
-                    admin_models.GetUsersBatchRequestElementDict,
-                ]
-            ],
+            typing.List[admin_models.GetUsersBatchRequestElement],
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
@@ -180,7 +174,7 @@ class UserClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]]
+        :type body: List[GetUsersBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -199,7 +193,7 @@ class UserClient:
                 },
                 body=body,
                 body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetUsersBatchRequestElementDict],
+                    typing.List[admin_models.GetUsersBatchRequestElement],
                     annotated_types.Len(min_length=1, max_length=500),
                 ],
                 response_type=admin_models.GetUsersBatchResponse,
@@ -346,58 +340,6 @@ class UserClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListUsersResponse:
-        """
-        Lists all Users.
-
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListUsersResponse
-        """
-
-        warnings.warn(
-            "The client.admin.User.page(...) method has been deprecated. Please use client.admin.User.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/users",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListUsersResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def profile_picture(
         self,
         user_id: core_models.PrincipalId,
@@ -449,7 +391,7 @@ class UserClient:
     def search(
         self,
         *,
-        where: typing.Union[admin_models.UserSearchFilter, admin_models.UserSearchFilterDict],
+        where: admin_models.UserSearchFilter,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -459,7 +401,7 @@ class UserClient:
         Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
-        :type where: Union[UserSearchFilter, UserSearchFilterDict]
+        :type where: UserSearchFilter
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -490,9 +432,7 @@ class UserClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": typing.Union[
-                            admin_models.UserSearchFilter, admin_models.UserSearchFilterDict
-                        ],
+                        "where": admin_models.UserSearchFilter,
                         "pageSize": typing.Optional[core_models.PageSize],
                         "pageToken": typing.Optional[core_models.PageToken],
                     },
@@ -515,7 +455,6 @@ class _UserClientRaw:
         def get_current(_: admin_models.User): ...
         def get_markings(_: admin_models.GetUserMarkingsResponse): ...
         def list(_: admin_models.ListUsersResponse): ...
-        def page(_: admin_models.ListUsersResponse): ...
         def profile_picture(_: typing.Optional[bytes]): ...
         def search(_: admin_models.SearchUsersResponse): ...
 
@@ -525,7 +464,6 @@ class _UserClientRaw:
         self.get_current = core.with_raw_response(get_current, client.get_current)
         self.get_markings = core.with_raw_response(get_markings, client.get_markings)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.profile_picture = core.with_raw_response(profile_picture, client.profile_picture)
         self.search = core.with_raw_response(search, client.search)
 
@@ -537,7 +475,6 @@ class _UserClientStreaming:
         def get_current(_: admin_models.User): ...
         def get_markings(_: admin_models.GetUserMarkingsResponse): ...
         def list(_: admin_models.ListUsersResponse): ...
-        def page(_: admin_models.ListUsersResponse): ...
         def profile_picture(_: typing.Optional[bytes]): ...
         def search(_: admin_models.SearchUsersResponse): ...
 
@@ -546,6 +483,5 @@ class _UserClientStreaming:
         self.get_current = core.with_streaming_response(get_current, client.get_current)
         self.get_markings = core.with_streaming_response(get_markings, client.get_markings)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.profile_picture = core.with_streaming_response(profile_picture, client.profile_picture)
         self.search = core.with_streaming_response(search, client.search)

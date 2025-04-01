@@ -57,10 +57,7 @@ class StreamClient:
         dataset_rid: datasets_models.DatasetRid,
         *,
         branch_name: datasets_models.BranchName,
-        schema: typing.Union[
-            streams_models.CreateStreamRequestStreamSchema,
-            streams_models.CreateStreamRequestStreamSchemaDict,
-        ],
+        schema: streams_models.CreateStreamRequestStreamSchema,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -76,7 +73,7 @@ class StreamClient:
         :param branch_name:
         :type branch_name: BranchName
         :param schema: The Foundry schema for this stream.
-        :type schema: Union[CreateStreamRequestStreamSchema, CreateStreamRequestStreamSchemaDict]
+        :type schema: CreateStreamRequestStreamSchema
         :param compressed: Whether or not compression is enabled for the stream. Defaults to false.
         :type compressed: Optional[Compressed]
         :param partitions_count: The number of partitions for the Foundry stream. Defaults to 1.  Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions are recommended.
@@ -117,10 +114,7 @@ class StreamClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": typing.Union[
-                            streams_models.CreateStreamRequestStreamSchema,
-                            streams_models.CreateStreamRequestStreamSchemaDict,
-                        ],
+                        "schema": streams_models.CreateStreamRequestStreamSchema,
                         "partitionsCount": typing.Optional[streams_models.PartitionsCount],
                         "streamType": typing.Optional[streams_models.StreamType],
                         "branchName": datasets_models.BranchName,
@@ -403,9 +397,7 @@ class StreamClient:
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        schema: typing.Optional[
-            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
-        ] = None,
+        schema: typing.Optional[core_models.StreamSchema] = None,
         stream_type: typing.Optional[streams_models.StreamType] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -430,7 +422,7 @@ class StreamClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param schema: The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-        :type schema: Optional[Union[StreamSchema, StreamSchemaDict]]
+        :type schema: Optional[StreamSchema]
         :param stream_type: A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
         :type stream_type: Optional[StreamType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -465,9 +457,7 @@ class StreamClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "schema": typing.Optional[
-                            typing.Union[core_models.StreamSchema, core_models.StreamSchemaDict]
-                        ],
+                        "schema": typing.Optional[core_models.StreamSchema],
                         "partitionsCount": typing.Optional[streams_models.PartitionsCount],
                         "streamType": typing.Optional[streams_models.StreamType],
                         "compressed": typing.Optional[streams_models.Compressed],

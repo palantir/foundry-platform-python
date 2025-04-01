@@ -8,7 +8,6 @@ Method | HTTP request | Release Stage |
 [**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Public Beta |
 [**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Public Beta |
 [**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
-[**markings_page**](#markings_page) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
 [**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Public Beta |
 [**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Public Beta |
 [**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Public Beta |
@@ -317,66 +316,6 @@ try:
         pprint(resource)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Resource.markings: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListMarkingsOfResourceResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **markings_page**
-List of Markings directly applied to a resource. The number of Markings on a resource is typically small 
-so the `pageSize` and `pageToken` parameters are not required.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**resource_rid** | ResourceRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListMarkingsOfResourceResponse**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ResourceRid
-resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.filesystem.Resource.markings_page(
-        resource_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The markings_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Resource.markings_page: %s\n" % e)
 
 ```
 

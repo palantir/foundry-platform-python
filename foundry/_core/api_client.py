@@ -341,15 +341,6 @@ class ApiClient:
         self._session = HttpClient(hostname, config)
         self._auth._parameterize(hostname, config)
 
-    @property
-    @deprecated(
-        "Accessing the session directly is deprecated. Please configure the session using the new Config class."
-    )
-    def session(self):
-        # DEPRECATED: This ensures that users who were previously accessing the PalantirSession
-        # will have code that continues to work (now we just return the ApiClient)
-        return self
-
     def call_api(self, request_info: RequestInfo) -> Any:
         """Makes the HTTP request (synchronous)"""
         response_mode = (

@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -118,12 +117,7 @@ class ProjectClient:
         display_name: filesystem_models.ResourceDisplayName,
         organization_rids: typing.List[core_models.OrganizationRid],
         role_grants: typing.Dict[
-            core_models.RoleId,
-            typing.List[
-                typing.Union[
-                    filesystem_models.PrincipalWithId, filesystem_models.PrincipalWithIdDict
-                ]
-            ],
+            core_models.RoleId, typing.List[filesystem_models.PrincipalWithId]
         ],
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
@@ -145,7 +139,7 @@ class ProjectClient:
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
         :param role_grants:
-        :type role_grants: Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
+        :type role_grants: Dict[RoleId, List[PrincipalWithId]]
         :param space_rid:
         :type space_rid: SpaceRid
         :param description:
@@ -194,13 +188,7 @@ class ProjectClient:
                         "description": typing.Optional[str],
                         "spaceRid": filesystem_models.SpaceRid,
                         "roleGrants": typing.Dict[
-                            core_models.RoleId,
-                            typing.List[
-                                typing.Union[
-                                    filesystem_models.PrincipalWithId,
-                                    filesystem_models.PrincipalWithIdDict,
-                                ]
-                            ],
+                            core_models.RoleId, typing.List[filesystem_models.PrincipalWithId]
                         ],
                         "defaultRoles": typing.List[core_models.RoleId],
                         "organizationRids": typing.List[core_models.OrganizationRid],
@@ -442,67 +430,6 @@ class ProjectClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def organizations_page(
-        self,
-        project_rid: filesystem_models.ProjectRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> filesystem_models.ListOrganizationsOfProjectResponse:
-        """
-        List of Organizations directly applied to a Project. The number of Organizations on a Project is
-        typically small so the `pageSize` and `pageToken` parameters are not required.
-
-        :param project_rid:
-        :type project_rid: ProjectRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: filesystem_models.ListOrganizationsOfProjectResponse
-        """
-
-        warnings.warn(
-            "The client.filesystem.Project.organizations_page(...) method has been deprecated. Please use client.filesystem.Project.organizations(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/filesystem/projects/{projectRid}/organizations",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "projectRid": project_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=filesystem_models.ListOrganizationsOfProjectResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def remove_organizations(
         self,
         project_rid: filesystem_models.ProjectRid,
@@ -567,7 +494,6 @@ class _ProjectClientRaw:
         def create_from_template(_: filesystem_models.Project): ...
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
-        def organizations_page(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
         def remove_organizations(_: None): ...
 
         self.add_organizations = core.with_raw_response(add_organizations, client.add_organizations)
@@ -577,9 +503,6 @@ class _ProjectClientRaw:
         )
         self.get = core.with_raw_response(get, client.get)
         self.organizations = core.with_raw_response(organizations, client.organizations)
-        self.organizations_page = core.with_raw_response(
-            organizations_page, client.organizations_page
-        )
         self.remove_organizations = core.with_raw_response(
             remove_organizations, client.remove_organizations
         )
@@ -591,7 +514,6 @@ class _ProjectClientStreaming:
         def create_from_template(_: filesystem_models.Project): ...
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
-        def organizations_page(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.create_from_template = core.with_streaming_response(
@@ -599,6 +521,3 @@ class _ProjectClientStreaming:
         )
         self.get = core.with_streaming_response(get, client.get)
         self.organizations = core.with_streaming_response(organizations, client.organizations)
-        self.organizations_page = core.with_streaming_response(
-            organizations_page, client.organizations_page
-        )

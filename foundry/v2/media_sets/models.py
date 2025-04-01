@@ -19,7 +19,6 @@ import typing
 from datetime import datetime
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 from foundry.v2.core import models as core_models
@@ -44,22 +43,9 @@ class GetMediaItemInfoResponse(pydantic.BaseModel):
     attribution: typing.Optional[MediaAttribution] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetMediaItemInfoResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetMediaItemInfoResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetMediaItemInfoResponseDict(typing_extensions.TypedDict):
-    """GetMediaItemInfoResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    viewRid: core_models.MediaSetViewRid
-    path: typing_extensions.NotRequired[core_models.MediaItemPath]
-    logicalTimestamp: LogicalTimestamp
-    attribution: typing_extensions.NotRequired[MediaAttributionDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LogicalTimestamp = core.Long
@@ -81,19 +67,9 @@ class MediaAttribution(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MediaAttributionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MediaAttributionDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MediaAttributionDict(typing_extensions.TypedDict):
-    """MediaAttribution"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    creatorId: core_models.UserId
-    creationTimestamp: datetime
-    """The timestamp when the media item was created, in ISO 8601 timestamp format."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class PutMediaItemResponse(pydantic.BaseModel):
@@ -102,19 +78,9 @@ class PutMediaItemResponse(pydantic.BaseModel):
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PutMediaItemResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            PutMediaItemResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class PutMediaItemResponseDict(typing_extensions.TypedDict):
-    """PutMediaItemResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    mediaItemRid: core_models.MediaItemRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TransactionId = core.UUID
@@ -125,11 +91,8 @@ __all__ = [
     "BranchName",
     "BranchRid",
     "GetMediaItemInfoResponse",
-    "GetMediaItemInfoResponseDict",
     "LogicalTimestamp",
     "MediaAttribution",
-    "MediaAttributionDict",
     "PutMediaItemResponse",
-    "PutMediaItemResponseDict",
     "TransactionId",
 ]

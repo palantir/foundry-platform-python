@@ -123,9 +123,7 @@ class TimeSeriesValueBankPropertyClient:
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
-        range: typing.Optional[
-            typing.Union[ontologies_models.TimeRange, ontologies_models.TimeRangeDict]
-        ] = None,
+        range: typing.Optional[ontologies_models.TimeRange] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -148,7 +146,7 @@ class TimeSeriesValueBankPropertyClient:
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param range:
-        :type range: Optional[Union[TimeRange, TimeRangeDict]]
+        :type range: Optional[TimeRange]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -179,11 +177,7 @@ class TimeSeriesValueBankPropertyClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "range": typing.Optional[
-                            typing.Union[
-                                ontologies_models.TimeRange, ontologies_models.TimeRangeDict
-                            ]
-                        ],
+                        "range": typing.Optional[ontologies_models.TimeRange],
                     },
                 ),
                 response_type=bytes,

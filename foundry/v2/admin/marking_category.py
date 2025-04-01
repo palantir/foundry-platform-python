@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -148,78 +147,20 @@ class MarkingCategoryClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListMarkingCategoriesResponse:
-        """
-        Maximum page size 100.
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListMarkingCategoriesResponse
-        """
-
-        warnings.warn(
-            "The client.admin.MarkingCategory.page(...) method has been deprecated. Please use client.admin.MarkingCategory.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/markingCategories",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListMarkingCategoriesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _MarkingCategoryClientRaw:
     def __init__(self, client: MarkingCategoryClient) -> None:
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def page(_: admin_models.ListMarkingCategoriesResponse): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
 
 
 class _MarkingCategoryClientStreaming:
     def __init__(self, client: MarkingCategoryClient) -> None:
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def page(_: admin_models.ListMarkingCategoriesResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

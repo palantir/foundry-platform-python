@@ -58,7 +58,7 @@ class InvalidQueryParameterValueParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    parameterDataType: functions_models.QueryDataTypeDict
+    parameterDataType: functions_models.QueryDataType
     parameterId: functions_models.ParameterId
     parameterValue: typing_extensions.NotRequired[functions_models.DataValue]
 

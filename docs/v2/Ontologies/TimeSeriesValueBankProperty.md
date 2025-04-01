@@ -95,7 +95,7 @@ Name | Type | Description  | Notes |
 **property** | PropertyApiName | The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
-**range** | Optional[Union[TimeRange, TimeRangeDict]] |  | [optional] |
+**range** | Optional[TimeRange] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -121,7 +121,7 @@ property = None
 artifact_repository = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[Union[TimeRange, TimeRangeDict]]
+# Optional[TimeRange]
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},

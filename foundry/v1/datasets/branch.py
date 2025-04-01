@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -251,64 +250,6 @@ class BranchClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> datasets_models.ListBranchesResponse:
-        """
-        Lists the Branches of a Dataset.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-        :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
-        :type dataset_rid: DatasetRid
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: datasets_models.ListBranchesResponse
-        """
-
-        warnings.warn(
-            "The client.datasets.Branch.page(...) method has been deprecated. Please use client.datasets.Branch.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v1/datasets/{datasetRid}/branches",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=datasets_models.ListBranchesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _BranchClientRaw:
     def __init__(self, client: BranchClient) -> None:
@@ -316,13 +257,11 @@ class _BranchClientRaw:
         def delete(_: None): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
-        def page(_: datasets_models.ListBranchesResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
 
 
 class _BranchClientStreaming:
@@ -330,9 +269,7 @@ class _BranchClientStreaming:
         def create(_: datasets_models.Branch): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
-        def page(_: datasets_models.ListBranchesResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

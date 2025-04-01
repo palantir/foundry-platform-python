@@ -122,11 +122,7 @@ class ActionClient:
         ontology_rid: ontologies_models.OntologyRid,
         action_type: ontologies_models.ActionTypeApiName,
         *,
-        requests: typing.List[
-            typing.Union[
-                ontologies_models.ApplyActionRequest, ontologies_models.ApplyActionRequestDict
-            ]
-        ],
+        requests: typing.List[ontologies_models.ApplyActionRequest],
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.BatchApplyActionResponse:
@@ -148,7 +144,7 @@ class ActionClient:
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action_type: ActionTypeApiName
         :param requests:
-        :type requests: List[Union[ApplyActionRequest, ApplyActionRequestDict]]
+        :type requests: List[ApplyActionRequest]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -174,12 +170,7 @@ class ActionClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "requests": typing.List[
-                            typing.Union[
-                                ontologies_models.ApplyActionRequest,
-                                ontologies_models.ApplyActionRequestDict,
-                            ]
-                        ],
+                        "requests": typing.List[ontologies_models.ApplyActionRequest],
                     },
                 ),
                 response_type=ontologies_models.BatchApplyActionResponse,

@@ -62,9 +62,9 @@ class Feature(pydantic.BaseModel):
     type: typing.Literal["Feature"] = "Feature"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FeatureDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FeatureDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FeatureCollection(pydantic.BaseModel):
@@ -75,44 +75,9 @@ class FeatureCollection(pydantic.BaseModel):
     type: typing.Literal["FeatureCollection"] = "FeatureCollection"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FeatureCollectionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FeatureCollectionDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FeatureCollectionDict(typing_extensions.TypedDict):
-    """GeoJSon 'FeatureCollection' object"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    features: typing.List[FeatureCollectionTypesDict]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["FeatureCollection"]
-
-
-class FeatureDict(typing_extensions.TypedDict):
-    """GeoJSon 'Feature' object"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    geometry: typing_extensions.NotRequired[GeometryDict]
-    properties: typing.Dict[FeaturePropertyKey, typing.Any]
-    """
-    A `Feature` object has a member with the name "properties".  The
-    value of the properties member is an object (any JSON object or a
-    JSON null value).
-    """
-
-    id: typing_extensions.NotRequired[typing.Any]
-    """
-    If a `Feature` has a commonly used identifier, that identifier
-    SHOULD be included as a member of the Feature object with the name
-    "id", and the value of this member is either a JSON string or
-    number.
-    """
-
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["Feature"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FeaturePropertyKey = str
@@ -127,19 +92,9 @@ class GeoPoint(pydantic.BaseModel):
     type: typing.Literal["Point"] = "Point"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GeoPointDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GeoPointDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GeoPointDict(typing_extensions.TypedDict):
-    """GeoPoint"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: Position
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["Point"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Geometry = typing_extensions.Annotated[
@@ -172,43 +127,9 @@ class GeometryCollection(pydantic.BaseModel):
     type: typing.Literal["GeometryCollection"] = "GeometryCollection"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GeometryCollectionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GeometryCollectionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GeometryCollectionDict(typing_extensions.TypedDict):
-    """
-    GeoJSon geometry collection
-
-    GeometryCollections composed of a single part or a number of parts of a
-    single type SHOULD be avoided when that single part or a single object
-    of multipart type (MultiPoint, MultiLineString, or MultiPolygon) could
-    be used instead.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    geometries: typing.List[GeometryDict]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["GeometryCollection"]
-
-
-GeometryDict = typing_extensions.Annotated[
-    typing.Union[
-        "MultiPointDict",
-        GeometryCollectionDict,
-        "MultiLineStringDict",
-        "LineStringDict",
-        "MultiPolygonDict",
-        GeoPointDict,
-        "PolygonDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Abstract type for all GeoJSon object except Feature and FeatureCollection"""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LineString(pydantic.BaseModel):
@@ -219,25 +140,15 @@ class LineString(pydantic.BaseModel):
     type: typing.Literal["LineString"] = "LineString"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LineStringDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LineStringDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LineStringCoordinates = typing_extensions.Annotated[
     typing.List["Position"], annotated_types.Len(min_length=2)
 ]
 """GeoJSon fundamental geometry construct, array of two or more positions."""
-
-
-class LineStringDict(typing_extensions.TypedDict):
-    """LineString"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: typing_extensions.NotRequired[LineStringCoordinates]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["LineString"]
 
 
 LinearRing = typing_extensions.Annotated[typing.List["Position"], annotated_types.Len(min_length=4)]
@@ -264,19 +175,9 @@ class MultiLineString(pydantic.BaseModel):
     type: typing.Literal["MultiLineString"] = "MultiLineString"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MultiLineStringDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MultiLineStringDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MultiLineStringDict(typing_extensions.TypedDict):
-    """MultiLineString"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: typing.List[LineStringCoordinates]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["MultiLineString"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MultiPoint(pydantic.BaseModel):
@@ -287,19 +188,9 @@ class MultiPoint(pydantic.BaseModel):
     type: typing.Literal["MultiPoint"] = "MultiPoint"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MultiPointDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MultiPointDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MultiPointDict(typing_extensions.TypedDict):
-    """MultiPoint"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: typing.List[Position]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["MultiPoint"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MultiPolygon(pydantic.BaseModel):
@@ -310,19 +201,9 @@ class MultiPolygon(pydantic.BaseModel):
     type: typing.Literal["MultiPolygon"] = "MultiPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MultiPolygonDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MultiPolygonDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MultiPolygonDict(typing_extensions.TypedDict):
-    """MultiPolygon"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: typing.List[typing.List[LinearRing]]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["MultiPolygon"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Polygon(pydantic.BaseModel):
@@ -333,19 +214,9 @@ class Polygon(pydantic.BaseModel):
     type: typing.Literal["Polygon"] = "Polygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PolygonDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(PolygonDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class PolygonDict(typing_extensions.TypedDict):
-    """Polygon"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    coordinates: typing.List[LinearRing]
-    bbox: typing_extensions.NotRequired[BBox]
-    type: typing.Literal["Polygon"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Position = typing_extensions.Annotated[
@@ -373,13 +244,8 @@ FeatureCollectionTypes = Feature
 """FeatureCollectionTypes"""
 
 
-FeatureCollectionTypesDict = FeatureDict
-"""FeatureCollectionTypes"""
-
-
 core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
 core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
-core.resolve_forward_references(GeometryDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
 core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
 core.resolve_forward_references(Position, globalns=globals(), localns=locals())
@@ -389,28 +255,17 @@ __all__ = [
     "Coordinate",
     "Feature",
     "FeatureCollection",
-    "FeatureCollectionDict",
     "FeatureCollectionTypes",
-    "FeatureCollectionTypesDict",
-    "FeatureDict",
     "FeaturePropertyKey",
     "GeoPoint",
-    "GeoPointDict",
     "Geometry",
     "GeometryCollection",
-    "GeometryCollectionDict",
-    "GeometryDict",
     "LineString",
     "LineStringCoordinates",
-    "LineStringDict",
     "LinearRing",
     "MultiLineString",
-    "MultiLineStringDict",
     "MultiPoint",
-    "MultiPointDict",
     "MultiPolygon",
-    "MultiPolygonDict",
     "Polygon",
-    "PolygonDict",
     "Position",
 ]

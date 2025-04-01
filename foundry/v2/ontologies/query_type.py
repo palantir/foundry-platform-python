@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -150,85 +149,20 @@ class QueryTypeClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListQueryTypesResponseV2:
-        """
-        Lists the query types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListQueryTypesResponseV2
-        """
-
-        warnings.warn(
-            "The client.ontologies.QueryType.page(...) method has been deprecated. Please use client.ontologies.QueryType.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/queryTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListQueryTypesResponseV2,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _QueryTypeClientRaw:
     def __init__(self, client: QueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
-        def page(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
 
 
 class _QueryTypeClientStreaming:
     def __init__(self, client: QueryTypeClient) -> None:
         def get(_: ontologies_models.QueryTypeV2): ...
         def list(_: ontologies_models.ListQueryTypesResponseV2): ...
-        def page(_: ontologies_models.ListQueryTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

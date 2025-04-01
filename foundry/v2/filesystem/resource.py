@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import pydantic
@@ -374,67 +373,6 @@ class ResourceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def markings_page(
-        self,
-        resource_rid: filesystem_models.ResourceRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> filesystem_models.ListMarkingsOfResourceResponse:
-        """
-        List of Markings directly applied to a resource. The number of Markings on a resource is typically small
-        so the `pageSize` and `pageToken` parameters are not required.
-
-        :param resource_rid:
-        :type resource_rid: ResourceRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: filesystem_models.ListMarkingsOfResourceResponse
-        """
-
-        warnings.warn(
-            "The client.filesystem.Resource.markings_page(...) method has been deprecated. Please use client.filesystem.Resource.markings(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/filesystem/resources/{resourceRid}/markings",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "resourceRid": resource_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=filesystem_models.ListMarkingsOfResourceResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def permanently_delete(
         self,
         resource_rid: filesystem_models.ResourceRid,
@@ -598,7 +536,6 @@ class _ResourceClientRaw:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
-        def markings_page(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
         def remove_markings(_: None): ...
         def restore(_: None): ...
@@ -611,7 +548,6 @@ class _ResourceClientRaw:
         )
         self.get_by_path = core.with_raw_response(get_by_path, client.get_by_path)
         self.markings = core.with_raw_response(markings, client.markings)
-        self.markings_page = core.with_raw_response(markings_page, client.markings_page)
         self.permanently_delete = core.with_raw_response(
             permanently_delete, client.permanently_delete
         )
@@ -625,7 +561,6 @@ class _ResourceClientStreaming:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
-        def markings_page(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_access_requirements = core.with_streaming_response(
@@ -633,4 +568,3 @@ class _ResourceClientStreaming:
         )
         self.get_by_path = core.with_streaming_response(get_by_path, client.get_by_path)
         self.markings = core.with_streaming_response(markings, client.markings)
-        self.markings_page = core.with_streaming_response(markings_page, client.markings_page)

@@ -18,7 +18,6 @@ from __future__ import annotations
 import typing
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 from foundry.v2.core import models as core_models
@@ -31,20 +30,9 @@ class ListVersionsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListVersionsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListVersionsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListVersionsResponseDict(typing_extensions.TypedDict):
-    """ListVersionsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[VersionDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Subdomain = str
@@ -59,20 +47,9 @@ class ThirdPartyApplication(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ThirdPartyApplicationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ThirdPartyApplicationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ThirdPartyApplicationDict(typing_extensions.TypedDict):
-    """ThirdPartyApplication"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: ThirdPartyApplicationRid
-    """An RID identifying a third-party application created in Developer Console."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ThirdPartyApplicationRid = core.RID
@@ -87,18 +64,9 @@ class Version(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "VersionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(VersionDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class VersionDict(typing_extensions.TypedDict):
-    """Version"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    version: VersionVersion
-    """The semantic version of the Website."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 VersionVersion = str
@@ -116,33 +84,17 @@ class Website(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "WebsiteDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(WebsiteDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class WebsiteDict(typing_extensions.TypedDict):
-    """Website"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    deployedVersion: typing_extensions.NotRequired[VersionVersion]
-    """The version of the Website that is currently deployed."""
-
-    subdomains: typing.List[Subdomain]
-    """The subdomains from which the Website is currently served."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 __all__ = [
     "ListVersionsResponse",
-    "ListVersionsResponseDict",
     "Subdomain",
     "ThirdPartyApplication",
-    "ThirdPartyApplicationDict",
     "ThirdPartyApplicationRid",
     "Version",
-    "VersionDict",
     "VersionVersion",
     "Website",
-    "WebsiteDict",
 ]

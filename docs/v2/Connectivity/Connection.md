@@ -23,7 +23,7 @@ use the Foundry UI instead.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**configuration** | Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |  |  |
+**configuration** | CreateConnectionRequestConnectionConfiguration |  |  |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -40,7 +40,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+# CreateConnectionRequestConnectionConfiguration
 configuration = None
 # ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"

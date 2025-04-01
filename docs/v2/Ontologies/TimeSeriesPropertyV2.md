@@ -167,11 +167,11 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
 **property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
-**aggregate** | Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]] |  | [optional] |
+**aggregate** | Optional[AggregateTimeSeries] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **format** | Optional[StreamingOutputFormat] | The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
-**range** | Optional[Union[TimeRange, TimeRangeDict]] |  | [optional] |
+**range** | Optional[TimeRange] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -193,7 +193,7 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
-# Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
+# Optional[AggregateTimeSeries]
 aggregate = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
@@ -201,7 +201,7 @@ artifact_repository = None
 format = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[Union[TimeRange, TimeRangeDict]]
+# Optional[TimeRange]
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},

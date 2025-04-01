@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -375,97 +374,6 @@ class FileClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        dataset_rid: datasets_models.DatasetRid,
-        *,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> datasets_models.ListFilesResponse:
-        """
-        Lists Files contained in a Dataset. By default files are listed on the latest view of the default
-        branch - `master` for most enrollments.
-        #### Advanced Usage
-        See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-        To **list files on a specific Branch** specify the Branch's name as `branchName`. This will include the most
-        recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the
-        branch if there are no snapshot transactions.
-        To **list files on the resolved view of a transaction** specify the Transaction's resource identifier
-        as `endTransactionRid`. This will include the most recent version of all files since the latest snapshot
-        transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-        To **list files on the resolved view of a range of transactions** specify the the start transaction's resource
-        identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This
-        will include the most recent version of all files since the `startTransactionRid` up to the `endTransactionRid`.
-        Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when
-        the start and end transactions do not belong to the same root-to-leaf path.
-        To **list files on a specific transaction** specify the Transaction's resource identifier as both the
-        `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
-        Transaction.
-
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param branch_name: The name of the Branch on which to list Files. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: datasets_models.ListFilesResponse
-
-        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
-        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        """
-
-        warnings.warn(
-            "The client.datasets.File.page(...) method has been deprecated. Please use client.datasets.File.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/datasets/{datasetRid}/files",
-                query_params={
-                    "branchName": branch_name,
-                    "endTransactionRid": end_transaction_rid,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "startTransactionRid": start_transaction_rid,
-                },
-                path_params={
-                    "datasetRid": dataset_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=datasets_models.ListFilesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "BranchNotFound": datasets_errors.BranchNotFound,
-                    "DatasetNotFound": datasets_errors.DatasetNotFound,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def upload(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -556,14 +464,12 @@ class _FileClientRaw:
         def delete(_: None): ...
         def get(_: datasets_models.File): ...
         def list(_: datasets_models.ListFilesResponse): ...
-        def page(_: datasets_models.ListFilesResponse): ...
         def upload(_: datasets_models.File): ...
 
         self.content = core.with_raw_response(content, client.content)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.upload = core.with_raw_response(upload, client.upload)
 
 
@@ -572,11 +478,9 @@ class _FileClientStreaming:
         def content(_: bytes): ...
         def get(_: datasets_models.File): ...
         def list(_: datasets_models.ListFilesResponse): ...
-        def page(_: datasets_models.ListFilesResponse): ...
         def upload(_: datasets_models.File): ...
 
         self.content = core.with_streaming_response(content, client.content)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.upload = core.with_streaming_response(upload, client.upload)

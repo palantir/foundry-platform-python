@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import annotated_types
 import pydantic
@@ -106,20 +105,13 @@ class BuildClient:
         self,
         *,
         fallback_branches: orchestration_models.FallbackBranches,
-        target: typing.Union[
-            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
-        ],
+        target: orchestration_models.BuildTarget,
         abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         force_build: typing.Optional[orchestration_models.ForceBuild] = None,
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        retry_backoff_duration: typing.Optional[
-            typing.Union[
-                orchestration_models.RetryBackoffDuration,
-                orchestration_models.RetryBackoffDurationDict,
-            ]
-        ] = None,
+        retry_backoff_duration: typing.Optional[orchestration_models.RetryBackoffDuration] = None,
         retry_count: typing.Optional[orchestration_models.RetryCount] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -129,7 +121,7 @@ class BuildClient:
         :param fallback_branches:
         :type fallback_branches: FallbackBranches
         :param target: The targets of the schedule.
-        :type target: Union[BuildTarget, BuildTargetDict]
+        :type target: BuildTarget
         :param abort_on_failure:
         :type abort_on_failure: Optional[AbortOnFailure]
         :param branch_name: The target branch the build should run on.
@@ -141,7 +133,7 @@ class BuildClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
-        :type retry_backoff_duration: Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+        :type retry_backoff_duration: Optional[RetryBackoffDuration]
         :param retry_count: The number of retry attempts for failed jobs.
         :type retry_count: Optional[RetryCount]
         :param request_timeout: timeout setting for this request in seconds.
@@ -177,18 +169,13 @@ class BuildClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "target": typing.Union[
-                            orchestration_models.BuildTarget, orchestration_models.BuildTargetDict
-                        ],
+                        "target": orchestration_models.BuildTarget,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "fallbackBranches": orchestration_models.FallbackBranches,
                         "forceBuild": typing.Optional[orchestration_models.ForceBuild],
                         "retryCount": typing.Optional[orchestration_models.RetryCount],
                         "retryBackoffDuration": typing.Optional[
-                            typing.Union[
-                                orchestration_models.RetryBackoffDuration,
-                                orchestration_models.RetryBackoffDurationDict,
-                            ]
+                            orchestration_models.RetryBackoffDuration
                         ],
                         "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
                         "notificationsEnabled": typing.Optional[
@@ -260,12 +247,7 @@ class BuildClient:
     def get_batch(
         self,
         body: typing_extensions.Annotated[
-            typing.List[
-                typing.Union[
-                    orchestration_models.GetBuildsBatchRequestElement,
-                    orchestration_models.GetBuildsBatchRequestElementDict,
-                ]
-            ],
+            typing.List[orchestration_models.GetBuildsBatchRequestElement],
             annotated_types.Len(min_length=1, max_length=100),
         ],
         *,
@@ -278,7 +260,7 @@ class BuildClient:
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
-        :type body: List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]]
+        :type body: List[GetBuildsBatchRequestElement]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -301,7 +283,7 @@ class BuildClient:
                 },
                 body=body,
                 body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetBuildsBatchRequestElementDict],
+                    typing.List[orchestration_models.GetBuildsBatchRequestElement],
                     annotated_types.Len(min_length=1, max_length=100),
                 ],
                 response_type=orchestration_models.GetBuildsBatchResponse,
@@ -367,77 +349,11 @@ class BuildClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def jobs_page(
-        self,
-        build_rid: core_models.BuildRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> orchestration_models.ListJobsOfBuildResponse:
-        """
-        Get the Jobs in the Build.
-        :param build_rid: The RID of a Build.
-        :type build_rid: BuildRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: orchestration_models.ListJobsOfBuildResponse
-        """
-
-        warnings.warn(
-            "The client.orchestration.Build.jobs_page(...) method has been deprecated. Please use client.orchestration.Build.jobs(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/orchestration/builds/{buildRid}/jobs",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "buildRid": build_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=orchestration_models.ListJobsOfBuildResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: typing.Union[
-            orchestration_models.SearchBuildsFilter, orchestration_models.SearchBuildsFilterDict
-        ],
-        order_by: typing.Optional[
-            typing.Union[
-                orchestration_models.SearchBuildsOrderBy,
-                orchestration_models.SearchBuildsOrderByDict,
-            ]
-        ] = None,
+        where: orchestration_models.SearchBuildsFilter,
+        order_by: typing.Optional[orchestration_models.SearchBuildsOrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -447,9 +363,9 @@ class BuildClient:
         """
         Search for Builds.
         :param where:
-        :type where: Union[SearchBuildsFilter, SearchBuildsFilterDict]
+        :type where: SearchBuildsFilter
         :param order_by:
-        :type order_by: Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
+        :type order_by: Optional[SearchBuildsOrderBy]
         :param page_size: The page size for the search request. If no value is provided, a default of `100` will be used.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -485,16 +401,8 @@ class BuildClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": typing.Union[
-                            orchestration_models.SearchBuildsFilter,
-                            orchestration_models.SearchBuildsFilterDict,
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                orchestration_models.SearchBuildsOrderBy,
-                                orchestration_models.SearchBuildsOrderByDict,
-                            ]
-                        ],
+                        "where": orchestration_models.SearchBuildsFilter,
+                        "orderBy": typing.Optional[orchestration_models.SearchBuildsOrderBy],
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                     },
@@ -516,7 +424,6 @@ class _BuildClientRaw:
         def get(_: orchestration_models.Build): ...
         def get_batch(_: orchestration_models.GetBuildsBatchResponse): ...
         def jobs(_: orchestration_models.ListJobsOfBuildResponse): ...
-        def jobs_page(_: orchestration_models.ListJobsOfBuildResponse): ...
         def search(_: orchestration_models.SearchBuildsResponse): ...
 
         self.cancel = core.with_raw_response(cancel, client.cancel)
@@ -524,7 +431,6 @@ class _BuildClientRaw:
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.jobs = core.with_raw_response(jobs, client.jobs)
-        self.jobs_page = core.with_raw_response(jobs_page, client.jobs_page)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -534,12 +440,10 @@ class _BuildClientStreaming:
         def get(_: orchestration_models.Build): ...
         def get_batch(_: orchestration_models.GetBuildsBatchResponse): ...
         def jobs(_: orchestration_models.ListJobsOfBuildResponse): ...
-        def jobs_page(_: orchestration_models.ListJobsOfBuildResponse): ...
         def search(_: orchestration_models.SearchBuildsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.jobs = core.with_streaming_response(jobs, client.jobs)
-        self.jobs_page = core.with_streaming_response(jobs_page, client.jobs_page)
         self.search = core.with_streaming_response(search, client.search)

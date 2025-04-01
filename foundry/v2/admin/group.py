@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import annotated_types
@@ -238,12 +237,7 @@ class GroupClient:
     def get_batch(
         self,
         body: typing_extensions.Annotated[
-            typing.List[
-                typing.Union[
-                    admin_models.GetGroupsBatchRequestElement,
-                    admin_models.GetGroupsBatchRequestElementDict,
-                ]
-            ],
+            typing.List[admin_models.GetGroupsBatchRequestElement],
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
@@ -255,7 +249,7 @@ class GroupClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]]
+        :type body: List[GetGroupsBatchRequestElement]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -274,7 +268,7 @@ class GroupClient:
                 },
                 body=body,
                 body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetGroupsBatchRequestElementDict],
+                    typing.List[admin_models.GetGroupsBatchRequestElement],
                     annotated_types.Len(min_length=1, max_length=500),
                 ],
                 response_type=admin_models.GetGroupsBatchResponse,
@@ -333,62 +327,10 @@ class GroupClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListGroupsResponse:
-        """
-        Lists all Groups.
-
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListGroupsResponse
-        """
-
-        warnings.warn(
-            "The client.admin.Group.page(...) method has been deprecated. Please use client.admin.Group.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/groups",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListGroupsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         *,
-        where: typing.Union[admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict],
+        where: admin_models.GroupSearchFilter,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -398,7 +340,7 @@ class GroupClient:
         Perform a case-insensitive prefix search for groups based on group name.
 
         :param where:
-        :type where: Union[GroupSearchFilter, GroupSearchFilterDict]
+        :type where: GroupSearchFilter
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -429,9 +371,7 @@ class GroupClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": typing.Union[
-                            admin_models.GroupSearchFilter, admin_models.GroupSearchFilterDict
-                        ],
+                        "where": admin_models.GroupSearchFilter,
                         "pageSize": typing.Optional[core_models.PageSize],
                         "pageToken": typing.Optional[core_models.PageToken],
                     },
@@ -453,7 +393,6 @@ class _GroupClientRaw:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def page(_: admin_models.ListGroupsResponse): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
@@ -461,7 +400,6 @@ class _GroupClientRaw:
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -471,12 +409,10 @@ class _GroupClientStreaming:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def page(_: admin_models.ListGroupsResponse): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.search = core.with_streaming_response(search, client.search)

@@ -9,7 +9,6 @@ Method | HTTP request | Release Stage |
 [**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
 [**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run | Public Beta |
 [**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Public Beta |
-[**runs_page**](#runs_page) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Public Beta |
 [**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause | Public Beta |
 
 # **create**
@@ -19,12 +18,12 @@ Creates a new Schedule.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**action** | Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict] |  |  |
+**action** | CreateScheduleRequestAction |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**scope_mode** | Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]] |  | [optional] |
-**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**scope_mode** | Optional[CreateScheduleRequestScopeMode] |  | [optional] |
+**trigger** | Optional[Trigger] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -38,7 +37,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
+# CreateScheduleRequestAction
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -61,9 +60,9 @@ description = "Run all the transforms at midnight"
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
+# Optional[CreateScheduleRequestScopeMode]
 scope_mode = {"type": "user"}
-# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Trigger] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
@@ -254,12 +253,12 @@ Replace the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid |  |  |
-**action** | Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict] |  |  |
+**action** | ReplaceScheduleRequestAction |  |  |
 **description** | Optional[str] |  | [optional] |
 **display_name** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**scope_mode** | Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]] |  | [optional] |
-**trigger** | Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
+**scope_mode** | Optional[ReplaceScheduleRequestScopeMode] |  | [optional] |
+**trigger** | Optional[Trigger] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.  | [optional] |
 
 ### Return type
 **Schedule**
@@ -275,7 +274,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # ScheduleRid
 schedule_rid = None
-# Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
+# ReplaceScheduleRequestAction
 action = {
     "abortOnFailure": False,
     "forceBuild": False,
@@ -298,9 +297,9 @@ description = "Run all the transforms at midnight"
 display_name = "My Daily Schedule"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
+# Optional[ReplaceScheduleRequestScopeMode]
 scope_mode = {"type": "user"}
-# Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
+# Optional[Trigger] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
 trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
@@ -426,65 +425,6 @@ try:
         pprint(schedule)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Schedule.runs: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListRunsOfScheduleResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **runs_page**
-Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**schedule_rid** | ScheduleRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListRunsOfScheduleResponse**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ScheduleRid
-schedule_rid = None
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.orchestration.Schedule.runs_page(
-        schedule_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The runs_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Schedule.runs_page: %s\n" % e)
 
 ```
 

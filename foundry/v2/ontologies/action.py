@@ -58,12 +58,7 @@ class ActionClient:
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        options: typing.Optional[
-            typing.Union[
-                ontologies_models.ApplyActionRequestOptions,
-                ontologies_models.ApplyActionRequestOptionsDict,
-            ]
-        ] = None,
+        options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -88,7 +83,7 @@ class ActionClient:
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
+        :type options: Optional[ApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -120,12 +115,7 @@ class ActionClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "options": typing.Optional[
-                            typing.Union[
-                                ontologies_models.ApplyActionRequestOptions,
-                                ontologies_models.ApplyActionRequestOptionsDict,
-                            ]
-                        ],
+                        "options": typing.Optional[ontologies_models.ApplyActionRequestOptions],
                         "parameters": typing.Dict[
                             ontologies_models.ParameterId,
                             typing.Optional[ontologies_models.DataValue],
@@ -147,19 +137,9 @@ class ActionClient:
         ontology: ontologies_models.OntologyIdentifier,
         action: ontologies_models.ActionTypeApiName,
         *,
-        requests: typing.List[
-            typing.Union[
-                ontologies_models.BatchApplyActionRequestItem,
-                ontologies_models.BatchApplyActionRequestItemDict,
-            ]
-        ],
+        requests: typing.List[ontologies_models.BatchApplyActionRequestItem],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        options: typing.Optional[
-            typing.Union[
-                ontologies_models.BatchApplyActionRequestOptions,
-                ontologies_models.BatchApplyActionRequestOptionsDict,
-            ]
-        ] = None,
+        options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -181,11 +161,11 @@ class ActionClient:
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
         :type action: ActionTypeApiName
         :param requests:
-        :type requests: List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
+        :type requests: List[BatchApplyActionRequestItem]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param options:
-        :type options: Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
+        :type options: Optional[BatchApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -218,17 +198,9 @@ class ActionClient:
                     "Body",
                     {  # type: ignore
                         "options": typing.Optional[
-                            typing.Union[
-                                ontologies_models.BatchApplyActionRequestOptions,
-                                ontologies_models.BatchApplyActionRequestOptionsDict,
-                            ]
+                            ontologies_models.BatchApplyActionRequestOptions
                         ],
-                        "requests": typing.List[
-                            typing.Union[
-                                ontologies_models.BatchApplyActionRequestItem,
-                                ontologies_models.BatchApplyActionRequestItemDict,
-                            ]
-                        ],
+                        "requests": typing.List[ontologies_models.BatchApplyActionRequestItem],
                     },
                 ),
                 response_type=ontologies_models.BatchApplyActionResponseV2,

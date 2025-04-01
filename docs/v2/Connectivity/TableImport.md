@@ -7,7 +7,6 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
 [**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
-[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
 
 # **create**
 Creates a new TableImport.
@@ -17,7 +16,7 @@ Creates a new TableImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
-**config** | Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict] |  |  |
+**config** | CreateTableImportRequestTableImportConfig |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
@@ -39,7 +38,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # ConnectionRid
 connection_rid = None
-# Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
+# CreateTableImportRequestTableImportConfig
 config = None
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
@@ -299,66 +298,6 @@ try:
         pprint(table_import)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling TableImport.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListTableImportsResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all table imports defined for this connection.
-Only table imports that the user has permissions to view will be returned.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListTableImportsResponse**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ConnectionRid
-connection_rid = None
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.connectivity.Connection.TableImport.page(
-        connection_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling TableImport.page: %s\n" % e)
 
 ```
 

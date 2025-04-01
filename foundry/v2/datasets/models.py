@@ -19,7 +19,6 @@ import typing
 from datetime import datetime
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 from foundry.v2.core import models as core_models
@@ -35,19 +34,9 @@ class Branch(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BranchDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BranchDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BranchDict(typing_extensions.TypedDict):
-    """Branch"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    name: BranchName
-    transactionRid: typing_extensions.NotRequired[TransactionRid]
-    """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BranchName = str
@@ -62,19 +51,9 @@ class Dataset(pydantic.BaseModel):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DatasetDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DatasetDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DatasetDict(typing_extensions.TypedDict):
-    """Dataset"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: DatasetRid
-    name: DatasetName
-    parentFolderRid: filesystem_models.FolderRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DatasetName = str
@@ -94,20 +73,9 @@ class File(pydantic.BaseModel):
     updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FileDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FileDict(typing_extensions.TypedDict):
-    """File"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    path: core_models.FilePath
-    transactionRid: TransactionRid
-    sizeBytes: typing_extensions.NotRequired[core.Long]
-    updatedTime: FileUpdatedTime
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FileUpdatedTime = datetime
@@ -121,20 +89,9 @@ class ListBranchesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListBranchesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListBranchesResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListBranchesResponseDict(typing_extensions.TypedDict):
-    """ListBranchesResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[BranchDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListFilesResponse(pydantic.BaseModel):
@@ -144,18 +101,9 @@ class ListFilesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListFilesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ListFilesResponseDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ListFilesResponseDict(typing_extensions.TypedDict):
-    """ListFilesResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[FileDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TableExportFormat = typing.Literal["ARROW", "CSV"]
@@ -176,28 +124,13 @@ class Transaction(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TransactionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TransactionDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TransactionCreatedTime = datetime
 """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
-
-
-class TransactionDict(typing_extensions.TypedDict):
-    """Transaction"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: TransactionRid
-    transactionType: TransactionType
-    status: TransactionStatus
-    createdTime: TransactionCreatedTime
-    """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
-
-    closedTime: typing_extensions.NotRequired[datetime]
-    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
 
 TransactionRid = core.RID
@@ -214,23 +147,17 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 
 __all__ = [
     "Branch",
-    "BranchDict",
     "BranchName",
     "Dataset",
-    "DatasetDict",
     "DatasetName",
     "DatasetRid",
     "File",
-    "FileDict",
     "FileUpdatedTime",
     "ListBranchesResponse",
-    "ListBranchesResponseDict",
     "ListFilesResponse",
-    "ListFilesResponseDict",
     "TableExportFormat",
     "Transaction",
     "TransactionCreatedTime",
-    "TransactionDict",
     "TransactionRid",
     "TransactionStatus",
     "TransactionType",

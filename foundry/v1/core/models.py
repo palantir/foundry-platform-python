@@ -18,7 +18,6 @@ from __future__ import annotations
 import typing
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 
@@ -29,25 +28,20 @@ class AnyType(pydantic.BaseModel):
     type: typing.Literal["any"] = "any"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AnyTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AnyTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class AnyTypeDict(typing_extensions.TypedDict):
-    """AnyType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["any"]
-
-
-class AttachmentTypeDict(typing_extensions.TypedDict):
+class AttachmentType(pydantic.BaseModel):
     """AttachmentType"""
 
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+    type: typing.Literal["attachment"] = "attachment"
+    model_config = {"extra": "allow", "populate_by_name": True}
 
-    type: typing.Literal["attachment"]
+    def to_dict(self) -> dict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BinaryType(pydantic.BaseModel):
@@ -56,17 +50,9 @@ class BinaryType(pydantic.BaseModel):
     type: typing.Literal["binary"] = "binary"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BinaryTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BinaryTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BinaryTypeDict(typing_extensions.TypedDict):
-    """BinaryType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["binary"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BooleanType(pydantic.BaseModel):
@@ -75,17 +61,9 @@ class BooleanType(pydantic.BaseModel):
     type: typing.Literal["boolean"] = "boolean"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BooleanTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BooleanTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BooleanTypeDict(typing_extensions.TypedDict):
-    """BooleanType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["boolean"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ByteType(pydantic.BaseModel):
@@ -94,17 +72,9 @@ class ByteType(pydantic.BaseModel):
     type: typing.Literal["byte"] = "byte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ByteTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ByteTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ByteTypeDict(typing_extensions.TypedDict):
-    """ByteType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["byte"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CipherTextType(pydantic.BaseModel):
@@ -116,20 +86,9 @@ class CipherTextType(pydantic.BaseModel):
     type: typing.Literal["cipherText"] = "cipherText"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CipherTextTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CipherTextTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CipherTextTypeDict(typing_extensions.TypedDict):
-    """CipherTextType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    defaultCipherChannel: typing_extensions.NotRequired[str]
-    """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
-
-    type: typing.Literal["cipherText"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ContentLength = core.Long
@@ -146,17 +105,9 @@ class DateType(pydantic.BaseModel):
     type: typing.Literal["date"] = "date"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DateTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DateTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DateTypeDict(typing_extensions.TypedDict):
-    """DateType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["date"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DecimalType(pydantic.BaseModel):
@@ -171,23 +122,9 @@ class DecimalType(pydantic.BaseModel):
     type: typing.Literal["decimal"] = "decimal"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DecimalTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DecimalTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DecimalTypeDict(typing_extensions.TypedDict):
-    """DecimalType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    precision: typing_extensions.NotRequired[int]
-    """The total number of digits of the Decimal type. The maximum value is 38."""
-
-    scale: typing_extensions.NotRequired[int]
-    """The number of digits to the right of the decimal point. The maximum value is 38."""
-
-    type: typing.Literal["decimal"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DisplayName = str
@@ -214,17 +151,9 @@ class DoubleType(pydantic.BaseModel):
     type: typing.Literal["double"] = "double"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DoubleTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DoubleTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DoubleTypeDict(typing_extensions.TypedDict):
-    """DoubleType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["double"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FilePath = str
@@ -241,17 +170,9 @@ class FloatType(pydantic.BaseModel):
     type: typing.Literal["float"] = "float"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FloatTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FloatTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FloatTypeDict(typing_extensions.TypedDict):
-    """FloatType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["float"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FolderRid = core.RID
@@ -264,17 +185,9 @@ class IntegerType(pydantic.BaseModel):
     type: typing.Literal["integer"] = "integer"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "IntegerTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(IntegerTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class IntegerTypeDict(typing_extensions.TypedDict):
-    """IntegerType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["integer"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LongType(pydantic.BaseModel):
@@ -283,17 +196,9 @@ class LongType(pydantic.BaseModel):
     type: typing.Literal["long"] = "long"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LongTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LongTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class LongTypeDict(typing_extensions.TypedDict):
-    """LongType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["long"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MarkingType(pydantic.BaseModel):
@@ -302,17 +207,9 @@ class MarkingType(pydantic.BaseModel):
     type: typing.Literal["marking"] = "marking"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MarkingTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MarkingTypeDict(typing_extensions.TypedDict):
-    """MarkingType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["marking"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MediaType = str
@@ -322,12 +219,15 @@ Examples: `application/json`, `application/pdf`, `application/octet-stream`, `im
 """
 
 
-class NullTypeDict(typing_extensions.TypedDict):
+class NullType(pydantic.BaseModel):
     """NullType"""
 
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+    type: typing.Literal["null"] = "null"
+    model_config = {"extra": "allow", "populate_by_name": True}
 
-    type: typing.Literal["null"]
+    def to_dict(self) -> dict:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OperationScope = str
@@ -360,17 +260,9 @@ class ShortType(pydantic.BaseModel):
     type: typing.Literal["short"] = "short"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ShortTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ShortTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ShortTypeDict(typing_extensions.TypedDict):
-    """ShortType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["short"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SizeBytes = core.Long
@@ -383,17 +275,9 @@ class StringType(pydantic.BaseModel):
     type: typing.Literal["string"] = "string"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StringTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(StringTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class StringTypeDict(typing_extensions.TypedDict):
-    """StringType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["string"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StructFieldName = str
@@ -406,17 +290,9 @@ class TimestampType(pydantic.BaseModel):
     type: typing.Literal["timestamp"] = "timestamp"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimestampTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TimestampTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class TimestampTypeDict(typing_extensions.TypedDict):
-    """TimestampType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["timestamp"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TotalCount = core.Long
@@ -430,69 +306,44 @@ class UnsupportedType(pydantic.BaseModel):
     type: typing.Literal["unsupported"] = "unsupported"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "UnsupportedTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(UnsupportedTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class UnsupportedTypeDict(typing_extensions.TypedDict):
-    """UnsupportedType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    unsupportedType: str
-    type: typing.Literal["unsupported"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 __all__ = [
     "AnyType",
-    "AnyTypeDict",
-    "AttachmentTypeDict",
+    "AttachmentType",
     "BinaryType",
-    "BinaryTypeDict",
     "BooleanType",
-    "BooleanTypeDict",
     "ByteType",
-    "ByteTypeDict",
     "CipherTextType",
-    "CipherTextTypeDict",
     "ContentLength",
     "ContentType",
     "DateType",
-    "DateTypeDict",
     "DecimalType",
-    "DecimalTypeDict",
     "DisplayName",
     "DistanceUnit",
     "DoubleType",
-    "DoubleTypeDict",
     "FilePath",
     "Filename",
     "FloatType",
-    "FloatTypeDict",
     "FolderRid",
     "IntegerType",
-    "IntegerTypeDict",
     "LongType",
-    "LongTypeDict",
     "MarkingType",
-    "MarkingTypeDict",
     "MediaType",
-    "NullTypeDict",
+    "NullType",
     "OperationScope",
     "PageSize",
     "PageToken",
     "PreviewMode",
     "ReleaseStatus",
     "ShortType",
-    "ShortTypeDict",
     "SizeBytes",
     "StringType",
-    "StringTypeDict",
     "StructFieldName",
     "TimestampType",
-    "TimestampTypeDict",
     "TotalCount",
     "UnsupportedType",
-    "UnsupportedTypeDict",
 ]

@@ -19,7 +19,6 @@ import typing
 from datetime import datetime
 
 import pydantic
-import typing_extensions
 
 from foundry import _core as core
 from foundry.v1.core import models as core_models
@@ -32,18 +31,9 @@ class Branch(pydantic.BaseModel):
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BranchDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BranchDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BranchDict(typing_extensions.TypedDict):
-    """A Branch of a Dataset."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    branchId: BranchId
-    transactionRid: typing_extensions.NotRequired[TransactionRid]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BranchId = str
@@ -58,19 +48,9 @@ class Dataset(pydantic.BaseModel):
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DatasetDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DatasetDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DatasetDict(typing_extensions.TypedDict):
-    """Dataset"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: DatasetRid
-    name: DatasetName
-    parentFolderRid: core_models.FolderRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DatasetName = str
@@ -90,20 +70,9 @@ class File(pydantic.BaseModel):
     updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FileDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FileDict(typing_extensions.TypedDict):
-    """File"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    path: core_models.FilePath
-    transactionRid: TransactionRid
-    sizeBytes: typing_extensions.NotRequired[core.Long]
-    updatedTime: datetime
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListBranchesResponse(pydantic.BaseModel):
@@ -115,21 +84,9 @@ class ListBranchesResponse(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListBranchesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListBranchesResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListBranchesResponseDict(typing_extensions.TypedDict):
-    """ListBranchesResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[BranchDict]
-    """The list of branches in the current page."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListFilesResponse(pydantic.BaseModel):
@@ -139,18 +96,9 @@ class ListFilesResponse(pydantic.BaseModel):
     data: typing.List[File]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListFilesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ListFilesResponseDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ListFilesResponseDict(typing_extensions.TypedDict):
-    """A page of Files and an optional page token that can be used to retrieve the next page."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[FileDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TableExportFormat = typing.Literal["ARROW", "CSV"]
@@ -171,24 +119,9 @@ class Transaction(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TransactionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TransactionDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class TransactionDict(typing_extensions.TypedDict):
-    """An operation that modifies the files within a dataset."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: TransactionRid
-    transactionType: TransactionType
-    status: TransactionStatus
-    createdTime: datetime
-    """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
-
-    closedTime: typing_extensions.NotRequired[datetime]
-    """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TransactionRid = core.RID
@@ -205,21 +138,15 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 
 __all__ = [
     "Branch",
-    "BranchDict",
     "BranchId",
     "Dataset",
-    "DatasetDict",
     "DatasetName",
     "DatasetRid",
     "File",
-    "FileDict",
     "ListBranchesResponse",
-    "ListBranchesResponseDict",
     "ListFilesResponse",
-    "ListFilesResponseDict",
     "TableExportFormat",
     "Transaction",
-    "TransactionDict",
     "TransactionRid",
     "TransactionStatus",
     "TransactionType",

@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import annotated_types
@@ -79,9 +78,7 @@ class MarkingClient:
         *,
         category_id: admin_models.MarkingCategoryId,
         initial_members: typing.List[core_models.PrincipalId],
-        initial_role_assignments: typing.List[
-            typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
-        ],
+        initial_role_assignments: typing.List[admin_models.MarkingRoleUpdate],
         name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -95,7 +92,7 @@ class MarkingClient:
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
         :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
-        :type initial_role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
+        :type initial_role_assignments: List[MarkingRoleUpdate]
         :param name:
         :type name: MarkingName
         :param description:
@@ -135,11 +132,7 @@ class MarkingClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "initialRoleAssignments": typing.List[
-                            typing.Union[
-                                admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict
-                            ]
-                        ],
+                        "initialRoleAssignments": typing.List[admin_models.MarkingRoleUpdate],
                         "initialMembers": typing.List[core_models.PrincipalId],
                         "name": admin_models.MarkingName,
                         "description": typing.Optional[str],
@@ -215,12 +208,7 @@ class MarkingClient:
     def get_batch(
         self,
         body: typing_extensions.Annotated[
-            typing.List[
-                typing.Union[
-                    admin_models.GetMarkingsBatchRequestElement,
-                    admin_models.GetMarkingsBatchRequestElementDict,
-                ]
-            ],
+            typing.List[admin_models.GetMarkingsBatchRequestElement],
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
@@ -233,7 +221,7 @@ class MarkingClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]]
+        :type body: List[GetMarkingsBatchRequestElement]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -256,7 +244,7 @@ class MarkingClient:
                 },
                 body=body,
                 body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetMarkingsBatchRequestElementDict],
+                    typing.List[admin_models.GetMarkingsBatchRequestElement],
                     annotated_types.Len(min_length=1, max_length=500),
                 ],
                 response_type=admin_models.GetMarkingsBatchResponse,
@@ -314,60 +302,6 @@ class MarkingClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def page(
-        self,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListMarkingsResponse:
-        """
-        Maximum page size 100.
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListMarkingsResponse
-        """
-
-        warnings.warn(
-            "The client.admin.Marking.page(...) method has been deprecated. Please use client.admin.Marking.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/markings",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListMarkingsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _MarkingClientRaw:
     def __init__(self, client: MarkingClient) -> None:
@@ -375,13 +309,11 @@ class _MarkingClientRaw:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
-        def page(_: admin_models.ListMarkingsResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
 
 
 class _MarkingClientStreaming:
@@ -390,10 +322,8 @@ class _MarkingClientStreaming:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
-        def page(_: admin_models.ListMarkingsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

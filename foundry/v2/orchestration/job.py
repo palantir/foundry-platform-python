@@ -104,12 +104,7 @@ class JobClient:
     def get_batch(
         self,
         body: typing_extensions.Annotated[
-            typing.List[
-                typing.Union[
-                    orchestration_models.GetJobsBatchRequestElement,
-                    orchestration_models.GetJobsBatchRequestElementDict,
-                ]
-            ],
+            typing.List[orchestration_models.GetJobsBatchRequestElement],
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
@@ -122,7 +117,7 @@ class JobClient:
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
-        :type body: List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]]
+        :type body: List[GetJobsBatchRequestElement]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -145,7 +140,7 @@ class JobClient:
                 },
                 body=body,
                 body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetJobsBatchRequestElementDict],
+                    typing.List[orchestration_models.GetJobsBatchRequestElement],
                     annotated_types.Len(min_length=1, max_length=500),
                 ],
                 response_type=orchestration_models.GetJobsBatchResponse,

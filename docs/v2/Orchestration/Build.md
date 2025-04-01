@@ -7,7 +7,6 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Public Beta |
 [**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Public Beta |
 [**jobs**](#jobs) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
-[**jobs_page**](#jobs_page) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
 [**search**](#search) | **POST** /v2/orchestration/builds/search | Private Beta |
 
 # **cancel**
@@ -69,13 +68,13 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **fallback_branches** | FallbackBranches |  |  |
-**target** | Union[BuildTarget, BuildTargetDict] | The targets of the schedule. |  |
+**target** | BuildTarget | The targets of the schedule. |  |
 **abort_on_failure** | Optional[AbortOnFailure] |  | [optional] |
 **branch_name** | Optional[BranchName] | The target branch the build should run on. | [optional] |
 **force_build** | Optional[ForceBuild] |  | [optional] |
 **notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**retry_backoff_duration** | Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]] |  | [optional] |
+**retry_backoff_duration** | Optional[RetryBackoffDuration] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
 ### Return type
@@ -92,7 +91,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # FallbackBranches
 fallback_branches = ["master"]
-# Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
+# BuildTarget | The targets of the schedule.
 target = {
     "type": "manual",
     "targetRids": [
@@ -110,7 +109,7 @@ force_build = None
 notifications_enabled = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
+# Optional[RetryBackoffDuration]
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1
@@ -207,7 +206,7 @@ The maximum batch size for this endpoint is 100.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request |  |
+**body** | List[GetBuildsBatchRequestElement] | Body of the request |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -222,7 +221,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request
+# List[GetBuildsBatchRequestElement] | Body of the request
 body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -307,64 +306,6 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-# **jobs_page**
-Get the Jobs in the Build.
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**build_rid** | BuildRid | The RID of a Build. |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListJobsOfBuildResponse**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# BuildRid | The RID of a Build.
-build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.orchestration.Build.jobs_page(
-        build_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The jobs_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Build.jobs_page: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListJobsOfBuildResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
 # **search**
 Search for Builds.
 
@@ -372,8 +313,8 @@ Search for Builds.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | Union[SearchBuildsFilter, SearchBuildsFilterDict] |  |  |
-**order_by** | Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]] |  | [optional] |
+**where** | SearchBuildsFilter |  |  |
+**order_by** | Optional[SearchBuildsOrderBy] |  | [optional] |
 **page_size** | Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -390,9 +331,9 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[SearchBuildsFilter, SearchBuildsFilterDict]
+# SearchBuildsFilter
 where = None
-# Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
+# Optional[SearchBuildsOrderBy]
 order_by = {"fields": [{"field": "STARTED_TIME", "direction": "ASC"}]}
 # Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
 page_size = 100

@@ -29,19 +29,9 @@ class CanceledQueryStatus(pydantic.BaseModel):
     type: typing.Literal["canceled"] = "canceled"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CanceledQueryStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CanceledQueryStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class CanceledQueryStatusDict(typing_extensions.TypedDict):
-    """CanceledQueryStatus"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["canceled"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FailedQueryStatus(pydantic.BaseModel):
@@ -53,20 +43,9 @@ class FailedQueryStatus(pydantic.BaseModel):
     type: typing.Literal["failed"] = "failed"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FailedQueryStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FailedQueryStatusDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FailedQueryStatusDict(typing_extensions.TypedDict):
-    """FailedQueryStatus"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    errorMessage: str
-    """An error message describing why the query failed."""
-
-    type: typing.Literal["failed"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 QueryId = str
@@ -82,18 +61,6 @@ QueryStatus = typing_extensions.Annotated[
 """QueryStatus"""
 
 
-QueryStatusDict = typing_extensions.Annotated[
-    typing.Union[
-        "RunningQueryStatusDict",
-        CanceledQueryStatusDict,
-        FailedQueryStatusDict,
-        "SucceededQueryStatusDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""QueryStatus"""
-
-
 class RunningQueryStatus(pydantic.BaseModel):
     """RunningQueryStatus"""
 
@@ -101,20 +68,9 @@ class RunningQueryStatus(pydantic.BaseModel):
     type: typing.Literal["running"] = "running"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RunningQueryStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RunningQueryStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class RunningQueryStatusDict(typing_extensions.TypedDict):
-    """RunningQueryStatus"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    queryId: QueryId
-    type: typing.Literal["running"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SucceededQueryStatus(pydantic.BaseModel):
@@ -124,35 +80,18 @@ class SucceededQueryStatus(pydantic.BaseModel):
     type: typing.Literal["succeeded"] = "succeeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SucceededQueryStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SucceededQueryStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SucceededQueryStatusDict(typing_extensions.TypedDict):
-    """SucceededQueryStatus"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    queryId: QueryId
-    type: typing.Literal["succeeded"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryStatusDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "CanceledQueryStatus",
-    "CanceledQueryStatusDict",
     "FailedQueryStatus",
-    "FailedQueryStatusDict",
     "QueryId",
     "QueryStatus",
-    "QueryStatusDict",
     "RunningQueryStatus",
-    "RunningQueryStatusDict",
     "SucceededQueryStatus",
-    "SucceededQueryStatusDict",
 ]

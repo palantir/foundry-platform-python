@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -103,69 +102,6 @@ class FolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def children_page(
-        self,
-        folder_rid: filesystem_models.FolderRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> filesystem_models.ListChildrenOfFolderResponse:
-        """
-        List all child Resources of the Folder.
-
-        This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
-        provided, this page size will also be used as the default.
-
-        :param folder_rid:
-        :type folder_rid: FolderRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: filesystem_models.ListChildrenOfFolderResponse
-        """
-
-        warnings.warn(
-            "The client.filesystem.Folder.children_page(...) method has been deprecated. Please use client.filesystem.Folder.children(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/filesystem/folders/{folderRid}/children",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "folderRid": folder_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=filesystem_models.ListChildrenOfFolderResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
             ),
         )
 
@@ -284,12 +220,10 @@ class FolderClient:
 class _FolderClientRaw:
     def __init__(self, client: FolderClient) -> None:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
-        def children_page(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
 
         self.children = core.with_raw_response(children, client.children)
-        self.children_page = core.with_raw_response(children_page, client.children_page)
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
 
@@ -297,11 +231,9 @@ class _FolderClientRaw:
 class _FolderClientStreaming:
     def __init__(self, client: FolderClient) -> None:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
-        def children_page(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
 
         self.children = core.with_streaming_response(children, client.children)
-        self.children_page = core.with_streaming_response(children_page, client.children_page)
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)

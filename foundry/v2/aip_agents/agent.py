@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 from functools import cached_property
 
 import pydantic
@@ -127,66 +126,6 @@ class AgentClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def all_sessions_page(
-        self,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> aip_agents_models.AgentsSessionsPage:
-        """
-        List all conversation sessions between the calling user and all accessible Agents that were created by this client.
-        Sessions are returned in order of most recently updated first.
-
-        :param page_size: The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: aip_agents_models.AgentsSessionsPage
-
-        :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
-        """
-
-        warnings.warn(
-            "The client.aip_agents.Agent.all_sessions_page(...) method has been deprecated. Please use client.aip_agents.Agent.all_sessions(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/aipAgents/agents/allSessions",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=aip_agents_models.AgentsSessionsPage,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def get(
         self,
         agent_rid: aip_agents_models.AgentRid,
@@ -247,22 +186,16 @@ class AgentClient:
 class _AgentClientRaw:
     def __init__(self, client: AgentClient) -> None:
         def all_sessions(_: aip_agents_models.AgentsSessionsPage): ...
-        def all_sessions_page(_: aip_agents_models.AgentsSessionsPage): ...
         def get(_: aip_agents_models.Agent): ...
 
         self.all_sessions = core.with_raw_response(all_sessions, client.all_sessions)
-        self.all_sessions_page = core.with_raw_response(all_sessions_page, client.all_sessions_page)
         self.get = core.with_raw_response(get, client.get)
 
 
 class _AgentClientStreaming:
     def __init__(self, client: AgentClient) -> None:
         def all_sessions(_: aip_agents_models.AgentsSessionsPage): ...
-        def all_sessions_page(_: aip_agents_models.AgentsSessionsPage): ...
         def get(_: aip_agents_models.Agent): ...
 
         self.all_sessions = core.with_streaming_response(all_sessions, client.all_sessions)
-        self.all_sessions_page = core.with_streaming_response(
-            all_sessions_page, client.all_sessions_page
-        )
         self.get = core.with_streaming_response(get, client.get)

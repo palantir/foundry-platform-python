@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -60,11 +59,7 @@ class FileImportClient:
         *,
         dataset_rid: datasets_models.DatasetRid,
         display_name: connectivity_models.FileImportDisplayName,
-        file_import_filters: typing.List[
-            typing.Union[
-                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
-            ]
-        ],
+        file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -81,7 +76,7 @@ class FileImportClient:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -138,12 +133,7 @@ class FileImportClient:
                         "displayName": connectivity_models.FileImportDisplayName,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
-                        "fileImportFilters": typing.List[
-                            typing.Union[
-                                connectivity_models.FileImportFilter,
-                                connectivity_models.FileImportFilterDict,
-                            ]
-                        ],
+                        "fileImportFilters": typing.List[connectivity_models.FileImportFilter],
                     },
                 ),
                 response_type=connectivity_models.FileImport,
@@ -385,67 +375,6 @@ class FileImportClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        connection_rid: connectivity_models.ConnectionRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> connectivity_models.ListFileImportsResponse:
-        """
-        Lists all file imports defined for this connection.
-        Only file imports that the user has permissions to view will be returned.
-
-        :param connection_rid:
-        :type connection_rid: ConnectionRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: connectivity_models.ListFileImportsResponse
-        """
-
-        warnings.warn(
-            "The client.connectivity.FileImport.page(...) method has been deprecated. Please use client.connectivity.FileImport.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "connectionRid": connection_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=connectivity_models.ListFileImportsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def replace(
         self,
         connection_rid: connectivity_models.ConnectionRid,
@@ -453,11 +382,7 @@ class FileImportClient:
         *,
         dataset_rid: datasets_models.DatasetRid,
         display_name: connectivity_models.FileImportDisplayName,
-        file_import_filters: typing.List[
-            typing.Union[
-                connectivity_models.FileImportFilter, connectivity_models.FileImportFilterDict
-            ]
-        ],
+        file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -476,7 +401,7 @@ class FileImportClient:
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-        :type file_import_filters: List[Union[FileImportFilter, FileImportFilterDict]]
+        :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -530,12 +455,7 @@ class FileImportClient:
                         "displayName": connectivity_models.FileImportDisplayName,
                         "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
-                        "fileImportFilters": typing.List[
-                            typing.Union[
-                                connectivity_models.FileImportFilter,
-                                connectivity_models.FileImportFilterDict,
-                            ]
-                        ],
+                        "fileImportFilters": typing.List[connectivity_models.FileImportFilter],
                     },
                 ),
                 response_type=connectivity_models.FileImport,
@@ -561,7 +481,6 @@ class _FileImportClientRaw:
         def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
-        def page(_: connectivity_models.ListFileImportsResponse): ...
         def replace(_: connectivity_models.FileImport): ...
 
         self.create = core.with_raw_response(create, client.create)
@@ -569,7 +488,6 @@ class _FileImportClientRaw:
         self.execute = core.with_raw_response(execute, client.execute)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.replace = core.with_raw_response(replace, client.replace)
 
 
@@ -579,12 +497,10 @@ class _FileImportClientStreaming:
         def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.FileImport): ...
         def list(_: connectivity_models.ListFileImportsResponse): ...
-        def page(_: connectivity_models.ListFileImportsResponse): ...
         def replace(_: connectivity_models.FileImport): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.execute = core.with_streaming_response(execute, client.execute)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.replace = core.with_streaming_response(replace, client.replace)

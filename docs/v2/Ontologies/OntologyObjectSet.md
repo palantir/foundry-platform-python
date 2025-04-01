@@ -20,9 +20,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**aggregation** | List[AggregationV2] |  |  |
+**group_by** | List[AggregationGroupByV2] |  |  |
+**object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
@@ -41,11 +41,11 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# List[Union[AggregationV2, AggregationV2Dict]]
+# List[AggregationV2]
 aggregation = None
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
+# List[AggregationGroupByV2]
 group_by = None
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = None
 # Optional[AggregationAccuracyRequest]
 accuracy = None
@@ -97,7 +97,7 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -113,7 +113,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 
 
@@ -210,11 +210,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -233,7 +233,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
@@ -241,7 +241,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -304,11 +304,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -328,7 +328,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
@@ -336,7 +336,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -404,11 +404,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -428,7 +428,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "interfaceBase": "Person"}
 # List[SelectedPropertyApiName]
 select = None
@@ -436,7 +436,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None

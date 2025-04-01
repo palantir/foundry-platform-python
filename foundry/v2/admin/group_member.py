@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -177,72 +176,6 @@ class GroupMemberClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        group_id: core_models.PrincipalId,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        transitive: typing.Optional[bool] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListGroupMembersResponse:
-        """
-        Lists all members (which can be a User or a Group) of a given Group.
-
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However,
-        it is guaranteed that if there are more results available, the `nextPageToken` field will be populated.
-        To get the next page, make the same request again, but set the value of the `pageToken` query parameter
-        to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field
-        in the response, you are on the last page.
-
-        :param group_id:
-        :type group_id: PrincipalId
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
-        :type transitive: Optional[bool]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListGroupMembersResponse
-        """
-
-        warnings.warn(
-            "The client.admin.GroupMember.page(...) method has been deprecated. Please use client.admin.GroupMember.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/groups/{groupId}/groupMembers",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "transitive": transitive,
-                },
-                path_params={
-                    "groupId": group_id,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListGroupMembersResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def remove(
         self,
         group_id: core_models.PrincipalId,
@@ -305,19 +238,15 @@ class _GroupMemberClientRaw:
     def __init__(self, client: GroupMemberClient) -> None:
         def add(_: None): ...
         def list(_: admin_models.ListGroupMembersResponse): ...
-        def page(_: admin_models.ListGroupMembersResponse): ...
         def remove(_: None): ...
 
         self.add = core.with_raw_response(add, client.add)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.remove = core.with_raw_response(remove, client.remove)
 
 
 class _GroupMemberClientStreaming:
     def __init__(self, client: GroupMemberClient) -> None:
         def list(_: admin_models.ListGroupMembersResponse): ...
-        def page(_: admin_models.ListGroupMembersResponse): ...
 
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

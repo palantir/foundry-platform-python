@@ -5,7 +5,6 @@ Method | HTTP request | Release Stage |
 [**delete**](#delete) | **DELETE** /v1/datasets/{datasetRid}/files/{filePath} | Stable |
 [**get**](#get) | **GET** /v1/datasets/{datasetRid}/files/{filePath} | Stable |
 [**list**](#list) | **GET** /v1/datasets/{datasetRid}/files | Stable |
-[**page**](#page) | **GET** /v1/datasets/{datasetRid}/files | Stable |
 [**read**](#read) | **GET** /v1/datasets/{datasetRid}/files/{filePath}/content | Stable |
 [**upload**](#upload) | **POST** /v1/datasets/{datasetRid}/files:upload | Stable |
 
@@ -273,101 +272,6 @@ if result.data:
 ```
 b'Hello!'
 ```
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListFilesResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists Files contained in a Dataset. By default files are listed on the latest view of the default 
-branch - `master` for most enrollments.
-
-#### Advanced Usage
-
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
-
-To **list files on a specific Branch** specify the Branch's identifier as `branchId`. This will include the most
-recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the 
-branch if there are no snapshot transactions.
-
-To **list files on the resolved view of a transaction** specify the Transaction's resource identifier
-as `endTransactionRid`. This will include the most recent version of all files since the latest snapshot
-transaction, or the earliest ancestor transaction if there are no snapshot transactions.
-
-To **list files on the resolved view of a range of transactions** specify the the start transaction's resource
-identifier as `startTransactionRid` and the end transaction's resource identifier as `endTransactionRid`. This
-will include the most recent version of all files since the `startTransactionRid` up to the `endTransactionRid`.
-Note that an intermediate snapshot transaction will remove all files from the view. Behavior is undefined when 
-the start and end transactions do not belong to the same root-to-leaf path.
-
-To **list files on a specific transaction** specify the Transaction's resource identifier as both the 
-`startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
-Transaction.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**dataset_rid** | DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Files. |  |
-**branch_id** | Optional[BranchId] | The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments. | [optional] |
-**end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction. | [optional] |
-
-### Return type
-**ListFilesResponse**
-
-### Example
-
-```python
-from foundry.v1 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# DatasetRid | The Resource Identifier (RID) of the Dataset on which to list Files.
-dataset_rid = None
-# Optional[BranchId] | The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
-branch_id = None
-# Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
-end_transaction_rid = None
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-page_size = None
-# Optional[PageToken]
-page_token = None
-# Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.
-start_transaction_rid = None
-
-
-try:
-    api_response = foundry_client.datasets.Dataset.File.page(
-        dataset_rid,
-        branch_id=branch_id,
-        end_transaction_rid=end_transaction_rid,
-        page_size=page_size,
-        page_token=page_token,
-        start_transaction_rid=start_transaction_rid,
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling File.page: %s\n" % e)
-
-```
-
 
 
 ### Authorization

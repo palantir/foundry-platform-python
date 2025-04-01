@@ -3,7 +3,6 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**children**](#children) | **GET** /v2/filesystem/folders/{folderRid}/children | Public Beta |
-[**children_page**](#children_page) | **GET** /v2/filesystem/folders/{folderRid}/children | Public Beta |
 [**create**](#create) | **POST** /v2/filesystem/folders | Public Beta |
 [**get**](#get) | **GET** /v2/filesystem/folders/{folderRid} | Public Beta |
 
@@ -52,68 +51,6 @@ try:
         pprint(folder)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Folder.children: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListChildrenOfFolderResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **children_page**
-List all child Resources of the Folder.
-
-This is a paged endpoint. The page size will be limited to 2,000 results per page. If no page size is
-provided, this page size will also be used as the default.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**folder_rid** | FolderRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListChildrenOfFolderResponse**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# FolderRid
-folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.filesystem.Folder.children_page(
-        folder_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The children_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Folder.children_page: %s\n" % e)
 
 ```
 

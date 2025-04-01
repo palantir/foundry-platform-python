@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -197,63 +196,6 @@ class VersionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> third_party_applications_models.ListVersionsResponse:
-        """
-        Lists all Versions.
-
-        This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-        :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
-        :type third_party_application_rid: ThirdPartyApplicationRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: third_party_applications_models.ListVersionsResponse
-        """
-
-        warnings.warn(
-            "The client.third_party_applications.Version.page(...) method has been deprecated. Please use client.third_party_applications.Version.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                path_params={
-                    "thirdPartyApplicationRid": third_party_application_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=third_party_applications_models.ListVersionsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def upload(
         self,
         third_party_application_rid: third_party_applications_models.ThirdPartyApplicationRid,
@@ -372,14 +314,12 @@ class _VersionClientRaw:
         def delete(_: None): ...
         def get(_: third_party_applications_models.Version): ...
         def list(_: third_party_applications_models.ListVersionsResponse): ...
-        def page(_: third_party_applications_models.ListVersionsResponse): ...
         def upload(_: third_party_applications_models.Version): ...
         def upload_snapshot(_: third_party_applications_models.Version): ...
 
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.upload = core.with_raw_response(upload, client.upload)
         self.upload_snapshot = core.with_raw_response(upload_snapshot, client.upload_snapshot)
 
@@ -388,12 +328,10 @@ class _VersionClientStreaming:
     def __init__(self, client: VersionClient) -> None:
         def get(_: third_party_applications_models.Version): ...
         def list(_: third_party_applications_models.ListVersionsResponse): ...
-        def page(_: third_party_applications_models.ListVersionsResponse): ...
         def upload(_: third_party_applications_models.Version): ...
         def upload_snapshot(_: third_party_applications_models.Version): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.upload = core.with_streaming_response(upload, client.upload)
         self.upload_snapshot = core.with_streaming_response(upload_snapshot, client.upload_snapshot)

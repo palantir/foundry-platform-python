@@ -42,28 +42,9 @@ class ApiKeyAuthentication(pydantic.BaseModel):
     type: typing.Literal["apiKey"] = "apiKey"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ApiKeyAuthenticationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ApiKeyAuthenticationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ApiKeyAuthenticationDict(typing_extensions.TypedDict):
-    """
-    The API key used to authenticate to the external system.
-    This can be configured as a header or query parameter.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    location: RestRequestApiKeyLocationDict
-    """The location of the API key in the request."""
-
-    apiKey: EncryptedPropertyDict
-    """The value of the API key."""
-
-    type: typing.Literal["apiKey"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AsPlaintextValue(pydantic.BaseModel):
@@ -73,18 +54,9 @@ class AsPlaintextValue(pydantic.BaseModel):
     type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AsPlaintextValueDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AsPlaintextValueDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AsPlaintextValueDict(typing_extensions.TypedDict):
-    """AsPlaintextValue"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: PlaintextValue
-    type: typing.Literal["asPlaintextValue"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AsSecretName(pydantic.BaseModel):
@@ -94,18 +66,9 @@ class AsSecretName(pydantic.BaseModel):
     type: typing.Literal["asSecretName"] = "asSecretName"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AsSecretNameDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AsSecretNameDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AsSecretNameDict(typing_extensions.TypedDict):
-    """AsSecretName"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: SecretName
-    type: typing.Literal["asSecretName"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AwsAccessKey(pydantic.BaseModel):
@@ -122,25 +85,9 @@ class AwsAccessKey(pydantic.BaseModel):
     type: typing.Literal["awsAccessKey"] = "awsAccessKey"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AwsAccessKeyDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AwsAccessKeyDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AwsAccessKeyDict(typing_extensions.TypedDict):
-    """
-    [Access keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) are long-term
-    credentials for an IAM user or the AWS account root user.
-    Access keys consist of two parts: an access key ID (for example, AKIAIOSFODNN7EXAMPLE) and a secret access
-    key (for example, wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY). You must use both the access key ID and
-    secret access key together to authenticate your requests.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    accessKeyId: str
-    secretAccessKey: EncryptedPropertyDict
-    type: typing.Literal["awsAccessKey"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AwsOidcAuthentication(pydantic.BaseModel):
@@ -161,31 +108,9 @@ class AwsOidcAuthentication(pydantic.BaseModel):
     type: typing.Literal["oidc"] = "oidc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AwsOidcAuthenticationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AwsOidcAuthenticationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AwsOidcAuthenticationDict(typing_extensions.TypedDict):
-    """
-    [OpenID Connect (OIDC)](/docs/foundry/data-connection/oidc/) is an open authentication protocol that allows
-    you to authenticate to external system resources without the use of static credentials.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    audience: str
-    """The configured audience that identifies the external system."""
-
-    issuerUrl: str
-    """The URL that identifies Foundry as an OIDC identity provider."""
-
-    subject: ConnectionRid
-    """The RID of the Connection that is connecting to the external system."""
-
-    type: typing.Literal["oidc"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BasicCredentials(pydantic.BaseModel):
@@ -196,19 +121,9 @@ class BasicCredentials(pydantic.BaseModel):
     type: typing.Literal["basic"] = "basic"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BasicCredentialsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BasicCredentialsDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BasicCredentialsDict(typing_extensions.TypedDict):
-    """BasicCredentials"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    username: str
-    password: EncryptedPropertyDict
-    type: typing.Literal["basic"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BearerToken(pydantic.BaseModel):
@@ -218,18 +133,9 @@ class BearerToken(pydantic.BaseModel):
     type: typing.Literal["bearerToken"] = "bearerToken"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BearerTokenDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BearerTokenDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BearerTokenDict(typing_extensions.TypedDict):
-    """The bearer token used to authenticate to the external system."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    bearerToken: EncryptedPropertyDict
-    type: typing.Literal["bearerToken"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CloudIdentity(pydantic.BaseModel):
@@ -242,21 +148,9 @@ class CloudIdentity(pydantic.BaseModel):
     type: typing.Literal["cloudIdentity"] = "cloudIdentity"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CloudIdentityDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CloudIdentityDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CloudIdentityDict(typing_extensions.TypedDict):
-    """
-    [Cloud identities](/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
-    cloud provider resources without the use of static credentials.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    cloudIdentityRid: CloudIdentityRid
-    type: typing.Literal["cloudIdentity"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CloudIdentityRid = core.RID
@@ -274,9 +168,9 @@ class Connection(pydantic.BaseModel):
     configuration: ConnectionConfiguration
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ConnectionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ConnectionDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ConnectionConfiguration = typing_extensions.Annotated[
@@ -286,30 +180,6 @@ ConnectionConfiguration = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """ConnectionConfiguration"""
-
-
-ConnectionConfigurationDict = typing_extensions.Annotated[
-    typing.Union[
-        "S3ConnectionConfigurationDict",
-        "RestConnectionConfigurationDict",
-        "JdbcConnectionConfigurationDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""ConnectionConfiguration"""
-
-
-class ConnectionDict(typing_extensions.TypedDict):
-    """Connection"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: ConnectionRid
-    parentFolderRid: filesystem_models.FolderRid
-    displayName: ConnectionDisplayName
-    """The display name of the Connection. The display name must not be blank."""
-
-    configuration: ConnectionConfigurationDict
 
 
 ConnectionDisplayName = str
@@ -325,17 +195,6 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
         "CreateConnectionRequestS3ConnectionConfiguration",
         "CreateConnectionRequestRestConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""CreateConnectionRequestConnectionConfiguration"""
-
-
-CreateConnectionRequestConnectionConfigurationDict = typing_extensions.Annotated[
-    typing.Union[
-        "CreateConnectionRequestS3ConnectionConfigurationDict",
-        "CreateConnectionRequestRestConnectionConfigurationDict",
-        "CreateConnectionRequestJdbcConnectionConfigurationDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -362,34 +221,9 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["jdbc"] = "jdbc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateConnectionRequestJdbcConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestJdbcConnectionConfigurationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestJdbcConnectionConfigurationDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestJdbcConnectionConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    credentials: typing_extensions.NotRequired[BasicCredentialsDict]
-    driverClass: str
-    """The fully-qualified driver class name that is used to connect to the database."""
-
-    jdbcProperties: typing.Dict[str, str]
-    """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
-    url: str
-    """The URL that the JDBC driver uses to connect to a database."""
-
-    type: typing.Literal["jdbc"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
@@ -417,39 +251,9 @@ class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["rest"] = "rest"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateConnectionRequestRestConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestRestConnectionConfigurationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestRestConnectionConfigurationDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestRestConnectionConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    additionalSecrets: typing_extensions.NotRequired[RestConnectionAdditionalSecretsDict]
-    """
-    Additional secrets that can be referenced in code and webhook configurations.
-    If not provided, no additional secrets will be created.
-    """
-
-    oauth2ClientRid: typing_extensions.NotRequired[core.RID]
-    """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
-    Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
-    Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
-    """
-
-    domains: typing.List[DomainDict]
-    """
-    The domains that the connection is allowed to access.
-    At least one domain must be specified.
-    """
-
-    type: typing.Literal["rest"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
@@ -537,99 +341,9 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["s3"] = "s3"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateConnectionRequestS3ConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateConnectionRequestS3ConnectionConfigurationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateConnectionRequestS3ConnectionConfigurationDict(typing_extensions.TypedDict):
-    """CreateConnectionRequestS3ConnectionConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    connectionTimeoutMillis: typing_extensions.NotRequired[core.Long]
-    """
-    The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
-    If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
-    """
-
-    maxErrorRetry: typing_extensions.NotRequired[int]
-    """
-    The maximum number of retry attempts for failed requests to the S3 service.
-    If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
-    """
-
-    bucketUrl: str
-    """The URL of the S3 bucket. The URL should contain a trailing slash."""
-
-    clientKmsConfiguration: typing_extensions.NotRequired[S3KmsConfigurationDict]
-    """
-    The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
-    If not specified, the default KMS key for the bucket is used.
-    """
-
-    matchSubfolderExactly: typing_extensions.NotRequired[bool]
-    """
-    If true, only files in the subfolder specified in the bucket URL will be synced.
-    If false, all files in the bucket will be synced.
-    If not specified, defaults to false.
-    """
-
-    stsRoleConfiguration: typing_extensions.NotRequired[StsRoleConfigurationDict]
-    """The configuration needed to assume a role to connect to the S3 external system."""
-
-    s3Endpoint: typing_extensions.NotRequired[str]
-    """
-    The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
-    If not specified, defaults to the [AWS S3 endpoint](https://docs.aws.amazon.com/general/latest/gr/s3.html).
-    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
-    """
-
-    socketTimeoutMillis: typing_extensions.NotRequired[core.Long]
-    """
-    The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
-    If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
-    """
-
-    enableRequesterPays: typing_extensions.NotRequired[bool]
-    """
-    Defaults to false, unless set and overwritten.
-    If true, includes the [requester pays header](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)
-    in requests, allowing reads from requester pays buckets.
-    """
-
-    s3EndpointSigningRegion: typing_extensions.NotRequired[Region]
-    """
-    The region used when constructing the S3 client using a custom endpoint.
-    This is often not required and would only be needed if you are using the S3 connector with an S3-compliant third-party API,
-    and are also setting a custom endpoint that requires a non-default region.
-    """
-
-    region: typing_extensions.NotRequired[Region]
-    """
-    The region representing the location of the S3 bucket.
-    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
-    """
-
-    authenticationMode: typing_extensions.NotRequired[S3AuthenticationModeDict]
-    """
-    The authentication mode to use to connect to the S3 external system. No authentication mode is required
-    to connect to publicly accessible AWS S3 buckets.
-    """
-
-    proxyConfiguration: typing_extensions.NotRequired[S3ProxyConfigurationDict]
-    """The configuration needed to connect to the S3 external system through a proxy."""
-
-    maxConnections: typing_extensions.NotRequired[int]
-    """
-    The maximum number of HTTP connections to the S3 service per sync.
-    If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
-    """
-
-    type: typing.Literal["s3"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
@@ -645,27 +359,9 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTableImportRequestJdbcImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTableImportRequestJdbcImportConfigDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTableImportRequestJdbcImportConfigDict(typing_extensions.TypedDict):
-    """CreateTableImportRequestJdbcImportConfig"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["jdbcImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
@@ -681,27 +377,9 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTableImportRequestMicrosoftAccessImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTableImportRequestMicrosoftAccessImportConfigDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTableImportRequestMicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
-    """CreateTableImportRequestMicrosoftAccessImportConfig"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["microsoftAccessImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel):
@@ -717,27 +395,9 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTableImportRequestMicrosoftSqlServerImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTableImportRequestMicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
-    """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["microsoftSqlServerImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
@@ -753,27 +413,9 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTableImportRequestOracleImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTableImportRequestOracleImportConfigDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTableImportRequestOracleImportConfigDict(typing_extensions.TypedDict):
-    """CreateTableImportRequestOracleImportConfig"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["oracleImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
@@ -789,27 +431,9 @@ class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTableImportRequestPostgreSqlImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTableImportRequestPostgreSqlImportConfigDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.TypedDict):
-    """CreateTableImportRequestPostgreSqlImportConfig"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["postgreSqlImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
@@ -819,19 +443,6 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
         CreateTableImportRequestPostgreSqlImportConfig,
         CreateTableImportRequestMicrosoftAccessImportConfig,
         CreateTableImportRequestOracleImportConfig,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
-
-
-CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
-    typing.Union[
-        CreateTableImportRequestJdbcImportConfigDict,
-        CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
-        CreateTableImportRequestPostgreSqlImportConfigDict,
-        CreateTableImportRequestMicrosoftAccessImportConfigDict,
-        CreateTableImportRequestOracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -861,49 +472,13 @@ class Domain(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DomainDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DomainDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DomainDict(typing_extensions.TypedDict):
-    """The domain that the connection is allowed to access."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    scheme: typing_extensions.NotRequired[UriScheme]
-    """
-    The scheme of the domain that the connection is allowed to access.
-    If not specified, defaults to HTTPS.
-    """
-
-    host: str
-    """The domain name, IPv4, or IPv6 address."""
-
-    port: typing_extensions.NotRequired[int]
-    """The port number of the domain that the connection is allowed to access."""
-
-    auth: typing_extensions.NotRequired[RestAuthenticationModeDict]
-    """
-    The URI scheme must be HTTPS if using any authentication.
-    If not specified, no authentication is required.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 EncryptedProperty = typing_extensions.Annotated[
     typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
-]
-"""
-When reading an encrypted property, the secret name representing the encrypted value will be returned.
-When writing to an encrypted property:
-- If a plaintext value is passed as an input, the plaintext value will be encrypted and saved to the property.
-- If a secret name is passed as an input, the secret name must match the existing secret name of the property
-  and the property will retain its previously encrypted value.
-"""
-
-
-EncryptedPropertyDict = typing_extensions.Annotated[
-    typing.Union[AsSecretNameDict, AsPlaintextValueDict], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -923,22 +498,9 @@ class FileAnyPathMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["anyPathMatchesFilter"] = "anyPathMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileAnyPathMatchesFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FileAnyPathMatchesFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FileAnyPathMatchesFilterDict(typing_extensions.TypedDict):
-    """If any file has a relative path matching the regular expression, sync all files in the subfolder that are not otherwise filtered."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    regex: str
-    """The regular expression for the relative path to match against."""
-
-    type: typing.Literal["anyPathMatchesFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FileAtLeastCountFilter(pydantic.BaseModel):
@@ -953,25 +515,9 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
     type: typing.Literal["atLeastCountFilter"] = "atLeastCountFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileAtLeastCountFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FileAtLeastCountFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FileAtLeastCountFilterDict(typing_extensions.TypedDict):
-    """Import all filtered files only if there are at least the specified number of files remaining."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    minFilesCount: int
-    """
-    The minimum number of files remaining expected.
-    The value specified must be greater than 0.
-    """
-
-    type: typing.Literal["atLeastCountFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
@@ -994,33 +540,9 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     type: typing.Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileChangedSinceLastUploadFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FileChangedSinceLastUploadFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FileChangedSinceLastUploadFilterDict(typing_extensions.TypedDict):
-    """
-    Only import files that have changed or been added since the last import run. Whether or not a file is considered to be changed is determined by the specified file properties.
-    This will exclude files uploaded in any previous imports, regardless of the file import mode used. A SNAPSHOT file import mode does not reset the filter.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    fileProperties: typing.List[FileProperty]
-    """
-    The criteria on which to determine whether a file has been changed or not since the last import. 
-    If any of the specified criteria have changed, the file is consider changed. The criteria include:
-
-    LAST_MODIFIED: The file's last modified timestamp has changed since the last import.
-    SIZE: The file's size has changed since the last import.
-
-    If no criteria are specified, only newly added files will be imported.
-    """
-
-    type: typing.Literal["changedSinceLastUploadFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FileImport(pydantic.BaseModel):
@@ -1046,9 +568,9 @@ class FileImport(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileImportDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FileImportDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FileImportCustomFilter(pydantic.BaseModel):
@@ -1061,47 +583,9 @@ class FileImportCustomFilter(pydantic.BaseModel):
     type: typing.Literal["customFilter"] = "customFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileImportCustomFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FileImportCustomFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FileImportCustomFilterDict(typing_extensions.TypedDict):
-    """
-    A custom file import filter. Custom file import filters can be fetched but cannot currently be used
-    when creating or updating file imports.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    config: typing.Any
-    type: typing.Literal["customFilter"]
-
-
-class FileImportDict(typing_extensions.TypedDict):
-    """FileImport"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: FileImportRid
-    connectionRid: ConnectionRid
-    """The RID of the Connection (also known as a source) that the File Import uses to import data."""
-
-    datasetRid: datasets_models.DatasetRid
-    """The RID of the output dataset."""
-
-    branchName: typing_extensions.NotRequired[datasets_models.BranchName]
-    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
-
-    displayName: FileImportDisplayName
-    fileImportFilters: typing.List[FileImportFilterDict]
-    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
-
-    importMode: FileImportMode
-    subfolder: typing_extensions.NotRequired[str]
-    """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FileImportDisplayName = str
@@ -1119,26 +603,6 @@ FileImportFilter = typing_extensions.Annotated[
         "FilePathMatchesFilter",
         FileAtLeastCountFilter,
         "FileSizeFilter",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""
-[Filters](/docs/foundry/data-connection/file-based-syncs/#filters) allow you to filter source files
-before they are imported into Foundry.
-"""
-
-
-FileImportFilterDict = typing_extensions.Annotated[
-    typing.Union[
-        "FilePathNotMatchesFilterDict",
-        FileAnyPathMatchesFilterDict,
-        "FilesCountLimitFilterDict",
-        FileChangedSinceLastUploadFilterDict,
-        FileImportCustomFilterDict,
-        "FileLastModifiedAfterFilterDict",
-        "FilePathMatchesFilterDict",
-        FileAtLeastCountFilterDict,
-        "FileSizeFilterDict",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1174,25 +638,9 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     type: typing.Literal["lastModifiedAfterFilter"] = "lastModifiedAfterFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileLastModifiedAfterFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FileLastModifiedAfterFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FileLastModifiedAfterFilterDict(typing_extensions.TypedDict):
-    """Only import files that have been modified after a specified timestamp"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    afterTimestamp: typing_extensions.NotRequired[datetime]
-    """
-    Timestamp threshold, specified in ISO-8601 format.
-    If not specified, defaults to the timestamp the filter is added to the file import.
-    """
-
-    type: typing.Literal["lastModifiedAfterFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FilePathMatchesFilter(pydantic.BaseModel):
@@ -1215,33 +663,9 @@ class FilePathMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["pathMatchesFilter"] = "pathMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FilePathMatchesFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FilePathMatchesFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FilePathMatchesFilterDict(typing_extensions.TypedDict):
-    """
-    Only import files whose path (relative to the root of the source) matches the regular expression.
-
-    **Example**
-    Suppose we are importing files from `relative/subfolder`.
-    `relative/subfolder` contains:
-    - `relative/subfolder/include-file.txt`
-    - `relative/subfolder/exclude-file.txt`
-    - `relative/subfolder/other-file.txt`
-
-    With the `relative/subfolder/include-.*.txt` regex, only `relative/subfolder/include-file.txt` will be imported.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    regex: str
-    """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
-
-    type: typing.Literal["pathMatchesFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FilePathNotMatchesFilter(pydantic.BaseModel):
@@ -1265,34 +689,9 @@ class FilePathNotMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["pathNotMatchesFilter"] = "pathNotMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FilePathNotMatchesFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FilePathNotMatchesFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FilePathNotMatchesFilterDict(typing_extensions.TypedDict):
-    """
-    Only import files whose path (relative to the root of the source) does not match the regular expression.
-
-    **Example**
-    Suppose we are importing files from `relative/subfolder`.
-    `relative/subfolder` contains:
-    - `relative/subfolder/include-file.txt`
-    - `relative/subfolder/exclude-file.txt`
-    - `relative/subfolder/other-file.txt`
-
-    With the `relative/subfolder/exclude-.*.txt` regex, both `relative/subfolder/include-file.txt` and `relative/subfolder/other-file.txt` will be imported,
-    and `relative/subfolder/exclude-file.txt` will be excluded from the import.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    regex: str
-    """Must be written to match the paths relative to the root of the source, even if a subfolder is specified."""
-
-    type: typing.Literal["pathNotMatchesFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FileProperty = typing.Literal["LAST_MODIFIED", "SIZE"]
@@ -1321,33 +720,9 @@ class FileSizeFilter(pydantic.BaseModel):
     type: typing.Literal["fileSizeFilter"] = "fileSizeFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FileSizeFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(FileSizeFilterDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class FileSizeFilterDict(typing_extensions.TypedDict):
-    """
-    Only import files whose size is between the specified minimum and maximum values.
-    At least one of `gt` or `lt` should be present.
-    If both are present, the value specified for `gt` must be strictly less than `lt - 1`.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    gt: typing_extensions.NotRequired[core_models.SizeBytes]
-    """
-    File size must be greater than this number for it to be imported.
-    The value specified cannot be a negative number.
-    """
-
-    lt: typing_extensions.NotRequired[core_models.SizeBytes]
-    """
-    File size must be less than this number for it to be imported.
-    The value specified must be at least 1 byte.
-    """
-
-    type: typing.Literal["fileSizeFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class FilesCountLimitFilter(pydantic.BaseModel):
@@ -1363,26 +738,9 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "FilesCountLimitFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            FilesCountLimitFilterDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class FilesCountLimitFilterDict(typing_extensions.TypedDict):
-    """
-    Only retain `filesCount` number of files in each transaction.
-    The choice of files to retain is made without any guarantee of order.
-    This option can increase the reliability of incremental syncs.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    filesCount: int
-    """The number of files to import in the transaction. The value specified must be positive."""
-
-    type: typing.Literal["filesCountLimitFilter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class HeaderApiKey(pydantic.BaseModel):
@@ -1394,20 +752,9 @@ class HeaderApiKey(pydantic.BaseModel):
     type: typing.Literal["header"] = "header"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "HeaderApiKeyDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(HeaderApiKeyDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class HeaderApiKeyDict(typing_extensions.TypedDict):
-    """HeaderApiKey"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    headerName: str
-    """The name of the header that the API key is passed in."""
-
-    type: typing.Literal["header"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class JdbcConnectionConfiguration(pydantic.BaseModel):
@@ -1430,33 +777,9 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["jdbc"] = "jdbc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "JdbcConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            JdbcConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class JdbcConnectionConfigurationDict(typing_extensions.TypedDict):
-    """The configuration needed to connect to an external system using the JDBC protocol."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    url: str
-    """The URL that the JDBC driver uses to connect to a database."""
-
-    driverClass: str
-    """The fully-qualified driver class name that is used to connect to the database."""
-
-    jdbcProperties: typing.Dict[str, str]
-    """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
-    credentials: typing_extensions.NotRequired[BasicCredentialsDict]
-    type: typing.Literal["jdbc"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class JdbcImportConfig(pydantic.BaseModel):
@@ -1472,24 +795,9 @@ class JdbcImportConfig(pydantic.BaseModel):
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "JdbcImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(JdbcImportConfigDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class JdbcImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["jdbcImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListFileImportsResponse(pydantic.BaseModel):
@@ -1499,20 +807,9 @@ class ListFileImportsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListFileImportsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListFileImportsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListFileImportsResponseDict(typing_extensions.TypedDict):
-    """ListFileImportsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[FileImportDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListTableImportsResponse(pydantic.BaseModel):
@@ -1522,20 +819,9 @@ class ListTableImportsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListTableImportsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListTableImportsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListTableImportsResponseDict(typing_extensions.TypedDict):
-    """ListTableImportsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[TableImportDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
@@ -1551,26 +837,9 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MicrosoftAccessImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            MicrosoftAccessImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["microsoftAccessImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
@@ -1586,26 +855,9 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MicrosoftSqlServerImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            MicrosoftSqlServerImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["microsoftSqlServerImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OracleImportConfig(pydantic.BaseModel):
@@ -1621,26 +873,9 @@ class OracleImportConfig(pydantic.BaseModel):
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OracleImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OracleImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OracleImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for an Oracle Database 21 connection."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["oracleImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PlaintextValue = str
@@ -1660,26 +895,9 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PostgreSqlImportConfigDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            PostgreSqlImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class PostgreSqlImportConfigDict(typing_extensions.TypedDict):
-    """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
-    type: typing.Literal["postgreSqlImportConfig"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Protocol = typing.Literal["HTTP", "HTTPS"]
@@ -1695,22 +913,9 @@ class QueryParameterApiKey(pydantic.BaseModel):
     type: typing.Literal["queryParameter"] = "queryParameter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryParameterApiKeyDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            QueryParameterApiKeyDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class QueryParameterApiKeyDict(typing_extensions.TypedDict):
-    """QueryParameterApiKey"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    queryParameterName: str
-    """The name of the query parameter that the API key is passed in."""
-
-    type: typing.Literal["queryParameter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Region = str
@@ -1724,27 +929,8 @@ RestAuthenticationMode = typing_extensions.Annotated[
 """The method of authentication for connecting to an external REST system."""
 
 
-RestAuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union[
-        BearerTokenDict, ApiKeyAuthenticationDict, BasicCredentialsDict, "RestConnectionOAuth2Dict"
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""The method of authentication for connecting to an external REST system."""
-
-
 RestConnectionAdditionalSecrets = typing_extensions.Annotated[
     typing.Union["SecretsWithPlaintextValues", "SecretsNames"], pydantic.Field(discriminator="type")
-]
-"""
-When creating or updating additional secrets, use SecretsWithPlaintextValues.
-When fetching the RestConnectionConfiguration, SecretsNames will be provided.
-"""
-
-
-RestConnectionAdditionalSecretsDict = typing_extensions.Annotated[
-    typing.Union["SecretsWithPlaintextValuesDict", "SecretsNamesDict"],
-    pydantic.Field(discriminator="type"),
 ]
 """
 When creating or updating additional secrets, use SecretsWithPlaintextValues.
@@ -1777,38 +963,9 @@ class RestConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["rest"] = "rest"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RestConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RestConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class RestConnectionConfigurationDict(typing_extensions.TypedDict):
-    """The configuration needed to connect to a [REST external system](/docs/foundry/available-connectors/rest-apis)."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    domains: typing.List[DomainDict]
-    """
-    The domains that the connection is allowed to access.
-    At least one domain must be specified.
-    """
-
-    additionalSecrets: typing_extensions.NotRequired[RestConnectionAdditionalSecretsDict]
-    """
-    Additional secrets that can be referenced in code and webhook configurations.
-    If not provided, no additional secrets will be created.
-    """
-
-    oauth2ClientRid: typing_extensions.NotRequired[core.RID]
-    """
-    The RID of the [Outbound application](/docs/foundry/administration/configure-outbound-applications) that is used to authenticate to the external system via OAuth2.
-    Currently, a connection may use only one outbound application for OAuth 2.0 authentication.
-    Selecting a different outbound application will update the configuration for all domains with OAuth 2.0 as the selected authorization.
-    """
-
-    type: typing.Literal["rest"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class RestConnectionOAuth2(pydantic.BaseModel):
@@ -1820,22 +977,9 @@ class RestConnectionOAuth2(pydantic.BaseModel):
     type: typing.Literal["oauth2"] = "oauth2"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RestConnectionOAuth2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RestConnectionOAuth2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class RestConnectionOAuth2Dict(typing_extensions.TypedDict):
-    """
-    In order to use OAuth2 you must have an Outbound application configured in the [Foundry Control Panel Organization settings](/docs/foundry/administration/configure-outbound-applications#create-an-outbound-application).
-    The RID of the Outbound application must be configured in the RestConnectionConfiguration in the `oauth2ClientRid` field.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["oauth2"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
@@ -1844,21 +988,8 @@ RestRequestApiKeyLocation = typing_extensions.Annotated[
 """The location of the API key in the request."""
 
 
-RestRequestApiKeyLocationDict = typing_extensions.Annotated[
-    typing.Union[HeaderApiKeyDict, QueryParameterApiKeyDict], pydantic.Field(discriminator="type")
-]
-"""The location of the API key in the request."""
-
-
 S3AuthenticationMode = typing_extensions.Annotated[
     typing.Union[AwsAccessKey, CloudIdentity, AwsOidcAuthentication],
-    pydantic.Field(discriminator="type"),
-]
-"""S3AuthenticationMode"""
-
-
-S3AuthenticationModeDict = typing_extensions.Annotated[
-    typing.Union[AwsAccessKeyDict, CloudIdentityDict, AwsOidcAuthenticationDict],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -1952,101 +1083,9 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["s3"] = "s3"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "S3ConnectionConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            S3ConnectionConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class S3ConnectionConfigurationDict(typing_extensions.TypedDict):
-    """
-    The configuration needed to connect to an [AWS S3 external system (or any other S3-like external systems that
-    implement the s3a protocol)](/docs/foundry/available-connectors/amazon-s3/#amazon-s3).
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    bucketUrl: str
-    """The URL of the S3 bucket. The URL should contain a trailing slash."""
-
-    s3Endpoint: typing_extensions.NotRequired[str]
-    """
-    The endpoint of the S3 service. This is used to connect to a custom S3 service that is not AWS S3.
-    If not specified, defaults to the [AWS S3 endpoint](https://docs.aws.amazon.com/general/latest/gr/s3.html).
-    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
-    """
-
-    region: typing_extensions.NotRequired[Region]
-    """
-    The region representing the location of the S3 bucket.
-    Warning: Specifying a region and a custom endpoint containing a region can lead to unexpected behavior.
-    """
-
-    authenticationMode: typing_extensions.NotRequired[S3AuthenticationModeDict]
-    """
-    The authentication mode to use to connect to the S3 external system. No authentication mode is required
-    to connect to publicly accessible AWS S3 buckets.
-    """
-
-    s3EndpointSigningRegion: typing_extensions.NotRequired[Region]
-    """
-    The region used when constructing the S3 client using a custom endpoint.
-    This is often not required and would only be needed if you are using the S3 connector with an S3-compliant third-party API,
-    and are also setting a custom endpoint that requires a non-default region.
-    """
-
-    clientKmsConfiguration: typing_extensions.NotRequired[S3KmsConfigurationDict]
-    """
-    The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
-    If not specified, the default KMS key for the bucket is used.
-    """
-
-    stsRoleConfiguration: typing_extensions.NotRequired[StsRoleConfigurationDict]
-    """The configuration needed to assume a role to connect to the S3 external system."""
-
-    proxyConfiguration: typing_extensions.NotRequired[S3ProxyConfigurationDict]
-    """The configuration needed to connect to the S3 external system through a proxy."""
-
-    maxConnections: typing_extensions.NotRequired[int]
-    """
-    The maximum number of HTTP connections to the S3 service per sync.
-    If not specified, defaults to 50 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_MAX_CONNECTIONS).
-    """
-
-    connectionTimeoutMillis: typing_extensions.NotRequired[core.Long]
-    """
-    The amount of time (in milliseconds) to wait when initially establishing a connection before giving up and timing out.
-    If not specified, defaults to 10000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_CONNECTION_TIMEOUT).
-    """
-
-    socketTimeoutMillis: typing_extensions.NotRequired[core.Long]
-    """
-    The amount of time (in milliseconds) to wait for data to be transferred over an established, open connection.
-    If not specified, defaults to 50000 as defined by the [AWS SDK default](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/ClientConfiguration.html#DEFAULT_SOCKET_TIMEOUT).
-    """
-
-    maxErrorRetry: typing_extensions.NotRequired[int]
-    """
-    The maximum number of retry attempts for failed requests to the S3 service.
-    If not specified, defaults to 3 as defined by the [AWS SDK default](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/retry-strategy.html#retry-strategies).
-    """
-
-    matchSubfolderExactly: typing_extensions.NotRequired[bool]
-    """
-    If true, only files in the subfolder specified in the bucket URL will be synced.
-    If false, all files in the bucket will be synced.
-    If not specified, defaults to false.
-    """
-
-    enableRequesterPays: typing_extensions.NotRequired[bool]
-    """
-    Defaults to false, unless set and overwritten.
-    If true, includes the [requester pays header](https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html)
-    in requests, allowing reads from requester pays buckets.
-    """
-
-    type: typing.Literal["s3"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class S3KmsConfiguration(pydantic.BaseModel):
@@ -2066,29 +1105,9 @@ class S3KmsConfiguration(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "S3KmsConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            S3KmsConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class S3KmsConfigurationDict(typing_extensions.TypedDict):
-    """S3KmsConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    kmsKey: str
-    """
-    The client-side KMS key to use for encryption and decryption of data in the S3 bucket.
-    If not specified, the default KMS key for the bucket is used.
-    """
-
-    kmsRegion: typing_extensions.NotRequired[Region]
-    """
-    The region of the client-side KMS key to use for encryption and decryption of data in the S3 bucket.
-    If not specified, the default KMS key region for the bucket is used.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class S3ProxyConfiguration(pydantic.BaseModel):
@@ -2110,32 +1129,9 @@ class S3ProxyConfiguration(pydantic.BaseModel):
     credentials: typing.Optional[BasicCredentials] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "S3ProxyConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            S3ProxyConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class S3ProxyConfigurationDict(typing_extensions.TypedDict):
-    """S3ProxyConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    host: str
-    """
-    Domain name, IPv4, or IPv6 address. 
-    `protocol` and `port` must be specified separately.
-    """
-
-    port: int
-    nonProxyHosts: typing_extensions.NotRequired[typing.List[str]]
-    """A list of hosts that can bypass the proxy, such as those used for STS Role. You can also use "*" wildcards."""
-
-    protocol: typing_extensions.NotRequired[Protocol]
-    """If defined, must be "HTTP" or "HTTPS". Defaults to "HTTPS"."""
-
-    credentials: typing_extensions.NotRequired[BasicCredentialsDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SecretName = str
@@ -2154,23 +1150,9 @@ class SecretsNames(pydantic.BaseModel):
     type: typing.Literal["asSecretsNames"] = "asSecretsNames"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SecretsNamesDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(SecretsNamesDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class SecretsNamesDict(typing_extensions.TypedDict):
-    """
-    A list of secret names that can be referenced in code and webhook configurations.
-    This will be provided to the client when fetching the RestConnectionConfiguration.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    secretNames: typing.List[SecretName]
-    """The names of the additional secrets that can be referenced in code and webhook configurations."""
-
-    type: typing.Literal["asSecretsNames"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SecretsWithPlaintextValues(pydantic.BaseModel):
@@ -2185,25 +1167,9 @@ class SecretsWithPlaintextValues(pydantic.BaseModel):
     type: typing.Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SecretsWithPlaintextValuesDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SecretsWithPlaintextValuesDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SecretsWithPlaintextValuesDict(typing_extensions.TypedDict):
-    """
-    A map representing secret name to plaintext secret value pairs.
-    This should be used when creating or updating additional secrets for a REST connection.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    secrets: typing.Dict[SecretName, PlaintextValue]
-    """The additional secrets that can be referenced in code and webhook configurations."""
-
-    type: typing.Literal["asSecretsWithPlaintextValues"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class StsRoleConfiguration(pydantic.BaseModel):
@@ -2243,49 +1209,9 @@ class StsRoleConfiguration(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StsRoleConfigurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            StsRoleConfigurationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class StsRoleConfigurationDict(typing_extensions.TypedDict):
-    """StsRoleConfiguration"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    roleArn: str
-    """
-    The Amazon Resource Name (ARN) of the role to assume.
-    For more information, see the official [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#principal-arn-format).
-    """
-
-    roleSessionName: str
-    """
-    An identifier for the assumed role session.
-    The value can be any string that you assume will be unique within the AWS account.
-    For more information, see the official [AWS documentation](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html#API_AssumeRole_RequestParameters).
-    """
-
-    roleSessionDuration: typing_extensions.NotRequired[core_models.DurationDict]
-    """
-    The duration of the role session.
-    The value specified can range from 900 seconds (15 minutes) up to the maximum session duration set for the role.
-    The maximum session duration setting can have a value from 1 hour to 12 hours. For more details see the official [AWS documentation](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html#API_AssumeRole_RequestParameters).
-    """
-
-    externalId: typing_extensions.NotRequired[str]
-    """
-    A unique identifier that is used by third parties when assuming roles in their customers' accounts.
-    For more information, see the official [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html).
-    """
-
-    stsEndpoint: typing_extensions.NotRequired[str]
-    """
-    By default, the AWS Security Token Service (AWS STS) is available as a global service, and all AWS STS requests go to a single endpoint at https://sts.amazonaws.com.
-    AWS recommends using Regional AWS STS endpoints instead of the global endpoint to reduce latency, build in redundancy, and increase session token validity.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class TableImport(pydantic.BaseModel):
@@ -2309,9 +1235,9 @@ class TableImport(pydantic.BaseModel):
     config: TableImportConfig
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TableImportDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TableImportDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TableImportAllowSchemaChanges = bool
@@ -2329,42 +1255,6 @@ TableImportConfig = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
-
-
-TableImportConfigDict = typing_extensions.Annotated[
-    typing.Union[
-        JdbcImportConfigDict,
-        MicrosoftSqlServerImportConfigDict,
-        PostgreSqlImportConfigDict,
-        MicrosoftAccessImportConfigDict,
-        OracleImportConfigDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
-
-
-class TableImportDict(typing_extensions.TypedDict):
-    """TableImport"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: TableImportRid
-    connectionRid: ConnectionRid
-    """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
-
-    datasetRid: datasets_models.DatasetRid
-    """The RID of the output dataset."""
-
-    branchName: typing_extensions.NotRequired[datasets_models.BranchName]
-    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
-
-    displayName: TableImportDisplayName
-    importMode: TableImportMode
-    allowSchemaChanges: TableImportAllowSchemaChanges
-    """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
-
-    config: TableImportConfigDict
 
 
 TableImportDisplayName = str
@@ -2389,165 +1279,92 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 
 
 core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
-core.resolve_forward_references(ConnectionConfigurationDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
-    CreateConnectionRequestConnectionConfigurationDict, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
-    CreateTableImportRequestTableImportConfigDict, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
-core.resolve_forward_references(EncryptedPropertyDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(FileImportFilterDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(RestAuthenticationModeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
-    RestConnectionAdditionalSecretsDict, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
-core.resolve_forward_references(RestRequestApiKeyLocationDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(S3AuthenticationModeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(TableImportConfigDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "ApiKeyAuthentication",
-    "ApiKeyAuthenticationDict",
     "AsPlaintextValue",
-    "AsPlaintextValueDict",
     "AsSecretName",
-    "AsSecretNameDict",
     "AwsAccessKey",
-    "AwsAccessKeyDict",
     "AwsOidcAuthentication",
-    "AwsOidcAuthenticationDict",
     "BasicCredentials",
-    "BasicCredentialsDict",
     "BearerToken",
-    "BearerTokenDict",
     "CloudIdentity",
-    "CloudIdentityDict",
     "CloudIdentityRid",
     "Connection",
     "ConnectionConfiguration",
-    "ConnectionConfigurationDict",
-    "ConnectionDict",
     "ConnectionDisplayName",
     "ConnectionRid",
     "CreateConnectionRequestConnectionConfiguration",
-    "CreateConnectionRequestConnectionConfigurationDict",
     "CreateConnectionRequestJdbcConnectionConfiguration",
-    "CreateConnectionRequestJdbcConnectionConfigurationDict",
     "CreateConnectionRequestRestConnectionConfiguration",
-    "CreateConnectionRequestRestConnectionConfigurationDict",
     "CreateConnectionRequestS3ConnectionConfiguration",
-    "CreateConnectionRequestS3ConnectionConfigurationDict",
     "CreateTableImportRequestJdbcImportConfig",
-    "CreateTableImportRequestJdbcImportConfigDict",
     "CreateTableImportRequestMicrosoftAccessImportConfig",
-    "CreateTableImportRequestMicrosoftAccessImportConfigDict",
     "CreateTableImportRequestMicrosoftSqlServerImportConfig",
-    "CreateTableImportRequestMicrosoftSqlServerImportConfigDict",
     "CreateTableImportRequestOracleImportConfig",
-    "CreateTableImportRequestOracleImportConfigDict",
     "CreateTableImportRequestPostgreSqlImportConfig",
-    "CreateTableImportRequestPostgreSqlImportConfigDict",
     "CreateTableImportRequestTableImportConfig",
-    "CreateTableImportRequestTableImportConfigDict",
     "Domain",
-    "DomainDict",
     "EncryptedProperty",
-    "EncryptedPropertyDict",
     "FileAnyPathMatchesFilter",
-    "FileAnyPathMatchesFilterDict",
     "FileAtLeastCountFilter",
-    "FileAtLeastCountFilterDict",
     "FileChangedSinceLastUploadFilter",
-    "FileChangedSinceLastUploadFilterDict",
     "FileImport",
     "FileImportCustomFilter",
-    "FileImportCustomFilterDict",
-    "FileImportDict",
     "FileImportDisplayName",
     "FileImportFilter",
-    "FileImportFilterDict",
     "FileImportMode",
     "FileImportRid",
     "FileLastModifiedAfterFilter",
-    "FileLastModifiedAfterFilterDict",
     "FilePathMatchesFilter",
-    "FilePathMatchesFilterDict",
     "FilePathNotMatchesFilter",
-    "FilePathNotMatchesFilterDict",
     "FileProperty",
     "FileSizeFilter",
-    "FileSizeFilterDict",
     "FilesCountLimitFilter",
-    "FilesCountLimitFilterDict",
     "HeaderApiKey",
-    "HeaderApiKeyDict",
     "JdbcConnectionConfiguration",
-    "JdbcConnectionConfigurationDict",
     "JdbcImportConfig",
-    "JdbcImportConfigDict",
     "ListFileImportsResponse",
-    "ListFileImportsResponseDict",
     "ListTableImportsResponse",
-    "ListTableImportsResponseDict",
     "MicrosoftAccessImportConfig",
-    "MicrosoftAccessImportConfigDict",
     "MicrosoftSqlServerImportConfig",
-    "MicrosoftSqlServerImportConfigDict",
     "OracleImportConfig",
-    "OracleImportConfigDict",
     "PlaintextValue",
     "PostgreSqlImportConfig",
-    "PostgreSqlImportConfigDict",
     "Protocol",
     "QueryParameterApiKey",
-    "QueryParameterApiKeyDict",
     "Region",
     "RestAuthenticationMode",
-    "RestAuthenticationModeDict",
     "RestConnectionAdditionalSecrets",
-    "RestConnectionAdditionalSecretsDict",
     "RestConnectionConfiguration",
-    "RestConnectionConfigurationDict",
     "RestConnectionOAuth2",
-    "RestConnectionOAuth2Dict",
     "RestRequestApiKeyLocation",
-    "RestRequestApiKeyLocationDict",
     "S3AuthenticationMode",
-    "S3AuthenticationModeDict",
     "S3ConnectionConfiguration",
-    "S3ConnectionConfigurationDict",
     "S3KmsConfiguration",
-    "S3KmsConfigurationDict",
     "S3ProxyConfiguration",
-    "S3ProxyConfigurationDict",
     "SecretName",
     "SecretsNames",
-    "SecretsNamesDict",
     "SecretsWithPlaintextValues",
-    "SecretsWithPlaintextValuesDict",
     "StsRoleConfiguration",
-    "StsRoleConfigurationDict",
     "TableImport",
     "TableImportAllowSchemaChanges",
     "TableImportConfig",
-    "TableImportConfigDict",
-    "TableImportDict",
     "TableImportDisplayName",
     "TableImportMode",
     "TableImportRid",

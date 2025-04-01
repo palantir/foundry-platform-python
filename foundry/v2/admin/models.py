@@ -43,13 +43,6 @@ AuthenticationProtocol = typing_extensions.Annotated[
 """AuthenticationProtocol"""
 
 
-AuthenticationProtocolDict = typing_extensions.Annotated[
-    typing.Union["SamlAuthenticationProtocolDict", "OidcAuthenticationProtocolDict"],
-    pydantic.Field(discriminator="type"),
-]
-"""AuthenticationProtocol"""
-
-
 class AuthenticationProvider(pydantic.BaseModel):
     """AuthenticationProvider"""
 
@@ -68,31 +61,9 @@ class AuthenticationProvider(pydantic.BaseModel):
     protocol: AuthenticationProtocol
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AuthenticationProviderDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AuthenticationProviderDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AuthenticationProviderDict(typing_extensions.TypedDict):
-    """AuthenticationProvider"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: AuthenticationProviderRid
-    name: AuthenticationProviderName
-    realm: core_models.Realm
-    enabled: AuthenticationProviderEnabled
-    """Whether users can log in using this provider."""
-
-    supportedHosts: typing.List[HostName]
-    """This provider can only be utilized from these hosts."""
-
-    supportedUsernamePatterns: typing.List[str]
-    """Users who enter usernames that match these patterns will be redirected to this authentication provider."""
-
-    protocol: AuthenticationProtocolDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 AuthenticationProviderEnabled = bool
@@ -118,22 +89,9 @@ class CertificateInfo(pydantic.BaseModel):
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CertificateInfoDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CertificateInfoDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CertificateInfoDict(typing_extensions.TypedDict):
-    """CertificateInfo"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    pemCertificate: str
-    """The certificate, in PEM format."""
-
-    commonName: typing_extensions.NotRequired[str]
-    expiryDate: datetime
-    usageType: CertificateUsageType
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
@@ -148,19 +106,9 @@ class Enrollment(pydantic.BaseModel):
     created_time: typing.Optional[core_models.CreatedTime] = pydantic.Field(alias=str("createdTime"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "EnrollmentDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(EnrollmentDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class EnrollmentDict(typing_extensions.TypedDict):
-    """Enrollment"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: core_models.EnrollmentRid
-    name: EnrollmentName
-    createdTime: typing_extensions.NotRequired[core_models.CreatedTime]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 EnrollmentName = str
@@ -173,19 +121,9 @@ class GetGroupsBatchRequestElement(pydantic.BaseModel):
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetGroupsBatchRequestElementDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetGroupsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetGroupsBatchRequestElementDict(typing_extensions.TypedDict):
-    """GetGroupsBatchRequestElement"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    groupId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetGroupsBatchResponse(pydantic.BaseModel):
@@ -194,19 +132,9 @@ class GetGroupsBatchResponse(pydantic.BaseModel):
     data: typing.Dict[core_models.PrincipalId, Group]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetGroupsBatchResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetGroupsBatchResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetGroupsBatchResponseDict(typing_extensions.TypedDict):
-    """GetGroupsBatchResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.Dict[core_models.PrincipalId, GroupDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetMarkingsBatchRequestElement(pydantic.BaseModel):
@@ -215,19 +143,9 @@ class GetMarkingsBatchRequestElement(pydantic.BaseModel):
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetMarkingsBatchRequestElementDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetMarkingsBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetMarkingsBatchRequestElementDict(typing_extensions.TypedDict):
-    """GetMarkingsBatchRequestElement"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    markingId: core_models.MarkingId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetMarkingsBatchResponse(pydantic.BaseModel):
@@ -236,19 +154,9 @@ class GetMarkingsBatchResponse(pydantic.BaseModel):
     data: typing.Dict[core_models.MarkingId, Marking]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetMarkingsBatchResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetMarkingsBatchResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetMarkingsBatchResponseDict(typing_extensions.TypedDict):
-    """GetMarkingsBatchResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.Dict[core_models.MarkingId, MarkingDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetUserMarkingsResponse(pydantic.BaseModel):
@@ -262,23 +170,9 @@ class GetUserMarkingsResponse(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetUserMarkingsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetUserMarkingsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetUserMarkingsResponseDict(typing_extensions.TypedDict):
-    """GetUserMarkingsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    view: typing.List[core_models.MarkingId]
-    """
-    The markings that the user has access to. The user will be able to access resources protected with these
-    markings. This includes organization markings for organizations in which the user is a guest member.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetUsersBatchRequestElement(pydantic.BaseModel):
@@ -287,19 +181,9 @@ class GetUsersBatchRequestElement(pydantic.BaseModel):
     user_id: core_models.PrincipalId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetUsersBatchRequestElementDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetUsersBatchRequestElementDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetUsersBatchRequestElementDict(typing_extensions.TypedDict):
-    """GetUsersBatchRequestElement"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    userId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GetUsersBatchResponse(pydantic.BaseModel):
@@ -308,19 +192,9 @@ class GetUsersBatchResponse(pydantic.BaseModel):
     data: typing.Dict[core_models.PrincipalId, User]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetUsersBatchResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetUsersBatchResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetUsersBatchResponseDict(typing_extensions.TypedDict):
-    """GetUsersBatchResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.Dict[core_models.PrincipalId, UserDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Group(pydantic.BaseModel):
@@ -342,29 +216,9 @@ class Group(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GroupDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GroupDict(typing_extensions.TypedDict):
-    """Group"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    id: core_models.PrincipalId
-    name: GroupName
-    """The name of the Group."""
-
-    description: typing_extensions.NotRequired[str]
-    """A description of the Group."""
-
-    realm: core_models.Realm
-    organizations: typing.List[core_models.OrganizationRid]
-    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
-
-    attributes: typing.Dict[AttributeName, AttributeValues]
-    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GroupMember(pydantic.BaseModel):
@@ -374,18 +228,9 @@ class GroupMember(pydantic.BaseModel):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupMemberDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GroupMemberDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GroupMemberDict(typing_extensions.TypedDict):
-    """GroupMember"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    principalType: core_models.PrincipalType
-    principalId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GroupMembership(pydantic.BaseModel):
@@ -394,17 +239,9 @@ class GroupMembership(pydantic.BaseModel):
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupMembershipDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GroupMembershipDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GroupMembershipDict(typing_extensions.TypedDict):
-    """GroupMembership"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    groupId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 GroupMembershipExpiration = datetime
@@ -426,21 +263,9 @@ class GroupProviderInfo(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupProviderInfoDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GroupProviderInfoDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GroupProviderInfoDict(typing_extensions.TypedDict):
-    """GroupProviderInfo"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    providerId: ProviderId
-    """
-    The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
-    At most one Group can have a given provider ID in a given Realm.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GroupSearchFilter(pydantic.BaseModel):
@@ -450,18 +275,9 @@ class GroupSearchFilter(pydantic.BaseModel):
     value: str
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupSearchFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GroupSearchFilterDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GroupSearchFilterDict(typing_extensions.TypedDict):
-    """GroupSearchFilter"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: PrincipalFilterType
-    value: str
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Host(pydantic.BaseModel):
@@ -470,17 +286,9 @@ class Host(pydantic.BaseModel):
     host_name: HostName = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "HostDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(HostDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class HostDict(typing_extensions.TypedDict):
-    """Host"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    hostName: HostName
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 HostName = str
@@ -494,21 +302,9 @@ class ListAuthenticationProvidersResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListAuthenticationProvidersResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListAuthenticationProvidersResponseDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class ListAuthenticationProvidersResponseDict(typing_extensions.TypedDict):
-    """ListAuthenticationProvidersResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[AuthenticationProviderDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListGroupMembersResponse(pydantic.BaseModel):
@@ -518,20 +314,9 @@ class ListGroupMembersResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListGroupMembersResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListGroupMembersResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListGroupMembersResponseDict(typing_extensions.TypedDict):
-    """ListGroupMembersResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[GroupMemberDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListGroupMembershipsResponse(pydantic.BaseModel):
@@ -541,20 +326,9 @@ class ListGroupMembershipsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListGroupMembershipsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListGroupMembershipsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListGroupMembershipsResponseDict(typing_extensions.TypedDict):
-    """ListGroupMembershipsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[GroupMembershipDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListGroupsResponse(pydantic.BaseModel):
@@ -564,20 +338,9 @@ class ListGroupsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListGroupsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListGroupsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListGroupsResponseDict(typing_extensions.TypedDict):
-    """ListGroupsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[GroupDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListHostsResponse(pydantic.BaseModel):
@@ -587,18 +350,9 @@ class ListHostsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListHostsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ListHostsResponseDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ListHostsResponseDict(typing_extensions.TypedDict):
-    """ListHostsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[HostDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListMarkingCategoriesResponse(pydantic.BaseModel):
@@ -608,20 +362,9 @@ class ListMarkingCategoriesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListMarkingCategoriesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListMarkingCategoriesResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListMarkingCategoriesResponseDict(typing_extensions.TypedDict):
-    """ListMarkingCategoriesResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[MarkingCategoryDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListMarkingMembersResponse(pydantic.BaseModel):
@@ -631,20 +374,9 @@ class ListMarkingMembersResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListMarkingMembersResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListMarkingMembersResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListMarkingMembersResponseDict(typing_extensions.TypedDict):
-    """ListMarkingMembersResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[MarkingMemberDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListMarkingRoleAssignmentsResponse(pydantic.BaseModel):
@@ -654,21 +386,9 @@ class ListMarkingRoleAssignmentsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListMarkingRoleAssignmentsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListMarkingRoleAssignmentsResponseDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class ListMarkingRoleAssignmentsResponseDict(typing_extensions.TypedDict):
-    """ListMarkingRoleAssignmentsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[MarkingRoleAssignmentDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListMarkingsResponse(pydantic.BaseModel):
@@ -678,20 +398,9 @@ class ListMarkingsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListMarkingsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListMarkingsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListMarkingsResponseDict(typing_extensions.TypedDict):
-    """ListMarkingsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[MarkingDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListUsersResponse(pydantic.BaseModel):
@@ -701,18 +410,9 @@ class ListUsersResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListUsersResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ListUsersResponseDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ListUsersResponseDict(typing_extensions.TypedDict):
-    """ListUsersResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[UserDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Marking(pydantic.BaseModel):
@@ -729,9 +429,9 @@ class Marking(pydantic.BaseModel):
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MarkingDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MarkingCategory(pydantic.BaseModel):
@@ -747,24 +447,9 @@ class MarkingCategory(pydantic.BaseModel):
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingCategoryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MarkingCategoryDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MarkingCategoryDict(typing_extensions.TypedDict):
-    """MarkingCategory"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    id: MarkingCategoryId
-    name: MarkingCategoryName
-    description: typing_extensions.NotRequired[str]
-    categoryType: MarkingCategoryType
-    markingType: MarkingType
-    markings: typing.List[core_models.MarkingId]
-    createdTime: core_models.CreatedTime
-    createdBy: typing_extensions.NotRequired[core_models.CreatedBy]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingCategoryId = str
@@ -782,22 +467,6 @@ MarkingCategoryType = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
 """MarkingCategoryType"""
 
 
-class MarkingDict(typing_extensions.TypedDict):
-    """Marking"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    id: core_models.MarkingId
-    categoryId: MarkingCategoryId
-    name: MarkingName
-    description: typing_extensions.NotRequired[str]
-    organization: typing_extensions.NotRequired[core_models.OrganizationRid]
-    """If this marking is associated with an Organization, its RID will be populated here."""
-
-    createdTime: core_models.CreatedTime
-    createdBy: typing_extensions.NotRequired[core_models.CreatedBy]
-
-
 class MarkingMember(pydantic.BaseModel):
     """MarkingMember"""
 
@@ -805,18 +474,9 @@ class MarkingMember(pydantic.BaseModel):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingMemberDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MarkingMemberDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MarkingMemberDict(typing_extensions.TypedDict):
-    """MarkingMember"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    principalType: core_models.PrincipalType
-    principalId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingName = str
@@ -840,21 +500,9 @@ class MarkingRoleAssignment(pydantic.BaseModel):
     role: MarkingRole
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingRoleAssignmentDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            MarkingRoleAssignmentDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class MarkingRoleAssignmentDict(typing_extensions.TypedDict):
-    """MarkingRoleAssignment"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    principalType: core_models.PrincipalType
-    principalId: core_models.PrincipalId
-    role: MarkingRole
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MarkingRoleUpdate(pydantic.BaseModel):
@@ -864,18 +512,9 @@ class MarkingRoleUpdate(pydantic.BaseModel):
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MarkingRoleUpdateDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MarkingRoleUpdateDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MarkingRoleUpdateDict(typing_extensions.TypedDict):
-    """MarkingRoleUpdate"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    role: MarkingRole
-    principalId: core_models.PrincipalId
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingType = typing.Literal["MANDATORY", "CBAC"]
@@ -888,19 +527,9 @@ class OidcAuthenticationProtocol(pydantic.BaseModel):
     type: typing.Literal["oidc"] = "oidc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OidcAuthenticationProtocolDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OidcAuthenticationProtocolDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OidcAuthenticationProtocolDict(typing_extensions.TypedDict):
-    """OidcAuthenticationProtocol"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["oidc"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Organization(pydantic.BaseModel):
@@ -923,30 +552,9 @@ class Organization(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OrganizationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OrganizationDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OrganizationDict(typing_extensions.TypedDict):
-    """Organization"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: core_models.OrganizationRid
-    name: OrganizationName
-    description: typing_extensions.NotRequired[str]
-    markingId: core_models.MarkingId
-    """
-    The ID of this Organization's underlying marking. Organization guest access can be managed
-    by updating the membership of this Marking.
-    """
-
-    host: typing_extensions.NotRequired[HostName]
-    """
-    The primary host name of the Organization. This should be used when constructing URLs for users of this
-    Organization.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OrganizationName = str
@@ -968,20 +576,9 @@ class SamlAuthenticationProtocol(pydantic.BaseModel):
     type: typing.Literal["saml"] = "saml"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SamlAuthenticationProtocolDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SamlAuthenticationProtocolDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SamlAuthenticationProtocolDict(typing_extensions.TypedDict):
-    """SamlAuthenticationProtocol"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    serviceProviderMetadata: SamlServiceProviderMetadataDict
-    type: typing.Literal["saml"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SamlServiceProviderMetadata(pydantic.BaseModel):
@@ -1005,34 +602,9 @@ class SamlServiceProviderMetadata(pydantic.BaseModel):
     certificates: typing.List[CertificateInfo]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SamlServiceProviderMetadataDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SamlServiceProviderMetadataDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SamlServiceProviderMetadataDict(typing_extensions.TypedDict):
-    """Information that describes a Foundry Authentication Provider as a SAML service provider. All information listed here is generated by Foundry."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    entityId: str
-    """The static SAML entity ID that represents this service provider."""
-
-    metadataUrl: str
-    """A public URL from which this service provider metadata can be downloaded as XML."""
-
-    acsUrls: typing.List[str]
-    """
-    The Assertion Consumer Service (ACS) URLs for this service provider, to which the SAML identity provider
-    redirects authentication responses.
-    """
-
-    logoutUrls: typing.List[str]
-    """The URLs for this service provider to which the SAML identity provider sends logout requests."""
-
-    certificates: typing.List[CertificateInfoDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SearchGroupsResponse(pydantic.BaseModel):
@@ -1042,20 +614,9 @@ class SearchGroupsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SearchGroupsResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SearchGroupsResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SearchGroupsResponseDict(typing_extensions.TypedDict):
-    """SearchGroupsResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[GroupDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SearchUsersResponse(pydantic.BaseModel):
@@ -1065,20 +626,9 @@ class SearchUsersResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SearchUsersResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SearchUsersResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SearchUsersResponseDict(typing_extensions.TypedDict):
-    """SearchUsersResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[UserDict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class User(pydantic.BaseModel):
@@ -1110,39 +660,9 @@ class User(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "UserDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(UserDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class UserDict(typing_extensions.TypedDict):
-    """User"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    id: core_models.PrincipalId
-    username: UserUsername
-    """The Foundry username of the User. This is unique within the realm."""
-
-    givenName: typing_extensions.NotRequired[str]
-    """The given name of the User."""
-
-    familyName: typing_extensions.NotRequired[str]
-    """The family name (last name) of the User."""
-
-    email: typing_extensions.NotRequired[str]
-    """The email at which to contact a User. Multiple users may have the same email address."""
-
-    realm: core_models.Realm
-    organization: typing_extensions.NotRequired[core_models.OrganizationRid]
-    """The RID of the user's primary Organization. This will be blank for third-party application service users."""
-
-    attributes: typing.Dict[AttributeName, AttributeValues]
-    """
-    A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by
-    Foundry and are subject to change. Additional attributes may be configured by Foundry administrators in 
-    Control Panel and populated by the User's SSO provider upon login.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class UserProviderInfo(pydantic.BaseModel):
@@ -1156,21 +676,9 @@ class UserProviderInfo(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "UserProviderInfoDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(UserProviderInfoDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class UserProviderInfoDict(typing_extensions.TypedDict):
-    """UserProviderInfo"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    providerId: ProviderId
-    """
-    The ID of the User in the external authentication provider. This value is determined by the authentication provider.
-    At most one User can have a given provider ID in a given Realm.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class UserSearchFilter(pydantic.BaseModel):
@@ -1180,18 +688,9 @@ class UserSearchFilter(pydantic.BaseModel):
     value: str
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "UserSearchFilterDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(UserSearchFilterDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class UserSearchFilterDict(typing_extensions.TypedDict):
-    """UserSearchFilter"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: PrincipalFilterType
-    value: str
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 UserUsername = str
@@ -1200,110 +699,68 @@ UserUsername = str
 
 core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
 core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
-core.resolve_forward_references(AuthenticationProtocolDict, globalns=globals(), localns=locals())
 
 __all__ = [
     "AttributeName",
     "AttributeValue",
     "AttributeValues",
     "AuthenticationProtocol",
-    "AuthenticationProtocolDict",
     "AuthenticationProvider",
-    "AuthenticationProviderDict",
     "AuthenticationProviderEnabled",
     "AuthenticationProviderName",
     "AuthenticationProviderRid",
     "CertificateInfo",
-    "CertificateInfoDict",
     "CertificateUsageType",
     "Enrollment",
-    "EnrollmentDict",
     "EnrollmentName",
     "GetGroupsBatchRequestElement",
-    "GetGroupsBatchRequestElementDict",
     "GetGroupsBatchResponse",
-    "GetGroupsBatchResponseDict",
     "GetMarkingsBatchRequestElement",
-    "GetMarkingsBatchRequestElementDict",
     "GetMarkingsBatchResponse",
-    "GetMarkingsBatchResponseDict",
     "GetUserMarkingsResponse",
-    "GetUserMarkingsResponseDict",
     "GetUsersBatchRequestElement",
-    "GetUsersBatchRequestElementDict",
     "GetUsersBatchResponse",
-    "GetUsersBatchResponseDict",
     "Group",
-    "GroupDict",
     "GroupMember",
-    "GroupMemberDict",
     "GroupMembership",
-    "GroupMembershipDict",
     "GroupMembershipExpiration",
     "GroupName",
     "GroupProviderInfo",
-    "GroupProviderInfoDict",
     "GroupSearchFilter",
-    "GroupSearchFilterDict",
     "Host",
-    "HostDict",
     "HostName",
     "ListAuthenticationProvidersResponse",
-    "ListAuthenticationProvidersResponseDict",
     "ListGroupMembersResponse",
-    "ListGroupMembersResponseDict",
     "ListGroupMembershipsResponse",
-    "ListGroupMembershipsResponseDict",
     "ListGroupsResponse",
-    "ListGroupsResponseDict",
     "ListHostsResponse",
-    "ListHostsResponseDict",
     "ListMarkingCategoriesResponse",
-    "ListMarkingCategoriesResponseDict",
     "ListMarkingMembersResponse",
-    "ListMarkingMembersResponseDict",
     "ListMarkingRoleAssignmentsResponse",
-    "ListMarkingRoleAssignmentsResponseDict",
     "ListMarkingsResponse",
-    "ListMarkingsResponseDict",
     "ListUsersResponse",
-    "ListUsersResponseDict",
     "Marking",
     "MarkingCategory",
-    "MarkingCategoryDict",
     "MarkingCategoryId",
     "MarkingCategoryName",
     "MarkingCategoryType",
-    "MarkingDict",
     "MarkingMember",
-    "MarkingMemberDict",
     "MarkingName",
     "MarkingRole",
     "MarkingRoleAssignment",
-    "MarkingRoleAssignmentDict",
     "MarkingRoleUpdate",
-    "MarkingRoleUpdateDict",
     "MarkingType",
     "OidcAuthenticationProtocol",
-    "OidcAuthenticationProtocolDict",
     "Organization",
-    "OrganizationDict",
     "OrganizationName",
     "PrincipalFilterType",
     "ProviderId",
     "SamlAuthenticationProtocol",
-    "SamlAuthenticationProtocolDict",
     "SamlServiceProviderMetadata",
-    "SamlServiceProviderMetadataDict",
     "SearchGroupsResponse",
-    "SearchGroupsResponseDict",
     "SearchUsersResponse",
-    "SearchUsersResponseDict",
     "User",
-    "UserDict",
     "UserProviderInfo",
-    "UserProviderInfoDict",
     "UserSearchFilter",
-    "UserSearchFilterDict",
     "UserUsername",
 ]

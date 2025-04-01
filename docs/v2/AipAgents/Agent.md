@@ -3,7 +3,6 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**all_sessions**](#all_sessions) | **GET** /v2/aipAgents/agents/allSessions | Public Beta |
-[**all_sessions_page**](#all_sessions_page) | **GET** /v2/aipAgents/agents/allSessions | Public Beta |
 [**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid} | Public Beta |
 
 # **all_sessions**
@@ -46,63 +45,6 @@ try:
         pprint(agent)
 except foundry.PalantirRPCException as e:
     print("HTTP error when calling Agent.all_sessions: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | AgentsSessionsPage  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **all_sessions_page**
-List all conversation sessions between the calling user and all accessible Agents that were created by this client.
-Sessions are returned in order of most recently updated first.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**AgentsSessionsPage**
-
-### Example
-
-```python
-from foundry.v2 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# Optional[PageSize] | The maximum number of sessions to return in a single page. The maximum allowed value is 100. Defaults to 100 if not specified.
-page_size = None
-# Optional[PageToken]
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.aip_agents.Agent.all_sessions_page(
-        page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The all_sessions_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Agent.all_sessions_page: %s\n" % e)
 
 ```
 

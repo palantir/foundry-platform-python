@@ -54,15 +54,9 @@ class OntologyObjectSetClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        aggregation: typing.List[
-            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
-        ],
-        group_by: typing.List[
-            typing.Union[
-                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
-            ]
-        ],
-        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        aggregation: typing.List[ontologies_models.AggregationV2],
+        group_by: typing.List[ontologies_models.AggregationGroupByV2],
+        object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -77,11 +71,11 @@ class OntologyObjectSetClient:
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
-        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
+        :type aggregation: List[AggregationV2]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
+        :type group_by: List[AggregationGroupByV2]
         :param object_set:
-        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -118,20 +112,9 @@ class OntologyObjectSetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": typing.List[
-                            typing.Union[
-                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
-                            ]
-                        ],
-                        "objectSet": typing.Union[
-                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
-                        ],
-                        "groupBy": typing.List[
-                            typing.Union[
-                                ontologies_models.AggregationGroupByV2,
-                                ontologies_models.AggregationGroupByV2Dict,
-                            ]
-                        ],
+                        "aggregation": typing.List[ontologies_models.AggregationV2],
+                        "objectSet": ontologies_models.ObjectSet,
+                        "groupBy": typing.List[ontologies_models.AggregationGroupByV2],
                         "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
@@ -149,7 +132,7 @@ class OntologyObjectSetClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        object_set: ontologies_models.ObjectSet,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.CreateTemporaryObjectSetResponseV2:
@@ -162,7 +145,7 @@ class OntologyObjectSetClient:
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :type object_set: ObjectSet
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -187,9 +170,7 @@ class OntologyObjectSetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": typing.Union[
-                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
-                        ],
+                        "objectSet": ontologies_models.ObjectSet,
                     },
                 ),
                 response_type=ontologies_models.CreateTemporaryObjectSetResponseV2,
@@ -253,13 +234,11 @@ class OntologyObjectSetClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        order_by: typing.Optional[
-            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
-        ] = None,
+        order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -279,7 +258,7 @@ class OntologyObjectSetClient:
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -287,7 +266,7 @@ class OntologyObjectSetClient:
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :type order_by: Optional[SearchOrderByV2]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -326,15 +305,8 @@ class OntologyObjectSetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": typing.Union[
-                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchOrderByV2,
-                                ontologies_models.SearchOrderByV2Dict,
-                            ]
-                        ],
+                        "objectSet": ontologies_models.ObjectSet,
+                        "orderBy": typing.Optional[ontologies_models.SearchOrderByV2],
                         "select": typing.List[ontologies_models.SelectedPropertyApiName],
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
@@ -355,13 +327,11 @@ class OntologyObjectSetClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        order_by: typing.Optional[
-            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
-        ] = None,
+        order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -387,7 +357,7 @@ class OntologyObjectSetClient:
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -395,7 +365,7 @@ class OntologyObjectSetClient:
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :type order_by: Optional[SearchOrderByV2]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -437,15 +407,8 @@ class OntologyObjectSetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": typing.Union[
-                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchOrderByV2,
-                                ontologies_models.SearchOrderByV2Dict,
-                            ]
-                        ],
+                        "objectSet": ontologies_models.ObjectSet,
+                        "orderBy": typing.Optional[ontologies_models.SearchOrderByV2],
                         "select": typing.List[ontologies_models.SelectedPropertyApiName],
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
@@ -466,13 +429,11 @@ class OntologyObjectSetClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        object_set: typing.Union[ontologies_models.ObjectSet, ontologies_models.ObjectSetDict],
+        object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        order_by: typing.Optional[
-            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
-        ] = None,
+        order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -500,7 +461,7 @@ class OntologyObjectSetClient:
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
-        :type object_set: Union[ObjectSet, ObjectSetDict]
+        :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.
@@ -508,7 +469,7 @@ class OntologyObjectSetClient:
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :type order_by: Optional[SearchOrderByV2]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param page_size:
@@ -550,15 +511,8 @@ class OntologyObjectSetClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "objectSet": typing.Union[
-                            ontologies_models.ObjectSet, ontologies_models.ObjectSetDict
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchOrderByV2,
-                                ontologies_models.SearchOrderByV2Dict,
-                            ]
-                        ],
+                        "objectSet": ontologies_models.ObjectSet,
+                        "orderBy": typing.Optional[ontologies_models.SearchOrderByV2],
                         "select": typing.List[ontologies_models.SelectedPropertyApiName],
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],

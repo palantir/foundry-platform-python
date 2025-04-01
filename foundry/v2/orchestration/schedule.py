@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -55,29 +54,19 @@ class ScheduleClient:
     def create(
         self,
         *,
-        action: typing.Union[
-            orchestration_models.CreateScheduleRequestAction,
-            orchestration_models.CreateScheduleRequestActionDict,
-        ],
+        action: orchestration_models.CreateScheduleRequestAction,
         description: typing.Optional[str] = None,
         display_name: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        scope_mode: typing.Optional[
-            typing.Union[
-                orchestration_models.CreateScheduleRequestScopeMode,
-                orchestration_models.CreateScheduleRequestScopeModeDict,
-            ]
-        ] = None,
-        trigger: typing.Optional[
-            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
-        ] = None,
+        scope_mode: typing.Optional[orchestration_models.CreateScheduleRequestScopeMode] = None,
+        trigger: typing.Optional[orchestration_models.Trigger] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.Schedule:
         """
         Creates a new Schedule.
         :param action:
-        :type action: Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
+        :type action: CreateScheduleRequestAction
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -85,9 +74,9 @@ class ScheduleClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[CreateScheduleRequestScopeMode]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[Union[Trigger, TriggerDict]]
+        :type trigger: Optional[Trigger]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -120,20 +109,10 @@ class ScheduleClient:
                     {  # type: ignore
                         "displayName": typing.Optional[str],
                         "description": typing.Optional[str],
-                        "action": typing.Union[
-                            orchestration_models.CreateScheduleRequestAction,
-                            orchestration_models.CreateScheduleRequestActionDict,
-                        ],
-                        "trigger": typing.Optional[
-                            typing.Union[
-                                orchestration_models.Trigger, orchestration_models.TriggerDict
-                            ]
-                        ],
+                        "action": orchestration_models.CreateScheduleRequestAction,
+                        "trigger": typing.Optional[orchestration_models.Trigger],
                         "scopeMode": typing.Optional[
-                            typing.Union[
-                                orchestration_models.CreateScheduleRequestScopeMode,
-                                orchestration_models.CreateScheduleRequestScopeModeDict,
-                            ]
+                            orchestration_models.CreateScheduleRequestScopeMode
                         ],
                     },
                 ),
@@ -296,22 +275,12 @@ class ScheduleClient:
         self,
         schedule_rid: orchestration_models.ScheduleRid,
         *,
-        action: typing.Union[
-            orchestration_models.ReplaceScheduleRequestAction,
-            orchestration_models.ReplaceScheduleRequestActionDict,
-        ],
+        action: orchestration_models.ReplaceScheduleRequestAction,
         description: typing.Optional[str] = None,
         display_name: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        scope_mode: typing.Optional[
-            typing.Union[
-                orchestration_models.ReplaceScheduleRequestScopeMode,
-                orchestration_models.ReplaceScheduleRequestScopeModeDict,
-            ]
-        ] = None,
-        trigger: typing.Optional[
-            typing.Union[orchestration_models.Trigger, orchestration_models.TriggerDict]
-        ] = None,
+        scope_mode: typing.Optional[orchestration_models.ReplaceScheduleRequestScopeMode] = None,
+        trigger: typing.Optional[orchestration_models.Trigger] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.Schedule:
@@ -320,7 +289,7 @@ class ScheduleClient:
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
-        :type action: Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
+        :type action: ReplaceScheduleRequestAction
         :param description:
         :type description: Optional[str]
         :param display_name:
@@ -328,9 +297,9 @@ class ScheduleClient:
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param scope_mode:
-        :type scope_mode: Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
+        :type scope_mode: Optional[ReplaceScheduleRequestScopeMode]
         :param trigger: The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-        :type trigger: Optional[Union[Trigger, TriggerDict]]
+        :type trigger: Optional[Trigger]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -365,20 +334,10 @@ class ScheduleClient:
                     {  # type: ignore
                         "displayName": typing.Optional[str],
                         "description": typing.Optional[str],
-                        "action": typing.Union[
-                            orchestration_models.ReplaceScheduleRequestAction,
-                            orchestration_models.ReplaceScheduleRequestActionDict,
-                        ],
-                        "trigger": typing.Optional[
-                            typing.Union[
-                                orchestration_models.Trigger, orchestration_models.TriggerDict
-                            ]
-                        ],
+                        "action": orchestration_models.ReplaceScheduleRequestAction,
+                        "trigger": typing.Optional[orchestration_models.Trigger],
                         "scopeMode": typing.Optional[
-                            typing.Union[
-                                orchestration_models.ReplaceScheduleRequestScopeMode,
-                                orchestration_models.ReplaceScheduleRequestScopeModeDict,
-                            ]
+                            orchestration_models.ReplaceScheduleRequestScopeMode
                         ],
                     },
                 ),
@@ -497,66 +456,6 @@ class ScheduleClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def runs_page(
-        self,
-        schedule_rid: orchestration_models.ScheduleRid,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> orchestration_models.ListRunsOfScheduleResponse:
-        """
-        Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
-
-        :param schedule_rid:
-        :type schedule_rid: ScheduleRid
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: orchestration_models.ListRunsOfScheduleResponse
-        """
-
-        warnings.warn(
-            "The client.orchestration.Schedule.runs_page(...) method has been deprecated. Please use client.orchestration.Schedule.runs(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/orchestration/schedules/{scheduleRid}/runs",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "scheduleRid": schedule_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=orchestration_models.ListRunsOfScheduleResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def unpause(
         self,
         schedule_rid: orchestration_models.ScheduleRid,
@@ -611,7 +510,6 @@ class _ScheduleClientRaw:
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
         def runs(_: orchestration_models.ListRunsOfScheduleResponse): ...
-        def runs_page(_: orchestration_models.ListRunsOfScheduleResponse): ...
         def unpause(_: None): ...
 
         self.create = core.with_raw_response(create, client.create)
@@ -621,7 +519,6 @@ class _ScheduleClientRaw:
         self.replace = core.with_raw_response(replace, client.replace)
         self.run = core.with_raw_response(run, client.run)
         self.runs = core.with_raw_response(runs, client.runs)
-        self.runs_page = core.with_raw_response(runs_page, client.runs_page)
         self.unpause = core.with_raw_response(unpause, client.unpause)
 
 
@@ -632,11 +529,9 @@ class _ScheduleClientStreaming:
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
         def runs(_: orchestration_models.ListRunsOfScheduleResponse): ...
-        def runs_page(_: orchestration_models.ListRunsOfScheduleResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.replace = core.with_streaming_response(replace, client.replace)
         self.run = core.with_streaming_response(run, client.run)
         self.runs = core.with_streaming_response(runs, client.runs)
-        self.runs_page = core.with_streaming_response(runs_page, client.runs_page)

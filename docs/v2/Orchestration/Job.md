@@ -64,7 +64,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]] | Body of the request |  |
+**body** | List[GetJobsBatchRequestElement] | Body of the request |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -79,7 +79,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]] | Body of the request
+# List[GetJobsBatchRequestElement] | Body of the request
 body = [{"jobRid": "ri.foundry.main.job.aaf94076-d773-4732-a1df-3b638eb50448"}]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -56,9 +55,7 @@ class ResourceRoleClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[
-            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
-        ],
+        roles: typing.List[filesystem_models.ResourceRole],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -68,7 +65,7 @@ class ResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
+        :type roles: List[ResourceRole]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -98,11 +95,7 @@ class ResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[
-                            typing.Union[
-                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
-                            ]
-                        ],
+                        "roles": typing.List[filesystem_models.ResourceRole],
                     },
                 ),
                 response_type=None,
@@ -175,77 +168,11 @@ class ResourceRoleClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        resource_rid: filesystem_models.ResourceRid,
-        *,
-        include_inherited: typing.Optional[bool] = None,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> filesystem_models.ListResourceRolesResponse:
-        """
-        List the roles on a resource.
-
-        :param resource_rid:
-        :type resource_rid: ResourceRid
-        :param include_inherited: Whether to include inherited roles on the resource.
-        :type include_inherited: Optional[bool]
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: filesystem_models.ListResourceRolesResponse
-        """
-
-        warnings.warn(
-            "The client.filesystem.Role.page(...) method has been deprecated. Please use client.filesystem.Role.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/filesystem/resources/{resourceRid}/roles",
-                query_params={
-                    "includeInherited": include_inherited,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "resourceRid": resource_rid,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=filesystem_models.ListResourceRolesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def remove(
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[
-            typing.Union[filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict]
-        ],
+        roles: typing.List[filesystem_models.ResourceRole],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -255,7 +182,7 @@ class ResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[Union[ResourceRole, ResourceRoleDict]]
+        :type roles: List[ResourceRole]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -285,11 +212,7 @@ class ResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[
-                            typing.Union[
-                                filesystem_models.ResourceRole, filesystem_models.ResourceRoleDict
-                            ]
-                        ],
+                        "roles": typing.List[filesystem_models.ResourceRole],
                     },
                 ),
                 response_type=None,
@@ -306,19 +229,15 @@ class _ResourceRoleClientRaw:
     def __init__(self, client: ResourceRoleClient) -> None:
         def add(_: None): ...
         def list(_: filesystem_models.ListResourceRolesResponse): ...
-        def page(_: filesystem_models.ListResourceRolesResponse): ...
         def remove(_: None): ...
 
         self.add = core.with_raw_response(add, client.add)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.remove = core.with_raw_response(remove, client.remove)
 
 
 class _ResourceRoleClientStreaming:
     def __init__(self, client: ResourceRoleClient) -> None:
         def list(_: filesystem_models.ListResourceRolesResponse): ...
-        def page(_: filesystem_models.ListResourceRolesResponse): ...
 
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

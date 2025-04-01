@@ -7,8 +7,6 @@ Method | HTTP request | Release Stage |
 [**get_linked_object**](#get_linked_object) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} | Stable |
 [**list**](#list) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} | Stable |
 [**list_linked_objects**](#list_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
-[**page**](#page) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType} | Stable |
-[**page_linked_objects**](#page_linked_objects) | **GET** /v1/ontologies/{ontologyRid}/objects/{objectType}/{primaryKey}/links/{linkType} | Stable |
 [**search**](#search) | **POST** /v1/ontologies/{ontologyRid}/objects/{objectType}/search | Stable |
 
 # **aggregate**
@@ -23,9 +21,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. |  |
 **object_type** | ObjectTypeApiName | The type of the object to aggregate on. |  |
-**aggregation** | List[Union[Aggregation, AggregationDict]] |  |  |
-**group_by** | List[Union[AggregationGroupBy, AggregationGroupByDict]] |  |  |
-**query** | Optional[Union[SearchJsonQuery, SearchJsonQueryDict]] |  | [optional] |
+**aggregation** | List[Aggregation] |  |  |
+**group_by** | List[AggregationGroupBy] |  |  |
+**query** | Optional[SearchJsonQuery] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponse**
@@ -43,12 +41,12 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ObjectTypeApiName | The type of the object to aggregate on.
 object_type = "employee"
-# List[Union[Aggregation, AggregationDict]]
+# List[Aggregation]
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[Union[AggregationGroupBy, AggregationGroupByDict]]
+# List[AggregationGroupBy]
 group_by = [
     {
         "field": "properties.startDate",
@@ -57,7 +55,7 @@ group_by = [
     },
     {"field": "properties.city", "type": "exact"},
 ]
-# Optional[Union[SearchJsonQuery, SearchJsonQueryDict]]
+# Optional[SearchJsonQuery]
 query = {"not": {"field": "properties.name", "eq": "john"}}
 
 
@@ -399,188 +397,6 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
 
-# **page**
-Lists the objects for the given Ontology and object type.
-
-This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
-
-Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-repeated objects in the response pages.
-
-For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-Each page may be smaller or larger than the requested page size. However, it
-is guaranteed that if there are more results available, at least one result will be present
-in the response.
-
-Note that null value properties will not be returned.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**order_by** | Optional[OrderBy] |  | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
-
-### Return type
-**ListObjectsResponse**
-
-### Example
-
-```python
-from foundry.v1 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-object_type = "employee"
-# Optional[OrderBy]
-order_by = None
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-page_size = None
-# Optional[PageToken]
-page_token = None
-# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
-properties = None
-
-
-try:
-    api_response = foundry_client.ontologies.OntologyObject.page(
-        ontology_rid,
-        object_type,
-        order_by=order_by,
-        page_size=page_size,
-        page_token=page_token,
-        properties=properties,
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling OntologyObject.page: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListObjectsResponse  | Success response. | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
-
-# **page_linked_objects**
-Lists the linked objects for a specific object and the given link type.
-
-This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
-
-Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
-repeated objects in the response pages.
-
-For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
-are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
-
-Each page may be smaller or larger than the requested page size. However, it
-is guaranteed that if there are more results available, at least one result will be present
-in the response.
-
-Note that null value properties will not be returned.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_type** | ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
-**link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
-**order_by** | Optional[OrderBy] |  | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
-
-### Return type
-**ListLinkedObjectsResponse**
-
-### Example
-
-```python
-from foundry.v1 import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
-ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
-# ObjectTypeApiName | The API name of the object from which the links originate. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
-object_type = "employee"
-# PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-primary_key = 50030
-# LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
-link_type = "directReport"
-# Optional[OrderBy]
-order_by = None
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-page_size = None
-# Optional[PageToken]
-page_token = None
-# Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
-properties = None
-
-
-try:
-    api_response = foundry_client.ontologies.OntologyObject.page_linked_objects(
-        ontology_rid,
-        object_type,
-        primary_key,
-        link_type,
-        order_by=order_by,
-        page_size=page_size,
-        page_token=page_token,
-        properties=properties,
-    )
-    print("The page_linked_objects response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling OntologyObject.page_linked_objects: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListLinkedObjectsResponse  | Success response. | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v1-link) [[Back to Model list]](../../../README.md#models-v1-link) [[Back to README]](../../../README.md)
-
 # **search**
 Search for objects in the specified ontology and object type. The request body is used
 to filter objects based on the specified query. The supported queries are:
@@ -615,8 +431,8 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. |  |
 **object_type** | ObjectTypeApiName | The type of the requested objects. |  |
 **fields** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**query** | Union[SearchJsonQuery, SearchJsonQueryDict] |  |  |
-**order_by** | Optional[Union[SearchOrderBy, SearchOrderByDict]] |  | [optional] |
+**query** | SearchJsonQuery |  |  |
+**order_by** | Optional[SearchOrderBy] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -638,9 +454,9 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 fields = None
-# Union[SearchJsonQuery, SearchJsonQueryDict]
+# SearchJsonQuery
 query = {"not": {"field": "properties.age", "eq": 21}}
-# Optional[Union[SearchOrderBy, SearchOrderByDict]]
+# Optional[SearchOrderBy]
 order_by = None
 # Optional[PageSize]
 page_size = None

@@ -34,19 +34,9 @@ class AbsoluteTimeRange(pydantic.BaseModel):
     type: typing.Literal["absolute"] = "absolute"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AbsoluteTimeRangeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AbsoluteTimeRangeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AbsoluteTimeRangeDict(typing_extensions.TypedDict):
-    """ISO 8601 timestamps forming a range for a time series query. Start is inclusive and end is exclusive."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    startTime: typing_extensions.NotRequired[datetime]
-    endTime: typing_extensions.NotRequired[datetime]
-    type: typing.Literal["absolute"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AbsoluteValuePropertyExpression(pydantic.BaseModel):
@@ -56,20 +46,9 @@ class AbsoluteValuePropertyExpression(pydantic.BaseModel):
     type: typing.Literal["absoluteValue"] = "absoluteValue"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AbsoluteValuePropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AbsoluteValuePropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AbsoluteValuePropertyExpressionDict(typing_extensions.TypedDict):
-    """Calculates absolute value of a numeric value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    property: DerivedPropertyDefinitionDict
-    type: typing.Literal["absoluteValue"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ActionParameterArrayType(pydantic.BaseModel):
@@ -79,20 +58,9 @@ class ActionParameterArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ActionParameterArrayTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ActionParameterArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ActionParameterArrayTypeDict(typing_extensions.TypedDict):
-    """ActionParameterArrayType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subType: ActionParameterTypeDict
-    type: typing.Literal["array"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ActionParameterType = typing_extensions.Annotated[
@@ -119,30 +87,6 @@ ActionParameterType = typing_extensions.Annotated[
 """A union of all the types supported by Ontology Action parameters."""
 
 
-ActionParameterTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        "OntologyInterfaceObjectTypeDict",
-        "OntologyStructTypeDict",
-        core_models.StringTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.LongTypeDict,
-        "OntologyObjectTypeReferenceTypeDict",
-        core_models.BooleanTypeDict,
-        core_models.MarkingTypeDict,
-        core_models.AttachmentTypeDict,
-        core_models.MediaReferenceTypeDict,
-        ActionParameterArrayTypeDict,
-        "OntologyObjectSetTypeDict",
-        "OntologyObjectTypeDict",
-        core_models.TimestampTypeDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by Ontology Action parameters."""
-
-
 class ActionParameterV2(pydantic.BaseModel):
     """Details about a parameter of an action."""
 
@@ -152,30 +96,13 @@ class ActionParameterV2(pydantic.BaseModel):
     required: bool
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ActionParameterV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ActionParameterV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ActionParameterV2Dict(typing_extensions.TypedDict):
-    """Details about a parameter of an action."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    displayName: core_models.DisplayName
-    description: typing_extensions.NotRequired[str]
-    dataType: ActionParameterTypeDict
-    required: bool
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ActionResults = typing_extensions.Annotated[
     typing.Union["ObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
-]
-"""ActionResults"""
-
-
-ActionResultsDict = typing_extensions.Annotated[
-    typing.Union["ObjectEditsDict", "ObjectTypeEditsDict"], pydantic.Field(discriminator="type")
 ]
 """ActionResults"""
 
@@ -207,23 +134,9 @@ class ActionTypeV2(pydantic.BaseModel):
     operations: typing.List[LogicRule]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ActionTypeV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ActionTypeV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ActionTypeV2Dict(typing_extensions.TypedDict):
-    """Represents an action type in the Ontology."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: ActionTypeApiName
-    description: typing_extensions.NotRequired[str]
-    displayName: typing_extensions.NotRequired[core_models.DisplayName]
-    status: core_models.ReleaseStatus
-    parameters: typing.Dict[ParameterId, ActionParameterV2Dict]
-    rid: ActionTypeRid
-    operations: typing.List[LogicRuleDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ActivePropertyTypeStatus(pydantic.BaseModel):
@@ -235,22 +148,9 @@ class ActivePropertyTypeStatus(pydantic.BaseModel):
     type: typing.Literal["active"] = "active"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ActivePropertyTypeStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ActivePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ActivePropertyTypeStatusDict(typing_extensions.TypedDict):
-    """
-    This status indicates that the PropertyType will not change on short notice and should thus be safe to use in
-    user facing workflows.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["active"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AddLink(pydantic.BaseModel):
@@ -263,21 +163,9 @@ class AddLink(pydantic.BaseModel):
     type: typing.Literal["addLink"] = "addLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AddLinkDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AddLinkDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AddLinkDict(typing_extensions.TypedDict):
-    """AddLink"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    linkTypeApiNameAtoB: LinkTypeApiName
-    linkTypeApiNameBtoA: LinkTypeApiName
-    aSideObject: LinkSideObjectDict
-    bSideObject: LinkSideObjectDict
-    type: typing.Literal["addLink"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AddObject(pydantic.BaseModel):
@@ -288,19 +176,9 @@ class AddObject(pydantic.BaseModel):
     type: typing.Literal["addObject"] = "addObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AddObjectDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AddObjectDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AddObjectDict(typing_extensions.TypedDict):
-    """AddObject"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    primaryKey: PropertyValue
-    objectType: ObjectTypeApiName
-    type: typing.Literal["addObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AddPropertyExpression(pydantic.BaseModel):
@@ -310,20 +188,9 @@ class AddPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["add"] = "add"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AddPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AddPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AddPropertyExpressionDict(typing_extensions.TypedDict):
-    """Adds two or more numeric values."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    properties: typing.List[DerivedPropertyDefinitionDict]
-    type: typing.Literal["add"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregateObjectsResponseItemV2(pydantic.BaseModel):
@@ -333,20 +200,9 @@ class AggregateObjectsResponseItemV2(pydantic.BaseModel):
     metrics: typing.List[AggregationMetricResultV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregateObjectsResponseItemV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregateObjectsResponseItemV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregateObjectsResponseItemV2Dict(typing_extensions.TypedDict):
-    """AggregateObjectsResponseItemV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    group: typing.Dict[AggregationGroupKeyV2, AggregationGroupValueV2]
-    metrics: typing.List[AggregationMetricResultV2Dict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregateObjectsResponseV2(pydantic.BaseModel):
@@ -357,21 +213,9 @@ class AggregateObjectsResponseV2(pydantic.BaseModel):
     data: typing.List[AggregateObjectsResponseItemV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregateObjectsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregateObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregateObjectsResponseV2Dict(typing_extensions.TypedDict):
-    """AggregateObjectsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    excludedItems: typing_extensions.NotRequired[int]
-    accuracy: AggregationAccuracy
-    data: typing.List[AggregateObjectsResponseItemV2Dict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregateTimeSeries(pydantic.BaseModel):
@@ -381,20 +225,9 @@ class AggregateTimeSeries(pydantic.BaseModel):
     strategy: TimeSeriesAggregationStrategy
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregateTimeSeriesDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregateTimeSeriesDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregateTimeSeriesDict(typing_extensions.TypedDict):
-    """AggregateTimeSeries"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    method: TimeSeriesAggregationMethod
-    strategy: TimeSeriesAggregationStrategyDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 AggregationAccuracy = typing.Literal["ACCURATE", "APPROXIMATE"]
@@ -417,25 +250,9 @@ class AggregationDurationGroupingV2(pydantic.BaseModel):
     type: typing.Literal["duration"] = "duration"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationDurationGroupingV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationDurationGroupingV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationDurationGroupingV2Dict(typing_extensions.TypedDict):
-    """
-    Divides objects into groups according to an interval. Note that this grouping applies only on date and timestamp types.
-    When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be set to `1`.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    value: int
-    unit: TimeUnit
-    type: typing.Literal["duration"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregationExactGroupingV2(pydantic.BaseModel):
@@ -447,22 +264,9 @@ class AggregationExactGroupingV2(pydantic.BaseModel):
     type: typing.Literal["exact"] = "exact"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationExactGroupingV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationExactGroupingV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationExactGroupingV2Dict(typing_extensions.TypedDict):
-    """Divides objects into groups according to an exact value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    maxGroupCount: typing_extensions.NotRequired[int]
-    defaultValue: typing_extensions.NotRequired[str]
-    type: typing.Literal["exact"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregationFixedWidthGroupingV2(pydantic.BaseModel):
@@ -473,21 +277,9 @@ class AggregationFixedWidthGroupingV2(pydantic.BaseModel):
     type: typing.Literal["fixedWidth"] = "fixedWidth"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationFixedWidthGroupingV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationFixedWidthGroupingV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationFixedWidthGroupingV2Dict(typing_extensions.TypedDict):
-    """Divides objects into groups with the specified width."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    fixedWidth: int
-    type: typing.Literal["fixedWidth"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 AggregationGroupByV2 = typing_extensions.Annotated[
@@ -496,18 +288,6 @@ AggregationGroupByV2 = typing_extensions.Annotated[
         AggregationFixedWidthGroupingV2,
         "AggregationRangesGroupingV2",
         AggregationExactGroupingV2,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Specifies a grouping for aggregation results."""
-
-
-AggregationGroupByV2Dict = typing_extensions.Annotated[
-    typing.Union[
-        AggregationDurationGroupingV2Dict,
-        AggregationFixedWidthGroupingV2Dict,
-        "AggregationRangesGroupingV2Dict",
-        AggregationExactGroupingV2Dict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -538,24 +318,9 @@ class AggregationMetricResultV2(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationMetricResultV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationMetricResultV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationMetricResultV2Dict(typing_extensions.TypedDict):
-    """AggregationMetricResultV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    name: str
-    value: typing_extensions.NotRequired[typing.Any]
-    """
-    The value of the metric. This will be a double in the case of
-    a numeric metric, or a date string in the case of a date metric.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregationRangeV2(pydantic.BaseModel):
@@ -569,23 +334,9 @@ class AggregationRangeV2(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationRangeV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationRangeV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationRangeV2Dict(typing_extensions.TypedDict):
-    """Specifies a range from an inclusive start value to an exclusive end value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    startValue: typing.Any
-    """Inclusive start."""
-
-    endValue: typing.Any
-    """Exclusive end."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AggregationRangesGroupingV2(pydantic.BaseModel):
@@ -596,21 +347,9 @@ class AggregationRangesGroupingV2(pydantic.BaseModel):
     type: typing.Literal["ranges"] = "ranges"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AggregationRangesGroupingV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            AggregationRangesGroupingV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class AggregationRangesGroupingV2Dict(typing_extensions.TypedDict):
-    """Divides objects into groups according to specified ranges."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    ranges: typing.List[AggregationRangeV2Dict]
-    type: typing.Literal["ranges"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 AggregationV2 = typing_extensions.Annotated[
@@ -629,22 +368,6 @@ AggregationV2 = typing_extensions.Annotated[
 """Specifies an aggregation function."""
 
 
-AggregationV2Dict = typing_extensions.Annotated[
-    typing.Union[
-        "ApproximateDistinctAggregationV2Dict",
-        "MinAggregationV2Dict",
-        "AvgAggregationV2Dict",
-        "MaxAggregationV2Dict",
-        "ApproximatePercentileAggregationV2Dict",
-        "CountAggregationV2Dict",
-        "SumAggregationV2Dict",
-        "ExactDistinctAggregationV2Dict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Specifies an aggregation function."""
-
-
 class AndQueryV2(pydantic.BaseModel):
     """Returns objects where every query is satisfied."""
 
@@ -652,18 +375,9 @@ class AndQueryV2(pydantic.BaseModel):
     type: typing.Literal["and"] = "and"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AndQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AndQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AndQueryV2Dict(typing_extensions.TypedDict):
-    """Returns objects where every query is satisfied."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: typing.List[SearchJsonQueryV2Dict]
-    type: typing.Literal["and"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
@@ -677,20 +391,9 @@ class ApplyActionRequestOptions(pydantic.BaseModel):
     return_edits: typing.Optional[ReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ApplyActionRequestOptionsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ApplyActionRequestOptionsDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ApplyActionRequestOptionsDict(typing_extensions.TypedDict):
-    """ApplyActionRequestOptions"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    mode: typing_extensions.NotRequired[ApplyActionMode]
-    returnEdits: typing_extensions.NotRequired[ReturnEditsMode]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ApproximateDistinctAggregationV2(pydantic.BaseModel):
@@ -702,22 +405,9 @@ class ApproximateDistinctAggregationV2(pydantic.BaseModel):
     type: typing.Literal["approximateDistinct"] = "approximateDistinct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ApproximateDistinctAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ApproximateDistinctAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ApproximateDistinctAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes an approximate number of distinct values for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["approximateDistinct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ApproximatePercentileAggregationV2(pydantic.BaseModel):
@@ -730,24 +420,9 @@ class ApproximatePercentileAggregationV2(pydantic.BaseModel):
     type: typing.Literal["approximatePercentile"] = "approximatePercentile"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ApproximatePercentileAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ApproximatePercentileAggregationV2Dict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class ApproximatePercentileAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the approximate percentile value for the provided field. Requires Object Storage V2."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    approximatePercentile: float
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["approximatePercentile"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ArraySizeConstraint(pydantic.BaseModel):
@@ -768,31 +443,9 @@ class ArraySizeConstraint(pydantic.BaseModel):
     type: typing.Literal["arraySize"] = "arraySize"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ArraySizeConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ArraySizeConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ArraySizeConstraintDict(typing_extensions.TypedDict):
-    """The parameter expects an array of values and the size of the array must fall within the defined range."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    lt: typing_extensions.NotRequired[typing.Any]
-    """Less than"""
-
-    lte: typing_extensions.NotRequired[typing.Any]
-    """Less than or equal"""
-
-    gt: typing_extensions.NotRequired[typing.Any]
-    """Greater than"""
-
-    gte: typing_extensions.NotRequired[typing.Any]
-    """Greater than or equal"""
-
-    type: typing.Literal["arraySize"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ArtifactRepositoryRid = core.RID
@@ -801,13 +454,6 @@ ArtifactRepositoryRid = core.RID
 
 AttachmentMetadataResponse = typing_extensions.Annotated[
     typing.Union["AttachmentV2", "ListAttachmentsResponseV2"], pydantic.Field(discriminator="type")
-]
-"""The attachment metadata response"""
-
-
-AttachmentMetadataResponseDict = typing_extensions.Annotated[
-    typing.Union["AttachmentV2Dict", "ListAttachmentsResponseV2Dict"],
-    pydantic.Field(discriminator="type"),
 ]
 """The attachment metadata response"""
 
@@ -826,21 +472,9 @@ class AttachmentV2(pydantic.BaseModel):
     type: typing.Literal["single"] = "single"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AttachmentV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AttachmentV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AttachmentV2Dict(typing_extensions.TypedDict):
-    """The representation of an attachment."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: AttachmentRid
-    filename: core_models.Filename
-    sizeBytes: core_models.SizeBytes
-    mediaType: core_models.MediaType
-    type: typing.Literal["single"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class AvgAggregationV2(pydantic.BaseModel):
@@ -852,31 +486,13 @@ class AvgAggregationV2(pydantic.BaseModel):
     type: typing.Literal["avg"] = "avg"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "AvgAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(AvgAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class AvgAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the average value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["avg"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BatchActionObjectEdit = typing_extensions.Annotated[
     typing.Union["ModifyObject", AddObject, AddLink], pydantic.Field(discriminator="type")
-]
-"""BatchActionObjectEdit"""
-
-
-BatchActionObjectEditDict = typing_extensions.Annotated[
-    typing.Union["ModifyObjectDict", AddObjectDict, AddLinkDict],
-    pydantic.Field(discriminator="type"),
 ]
 """BatchActionObjectEdit"""
 
@@ -893,36 +509,13 @@ class BatchActionObjectEdits(pydantic.BaseModel):
     type: typing.Literal["edits"] = "edits"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BatchActionObjectEditsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            BatchActionObjectEditsDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class BatchActionObjectEditsDict(typing_extensions.TypedDict):
-    """BatchActionObjectEdits"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    edits: typing.List[BatchActionObjectEditDict]
-    addedObjectCount: int
-    modifiedObjectsCount: int
-    deletedObjectsCount: int
-    addedLinksCount: int
-    deletedLinksCount: int
-    type: typing.Literal["edits"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BatchActionResults = typing_extensions.Annotated[
     typing.Union[BatchActionObjectEdits, "ObjectTypeEdits"], pydantic.Field(discriminator="type")
-]
-"""BatchActionResults"""
-
-
-BatchActionResultsDict = typing_extensions.Annotated[
-    typing.Union[BatchActionObjectEditsDict, "ObjectTypeEditsDict"],
-    pydantic.Field(discriminator="type"),
 ]
 """BatchActionResults"""
 
@@ -933,19 +526,9 @@ class BatchApplyActionRequestItem(pydantic.BaseModel):
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BatchApplyActionRequestItemDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            BatchApplyActionRequestItemDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class BatchApplyActionRequestItemDict(typing_extensions.TypedDict):
-    """BatchApplyActionRequestItem"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BatchApplyActionRequestOptions(pydantic.BaseModel):
@@ -954,19 +537,9 @@ class BatchApplyActionRequestOptions(pydantic.BaseModel):
     return_edits: typing.Optional[BatchReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BatchApplyActionRequestOptionsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            BatchApplyActionRequestOptionsDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class BatchApplyActionRequestOptionsDict(typing_extensions.TypedDict):
-    """BatchApplyActionRequestOptions"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    returnEdits: typing_extensions.NotRequired[BatchReturnEditsMode]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BatchApplyActionResponseV2(pydantic.BaseModel):
@@ -975,19 +548,9 @@ class BatchApplyActionResponseV2(pydantic.BaseModel):
     edits: typing.Optional[BatchActionResults] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BatchApplyActionResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            BatchApplyActionResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class BatchApplyActionResponseV2Dict(typing_extensions.TypedDict):
-    """BatchApplyActionResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    edits: typing_extensions.NotRequired[BatchActionResultsDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
@@ -1009,26 +572,9 @@ class BlueprintIcon(pydantic.BaseModel):
     type: typing.Literal["blueprint"] = "blueprint"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BlueprintIconDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BlueprintIconDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BlueprintIconDict(typing_extensions.TypedDict):
-    """BlueprintIcon"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    color: str
-    """A hexadecimal color code."""
-
-    name: str
-    """
-    The [name](https://blueprintjs.com/docs/#icons/icons-list) of the Blueprint icon. 
-    Used to specify the Blueprint icon to represent the object type in a React app.
-    """
-
-    type: typing.Literal["blueprint"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class BoundingBoxValue(pydantic.BaseModel):
@@ -1038,18 +584,9 @@ class BoundingBoxValue(pydantic.BaseModel):
     bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "BoundingBoxValueDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(BoundingBoxValueDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class BoundingBoxValueDict(typing_extensions.TypedDict):
-    """The top left and bottom right coordinate points that make up the bounding box."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    topLeft: WithinBoundingBoxPointDict
-    bottomRight: WithinBoundingBoxPointDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CenterPoint(pydantic.BaseModel):
@@ -1059,18 +596,9 @@ class CenterPoint(pydantic.BaseModel):
     distance: core_models.Distance
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CenterPointDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CenterPointDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CenterPointDict(typing_extensions.TypedDict):
-    """The coordinate point to use as the center of the distance query."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    center: CenterPointTypesDict
-    distance: core_models.DistanceDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
@@ -1089,28 +617,9 @@ class ContainsAllTermsInOrderPrefixLastTerm(pydantic.BaseModel):
     )
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ContainsAllTermsInOrderPrefixLastTermDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ContainsAllTermsInOrderPrefixLastTermDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class ContainsAllTermsInOrderPrefixLastTermDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains all of the terms in the order provided,
-    but they do have to be adjacent to each other.
-    The last term can be a partial prefix match. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` can be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: str
-    type: typing.Literal["containsAllTermsInOrderPrefixLastTerm"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
@@ -1126,26 +635,9 @@ class ContainsAllTermsInOrderQuery(pydantic.BaseModel):
     type: typing.Literal["containsAllTermsInOrder"] = "containsAllTermsInOrder"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ContainsAllTermsInOrderQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ContainsAllTermsInOrderQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ContainsAllTermsInOrderQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains all of the terms in the order provided,
-    but they do have to be adjacent to each other. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: str
-    type: typing.Literal["containsAllTermsInOrder"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ContainsAllTermsQuery(pydantic.BaseModel):
@@ -1162,27 +654,9 @@ class ContainsAllTermsQuery(pydantic.BaseModel):
     type: typing.Literal["containsAllTerms"] = "containsAllTerms"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ContainsAllTermsQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ContainsAllTermsQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ContainsAllTermsQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains all of the whitespace separated words in any
-    order in the provided value. This query supports fuzzy matching. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: str
-    fuzzy: typing_extensions.NotRequired[FuzzyV2]
-    type: typing.Literal["containsAllTerms"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ContainsAnyTermQuery(pydantic.BaseModel):
@@ -1199,27 +673,9 @@ class ContainsAnyTermQuery(pydantic.BaseModel):
     type: typing.Literal["containsAnyTerm"] = "containsAnyTerm"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ContainsAnyTermQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ContainsAnyTermQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ContainsAnyTermQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains any of the whitespace separated words in any
-    order in the provided value. This query supports fuzzy matching. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: str
-    fuzzy: typing_extensions.NotRequired[FuzzyV2]
-    type: typing.Literal["containsAnyTerm"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ContainsQueryV2(pydantic.BaseModel):
@@ -1234,23 +690,9 @@ class ContainsQueryV2(pydantic.BaseModel):
     type: typing.Literal["contains"] = "contains"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ContainsQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ContainsQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ContainsQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified array contains a value. Allows you to specify a property to query on by a
-    variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["contains"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CountAggregationV2(pydantic.BaseModel):
@@ -1261,21 +703,9 @@ class CountAggregationV2(pydantic.BaseModel):
     type: typing.Literal["count"] = "count"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CountAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CountAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class CountAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the total count of objects."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["count"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CountObjectsResponseV2(pydantic.BaseModel):
@@ -1284,19 +714,9 @@ class CountObjectsResponseV2(pydantic.BaseModel):
     count: typing.Optional[int] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CountObjectsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CountObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class CountObjectsResponseV2Dict(typing_extensions.TypedDict):
-    """CountObjectsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    count: typing_extensions.NotRequired[int]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateInterfaceObjectRule(pydantic.BaseModel):
@@ -1306,20 +726,9 @@ class CreateInterfaceObjectRule(pydantic.BaseModel):
     type: typing.Literal["createInterfaceObject"] = "createInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateInterfaceObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class CreateInterfaceObjectRuleDict(typing_extensions.TypedDict):
-    """CreateInterfaceObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    interfaceTypeApiName: InterfaceTypeApiName
-    type: typing.Literal["createInterfaceObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateLinkRule(pydantic.BaseModel):
@@ -1332,21 +741,9 @@ class CreateLinkRule(pydantic.BaseModel):
     type: typing.Literal["createLink"] = "createLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateLinkRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CreateLinkRuleDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CreateLinkRuleDict(typing_extensions.TypedDict):
-    """CreateLinkRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    linkTypeApiNameAtoB: LinkTypeApiName
-    linkTypeApiNameBtoA: LinkTypeApiName
-    aSideObjectTypeApiName: ObjectTypeApiName
-    bSideObjectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["createLink"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateObjectRule(pydantic.BaseModel):
@@ -1356,18 +753,9 @@ class CreateObjectRule(pydantic.BaseModel):
     type: typing.Literal["createObject"] = "createObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(CreateObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class CreateObjectRuleDict(typing_extensions.TypedDict):
-    """CreateObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["createObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class CreateTemporaryObjectSetResponseV2(pydantic.BaseModel):
@@ -1376,20 +764,9 @@ class CreateTemporaryObjectSetResponseV2(pydantic.BaseModel):
     object_set_rid: ObjectSetRid = pydantic.Field(alias=str("objectSetRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "CreateTemporaryObjectSetResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            CreateTemporaryObjectSetResponseV2Dict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class CreateTemporaryObjectSetResponseV2Dict(typing_extensions.TypedDict):
-    """CreateTemporaryObjectSetResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSetRid: ObjectSetRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DataValue = typing.Any
@@ -1432,20 +809,9 @@ class DeleteInterfaceObjectRule(pydantic.BaseModel):
     type: typing.Literal["deleteInterfaceObject"] = "deleteInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeleteInterfaceObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DeleteInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DeleteInterfaceObjectRuleDict(typing_extensions.TypedDict):
-    """DeleteInterfaceObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    interfaceTypeApiName: InterfaceTypeApiName
-    type: typing.Literal["deleteInterfaceObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DeleteLink(pydantic.BaseModel):
@@ -1458,21 +824,9 @@ class DeleteLink(pydantic.BaseModel):
     type: typing.Literal["deleteLink"] = "deleteLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeleteLinkDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DeleteLinkDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DeleteLinkDict(typing_extensions.TypedDict):
-    """DeleteLink"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    linkTypeApiNameAtoB: LinkTypeApiName
-    linkTypeApiNameBtoA: LinkTypeApiName
-    aSideObject: LinkSideObjectDict
-    bSideObject: LinkSideObjectDict
-    type: typing.Literal["deleteLink"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DeleteLinkRule(pydantic.BaseModel):
@@ -1485,21 +839,9 @@ class DeleteLinkRule(pydantic.BaseModel):
     type: typing.Literal["deleteLink"] = "deleteLink"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeleteLinkRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DeleteLinkRuleDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DeleteLinkRuleDict(typing_extensions.TypedDict):
-    """DeleteLinkRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    linkTypeApiNameAtoB: LinkTypeApiName
-    linkTypeApiNameBtoA: LinkTypeApiName
-    aSideObjectTypeApiName: ObjectTypeApiName
-    bSideObjectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["deleteLink"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DeleteObject(pydantic.BaseModel):
@@ -1510,19 +852,9 @@ class DeleteObject(pydantic.BaseModel):
     type: typing.Literal["deleteObject"] = "deleteObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeleteObjectDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DeleteObjectDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DeleteObjectDict(typing_extensions.TypedDict):
-    """DeleteObject"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    primaryKey: PropertyValue
-    objectType: ObjectTypeApiName
-    type: typing.Literal["deleteObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DeleteObjectRule(pydantic.BaseModel):
@@ -1532,18 +864,9 @@ class DeleteObjectRule(pydantic.BaseModel):
     type: typing.Literal["deleteObject"] = "deleteObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeleteObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DeleteObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DeleteObjectRuleDict(typing_extensions.TypedDict):
-    """DeleteObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["deleteObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DeprecatedPropertyTypeStatus(pydantic.BaseModel):
@@ -1558,25 +881,9 @@ class DeprecatedPropertyTypeStatus(pydantic.BaseModel):
     type: typing.Literal["deprecated"] = "deprecated"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DeprecatedPropertyTypeStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DeprecatedPropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DeprecatedPropertyTypeStatusDict(typing_extensions.TypedDict):
-    """
-    This status indicates that the PropertyType is reaching the end of its life and will be removed as per the
-    deadline specified.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    message: str
-    deadline: datetime
-    replacedBy: typing_extensions.NotRequired[PropertyTypeRid]
-    type: typing.Literal["deprecated"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DerivedPropertyApiName = str
@@ -1602,25 +909,6 @@ DerivedPropertyDefinition = typing_extensions.Annotated[
 """Definition of a derived property."""
 
 
-DerivedPropertyDefinitionDict = typing_extensions.Annotated[
-    typing.Union[
-        AddPropertyExpressionDict,
-        AbsoluteValuePropertyExpressionDict,
-        "ExtractPropertyExpressionDict",
-        "SelectedPropertyExpressionDict",
-        "NegatePropertyExpressionDict",
-        "SubtractPropertyExpressionDict",
-        "PropertyApiNameSelectorDict",
-        "LeastPropertyExpressionDict",
-        "DividePropertyExpressionDict",
-        "MultiplyPropertyExpressionDict",
-        "GreatestPropertyExpressionDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Definition of a derived property."""
-
-
 class DividePropertyExpression(pydantic.BaseModel):
     """Divides the left numeric value by the right numeric value."""
 
@@ -1629,21 +917,9 @@ class DividePropertyExpression(pydantic.BaseModel):
     type: typing.Literal["divide"] = "divide"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DividePropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DividePropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DividePropertyExpressionDict(typing_extensions.TypedDict):
-    """Divides the left numeric value by the right numeric value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    left: DerivedPropertyDefinitionDict
-    right: DerivedPropertyDefinitionDict
-    type: typing.Literal["divide"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DoesNotIntersectBoundingBoxQuery(pydantic.BaseModel):
@@ -1659,26 +935,9 @@ class DoesNotIntersectBoundingBoxQuery(pydantic.BaseModel):
     type: typing.Literal["doesNotIntersectBoundingBox"] = "doesNotIntersectBoundingBox"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DoesNotIntersectBoundingBoxQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DoesNotIntersectBoundingBoxQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DoesNotIntersectBoundingBoxQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field does not intersect the bounding box provided. Allows you to specify a
-    property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not
-    both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: BoundingBoxValueDict
-    type: typing.Literal["doesNotIntersectBoundingBox"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DoesNotIntersectPolygonQuery(pydantic.BaseModel):
@@ -1694,26 +953,9 @@ class DoesNotIntersectPolygonQuery(pydantic.BaseModel):
     type: typing.Literal["doesNotIntersectPolygon"] = "doesNotIntersectPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DoesNotIntersectPolygonQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            DoesNotIntersectPolygonQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class DoesNotIntersectPolygonQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field does not intersect the polygon provided. Allows you to specify a
-    property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not
-    both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PolygonValueDict
-    type: typing.Literal["doesNotIntersectPolygon"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DoubleVector(pydantic.BaseModel):
@@ -1726,21 +968,9 @@ class DoubleVector(pydantic.BaseModel):
     type: typing.Literal["vector"] = "vector"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "DoubleVectorDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(DoubleVectorDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class DoubleVectorDict(typing_extensions.TypedDict):
-    """
-    The vector to search with. The vector must be of the same dimension as the vectors stored in the provided
-    propertyIdentifier.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: typing.List[float]
-    type: typing.Literal["vector"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class EntrySetType(pydantic.BaseModel):
@@ -1751,19 +981,9 @@ class EntrySetType(pydantic.BaseModel):
     type: typing.Literal["entrySet"] = "entrySet"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "EntrySetTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(EntrySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class EntrySetTypeDict(typing_extensions.TypedDict):
-    """EntrySetType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    keyType: QueryDataTypeDict
-    valueType: QueryDataTypeDict
-    type: typing.Literal["entrySet"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class EqualsQueryV2(pydantic.BaseModel):
@@ -1778,23 +998,9 @@ class EqualsQueryV2(pydantic.BaseModel):
     type: typing.Literal["eq"] = "eq"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "EqualsQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(EqualsQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class EqualsQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field is equal to a value. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["eq"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ExactDistinctAggregationV2(pydantic.BaseModel):
@@ -1806,22 +1012,9 @@ class ExactDistinctAggregationV2(pydantic.BaseModel):
     type: typing.Literal["exactDistinct"] = "exactDistinct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ExactDistinctAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ExactDistinctAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ExactDistinctAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation. Requires Object Storage V2."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["exactDistinct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ExamplePropertyTypeStatus(pydantic.BaseModel):
@@ -1833,22 +1026,9 @@ class ExamplePropertyTypeStatus(pydantic.BaseModel):
     type: typing.Literal["example"] = "example"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ExamplePropertyTypeStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ExamplePropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ExamplePropertyTypeStatusDict(typing_extensions.TypedDict):
-    """
-    This status indicates that the PropertyType is an example. It is backed by notional data that should not be
-    used for actual workflows, but can be used to test those workflows.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["example"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ExecuteQueryResponse(pydantic.BaseModel):
@@ -1857,19 +1037,9 @@ class ExecuteQueryResponse(pydantic.BaseModel):
     value: DataValue
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ExecuteQueryResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ExecuteQueryResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ExecuteQueryResponseDict(typing_extensions.TypedDict):
-    """ExecuteQueryResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: DataValue
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ExperimentalPropertyTypeStatus(pydantic.BaseModel):
@@ -1878,19 +1048,9 @@ class ExperimentalPropertyTypeStatus(pydantic.BaseModel):
     type: typing.Literal["experimental"] = "experimental"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ExperimentalPropertyTypeStatusDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ExperimentalPropertyTypeStatusDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ExperimentalPropertyTypeStatusDict(typing_extensions.TypedDict):
-    """This status indicates that the PropertyType is in development."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["experimental"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ExtractDatePart = typing.Literal["DAYS", "MONTHS", "QUARTERS", "YEARS"]
@@ -1905,21 +1065,9 @@ class ExtractPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["extract"] = "extract"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ExtractPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ExtractPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ExtractPropertyExpressionDict(typing_extensions.TypedDict):
-    """Extracts the specified date part from a date or timestamp."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    property: DerivedPropertyDefinitionDict
-    part: ExtractDatePart
-    type: typing.Literal["extract"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FilterValue = str
@@ -1956,25 +1104,9 @@ class GetSelectedPropertyOperation(pydantic.BaseModel):
     type: typing.Literal["get"] = "get"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GetSelectedPropertyOperationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GetSelectedPropertyOperationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GetSelectedPropertyOperationDict(typing_extensions.TypedDict):
-    """
-    Gets a single value of a property. Throws if the target object set is on the MANY side of the link and could
-    explode the cardinality.
-
-    Use collectList or collectSet which will return a list of values in that case.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["get"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GreatestPropertyExpression(pydantic.BaseModel):
@@ -1984,20 +1116,9 @@ class GreatestPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["greatest"] = "greatest"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GreatestPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GreatestPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GreatestPropertyExpressionDict(typing_extensions.TypedDict):
-    """Finds greatest of two or more numeric, date or timestamp values."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    properties: typing.List[DerivedPropertyDefinitionDict]
-    type: typing.Literal["greatest"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GroupMemberConstraint(pydantic.BaseModel):
@@ -2006,19 +1127,9 @@ class GroupMemberConstraint(pydantic.BaseModel):
     type: typing.Literal["groupMember"] = "groupMember"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GroupMemberConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            GroupMemberConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class GroupMemberConstraintDict(typing_extensions.TypedDict):
-    """The parameter value must be the user id of a member belonging to at least one of the groups defined by the constraint."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["groupMember"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GtQueryV2(pydantic.BaseModel):
@@ -2033,23 +1144,9 @@ class GtQueryV2(pydantic.BaseModel):
     type: typing.Literal["gt"] = "gt"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GtQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GtQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GtQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field is greater than a value. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["gt"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class GteQueryV2(pydantic.BaseModel):
@@ -2064,23 +1161,9 @@ class GteQueryV2(pydantic.BaseModel):
     type: typing.Literal["gte"] = "gte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "GteQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(GteQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class GteQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field is greater than or equal to a value. Allows you to specify a property
-    to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["gte"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class InQuery(pydantic.BaseModel):
@@ -2096,24 +1179,9 @@ class InQuery(pydantic.BaseModel):
     type: typing.Literal["in"] = "in"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "InQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(InQueryDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class InQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field equals any of the provided values. Allows you to
-    specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied,
-    but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: typing.List[PropertyValue]
-    type: typing.Literal["in"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class InterfaceLinkType(pydantic.BaseModel):
@@ -2135,9 +1203,9 @@ class InterfaceLinkType(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "InterfaceLinkTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(InterfaceLinkTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 InterfaceLinkTypeApiName = str
@@ -2151,35 +1219,8 @@ link to zero or one other objects, or "MANY", meaning an object can link to any 
 """
 
 
-class InterfaceLinkTypeDict(typing_extensions.TypedDict):
-    """
-    A link type constraint defined at the interface level where the implementation of the links is provided
-    by the implementing object types.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: InterfaceLinkTypeRid
-    apiName: InterfaceLinkTypeApiName
-    displayName: core_models.DisplayName
-    description: typing_extensions.NotRequired[str]
-    """The description of the interface link type."""
-
-    linkedEntityApiName: InterfaceLinkTypeLinkedEntityApiNameDict
-    cardinality: InterfaceLinkTypeCardinality
-    required: bool
-    """Whether each implementing object type must declare at least one implementation of this link."""
-
-
 InterfaceLinkTypeLinkedEntityApiName = typing_extensions.Annotated[
     typing.Union["LinkedObjectTypeApiName", "LinkedInterfaceTypeApiName"],
-    pydantic.Field(discriminator="type"),
-]
-"""A reference to the linked entity. This can either be an object or an interface type."""
-
-
-InterfaceLinkTypeLinkedEntityApiNameDict = typing_extensions.Annotated[
-    typing.Union["LinkedObjectTypeApiNameDict", "LinkedInterfaceTypeApiNameDict"],
     pydantic.Field(discriminator="type"),
 ]
 """A reference to the linked entity. This can either be an object or an interface type."""
@@ -2207,30 +1248,9 @@ class InterfaceSharedPropertyType(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "InterfaceSharedPropertyTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            InterfaceSharedPropertyTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class InterfaceSharedPropertyTypeDict(typing_extensions.TypedDict):
-    """
-    A shared property type with an additional field to indicate whether the property must be included on every
-    object type that implements the interface, or whether it is optional.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: SharedPropertyTypeRid
-    apiName: SharedPropertyTypeApiName
-    displayName: core_models.DisplayName
-    description: typing_extensions.NotRequired[str]
-    """A short text that describes the SharedPropertyType."""
-
-    dataType: ObjectPropertyTypeDict
-    required: bool
-    """Whether each implementing object type must declare an implementation for this property."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 InterfaceToObjectTypeMapping = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
@@ -2289,9 +1309,9 @@ class InterfaceType(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "InterfaceTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(InterfaceTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 InterfaceTypeApiName = str
@@ -2299,55 +1319,6 @@ InterfaceTypeApiName = str
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
 type, use the `List interface types` endpoint or check the **Ontology Manager**.
 """
-
-
-class InterfaceTypeDict(typing_extensions.TypedDict):
-    """Represents an interface type in the Ontology."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: InterfaceTypeRid
-    apiName: InterfaceTypeApiName
-    displayName: core_models.DisplayName
-    description: typing_extensions.NotRequired[str]
-    """The description of the interface."""
-
-    properties: typing.Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict]
-    """
-    A map from a shared property type API name to the corresponding shared property type. The map describes the 
-    set of properties the interface has. A shared property type must be unique across all of the properties.
-    """
-
-    allProperties: typing.Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyTypeDict]
-    """
-    A map from a shared property type API name to the corresponding shared property type. The map describes the 
-    set of properties the interface has, including properties from all directly and indirectly extended 
-    interfaces.
-    """
-
-    extendsInterfaces: typing.List[InterfaceTypeApiName]
-    """
-    A list of interface API names that this interface extends. An interface can extend other interfaces to 
-    inherit their properties.
-    """
-
-    allExtendsInterfaces: typing.List[InterfaceTypeApiName]
-    """A list of interface API names that this interface extends, both directly and indirectly."""
-
-    implementedByObjectTypes: typing.List[ObjectTypeApiName]
-    """A list of object API names that implement this interface."""
-
-    links: typing.Dict[InterfaceLinkTypeApiName, InterfaceLinkTypeDict]
-    """
-    A map from an interface link type API name to the corresponding interface link type. The map describes the
-    set of link types the interface has.
-    """
-
-    allLinks: typing.Dict[InterfaceLinkTypeApiName, InterfaceLinkTypeDict]
-    """
-    A map from an interface link type API name to the corresponding interface link type. The map describes the
-    set of link types the interface has, including links from all directly and indirectly extended interfaces.
-    """
 
 
 InterfaceTypeRid = core.RID
@@ -2366,25 +1337,9 @@ class IntersectsBoundingBoxQuery(pydantic.BaseModel):
     type: typing.Literal["intersectsBoundingBox"] = "intersectsBoundingBox"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "IntersectsBoundingBoxQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            IntersectsBoundingBoxQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class IntersectsBoundingBoxQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field intersects the bounding box provided. Allows you to specify a property
-    to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: BoundingBoxValueDict
-    type: typing.Literal["intersectsBoundingBox"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class IntersectsPolygonQuery(pydantic.BaseModel):
@@ -2399,25 +1354,9 @@ class IntersectsPolygonQuery(pydantic.BaseModel):
     type: typing.Literal["intersectsPolygon"] = "intersectsPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "IntersectsPolygonQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            IntersectsPolygonQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class IntersectsPolygonQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field intersects the polygon provided. Allows you to specify a property to
-    query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PolygonValueDict
-    type: typing.Literal["intersectsPolygon"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class IsNullQueryV2(pydantic.BaseModel):
@@ -2432,23 +1371,9 @@ class IsNullQueryV2(pydantic.BaseModel):
     type: typing.Literal["isNull"] = "isNull"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "IsNullQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(IsNullQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class IsNullQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects based on the existence of the specified field. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: bool
-    type: typing.Literal["isNull"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LeastPropertyExpression(pydantic.BaseModel):
@@ -2458,20 +1383,9 @@ class LeastPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["least"] = "least"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LeastPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LeastPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class LeastPropertyExpressionDict(typing_extensions.TypedDict):
-    """Finds least of two or more numeric, date or timestamp values."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    properties: typing.List[DerivedPropertyDefinitionDict]
-    type: typing.Literal["least"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LinkSideObject(pydantic.BaseModel):
@@ -2481,18 +1395,9 @@ class LinkSideObject(pydantic.BaseModel):
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LinkSideObjectDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LinkSideObjectDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class LinkSideObjectDict(typing_extensions.TypedDict):
-    """LinkSideObject"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    primaryKey: PropertyValue
-    objectType: ObjectTypeApiName
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LinkTypeApiName = str
@@ -2522,23 +1427,9 @@ class LinkTypeSideV2(pydantic.BaseModel):
     link_type_rid: LinkTypeRid = pydantic.Field(alias=str("linkTypeRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LinkTypeSideV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LinkTypeSideV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class LinkTypeSideV2Dict(typing_extensions.TypedDict):
-    """LinkTypeSideV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: LinkTypeApiName
-    displayName: core_models.DisplayName
-    status: core_models.ReleaseStatus
-    objectTypeApiName: ObjectTypeApiName
-    cardinality: LinkTypeSideCardinality
-    foreignKeyPropertyApiName: typing_extensions.NotRequired[PropertyApiName]
-    linkTypeRid: LinkTypeRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LinkedInterfaceTypeApiName(pydantic.BaseModel):
@@ -2548,20 +1439,9 @@ class LinkedInterfaceTypeApiName(pydantic.BaseModel):
     type: typing.Literal["interfaceTypeApiName"] = "interfaceTypeApiName"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LinkedInterfaceTypeApiNameDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LinkedInterfaceTypeApiNameDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class LinkedInterfaceTypeApiNameDict(typing_extensions.TypedDict):
-    """A reference to the linked interface type."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: InterfaceTypeApiName
-    type: typing.Literal["interfaceTypeApiName"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LinkedObjectTypeApiName(pydantic.BaseModel):
@@ -2571,20 +1451,9 @@ class LinkedObjectTypeApiName(pydantic.BaseModel):
     type: typing.Literal["objectTypeApiName"] = "objectTypeApiName"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LinkedObjectTypeApiNameDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LinkedObjectTypeApiNameDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class LinkedObjectTypeApiNameDict(typing_extensions.TypedDict):
-    """A reference to the linked object type."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: ObjectTypeApiName
-    type: typing.Literal["objectTypeApiName"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListActionTypesResponseV2(pydantic.BaseModel):
@@ -2594,20 +1463,9 @@ class ListActionTypesResponseV2(pydantic.BaseModel):
     data: typing.List[ActionTypeV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListActionTypesResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListActionTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListActionTypesResponseV2Dict(typing_extensions.TypedDict):
-    """ListActionTypesResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[ActionTypeV2Dict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListAttachmentsResponseV2(pydantic.BaseModel):
@@ -2618,21 +1476,9 @@ class ListAttachmentsResponseV2(pydantic.BaseModel):
     type: typing.Literal["multiple"] = "multiple"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListAttachmentsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListAttachmentsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListAttachmentsResponseV2Dict(typing_extensions.TypedDict):
-    """ListAttachmentsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[AttachmentV2Dict]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    type: typing.Literal["multiple"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListInterfaceTypesResponse(pydantic.BaseModel):
@@ -2642,20 +1488,9 @@ class ListInterfaceTypesResponse(pydantic.BaseModel):
     data: typing.List[InterfaceType]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListInterfaceTypesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListInterfaceTypesResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListInterfaceTypesResponseDict(typing_extensions.TypedDict):
-    """ListInterfaceTypesResponse"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[InterfaceTypeDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListLinkedObjectsResponseV2(pydantic.BaseModel):
@@ -2665,20 +1500,9 @@ class ListLinkedObjectsResponseV2(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListLinkedObjectsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListLinkedObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListLinkedObjectsResponseV2Dict(typing_extensions.TypedDict):
-    """ListLinkedObjectsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyObjectV2]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListObjectTypesV2Response(pydantic.BaseModel):
@@ -2690,21 +1514,9 @@ class ListObjectTypesV2Response(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListObjectTypesV2ResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListObjectTypesV2ResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListObjectTypesV2ResponseDict(typing_extensions.TypedDict):
-    """ListObjectTypesV2Response"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[ObjectTypeV2Dict]
-    """The list of object types in the current page."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListObjectsResponseV2(pydantic.BaseModel):
@@ -2717,23 +1529,9 @@ class ListObjectsResponseV2(pydantic.BaseModel):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListObjectsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListObjectsResponseV2Dict(typing_extensions.TypedDict):
-    """ListObjectsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[OntologyObjectV2]
-    """The list of objects in the current page."""
-
-    totalCount: core_models.TotalCount
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListOntologiesV2Response(pydantic.BaseModel):
@@ -2744,20 +1542,9 @@ class ListOntologiesV2Response(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListOntologiesV2ResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListOntologiesV2ResponseDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListOntologiesV2ResponseDict(typing_extensions.TypedDict):
-    """ListOntologiesV2Response"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyV2Dict]
-    """The list of Ontologies the user has access to."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
@@ -2769,21 +1556,9 @@ class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListOutgoingLinkTypesResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListOutgoingLinkTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListOutgoingLinkTypesResponseV2Dict(typing_extensions.TypedDict):
-    """ListOutgoingLinkTypesResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[LinkTypeSideV2Dict]
-    """The list of link type sides in the current page."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ListQueryTypesResponseV2(pydantic.BaseModel):
@@ -2793,20 +1568,9 @@ class ListQueryTypesResponseV2(pydantic.BaseModel):
     data: typing.List[QueryTypeV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ListQueryTypesResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ListQueryTypesResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ListQueryTypesResponseV2Dict(typing_extensions.TypedDict):
-    """ListQueryTypesResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    data: typing.List[QueryTypeV2Dict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LoadObjectSetResponseV2(pydantic.BaseModel):
@@ -2819,23 +1583,9 @@ class LoadObjectSetResponseV2(pydantic.BaseModel):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LoadObjectSetResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LoadObjectSetResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class LoadObjectSetResponseV2Dict(typing_extensions.TypedDict):
-    """Represents the API response when loading an `ObjectSet`."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyObjectV2]
-    """The list of objects in the current Page."""
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    totalCount: core_models.TotalCount
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LoadObjectSetV2MultipleObjectTypesResponse(pydantic.BaseModel):
@@ -2858,34 +1608,9 @@ class LoadObjectSetV2MultipleObjectTypesResponse(pydantic.BaseModel):
     interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LoadObjectSetV2MultipleObjectTypesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LoadObjectSetV2MultipleObjectTypesResponseDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class LoadObjectSetV2MultipleObjectTypesResponseDict(typing_extensions.TypedDict):
-    """
-    Represents the API response when loading an `ObjectSet`. An `interfaceToObjectTypeMappings` field is
-    optionally returned if the type scope of the returned object set includes any interfaces. The "type scope"
-    of an object set refers to whether objects contain all their properties (object-type type scope) or just the
-    properties that implement interface properties (interface type scope). There can be multiple type scopes in a
-    single object set- some objects may have all their properties and some may only have interface properties.
-
-    The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to
-    `PropertyApiName` for properties on the object(s).
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyObjectV2]
-    """The list of objects in the current page."""
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    totalCount: core_models.TotalCount
-    interfaceToObjectTypeMappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LoadObjectSetV2ObjectsOrInterfacesResponse(pydantic.BaseModel):
@@ -2901,27 +1626,9 @@ class LoadObjectSetV2ObjectsOrInterfacesResponse(pydantic.BaseModel):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LoadObjectSetV2ObjectsOrInterfacesResponseDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            LoadObjectSetV2ObjectsOrInterfacesResponseDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class LoadObjectSetV2ObjectsOrInterfacesResponseDict(typing_extensions.TypedDict):
-    """
-    Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties
-    defined by an interface that the objects belong to or properties defined by the object type of the object.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyObjectV2]
-    """The list of objects in the current page."""
-
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    totalCount: core_models.TotalCount
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LogicRule = typing_extensions.Annotated[
@@ -2940,22 +1647,6 @@ LogicRule = typing_extensions.Annotated[
 """LogicRule"""
 
 
-LogicRuleDict = typing_extensions.Annotated[
-    typing.Union[
-        DeleteInterfaceObjectRuleDict,
-        "ModifyInterfaceObjectRuleDict",
-        "ModifyObjectRuleDict",
-        DeleteObjectRuleDict,
-        CreateInterfaceObjectRuleDict,
-        DeleteLinkRuleDict,
-        CreateObjectRuleDict,
-        CreateLinkRuleDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""LogicRule"""
-
-
 class LtQueryV2(pydantic.BaseModel):
     """
     Returns objects where the specified field is less than a value. Allows you to specify a property to query on
@@ -2968,23 +1659,9 @@ class LtQueryV2(pydantic.BaseModel):
     type: typing.Literal["lt"] = "lt"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LtQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LtQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class LtQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field is less than a value. Allows you to specify a property to query on
-    by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["lt"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class LteQueryV2(pydantic.BaseModel):
@@ -2999,23 +1676,9 @@ class LteQueryV2(pydantic.BaseModel):
     type: typing.Literal["lte"] = "lte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "LteQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(LteQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class LteQueryV2Dict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field is less than or equal to a value. Allows you to specify a property to
-    query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PropertyValue
-    type: typing.Literal["lte"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MaxAggregationV2(pydantic.BaseModel):
@@ -3027,20 +1690,9 @@ class MaxAggregationV2(pydantic.BaseModel):
     type: typing.Literal["max"] = "max"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MaxAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MaxAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MaxAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the maximum value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["max"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MediaMetadata(pydantic.BaseModel):
@@ -3051,19 +1703,9 @@ class MediaMetadata(pydantic.BaseModel):
     media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MediaMetadataDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MediaMetadataDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MediaMetadataDict(typing_extensions.TypedDict):
-    """MediaMetadata"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    path: typing_extensions.NotRequired[core_models.MediaItemPath]
-    sizeBytes: core_models.SizeBytes
-    mediaType: core_models.MediaType
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MinAggregationV2(pydantic.BaseModel):
@@ -3075,20 +1717,9 @@ class MinAggregationV2(pydantic.BaseModel):
     type: typing.Literal["min"] = "min"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MinAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(MinAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class MinAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the minimum value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["min"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ModifyInterfaceObjectRule(pydantic.BaseModel):
@@ -3098,20 +1729,9 @@ class ModifyInterfaceObjectRule(pydantic.BaseModel):
     type: typing.Literal["modifyInterfaceObject"] = "modifyInterfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ModifyInterfaceObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ModifyInterfaceObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ModifyInterfaceObjectRuleDict(typing_extensions.TypedDict):
-    """ModifyInterfaceObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    interfaceTypeApiName: InterfaceTypeApiName
-    type: typing.Literal["modifyInterfaceObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ModifyObject(pydantic.BaseModel):
@@ -3122,19 +1742,9 @@ class ModifyObject(pydantic.BaseModel):
     type: typing.Literal["modifyObject"] = "modifyObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ModifyObjectDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ModifyObjectDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ModifyObjectDict(typing_extensions.TypedDict):
-    """ModifyObject"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    primaryKey: PropertyValue
-    objectType: ObjectTypeApiName
-    type: typing.Literal["modifyObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ModifyObjectRule(pydantic.BaseModel):
@@ -3144,18 +1754,9 @@ class ModifyObjectRule(pydantic.BaseModel):
     type: typing.Literal["modifyObject"] = "modifyObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ModifyObjectRuleDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ModifyObjectRuleDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ModifyObjectRuleDict(typing_extensions.TypedDict):
-    """ModifyObjectRule"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["modifyObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class MultiplyPropertyExpression(pydantic.BaseModel):
@@ -3165,34 +1766,13 @@ class MultiplyPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["multiply"] = "multiply"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "MultiplyPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            MultiplyPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class MultiplyPropertyExpressionDict(typing_extensions.TypedDict):
-    """Multiplies two or more numeric values."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    properties: typing.List[DerivedPropertyDefinitionDict]
-    type: typing.Literal["multiply"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 NearestNeighborsQuery = typing_extensions.Annotated[
     typing.Union[DoubleVector, "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
-]
-"""
-Queries support either a vector matching the embedding model defined on the property, or text that is 
-automatically embedded.
-"""
-
-
-NearestNeighborsQueryDict = typing_extensions.Annotated[
-    typing.Union[DoubleVectorDict, "NearestNeighborsQueryTextDict"],
-    pydantic.Field(discriminator="type"),
 ]
 """
 Queries support either a vector matching the embedding model defined on the property, or text that is 
@@ -3207,20 +1787,9 @@ class NearestNeighborsQueryText(pydantic.BaseModel):
     type: typing.Literal["text"] = "text"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "NearestNeighborsQueryTextDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            NearestNeighborsQueryTextDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class NearestNeighborsQueryTextDict(typing_extensions.TypedDict):
-    """Automatically embed the text in a vector using the embedding model configured for the given propertyIdentifier."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: str
-    type: typing.Literal["text"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class NegatePropertyExpression(pydantic.BaseModel):
@@ -3230,20 +1799,9 @@ class NegatePropertyExpression(pydantic.BaseModel):
     type: typing.Literal["negate"] = "negate"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "NegatePropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            NegatePropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class NegatePropertyExpressionDict(typing_extensions.TypedDict):
-    """Negates a numeric value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    property: DerivedPropertyDefinitionDict
-    type: typing.Literal["negate"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class NotQueryV2(pydantic.BaseModel):
@@ -3253,29 +1811,13 @@ class NotQueryV2(pydantic.BaseModel):
     type: typing.Literal["not"] = "not"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "NotQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(NotQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class NotQueryV2Dict(typing_extensions.TypedDict):
-    """Returns objects where the query is not satisfied."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: SearchJsonQueryV2Dict
-    type: typing.Literal["not"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectEdit = typing_extensions.Annotated[
     typing.Union[ModifyObject, DeleteObject, AddObject, DeleteLink, AddLink],
-    pydantic.Field(discriminator="type"),
-]
-"""ObjectEdit"""
-
-
-ObjectEditDict = typing_extensions.Annotated[
-    typing.Union[ModifyObjectDict, DeleteObjectDict, AddObjectDict, DeleteLinkDict, AddLinkDict],
     pydantic.Field(discriminator="type"),
 ]
 """ObjectEdit"""
@@ -3293,23 +1835,9 @@ class ObjectEdits(pydantic.BaseModel):
     type: typing.Literal["edits"] = "edits"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectEditsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ObjectEditsDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ObjectEditsDict(typing_extensions.TypedDict):
-    """ObjectEdits"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    edits: typing.List[ObjectEditDict]
-    addedObjectCount: int
-    modifiedObjectsCount: int
-    deletedObjectsCount: int
-    addedLinksCount: int
-    deletedLinksCount: int
-    type: typing.Literal["edits"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectPropertyType = typing_extensions.Annotated[
@@ -3342,55 +1870,15 @@ ObjectPropertyType = typing_extensions.Annotated[
 """A union of all the types supported by Ontology Object properties."""
 
 
-ObjectPropertyTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        "StructTypeDict",
-        core_models.StringTypeDict,
-        core_models.ByteTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.GeoPointTypeDict,
-        core_models.GeotimeSeriesReferenceTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.FloatTypeDict,
-        core_models.GeoShapeTypeDict,
-        core_models.LongTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.CipherTextTypeDict,
-        core_models.MarkingTypeDict,
-        core_models.AttachmentTypeDict,
-        core_models.MediaReferenceTypeDict,
-        core_models.TimeseriesTypeDict,
-        "OntologyObjectArrayTypeDict",
-        core_models.ShortTypeDict,
-        core_models.VectorTypeDict,
-        core_models.DecimalTypeDict,
-        core_models.TimestampTypeDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by Ontology Object properties."""
-
-
 class ObjectPropertyValueConstraint(pydantic.BaseModel):
     """The parameter value must be a property value of an object found within an object set."""
 
     type: typing.Literal["objectPropertyValue"] = "objectPropertyValue"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectPropertyValueConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectPropertyValueConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectPropertyValueConstraintDict(typing_extensions.TypedDict):
-    """The parameter value must be a property value of an object found within an object set."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["objectPropertyValue"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectQueryResultConstraint(pydantic.BaseModel):
@@ -3399,19 +1887,9 @@ class ObjectQueryResultConstraint(pydantic.BaseModel):
     type: typing.Literal["objectQueryResult"] = "objectQueryResult"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectQueryResultConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectQueryResultConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectQueryResultConstraintDict(typing_extensions.TypedDict):
-    """The parameter value must be the primary key of an object found within an object set."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["objectQueryResult"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectRid = core.RID
@@ -3451,24 +1929,9 @@ class ObjectSetAsBaseObjectTypesType(pydantic.BaseModel):
     type: typing.Literal["asBaseObjectTypes"] = "asBaseObjectTypes"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetAsBaseObjectTypesTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetAsBaseObjectTypesTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetAsBaseObjectTypesTypeDict(typing_extensions.TypedDict):
-    """
-    Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
-    properties in the resulting object set, not just the properties that implement interface properties. This is
-    currently unsupported and an exception will be thrown if used.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-    type: typing.Literal["asBaseObjectTypes"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetAsTypeType(pydantic.BaseModel):
@@ -3485,27 +1948,9 @@ class ObjectSetAsTypeType(pydantic.BaseModel):
     type: typing.Literal["asType"] = "asType"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetAsTypeTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetAsTypeTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetAsTypeTypeDict(typing_extensions.TypedDict):
-    """
-    Casts an object set to a specified object type or interface type API name. Any object whose object type does
-    not match the object type provided or implement the interface type provided will be dropped from the resulting
-    object set. This is currently unsupported and an exception will be thrown if used.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    entityType: str
-    """An object type or interface type API name."""
-
-    objectSet: ObjectSetDict
-    type: typing.Literal["asType"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetBaseType(pydantic.BaseModel):
@@ -3517,42 +1962,9 @@ class ObjectSetBaseType(pydantic.BaseModel):
     type: typing.Literal["base"] = "base"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetBaseTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ObjectSetBaseTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ObjectSetBaseTypeDict(typing_extensions.TypedDict):
-    """ObjectSetBaseType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectType: str
-    """The API name of the object type."""
-
-    type: typing.Literal["base"]
-
-
-ObjectSetDict = typing_extensions.Annotated[
-    typing.Union[
-        "ObjectSetSearchAroundTypeDict",
-        "ObjectSetStaticTypeDict",
-        "ObjectSetIntersectionTypeDict",
-        "ObjectSetWithPropertiesTypeDict",
-        "ObjectSetSubtractTypeDict",
-        "ObjectSetNearestNeighborsTypeDict",
-        "ObjectSetUnionTypeDict",
-        ObjectSetAsTypeTypeDict,
-        "ObjectSetMethodInputTypeDict",
-        "ObjectSetReferenceTypeDict",
-        "ObjectSetFilterTypeDict",
-        "ObjectSetInterfaceBaseTypeDict",
-        ObjectSetAsBaseObjectTypesTypeDict,
-        ObjectSetBaseTypeDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Represents the definition of an `ObjectSet` in the `Ontology`."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetFilterType(pydantic.BaseModel):
@@ -3563,21 +1975,9 @@ class ObjectSetFilterType(pydantic.BaseModel):
     type: typing.Literal["filter"] = "filter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetFilterTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetFilterTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetFilterTypeDict(typing_extensions.TypedDict):
-    """ObjectSetFilterType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-    where: SearchJsonQueryV2Dict
-    type: typing.Literal["filter"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetInterfaceBaseType(pydantic.BaseModel):
@@ -3598,31 +1998,9 @@ class ObjectSetInterfaceBaseType(pydantic.BaseModel):
     type: typing.Literal["interfaceBase"] = "interfaceBase"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetInterfaceBaseTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetInterfaceBaseTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetInterfaceBaseTypeDict(typing_extensions.TypedDict):
-    """ObjectSetInterfaceBaseType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    interfaceType: str
-    """
-    An object set with objects that implement the interface with the given interface API name. The objects in 
-    the object set will only have properties that implement properties of the given interface, unless you set the includeAllBaseObjectProperties flag.
-    """
-
-    includeAllBaseObjectProperties: typing_extensions.NotRequired[bool]
-    """
-    A flag that will return all of the underlying object properties for the objects that implement the interface. 
-    This includes properties that don't explicitly implement an SPT on the interface.
-    """
-
-    type: typing.Literal["interfaceBase"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetIntersectionType(pydantic.BaseModel):
@@ -3632,20 +2010,9 @@ class ObjectSetIntersectionType(pydantic.BaseModel):
     type: typing.Literal["intersect"] = "intersect"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetIntersectionTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetIntersectionTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetIntersectionTypeDict(typing_extensions.TypedDict):
-    """ObjectSetIntersectionType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSets: typing.List[ObjectSetDict]
-    type: typing.Literal["intersect"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetMethodInputType(pydantic.BaseModel):
@@ -3658,23 +2025,9 @@ class ObjectSetMethodInputType(pydantic.BaseModel):
     type: typing.Literal["methodInput"] = "methodInput"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetMethodInputTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetMethodInputTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetMethodInputTypeDict(typing_extensions.TypedDict):
-    """
-    ObjectSet which is the root of a MethodObjectSet definition.
-
-    This feature is experimental and not yet generally available.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["methodInput"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetNearestNeighborsType(pydantic.BaseModel):
@@ -3702,38 +2055,9 @@ class ObjectSetNearestNeighborsType(pydantic.BaseModel):
     type: typing.Literal["nearestNeighbors"] = "nearestNeighbors"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetNearestNeighborsTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetNearestNeighborsTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetNearestNeighborsTypeDict(typing_extensions.TypedDict):
-    """
-    ObjectSet containing the top `numNeighbors` objects with `propertyIdentifier` nearest to the input vector or
-    text. This can only be performed on a property with type vector that has been configured to be searched with
-    approximate nearest neighbors using a similarity function configured in the Ontology.
-
-    A non-zero score for each resulting object is returned when the `orderType` in the `orderBy` field is set to
-    `relevance`. Note that:
-      - Scores will not be returned if a nearestNeighbors object set is composed through union, subtraction
-        or intersection with non-nearestNeighbors object sets.
-      - If results have scores, the order of the scores will be decreasing (duplicate scores are possible).
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-    propertyIdentifier: PropertyIdentifierDict
-    numNeighbors: int
-    """
-    The number of objects to return. If the number of documents in the objectType is less than the provided
-    value, all objects will be returned. This value is limited to 1 &lt;= numNeighbors &lt;= 500.
-    """
-
-    query: NearestNeighborsQueryDict
-    type: typing.Literal["nearestNeighbors"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetReferenceType(pydantic.BaseModel):
@@ -3743,20 +2067,9 @@ class ObjectSetReferenceType(pydantic.BaseModel):
     type: typing.Literal["reference"] = "reference"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetReferenceTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetReferenceTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetReferenceTypeDict(typing_extensions.TypedDict):
-    """ObjectSetReferenceType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    reference: ObjectSetRid
-    type: typing.Literal["reference"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectSetRid = core.RID
@@ -3771,21 +2084,9 @@ class ObjectSetSearchAroundType(pydantic.BaseModel):
     type: typing.Literal["searchAround"] = "searchAround"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetSearchAroundTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetSearchAroundTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetSearchAroundTypeDict(typing_extensions.TypedDict):
-    """ObjectSetSearchAroundType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-    link: LinkTypeApiName
-    type: typing.Literal["searchAround"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetStaticType(pydantic.BaseModel):
@@ -3795,20 +2096,9 @@ class ObjectSetStaticType(pydantic.BaseModel):
     type: typing.Literal["static"] = "static"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetStaticTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetStaticTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetStaticTypeDict(typing_extensions.TypedDict):
-    """ObjectSetStaticType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objects: typing.List[ObjectRid]
-    type: typing.Literal["static"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetSubtractType(pydantic.BaseModel):
@@ -3818,20 +2108,9 @@ class ObjectSetSubtractType(pydantic.BaseModel):
     type: typing.Literal["subtract"] = "subtract"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetSubtractTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetSubtractTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetSubtractTypeDict(typing_extensions.TypedDict):
-    """ObjectSetSubtractType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSets: typing.List[ObjectSetDict]
-    type: typing.Literal["subtract"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetUnionType(pydantic.BaseModel):
@@ -3841,20 +2120,9 @@ class ObjectSetUnionType(pydantic.BaseModel):
     type: typing.Literal["union"] = "union"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetUnionTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetUnionTypeDict(typing_extensions.TypedDict):
-    """ObjectSetUnionType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSets: typing.List[ObjectSetDict]
-    type: typing.Literal["union"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectSetWithPropertiesType(pydantic.BaseModel):
@@ -3871,27 +2139,9 @@ class ObjectSetWithPropertiesType(pydantic.BaseModel):
     type: typing.Literal["withProperties"] = "withProperties"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectSetWithPropertiesTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectSetWithPropertiesTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectSetWithPropertiesTypeDict(typing_extensions.TypedDict):
-    """
-    ObjectSet which returns objects with additional derived properties.
-
-    This feature is experimental and not yet generally available.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: ObjectSetDict
-    derivedProperties: typing.Dict[DerivedPropertyApiName, DerivedPropertyDefinitionDict]
-    """Map of the name of the derived property to return and its definition"""
-
-    type: typing.Literal["withProperties"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectTypeApiName = str
@@ -3908,18 +2158,9 @@ class ObjectTypeEdits(pydantic.BaseModel):
     type: typing.Literal["largeScaleEdits"] = "largeScaleEdits"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectTypeEditsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ObjectTypeEditsDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ObjectTypeEditsDict(typing_extensions.TypedDict):
-    """ObjectTypeEdits"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    editedObjectTypes: typing.List[ObjectTypeApiName]
-    type: typing.Literal["largeScaleEdits"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ObjectTypeFullMetadata(pydantic.BaseModel):
@@ -3941,31 +2182,9 @@ class ObjectTypeFullMetadata(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectTypeFullMetadataDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectTypeFullMetadataDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectTypeFullMetadataDict(typing_extensions.TypedDict):
-    """ObjectTypeFullMetadata"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectType: ObjectTypeV2Dict
-    linkTypes: typing.List[LinkTypeSideV2Dict]
-    implementsInterfaces: typing.List[InterfaceTypeApiName]
-    """A list of interfaces that this object type implements."""
-
-    implementsInterfaces2: typing.Dict[InterfaceTypeApiName, ObjectTypeInterfaceImplementationDict]
-    """A list of interfaces that this object type implements and how it implements them."""
-
-    sharedPropertyTypeMapping: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
-    """
-    A map from shared property type API name to backing local property API name for the shared property types 
-    present on this object type.
-    """
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectTypeId = str
@@ -3978,19 +2197,9 @@ class ObjectTypeInterfaceImplementation(pydantic.BaseModel):
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectTypeInterfaceImplementationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ObjectTypeInterfaceImplementationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ObjectTypeInterfaceImplementationDict(typing_extensions.TypedDict):
-    """ObjectTypeInterfaceImplementation"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectTypeRid = core.RID
@@ -4019,33 +2228,9 @@ class ObjectTypeV2(pydantic.BaseModel):
     visibility: typing.Optional[ObjectTypeVisibility] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ObjectTypeV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ObjectTypeV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ObjectTypeV2Dict(typing_extensions.TypedDict):
-    """Represents an object type in the Ontology."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: ObjectTypeApiName
-    displayName: core_models.DisplayName
-    status: core_models.ReleaseStatus
-    description: typing_extensions.NotRequired[str]
-    """The description of the object type."""
-
-    pluralDisplayName: str
-    """The plural display name of the object type."""
-
-    icon: IconDict
-    primaryKey: PropertyApiName
-    properties: typing.Dict[PropertyApiName, PropertyV2Dict]
-    """A map of the properties of the object type."""
-
-    rid: ObjectTypeRid
-    titleProperty: PropertyApiName
-    visibility: typing_extensions.NotRequired[ObjectTypeVisibility]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ObjectTypeVisibility = typing.Literal["NORMAL", "PROMINENT", "HIDDEN"]
@@ -4062,21 +2247,9 @@ class OneOfConstraint(pydantic.BaseModel):
     type: typing.Literal["oneOf"] = "oneOf"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OneOfConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OneOfConstraintDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OneOfConstraintDict(typing_extensions.TypedDict):
-    """The parameter has a manually predefined set of options."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    options: typing.List[ParameterOptionDict]
-    otherValuesAllowed: bool
-    """A flag denoting whether custom, user provided values will be considered valid. This is configured via the **Allowed "Other" value** toggle in the **Ontology Manager**."""
-
-    type: typing.Literal["oneOf"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OntologyApiName = str
@@ -4090,18 +2263,9 @@ class OntologyArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyArrayTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OntologyArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OntologyArrayTypeDict(typing_extensions.TypedDict):
-    """OntologyArrayType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    itemType: OntologyDataTypeDict
-    type: typing.Literal["array"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OntologyDataType = typing_extensions.Annotated[
@@ -4134,36 +2298,6 @@ OntologyDataType = typing_extensions.Annotated[
 """A union of all the primitive types used by Palantir's Ontology-based products."""
 
 
-OntologyDataTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        "OntologyStructTypeDict",
-        "OntologySetTypeDict",
-        core_models.StringTypeDict,
-        core_models.ByteTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.FloatTypeDict,
-        core_models.AnyTypeDict,
-        core_models.LongTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.CipherTextTypeDict,
-        core_models.MarkingTypeDict,
-        core_models.UnsupportedTypeDict,
-        OntologyArrayTypeDict,
-        "OntologyObjectSetTypeDict",
-        core_models.BinaryTypeDict,
-        core_models.ShortTypeDict,
-        core_models.DecimalTypeDict,
-        "OntologyMapTypeDict",
-        core_models.TimestampTypeDict,
-        "OntologyObjectTypeDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the primitive types used by Palantir's Ontology-based products."""
-
-
 class OntologyFullMetadata(pydantic.BaseModel):
     """OntologyFullMetadata"""
 
@@ -4175,24 +2309,9 @@ class OntologyFullMetadata(pydantic.BaseModel):
     shared_property_types: typing.Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyFullMetadataDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyFullMetadataDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyFullMetadataDict(typing_extensions.TypedDict):
-    """OntologyFullMetadata"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    ontology: OntologyV2Dict
-    objectTypes: typing.Dict[ObjectTypeApiName, ObjectTypeFullMetadataDict]
-    actionTypes: typing.Dict[ActionTypeApiName, ActionTypeV2Dict]
-    queryTypes: typing.Dict[QueryApiName, QueryTypeV2Dict]
-    interfaceTypes: typing.Dict[InterfaceTypeApiName, InterfaceTypeDict]
-    sharedPropertyTypes: typing.Dict[SharedPropertyTypeApiName, SharedPropertyTypeDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OntologyIdentifier = str
@@ -4206,20 +2325,9 @@ class OntologyInterfaceObjectType(pydantic.BaseModel):
     type: typing.Literal["interfaceObject"] = "interfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyInterfaceObjectTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyInterfaceObjectTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyInterfaceObjectTypeDict(typing_extensions.TypedDict):
-    """OntologyInterfaceObjectType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    interfaceTypeApiName: InterfaceTypeApiName
-    type: typing.Literal["interfaceObject"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyMapType(pydantic.BaseModel):
@@ -4230,19 +2338,9 @@ class OntologyMapType(pydantic.BaseModel):
     type: typing.Literal["map"] = "map"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyMapTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OntologyMapTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OntologyMapTypeDict(typing_extensions.TypedDict):
-    """OntologyMapType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    keyType: OntologyDataTypeDict
-    valueType: OntologyDataTypeDict
-    type: typing.Literal["map"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyObjectArrayType(pydantic.BaseModel):
@@ -4252,20 +2350,9 @@ class OntologyObjectArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyObjectArrayTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyObjectArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyObjectArrayTypeDict(typing_extensions.TypedDict):
-    """OntologyObjectArrayType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subType: ObjectPropertyTypeDict
-    type: typing.Literal["array"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyObjectSetType(pydantic.BaseModel):
@@ -4276,21 +2363,9 @@ class OntologyObjectSetType(pydantic.BaseModel):
     type: typing.Literal["objectSet"] = "objectSet"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyObjectSetTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyObjectSetTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyObjectSetTypeDict(typing_extensions.TypedDict):
-    """OntologyObjectSetType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectApiName: typing_extensions.NotRequired[ObjectTypeApiName]
-    objectTypeApiName: typing_extensions.NotRequired[ObjectTypeApiName]
-    type: typing.Literal["objectSet"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyObjectType(pydantic.BaseModel):
@@ -4301,21 +2376,9 @@ class OntologyObjectType(pydantic.BaseModel):
     type: typing.Literal["object"] = "object"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyObjectTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyObjectTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyObjectTypeDict(typing_extensions.TypedDict):
-    """OntologyObjectType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectApiName: ObjectTypeApiName
-    objectTypeApiName: ObjectTypeApiName
-    type: typing.Literal["object"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyObjectTypeReferenceType(pydantic.BaseModel):
@@ -4324,19 +2387,9 @@ class OntologyObjectTypeReferenceType(pydantic.BaseModel):
     type: typing.Literal["objectType"] = "objectType"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyObjectTypeReferenceTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyObjectTypeReferenceTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyObjectTypeReferenceTypeDict(typing_extensions.TypedDict):
-    """OntologyObjectTypeReferenceType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["objectType"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OntologyObjectV2 = typing.Dict["PropertyApiName", "PropertyValue"]
@@ -4357,18 +2410,9 @@ class OntologySetType(pydantic.BaseModel):
     type: typing.Literal["set"] = "set"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologySetTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OntologySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OntologySetTypeDict(typing_extensions.TypedDict):
-    """OntologySetType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    itemType: OntologyDataTypeDict
-    type: typing.Literal["set"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyStructField(pydantic.BaseModel):
@@ -4379,21 +2423,9 @@ class OntologyStructField(pydantic.BaseModel):
     required: bool
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyStructFieldDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyStructFieldDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyStructFieldDict(typing_extensions.TypedDict):
-    """OntologyStructField"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    name: core_models.StructFieldName
-    fieldType: OntologyDataTypeDict
-    required: bool
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyStructType(pydantic.BaseModel):
@@ -4403,20 +2435,9 @@ class OntologyStructType(pydantic.BaseModel):
     type: typing.Literal["struct"] = "struct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyStructTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            OntologyStructTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class OntologyStructTypeDict(typing_extensions.TypedDict):
-    """OntologyStructType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    fields: typing.List[OntologyStructFieldDict]
-    type: typing.Literal["struct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OntologyV2(pydantic.BaseModel):
@@ -4428,20 +2449,9 @@ class OntologyV2(pydantic.BaseModel):
     rid: OntologyRid
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OntologyV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OntologyV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OntologyV2Dict(typing_extensions.TypedDict):
-    """Metadata about an Ontology."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: OntologyApiName
-    displayName: core_models.DisplayName
-    description: str
-    rid: OntologyRid
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class OrQueryV2(pydantic.BaseModel):
@@ -4451,18 +2461,9 @@ class OrQueryV2(pydantic.BaseModel):
     type: typing.Literal["or"] = "or"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "OrQueryV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(OrQueryV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class OrQueryV2Dict(typing_extensions.TypedDict):
-    """Returns objects where at least 1 query is satisfied."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: typing.List[SearchJsonQueryV2Dict]
-    type: typing.Literal["or"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 OrderBy = str
@@ -4519,41 +2520,6 @@ The type of the constraint.
 """
 
 
-ParameterEvaluatedConstraintDict = typing_extensions.Annotated[
-    typing.Union[
-        OneOfConstraintDict,
-        GroupMemberConstraintDict,
-        ObjectPropertyValueConstraintDict,
-        "RangeConstraintDict",
-        ArraySizeConstraintDict,
-        ObjectQueryResultConstraintDict,
-        "StringLengthConstraintDict",
-        "StringRegexMatchConstraintDict",
-        "UnevaluableConstraintDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""
-A constraint that an action parameter value must satisfy in order to be considered valid.
-Constraints can be configured on action parameters in the **Ontology Manager**. 
-Applicable constraints are determined dynamically based on parameter inputs. 
-Parameter values are evaluated against the final set of constraints.
-
-The type of the constraint.
-| Type                  | Description                                                                                                                                                                                                                     |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `arraySize`           | The parameter expects an array of values and the size of the array must fall within the defined range.                                                                                                                          |
-| `groupMember`         | The parameter value must be the user id of a member belonging to at least one of the groups defined by the constraint.                                                                                                          |
-| `objectPropertyValue` | The parameter value must be a property value of an object found within an object set.                                                                                                                                           |
-| `objectQueryResult`   | The parameter value must be the primary key of an object found within an object set.                                                                                                                                            |
-| `oneOf`               | The parameter has a manually predefined set of options.                                                                                                                                                                         |
-| `range`               | The parameter value must be within the defined range.                                                                                                                                                                           |
-| `stringLength`        | The parameter value must have a length within the defined range.                                                                                                                                                                |
-| `stringRegexMatch`    | The parameter value must match a predefined regular expression.                                                                                                                                                                 |
-| `unevaluable`         | The parameter cannot be evaluated because it depends on another parameter or object set that can't be evaluated. This can happen when a parameter's allowed values are defined by another parameter that is missing or invalid. |
-"""
-
-
 class ParameterEvaluationResult(pydantic.BaseModel):
     """Represents the validity of a parameter against the configured constraints."""
 
@@ -4564,22 +2530,9 @@ class ParameterEvaluationResult(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ParameterEvaluationResultDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ParameterEvaluationResultDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ParameterEvaluationResultDict(typing_extensions.TypedDict):
-    """Represents the validity of a parameter against the configured constraints."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    result: ValidationResult
-    evaluatedConstraints: typing.List[ParameterEvaluatedConstraintDict]
-    required: bool
-    """Represents whether the parameter is a required input to the action."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ParameterId = str
@@ -4598,19 +2551,9 @@ class ParameterOption(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ParameterOptionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(ParameterOptionDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class ParameterOptionDict(typing_extensions.TypedDict):
-    """A possible value for the parameter. This is defined in the **Ontology Manager** by Actions admins."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    displayName: typing_extensions.NotRequired[core_models.DisplayName]
-    value: typing_extensions.NotRequired[typing.Any]
-    """An allowed configured value for a parameter within an action."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class PreciseDuration(pydantic.BaseModel):
@@ -4623,21 +2566,9 @@ class PreciseDuration(pydantic.BaseModel):
     type: typing.Literal["duration"] = "duration"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PreciseDurationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(PreciseDurationDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class PreciseDurationDict(typing_extensions.TypedDict):
-    """A measurement of duration."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    value: int
-    """The duration value."""
-
-    unit: PreciseTimeUnit
-    type: typing.Literal["duration"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PreciseTimeUnit = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS"]
@@ -4662,20 +2593,9 @@ class PropertyApiNameSelector(pydantic.BaseModel):
     type: typing.Literal["property"] = "property"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PropertyApiNameSelectorDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            PropertyApiNameSelectorDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class PropertyApiNameSelectorDict(typing_extensions.TypedDict):
-    """A property api name that references properties to query on."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: PropertyApiName
-    type: typing.Literal["property"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PropertyFilter = str
@@ -4722,13 +2642,6 @@ PropertyIdentifier = typing_extensions.Annotated[
 """An identifier used to select properties or struct fields."""
 
 
-PropertyIdentifierDict = typing_extensions.Annotated[
-    typing.Union[PropertyApiNameSelectorDict, "StructFieldSelectorDict"],
-    pydantic.Field(discriminator="type"),
-]
-"""An identifier used to select properties or struct fields."""
-
-
 PropertyTypeRid = core.RID
 """PropertyTypeRid"""
 
@@ -4739,18 +2652,6 @@ PropertyTypeStatus = typing_extensions.Annotated[
         ActivePropertyTypeStatus,
         ExperimentalPropertyTypeStatus,
         ExamplePropertyTypeStatus,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""The status to indicate whether the PropertyType is either Experimental, Active, Deprecated, or Example."""
-
-
-PropertyTypeStatusDict = typing_extensions.Annotated[
-    typing.Union[
-        DeprecatedPropertyTypeStatusDict,
-        ActivePropertyTypeStatusDict,
-        ExperimentalPropertyTypeStatusDict,
-        ExamplePropertyTypeStatusDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4772,22 +2673,9 @@ class PropertyV2(pydantic.BaseModel):
     visibility: typing.Optional[PropertyTypeVisibility] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "PropertyV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(PropertyV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class PropertyV2Dict(typing_extensions.TypedDict):
-    """Details about some property of an object."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    description: typing_extensions.NotRequired[str]
-    displayName: typing_extensions.NotRequired[core_models.DisplayName]
-    dataType: ObjectPropertyTypeDict
-    rid: PropertyTypeRid
-    status: typing_extensions.NotRequired[PropertyTypeStatusDict]
-    visibility: typing_extensions.NotRequired[PropertyTypeVisibility]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PropertyValue = typing.Any
@@ -4839,39 +2727,12 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationKeyTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.StringTypeDict,
-        core_models.DoubleTypeDict,
-        "QueryAggregationRangeTypeDict",
-        core_models.IntegerTypeDict,
-        core_models.TimestampTypeDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by query aggregation keys."""
-
-
 QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
         core_models.IntegerType,
         core_models.TimestampType,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by query aggregation ranges."""
-
-
-QueryAggregationRangeSubTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        core_models.TimestampTypeDict,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -4885,33 +2746,13 @@ class QueryAggregationRangeType(pydantic.BaseModel):
     type: typing.Literal["range"] = "range"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryAggregationRangeTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            QueryAggregationRangeTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class QueryAggregationRangeTypeDict(typing_extensions.TypedDict):
-    """QueryAggregationRangeType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subType: QueryAggregationRangeSubTypeDict
-    type: typing.Literal["range"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 QueryAggregationValueType = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by query aggregation keys."""
-
-
-QueryAggregationValueTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict, core_models.DoubleTypeDict, core_models.TimestampTypeDict
-    ],
     pydantic.Field(discriminator="type"),
 ]
 """A union of all the types supported by query aggregation keys."""
@@ -4928,18 +2769,9 @@ class QueryArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryArrayTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryArrayTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryArrayTypeDict(typing_extensions.TypedDict):
-    """QueryArrayType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subType: QueryDataTypeDict
-    type: typing.Literal["array"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 QueryDataType = typing_extensions.Annotated[
@@ -4970,34 +2802,6 @@ QueryDataType = typing_extensions.Annotated[
 """A union of all the types supported by Ontology Query parameters or outputs."""
 
 
-QueryDataTypeDict = typing_extensions.Annotated[
-    typing.Union[
-        core_models.DateTypeDict,
-        "QueryStructTypeDict",
-        "QuerySetTypeDict",
-        core_models.StringTypeDict,
-        EntrySetTypeDict,
-        core_models.DoubleTypeDict,
-        core_models.IntegerTypeDict,
-        "ThreeDimensionalAggregationDict",
-        "QueryUnionTypeDict",
-        core_models.FloatTypeDict,
-        core_models.LongTypeDict,
-        core_models.BooleanTypeDict,
-        core_models.UnsupportedTypeDict,
-        core_models.AttachmentTypeDict,
-        core_models.NullTypeDict,
-        QueryArrayTypeDict,
-        OntologyObjectSetTypeDict,
-        "TwoDimensionalAggregationDict",
-        OntologyObjectTypeDict,
-        core_models.TimestampTypeDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""A union of all the types supported by Ontology Query parameters or outputs."""
-
-
 class QueryParameterV2(pydantic.BaseModel):
     """Details about a parameter of a query."""
 
@@ -5005,18 +2809,9 @@ class QueryParameterV2(pydantic.BaseModel):
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryParameterV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryParameterV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryParameterV2Dict(typing_extensions.TypedDict):
-    """Details about a parameter of a query."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    description: typing_extensions.NotRequired[str]
-    dataType: QueryDataTypeDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 QueryRuntimeErrorParameter = str
@@ -5030,18 +2825,9 @@ class QuerySetType(pydantic.BaseModel):
     type: typing.Literal["set"] = "set"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QuerySetTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QuerySetTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QuerySetTypeDict(typing_extensions.TypedDict):
-    """QuerySetType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subType: QueryDataTypeDict
-    type: typing.Literal["set"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class QueryStructField(pydantic.BaseModel):
@@ -5051,18 +2837,9 @@ class QueryStructField(pydantic.BaseModel):
     field_type: QueryDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryStructFieldDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryStructFieldDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryStructFieldDict(typing_extensions.TypedDict):
-    """QueryStructField"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    name: core_models.StructFieldName
-    fieldType: QueryDataTypeDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class QueryStructType(pydantic.BaseModel):
@@ -5072,18 +2849,9 @@ class QueryStructType(pydantic.BaseModel):
     type: typing.Literal["struct"] = "struct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryStructTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryStructTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryStructTypeDict(typing_extensions.TypedDict):
-    """QueryStructType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    fields: typing.List[QueryStructFieldDict]
-    type: typing.Literal["struct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class QueryTypeV2(pydantic.BaseModel):
@@ -5098,23 +2866,9 @@ class QueryTypeV2(pydantic.BaseModel):
     version: FunctionVersion
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryTypeV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryTypeV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryTypeV2Dict(typing_extensions.TypedDict):
-    """Represents a query type in the Ontology."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: QueryApiName
-    description: typing_extensions.NotRequired[str]
-    displayName: typing_extensions.NotRequired[core_models.DisplayName]
-    parameters: typing.Dict[ParameterId, QueryParameterV2Dict]
-    output: QueryDataTypeDict
-    rid: FunctionRid
-    version: FunctionVersion
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class QueryUnionType(pydantic.BaseModel):
@@ -5124,18 +2878,9 @@ class QueryUnionType(pydantic.BaseModel):
     type: typing.Literal["union"] = "union"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "QueryUnionTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(QueryUnionTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class QueryUnionTypeDict(typing_extensions.TypedDict):
-    """QueryUnionType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    unionTypes: typing.List[QueryDataTypeDict]
-    type: typing.Literal["union"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class RangeConstraint(pydantic.BaseModel):
@@ -5156,29 +2901,9 @@ class RangeConstraint(pydantic.BaseModel):
     type: typing.Literal["range"] = "range"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RangeConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(RangeConstraintDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class RangeConstraintDict(typing_extensions.TypedDict):
-    """The parameter value must be within the defined range."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    lt: typing_extensions.NotRequired[typing.Any]
-    """Less than"""
-
-    lte: typing_extensions.NotRequired[typing.Any]
-    """Less than or equal"""
-
-    gt: typing_extensions.NotRequired[typing.Any]
-    """Greater than"""
-
-    gte: typing_extensions.NotRequired[typing.Any]
-    """Greater than or equal"""
-
-    type: typing.Literal["range"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class RelativeTime(pydantic.BaseModel):
@@ -5189,19 +2914,9 @@ class RelativeTime(pydantic.BaseModel):
     unit: RelativeTimeSeriesTimeUnit
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RelativeTimeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(RelativeTimeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class RelativeTimeDict(typing_extensions.TypedDict):
-    """A relative time, such as "3 days before" or "2 hours after" the current moment."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    when: RelativeTimeRelation
-    value: int
-    unit: RelativeTimeSeriesTimeUnit
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class RelativeTimeRange(pydantic.BaseModel):
@@ -5212,19 +2927,9 @@ class RelativeTimeRange(pydantic.BaseModel):
     type: typing.Literal["relative"] = "relative"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RelativeTimeRangeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(RelativeTimeRangeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class RelativeTimeRangeDict(typing_extensions.TypedDict):
-    """A relative time range for a time series query."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    startTime: typing_extensions.NotRequired[RelativeTimeDict]
-    endTime: typing_extensions.NotRequired[RelativeTimeDict]
-    type: typing.Literal["relative"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 RelativeTimeRelation = typing.Literal["BEFORE", "AFTER"]
@@ -5248,20 +2953,9 @@ class RollingAggregateWindowPoints(pydantic.BaseModel):
     type: typing.Literal["pointsCount"] = "pointsCount"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "RollingAggregateWindowPointsDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            RollingAggregateWindowPointsDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class RollingAggregateWindowPointsDict(typing_extensions.TypedDict):
-    """Number of points in each window."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    count: int
-    type: typing.Literal["pointsCount"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SdkPackageName = str
@@ -5299,37 +2993,6 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
 """SearchJsonQueryV2"""
 
 
-SearchJsonQueryV2Dict = typing_extensions.Annotated[
-    typing.Union[
-        OrQueryV2Dict,
-        InQueryDict,
-        DoesNotIntersectPolygonQueryDict,
-        LtQueryV2Dict,
-        DoesNotIntersectBoundingBoxQueryDict,
-        EqualsQueryV2Dict,
-        ContainsAllTermsQueryDict,
-        GtQueryV2Dict,
-        "WithinDistanceOfQueryDict",
-        "WithinBoundingBoxQueryDict",
-        ContainsQueryV2Dict,
-        NotQueryV2Dict,
-        IntersectsBoundingBoxQueryDict,
-        AndQueryV2Dict,
-        IsNullQueryV2Dict,
-        ContainsAllTermsInOrderPrefixLastTermDict,
-        ContainsAnyTermQueryDict,
-        GteQueryV2Dict,
-        ContainsAllTermsInOrderQueryDict,
-        "WithinPolygonQueryDict",
-        IntersectsPolygonQueryDict,
-        LteQueryV2Dict,
-        "StartsWithQueryDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""SearchJsonQueryV2"""
-
-
 class SearchObjectsResponseV2(pydantic.BaseModel):
     """SearchObjectsResponseV2"""
 
@@ -5338,21 +3001,9 @@ class SearchObjectsResponseV2(pydantic.BaseModel):
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SearchObjectsResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SearchObjectsResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SearchObjectsResponseV2Dict(typing_extensions.TypedDict):
-    """SearchObjectsResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    data: typing.List[OntologyObjectV2]
-    nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
-    totalCount: core_models.TotalCount
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SearchOrderByType = typing.Literal["fields", "relevance"]
@@ -5366,18 +3017,9 @@ class SearchOrderByV2(pydantic.BaseModel):
     fields: typing.List[SearchOrderingV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SearchOrderByV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(SearchOrderByV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class SearchOrderByV2Dict(typing_extensions.TypedDict):
-    """Specifies the ordering of search results by a field and an ordering direction or by relevance if scores are required in a nearestNeighbors query. By default `orderType` is set to `fields`."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    orderType: typing_extensions.NotRequired[SearchOrderByType]
-    fields: typing.List[SearchOrderingV2Dict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SearchOrderingV2(pydantic.BaseModel):
@@ -5389,19 +3031,9 @@ class SearchOrderingV2(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SearchOrderingV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(SearchOrderingV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class SearchOrderingV2Dict(typing_extensions.TypedDict):
-    """SearchOrderingV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    direction: typing_extensions.NotRequired[str]
-    """Specifies the ordering direction (can be either `asc` or `desc`)"""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SelectedPropertyApiName = str
@@ -5431,21 +3063,9 @@ class SelectedPropertyApproximateDistinctAggregation(pydantic.BaseModel):
     type: typing.Literal["approximateDistinct"] = "approximateDistinct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyApproximateDistinctAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyApproximateDistinctAggregationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class SelectedPropertyApproximateDistinctAggregationDict(typing_extensions.TypedDict):
-    """Computes an approximate number of distinct values for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["approximateDistinct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyApproximatePercentileAggregation(pydantic.BaseModel):
@@ -5456,22 +3076,9 @@ class SelectedPropertyApproximatePercentileAggregation(pydantic.BaseModel):
     type: typing.Literal["approximatePercentile"] = "approximatePercentile"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyApproximatePercentileAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyApproximatePercentileAggregationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class SelectedPropertyApproximatePercentileAggregationDict(typing_extensions.TypedDict):
-    """Computes the approximate percentile value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    approximatePercentile: float
-    type: typing.Literal["approximatePercentile"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyAvgAggregation(pydantic.BaseModel):
@@ -5481,20 +3088,9 @@ class SelectedPropertyAvgAggregation(pydantic.BaseModel):
     type: typing.Literal["avg"] = "avg"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyAvgAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyAvgAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertyAvgAggregationDict(typing_extensions.TypedDict):
-    """Computes the average value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["avg"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyCollectListAggregation(pydantic.BaseModel):
@@ -5515,32 +3111,9 @@ class SelectedPropertyCollectListAggregation(pydantic.BaseModel):
     type: typing.Literal["collectList"] = "collectList"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyCollectListAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyCollectListAggregationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class SelectedPropertyCollectListAggregationDict(typing_extensions.TypedDict):
-    """
-    Lists all values of a property up to the specified limit. The maximum supported limit is 100, by default.
-
-    NOTE: A separate count aggregation should be used to determine the total count of values, to account for
-    a possible truncation of the returned list.
-
-    Ignores objects for which a property is absent, so the returned list will contain non-null values only.
-    Returns an empty list when none of the objects have values for a provided property.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    limit: int
-    """Maximum number of values to collect. The maximum supported limit is 100."""
-
-    type: typing.Literal["collectList"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyCollectSetAggregation(pydantic.BaseModel):
@@ -5561,32 +3134,9 @@ class SelectedPropertyCollectSetAggregation(pydantic.BaseModel):
     type: typing.Literal["collectSet"] = "collectSet"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyCollectSetAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyCollectSetAggregationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class SelectedPropertyCollectSetAggregationDict(typing_extensions.TypedDict):
-    """
-    Lists all distinct values of a property up to the specified limit. The maximum supported limit is 100.
-
-    NOTE: A separate cardinality / exactCardinality aggregation should be used to determine the total count of
-    values, to account for a possible truncation of the returned set.
-
-    Ignores objects for which a property is absent, so the returned list will contain non-null values only.
-    Returns an empty list when none of the objects have values for a provided property.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    limit: int
-    """Maximum number of values to collect. The maximum supported limit is 100."""
-
-    type: typing.Literal["collectSet"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyCountAggregation(pydantic.BaseModel):
@@ -5595,19 +3145,9 @@ class SelectedPropertyCountAggregation(pydantic.BaseModel):
     type: typing.Literal["count"] = "count"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyCountAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyCountAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertyCountAggregationDict(typing_extensions.TypedDict):
-    """Computes the total count of objects."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["count"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyExactDistinctAggregation(pydantic.BaseModel):
@@ -5617,21 +3157,9 @@ class SelectedPropertyExactDistinctAggregation(pydantic.BaseModel):
     type: typing.Literal["exactDistinct"] = "exactDistinct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyExactDistinctAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyExactDistinctAggregationDict,
-            self.model_dump(by_alias=True, exclude_none=True),
-        )
-
-
-class SelectedPropertyExactDistinctAggregationDict(typing_extensions.TypedDict):
-    """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["exactDistinct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyExpression(pydantic.BaseModel):
@@ -5642,21 +3170,9 @@ class SelectedPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["selection"] = "selection"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertyExpressionDict(typing_extensions.TypedDict):
-    """Definition for a selected property over a MethodObjectSet."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    objectSet: MethodObjectSetDict
-    operation: SelectedPropertyOperationDict
-    type: typing.Literal["selection"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyMaxAggregation(pydantic.BaseModel):
@@ -5666,20 +3182,9 @@ class SelectedPropertyMaxAggregation(pydantic.BaseModel):
     type: typing.Literal["max"] = "max"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyMaxAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyMaxAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertyMaxAggregationDict(typing_extensions.TypedDict):
-    """Computes the maximum value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["max"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SelectedPropertyMinAggregation(pydantic.BaseModel):
@@ -5689,20 +3194,9 @@ class SelectedPropertyMinAggregation(pydantic.BaseModel):
     type: typing.Literal["min"] = "min"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertyMinAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertyMinAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertyMinAggregationDict(typing_extensions.TypedDict):
-    """Computes the minimum value for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["min"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SelectedPropertyOperation = typing_extensions.Annotated[
@@ -5724,25 +3218,6 @@ SelectedPropertyOperation = typing_extensions.Annotated[
 """Operation on a selected property, can be an aggregation function or retrieval of a single selected property"""
 
 
-SelectedPropertyOperationDict = typing_extensions.Annotated[
-    typing.Union[
-        SelectedPropertyApproximateDistinctAggregationDict,
-        SelectedPropertyMinAggregationDict,
-        SelectedPropertyAvgAggregationDict,
-        SelectedPropertyMaxAggregationDict,
-        SelectedPropertyApproximatePercentileAggregationDict,
-        GetSelectedPropertyOperationDict,
-        SelectedPropertyCountAggregationDict,
-        "SelectedPropertySumAggregationDict",
-        SelectedPropertyCollectListAggregationDict,
-        SelectedPropertyExactDistinctAggregationDict,
-        SelectedPropertyCollectSetAggregationDict,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""Operation on a selected property, can be an aggregation function or retrieval of a single selected property"""
-
-
 class SelectedPropertySumAggregation(pydantic.BaseModel):
     """Computes the sum of values for the provided field."""
 
@@ -5750,20 +3225,9 @@ class SelectedPropertySumAggregation(pydantic.BaseModel):
     type: typing.Literal["sum"] = "sum"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SelectedPropertySumAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SelectedPropertySumAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SelectedPropertySumAggregationDict(typing_extensions.TypedDict):
-    """Computes the sum of values for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    selectedPropertyApiName: PropertyApiName
-    type: typing.Literal["sum"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SharedPropertyType(pydantic.BaseModel):
@@ -5778,11 +3242,9 @@ class SharedPropertyType(pydantic.BaseModel):
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SharedPropertyTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SharedPropertyTypeDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SharedPropertyTypeApiName = str
@@ -5790,20 +3252,6 @@ SharedPropertyTypeApiName = str
 The name of the shared property type in the API in lowerCamelCase format. To find the API name for your
 shared property type, use the `List shared property types` endpoint or check the **Ontology Manager**.
 """
-
-
-class SharedPropertyTypeDict(typing_extensions.TypedDict):
-    """A property type that can be shared across object types."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    rid: SharedPropertyTypeRid
-    apiName: SharedPropertyTypeApiName
-    displayName: core_models.DisplayName
-    description: typing_extensions.NotRequired[str]
-    """A short text that describes the SharedPropertyType."""
-
-    dataType: ObjectPropertyTypeDict
 
 
 SharedPropertyTypeRid = core.RID
@@ -5822,23 +3270,9 @@ class StartsWithQuery(pydantic.BaseModel):
     type: typing.Literal["startsWith"] = "startsWith"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StartsWithQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(StartsWithQueryDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class StartsWithQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field starts with the provided value. Allows you to specify a property to
-    query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: str
-    type: typing.Literal["startsWith"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StreamingOutputFormat = typing.Literal["JSON", "ARROW"]
@@ -5869,34 +3303,9 @@ class StringLengthConstraint(pydantic.BaseModel):
     type: typing.Literal["stringLength"] = "stringLength"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StringLengthConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            StringLengthConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class StringLengthConstraintDict(typing_extensions.TypedDict):
-    """
-    The parameter value must have a length within the defined range.
-    *This range is always inclusive.*
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    lt: typing_extensions.NotRequired[typing.Any]
-    """Less than"""
-
-    lte: typing_extensions.NotRequired[typing.Any]
-    """Less than or equal"""
-
-    gt: typing_extensions.NotRequired[typing.Any]
-    """Greater than"""
-
-    gte: typing_extensions.NotRequired[typing.Any]
-    """Greater than or equal"""
-
-    type: typing.Literal["stringLength"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class StringRegexMatchConstraint(pydantic.BaseModel):
@@ -5914,28 +3323,9 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
     type: typing.Literal["stringRegexMatch"] = "stringRegexMatch"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StringRegexMatchConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            StringRegexMatchConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class StringRegexMatchConstraintDict(typing_extensions.TypedDict):
-    """The parameter value must match a predefined regular expression."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    regex: str
-    """The regular expression configured in the **Ontology Manager**."""
-
-    configuredFailureMessage: typing_extensions.NotRequired[str]
-    """
-    The message indicating that the regular expression was not matched.
-    This is configured per parameter in the **Ontology Manager**.
-    """
-
-    type: typing.Literal["stringRegexMatch"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StructFieldApiName = str
@@ -5955,26 +3345,9 @@ class StructFieldSelector(pydantic.BaseModel):
     type: typing.Literal["structField"] = "structField"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StructFieldSelectorDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            StructFieldSelectorDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class StructFieldSelectorDict(typing_extensions.TypedDict):
-    """
-    A combination of a property API name and a struct field API name used to select struct fields. Note that you can
-    still select struct properties with only a 'PropertyApiNameSelector'; the queries will then become 'OR' queries
-    across the fields of the struct property, and derived property expressions will operate on the whole struct
-    where applicable.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    propertyApiName: PropertyApiName
-    structFieldApiName: StructFieldApiName
-    type: typing.Literal["structField"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class StructFieldType(pydantic.BaseModel):
@@ -5984,18 +3357,9 @@ class StructFieldType(pydantic.BaseModel):
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StructFieldTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(StructFieldTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class StructFieldTypeDict(typing_extensions.TypedDict):
-    """StructFieldType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    apiName: StructFieldApiName
-    dataType: ObjectPropertyTypeDict
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class StructType(pydantic.BaseModel):
@@ -6005,18 +3369,9 @@ class StructType(pydantic.BaseModel):
     type: typing.Literal["struct"] = "struct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "StructTypeDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(StructTypeDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class StructTypeDict(typing_extensions.TypedDict):
-    """StructType"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    structFieldTypes: typing.List[StructFieldTypeDict]
-    type: typing.Literal["struct"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SubmissionCriteriaEvaluation(pydantic.BaseModel):
@@ -6035,29 +3390,9 @@ class SubmissionCriteriaEvaluation(pydantic.BaseModel):
     result: ValidationResult
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SubmissionCriteriaEvaluationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SubmissionCriteriaEvaluationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SubmissionCriteriaEvaluationDict(typing_extensions.TypedDict):
-    """
-    Contains the status of the **submission criteria**.
-    **Submission criteria** are the prerequisites that need to be satisfied before an Action can be applied.
-    These are configured in the **Ontology Manager**.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    configuredFailureMessage: typing_extensions.NotRequired[str]
-    """
-    The message indicating one of the **submission criteria** was not satisfied.
-    This is configured per **submission criteria** in the **Ontology Manager**.
-    """
-
-    result: ValidationResult
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SubtractPropertyExpression(pydantic.BaseModel):
@@ -6068,21 +3403,9 @@ class SubtractPropertyExpression(pydantic.BaseModel):
     type: typing.Literal["subtract"] = "subtract"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SubtractPropertyExpressionDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SubtractPropertyExpressionDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SubtractPropertyExpressionDict(typing_extensions.TypedDict):
-    """Subtracts the right numeric value from the left numeric value."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    left: DerivedPropertyDefinitionDict
-    right: DerivedPropertyDefinitionDict
-    type: typing.Literal["subtract"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SumAggregationV2(pydantic.BaseModel):
@@ -6094,20 +3417,9 @@ class SumAggregationV2(pydantic.BaseModel):
     type: typing.Literal["sum"] = "sum"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SumAggregationV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(SumAggregationV2Dict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class SumAggregationV2Dict(typing_extensions.TypedDict):
-    """Computes the sum of values for the provided field."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: PropertyApiName
-    name: typing_extensions.NotRequired[AggregationMetricName]
-    direction: typing_extensions.NotRequired[OrderByDirection]
-    type: typing.Literal["sum"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class SyncApplyActionResponseV2(pydantic.BaseModel):
@@ -6117,20 +3429,9 @@ class SyncApplyActionResponseV2(pydantic.BaseModel):
     edits: typing.Optional[ActionResults] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "SyncApplyActionResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            SyncApplyActionResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class SyncApplyActionResponseV2Dict(typing_extensions.TypedDict):
-    """SyncApplyActionResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    validation: typing_extensions.NotRequired[ValidateActionResponseV2Dict]
-    edits: typing_extensions.NotRequired[ActionResultsDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ThreeDimensionalAggregation(pydantic.BaseModel):
@@ -6141,31 +3442,13 @@ class ThreeDimensionalAggregation(pydantic.BaseModel):
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ThreeDimensionalAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ThreeDimensionalAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ThreeDimensionalAggregationDict(typing_extensions.TypedDict):
-    """ThreeDimensionalAggregation"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    keyType: QueryAggregationKeyTypeDict
-    valueType: TwoDimensionalAggregationDict
-    type: typing.Literal["threeDimensionalAggregation"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TimeRange = typing_extensions.Annotated[
     typing.Union[AbsoluteTimeRange, RelativeTimeRange], pydantic.Field(discriminator="type")
-]
-"""An absolute or relative range for a time series query."""
-
-
-TimeRangeDict = typing_extensions.Annotated[
-    typing.Union[AbsoluteTimeRangeDict, RelativeTimeRangeDict], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
@@ -6200,22 +3483,6 @@ PERIODIC aggregates all points in specified time windows.
 """
 
 
-TimeSeriesAggregationStrategyDict = typing_extensions.Annotated[
-    typing.Union[
-        "TimeSeriesRollingAggregateDict",
-        "TimeSeriesPeriodicAggregateDict",
-        "TimeSeriesCumulativeAggregateDict",
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""
-CUMULATIVE aggregates all points up to the current point.
-ROLLING aggregates all points in a rolling window whose size is either the specified number of points or
-time duration.
-PERIODIC aggregates all points in specified time windows.
-"""
-
-
 class TimeSeriesCumulativeAggregate(pydantic.BaseModel):
     """
     The cumulative aggregate is calculated progressively for each point in the input time series,
@@ -6225,22 +3492,9 @@ class TimeSeriesCumulativeAggregate(pydantic.BaseModel):
     type: typing.Literal["cumulative"] = "cumulative"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimeSeriesCumulativeAggregateDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            TimeSeriesCumulativeAggregateDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class TimeSeriesCumulativeAggregateDict(typing_extensions.TypedDict):
-    """
-    The cumulative aggregate is calculated progressively for each point in the input time series,
-    considering all preceding points up to and including the current point.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["cumulative"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class TimeSeriesPeriodicAggregate(pydantic.BaseModel):
@@ -6273,43 +3527,9 @@ class TimeSeriesPeriodicAggregate(pydantic.BaseModel):
     type: typing.Literal["periodic"] = "periodic"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimeSeriesPeriodicAggregateDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            TimeSeriesPeriodicAggregateDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class TimeSeriesPeriodicAggregateDict(typing_extensions.TypedDict):
-    """
-    Aggregates values over discrete, periodic windows for a given time series.
-
-    A periodic window divides the time series into windows of fixed durations.
-    For each window, an aggregate function is applied to the points within that window. The result is a time series
-    with values representing the aggregate for each window. Windows with no data points are not included
-    in the output.
-
-    Periodic aggregation is useful for downsampling a continuous stream of data to larger granularities such as
-    hourly, daily, monthly.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    windowSize: PreciseDurationDict
-    alignmentTimestamp: typing_extensions.NotRequired[datetime]
-    """
-    The timestamp used to align the result, such that ticks in the result time series will lie at integer
-    multiples of the window duration from the alignment timestamp.
-
-    Default is the first epoch timestamp (January 1, 1970, 00:00:00 UTC) so that all aggregated points have
-    timestamps at midnight UTC at the start of each window duration.
-
-    For example, for a weekly aggregate with alignment timestamp 5 January, 8:33PM, 
-    each aggregated timestamp will lie on the 7 day intervals at 8:33PM starting at 5 January.
-    """
-
-    windowType: TimeSeriesWindowType
-    type: typing.Literal["periodic"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class TimeSeriesPoint(pydantic.BaseModel):
@@ -6323,21 +3543,9 @@ class TimeSeriesPoint(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimeSeriesPointDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TimeSeriesPointDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class TimeSeriesPointDict(typing_extensions.TypedDict):
-    """A time and value pair."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    time: datetime
-    """An ISO 8601 timestamp"""
-
-    value: typing.Any
-    """An object which is either an enum String or a double number."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class TimeSeriesRollingAggregate(pydantic.BaseModel):
@@ -6347,38 +3555,13 @@ class TimeSeriesRollingAggregate(pydantic.BaseModel):
     type: typing.Literal["rolling"] = "rolling"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimeSeriesRollingAggregateDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            TimeSeriesRollingAggregateDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class TimeSeriesRollingAggregateDict(typing_extensions.TypedDict):
-    """TimeSeriesRollingAggregate"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    windowSize: TimeSeriesRollingAggregateWindowDict
-    type: typing.Literal["rolling"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TimeSeriesRollingAggregateWindow = typing_extensions.Annotated[
     typing.Union[PreciseDuration, RollingAggregateWindowPoints],
-    pydantic.Field(discriminator="type"),
-]
-"""
-A rolling window is a moving subset of data points that ends at the current timestamp (inclusive)
-and spans a specified duration (window size). As new data points are added, old points fall out of the
-window if they are outside the specified duration.
-
-Rolling windows are commonly used for smoothing data, detecting trends, and reducing noise
-in time series analysis.
-"""
-
-
-TimeSeriesRollingAggregateWindowDict = typing_extensions.Annotated[
-    typing.Union[PreciseDurationDict, RollingAggregateWindowPointsDict],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -6412,21 +3595,9 @@ class TimeseriesEntry(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TimeseriesEntryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(TimeseriesEntryDict, self.model_dump(by_alias=True, exclude_none=True))
-
-
-class TimeseriesEntryDict(typing_extensions.TypedDict):
-    """A time and value pair."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    time: datetime
-    """An ISO 8601 timestamp"""
-
-    value: typing.Any
-    """An object which is either an enum String, double number, or a geopoint."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class TwoDimensionalAggregation(pydantic.BaseModel):
@@ -6437,21 +3608,9 @@ class TwoDimensionalAggregation(pydantic.BaseModel):
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "TwoDimensionalAggregationDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            TwoDimensionalAggregationDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class TwoDimensionalAggregationDict(typing_extensions.TypedDict):
-    """TwoDimensionalAggregation"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    keyType: QueryAggregationKeyTypeDict
-    valueType: QueryAggregationValueTypeDict
-    type: typing.Literal["twoDimensionalAggregation"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class UnevaluableConstraint(pydantic.BaseModel):
@@ -6463,22 +3622,9 @@ class UnevaluableConstraint(pydantic.BaseModel):
     type: typing.Literal["unevaluable"] = "unevaluable"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "UnevaluableConstraintDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            UnevaluableConstraintDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class UnevaluableConstraintDict(typing_extensions.TypedDict):
-    """
-    The parameter cannot be evaluated because it depends on another parameter or object set that can't be evaluated.
-    This can happen when a parameter's allowed values are defined by another parameter that is missing or invalid.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    type: typing.Literal["unevaluable"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class ValidateActionResponseV2(pydantic.BaseModel):
@@ -6489,21 +3635,9 @@ class ValidateActionResponseV2(pydantic.BaseModel):
     parameters: typing.Dict[ParameterId, ParameterEvaluationResult]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "ValidateActionResponseV2Dict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            ValidateActionResponseV2Dict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class ValidateActionResponseV2Dict(typing_extensions.TypedDict):
-    """ValidateActionResponseV2"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    result: ValidationResult
-    submissionCriteria: typing.List[SubmissionCriteriaEvaluationDict]
-    parameters: typing.Dict[ParameterId, ParameterEvaluationResultDict]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ValidationResult = typing.Literal["VALID", "INVALID"]
@@ -6551,26 +3685,9 @@ class WithinBoundingBoxQuery(pydantic.BaseModel):
     type: typing.Literal["withinBoundingBox"] = "withinBoundingBox"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "WithinBoundingBoxQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            WithinBoundingBoxQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class WithinBoundingBoxQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains a point within the bounding box provided. Allows you to
-    specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied,
-    but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: BoundingBoxValueDict
-    type: typing.Literal["withinBoundingBox"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class WithinDistanceOfQuery(pydantic.BaseModel):
@@ -6586,26 +3703,9 @@ class WithinDistanceOfQuery(pydantic.BaseModel):
     type: typing.Literal["withinDistanceOf"] = "withinDistanceOf"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "WithinDistanceOfQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            WithinDistanceOfQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class WithinDistanceOfQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains a point within the distance provided of the center point.
-    Allows you to specify a property to query on by a variety of means. Either `field` or `propertyIdentifier`
-    must be supplied, but not both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: CenterPointDict
-    type: typing.Literal["withinDistanceOf"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class WithinPolygonQuery(pydantic.BaseModel):
@@ -6621,33 +3721,12 @@ class WithinPolygonQuery(pydantic.BaseModel):
     type: typing.Literal["withinPolygon"] = "withinPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> "WithinPolygonQueryDict":
+    def to_dict(self) -> dict:
         """Return the dictionary representation of the model using the field aliases."""
-        return typing.cast(
-            WithinPolygonQueryDict, self.model_dump(by_alias=True, exclude_none=True)
-        )
-
-
-class WithinPolygonQueryDict(typing_extensions.TypedDict):
-    """
-    Returns objects where the specified field contains a point within the polygon provided. Allows you to specify a
-    property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not
-    both.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    field: typing_extensions.NotRequired[PropertyApiName]
-    propertyIdentifier: typing_extensions.NotRequired[PropertyIdentifierDict]
-    value: PolygonValueDict
-    type: typing.Literal["withinPolygon"]
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CenterPointTypes = geo_models.GeoPoint
-"""CenterPointTypes"""
-
-
-CenterPointTypesDict = geo_models.GeoPointDict
 """CenterPointTypes"""
 
 
@@ -6655,15 +3734,7 @@ Icon = BlueprintIcon
 """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
 
 
-IconDict = BlueprintIconDict
-"""A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
-
-
 MethodObjectSet = ObjectSet
-"""MethodObjectSet"""
-
-
-MethodObjectSetDict = ObjectSetDict
 """MethodObjectSet"""
 
 
@@ -6671,603 +3742,334 @@ PolygonValue = geo_models.Polygon
 """PolygonValue"""
 
 
-PolygonValueDict = geo_models.PolygonDict
-"""PolygonValue"""
-
-
 WithinBoundingBoxPoint = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
-WithinBoundingBoxPointDict = geo_models.GeoPointDict
-"""WithinBoundingBoxPoint"""
-
-
 core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionParameterTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionResultsDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupByV2Dict, globalns=globals(), localns=locals())
 core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationV2Dict, globalns=globals(), localns=locals())
 core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    AttachmentMetadataResponseDict, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionObjectEditDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionResultsDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
-core.resolve_forward_references(DerivedPropertyDefinitionDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
-    InterfaceLinkTypeLinkedEntityApiNameDict, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
 core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRuleDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(NearestNeighborsQueryDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectEditDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectPropertyTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectSetDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    ParameterEvaluatedConstraintDict, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyIdentifierDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyTypeStatusDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    QueryAggregationRangeSubTypeDict, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataTypeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQueryV2Dict, globalns=globals(), localns=locals())
 core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(SelectedPropertyOperationDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeRangeDict, globalns=globals(), localns=locals())
 core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
 core.resolve_forward_references(
-    TimeSeriesAggregationStrategyDict, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
-    TimeSeriesRollingAggregateWindowDict, globalns=globals(), localns=locals()
 )
 
 __all__ = [
     "AbsoluteTimeRange",
-    "AbsoluteTimeRangeDict",
     "AbsoluteValuePropertyExpression",
-    "AbsoluteValuePropertyExpressionDict",
     "ActionParameterArrayType",
-    "ActionParameterArrayTypeDict",
     "ActionParameterType",
-    "ActionParameterTypeDict",
     "ActionParameterV2",
-    "ActionParameterV2Dict",
     "ActionResults",
-    "ActionResultsDict",
     "ActionRid",
     "ActionTypeApiName",
     "ActionTypeRid",
     "ActionTypeV2",
-    "ActionTypeV2Dict",
     "ActivePropertyTypeStatus",
-    "ActivePropertyTypeStatusDict",
     "AddLink",
-    "AddLinkDict",
     "AddObject",
-    "AddObjectDict",
     "AddPropertyExpression",
-    "AddPropertyExpressionDict",
     "AggregateObjectsResponseItemV2",
-    "AggregateObjectsResponseItemV2Dict",
     "AggregateObjectsResponseV2",
-    "AggregateObjectsResponseV2Dict",
     "AggregateTimeSeries",
-    "AggregateTimeSeriesDict",
     "AggregationAccuracy",
     "AggregationAccuracyRequest",
     "AggregationDurationGroupingV2",
-    "AggregationDurationGroupingV2Dict",
     "AggregationExactGroupingV2",
-    "AggregationExactGroupingV2Dict",
     "AggregationFixedWidthGroupingV2",
-    "AggregationFixedWidthGroupingV2Dict",
     "AggregationGroupByV2",
-    "AggregationGroupByV2Dict",
     "AggregationGroupKeyV2",
     "AggregationGroupValueV2",
     "AggregationMetricName",
     "AggregationMetricResultV2",
-    "AggregationMetricResultV2Dict",
     "AggregationRangeV2",
-    "AggregationRangeV2Dict",
     "AggregationRangesGroupingV2",
-    "AggregationRangesGroupingV2Dict",
     "AggregationV2",
-    "AggregationV2Dict",
     "AndQueryV2",
-    "AndQueryV2Dict",
     "ApplyActionMode",
     "ApplyActionRequestOptions",
-    "ApplyActionRequestOptionsDict",
     "ApproximateDistinctAggregationV2",
-    "ApproximateDistinctAggregationV2Dict",
     "ApproximatePercentileAggregationV2",
-    "ApproximatePercentileAggregationV2Dict",
     "ArraySizeConstraint",
-    "ArraySizeConstraintDict",
     "ArtifactRepositoryRid",
     "AttachmentMetadataResponse",
-    "AttachmentMetadataResponseDict",
     "AttachmentRid",
     "AttachmentV2",
-    "AttachmentV2Dict",
     "AvgAggregationV2",
-    "AvgAggregationV2Dict",
     "BatchActionObjectEdit",
-    "BatchActionObjectEditDict",
     "BatchActionObjectEdits",
-    "BatchActionObjectEditsDict",
     "BatchActionResults",
-    "BatchActionResultsDict",
     "BatchApplyActionRequestItem",
-    "BatchApplyActionRequestItemDict",
     "BatchApplyActionRequestOptions",
-    "BatchApplyActionRequestOptionsDict",
     "BatchApplyActionResponseV2",
-    "BatchApplyActionResponseV2Dict",
     "BatchReturnEditsMode",
     "BlueprintIcon",
-    "BlueprintIconDict",
     "BoundingBoxValue",
-    "BoundingBoxValueDict",
     "CenterPoint",
-    "CenterPointDict",
     "CenterPointTypes",
-    "CenterPointTypesDict",
     "ContainsAllTermsInOrderPrefixLastTerm",
-    "ContainsAllTermsInOrderPrefixLastTermDict",
     "ContainsAllTermsInOrderQuery",
-    "ContainsAllTermsInOrderQueryDict",
     "ContainsAllTermsQuery",
-    "ContainsAllTermsQueryDict",
     "ContainsAnyTermQuery",
-    "ContainsAnyTermQueryDict",
     "ContainsQueryV2",
-    "ContainsQueryV2Dict",
     "CountAggregationV2",
-    "CountAggregationV2Dict",
     "CountObjectsResponseV2",
-    "CountObjectsResponseV2Dict",
     "CreateInterfaceObjectRule",
-    "CreateInterfaceObjectRuleDict",
     "CreateLinkRule",
-    "CreateLinkRuleDict",
     "CreateObjectRule",
-    "CreateObjectRuleDict",
     "CreateTemporaryObjectSetResponseV2",
-    "CreateTemporaryObjectSetResponseV2Dict",
     "DataValue",
     "DeleteInterfaceObjectRule",
-    "DeleteInterfaceObjectRuleDict",
     "DeleteLink",
-    "DeleteLinkDict",
     "DeleteLinkRule",
-    "DeleteLinkRuleDict",
     "DeleteObject",
-    "DeleteObjectDict",
     "DeleteObjectRule",
-    "DeleteObjectRuleDict",
     "DeprecatedPropertyTypeStatus",
-    "DeprecatedPropertyTypeStatusDict",
     "DerivedPropertyApiName",
     "DerivedPropertyDefinition",
-    "DerivedPropertyDefinitionDict",
     "DividePropertyExpression",
-    "DividePropertyExpressionDict",
     "DoesNotIntersectBoundingBoxQuery",
-    "DoesNotIntersectBoundingBoxQueryDict",
     "DoesNotIntersectPolygonQuery",
-    "DoesNotIntersectPolygonQueryDict",
     "DoubleVector",
-    "DoubleVectorDict",
     "EntrySetType",
-    "EntrySetTypeDict",
     "EqualsQueryV2",
-    "EqualsQueryV2Dict",
     "ExactDistinctAggregationV2",
-    "ExactDistinctAggregationV2Dict",
     "ExamplePropertyTypeStatus",
-    "ExamplePropertyTypeStatusDict",
     "ExecuteQueryResponse",
-    "ExecuteQueryResponseDict",
     "ExperimentalPropertyTypeStatus",
-    "ExperimentalPropertyTypeStatusDict",
     "ExtractDatePart",
     "ExtractPropertyExpression",
-    "ExtractPropertyExpressionDict",
     "FilterValue",
     "FunctionRid",
     "FunctionVersion",
     "FuzzyV2",
     "GetSelectedPropertyOperation",
-    "GetSelectedPropertyOperationDict",
     "GreatestPropertyExpression",
-    "GreatestPropertyExpressionDict",
     "GroupMemberConstraint",
-    "GroupMemberConstraintDict",
     "GtQueryV2",
-    "GtQueryV2Dict",
     "GteQueryV2",
-    "GteQueryV2Dict",
     "Icon",
-    "IconDict",
     "InQuery",
-    "InQueryDict",
     "InterfaceLinkType",
     "InterfaceLinkTypeApiName",
     "InterfaceLinkTypeCardinality",
-    "InterfaceLinkTypeDict",
     "InterfaceLinkTypeLinkedEntityApiName",
-    "InterfaceLinkTypeLinkedEntityApiNameDict",
     "InterfaceLinkTypeRid",
     "InterfaceSharedPropertyType",
-    "InterfaceSharedPropertyTypeDict",
     "InterfaceToObjectTypeMapping",
     "InterfaceToObjectTypeMappings",
     "InterfaceType",
     "InterfaceTypeApiName",
-    "InterfaceTypeDict",
     "InterfaceTypeRid",
     "IntersectsBoundingBoxQuery",
-    "IntersectsBoundingBoxQueryDict",
     "IntersectsPolygonQuery",
-    "IntersectsPolygonQueryDict",
     "IsNullQueryV2",
-    "IsNullQueryV2Dict",
     "LeastPropertyExpression",
-    "LeastPropertyExpressionDict",
     "LinkSideObject",
-    "LinkSideObjectDict",
     "LinkTypeApiName",
     "LinkTypeRid",
     "LinkTypeSideCardinality",
     "LinkTypeSideV2",
-    "LinkTypeSideV2Dict",
     "LinkedInterfaceTypeApiName",
-    "LinkedInterfaceTypeApiNameDict",
     "LinkedObjectTypeApiName",
-    "LinkedObjectTypeApiNameDict",
     "ListActionTypesResponseV2",
-    "ListActionTypesResponseV2Dict",
     "ListAttachmentsResponseV2",
-    "ListAttachmentsResponseV2Dict",
     "ListInterfaceTypesResponse",
-    "ListInterfaceTypesResponseDict",
     "ListLinkedObjectsResponseV2",
-    "ListLinkedObjectsResponseV2Dict",
     "ListObjectTypesV2Response",
-    "ListObjectTypesV2ResponseDict",
     "ListObjectsResponseV2",
-    "ListObjectsResponseV2Dict",
     "ListOntologiesV2Response",
-    "ListOntologiesV2ResponseDict",
     "ListOutgoingLinkTypesResponseV2",
-    "ListOutgoingLinkTypesResponseV2Dict",
     "ListQueryTypesResponseV2",
-    "ListQueryTypesResponseV2Dict",
     "LoadObjectSetResponseV2",
-    "LoadObjectSetResponseV2Dict",
     "LoadObjectSetV2MultipleObjectTypesResponse",
-    "LoadObjectSetV2MultipleObjectTypesResponseDict",
     "LoadObjectSetV2ObjectsOrInterfacesResponse",
-    "LoadObjectSetV2ObjectsOrInterfacesResponseDict",
     "LogicRule",
-    "LogicRuleDict",
     "LtQueryV2",
-    "LtQueryV2Dict",
     "LteQueryV2",
-    "LteQueryV2Dict",
     "MaxAggregationV2",
-    "MaxAggregationV2Dict",
     "MediaMetadata",
-    "MediaMetadataDict",
     "MethodObjectSet",
-    "MethodObjectSetDict",
     "MinAggregationV2",
-    "MinAggregationV2Dict",
     "ModifyInterfaceObjectRule",
-    "ModifyInterfaceObjectRuleDict",
     "ModifyObject",
-    "ModifyObjectDict",
     "ModifyObjectRule",
-    "ModifyObjectRuleDict",
     "MultiplyPropertyExpression",
-    "MultiplyPropertyExpressionDict",
     "NearestNeighborsQuery",
-    "NearestNeighborsQueryDict",
     "NearestNeighborsQueryText",
-    "NearestNeighborsQueryTextDict",
     "NegatePropertyExpression",
-    "NegatePropertyExpressionDict",
     "NotQueryV2",
-    "NotQueryV2Dict",
     "ObjectEdit",
-    "ObjectEditDict",
     "ObjectEdits",
-    "ObjectEditsDict",
     "ObjectPropertyType",
-    "ObjectPropertyTypeDict",
     "ObjectPropertyValueConstraint",
-    "ObjectPropertyValueConstraintDict",
     "ObjectQueryResultConstraint",
-    "ObjectQueryResultConstraintDict",
     "ObjectRid",
     "ObjectSet",
     "ObjectSetAsBaseObjectTypesType",
-    "ObjectSetAsBaseObjectTypesTypeDict",
     "ObjectSetAsTypeType",
-    "ObjectSetAsTypeTypeDict",
     "ObjectSetBaseType",
-    "ObjectSetBaseTypeDict",
-    "ObjectSetDict",
     "ObjectSetFilterType",
-    "ObjectSetFilterTypeDict",
     "ObjectSetInterfaceBaseType",
-    "ObjectSetInterfaceBaseTypeDict",
     "ObjectSetIntersectionType",
-    "ObjectSetIntersectionTypeDict",
     "ObjectSetMethodInputType",
-    "ObjectSetMethodInputTypeDict",
     "ObjectSetNearestNeighborsType",
-    "ObjectSetNearestNeighborsTypeDict",
     "ObjectSetReferenceType",
-    "ObjectSetReferenceTypeDict",
     "ObjectSetRid",
     "ObjectSetSearchAroundType",
-    "ObjectSetSearchAroundTypeDict",
     "ObjectSetStaticType",
-    "ObjectSetStaticTypeDict",
     "ObjectSetSubtractType",
-    "ObjectSetSubtractTypeDict",
     "ObjectSetUnionType",
-    "ObjectSetUnionTypeDict",
     "ObjectSetWithPropertiesType",
-    "ObjectSetWithPropertiesTypeDict",
     "ObjectTypeApiName",
     "ObjectTypeEdits",
-    "ObjectTypeEditsDict",
     "ObjectTypeFullMetadata",
-    "ObjectTypeFullMetadataDict",
     "ObjectTypeId",
     "ObjectTypeInterfaceImplementation",
-    "ObjectTypeInterfaceImplementationDict",
     "ObjectTypeRid",
     "ObjectTypeV2",
-    "ObjectTypeV2Dict",
     "ObjectTypeVisibility",
     "OneOfConstraint",
-    "OneOfConstraintDict",
     "OntologyApiName",
     "OntologyArrayType",
-    "OntologyArrayTypeDict",
     "OntologyDataType",
-    "OntologyDataTypeDict",
     "OntologyFullMetadata",
-    "OntologyFullMetadataDict",
     "OntologyIdentifier",
     "OntologyInterfaceObjectType",
-    "OntologyInterfaceObjectTypeDict",
     "OntologyMapType",
-    "OntologyMapTypeDict",
     "OntologyObjectArrayType",
-    "OntologyObjectArrayTypeDict",
     "OntologyObjectSetType",
-    "OntologyObjectSetTypeDict",
     "OntologyObjectType",
-    "OntologyObjectTypeDict",
     "OntologyObjectTypeReferenceType",
-    "OntologyObjectTypeReferenceTypeDict",
     "OntologyObjectV2",
     "OntologyRid",
     "OntologySetType",
-    "OntologySetTypeDict",
     "OntologyStructField",
-    "OntologyStructFieldDict",
     "OntologyStructType",
-    "OntologyStructTypeDict",
     "OntologyV2",
-    "OntologyV2Dict",
     "OrQueryV2",
-    "OrQueryV2Dict",
     "OrderBy",
     "OrderByDirection",
     "ParameterEvaluatedConstraint",
-    "ParameterEvaluatedConstraintDict",
     "ParameterEvaluationResult",
-    "ParameterEvaluationResultDict",
     "ParameterId",
     "ParameterOption",
-    "ParameterOptionDict",
     "PolygonValue",
-    "PolygonValueDict",
     "PreciseDuration",
-    "PreciseDurationDict",
     "PreciseTimeUnit",
     "PrimaryKeyValue",
     "PropertyApiName",
     "PropertyApiNameSelector",
-    "PropertyApiNameSelectorDict",
     "PropertyFilter",
     "PropertyId",
     "PropertyIdentifier",
-    "PropertyIdentifierDict",
     "PropertyTypeRid",
     "PropertyTypeStatus",
-    "PropertyTypeStatusDict",
     "PropertyTypeVisibility",
     "PropertyV2",
-    "PropertyV2Dict",
     "PropertyValue",
     "PropertyValueEscapedString",
     "QueryAggregationKeyType",
-    "QueryAggregationKeyTypeDict",
     "QueryAggregationRangeSubType",
-    "QueryAggregationRangeSubTypeDict",
     "QueryAggregationRangeType",
-    "QueryAggregationRangeTypeDict",
     "QueryAggregationValueType",
-    "QueryAggregationValueTypeDict",
     "QueryApiName",
     "QueryArrayType",
-    "QueryArrayTypeDict",
     "QueryDataType",
-    "QueryDataTypeDict",
     "QueryParameterV2",
-    "QueryParameterV2Dict",
     "QueryRuntimeErrorParameter",
     "QuerySetType",
-    "QuerySetTypeDict",
     "QueryStructField",
-    "QueryStructFieldDict",
     "QueryStructType",
-    "QueryStructTypeDict",
     "QueryTypeV2",
-    "QueryTypeV2Dict",
     "QueryUnionType",
-    "QueryUnionTypeDict",
     "RangeConstraint",
-    "RangeConstraintDict",
     "RelativeTime",
-    "RelativeTimeDict",
     "RelativeTimeRange",
-    "RelativeTimeRangeDict",
     "RelativeTimeRelation",
     "RelativeTimeSeriesTimeUnit",
     "ReturnEditsMode",
     "RollingAggregateWindowPoints",
-    "RollingAggregateWindowPointsDict",
     "SdkPackageName",
     "SearchJsonQueryV2",
-    "SearchJsonQueryV2Dict",
     "SearchObjectsResponseV2",
-    "SearchObjectsResponseV2Dict",
     "SearchOrderByType",
     "SearchOrderByV2",
-    "SearchOrderByV2Dict",
     "SearchOrderingV2",
-    "SearchOrderingV2Dict",
     "SelectedPropertyApiName",
     "SelectedPropertyApproximateDistinctAggregation",
-    "SelectedPropertyApproximateDistinctAggregationDict",
     "SelectedPropertyApproximatePercentileAggregation",
-    "SelectedPropertyApproximatePercentileAggregationDict",
     "SelectedPropertyAvgAggregation",
-    "SelectedPropertyAvgAggregationDict",
     "SelectedPropertyCollectListAggregation",
-    "SelectedPropertyCollectListAggregationDict",
     "SelectedPropertyCollectSetAggregation",
-    "SelectedPropertyCollectSetAggregationDict",
     "SelectedPropertyCountAggregation",
-    "SelectedPropertyCountAggregationDict",
     "SelectedPropertyExactDistinctAggregation",
-    "SelectedPropertyExactDistinctAggregationDict",
     "SelectedPropertyExpression",
-    "SelectedPropertyExpressionDict",
     "SelectedPropertyMaxAggregation",
-    "SelectedPropertyMaxAggregationDict",
     "SelectedPropertyMinAggregation",
-    "SelectedPropertyMinAggregationDict",
     "SelectedPropertyOperation",
-    "SelectedPropertyOperationDict",
     "SelectedPropertySumAggregation",
-    "SelectedPropertySumAggregationDict",
     "SharedPropertyType",
     "SharedPropertyTypeApiName",
-    "SharedPropertyTypeDict",
     "SharedPropertyTypeRid",
     "StartsWithQuery",
-    "StartsWithQueryDict",
     "StreamingOutputFormat",
     "StringLengthConstraint",
-    "StringLengthConstraintDict",
     "StringRegexMatchConstraint",
-    "StringRegexMatchConstraintDict",
     "StructFieldApiName",
     "StructFieldSelector",
-    "StructFieldSelectorDict",
     "StructFieldType",
-    "StructFieldTypeDict",
     "StructType",
-    "StructTypeDict",
     "SubmissionCriteriaEvaluation",
-    "SubmissionCriteriaEvaluationDict",
     "SubtractPropertyExpression",
-    "SubtractPropertyExpressionDict",
     "SumAggregationV2",
-    "SumAggregationV2Dict",
     "SyncApplyActionResponseV2",
-    "SyncApplyActionResponseV2Dict",
     "ThreeDimensionalAggregation",
-    "ThreeDimensionalAggregationDict",
     "TimeRange",
-    "TimeRangeDict",
     "TimeSeriesAggregationMethod",
     "TimeSeriesAggregationStrategy",
-    "TimeSeriesAggregationStrategyDict",
     "TimeSeriesCumulativeAggregate",
-    "TimeSeriesCumulativeAggregateDict",
     "TimeSeriesPeriodicAggregate",
-    "TimeSeriesPeriodicAggregateDict",
     "TimeSeriesPoint",
-    "TimeSeriesPointDict",
     "TimeSeriesRollingAggregate",
-    "TimeSeriesRollingAggregateDict",
     "TimeSeriesRollingAggregateWindow",
-    "TimeSeriesRollingAggregateWindowDict",
     "TimeSeriesWindowType",
     "TimeUnit",
     "TimeseriesEntry",
-    "TimeseriesEntryDict",
     "TwoDimensionalAggregation",
-    "TwoDimensionalAggregationDict",
     "UnevaluableConstraint",
-    "UnevaluableConstraintDict",
     "ValidateActionResponseV2",
-    "ValidateActionResponseV2Dict",
     "ValidationResult",
     "ValueType",
     "WithinBoundingBoxPoint",
-    "WithinBoundingBoxPointDict",
     "WithinBoundingBoxQuery",
-    "WithinBoundingBoxQueryDict",
     "WithinDistanceOfQuery",
-    "WithinDistanceOfQueryDict",
     "WithinPolygonQuery",
-    "WithinPolygonQueryDict",
 ]

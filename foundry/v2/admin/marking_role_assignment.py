@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -56,9 +55,7 @@ class MarkingRoleAssignmentClient:
         self,
         marking_id: core_models.MarkingId,
         *,
-        role_assignments: typing.List[
-            typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
-        ],
+        role_assignments: typing.List[admin_models.MarkingRoleUpdate],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -68,7 +65,7 @@ class MarkingRoleAssignmentClient:
         :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
+        :type role_assignments: List[MarkingRoleUpdate]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -98,11 +95,7 @@ class MarkingRoleAssignmentClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": typing.List[
-                            typing.Union[
-                                admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict
-                            ]
-                        ],
+                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
                     },
                 ),
                 response_type=None,
@@ -171,73 +164,11 @@ class MarkingRoleAssignmentClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        marking_id: core_models.MarkingId,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListMarkingRoleAssignmentsResponse:
-        """
-        List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
-
-        :param marking_id:
-        :type marking_id: MarkingId
-        :param page_size: The page size to use for the endpoint.
-        :type page_size: Optional[PageSize]
-        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-        :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListMarkingRoleAssignmentsResponse
-        """
-
-        warnings.warn(
-            "The client.admin.MarkingRoleAssignment.page(...) method has been deprecated. Please use client.admin.MarkingRoleAssignment.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/markings/{markingId}/roleAssignments",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "markingId": marking_id,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=admin_models.ListMarkingRoleAssignmentsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def remove(
         self,
         marking_id: core_models.MarkingId,
         *,
-        role_assignments: typing.List[
-            typing.Union[admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict]
-        ],
+        role_assignments: typing.List[admin_models.MarkingRoleUpdate],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -247,7 +178,7 @@ class MarkingRoleAssignmentClient:
         :param marking_id:
         :type marking_id: MarkingId
         :param role_assignments:
-        :type role_assignments: List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
+        :type role_assignments: List[MarkingRoleUpdate]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -281,11 +212,7 @@ class MarkingRoleAssignmentClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roleAssignments": typing.List[
-                            typing.Union[
-                                admin_models.MarkingRoleUpdate, admin_models.MarkingRoleUpdateDict
-                            ]
-                        ],
+                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
                     },
                 ),
                 response_type=None,
@@ -306,19 +233,15 @@ class _MarkingRoleAssignmentClientRaw:
     def __init__(self, client: MarkingRoleAssignmentClient) -> None:
         def add(_: None): ...
         def list(_: admin_models.ListMarkingRoleAssignmentsResponse): ...
-        def page(_: admin_models.ListMarkingRoleAssignmentsResponse): ...
         def remove(_: None): ...
 
         self.add = core.with_raw_response(add, client.add)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.remove = core.with_raw_response(remove, client.remove)
 
 
 class _MarkingRoleAssignmentClientStreaming:
     def __init__(self, client: MarkingRoleAssignmentClient) -> None:
         def list(_: admin_models.ListMarkingRoleAssignmentsResponse): ...
-        def page(_: admin_models.ListMarkingRoleAssignmentsResponse): ...
 
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)

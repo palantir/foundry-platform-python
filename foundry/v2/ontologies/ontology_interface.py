@@ -14,7 +14,6 @@
 
 
 import typing
-import warnings
 
 import pydantic
 import typing_extensions
@@ -56,21 +55,11 @@ class OntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
-        aggregation: typing.List[
-            typing.Union[ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict]
-        ],
-        group_by: typing.List[
-            typing.Union[
-                ontologies_models.AggregationGroupByV2, ontologies_models.AggregationGroupByV2Dict
-            ]
-        ],
+        aggregation: typing.List[ontologies_models.AggregationV2],
+        group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        where: typing.Optional[
-            typing.Union[
-                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
-            ]
-        ] = None,
+        where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AggregateObjectsResponseV2:
@@ -94,15 +83,15 @@ class OntologyInterfaceClient:
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
         :param aggregation:
-        :type aggregation: List[Union[AggregationV2, AggregationV2Dict]]
+        :type aggregation: List[AggregationV2]
         :param group_by:
-        :type group_by: List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
+        :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
-        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
+        :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -133,23 +122,9 @@ class OntologyInterfaceClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "aggregation": typing.List[
-                            typing.Union[
-                                ontologies_models.AggregationV2, ontologies_models.AggregationV2Dict
-                            ]
-                        ],
-                        "where": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchJsonQueryV2,
-                                ontologies_models.SearchJsonQueryV2Dict,
-                            ]
-                        ],
-                        "groupBy": typing.List[
-                            typing.Union[
-                                ontologies_models.AggregationGroupByV2,
-                                ontologies_models.AggregationGroupByV2Dict,
-                            ]
-                        ],
+                        "aggregation": typing.List[ontologies_models.AggregationV2],
+                        "where": typing.Optional[ontologies_models.SearchJsonQueryV2],
+                        "groupBy": typing.List[ontologies_models.AggregationGroupByV2],
                         "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
                     },
                 ),
@@ -284,76 +259,6 @@ class OntologyInterfaceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def page(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        page_size: typing.Optional[core_models.PageSize] = None,
-        page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.ListInterfaceTypesResponse:
-        """
-        :::callout{theme=warning title=Warning}
-          This endpoint is in preview and may be modified or removed at any time.
-          To use this endpoint, add `preview=true` to the request query parameters.
-        :::
-
-        Lists the interface types for the given Ontology.
-
-        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-        results available, at least one result will be present in the response.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-        :type ontology: OntologyIdentifier
-        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-        :type page_size: Optional[PageSize]
-        :param page_token:
-        :type page_token: Optional[PageToken]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.ListInterfaceTypesResponse
-        """
-
-        warnings.warn(
-            "The client.ontologies.OntologyInterface.page(...) method has been deprecated. Please use client.ontologies.OntologyInterface.list(...) instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/ontologies/{ontology}/interfaceTypes",
-                query_params={
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                body_type=None,
-                response_type=ontologies_models.ListInterfaceTypesResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -369,17 +274,11 @@ class OntologyInterfaceClient:
         other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
         selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
         selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
-        order_by: typing.Optional[
-            typing.Union[ontologies_models.SearchOrderByV2, ontologies_models.SearchOrderByV2Dict]
-        ] = None,
+        order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
-        where: typing.Optional[
-            typing.Union[
-                ontologies_models.SearchJsonQueryV2, ontologies_models.SearchJsonQueryV2Dict
-            ]
-        ] = None,
+        where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.SearchObjectsResponseV2:
@@ -436,7 +335,7 @@ class OntologyInterfaceClient:
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
         :type selected_shared_property_types: List[SharedPropertyTypeApiName]
         :param order_by:
-        :type order_by: Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+        :type order_by: Optional[SearchOrderByV2]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -444,7 +343,7 @@ class OntologyInterfaceClient:
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
-        :type where: Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
+        :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -480,18 +379,8 @@ class OntologyInterfaceClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "where": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchJsonQueryV2,
-                                ontologies_models.SearchJsonQueryV2Dict,
-                            ]
-                        ],
-                        "orderBy": typing.Optional[
-                            typing.Union[
-                                ontologies_models.SearchOrderByV2,
-                                ontologies_models.SearchOrderByV2Dict,
-                            ]
-                        ],
+                        "where": typing.Optional[ontologies_models.SearchJsonQueryV2],
+                        "orderBy": typing.Optional[ontologies_models.SearchOrderByV2],
                         "augmentedProperties": typing.Dict[
                             ontologies_models.ObjectTypeApiName,
                             typing.List[ontologies_models.PropertyApiName],
@@ -522,13 +411,11 @@ class _OntologyInterfaceClientRaw:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
-        def page(_: ontologies_models.ListInterfaceTypesResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.page = core.with_raw_response(page, client.page)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -537,11 +424,9 @@ class _OntologyInterfaceClientStreaming:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
-        def page(_: ontologies_models.ListInterfaceTypesResponse): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.page = core.with_streaming_response(page, client.page)
         self.search = core.with_streaming_response(search, client.search)
