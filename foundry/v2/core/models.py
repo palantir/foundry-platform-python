@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -177,7 +176,7 @@ ContentType = str
 """ContentType"""
 
 
-CreatedTime = datetime
+CreatedTime = core.AwareDatetime
 """The time at which the resource was created."""
 
 
@@ -1290,7 +1289,7 @@ class UnsupportedTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["unsupported"]
 
 
-UpdatedTime = datetime
+UpdatedTime = core.AwareDatetime
 """The time at which the resource was most recently updated."""
 
 

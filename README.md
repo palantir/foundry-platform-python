@@ -468,6 +468,26 @@ During the first phase of an endpoint's lifecycle, it may be in `Public Preview`
 state. This indicates that the endpoint is in development and is not intended for
 production use. 
 
+## Input should have timezone info
+
+```python
+# Example error
+pydantic_core._pydantic_core.ValidationError: 1 validation error for Model
+datetype
+  Input should have timezone info [type=timezone_aware, input_value=datetime.datetime(2025, 2, 5, 20, 57, 57, 511182), input_type=datetime]
+```
+
+This error indicates that you are passing a `datetime` object without timezone information to an
+endpoint that requires it. To resolve this error, you should pass in a `datetime` object with timezone
+information. For example, you can use the `timezone` class in the `datetime` package:
+
+```python
+from datetime import datetime
+from datetime import timezone
+
+datetime_with_tz = datetime(2025, 2, 5, 20, 57, 57, 511182, tzinfo=timezone.utc)
+```
+
 <a id="apis-link"></a>
 <a id="apis-v2-link"></a>
 ## Documentation for V2 API endpoints

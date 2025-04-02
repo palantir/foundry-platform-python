@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -29,8 +28,8 @@ from foundry.v2.geo import models as geo_models
 class AbsoluteTimeRange(pydantic.BaseModel):
     """ISO 8601 timestamps forming a range for a time series query. Start is inclusive and end is exclusive."""
 
-    start_time: typing.Optional[datetime] = pydantic.Field(alias=str("startTime"), default=None)  # type: ignore[literal-required]
-    end_time: typing.Optional[datetime] = pydantic.Field(alias=str("endTime"), default=None)  # type: ignore[literal-required]
+    start_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("startTime"), default=None)  # type: ignore[literal-required]
+    end_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("endTime"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["absolute"] = "absolute"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -44,8 +43,8 @@ class AbsoluteTimeRangeDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    startTime: typing_extensions.NotRequired[datetime]
-    endTime: typing_extensions.NotRequired[datetime]
+    startTime: typing_extensions.NotRequired[core.AwareDatetime]
+    endTime: typing_extensions.NotRequired[core.AwareDatetime]
     type: typing.Literal["absolute"]
 
 
@@ -1553,7 +1552,7 @@ class DeprecatedPropertyTypeStatus(pydantic.BaseModel):
     """
 
     message: str
-    deadline: datetime
+    deadline: core.AwareDatetime
     replaced_by: typing.Optional[PropertyTypeRid] = pydantic.Field(alias=str("replacedBy"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["deprecated"] = "deprecated"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1574,7 +1573,7 @@ class DeprecatedPropertyTypeStatusDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     message: str
-    deadline: datetime
+    deadline: core.AwareDatetime
     replacedBy: typing_extensions.NotRequired[PropertyTypeRid]
     type: typing.Literal["deprecated"]
 
@@ -6257,7 +6256,7 @@ class TimeSeriesPeriodicAggregate(pydantic.BaseModel):
     """
 
     window_size: PreciseDuration = pydantic.Field(alias=str("windowSize"))  # type: ignore[literal-required]
-    alignment_timestamp: typing.Optional[datetime] = pydantic.Field(alias=str("alignmentTimestamp"), default=None)  # type: ignore[literal-required]
+    alignment_timestamp: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("alignmentTimestamp"), default=None)  # type: ignore[literal-required]
     """
     The timestamp used to align the result, such that ticks in the result time series will lie at integer
     multiples of the window duration from the alignment timestamp.
@@ -6296,7 +6295,7 @@ class TimeSeriesPeriodicAggregateDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     windowSize: PreciseDurationDict
-    alignmentTimestamp: typing_extensions.NotRequired[datetime]
+    alignmentTimestamp: typing_extensions.NotRequired[core.AwareDatetime]
     """
     The timestamp used to align the result, such that ticks in the result time series will lie at integer
     multiples of the window duration from the alignment timestamp.
@@ -6315,7 +6314,7 @@ class TimeSeriesPeriodicAggregateDict(typing_extensions.TypedDict):
 class TimeSeriesPoint(pydantic.BaseModel):
     """A time and value pair."""
 
-    time: datetime
+    time: core.AwareDatetime
     """An ISO 8601 timestamp"""
 
     value: typing.Any
@@ -6333,7 +6332,7 @@ class TimeSeriesPointDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    time: datetime
+    time: core.AwareDatetime
     """An ISO 8601 timestamp"""
 
     value: typing.Any
@@ -6404,7 +6403,7 @@ TimeUnit = typing.Literal[
 class TimeseriesEntry(pydantic.BaseModel):
     """A time and value pair."""
 
-    time: datetime
+    time: core.AwareDatetime
     """An ISO 8601 timestamp"""
 
     value: typing.Any
@@ -6422,7 +6421,7 @@ class TimeseriesEntryDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    time: datetime
+    time: core.AwareDatetime
     """An ISO 8601 timestamp"""
 
     value: typing.Any

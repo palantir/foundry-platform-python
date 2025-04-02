@@ -16,6 +16,7 @@
 import inspect
 import typing
 import warnings
+from datetime import timezone
 from functools import wraps
 from typing import Any
 from typing import Callable
@@ -40,6 +41,7 @@ UUID = Annotated[
     ),
 ]
 
+
 Long = Annotated[
     int,
     pydantic.PlainSerializer(
@@ -50,6 +52,20 @@ Long = Annotated[
         when_used="json",
     ),
 ]
+"""A long integer that is serialized to a string in JSON."""
+
+
+AwareDatetime = Annotated[
+    pydantic.AwareDatetime,
+    pydantic.PlainSerializer(
+        lambda value: value.astimezone(timezone.utc).isoformat(),
+        return_type=str,
+        # Important: This ensures the value is not serialized when using to_dict()
+        # We only want to serialize when dumping to a JSON string
+        when_used="json",
+    ),
+]
+"""A datetime object that enforces timezones and is always serialized to UTC."""
 
 
 Timeout = Annotated[int, pydantic.Field(gt=0)]

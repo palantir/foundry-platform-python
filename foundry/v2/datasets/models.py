@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -110,7 +109,7 @@ class FileDict(typing_extensions.TypedDict):
     updatedTime: FileUpdatedTime
 
 
-FileUpdatedTime = datetime
+FileUpdatedTime = core.AwareDatetime
 """FileUpdatedTime"""
 
 
@@ -171,7 +170,7 @@ class Transaction(pydantic.BaseModel):
     created_time: TransactionCreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closed_time: typing.Optional[datetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
+    closed_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -181,7 +180,7 @@ class Transaction(pydantic.BaseModel):
         return typing.cast(TransactionDict, self.model_dump(by_alias=True, exclude_none=True))
 
 
-TransactionCreatedTime = datetime
+TransactionCreatedTime = core.AwareDatetime
 """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
 
@@ -196,7 +195,7 @@ class TransactionDict(typing_extensions.TypedDict):
     createdTime: TransactionCreatedTime
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closedTime: typing_extensions.NotRequired[datetime]
+    closedTime: typing_extensions.NotRequired[core.AwareDatetime]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
 

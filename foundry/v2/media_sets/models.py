@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -76,7 +75,7 @@ class MediaAttribution(pydantic.BaseModel):
     """MediaAttribution"""
 
     creator_id: core_models.UserId = pydantic.Field(alias=str("creatorId"))  # type: ignore[literal-required]
-    creation_timestamp: datetime = pydantic.Field(alias=str("creationTimestamp"))  # type: ignore[literal-required]
+    creation_timestamp: core.AwareDatetime = pydantic.Field(alias=str("creationTimestamp"))  # type: ignore[literal-required]
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -92,7 +91,7 @@ class MediaAttributionDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     creatorId: core_models.UserId
-    creationTimestamp: datetime
+    creationTimestamp: core.AwareDatetime
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
 

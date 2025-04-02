@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -602,7 +601,7 @@ class Job(pydantic.BaseModel):
     started_time: JobStartedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
     """The time this job started waiting for the dependencies to be resolved."""
 
-    finished_time: typing.Optional[datetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
+    finished_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
     """The time this job was finished."""
 
     job_status: JobStatus = pydantic.Field(alias=str("jobStatus"))  # type: ignore[literal-required]
@@ -633,7 +632,7 @@ class JobDict(typing_extensions.TypedDict):
     startedTime: JobStartedTime
     """The time this job started waiting for the dependencies to be resolved."""
 
-    finishedTime: typing_extensions.NotRequired[datetime]
+    finishedTime: typing_extensions.NotRequired[core.AwareDatetime]
     """The time this job was finished."""
 
     jobStatus: JobStatus
@@ -658,7 +657,7 @@ JobOutputDict = typing_extensions.Annotated[
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
-JobStartedTime = datetime
+JobStartedTime = core.AwareDatetime
 """The time this job started waiting for the dependencies to be resolved."""
 
 
