@@ -50,6 +50,7 @@ from foundry._errors import WriteTimeout
 # The SDK version
 from foundry._versions import __openapi_document_version__
 from foundry._versions import __version__
+from foundry.v2 import FoundryClient
 
 # The OpenAPI specification version
 # See https://swagger.io/specification/#versions
@@ -85,4 +86,5 @@ __all__ = [
     "WriteTimeout",
     "TimeoutError",
     "ApiNotFoundError",
+    "FoundryClient",
 ]

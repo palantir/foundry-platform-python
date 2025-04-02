@@ -5,6 +5,7 @@ CreateTableImportRequestMicrosoftSqlServerImportConfig
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
+**initial_incremental_state** | Optional[TableImportInitialIncrementalState] | No |  |
 **query** | str | Yes | A single SQL query can be executed per sync, which should output a data table  and avoid operations like invoking stored procedures.  The query results are saved to the output dataset in Foundry.  |
 **type** | Literal["microsoftSqlServerImportConfig"] | Yes | None |
 

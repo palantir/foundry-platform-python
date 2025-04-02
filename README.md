@@ -52,10 +52,19 @@ v1 endpoints look like this:
 https://<hostname>/api/v1/...
 ```
 
-This SDK exposes several clients, one for each major version of the API. For example, the latest major version of the
+This SDK exposes several clients, one for each major version of the API. The latest major version of the
 SDK is **v2** and is exposed using the `FoundryClient` located in the
-`foundry.v2` package. To use this SDK, you must choose the specific client (or clients)
-you would like to use.
+`foundry` package.
+
+```python
+from foundry import FoundryClient
+```
+
+For other major versions, you must import that specific client from a submodule. For example, to
+import the **v2** client from a sub-module you would import it like this:
+
+```python
+from foundry.v2 import FoundryClient
 
 More information about how the API is versioned can be found [here](https://www.palantir.com/docs/foundry/api/general/overview/versioning/).
 
@@ -83,14 +92,13 @@ You can alternatively pass in the hostname and token as keyword arguments when
 initializing the `UserTokenAuth`:
 -->
 
-You can pass in the hostname and token as keyword arguments when
+You can pass in the token as keyword argument when
 initializing the `UserTokenAuth`:
 
 ```python
 import foundry
-import foundry.v2
 
-client = foundry.v2.FoundryClient(
+client = foundry.FoundryClient(
     auth=foundry.UserTokenAuth(token=os.environ["BEARER_TOKEN"]),
     hostname="example.palantirfoundry.com",
 )
@@ -127,9 +135,9 @@ auth = foundry.ConfidentialClientAuth(
 After creating the `ConfidentialClientAuth` object, pass it in to the `FoundryClient`,
 
 ```python
-import foundry.v2
+import foundry
 
-client = foundry.v2.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
+client = foundry.FoundryClient(auth=auth, hostname="example.palantirfoundry.com")
 
 ```
 
@@ -146,7 +154,7 @@ best suited for your instance before following this example. For simplicity, the
 purposes.
 
 ```python
-from foundry.v2 import FoundryClient
+from foundry import FoundryClient
 import foundry
 from pprint import pprint
 
@@ -375,10 +383,10 @@ In this example, `GroupSearchFilter` is a `BaseModel` class and `GroupSearchFilt
 you can choose whether to pass in a class instance or a dict.
 
 ```python
-import foundry.v2
+import foundry
 from foundry.v2.admin.models import GroupSearchFilter
 
-client = foundry.v2.FoundryClient(...)
+client = foundry.FoundryClient(...)
 
 # Class instance
 result = client.admin.Group.search(where=GroupSearchFilter(type="queryString", value="John Doe"))
@@ -417,7 +425,7 @@ You can configure various parts of the HTTP session using the `Config` class.
 ```python
 from foundry import Config
 from foundry import UserTokenAuth
-from foundry.v2 import FoundryClient
+from foundry import FoundryClient
 
 client = FoundryClient(
     auth=UserTokenAuth(...),
@@ -991,6 +999,10 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestPostgreSqlImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfigDict` |
+**Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import DateColumnInitialIncrementalState` |
+**Connectivity** | [DateColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/DateColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import DateColumnInitialIncrementalStateDict` |
+**Connectivity** | [DecimalColumnInitialIncrementalState](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import DecimalColumnInitialIncrementalState` |
+**Connectivity** | [DecimalColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import DecimalColumnInitialIncrementalStateDict` |
 **Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry.v2.connectivity.models import Domain` |
 **Connectivity** | [DomainDict](docs/v2/Connectivity/models/DomainDict.md) | `from foundry.v2.connectivity.models import DomainDict` |
 **Connectivity** | [EncryptedProperty](docs/v2/Connectivity/models/EncryptedProperty.md) | `from foundry.v2.connectivity.models import EncryptedProperty` |
@@ -1023,6 +1035,8 @@ Namespace | Name | Import |
 **Connectivity** | [FileSizeFilterDict](docs/v2/Connectivity/models/FileSizeFilterDict.md) | `from foundry.v2.connectivity.models import FileSizeFilterDict` |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [HeaderApiKeyDict](docs/v2/Connectivity/models/HeaderApiKeyDict.md) | `from foundry.v2.connectivity.models import HeaderApiKeyDict` |
+**Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
+**Connectivity** | [IntegerColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import IntegerColumnInitialIncrementalStateDict` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry.v2.connectivity.models import JdbcConnectionConfiguration` |
 **Connectivity** | [JdbcConnectionConfigurationDict](docs/v2/Connectivity/models/JdbcConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import JdbcConnectionConfigurationDict` |
 **Connectivity** | [JdbcImportConfig](docs/v2/Connectivity/models/JdbcImportConfig.md) | `from foundry.v2.connectivity.models import JdbcImportConfig` |
@@ -1031,6 +1045,8 @@ Namespace | Name | Import |
 **Connectivity** | [ListFileImportsResponseDict](docs/v2/Connectivity/models/ListFileImportsResponseDict.md) | `from foundry.v2.connectivity.models import ListFileImportsResponseDict` |
 **Connectivity** | [ListTableImportsResponse](docs/v2/Connectivity/models/ListTableImportsResponse.md) | `from foundry.v2.connectivity.models import ListTableImportsResponse` |
 **Connectivity** | [ListTableImportsResponseDict](docs/v2/Connectivity/models/ListTableImportsResponseDict.md) | `from foundry.v2.connectivity.models import ListTableImportsResponseDict` |
+**Connectivity** | [LongColumnInitialIncrementalState](docs/v2/Connectivity/models/LongColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import LongColumnInitialIncrementalState` |
+**Connectivity** | [LongColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/LongColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import LongColumnInitialIncrementalStateDict` |
 **Connectivity** | [MicrosoftAccessImportConfig](docs/v2/Connectivity/models/MicrosoftAccessImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfig` |
 **Connectivity** | [MicrosoftAccessImportConfigDict](docs/v2/Connectivity/models/MicrosoftAccessImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfigDict` |
 **Connectivity** | [MicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfig` |
@@ -1075,6 +1091,8 @@ Namespace | Name | Import |
 **Connectivity** | [SnowflakeExternalOauthDict](docs/v2/Connectivity/models/SnowflakeExternalOauthDict.md) | `from foundry.v2.connectivity.models import SnowflakeExternalOauthDict` |
 **Connectivity** | [SnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/SnowflakeKeyPairAuthentication.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthentication` |
 **Connectivity** | [SnowflakeKeyPairAuthenticationDict](docs/v2/Connectivity/models/SnowflakeKeyPairAuthenticationDict.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthenticationDict` |
+**Connectivity** | [StringColumnInitialIncrementalState](docs/v2/Connectivity/models/StringColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalState` |
+**Connectivity** | [StringColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/StringColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalStateDict` |
 **Connectivity** | [StsRoleConfiguration](docs/v2/Connectivity/models/StsRoleConfiguration.md) | `from foundry.v2.connectivity.models import StsRoleConfiguration` |
 **Connectivity** | [StsRoleConfigurationDict](docs/v2/Connectivity/models/StsRoleConfigurationDict.md) | `from foundry.v2.connectivity.models import StsRoleConfigurationDict` |
 **Connectivity** | [TableImport](docs/v2/Connectivity/models/TableImport.md) | `from foundry.v2.connectivity.models import TableImport` |
@@ -1083,8 +1101,12 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportConfigDict](docs/v2/Connectivity/models/TableImportConfigDict.md) | `from foundry.v2.connectivity.models import TableImportConfigDict` |
 **Connectivity** | [TableImportDict](docs/v2/Connectivity/models/TableImportDict.md) | `from foundry.v2.connectivity.models import TableImportDict` |
 **Connectivity** | [TableImportDisplayName](docs/v2/Connectivity/models/TableImportDisplayName.md) | `from foundry.v2.connectivity.models import TableImportDisplayName` |
+**Connectivity** | [TableImportInitialIncrementalState](docs/v2/Connectivity/models/TableImportInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalState` |
+**Connectivity** | [TableImportInitialIncrementalStateDict](docs/v2/Connectivity/models/TableImportInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalStateDict` |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry.v2.connectivity.models import TableImportMode` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry.v2.connectivity.models import TableImportRid` |
+**Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
+**Connectivity** | [TimestampColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalStateDict` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry.v2.connectivity.models import UriScheme` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry.v2.core.models import AnyType` |
 **Core** | [AnyTypeDict](docs/v2/Core/models/AnyTypeDict.md) | `from foundry.v2.core.models import AnyTypeDict` |
@@ -1541,6 +1563,8 @@ Namespace | Name | Import |
 **Ontologies** | [CreateTemporaryObjectSetResponseV2](docs/v2/Ontologies/models/CreateTemporaryObjectSetResponseV2.md) | `from foundry.v2.ontologies.models import CreateTemporaryObjectSetResponseV2` |
 **Ontologies** | [CreateTemporaryObjectSetResponseV2Dict](docs/v2/Ontologies/models/CreateTemporaryObjectSetResponseV2Dict.md) | `from foundry.v2.ontologies.models import CreateTemporaryObjectSetResponseV2Dict` |
 **Ontologies** | [DataValue](docs/v2/Ontologies/models/DataValue.md) | `from foundry.v2.ontologies.models import DataValue` |
+**Ontologies** | [DecryptionResult](docs/v2/Ontologies/models/DecryptionResult.md) | `from foundry.v2.ontologies.models import DecryptionResult` |
+**Ontologies** | [DecryptionResultDict](docs/v2/Ontologies/models/DecryptionResultDict.md) | `from foundry.v2.ontologies.models import DecryptionResultDict` |
 **Ontologies** | [DeleteInterfaceObjectRule](docs/v2/Ontologies/models/DeleteInterfaceObjectRule.md) | `from foundry.v2.ontologies.models import DeleteInterfaceObjectRule` |
 **Ontologies** | [DeleteInterfaceObjectRuleDict](docs/v2/Ontologies/models/DeleteInterfaceObjectRuleDict.md) | `from foundry.v2.ontologies.models import DeleteInterfaceObjectRuleDict` |
 **Ontologies** | [DeleteLink](docs/v2/Ontologies/models/DeleteLink.md) | `from foundry.v2.ontologies.models import DeleteLink` |
@@ -1782,6 +1806,7 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterId](docs/v2/Ontologies/models/ParameterId.md) | `from foundry.v2.ontologies.models import ParameterId` |
 **Ontologies** | [ParameterOption](docs/v2/Ontologies/models/ParameterOption.md) | `from foundry.v2.ontologies.models import ParameterOption` |
 **Ontologies** | [ParameterOptionDict](docs/v2/Ontologies/models/ParameterOptionDict.md) | `from foundry.v2.ontologies.models import ParameterOptionDict` |
+**Ontologies** | [Plaintext](docs/v2/Ontologies/models/Plaintext.md) | `from foundry.v2.ontologies.models import Plaintext` |
 **Ontologies** | [PolygonValue](docs/v2/Ontologies/models/PolygonValue.md) | `from foundry.v2.ontologies.models import PolygonValue` |
 **Ontologies** | [PolygonValueDict](docs/v2/Ontologies/models/PolygonValueDict.md) | `from foundry.v2.ontologies.models import PolygonValueDict` |
 **Ontologies** | [PreciseDuration](docs/v2/Ontologies/models/PreciseDuration.md) | `from foundry.v2.ontologies.models import PreciseDuration` |
@@ -2674,6 +2699,7 @@ Namespace | Name | Import |
 **Ontologies** | ApplyActionFailed | `from foundry.v2.ontologies.errors import ApplyActionFailed` |
 **Ontologies** | AttachmentNotFound | `from foundry.v2.ontologies.errors import AttachmentNotFound` |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry.v2.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | CipherChannelNotFound | `from foundry.v2.ontologies.errors import CipherChannelNotFound` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v2.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v2.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
 **Ontologies** | DuplicateOrderBy | `from foundry.v2.ontologies.errors import DuplicateOrderBy` |
@@ -2720,6 +2746,7 @@ Namespace | Name | Import |
 **Ontologies** | MissingParameter | `from foundry.v2.ontologies.errors import MissingParameter` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry.v2.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry.v2.ontologies.errors import MultiplePropertyValuesNotSupported` |
+**Ontologies** | NotCipherFormatted | `from foundry.v2.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry.v2.ontologies.errors import ObjectAlreadyExists` |
 **Ontologies** | ObjectChanged | `from foundry.v2.ontologies.errors import ObjectChanged` |
 **Ontologies** | ObjectNotFound | `from foundry.v2.ontologies.errors import ObjectNotFound` |
@@ -2755,10 +2782,13 @@ Namespace | Name | Import |
 **Ontologies** | QueryNotFound | `from foundry.v2.ontologies.errors import QueryNotFound` |
 **Ontologies** | QueryRuntimeError | `from foundry.v2.ontologies.errors import QueryRuntimeError` |
 **Ontologies** | QueryTimeExceededLimit | `from foundry.v2.ontologies.errors import QueryTimeExceededLimit` |
+**Ontologies** | RateLimitReached | `from foundry.v2.ontologies.errors import RateLimitReached` |
 **Ontologies** | SearchVectorDimensionsDiffer | `from foundry.v2.ontologies.errors import SearchVectorDimensionsDiffer` |
 **Ontologies** | SharedPropertiesNotFound | `from foundry.v2.ontologies.errors import SharedPropertiesNotFound` |
 **Ontologies** | SharedPropertyTypeNotFound | `from foundry.v2.ontologies.errors import SharedPropertyTypeNotFound` |
 **Ontologies** | TooManyNearestNeighborsRequested | `from foundry.v2.ontologies.errors import TooManyNearestNeighborsRequested` |
+**Ontologies** | UnauthorizedCipherOperation | `from foundry.v2.ontologies.errors import UnauthorizedCipherOperation` |
+**Ontologies** | UndecryptableValue | `from foundry.v2.ontologies.errors import UndecryptableValue` |
 **Ontologies** | UnknownParameter | `from foundry.v2.ontologies.errors import UnknownParameter` |
 **Ontologies** | UnsupportedObjectSet | `from foundry.v2.ontologies.errors import UnsupportedObjectSet` |
 **Ontologies** | ViewObjectPermissionDenied | `from foundry.v2.ontologies.errors import ViewObjectPermissionDenied` |
@@ -2887,6 +2917,7 @@ Namespace | Name | Import |
 **Ontologies** | ApplyActionFailed | `from foundry.v1.ontologies.errors import ApplyActionFailed` |
 **Ontologies** | AttachmentNotFound | `from foundry.v1.ontologies.errors import AttachmentNotFound` |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry.v1.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | CipherChannelNotFound | `from foundry.v1.ontologies.errors import CipherChannelNotFound` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry.v1.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry.v1.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
 **Ontologies** | DuplicateOrderBy | `from foundry.v1.ontologies.errors import DuplicateOrderBy` |
@@ -2933,6 +2964,7 @@ Namespace | Name | Import |
 **Ontologies** | MissingParameter | `from foundry.v1.ontologies.errors import MissingParameter` |
 **Ontologies** | MultipleGroupByOnFieldNotSupported | `from foundry.v1.ontologies.errors import MultipleGroupByOnFieldNotSupported` |
 **Ontologies** | MultiplePropertyValuesNotSupported | `from foundry.v1.ontologies.errors import MultiplePropertyValuesNotSupported` |
+**Ontologies** | NotCipherFormatted | `from foundry.v1.ontologies.errors import NotCipherFormatted` |
 **Ontologies** | ObjectAlreadyExists | `from foundry.v1.ontologies.errors import ObjectAlreadyExists` |
 **Ontologies** | ObjectChanged | `from foundry.v1.ontologies.errors import ObjectChanged` |
 **Ontologies** | ObjectNotFound | `from foundry.v1.ontologies.errors import ObjectNotFound` |
@@ -2968,10 +3000,13 @@ Namespace | Name | Import |
 **Ontologies** | QueryNotFound | `from foundry.v1.ontologies.errors import QueryNotFound` |
 **Ontologies** | QueryRuntimeError | `from foundry.v1.ontologies.errors import QueryRuntimeError` |
 **Ontologies** | QueryTimeExceededLimit | `from foundry.v1.ontologies.errors import QueryTimeExceededLimit` |
+**Ontologies** | RateLimitReached | `from foundry.v1.ontologies.errors import RateLimitReached` |
 **Ontologies** | SearchVectorDimensionsDiffer | `from foundry.v1.ontologies.errors import SearchVectorDimensionsDiffer` |
 **Ontologies** | SharedPropertiesNotFound | `from foundry.v1.ontologies.errors import SharedPropertiesNotFound` |
 **Ontologies** | SharedPropertyTypeNotFound | `from foundry.v1.ontologies.errors import SharedPropertyTypeNotFound` |
 **Ontologies** | TooManyNearestNeighborsRequested | `from foundry.v1.ontologies.errors import TooManyNearestNeighborsRequested` |
+**Ontologies** | UnauthorizedCipherOperation | `from foundry.v1.ontologies.errors import UnauthorizedCipherOperation` |
+**Ontologies** | UndecryptableValue | `from foundry.v1.ontologies.errors import UndecryptableValue` |
 **Ontologies** | UnknownParameter | `from foundry.v1.ontologies.errors import UnknownParameter` |
 **Ontologies** | UnsupportedObjectSet | `from foundry.v1.ontologies.errors import UnsupportedObjectSet` |
 **Ontologies** | ViewObjectPermissionDenied | `from foundry.v1.ontologies.errors import ViewObjectPermissionDenied` |

@@ -298,6 +298,12 @@ def test_ontologies_v2_attachment_property_import():
     assert AttachmentPropertyClient is not None
 
 
+def test_ontologies_v2_cipher_text_property_import():
+    from foundry.v2.ontologies.cipher_text_property import CipherTextPropertyClient
+
+    assert CipherTextPropertyClient is not None
+
+
 def test_ontologies_v2_linked_object_import():
     from foundry.v2.ontologies.linked_object import LinkedObjectClient
 

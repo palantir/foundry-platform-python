@@ -7347,6 +7347,40 @@ def ontologies_linked_object_page_linked_objects(
     click.echo(repr(result))
 
 
+@ontologies.group("cipher_text_property")
+def ontologies_cipher_text_property():
+    pass
+
+
+@ontologies_cipher_text_property.command("decrypt")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.pass_obj
+def ontologies_cipher_text_property_decrypt(
+    client: foundry.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+):
+    """
+    Decrypt the value of a ciphertext property.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
+
+    """
+    result = client.ontologies.CipherTextProperty.decrypt(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("attachment_property")
 def ontologies_attachment_property():
     pass
