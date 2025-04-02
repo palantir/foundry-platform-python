@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -1479,7 +1478,7 @@ FileImportRid = core.RID
 class FileLastModifiedAfterFilter(pydantic.BaseModel):
     """Only import files that have been modified after a specified timestamp"""
 
-    after_timestamp: typing.Optional[datetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
+    after_timestamp: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
     """
     Timestamp threshold, specified in ISO-8601 format.
     If not specified, defaults to the timestamp the filter is added to the file import.
@@ -1500,7 +1499,7 @@ class FileLastModifiedAfterFilterDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    afterTimestamp: typing_extensions.NotRequired[datetime]
+    afterTimestamp: typing_extensions.NotRequired[core.AwareDatetime]
     """
     Timestamp threshold, specified in ISO-8601 format.
     If not specified, defaults to the timestamp the filter is added to the file import.

@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -788,10 +787,10 @@ class SessionMetadata(pydantic.BaseModel):
     title: str
     """The title of the session."""
 
-    created_time: datetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    created_time: core.AwareDatetime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The time the session was created."""
 
-    updated_time: datetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
+    updated_time: core.AwareDatetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     """The time the session was last updated."""
 
     message_count: int = pydantic.Field(alias=str("messageCount"))  # type: ignore[literal-required]
@@ -800,7 +799,7 @@ class SessionMetadata(pydantic.BaseModel):
     Includes both user messages and Agent replies, so each complete exchange counts as two messages.
     """
 
-    estimated_expires_time: datetime = pydantic.Field(alias=str("estimatedExpiresTime"))  # type: ignore[literal-required]
+    estimated_expires_time: core.AwareDatetime = pydantic.Field(alias=str("estimatedExpiresTime"))  # type: ignore[literal-required]
     """
     The estimated time at which the session is due to expire.
     Once a session has expired, it can no longer be accessed and a new session must be created.
@@ -822,10 +821,10 @@ class SessionMetadataDict(typing_extensions.TypedDict):
     title: str
     """The title of the session."""
 
-    createdTime: datetime
+    createdTime: core.AwareDatetime
     """The time the session was created."""
 
-    updatedTime: datetime
+    updatedTime: core.AwareDatetime
     """The time the session was last updated."""
 
     messageCount: int
@@ -834,7 +833,7 @@ class SessionMetadataDict(typing_extensions.TypedDict):
     Includes both user messages and Agent replies, so each complete exchange counts as two messages.
     """
 
-    estimatedExpiresTime: datetime
+    estimatedExpiresTime: core.AwareDatetime
     """
     The estimated time at which the session is due to expire.
     Once a session has expired, it can no longer be accessed and a new session must be created.

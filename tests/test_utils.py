@@ -1,5 +1,8 @@
 import typing
 import warnings
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 
 import pytest
 import typing_extensions
@@ -8,6 +11,7 @@ from pydantic import ValidationError
 
 from foundry._core.utils import RID
 from foundry._core.utils import UUID
+from foundry._core.utils import AwareDatetime
 from foundry._core.utils import Long
 from foundry._core.utils import maybe_ignore_preview
 from foundry._core.utils import remove_prefixes
@@ -112,6 +116,37 @@ def test_long_serializes_to_string():
         long: Long
 
     assert WithLong(long=123).model_dump_json() == '{"long":"123"}'
+
+
+def test_accepts_valid_datetime():
+    class WithDatetime(BaseModel):
+        datetime: AwareDatetime
+
+    WithDatetime.model_validate({"datetime": datetime.now(timezone.utc)})
+
+
+def test_rejects_invalid_datetime():
+    class WithDatetime(BaseModel):
+        datetime: AwareDatetime
+
+    with pytest.raises(ValidationError):
+        WithDatetime.model_validate({"datetime": datetime.now()})
+
+
+def test_datetime_serializes_to_string():
+    class WithDatetime(BaseModel):
+        datetime: AwareDatetime
+
+    t = datetime(2023, 10, 1, 12, 0, 0, tzinfo=timezone.utc)
+    assert WithDatetime(datetime=t).model_dump_json() == '{"datetime":"2023-10-01T12:00:00+00:00"}'
+
+
+def test_non_utc_datetime_serializes_to_utc_string():
+    class WithDatetime(BaseModel):
+        datetime: AwareDatetime
+
+    t = datetime(2023, 10, 1, 12, 0, 0, tzinfo=timezone(timedelta(hours=2)))
+    assert WithDatetime(datetime=t).model_dump_json() == '{"datetime":"2023-10-01T10:00:00+00:00"}'
 
 
 def test_resolve_dict_forward_references():

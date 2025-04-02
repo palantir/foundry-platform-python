@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -114,7 +113,7 @@ class CertificateInfo(pydantic.BaseModel):
     """The certificate, in PEM format."""
 
     common_name: typing.Optional[str] = pydantic.Field(alias=str("commonName"), default=None)  # type: ignore[literal-required]
-    expiry_date: datetime = pydantic.Field(alias=str("expiryDate"))  # type: ignore[literal-required]
+    expiry_date: core.AwareDatetime = pydantic.Field(alias=str("expiryDate"))  # type: ignore[literal-required]
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -132,7 +131,7 @@ class CertificateInfoDict(typing_extensions.TypedDict):
     """The certificate, in PEM format."""
 
     commonName: typing_extensions.NotRequired[str]
-    expiryDate: datetime
+    expiryDate: core.AwareDatetime
     usageType: CertificateUsageType
 
 
@@ -407,7 +406,7 @@ class GroupMembershipDict(typing_extensions.TypedDict):
     groupId: core_models.PrincipalId
 
 
-GroupMembershipExpiration = datetime
+GroupMembershipExpiration = core.AwareDatetime
 """GroupMembershipExpiration"""
 
 
