@@ -106,7 +106,7 @@ organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289
 # Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
 role_grants = {
     "8bf49052-dc37-4528-8bf0-b551cfb71268": [
-        {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
+        PrincipalWithId(principal_id="f05f8da4-b84c-4fca-9c77-8af0b13d11de", principal_type="USER")
     ]
 }
 # SpaceRid

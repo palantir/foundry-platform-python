@@ -45,11 +45,11 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-primary_key = 50030
+primary_key = "50030"
 # LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
 # PropertyValueEscapedString | The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
-linked_object_primary_key = 80060
+linked_object_primary_key = "80060"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -143,7 +143,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-primary_key = 50030
+primary_key = "50030"
 # LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -246,7 +246,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-primary_key = 50030
+primary_key = "50030"
 # LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.

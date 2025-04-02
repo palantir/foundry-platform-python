@@ -39,22 +39,21 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[CreateScheduleRequestAction, CreateScheduleRequestActionDict]
-action = {
-    "abortOnFailure": False,
-    "forceBuild": False,
-    "retryBackoffDuration": {"unit": "SECONDS", "value": 30},
-    "retryCount": 1,
-    "fallbackBranches": [],
-    "branchName": "master",
-    "notificationsEnabled": False,
-    "target": {
-        "type": "manual",
-        "targetRids": [
+action = CreateScheduleRequestAction(
+    abort_on_failure=False,
+    force_build=False,
+    retry_backoff_duration=Duration(value=30, unit="SECONDS"),
+    retry_count=1,
+    fallback_branches=[],
+    branch_name="master",
+    notifications_enabled=False,
+    target=CreateScheduleRequestManualTarget(
+        target_rids=[
             "ri.foundry.main.dataset.b737e24d-6b19-43aa-93d5-da9fc4073f6e",
             "ri.foundry.main.dataset.d2452a94-a755-4778-8bfc-a315ab52fc43",
-        ],
-    },
-}
+        ]
+    ),
+)
 # Optional[str]
 description = "Run all the transforms at midnight"
 # Optional[str]
@@ -62,9 +61,9 @@ display_name = "My Daily Schedule"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[Union[CreateScheduleRequestScopeMode, CreateScheduleRequestScopeModeDict]]
-scope_mode = {"type": "user"}
+scope_mode = CreateScheduleRequestUserScope()
 # Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
+trigger = TimeTrigger(cron_expression="0 0 * * *", time_zone="UTC")
 
 
 try:
@@ -276,22 +275,21 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # ScheduleRid
 schedule_rid = None
 # Union[ReplaceScheduleRequestAction, ReplaceScheduleRequestActionDict]
-action = {
-    "abortOnFailure": False,
-    "forceBuild": False,
-    "retryBackoffDuration": {"unit": "SECONDS", "value": 30},
-    "retryCount": 1,
-    "fallbackBranches": [],
-    "branchName": "master",
-    "notificationsEnabled": False,
-    "target": {
-        "type": "manual",
-        "targetRids": [
+action = ReplaceScheduleRequestAction(
+    abort_on_failure=False,
+    force_build=False,
+    retry_backoff_duration=Duration(value=30, unit="SECONDS"),
+    retry_count=1,
+    fallback_branches=[],
+    branch_name="master",
+    notifications_enabled=False,
+    target=ReplaceScheduleRequestManualTarget(
+        target_rids=[
             "ri.foundry.main.dataset.b737e24d-6b19-43aa-93d5-da9fc4073f6e",
             "ri.foundry.main.dataset.d2452a94-a755-4778-8bfc-a315ab52fc43",
-        ],
-    },
-}
+        ]
+    ),
+)
 # Optional[str]
 description = "Run all the transforms at midnight"
 # Optional[str]
@@ -299,9 +297,9 @@ display_name = "My Daily Schedule"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[Union[ReplaceScheduleRequestScopeMode, ReplaceScheduleRequestScopeModeDict]]
-scope_mode = {"type": "user"}
+scope_mode = ReplaceScheduleRequestUserScope()
 # Optional[Union[Trigger, TriggerDict]] | The schedule trigger. If the requesting user does not have permission to see the trigger, this will be empty.
-trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
+trigger = TimeTrigger(cron_expression="0 0 * * *", time_zone="UTC")
 
 
 try:

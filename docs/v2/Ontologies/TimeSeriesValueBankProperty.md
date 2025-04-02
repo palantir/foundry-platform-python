@@ -40,7 +40,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the timeseries property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the timeseries property. To find the API name for your property value bank property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property_name = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -114,7 +114,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the time series property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -122,11 +122,10 @@ artifact_repository = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 # Optional[Union[TimeRange, TimeRangeDict]]
-range = {
-    "type": "relative",
-    "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},
-    "endTime": {"when": "BEFORE", "value": 1, "unit": "MONTHS"},
-}
+range = RelativeTimeRange(
+    start_time=RelativeTime(when="BEFORE", value=5, unit="MONTHS"),
+    end_time=RelativeTime(when="BEFORE", value=1, unit="MONTHS"),
+)
 
 
 try:

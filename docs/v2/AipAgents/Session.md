@@ -50,18 +50,16 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
-    "currentCustomerOrders": {
-        "type": "objectSet",
-        "ontology": "example-ontology",
-        "objectSet": {
-            "type": "filter",
-            "objectSet": {"type": "base", "objectType": "customerOrder"},
-            "where": {"type": "eq", "field": "customerId", "value": "123abc"},
-        },
-    }
+    "currentCustomerOrders": ObjectSetParameterValue(
+        object_set=ObjectSetFilterType(
+            object_set=ObjectSetBaseType(object_type="customerOrder"),
+            where=EqualsQueryV2(field="customerId", value="123abc"),
+        ),
+        ontology="example-ontology",
+    )
 }
 # Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to.
-user_input = {"text": "What is the status of my order?"}
+user_input = UserTextInput(text="What is the status of my order?")
 # Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 contexts_override = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -428,9 +426,9 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # SessionRid | The Resource Identifier (RID) of the conversation session.
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
-parameter_inputs = {"customerName": {"type": "string", "value": "Titan Technologies"}}
+parameter_inputs = {"customerName": StringParameterValue(value="Titan Technologies")}
 # Union[UserTextInput, UserTextInputDict] | The user message to retrieve relevant context for from the configured Agent data sources.
-user_input = {"text": "What is the status of my order?"}
+user_input = UserTextInput(text="What is the status of my order?")
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -503,18 +501,16 @@ agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
 # Dict[ParameterId, Union[ParameterValue, ParameterValueDict]] | Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 parameter_inputs = {
-    "currentCustomerOrders": {
-        "type": "objectSet",
-        "ontology": "example-ontology",
-        "objectSet": {
-            "type": "filter",
-            "objectSet": {"type": "base", "objectType": "customerOrder"},
-            "where": {"type": "eq", "field": "customerId", "value": "123abc"},
-        },
-    }
+    "currentCustomerOrders": ObjectSetParameterValue(
+        object_set=ObjectSetFilterType(
+            object_set=ObjectSetBaseType(object_type="customerOrder"),
+            where=EqualsQueryV2(field="customerId", value="123abc"),
+        ),
+        ontology="example-ontology",
+    )
 }
 # Union[UserTextInput, UserTextInputDict] | The user message for the Agent to respond to.
-user_input = {"text": "What is the status of my order?"}
+user_input = UserTextInput(text="What is the status of my order?")
 # Optional[List[Union[InputContext, InputContextDict]]] | If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 contexts_override = None
 # Optional[MessageId] | A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.

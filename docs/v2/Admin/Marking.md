@@ -40,7 +40,7 @@ category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 # List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
 initial_role_assignments = [
-    {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
+    MarkingRoleUpdate(role="ADMINISTER", principal_id="f05f8da4-b84c-4fca-9c77-8af0b13d11de")
 ]
 # MarkingName
 name = "PII"
@@ -154,7 +154,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetMarkingsBatchRequestElement, GetMarkingsBatchRequestElementDict]] | Body of the request
-body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
+body = [GetMarkingsBatchRequestElement(marking_id="18212f9a-0e63-4b79-96a0-aae04df23336")]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 

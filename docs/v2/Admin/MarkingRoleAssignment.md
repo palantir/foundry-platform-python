@@ -33,7 +33,9 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # MarkingId
 marking_id = None
 # List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+role_assignments = [
+    MarkingRoleUpdate(role="ADMINISTER", principal_id="f05f8da4-b84c-4fca-9c77-8af0b13d11de")
+]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -205,7 +207,9 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # MarkingId
 marking_id = None
 # List[Union[MarkingRoleUpdate, MarkingRoleUpdateDict]]
-role_assignments = [{"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+role_assignments = [
+    MarkingRoleUpdate(role="ADMINISTER", principal_id="f05f8da4-b84c-4fca-9c77-8af0b13d11de")
+]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 

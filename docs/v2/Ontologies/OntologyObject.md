@@ -46,8 +46,8 @@ ontology = "palantir"
 object_type = "employee"
 # List[Union[AggregationV2, AggregationV2Dict]]
 aggregation = [
-    {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
-    {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
+    MinAggregationV2(field="properties.tenure", name="min_tenure"),
+    AvgAggregationV2(field="properties.tenure", name="avg_tenure"),
 ]
 # List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
 group_by = [
@@ -56,7 +56,7 @@ group_by = [
         "type": "range",
         "ranges": [{"startValue": "2020-01-01", "endValue": "2020-06-01"}],
     },
-    {"field": "city", "type": "exact"},
+    AggregationExactGroupingV2(field="city"),
 ]
 # Optional[AggregationAccuracyRequest]
 accuracy = None
@@ -65,7 +65,7 @@ artifact_repository = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 # Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
-where = {"type": "eq", "field": "name", "value": "john"}
+where = EqualsQueryV2(field="name", value="john")
 
 
 try:
@@ -195,7 +195,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
-primary_key = 50030
+primary_key = "50030"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -501,7 +501,7 @@ page_size = None
 # Optional[PageToken]
 page_token = None
 # Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
-where = {"type": "eq", "field": "age", "value": 21}
+where = EqualsQueryV2(field="age", value=21)
 
 
 try:

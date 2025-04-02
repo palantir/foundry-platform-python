@@ -114,7 +114,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # Union[ObjectSet, ObjectSetDict]
-object_set = {"type": "base", "objectType": "Employee"}
+object_set = ObjectSetBaseType(object_type="Employee")
 
 
 try:
@@ -234,7 +234,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # Union[ObjectSet, ObjectSetDict]
-object_set = {"type": "base", "objectType": "Employee"}
+object_set = ObjectSetBaseType(object_type="Employee")
 # List[SelectedPropertyApiName]
 select = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -329,7 +329,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # Union[ObjectSet, ObjectSetDict]
-object_set = {"type": "base", "objectType": "Employee"}
+object_set = ObjectSetBaseType(object_type="Employee")
 # List[SelectedPropertyApiName]
 select = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -429,7 +429,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # Union[ObjectSet, ObjectSetDict]
-object_set = {"type": "base", "interfaceBase": "Person"}
+object_set = ObjectSetBaseType()
 # List[SelectedPropertyApiName]
 select = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.

@@ -42,7 +42,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object containing the attachment.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -116,7 +116,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object containing the attachment.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # AttachmentRid | The RID of the attachment.
@@ -192,7 +192,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object containing the attachment.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -268,7 +268,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object containing the attachment.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # AttachmentRid | The RID of the attachment.

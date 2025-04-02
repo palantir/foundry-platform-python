@@ -15,7 +15,9 @@
 
 from __future__ import annotations
 
+import decimal
 import typing
+from datetime import date
 
 import pydantic
 import typing_extensions
@@ -948,6 +950,7 @@ class CreateConnectionRequestSnowflakeKeyPairAuthenticationDict(typing_extension
 class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -971,6 +974,7 @@ class CreateTableImportRequestJdbcImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -984,6 +988,7 @@ class CreateTableImportRequestJdbcImportConfigDict(typing_extensions.TypedDict):
 class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftAccessImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1007,6 +1012,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfigDict(typing_extensions.
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1020,6 +1026,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfigDict(typing_extensions.
 class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1043,6 +1050,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfigDict(typing_extensio
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1056,6 +1064,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfigDict(typing_extensio
 class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestOracleImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1079,6 +1088,7 @@ class CreateTableImportRequestOracleImportConfigDict(typing_extensions.TypedDict
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1092,6 +1102,7 @@ class CreateTableImportRequestOracleImportConfigDict(typing_extensions.TypedDict
 class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestPostgreSqlImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1115,6 +1126,7 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -1149,6 +1161,67 @@ CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+
+
+class DateColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a date type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: date = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the date column to reference in the query."""
+
+    type: typing.Literal["dateColumnInitialIncrementalState"] = "dateColumnInitialIncrementalState"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "DateColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            DateColumnInitialIncrementalStateDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class DateColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """The state for an incremental table import using a column with a date type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: date
+    """The initial incremental state value for the date column to reference in the query."""
+
+    type: typing.Literal["dateColumnInitialIncrementalState"]
+
+
+class DecimalColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a decimal data type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: decimal.Decimal = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the decimal column to reference in the query."""
+
+    type: typing.Literal["decimalColumnInitialIncrementalState"] = (
+        "decimalColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "DecimalColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            DecimalColumnInitialIncrementalStateDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class DecimalColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """The state for an incremental table import using a column with a decimal data type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: decimal.Decimal
+    """The initial incremental state value for the decimal column to reference in the query."""
+
+    type: typing.Literal["decimalColumnInitialIncrementalState"]
 
 
 class Domain(pydantic.BaseModel):
@@ -1723,6 +1796,38 @@ class HeaderApiKeyDict(typing_extensions.TypedDict):
     type: typing.Literal["header"]
 
 
+class IntegerColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a numeric integer datatype."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: int = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the integer column to reference in the query."""
+
+    type: typing.Literal["integerColumnInitialIncrementalState"] = (
+        "integerColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "IntegerColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            IntegerColumnInitialIncrementalStateDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class IntegerColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """The state for an incremental table import using a numeric integer datatype."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: int
+    """The initial incremental state value for the integer column to reference in the query."""
+
+    type: typing.Literal["integerColumnInitialIncrementalState"]
+
+
 class JdbcConnectionConfiguration(pydantic.BaseModel):
     """The configuration needed to connect to an external system using the JDBC protocol."""
 
@@ -1782,6 +1887,7 @@ class JdbcImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1802,6 +1908,7 @@ class JdbcImportConfigDict(typing_extensions.TypedDict):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["jdbcImportConfig"]
 
 
@@ -1851,6 +1958,35 @@ class ListTableImportsResponseDict(typing_extensions.TypedDict):
     nextPageToken: typing_extensions.NotRequired[core_models.PageToken]
 
 
+class LongColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a numeric long datatype."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: core.Long = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the long column to reference in the query."""
+
+    type: typing.Literal["longColumnInitialIncrementalState"] = "longColumnInitialIncrementalState"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "LongColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            LongColumnInitialIncrementalStateDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class LongColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """The state for an incremental table import using a column with a numeric long datatype."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: core.Long
+    """The initial incremental state value for the long column to reference in the query."""
+
+    type: typing.Literal["longColumnInitialIncrementalState"]
+
+
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
 
@@ -1861,6 +1997,7 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1883,6 +2020,7 @@ class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["microsoftAccessImportConfig"]
 
 
@@ -1896,6 +2034,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1918,6 +2057,7 @@ class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["microsoftSqlServerImportConfig"]
 
 
@@ -1931,6 +2071,7 @@ class OracleImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1953,6 +2094,7 @@ class OracleImportConfigDict(typing_extensions.TypedDict):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["oracleImportConfig"]
 
 
@@ -1970,6 +2112,7 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1992,6 +2135,7 @@ class PostgreSqlImportConfigDict(typing_extensions.TypedDict):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["postgreSqlImportConfig"]
 
 
@@ -2750,6 +2894,38 @@ class SnowflakeKeyPairAuthenticationDict(typing_extensions.TypedDict):
     type: typing.Literal["keyPair"]
 
 
+class StringColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a string data type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: str = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the string column to reference in the query."""
+
+    type: typing.Literal["stringColumnInitialIncrementalState"] = (
+        "stringColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "StringColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            StringColumnInitialIncrementalStateDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class StringColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """The state for an incremental table import using a column with a string data type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: str
+    """The initial incremental state value for the string column to reference in the query."""
+
+    type: typing.Literal["stringColumnInitialIncrementalState"]
+
+
 class StsRoleConfiguration(pydantic.BaseModel):
     """StsRoleConfiguration"""
 
@@ -2915,6 +3091,50 @@ TableImportDisplayName = str
 """TableImportDisplayName"""
 
 
+TableImportInitialIncrementalState = typing_extensions.Annotated[
+    typing.Union[
+        StringColumnInitialIncrementalState,
+        DateColumnInitialIncrementalState,
+        IntegerColumnInitialIncrementalState,
+        "TimestampColumnInitialIncrementalState",
+        LongColumnInitialIncrementalState,
+        DecimalColumnInitialIncrementalState,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The incremental configuration for a table import enables append-style transactions from the same table without duplication of data.
+You must provide a monotonically increasing column such as a timestamp or id and an initial value for this column. 
+An incremental table import will import rows where the value is greater than the largest already imported.
+
+You can use the '?' character to reference the incremental state value when constructing your query. 
+Normally this would be used in a WHERE clause or similar filter applied in order to only sync data with an incremental column value 
+larger than the previously observed maximum value stored in the incremental state.
+"""
+
+
+TableImportInitialIncrementalStateDict = typing_extensions.Annotated[
+    typing.Union[
+        StringColumnInitialIncrementalStateDict,
+        DateColumnInitialIncrementalStateDict,
+        IntegerColumnInitialIncrementalStateDict,
+        "TimestampColumnInitialIncrementalStateDict",
+        LongColumnInitialIncrementalStateDict,
+        DecimalColumnInitialIncrementalStateDict,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The incremental configuration for a table import enables append-style transactions from the same table without duplication of data.
+You must provide a monotonically increasing column such as a timestamp or id and an initial value for this column. 
+An incremental table import will import rows where the value is greater than the largest already imported.
+
+You can use the '?' character to reference the incremental state value when constructing your query. 
+Normally this would be used in a WHERE clause or similar filter applied in order to only sync data with an incremental column value 
+larger than the previously observed maximum value stored in the incremental state.
+"""
+
+
 TableImportMode = typing.Literal["SNAPSHOT", "APPEND"]
 """
 Import mode governs how data is read from an external system, and written into a Foundry dataset. 
@@ -2926,6 +3146,38 @@ APPEND: Purely additive and yields data from previous import executions in addit
 
 TableImportRid = core.RID
 """The Resource Identifier (RID) of a TableImport (also known as a batch sync)."""
+
+
+class TimestampColumnInitialIncrementalState(pydantic.BaseModel):
+    """TimestampColumnInitialIncrementalState"""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: core.AwareDatetime = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the timestamp column in UTC to reference in the query."""
+
+    type: typing.Literal["timestampColumnInitialIncrementalState"] = (
+        "timestampColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "TimestampColumnInitialIncrementalStateDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            TimestampColumnInitialIncrementalStateDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class TimestampColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
+    """TimestampColumnInitialIncrementalState"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    columnName: str
+    currentValue: core.AwareDatetime
+    """The initial incremental state value for the timestamp column in UTC to reference in the query."""
+
+    type: typing.Literal["timestampColumnInitialIncrementalState"]
 
 
 UriScheme = typing.Literal["HTTP", "HTTPS"]
@@ -2980,6 +3232,12 @@ core.resolve_forward_references(
 )
 core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
 core.resolve_forward_references(TableImportConfigDict, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    TableImportInitialIncrementalState, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    TableImportInitialIncrementalStateDict, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "ApiKeyAuthentication",
@@ -3041,6 +3299,10 @@ __all__ = [
     "CreateTableImportRequestPostgreSqlImportConfigDict",
     "CreateTableImportRequestTableImportConfig",
     "CreateTableImportRequestTableImportConfigDict",
+    "DateColumnInitialIncrementalState",
+    "DateColumnInitialIncrementalStateDict",
+    "DecimalColumnInitialIncrementalState",
+    "DecimalColumnInitialIncrementalStateDict",
     "Domain",
     "DomainDict",
     "EncryptedProperty",
@@ -3073,6 +3335,8 @@ __all__ = [
     "FilesCountLimitFilterDict",
     "HeaderApiKey",
     "HeaderApiKeyDict",
+    "IntegerColumnInitialIncrementalState",
+    "IntegerColumnInitialIncrementalStateDict",
     "JdbcConnectionConfiguration",
     "JdbcConnectionConfigurationDict",
     "JdbcImportConfig",
@@ -3081,6 +3345,8 @@ __all__ = [
     "ListFileImportsResponseDict",
     "ListTableImportsResponse",
     "ListTableImportsResponseDict",
+    "LongColumnInitialIncrementalState",
+    "LongColumnInitialIncrementalStateDict",
     "MicrosoftAccessImportConfig",
     "MicrosoftAccessImportConfigDict",
     "MicrosoftSqlServerImportConfig",
@@ -3125,6 +3391,8 @@ __all__ = [
     "SnowflakeExternalOauthDict",
     "SnowflakeKeyPairAuthentication",
     "SnowflakeKeyPairAuthenticationDict",
+    "StringColumnInitialIncrementalState",
+    "StringColumnInitialIncrementalStateDict",
     "StsRoleConfiguration",
     "StsRoleConfigurationDict",
     "TableImport",
@@ -3133,7 +3401,11 @@ __all__ = [
     "TableImportConfigDict",
     "TableImportDict",
     "TableImportDisplayName",
+    "TableImportInitialIncrementalState",
+    "TableImportInitialIncrementalStateDict",
     "TableImportMode",
     "TableImportRid",
+    "TimestampColumnInitialIncrementalState",
+    "TimestampColumnInitialIncrementalStateDict",
     "UriScheme",
 ]

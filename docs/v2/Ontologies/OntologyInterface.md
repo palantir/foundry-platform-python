@@ -54,8 +54,8 @@ ontology = "palantir"
 interface_type = "Employee"
 # List[Union[AggregationV2, AggregationV2Dict]]
 aggregation = [
-    {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
-    {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
+    MinAggregationV2(field="properties.tenure", name="min_tenure"),
+    AvgAggregationV2(field="properties.tenure", name="avg_tenure"),
 ]
 # List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
 group_by = [
@@ -64,14 +64,14 @@ group_by = [
         "type": "range",
         "ranges": [{"startValue": "2020-01-01", "endValue": "2020-06-01"}],
     },
-    {"field": "city", "type": "exact"},
+    AggregationExactGroupingV2(field="city"),
 ]
 # Optional[AggregationAccuracyRequest]
 accuracy = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
-where = {"type": "eq", "field": "name", "value": "john"}
+where = EqualsQueryV2(field="name", value="john")
 
 
 try:

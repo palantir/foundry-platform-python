@@ -41,7 +41,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the media reference property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "profile_picture"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -117,7 +117,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the media reference property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.

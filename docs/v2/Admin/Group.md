@@ -196,7 +196,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request
-body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+body = [GetGroupsBatchRequestElement(group_id="f05f8da4-b84c-4fca-9c77-8af0b13d11de")]
 
 
 try:
@@ -349,7 +349,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Union[GroupSearchFilter, GroupSearchFilterDict]
-where = {"type": "queryString"}
+where = GroupSearchFilter(type="queryString")
 # Optional[PageSize]
 page_size = 100
 # Optional[PageToken]

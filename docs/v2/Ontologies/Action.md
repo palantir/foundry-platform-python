@@ -125,8 +125,8 @@ ontology = "palantir"
 action = "rename-employee"
 # List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
 requests = [
-    {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
-    {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
+    BatchApplyActionRequestItem(parameters={"id": 80060, "newName": "Anna Smith-Doe"}),
+    BatchApplyActionRequestItem(parameters={"id": 80061, "newName": "Joe Bloggs"}),
 ]
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None

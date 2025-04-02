@@ -109,8 +109,8 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 action_type = "rename-employee"
 # List[Union[ApplyActionRequest, ApplyActionRequestDict]]
 requests = [
-    {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
-    {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
+    ApplyActionRequest(parameters={"id": 80060, "newName": "Anna Smith-Doe"}),
+    ApplyActionRequest(parameters={"id": 80061, "newName": "Joe Bloggs"}),
 ]
 
 
@@ -183,7 +183,7 @@ parameters = {
     "age": 17,
     "date": "2021-05-01",
     "numbers": [1, 2, 3],
-    "hasObjectSet": True,
+    "hasObjectSet": true,
     "objectSet": "ri.object-set.main.object-set.39a9f4bd-f77e-45ce-9772-70f25852f623",
     "reference": "Chuck",
     "percentage": 41.3,

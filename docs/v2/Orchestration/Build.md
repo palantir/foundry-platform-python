@@ -89,13 +89,12 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # FallbackBranches
 fallback_branches = ["master"]
 # Union[BuildTarget, BuildTargetDict] | The targets of the schedule.
-target = {
-    "type": "manual",
-    "targetRids": [
+target = ManualTarget(
+    target_rids=[
         "ri.foundry.main.dataset.4263bdd9-d6bc-4244-9cca-893c1a2aef62",
         "ri.foundry.main.dataset.86939c1e-4256-41db-9fe7-e7ee9e0f752a",
-    ],
-}
+    ]
+)
 # Optional[AbortOnFailure]
 abort_on_failure = False
 # Optional[BranchName] | The target branch the build should run on.
@@ -105,7 +104,7 @@ force_build = None
 # Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
 notifications_enabled = None
 # Optional[Union[RetryBackoffDuration, RetryBackoffDurationDict]]
-retry_backoff_duration = {"unit": "SECONDS", "value": 30}
+retry_backoff_duration = Duration(value=30, unit="SECONDS")
 # Optional[RetryCount] | The number of retry attempts for failed jobs.
 retry_count = 1
 
@@ -212,7 +211,11 @@ from pprint import pprint
 client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[Union[GetBuildsBatchRequestElement, GetBuildsBatchRequestElementDict]] | Body of the request
-body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"}]
+body = [
+    GetBuildsBatchRequestElement(
+        build_rid="ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
+    )
+]
 
 
 try:
@@ -380,7 +383,9 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # Union[SearchBuildsFilter, SearchBuildsFilterDict]
 where = None
 # Optional[Union[SearchBuildsOrderBy, SearchBuildsOrderByDict]]
-order_by = {"fields": [{"field": "STARTED_TIME", "direction": "ASC"}]}
+order_by = SearchBuildsOrderBy(
+    fields=[SearchBuildsOrderByItem(field="STARTED_TIME", direction="ASC")]
+)
 # Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
 page_size = 100
 # Optional[PageToken]

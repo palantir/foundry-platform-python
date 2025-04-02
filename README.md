@@ -991,6 +991,10 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestPostgreSqlImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfigDict` |
+**Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import DateColumnInitialIncrementalState` |
+**Connectivity** | [DateColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/DateColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import DateColumnInitialIncrementalStateDict` |
+**Connectivity** | [DecimalColumnInitialIncrementalState](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import DecimalColumnInitialIncrementalState` |
+**Connectivity** | [DecimalColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import DecimalColumnInitialIncrementalStateDict` |
 **Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry.v2.connectivity.models import Domain` |
 **Connectivity** | [DomainDict](docs/v2/Connectivity/models/DomainDict.md) | `from foundry.v2.connectivity.models import DomainDict` |
 **Connectivity** | [EncryptedProperty](docs/v2/Connectivity/models/EncryptedProperty.md) | `from foundry.v2.connectivity.models import EncryptedProperty` |
@@ -1023,6 +1027,8 @@ Namespace | Name | Import |
 **Connectivity** | [FileSizeFilterDict](docs/v2/Connectivity/models/FileSizeFilterDict.md) | `from foundry.v2.connectivity.models import FileSizeFilterDict` |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [HeaderApiKeyDict](docs/v2/Connectivity/models/HeaderApiKeyDict.md) | `from foundry.v2.connectivity.models import HeaderApiKeyDict` |
+**Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
+**Connectivity** | [IntegerColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import IntegerColumnInitialIncrementalStateDict` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry.v2.connectivity.models import JdbcConnectionConfiguration` |
 **Connectivity** | [JdbcConnectionConfigurationDict](docs/v2/Connectivity/models/JdbcConnectionConfigurationDict.md) | `from foundry.v2.connectivity.models import JdbcConnectionConfigurationDict` |
 **Connectivity** | [JdbcImportConfig](docs/v2/Connectivity/models/JdbcImportConfig.md) | `from foundry.v2.connectivity.models import JdbcImportConfig` |
@@ -1031,6 +1037,8 @@ Namespace | Name | Import |
 **Connectivity** | [ListFileImportsResponseDict](docs/v2/Connectivity/models/ListFileImportsResponseDict.md) | `from foundry.v2.connectivity.models import ListFileImportsResponseDict` |
 **Connectivity** | [ListTableImportsResponse](docs/v2/Connectivity/models/ListTableImportsResponse.md) | `from foundry.v2.connectivity.models import ListTableImportsResponse` |
 **Connectivity** | [ListTableImportsResponseDict](docs/v2/Connectivity/models/ListTableImportsResponseDict.md) | `from foundry.v2.connectivity.models import ListTableImportsResponseDict` |
+**Connectivity** | [LongColumnInitialIncrementalState](docs/v2/Connectivity/models/LongColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import LongColumnInitialIncrementalState` |
+**Connectivity** | [LongColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/LongColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import LongColumnInitialIncrementalStateDict` |
 **Connectivity** | [MicrosoftAccessImportConfig](docs/v2/Connectivity/models/MicrosoftAccessImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfig` |
 **Connectivity** | [MicrosoftAccessImportConfigDict](docs/v2/Connectivity/models/MicrosoftAccessImportConfigDict.md) | `from foundry.v2.connectivity.models import MicrosoftAccessImportConfigDict` |
 **Connectivity** | [MicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfig.md) | `from foundry.v2.connectivity.models import MicrosoftSqlServerImportConfig` |
@@ -1075,6 +1083,8 @@ Namespace | Name | Import |
 **Connectivity** | [SnowflakeExternalOauthDict](docs/v2/Connectivity/models/SnowflakeExternalOauthDict.md) | `from foundry.v2.connectivity.models import SnowflakeExternalOauthDict` |
 **Connectivity** | [SnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/SnowflakeKeyPairAuthentication.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthentication` |
 **Connectivity** | [SnowflakeKeyPairAuthenticationDict](docs/v2/Connectivity/models/SnowflakeKeyPairAuthenticationDict.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthenticationDict` |
+**Connectivity** | [StringColumnInitialIncrementalState](docs/v2/Connectivity/models/StringColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalState` |
+**Connectivity** | [StringColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/StringColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalStateDict` |
 **Connectivity** | [StsRoleConfiguration](docs/v2/Connectivity/models/StsRoleConfiguration.md) | `from foundry.v2.connectivity.models import StsRoleConfiguration` |
 **Connectivity** | [StsRoleConfigurationDict](docs/v2/Connectivity/models/StsRoleConfigurationDict.md) | `from foundry.v2.connectivity.models import StsRoleConfigurationDict` |
 **Connectivity** | [TableImport](docs/v2/Connectivity/models/TableImport.md) | `from foundry.v2.connectivity.models import TableImport` |
@@ -1083,8 +1093,12 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportConfigDict](docs/v2/Connectivity/models/TableImportConfigDict.md) | `from foundry.v2.connectivity.models import TableImportConfigDict` |
 **Connectivity** | [TableImportDict](docs/v2/Connectivity/models/TableImportDict.md) | `from foundry.v2.connectivity.models import TableImportDict` |
 **Connectivity** | [TableImportDisplayName](docs/v2/Connectivity/models/TableImportDisplayName.md) | `from foundry.v2.connectivity.models import TableImportDisplayName` |
+**Connectivity** | [TableImportInitialIncrementalState](docs/v2/Connectivity/models/TableImportInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalState` |
+**Connectivity** | [TableImportInitialIncrementalStateDict](docs/v2/Connectivity/models/TableImportInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalStateDict` |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry.v2.connectivity.models import TableImportMode` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry.v2.connectivity.models import TableImportRid` |
+**Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
+**Connectivity** | [TimestampColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalStateDict` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry.v2.connectivity.models import UriScheme` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry.v2.core.models import AnyType` |
 **Core** | [AnyTypeDict](docs/v2/Core/models/AnyTypeDict.md) | `from foundry.v2.core.models import AnyTypeDict` |

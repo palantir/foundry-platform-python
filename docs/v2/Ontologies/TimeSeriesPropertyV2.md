@@ -41,7 +41,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the time series property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -114,7 +114,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the time series property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
@@ -190,7 +190,7 @@ ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the object with the time series property.
-primary_key = 50030
+primary_key = "50030"
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = None
 # Optional[Union[AggregateTimeSeries, AggregateTimeSeriesDict]]
@@ -202,11 +202,10 @@ format = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 # Optional[Union[TimeRange, TimeRangeDict]]
-range = {
-    "type": "relative",
-    "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},
-    "endTime": {"when": "BEFORE", "value": 1, "unit": "MONTHS"},
-}
+range = RelativeTimeRange(
+    start_time=RelativeTime(when="BEFORE", value=5, unit="MONTHS"),
+    end_time=RelativeTime(when="BEFORE", value=1, unit="MONTHS"),
+)
 
 
 try:
