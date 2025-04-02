@@ -111,3 +111,4 @@ def resolve_forward_references(type_obj: Any, globalns, localns):
     )
 
     setattr(type_obj, "__args__", args)
+    return type_obj

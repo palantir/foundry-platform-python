@@ -165,3 +165,21 @@ def test_resolve_annotated_union_forward_references():
 
     resolve_forward_references(A, globals(), locals())
     assert A == typing_extensions.Annotated[typing.Union[str, int], "Foo Bar"]
+
+
+def test_resolve_duplicate_forward_references():
+    A = typing.List["C"]
+    B = typing.List["C"]
+    C = typing.List[float]
+
+    resolve_forward_references(B, globals(), locals())
+    resolve_forward_references(A, globals(), locals())
+    assert A == typing.List[typing.List[float]]
+
+
+def test_resolve_double_forward_reference():
+    A = typing.List[typing.List["B"]]
+    B = float
+
+    resolve_forward_references(A, globals(), locals())
+    assert A == typing.List[typing.List[float]]
