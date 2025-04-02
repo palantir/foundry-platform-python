@@ -1424,6 +1424,25 @@ Represents the value of data in the following format. Note that these values can
 """
 
 
+class DecryptionResult(pydantic.BaseModel):
+    """The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown."""
+
+    plaintext: typing.Optional[Plaintext] = None
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "DecryptionResultDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(DecryptionResultDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class DecryptionResultDict(typing_extensions.TypedDict):
+    """The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    plaintext: typing_extensions.NotRequired[Plaintext]
+
+
 class DeleteInterfaceObjectRule(pydantic.BaseModel):
     """DeleteInterfaceObjectRule"""
 
@@ -4612,6 +4631,10 @@ class ParameterOptionDict(typing_extensions.TypedDict):
     """An allowed configured value for a parameter within an action."""
 
 
+Plaintext = str
+"""Plaintext"""
+
+
 class PreciseDuration(pydantic.BaseModel):
     """A measurement of duration."""
 
@@ -6872,6 +6895,8 @@ __all__ = [
     "CreateTemporaryObjectSetResponseV2",
     "CreateTemporaryObjectSetResponseV2Dict",
     "DataValue",
+    "DecryptionResult",
+    "DecryptionResultDict",
     "DeleteInterfaceObjectRule",
     "DeleteInterfaceObjectRuleDict",
     "DeleteLink",
@@ -7113,6 +7138,7 @@ __all__ = [
     "ParameterId",
     "ParameterOption",
     "ParameterOptionDict",
+    "Plaintext",
     "PolygonValue",
     "PolygonValueDict",
     "PreciseDuration",

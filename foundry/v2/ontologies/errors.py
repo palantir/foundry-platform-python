@@ -275,6 +275,24 @@ class AttachmentSizeExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class CipherChannelNotFoundParameters(typing_extensions.TypedDict):
+    """
+    The Cipher Channel was not found.
+    It either does not exist, or you do not have permission to see it.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    cipherChannel: core.RID
+
+
+@dataclass
+class CipherChannelNotFound(errors.NotFoundError):
+    name: typing.Literal["CipherChannelNotFound"]
+    parameters: CipherChannelNotFoundParameters
+    error_instance_id: str
+
+
 class CompositePrimaryKeyNotSupportedParameters(typing_extensions.TypedDict):
     """
     Primary keys consisting of multiple properties are not supported by this API. If you need support for this,
@@ -1039,6 +1057,25 @@ class MultiplePropertyValuesNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class NotCipherFormattedParameters(typing_extensions.TypedDict):
+    """
+    The value intended for decryption with Cipher is not formatted correctly.
+    It may already be a plaintext value and not require decryption.
+    Ensure it is correctly formatted (CIPHER::<cipher-channel-rid>::<encrypted-value>::CIPHER).
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: str
+
+
+@dataclass
+class NotCipherFormatted(errors.BadRequestError):
+    name: typing.Literal["NotCipherFormatted"]
+    parameters: NotCipherFormattedParameters
+    error_instance_id: str
+
+
 class ObjectAlreadyExistsParameters(typing_extensions.TypedDict):
     """The object the user is attempting to create already exists."""
 
@@ -1628,6 +1665,21 @@ class QueryTimeExceededLimit(errors.InternalServerError):
     error_instance_id: str
 
 
+class RateLimitReachedParameters(typing_extensions.TypedDict):
+    """Unable to decrypt this CipherText because the available rate limits in Cipher licenses were reached."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    cipherChannel: core.RID
+
+
+@dataclass
+class RateLimitReached(errors.PermissionDeniedError):
+    name: typing.Literal["RateLimitReached"]
+    parameters: RateLimitReachedParameters
+    error_instance_id: str
+
+
 class SearchVectorDimensionsDifferParameters(typing_extensions.TypedDict):
     """The dimensions of the provided vector don't match the dimensions of the embedding model being queried."""
 
@@ -1683,6 +1735,39 @@ class TooManyNearestNeighborsRequestedParameters(typing_extensions.TypedDict):
 class TooManyNearestNeighborsRequested(errors.BadRequestError):
     name: typing.Literal["TooManyNearestNeighborsRequested"]
     parameters: TooManyNearestNeighborsRequestedParameters
+    error_instance_id: str
+
+
+class UnauthorizedCipherOperationParameters(typing_extensions.TypedDict):
+    """The provided token does not have permission to take a specific Cipher operation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    cipherChannel: core.RID
+
+
+@dataclass
+class UnauthorizedCipherOperation(errors.PermissionDeniedError):
+    name: typing.Literal["UnauthorizedCipherOperation"]
+    parameters: UnauthorizedCipherOperationParameters
+    error_instance_id: str
+
+
+class UndecryptableValueParameters(typing_extensions.TypedDict):
+    """
+    The value intended for decryption with Cipher cannot be decrypted.
+    Ensure it is correctly formatted (CIPHER::<cipher-channel-rid>:<encrypted-value>::CIPHER).
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: str
+
+
+@dataclass
+class UndecryptableValue(errors.BadRequestError):
+    name: typing.Literal["UndecryptableValue"]
+    parameters: UndecryptableValueParameters
     error_instance_id: str
 
 
@@ -1752,6 +1837,7 @@ __all__ = [
     "ApplyActionFailed",
     "AttachmentNotFound",
     "AttachmentSizeExceededLimit",
+    "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
     "DerivedPropertyApiNamesNotUnique",
     "DuplicateOrderBy",
@@ -1798,6 +1884,7 @@ __all__ = [
     "MissingParameter",
     "MultipleGroupByOnFieldNotSupported",
     "MultiplePropertyValuesNotSupported",
+    "NotCipherFormatted",
     "ObjectAlreadyExists",
     "ObjectChanged",
     "ObjectNotFound",
@@ -1833,10 +1920,13 @@ __all__ = [
     "QueryNotFound",
     "QueryRuntimeError",
     "QueryTimeExceededLimit",
+    "RateLimitReached",
     "SearchVectorDimensionsDiffer",
     "SharedPropertiesNotFound",
     "SharedPropertyTypeNotFound",
     "TooManyNearestNeighborsRequested",
+    "UnauthorizedCipherOperation",
+    "UndecryptableValue",
     "UnknownParameter",
     "UnsupportedObjectSet",
     "ViewObjectPermissionDenied",
