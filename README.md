@@ -1174,6 +1174,8 @@ Namespace | Name | Import |
 **Core** | [FoundryLiveDeploymentDict](docs/v2/Core/models/FoundryLiveDeploymentDict.md) | `from foundry.v2.core.models import FoundryLiveDeploymentDict` |
 **Core** | [FullRowChangeDataCaptureConfiguration](docs/v2/Core/models/FullRowChangeDataCaptureConfiguration.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfiguration` |
 **Core** | [FullRowChangeDataCaptureConfigurationDict](docs/v2/Core/models/FullRowChangeDataCaptureConfigurationDict.md) | `from foundry.v2.core.models import FullRowChangeDataCaptureConfigurationDict` |
+**Core** | [GeohashType](docs/v2/Core/models/GeohashType.md) | `from foundry.v2.core.models import GeohashType` |
+**Core** | [GeohashTypeDict](docs/v2/Core/models/GeohashTypeDict.md) | `from foundry.v2.core.models import GeohashTypeDict` |
 **Core** | [GeoPointType](docs/v2/Core/models/GeoPointType.md) | `from foundry.v2.core.models import GeoPointType` |
 **Core** | [GeoPointTypeDict](docs/v2/Core/models/GeoPointTypeDict.md) | `from foundry.v2.core.models import GeoPointTypeDict` |
 **Core** | [GeoShapeType](docs/v2/Core/models/GeoShapeType.md) | `from foundry.v2.core.models import GeoShapeType` |

@@ -16,6 +16,7 @@ OntologyStructType | struct
 StringType | string
 DoubleType | double
 IntegerType | integer
+GeoShapeType | geoshape
 LongType | long
 OntologyObjectTypeReferenceType | objectType
 BooleanType | boolean
@@ -24,6 +25,7 @@ AttachmentType | attachment
 MediaReferenceType | mediaReference
 ActionParameterArrayType | array
 OntologyObjectSetType | objectSet
+GeohashType | geohash
 OntologyObjectType | object
 TimestampType | timestamp
 
