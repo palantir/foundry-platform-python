@@ -16,6 +16,7 @@ OntologyStructTypeDict | struct
 StringTypeDict | string
 DoubleTypeDict | double
 IntegerTypeDict | integer
+GeoShapeTypeDict | geoshape
 LongTypeDict | long
 OntologyObjectTypeReferenceTypeDict | objectType
 BooleanTypeDict | boolean
@@ -24,6 +25,7 @@ AttachmentTypeDict | attachment
 MediaReferenceTypeDict | mediaReference
 ActionParameterArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
+GeohashTypeDict | geohash
 OntologyObjectTypeDict | object
 TimestampTypeDict | timestamp
 

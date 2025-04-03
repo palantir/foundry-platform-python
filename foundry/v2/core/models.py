@@ -730,6 +730,25 @@ class GeoShapeTypeDict(typing_extensions.TypedDict):
     type: typing.Literal["geoshape"]
 
 
+class GeohashType(pydantic.BaseModel):
+    """GeohashType"""
+
+    type: typing.Literal["geohash"] = "geohash"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "GeohashTypeDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(GeohashTypeDict, self.model_dump(by_alias=True, exclude_none=True))
+
+
+class GeohashTypeDict(typing_extensions.TypedDict):
+    """GeohashType"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    type: typing.Literal["geohash"]
+
+
 class GeotimeSeriesReferenceType(pydantic.BaseModel):
     """GeotimeSeriesReferenceType"""
 
@@ -1479,6 +1498,8 @@ __all__ = [
     "GeoPointTypeDict",
     "GeoShapeType",
     "GeoShapeTypeDict",
+    "GeohashType",
+    "GeohashTypeDict",
     "GeotimeSeriesReferenceType",
     "GeotimeSeriesReferenceTypeDict",
     "GroupName",
