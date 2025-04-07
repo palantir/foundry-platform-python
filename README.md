@@ -566,6 +566,8 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**rag_context**](docs/v2/AipAgents/Session.md#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
 **AipAgents** | Session | [**streaming_continue**](docs/v2/AipAgents/Session.md#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
 **AipAgents** | Session | [**update_title**](docs/v2/AipAgents/Session.md#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle |
+**Connectivity** | Connection | [**get**](docs/v2/Connectivity/Connection.md#get) | **GET** /v2/connectivity/connections/{connectionRid} |
+**Connectivity** | Connection | [**get_configuration**](docs/v2/Connectivity/Connection.md#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration |
 **Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
 **Connectivity** | FileImport | [**create**](docs/v2/Connectivity/FileImport.md#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports |
 **Connectivity** | FileImport | [**delete**](docs/v2/Connectivity/FileImport.md#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
@@ -997,6 +999,8 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestOracleImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestOracleImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestOracleImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestPostgreSqlImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfig` |
 **Connectivity** | [CreateTableImportRequestPostgreSqlImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfigDict` |
+**Connectivity** | [CreateTableImportRequestSnowflakeTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestSnowflakeTableImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestSnowflakeTableImportConfig` |
+**Connectivity** | [CreateTableImportRequestSnowflakeTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestSnowflakeTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestSnowflakeTableImportConfigDict` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfigDict](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfigDict.md) | `from foundry.v2.connectivity.models import CreateTableImportRequestTableImportConfigDict` |
 **Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import DateColumnInitialIncrementalState` |
@@ -1091,6 +1095,8 @@ Namespace | Name | Import |
 **Connectivity** | [SnowflakeExternalOauthDict](docs/v2/Connectivity/models/SnowflakeExternalOauthDict.md) | `from foundry.v2.connectivity.models import SnowflakeExternalOauthDict` |
 **Connectivity** | [SnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/SnowflakeKeyPairAuthentication.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthentication` |
 **Connectivity** | [SnowflakeKeyPairAuthenticationDict](docs/v2/Connectivity/models/SnowflakeKeyPairAuthenticationDict.md) | `from foundry.v2.connectivity.models import SnowflakeKeyPairAuthenticationDict` |
+**Connectivity** | [SnowflakeTableImportConfig](docs/v2/Connectivity/models/SnowflakeTableImportConfig.md) | `from foundry.v2.connectivity.models import SnowflakeTableImportConfig` |
+**Connectivity** | [SnowflakeTableImportConfigDict](docs/v2/Connectivity/models/SnowflakeTableImportConfigDict.md) | `from foundry.v2.connectivity.models import SnowflakeTableImportConfigDict` |
 **Connectivity** | [StringColumnInitialIncrementalState](docs/v2/Connectivity/models/StringColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalState` |
 **Connectivity** | [StringColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/StringColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import StringColumnInitialIncrementalStateDict` |
 **Connectivity** | [StsRoleConfiguration](docs/v2/Connectivity/models/StsRoleConfiguration.md) | `from foundry.v2.connectivity.models import StsRoleConfiguration` |

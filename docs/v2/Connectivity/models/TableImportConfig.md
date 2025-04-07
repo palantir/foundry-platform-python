@@ -14,6 +14,7 @@ JdbcImportConfig | jdbcImportConfig
 MicrosoftSqlServerImportConfig | microsoftSqlServerImportConfig
 PostgreSqlImportConfig | postgreSqlImportConfig
 MicrosoftAccessImportConfig | microsoftAccessImportConfig
+SnowflakeTableImportConfig | snowflakeImportConfig
 OracleImportConfig | oracleImportConfig
 
 

@@ -40,7 +40,7 @@ client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palant
 # ConnectionRid
 connection_rid = None
 # Union[CreateTableImportRequestTableImportConfig, CreateTableImportRequestTableImportConfigDict]
-config = None
+config = {"type": "jdbcImportConfig", "query": "SELECT * FROM table"}
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName
