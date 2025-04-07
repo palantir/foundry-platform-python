@@ -1137,12 +1137,51 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
     type: typing.Literal["postgreSqlImportConfig"]
 
 
+class CreateTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestSnowflakeTableImportConfig"""
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "CreateTableImportRequestSnowflakeTableImportConfigDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            CreateTableImportRequestSnowflakeTableImportConfigDict,
+            self.model_dump(by_alias=True, exclude_none=True),
+        )
+
+
+class CreateTableImportRequestSnowflakeTableImportConfigDict(typing_extensions.TypedDict):
+    """CreateTableImportRequestSnowflakeTableImportConfig"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    type: typing.Literal["snowflakeImportConfig"]
+
+
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
         CreateTableImportRequestJdbcImportConfig,
         CreateTableImportRequestMicrosoftSqlServerImportConfig,
         CreateTableImportRequestPostgreSqlImportConfig,
         CreateTableImportRequestMicrosoftAccessImportConfig,
+        CreateTableImportRequestSnowflakeTableImportConfig,
         CreateTableImportRequestOracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
@@ -1156,6 +1195,7 @@ CreateTableImportRequestTableImportConfigDict = typing_extensions.Annotated[
         CreateTableImportRequestMicrosoftSqlServerImportConfigDict,
         CreateTableImportRequestPostgreSqlImportConfigDict,
         CreateTableImportRequestMicrosoftAccessImportConfigDict,
+        CreateTableImportRequestSnowflakeTableImportConfigDict,
         CreateTableImportRequestOracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
@@ -2894,6 +2934,43 @@ class SnowflakeKeyPairAuthenticationDict(typing_extensions.TypedDict):
     type: typing.Literal["keyPair"]
 
 
+class SnowflakeTableImportConfig(pydantic.BaseModel):
+    """The table import configuration for a [Snowflake connection](/docs/foundry/available-connectors/snowflake)."""
+
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> "SnowflakeTableImportConfigDict":
+        """Return the dictionary representation of the model using the field aliases."""
+        return typing.cast(
+            SnowflakeTableImportConfigDict, self.model_dump(by_alias=True, exclude_none=True)
+        )
+
+
+class SnowflakeTableImportConfigDict(typing_extensions.TypedDict):
+    """The table import configuration for a [Snowflake connection](/docs/foundry/available-connectors/snowflake)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
+    type: typing.Literal["snowflakeImportConfig"]
+
+
 class StringColumnInitialIncrementalState(pydantic.BaseModel):
     """The state for an incremental table import using a column with a string data type."""
 
@@ -3044,6 +3121,7 @@ TableImportConfig = typing_extensions.Annotated[
         MicrosoftSqlServerImportConfig,
         PostgreSqlImportConfig,
         MicrosoftAccessImportConfig,
+        SnowflakeTableImportConfig,
         OracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
@@ -3057,6 +3135,7 @@ TableImportConfigDict = typing_extensions.Annotated[
         MicrosoftSqlServerImportConfigDict,
         PostgreSqlImportConfigDict,
         MicrosoftAccessImportConfigDict,
+        SnowflakeTableImportConfigDict,
         OracleImportConfigDict,
     ],
     pydantic.Field(discriminator="type"),
@@ -3297,6 +3376,8 @@ __all__ = [
     "CreateTableImportRequestOracleImportConfigDict",
     "CreateTableImportRequestPostgreSqlImportConfig",
     "CreateTableImportRequestPostgreSqlImportConfigDict",
+    "CreateTableImportRequestSnowflakeTableImportConfig",
+    "CreateTableImportRequestSnowflakeTableImportConfigDict",
     "CreateTableImportRequestTableImportConfig",
     "CreateTableImportRequestTableImportConfigDict",
     "DateColumnInitialIncrementalState",
@@ -3391,6 +3472,8 @@ __all__ = [
     "SnowflakeExternalOauthDict",
     "SnowflakeKeyPairAuthentication",
     "SnowflakeKeyPairAuthenticationDict",
+    "SnowflakeTableImportConfig",
+    "SnowflakeTableImportConfigDict",
     "StringColumnInitialIncrementalState",
     "StringColumnInitialIncrementalStateDict",
     "StsRoleConfiguration",

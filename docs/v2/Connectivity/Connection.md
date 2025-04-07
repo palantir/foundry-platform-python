@@ -3,8 +3,8 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Private Beta |
-[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Private Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
+[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
 # **create**

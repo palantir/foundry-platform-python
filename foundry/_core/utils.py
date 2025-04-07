@@ -20,6 +20,7 @@ from datetime import timezone
 from functools import wraps
 from typing import Any
 from typing import Callable
+from typing import ForwardRef
 from typing import List
 from typing import TypeVar
 
@@ -97,17 +98,17 @@ def maybe_ignore_preview(func: AnyCallableT) -> AnyCallableT:
     return wrapper  # type: ignore
 
 
-def resolve_forward_references(type_obj: Any, globalns, localns):
-    if not hasattr(type_obj, "__origin__") or not hasattr(type_obj, "__args__"):
+def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> Any:
+    if typing.get_origin(type_obj) is None:
         return type_obj
 
     args = tuple(
         (
             typing._eval_type(arg, globalns, localns)  # type: ignore
-            if isinstance(arg, typing.ForwardRef)
+            if isinstance(arg, ForwardRef)
             else resolve_forward_references(arg, globalns, localns)
         )
-        for arg in type_obj.__args__  # type: ignore
+        for arg in typing.get_args(type_obj)  # type: ignore
     )
 
     setattr(type_obj, "__args__", args)
