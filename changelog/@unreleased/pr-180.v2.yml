@@ -1,6 +1,11 @@
 type: break
 break:
-  description: "### Migration Guide\n- The deprecated `page` operations have been
+  description: "### Migration Guide\n- The top level module was renamed from `foundry` to `foundry_sdk` to
+    resolve a name collision with the `foundry` package. This means that all imports
+    will need to be updated. For example, the following import:\n\n```python\nfrom
+    foundry import FoundryClient\n```\n\nwill need to be updated to:\n\n```python\nfrom
+    foundry_sdk import FoundryClient\n```\n
+    \n- The deprecated `page` operations have been
     removed in favor of the `list` operations. If you were still using the `page`
     methods, you can switch them to `list` instead.\n\n```python\npage = client.datasets.Dataset.Branch.page(dataset_rid,
     page_size=page_size)  # before\npage = client.datasets.Dataset.Branch.list(dataset_rid,
