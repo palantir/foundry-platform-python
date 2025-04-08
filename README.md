@@ -297,11 +297,11 @@ There are a handful of other exception classes that could be thrown when instant
 
 <a id="pagination"></a>
 ## Pagination
-When calling any iterator endpoints, we return a `Pager` class designed to simplify the process of working
+When calling any iterator endpoints, we return a `ResourceIterator` class designed to simplify the process of working
 with paginated API endpoints. This class provides a convenient way to fetch, iterate over, and manage pages
 of data, while handling the underlying pagination logic.
 
-To iterate over all items, you can simply create a `Pager` instance and use it in a for loop, like this:
+To iterate over all items, you can simply create a `ResourceIterator` instance and use it in a for loop, like this:
 
 ```python
 for item in client.datasets.Dataset.Branch.list(dataset_rid):
