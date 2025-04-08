@@ -29,11 +29,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -60,7 +60,7 @@ try:
     )
     print("The get_latest_value response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling TimeSeriesValueBankProperty.get_latest_value: %s\n" % e)
 
 ```
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes |
 **property** | PropertyApiName | The API name of the time series backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
-**range** | Optional[Union[TimeRange, TimeRangeDict]] |  | [optional] |
+**range** | Optional[TimeRange] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -103,11 +103,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -121,7 +121,7 @@ property = None
 artifact_repository = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
-# Optional[Union[TimeRange, TimeRangeDict]]
+# Optional[TimeRange]
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},
@@ -141,7 +141,7 @@ try:
     )
     print("The stream_values response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling TimeSeriesValueBankProperty.stream_values: %s\n" % e)
 
 ```

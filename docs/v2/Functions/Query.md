@@ -26,11 +26,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryApiName
 query_api_name = None
@@ -46,7 +46,7 @@ try:
     )
     print("The execute response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Query.execute: %s\n" % e)
 
 ```
@@ -81,11 +81,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # QueryApiName
 query_api_name = None
@@ -97,7 +97,7 @@ try:
     api_response = foundry_client.functions.Query.get(query_api_name, preview=preview)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Query.get: %s\n" % e)
 
 ```
@@ -132,11 +132,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FunctionRid
 rid = None
@@ -148,7 +148,7 @@ try:
     api_response = foundry_client.functions.Query.get_by_rid(rid=rid, preview=preview)
     print("The get_by_rid response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Query.get_by_rid: %s\n" % e)
 
 ```

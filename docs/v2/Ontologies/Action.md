@@ -10,7 +10,7 @@ Applies an action using the given parameters.
 
 Changes to the Ontology are eventually consistent and may take some time to be visible.
 
-Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint.
 
 Third-party applications using this endpoint via OAuth2 must request the
@@ -25,7 +25,7 @@ Name | Type | Description  | Notes |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**options** | Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]] |  | [optional] |
+**options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
@@ -34,11 +34,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -48,7 +48,7 @@ action = "rename-employee"
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[Union[ApplyActionRequestOptions, ApplyActionRequestOptionsDict]]
+# Optional[ApplyActionRequestOptions]
 options = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -65,7 +65,7 @@ try:
     )
     print("The apply response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Action.apply: %s\n" % e)
 
 ```
@@ -90,7 +90,7 @@ Changes to the Ontology are eventually consistent and may take some time to be v
 Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
 call Functions may receive a higher limit.
 
-Note that [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
 Third-party applications using this endpoint via OAuth2 must request the
 following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -102,9 +102,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
-**requests** | List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]] |  |  |
+**requests** | List[BatchApplyActionRequestItem] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**options** | Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]] |  | [optional] |
+**options** | Optional[BatchApplyActionRequestOptions] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
@@ -113,24 +113,24 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
 action = "rename-employee"
-# List[Union[BatchApplyActionRequestItem, BatchApplyActionRequestItemDict]]
+# List[BatchApplyActionRequestItem]
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
 ]
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
-# Optional[Union[BatchApplyActionRequestOptions, BatchApplyActionRequestOptionsDict]]
+# Optional[BatchApplyActionRequestOptions]
 options = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -147,7 +147,7 @@ try:
     )
     print("The apply_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Action.apply_batch: %s\n" % e)
 
 ```

@@ -21,11 +21,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # JobRid | The RID of a Job.
 job_rid = "ri.foundry.main.job.aaf94076-d773-4732-a1df-3b638eb50448"
@@ -37,7 +37,7 @@ try:
     api_response = foundry_client.orchestration.Job.get(job_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Job.get: %s\n" % e)
 
 ```
@@ -64,7 +64,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]] | Body of the request |  |
+**body** | List[GetJobsBatchRequestElement] | Body of the request |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -73,13 +73,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[Union[GetJobsBatchRequestElement, GetJobsBatchRequestElementDict]] | Body of the request
+# List[GetJobsBatchRequestElement] | Body of the request
 body = [{"jobRid": "ri.foundry.main.job.aaf94076-d773-4732-a1df-3b638eb50448"}]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -89,7 +89,7 @@ try:
     api_response = foundry_client.orchestration.Job.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Job.get_batch: %s\n" % e)
 
 ```

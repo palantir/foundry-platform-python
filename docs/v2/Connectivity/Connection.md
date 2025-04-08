@@ -8,7 +8,7 @@ Method | HTTP request | Release Stage |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
 # **create**
-Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
 
 Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
 secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
@@ -23,7 +23,7 @@ use the Foundry UI instead.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**configuration** | Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict] |  |  |
+**configuration** | CreateConnectionRequestConnectionConfiguration |  |  |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -34,13 +34,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[CreateConnectionRequestConnectionConfiguration, CreateConnectionRequestConnectionConfigurationDict]
+# CreateConnectionRequestConnectionConfiguration
 configuration = {
     "type": "jdbc",
     "url": "jdbc:postgresql://localhost:5432/test",
@@ -63,7 +63,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Connection.create: %s\n" % e)
 
 ```
@@ -97,11 +97,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -113,7 +113,7 @@ try:
     api_response = foundry_client.connectivity.Connection.get(connection_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Connection.get: %s\n" % e)
 
 ```
@@ -132,7 +132,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_configuration**
-Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
 This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
 
@@ -149,11 +149,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -167,7 +167,7 @@ try:
     )
     print("The get_configuration response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Connection.get_configuration: %s\n" % e)
 
 ```
@@ -213,11 +213,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -233,7 +233,7 @@ try:
     )
     print("The update_secrets response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Connection.update_secrets: %s\n" % e)
 
 ```

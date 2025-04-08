@@ -18,11 +18,11 @@ from expects import expect
 from mockito import unstub
 from mockito import when
 
-from foundry._core.oauth_utils import ConfidentialClientOAuthFlowProvider
-from foundry._core.oauth_utils import OAuthToken
-from foundry._core.oauth_utils import OAuthTokenResponse
-from foundry._core.oauth_utils import OAuthUtils
-from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
+from foundry_sdk._core.oauth_utils import ConfidentialClientOAuthFlowProvider
+from foundry_sdk._core.oauth_utils import OAuthToken
+from foundry_sdk._core.oauth_utils import OAuthTokenResponse
+from foundry_sdk._core.oauth_utils import OAuthUtils
+from foundry_sdk._core.oauth_utils import PublicClientOAuthFlowProvider
 
 
 def test_get_token_uri():
@@ -71,7 +71,7 @@ def test_public_client_with_scopes():
 
 
 def test_token_from_dict():
-    import foundry._core.oauth_utils as module_under_test
+    import foundry_sdk._core.oauth_utils as module_under_test
 
     when(module_under_test.time).time().thenReturn(123)
     token = OAuthToken(

@@ -22,9 +22,9 @@ from mockito import mock
 from mockito import unstub
 from mockito import when
 
-from foundry._core.http_client import HttpClient
-from foundry._core.oauth_utils import OAuthUtils
-from foundry._core.oauth_utils import PublicClientOAuthFlowProvider
+from foundry_sdk._core.http_client import HttpClient
+from foundry_sdk._core.oauth_utils import OAuthUtils
+from foundry_sdk._core.oauth_utils import PublicClientOAuthFlowProvider
 
 
 @pytest.fixture(name="client", scope="module")

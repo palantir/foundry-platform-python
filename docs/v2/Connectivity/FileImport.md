@@ -7,7 +7,6 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
 [**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
-[**page**](#page) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
 [**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Private Beta |
 
 # **create**
@@ -20,7 +19,7 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -32,11 +31,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -44,7 +43,7 @@ connection_rid = None
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
-# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
@@ -69,7 +68,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.create: %s\n" % e)
 
 ```
@@ -107,11 +106,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -127,7 +126,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.delete: %s\n" % e)
 
 ```
@@ -146,7 +145,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **execute**
-Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
 The returned BuildRid can be used to check the status via the Orchestration API.
 
 
@@ -164,11 +163,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -184,7 +183,7 @@ try:
     )
     print("The execute response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.execute: %s\n" % e)
 
 ```
@@ -219,11 +218,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -239,7 +238,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.get: %s\n" % e)
 
 ```
@@ -277,11 +276,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -298,68 +297,8 @@ try:
         connection_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(file_import)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListFileImportsResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all file imports defined for this connection.
-Only file imports that the user has permissions to view will be returned.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**connection_rid** | ConnectionRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListFileImportsResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ConnectionRid
-connection_rid = None
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.connectivity.Connection.FileImport.page(
-        connection_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling FileImport.page: %s\n" % e)
 
 ```
 
@@ -387,7 +326,7 @@ Name | Type | Description  | Notes |
 **file_import_rid** | FileImportRid |  |  |
 **dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
-**file_import_filters** | List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
+**file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -399,11 +338,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ConnectionRid
 connection_rid = None
@@ -413,7 +352,7 @@ file_import_rid = None
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
-# List[Union[FileImportFilter, FileImportFilterDict]] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
+# List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
@@ -439,7 +378,7 @@ try:
     )
     print("The replace response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling FileImport.replace: %s\n" % e)
 
 ```

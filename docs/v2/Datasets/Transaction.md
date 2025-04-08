@@ -27,11 +27,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -43,7 +43,7 @@ try:
     api_response = foundry_client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
     print("The abort response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.abort: %s\n" % e)
 
 ```
@@ -62,7 +62,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **build**
-Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+Get the [Build](https://palantir.com/docs/foundry/data-integration/builds#builds) that computed the
 given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
 is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
@@ -81,11 +81,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -101,7 +101,7 @@ try:
     )
     print("The build response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.build: %s\n" % e)
 
 ```
@@ -137,11 +137,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -153,7 +153,7 @@ try:
     api_response = foundry_client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
     print("The commit response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.commit: %s\n" % e)
 
 ```
@@ -189,11 +189,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -209,7 +209,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.create: %s\n" % e)
 
 ```
@@ -266,11 +266,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -282,7 +282,7 @@ try:
     api_response = foundry_client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.get: %s\n" % e)
 
 ```
@@ -301,7 +301,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **job**
-Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+Get the [Job](https://palantir.com/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
 given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
 is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
@@ -320,11 +320,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # DatasetRid
 dataset_rid = None
@@ -340,7 +340,7 @@ try:
     )
     print("The job response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Transaction.job: %s\n" % e)
 
 ```

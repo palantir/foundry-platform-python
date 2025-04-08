@@ -7,7 +7,6 @@ Method | HTTP request | Release Stage |
 [**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Private Beta |
 [**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Public Beta |
 [**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
-[**organizations_page**](#organizations_page) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
 [**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |
 
 # **add_organizations**
@@ -27,11 +26,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -47,7 +46,7 @@ try:
     )
     print("The add_organizations response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.add_organizations: %s\n" % e)
 
 ```
@@ -80,7 +79,7 @@ Name | Type | Description  | Notes |
 **default_roles** | List[RoleId] |  |  |
 **display_name** | ResourceDisplayName |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**role_grants** | Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]] |  |  |
+**role_grants** | Dict[RoleId, List[PrincipalWithId]] |  |  |
 **space_rid** | SpaceRid |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -91,11 +90,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[RoleId]
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
@@ -103,7 +102,7 @@ default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
 display_name = "My Important Project"
 # List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Dict[RoleId, List[Union[PrincipalWithId, PrincipalWithIdDict]]]
+# Dict[RoleId, List[PrincipalWithId]]
 role_grants = {
     "8bf49052-dc37-4528-8bf0-b551cfb71268": [
         {"principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de", "principalType": "USER"}
@@ -129,7 +128,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.create: %s\n" % e)
 
 ```
@@ -167,11 +166,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectTemplateRid
 template_rid = "ri.compass.main.template.c410f510-2937-420e-8ea3-8c9bcb3c1791"
@@ -198,7 +197,7 @@ try:
     )
     print("The create_from_template response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.create_from_template: %s\n" % e)
 
 ```
@@ -232,11 +231,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -248,7 +247,7 @@ try:
     api_response = foundry_client.filesystem.Project.get(project_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.get: %s\n" % e)
 
 ```
@@ -286,11 +285,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -307,68 +306,8 @@ try:
         project_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(project)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.organizations: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListOrganizationsOfProjectResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **organizations_page**
-List of Organizations directly applied to a Project. The number of Organizations on a Project is 
-typically small so the `pageSize` and `pageToken` parameters are not required.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**project_rid** | ProjectRid |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**ListOrganizationsOfProjectResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ProjectRid
-project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = foundry_client.filesystem.Project.organizations_page(
-        project_rid, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The organizations_page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Project.organizations_page: %s\n" % e)
 
 ```
 
@@ -402,11 +341,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
@@ -422,7 +361,7 @@ try:
     )
     print("The remove_organizations response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Project.remove_organizations: %s\n" % e)
 
 ```

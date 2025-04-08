@@ -24,11 +24,11 @@ from typing import Type
 import pydantic
 import pytest
 
-from foundry import _errors
-from foundry._errors.palantir_rpc_exception import PalantirRPCException
-from foundry._errors.sdk_internal_error import PalantirException
-from foundry._errors.sdk_internal_error import SDKInternalError
-from foundry._errors.sdk_internal_error import handle_unexpected
+from foundry_sdk import _errors
+from foundry_sdk._errors.palantir_rpc_exception import PalantirRPCException
+from foundry_sdk._errors.sdk_internal_error import PalantirException
+from foundry_sdk._errors.sdk_internal_error import SDKInternalError
+from foundry_sdk._errors.sdk_internal_error import handle_unexpected
 
 
 def find_exception_subclasses(module: ModuleType) -> List[Type[Exception]]:

@@ -23,12 +23,12 @@ from mockito import unstub
 from mockito import verify
 from mockito import when
 
-from foundry._core.auth_utils import Token
-from foundry._core.oauth_utils import AuthorizeRequest
-from foundry._core.oauth_utils import OAuthToken
-from foundry._core.oauth_utils import OAuthTokenResponse
-from foundry._core.public_client_auth import PublicClientAuth
-from foundry._errors.not_authenticated import NotAuthenticated
+from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.oauth_utils import AuthorizeRequest
+from foundry_sdk._core.oauth_utils import OAuthToken
+from foundry_sdk._core.oauth_utils import OAuthTokenResponse
+from foundry_sdk._core.public_client_auth import PublicClientAuth
+from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
 RESPONSE = {
     "access_token": "access_token",

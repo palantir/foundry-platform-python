@@ -27,9 +27,9 @@ import httpx
 import pytest
 from httpx._utils import URLPattern
 
-from foundry._core.config import Config
-from foundry._core.http_client import HttpClient
-from foundry._versions import __version__
+from foundry_sdk._core.config import Config
+from foundry_sdk._core.http_client import HttpClient
+from foundry_sdk._versions import __version__
 
 
 def assert_http_transport(transport: Optional[httpx.BaseTransport]) -> httpx.HTTPTransport:

@@ -3,7 +3,6 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**list**](#list) | **GET** /v2/admin/users/{userId}/groupMemberships | Stable |
-[**page**](#page) | **GET** /v2/admin/users/{userId}/groupMemberships | Stable |
 
 # **list**
 Lists all Groups a given User is a member of.
@@ -30,11 +29,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -51,73 +50,8 @@ try:
         user_id, page_size=page_size, page_token=page_token, transitive=transitive
     ):
         pprint(group_membership)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling GroupMembership.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListGroupMembershipsResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all Groups a given User is a member of.
-
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, 
-it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. 
-To get the next page, make the same request again, but set the value of the `pageToken` query parameter 
-to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field 
-in the response, you are on the last page.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**transitive** | Optional[bool] | When true, includes the transitive memberships of the Groups the User is a member of. For example, say the User is a member of Group A, and Group A is a member of Group B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Groups A and B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.  | [optional] |
-
-### Return type
-**ListGroupMembershipsResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# PrincipalId
-user_id = None
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-# Optional[bool] | When true, includes the transitive memberships of the Groups the User is a member of. For example, say the User is a member of Group A, and Group A is a member of Group B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Groups A and B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
-transitive = None
-
-
-try:
-    api_response = foundry_client.admin.User.GroupMembership.page(
-        user_id, page_size=page_size, page_token=page_token, transitive=transitive
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling GroupMembership.page: %s\n" % e)
 
 ```
 

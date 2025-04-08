@@ -5,7 +5,6 @@ Method | HTTP request | Release Stage |
 [**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate | Private Beta |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} | Public Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
-[**page**](#page) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
 [**search**](#search) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/search | Private Beta |
 
 # **aggregate**
@@ -30,11 +29,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.  |  |
-**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
+**aggregation** | List[AggregationV2] |  |  |
+**group_by** | List[AggregationGroupByV2] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
-**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
+**where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -42,22 +41,22 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
 # InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
 interface_type = "Employee"
-# List[Union[AggregationV2, AggregationV2Dict]]
+# List[AggregationV2]
 aggregation = [
     {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
     {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
 ]
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
+# List[AggregationGroupByV2]
 group_by = [
     {
         "field": "startDate",
@@ -70,7 +69,7 @@ group_by = [
 accuracy = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
-# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
+# Optional[SearchJsonQueryV2]
 where = {"type": "eq", "field": "name", "value": "john"}
 
 
@@ -86,7 +85,7 @@ try:
     )
     print("The aggregate response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.aggregate: %s\n" % e)
 
 ```
@@ -129,11 +128,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -149,7 +148,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.get: %s\n" % e)
 
 ```
@@ -186,7 +185,7 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
@@ -196,15 +195,15 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
 page_token = None
@@ -217,77 +216,8 @@ try:
         ontology, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(ontology_interface)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListInterfaceTypesResponse  | Success response. | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-:::
-
-Lists the interface types for the given Ontology.
-
-Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-results available, at least one result will be present in the response.        
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
-**page_token** | Optional[PageToken] |  | [optional] |
-**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
-
-### Return type
-**ListInterfaceTypesResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
-ontology = "palantir"
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
-page_size = None
-# Optional[PageToken]
-page_token = None
-# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
-preview = None
-
-
-try:
-    api_response = foundry_client.ontologies.OntologyInterface.page(
-        ontology, page_size=page_size, page_token=page_token, preview=preview
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling OntologyInterface.page: %s\n" % e)
 
 ```
 
@@ -354,11 +284,11 @@ Name | Type | Description  | Notes |
 **other_interface_types** | List[InterfaceTypeApiName] | A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.  |  |
 **selected_object_types** | List[ObjectTypeApiName] | A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.  |  |
 **selected_shared_property_types** | List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.  |  |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
-**where** | Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]] |  | [optional] |
+**where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
 ### Return type
 **SearchObjectsResponseV2**
@@ -366,11 +296,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -386,7 +316,7 @@ other_interface_types = None
 selected_object_types = None
 # List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
 selected_shared_property_types = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
 page_size = None
@@ -394,7 +324,7 @@ page_size = None
 page_token = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
-# Optional[Union[SearchJsonQueryV2, SearchJsonQueryV2Dict]]
+# Optional[SearchJsonQueryV2]
 where = None
 
 
@@ -415,7 +345,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyInterface.search: %s\n" % e)
 
 ```

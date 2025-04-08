@@ -10,7 +10,7 @@ Method | HTTP request | Release Stage |
 Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
 some time to be visible.
 
-Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint.
 
 Third-party applications using this endpoint via OAuth2 must request the
@@ -31,11 +31,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -51,7 +51,7 @@ try:
     )
     print("The apply response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Action.apply: %s\n" % e)
 
 ```
@@ -76,8 +76,8 @@ Changes to the Ontology are eventually consistent and may take some time to be v
 Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
 call Functions may receive a higher limit.
 
-Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) and
-[notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
+[notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
 Third-party applications using this endpoint via OAuth2 must request the
 following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action_type** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
-**requests** | List[Union[ApplyActionRequest, ApplyActionRequestDict]] |  |  |
+**requests** | List[ApplyActionRequest] |  |  |
 
 ### Return type
 **BatchApplyActionResponse**
@@ -97,17 +97,17 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 # ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
 action_type = "rename-employee"
-# List[Union[ApplyActionRequest, ApplyActionRequestDict]]
+# List[ApplyActionRequest]
 requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
@@ -120,7 +120,7 @@ try:
     )
     print("The apply_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Action.apply_batch: %s\n" % e)
 
 ```
@@ -144,7 +144,7 @@ The response contains the evaluation of parameters and **submission criteria**
 that determine if the request is `VALID` or `INVALID`.
 For performance reasons, validations will not consider existing objects or other data in Foundry.
 For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
-Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint. Unspecified parameters will be given a default value of `null`.
 
 Third-party applications using this endpoint via OAuth2 must request the
@@ -165,11 +165,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry.v1 import FoundryClient
-import foundry
+from foundry_sdk.v1 import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
@@ -197,7 +197,7 @@ try:
     )
     print("The validate response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Action.validate: %s\n" % e)
 
 ```

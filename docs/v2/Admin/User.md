@@ -8,7 +8,6 @@ Method | HTTP request | Release Stage |
 [**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent | Stable |
 [**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings | Public Beta |
 [**list**](#list) | **GET** /v2/admin/users | Stable |
-[**page**](#page) | **GET** /v2/admin/users | Stable |
 [**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture | Stable |
 [**search**](#search) | **POST** /v2/admin/users/search | Stable |
 
@@ -27,11 +26,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -41,7 +40,7 @@ try:
     api_response = foundry_client.admin.User.delete(user_id)
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.delete: %s\n" % e)
 
 ```
@@ -74,11 +73,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -88,7 +87,7 @@ try:
     api_response = foundry_client.admin.User.get(user_id)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.get: %s\n" % e)
 
 ```
@@ -115,7 +114,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]] | Body of the request |  |
+**body** | List[GetUsersBatchRequestElement] | Body of the request |  |
 
 ### Return type
 **GetUsersBatchResponse**
@@ -123,13 +122,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[Union[GetUsersBatchRequestElement, GetUsersBatchRequestElementDict]] | Body of the request
+# List[GetUsersBatchRequestElement] | Body of the request
 body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -137,7 +136,7 @@ try:
     api_response = foundry_client.admin.User.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.get_batch: %s\n" % e)
 
 ```
@@ -169,18 +168,18 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 
 try:
     api_response = foundry_client.admin.User.get_current()
     print("The get_current response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.get_current: %s\n" % e)
 
 ```
@@ -214,11 +213,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -230,7 +229,7 @@ try:
     api_response = foundry_client.admin.User.get_markings(user_id, preview=preview)
     print("The get_markings response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.get_markings: %s\n" % e)
 
 ```
@@ -266,11 +265,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -281,60 +280,8 @@ page_token = None
 try:
     for user in client.admin.User.list(page_size=page_size, page_token=page_token):
         pprint(user)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListUsersResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all Users.
-
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-
-### Return type
-**ListUsersResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-
-
-try:
-    api_response = foundry_client.admin.User.page(page_size=page_size, page_token=page_token)
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling User.page: %s\n" % e)
 
 ```
 
@@ -366,11 +313,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 user_id = None
@@ -380,7 +327,7 @@ try:
     api_response = foundry_client.admin.User.profile_picture(user_id)
     print("The profile_picture response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.profile_picture: %s\n" % e)
 
 ```
@@ -406,7 +353,7 @@ Perform a case-insensitive prefix search for users based on username, given name
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | Union[UserSearchFilter, UserSearchFilterDict] |  |  |
+**where** | UserSearchFilter |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -416,13 +363,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[UserSearchFilter, UserSearchFilterDict]
+# UserSearchFilter
 where = {"type": "queryString"}
 # Optional[PageSize]
 page_size = 100
@@ -436,7 +383,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.search: %s\n" % e)
 
 ```

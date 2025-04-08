@@ -5,7 +5,6 @@ Method | HTTP request | Release Stage |
 [**delete**](#delete) | **DELETE** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} | Stable |
 [**get**](#get) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/{versionVersion} | Stable |
 [**list**](#list) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions | Stable |
-[**page**](#page) | **GET** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions | Stable |
 [**upload**](#upload) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/upload | Stable |
 [**upload_snapshot**](#upload_snapshot) | **POST** /v2/thirdPartyApplications/{thirdPartyApplicationRid}/website/versions/uploadSnapshot | Private Beta |
 
@@ -25,11 +24,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -47,7 +46,7 @@ try:
     )
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.delete: %s\n" % e)
 
 ```
@@ -81,11 +80,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -103,7 +102,7 @@ try:
     )
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.get: %s\n" % e)
 
 ```
@@ -140,11 +139,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
@@ -161,69 +160,8 @@ try:
         third_party_application_rid, page_size=page_size, page_token=page_token
     ):
         pprint(version)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListVersionsResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all Versions.
-
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-
-### Return type
-**ListVersionsResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
-third_party_application_rid = (
-    "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
-)
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-
-
-try:
-    api_response = (
-        foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.page(
-            third_party_application_rid, page_size=page_size, page_token=page_token
-        )
-    )
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Version.page: %s\n" % e)
 
 ```
 
@@ -248,7 +186,7 @@ Upload a new version of the Website.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
+**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion |  |  |
 
 ### Return type
@@ -257,17 +195,17 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
 # VersionVersion
 version = None
@@ -281,7 +219,7 @@ try:
     )
     print("The upload response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.upload: %s\n" % e)
 
 ```
@@ -308,7 +246,7 @@ Upload a snapshot version of the Website. Snapshot versions are automatically de
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
+**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **snapshot_identifier** | Optional[str] | The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.  | [optional] |
@@ -319,17 +257,17 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
 # VersionVersion
 version = None
@@ -351,7 +289,7 @@ try:
     )
     print("The upload_snapshot response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Version.upload_snapshot: %s\n" % e)
 
 ```

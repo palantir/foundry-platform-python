@@ -20,9 +20,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**aggregation** | List[Union[AggregationV2, AggregationV2Dict]] |  |  |
-**group_by** | List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]] |  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**aggregation** | List[AggregationV2] |  |  |
+**group_by** | List[AggregationGroupByV2] |  |  |
+**object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
@@ -33,19 +33,19 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# List[Union[AggregationV2, AggregationV2Dict]]
+# List[AggregationV2]
 aggregation = None
-# List[Union[AggregationGroupByV2, AggregationGroupByV2Dict]]
+# List[AggregationGroupByV2]
 group_by = None
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = None
 # Optional[AggregationAccuracyRequest]
 accuracy = None
@@ -67,7 +67,7 @@ try:
     )
     print("The aggregate response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.aggregate: %s\n" % e)
 
 ```
@@ -97,7 +97,7 @@ following operation scopes: `api:ontologies-read api:ontologies-write`.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -105,15 +105,15 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 
 
@@ -123,7 +123,7 @@ try:
     )
     print("The create_temporary response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.create_temporary: %s\n" % e)
 
 ```
@@ -160,11 +160,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
@@ -176,7 +176,7 @@ try:
     api_response = foundry_client.ontologies.OntologyObjectSet.get(ontology, object_set_rid)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.get: %s\n" % e)
 
 ```
@@ -212,11 +212,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -227,15 +227,15 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
@@ -243,7 +243,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -267,7 +267,7 @@ try:
     )
     print("The load response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.load: %s\n" % e)
 
 ```
@@ -308,11 +308,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -324,15 +324,15 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
@@ -340,7 +340,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -367,7 +367,7 @@ try:
     )
     print("The load_multiple_object_types response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.load_multiple_object_types: %s\n" % e)
 
 ```
@@ -410,11 +410,11 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
-**object_set** | Union[ObjectSet, ObjectSetDict] |  |  |
+**object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]] |  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -426,15 +426,15 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
-# Union[ObjectSet, ObjectSetDict]
+# ObjectSet
 object_set = {"type": "base", "interfaceBase": "Person"}
 # List[SelectedPropertyApiName]
 select = None
@@ -442,7 +442,7 @@ select = None
 artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[Union[SearchOrderByV2, SearchOrderByV2Dict]]
+# Optional[SearchOrderByV2]
 order_by = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
@@ -469,7 +469,7 @@ try:
     )
     print("The load_objects_or_interfaces response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling OntologyObjectSet.load_objects_or_interfaces: %s\n" % e)
 
 ```

@@ -7,7 +7,6 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/groups/{groupId} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/admin/groups/getBatch | Stable |
 [**list**](#list) | **GET** /v2/admin/groups | Stable |
-[**page**](#page) | **GET** /v2/admin/groups | Stable |
 [**search**](#search) | **POST** /v2/admin/groups/search | Stable |
 
 # **create**
@@ -28,11 +27,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
 attributes = {
@@ -60,7 +59,7 @@ try:
     )
     print("The create response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.create: %s\n" % e)
 
 ```
@@ -93,11 +92,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -107,7 +106,7 @@ try:
     api_response = foundry_client.admin.Group.delete(group_id)
     print("The delete response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.delete: %s\n" % e)
 
 ```
@@ -140,11 +139,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # PrincipalId
 group_id = None
@@ -154,7 +153,7 @@ try:
     api_response = foundry_client.admin.Group.get(group_id)
     print("The get response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.get: %s\n" % e)
 
 ```
@@ -181,7 +180,7 @@ The maximum batch size for this endpoint is 500.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**body** | List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request |  |
+**body** | List[GetGroupsBatchRequestElement] | Body of the request |  |
 
 ### Return type
 **GetGroupsBatchResponse**
@@ -189,13 +188,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# List[Union[GetGroupsBatchRequestElement, GetGroupsBatchRequestElementDict]] | Body of the request
+# List[GetGroupsBatchRequestElement] | Body of the request
 body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
@@ -203,7 +202,7 @@ try:
     api_response = foundry_client.admin.Group.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.get_batch: %s\n" % e)
 
 ```
@@ -239,11 +238,11 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
@@ -254,60 +253,8 @@ page_token = None
 try:
     for group in client.admin.Group.list(page_size=page_size, page_token=page_token):
         pprint(group)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.list: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ListGroupsResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **page**
-Lists all Groups.
-
-This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
-**page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-
-### Return type
-**ListGroupsResponse**
-
-### Example
-
-```python
-from foundry import FoundryClient
-import foundry
-from pprint import pprint
-
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# Optional[PageSize] | The page size to use for the endpoint.
-page_size = None
-# Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
-page_token = None
-
-
-try:
-    api_response = foundry_client.admin.Group.page(page_size=page_size, page_token=page_token)
-    print("The page response:\n")
-    pprint(api_response)
-except foundry.PalantirRPCException as e:
-    print("HTTP error when calling Group.page: %s\n" % e)
 
 ```
 
@@ -332,7 +279,7 @@ Perform a case-insensitive prefix search for groups based on group name.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**where** | Union[GroupSearchFilter, GroupSearchFilterDict] |  |  |
+**where** | GroupSearchFilter |  |  |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -342,13 +289,13 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry import FoundryClient
-import foundry
+from foundry_sdk import FoundryClient
+import foundry_sdk
 from pprint import pprint
 
-client = FoundryClient(auth=foundry.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Union[GroupSearchFilter, GroupSearchFilterDict]
+# GroupSearchFilter
 where = {"type": "queryString"}
 # Optional[PageSize]
 page_size = 100
@@ -362,7 +309,7 @@ try:
     )
     print("The search response:\n")
     pprint(api_response)
-except foundry.PalantirRPCException as e:
+except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Group.search: %s\n" % e)
 
 ```

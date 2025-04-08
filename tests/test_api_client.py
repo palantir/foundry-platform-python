@@ -27,28 +27,28 @@ from unittest.mock import patch
 import httpx
 import pytest
 
-from foundry import ApiNotFoundError
-from foundry import BadRequestError
-from foundry import ConfidentialClientAuth
-from foundry import Config
-from foundry import ConflictError
-from foundry import ConnectionError
-from foundry import InternalServerError
-from foundry import NotFoundError
-from foundry import PalantirRPCException
-from foundry import PermissionDeniedError
-from foundry import ProxyError
-from foundry import RateLimitError
-from foundry import ReadTimeout
-from foundry import RequestEntityTooLargeError
-from foundry import StreamConsumedError
-from foundry import UnauthorizedError
-from foundry import UnprocessableEntityError
-from foundry import UserTokenAuth
-from foundry import WriteTimeout
-from foundry import __version__
-from foundry._core import ApiClient
-from foundry._core import RequestInfo
+from foundry_sdk import ApiNotFoundError
+from foundry_sdk import BadRequestError
+from foundry_sdk import ConfidentialClientAuth
+from foundry_sdk import Config
+from foundry_sdk import ConflictError
+from foundry_sdk import ConnectionError
+from foundry_sdk import InternalServerError
+from foundry_sdk import NotFoundError
+from foundry_sdk import PalantirRPCException
+from foundry_sdk import PermissionDeniedError
+from foundry_sdk import ProxyError
+from foundry_sdk import RateLimitError
+from foundry_sdk import ReadTimeout
+from foundry_sdk import RequestEntityTooLargeError
+from foundry_sdk import StreamConsumedError
+from foundry_sdk import UnauthorizedError
+from foundry_sdk import UnprocessableEntityError
+from foundry_sdk import UserTokenAuth
+from foundry_sdk import WriteTimeout
+from foundry_sdk import __version__
+from foundry_sdk._core import ApiClient
+from foundry_sdk._core import RequestInfo
 from tests.server import FooData
 
 HOSTNAME = "localhost:8123"
@@ -107,17 +107,6 @@ def create_client(
     config = config or Config()
     config.scheme = scheme
     return ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
-
-
-def test_can_override_session_using_deprecated_method():
-    client = create_mock_client()
-
-    with warnings.catch_warnings(record=True) as w:
-        assert isinstance(client.session._session, httpx.Client)
-        # Ensure the warning is emitted when accessing the session
-        assert len(w) == 1
-
-        client.session._session.headers["Foo"] = "Bar"
 
 
 def test_authorization_header():

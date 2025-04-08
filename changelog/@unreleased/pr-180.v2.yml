@@ -1,0 +1,37 @@
+type: break
+break:
+  description: "### Migration Guide\n- The top level module was renamed from `foundry` to `foundry_sdk` to
+    resolve a name collision with the `foundry` package. This means that all imports
+    will need to be updated. For example, the following import:\n\n```python\nfrom
+    foundry import FoundryClient\n```\n\nwill need to be updated to:\n\n```python\nfrom
+    foundry_sdk import FoundryClient\n```\n
+    \n- The deprecated `page` operations have been
+    removed in favor of the `list` operations. If you were still using the `page`
+    methods, you can switch them to `list` instead.\n\n```python\npage = client.datasets.Dataset.Branch.page(dataset_rid,
+    page_size=page_size)  # before\npage = client.datasets.Dataset.Branch.list(dataset_rid,
+    page_size=page_size)  # after\n```\n\n- The method definitions no longer include
+    `TypeDict` types for complex objects. Instead, only the pydantic `BaseModel` classes
+    will be included in the method definition. Python dictionaries can continue to
+    be passed into these methods; however, mypy/pyright type checking will start to
+    error if you use dictionaries.\n\n```python\n# before\nclass ScheduleClient:\n
+    \   ...\n    \n    def create(\n        self,\n        *,\n        action: typing.Union[CreateScheduleRequestAction,
+    CreateScheduleRequestActionDict],\n        ...\n    ) -> Schedule:\n    \n# after\nclass
+    ScheduleClient:\n    ...\n    \n    def create(\n        self,\n        *,\n        action:
+    CreateScheduleRequestAction,\n        ...\n    ) -> Schedule:\n```\n\n- Typing
+    support has also been removed from the `to_dict()` methods on the base classes.
+    Support may be added back in the future if there are use cases for having typing
+    support.\n\n```python\n# before\nclass Schedule(BaseModel):\n    ...\n\n    def
+    to_dict(self) -> \"ScheduleDict\":\n        \"\"\"Return the dictionary representation
+    of the model using the field aliases.\"\"\"\n        return typing.cast(ScheduleDict,
+    self.model_dump(by_alias=True, exclude_none=True))\n\n# after\nclass Schedule(BaseModel):\n
+    \   ...\n\n    def to_dict(self) -> Dict[str, Any]:\n        \"\"\"Return the
+    dictionary representation of the model using the field aliases.\"\"\"\n        return
+    self.model_dump(by_alias=True, exclude_none=True)\n```\n\n- The deprecated `sign_in_as_service_user`
+    method was removed `ConfidentialClientAuth`. The `get_token` method can be used
+    instead.\n- The deprecated `page_iterator` property from `ResourceIterator` was
+    removed. Instead, the `data` and `next_page_token` properties can be accessed
+    directly from the `ResourceIterator` class.\n- The deprecated `hostname` parameter
+    was removed from the `UserTokenAuth` class and  `token` was made a positional
+    argument."
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/180

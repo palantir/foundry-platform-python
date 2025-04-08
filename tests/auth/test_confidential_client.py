@@ -14,7 +14,6 @@
 
 
 import contextlib
-import warnings
 
 import httpx
 import pytest
@@ -24,8 +23,8 @@ from mockito import unstub
 from mockito import verify
 from mockito import when
 
-from foundry._core.confidential_client_auth import ConfidentialClientAuth
-from foundry._core.oauth_utils import SignInResponse
+from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
+from foundry_sdk._core.oauth_utils import SignInResponse
 
 RESPONSE = {
     "access_token": "access_token",
@@ -73,16 +72,6 @@ def test_confidential_client_instantiate():
     assert auth._token == None
     assert auth.url == "a.b.c.com"
     assert auth._should_refresh == True
-
-
-def test_confidential_client_sign_in_as_service_user():
-    with stubbed_auth() as auth:
-        with warnings.catch_warnings(record=True) as w:
-            assert auth.sign_in_as_service_user() == SignInResponse(
-                session={"accessToken": "access_token", "expiresIn": 3600}
-            )
-
-            assert len(w) == 1
 
 
 def test_confidential_client_url():

@@ -9,13 +9,13 @@ import typing_extensions
 from pydantic import BaseModel
 from pydantic import ValidationError
 
-from foundry._core.utils import RID
-from foundry._core.utils import UUID
-from foundry._core.utils import AwareDatetime
-from foundry._core.utils import Long
-from foundry._core.utils import maybe_ignore_preview
-from foundry._core.utils import remove_prefixes
-from foundry._core.utils import resolve_forward_references
+from foundry_sdk._core.utils import RID
+from foundry_sdk._core.utils import UUID
+from foundry_sdk._core.utils import AwareDatetime
+from foundry_sdk._core.utils import Long
+from foundry_sdk._core.utils import maybe_ignore_preview
+from foundry_sdk._core.utils import remove_prefixes
+from foundry_sdk._core.utils import resolve_forward_references
 
 
 def test_remove_prefixes():
