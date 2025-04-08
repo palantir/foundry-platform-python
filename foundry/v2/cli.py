@@ -5490,6 +5490,8 @@ def ontologies_ontology_object_set_load(
 
     Note that null value properties will not be returned.
 
+    Vector properties will not be returned unless included in the `select` parameter.
+
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
@@ -5569,6 +5571,8 @@ def ontologies_ontology_object_set_load_multiple_object_types(
 
     Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
     will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
+
+    Vector properties will not be returned unless included in the `select` parameter.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
@@ -5652,6 +5656,8 @@ def ontologies_ontology_object_set_load_objects_or_interfaces(
 
     Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
     will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
+
+    Vector properties will not be returned unless included in the `select` parameter.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 

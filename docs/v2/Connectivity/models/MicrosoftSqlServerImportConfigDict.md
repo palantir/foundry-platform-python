@@ -6,7 +6,7 @@ The import configuration for a [Microsoft SQL Server connection](/docs/foundry/a
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**query** | str | Yes | A single SQL query can be executed per sync, which should output a data table  and avoid operations like invoking stored procedures.  The query results are saved to the output dataset in Foundry.  |
+**query** | TableImportQuery | Yes |  |
 **initialIncrementalState** | NotRequired[TableImportInitialIncrementalStateDict] | No |  |
 **type** | Literal["microsoftSqlServerImportConfig"] | Yes | None |
 

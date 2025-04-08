@@ -26,6 +26,7 @@ MediaReferenceType | mediaReference
 ActionParameterArrayType | array
 OntologyObjectSetType | objectSet
 GeohashType | geohash
+VectorType | vector
 OntologyObjectType | object
 TimestampType | timestamp
 
