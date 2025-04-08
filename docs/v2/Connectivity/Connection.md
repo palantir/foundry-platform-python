@@ -3,8 +3,8 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Private Beta |
-[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Private Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
+[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
 
 # **create**
@@ -34,14 +34,18 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # CreateConnectionRequestConnectionConfiguration
-configuration = None
+configuration = {
+    "type": "jdbc",
+    "url": "jdbc:postgresql://localhost:5432/test",
+    "driverClass": "org.postgresql.Driver",
+}
 # ConnectionDisplayName | The display name of the Connection. The display name must not be blank.
 display_name = "Connection to my external system"
 # FolderRid
@@ -93,7 +97,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -145,7 +149,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -209,7 +213,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 

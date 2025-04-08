@@ -6131,6 +6131,40 @@ def ontologies_linked_object_list_linked_objects(
     click.echo(repr(result))
 
 
+@ontologies.group("cipher_text_property")
+def ontologies_cipher_text_property():
+    pass
+
+
+@ontologies_cipher_text_property.command("decrypt")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property", type=str, required=True)
+@click.pass_obj
+def ontologies_cipher_text_property_decrypt(
+    client: foundry_sdk.v2.FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property: str,
+):
+    """
+    Decrypt the value of a ciphertext property.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
+
+    """
+    result = client.ontologies.CipherTextProperty.decrypt(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property=property,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("attachment_property")
 def ontologies_attachment_property():
     pass
@@ -6859,14 +6893,10 @@ def orchestration_build():
 
 @orchestration_build.command("cancel")
 @click.argument("build_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_build_cancel(
     client: foundry_sdk.v2.FoundryClient,
     build_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Request a cancellation for all unfinished jobs in a build. The build's status will not update immediately. This endpoint is asynchronous and a success response indicates that the cancellation request has been acknowledged and the build is expected to be canceled soon. If the build has already finished or finishes shortly after the request and before the cancellation, the build will not change.
@@ -6874,7 +6904,6 @@ def orchestration_build_cancel(
     """
     result = client.orchestration.Build.cancel(
         build_rid=build_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6894,9 +6923,6 @@ def orchestration_build_cancel(
     help="""The notification will be sent to the user that has most recently edited the schedule.
 No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.option("--retry_backoff_duration", type=str, required=False, help="""""")
 @click.option(
     "--retry_count",
@@ -6913,7 +6939,6 @@ def orchestration_build_create(
     branch_name: typing.Optional[str],
     force_build: typing.Optional[bool],
     notifications_enabled: typing.Optional[bool],
-    preview: typing.Optional[bool],
     retry_backoff_duration: typing.Optional[str],
     retry_count: typing.Optional[int],
 ):
@@ -6925,7 +6950,6 @@ def orchestration_build_create(
         branch_name=branch_name,
         force_build=force_build,
         notifications_enabled=notifications_enabled,
-        preview=preview,
         retry_backoff_duration=(
             None if retry_backoff_duration is None else json.loads(retry_backoff_duration)
         ),
@@ -6936,35 +6960,26 @@ def orchestration_build_create(
 
 @orchestration_build.command("get")
 @click.argument("build_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_build_get(
     client: foundry_sdk.v2.FoundryClient,
     build_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Build with the specified rid.
     """
     result = client.orchestration.Build.get(
         build_rid=build_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @orchestration_build.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_build_get_batch(
     client: foundry_sdk.v2.FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Execute multiple get requests on Build.
@@ -6973,7 +6988,6 @@ def orchestration_build_get_batch(
     """
     result = client.orchestration.Build.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -7055,34 +7069,34 @@ def sql_queries():
     pass
 
 
-@sql_queries.group("query")
-def sql_queries_query():
+@sql_queries.group("sql_query")
+def sql_queries_sql_query():
     pass
 
 
-@sql_queries_query.command("cancel")
-@click.argument("query_id", type=str, required=True)
+@sql_queries_sql_query.command("cancel")
+@click.argument("sql_query_id", type=str, required=True)
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def sql_queries_query_cancel(
+def sql_queries_sql_query_cancel(
     client: foundry_sdk.v2.FoundryClient,
-    query_id: str,
+    sql_query_id: str,
     preview: typing.Optional[bool],
 ):
     """
     Cancels a query. If the query is no longer running this is effectively a no-op.
 
     """
-    result = client.sql_queries.Query.cancel(
-        query_id=query_id,
+    result = client.sql_queries.SqlQuery.cancel(
+        sql_query_id=sql_query_id,
         preview=preview,
     )
     click.echo(repr(result))
 
 
-@sql_queries_query.command("execute")
+@sql_queries_sql_query.command("execute")
 @click.option(
     "--query",
     type=str,
@@ -7106,7 +7120,7 @@ provided that exists. If no fallback branches are provided the default branch is
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def sql_queries_query_execute(
+def sql_queries_sql_query_execute(
     client: foundry_sdk.v2.FoundryClient,
     query: str,
     fallback_branch_ids: typing.Optional[str],
@@ -7116,7 +7130,7 @@ def sql_queries_query_execute(
     Executes a new query. Only the user that invoked the query can operate on the query.
 
     """
-    result = client.sql_queries.Query.execute(
+    result = client.sql_queries.SqlQuery.execute(
         query=query,
         fallback_branch_ids=(
             None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
@@ -7126,15 +7140,15 @@ def sql_queries_query_execute(
     click.echo(repr(result))
 
 
-@sql_queries_query.command("get_results")
-@click.argument("query_id", type=str, required=True)
+@sql_queries_sql_query.command("get_results")
+@click.argument("sql_query_id", type=str, required=True)
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def sql_queries_query_get_results(
+def sql_queries_sql_query_get_results(
     client: foundry_sdk.v2.FoundryClient,
-    query_id: str,
+    sql_query_id: str,
     preview: typing.Optional[bool],
 ):
     """
@@ -7142,30 +7156,30 @@ def sql_queries_query_get_results(
     one minute.
 
     """
-    result = client.sql_queries.Query.get_results(
-        query_id=query_id,
+    result = client.sql_queries.SqlQuery.get_results(
+        sql_query_id=sql_query_id,
         preview=preview,
     )
     click.echo(result)
 
 
-@sql_queries_query.command("get_status")
-@click.argument("query_id", type=str, required=True)
+@sql_queries_sql_query.command("get_status")
+@click.argument("sql_query_id", type=str, required=True)
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def sql_queries_query_get_status(
+def sql_queries_sql_query_get_status(
     client: foundry_sdk.v2.FoundryClient,
-    query_id: str,
+    sql_query_id: str,
     preview: typing.Optional[bool],
 ):
     """
     Gets the status of a query.
 
     """
-    result = client.sql_queries.Query.get_status(
-        query_id=query_id,
+    result = client.sql_queries.SqlQuery.get_status(
+        sql_query_id=sql_query_id,
         preview=preview,
     )
     click.echo(repr(result))

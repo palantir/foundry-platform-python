@@ -23,64 +23,64 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.sql_queries import models as sql_queries_models
 
 
-class CancelQueryPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not cancel the Query."""
+class CancelSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not cancel the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    sqlQueryId: sql_queries_models.SqlQueryId
     """The id of a query."""
 
 
 @dataclass
-class CancelQueryPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["CancelQueryPermissionDenied"]
-    parameters: CancelQueryPermissionDeniedParameters
+class CancelSqlQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CancelSqlQueryPermissionDenied"]
+    parameters: CancelSqlQueryPermissionDeniedParameters
     error_instance_id: str
 
 
-class ExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not execute the Query."""
+class ExecuteSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not execute the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class ExecuteQueryPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ExecuteQueryPermissionDenied"]
-    parameters: ExecuteQueryPermissionDeniedParameters
+class ExecuteSqlQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ExecuteSqlQueryPermissionDenied"]
+    parameters: ExecuteSqlQueryPermissionDeniedParameters
     error_instance_id: str
 
 
-class GetResultsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not getResults the Query."""
+class GetResultsSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getResults the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    sqlQueryId: sql_queries_models.SqlQueryId
     """The id of a query."""
 
 
 @dataclass
-class GetResultsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetResultsPermissionDenied"]
-    parameters: GetResultsPermissionDeniedParameters
+class GetResultsSqlQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetResultsSqlQueryPermissionDenied"]
+    parameters: GetResultsSqlQueryPermissionDeniedParameters
     error_instance_id: str
 
 
-class GetStatusPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not getStatus the Query."""
+class GetStatusSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getStatus the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    sqlQueryId: sql_queries_models.SqlQueryId
     """The id of a query."""
 
 
 @dataclass
-class GetStatusPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetStatusPermissionDenied"]
-    parameters: GetStatusPermissionDeniedParameters
+class GetStatusSqlQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetStatusSqlQueryPermissionDenied"]
+    parameters: GetStatusSqlQueryPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -89,7 +89,7 @@ class QueryCanceledParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    queryId: sql_queries_models.SqlQueryId
 
 
 @dataclass
@@ -104,7 +104,7 @@ class QueryFailedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    queryId: sql_queries_models.SqlQueryId
     errorMessage: str
 
 
@@ -135,7 +135,7 @@ class QueryPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    queryId: sql_queries_models.SqlQueryId
 
 
 @dataclass
@@ -150,7 +150,7 @@ class QueryRunningParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.QueryId
+    queryId: sql_queries_models.SqlQueryId
 
 
 @dataclass
@@ -177,10 +177,10 @@ class ReadQueryInputsPermissionDenied(errors.PermissionDeniedError):
 
 
 __all__ = [
-    "CancelQueryPermissionDenied",
-    "ExecuteQueryPermissionDenied",
-    "GetResultsPermissionDenied",
-    "GetStatusPermissionDenied",
+    "CancelSqlQueryPermissionDenied",
+    "ExecuteSqlQueryPermissionDenied",
+    "GetResultsSqlQueryPermissionDenied",
+    "GetStatusSqlQueryPermissionDenied",
     "QueryCanceled",
     "QueryFailed",
     "QueryParseError",

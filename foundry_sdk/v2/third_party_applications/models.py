@@ -30,7 +30,7 @@ class ListVersionsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -47,7 +47,7 @@ class ThirdPartyApplication(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -64,7 +64,7 @@ class Version(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -84,7 +84,7 @@ class Website(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 

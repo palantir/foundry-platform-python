@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 import typing_extensions
@@ -48,7 +47,7 @@ class Action(pydantic.BaseModel):
     notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -60,7 +59,7 @@ class AndTrigger(pydantic.BaseModel):
     type: typing.Literal["and"] = "and"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -88,7 +87,7 @@ class Build(pydantic.BaseModel):
     status: BuildStatus
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -129,7 +128,7 @@ class ConnectingTarget(pydantic.BaseModel):
     type: typing.Literal["connecting"] = "connecting"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -149,7 +148,7 @@ class CreateScheduleRequestAction(pydantic.BaseModel):
     target: CreateScheduleRequestBuildTarget
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -180,7 +179,7 @@ class CreateScheduleRequestConnectingTarget(pydantic.BaseModel):
     type: typing.Literal["connecting"] = "connecting"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -192,7 +191,7 @@ class CreateScheduleRequestManualTarget(pydantic.BaseModel):
     type: typing.Literal["manual"] = "manual"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -204,7 +203,7 @@ class CreateScheduleRequestProjectScope(pydantic.BaseModel):
     type: typing.Literal["project"] = "project"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -228,7 +227,7 @@ class CreateScheduleRequestUpstreamTarget(pydantic.BaseModel):
     type: typing.Literal["upstream"] = "upstream"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -239,7 +238,7 @@ class CreateScheduleRequestUserScope(pydantic.BaseModel):
     type: typing.Literal["user"] = "user"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -259,7 +258,7 @@ class DatasetJobOutput(pydantic.BaseModel):
     type: typing.Literal["datasetJobOutput"] = "datasetJobOutput"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -275,7 +274,7 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -299,7 +298,7 @@ class GetBuildsBatchRequestElement(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -310,7 +309,7 @@ class GetBuildsBatchResponse(pydantic.BaseModel):
     data: typing.Dict[core_models.BuildRid, Build]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -323,7 +322,7 @@ class GetJobsBatchRequestElement(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -334,7 +333,7 @@ class GetJobsBatchResponse(pydantic.BaseModel):
     data: typing.Dict[core_models.JobRid, Job]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -351,7 +350,7 @@ class Job(pydantic.BaseModel):
     started_time: JobStartedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
     """The time this job started waiting for the dependencies to be resolved."""
 
-    finished_time: typing.Optional[datetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
+    finished_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
     """The time this job was finished."""
 
     job_status: JobStatus = pydantic.Field(alias=str("jobStatus"))  # type: ignore[literal-required]
@@ -363,7 +362,7 @@ class Job(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -375,7 +374,7 @@ JobOutput = typing_extensions.Annotated[
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
 
 
-JobStartedTime = datetime
+JobStartedTime = core.AwareDatetime
 """The time this job started waiting for the dependencies to be resolved."""
 
 
@@ -394,7 +393,7 @@ class JobSucceededTrigger(pydantic.BaseModel):
     type: typing.Literal["jobSucceeded"] = "jobSucceeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -406,7 +405,7 @@ class ListJobsOfBuildResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -418,7 +417,7 @@ class ListRunsOfScheduleResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -430,7 +429,7 @@ class ManualTarget(pydantic.BaseModel):
     type: typing.Literal["manual"] = "manual"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -448,7 +447,7 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
     type: typing.Literal["mediaSetUpdated"] = "mediaSetUpdated"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -464,7 +463,7 @@ class NewLogicTrigger(pydantic.BaseModel):
     type: typing.Literal["newLogic"] = "newLogic"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -483,7 +482,7 @@ class OrTrigger(pydantic.BaseModel):
     type: typing.Literal["or"] = "or"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -495,7 +494,7 @@ class ProjectScope(pydantic.BaseModel):
     type: typing.Literal["project"] = "project"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -515,7 +514,7 @@ class ReplaceScheduleRequestAction(pydantic.BaseModel):
     target: ReplaceScheduleRequestBuildTarget
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -546,7 +545,7 @@ class ReplaceScheduleRequestConnectingTarget(pydantic.BaseModel):
     type: typing.Literal["connecting"] = "connecting"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -558,7 +557,7 @@ class ReplaceScheduleRequestManualTarget(pydantic.BaseModel):
     type: typing.Literal["manual"] = "manual"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -570,7 +569,7 @@ class ReplaceScheduleRequestProjectScope(pydantic.BaseModel):
     type: typing.Literal["project"] = "project"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -594,7 +593,7 @@ class ReplaceScheduleRequestUpstreamTarget(pydantic.BaseModel):
     type: typing.Literal["upstream"] = "upstream"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -605,7 +604,7 @@ class ReplaceScheduleRequestUserScope(pydantic.BaseModel):
     type: typing.Literal["user"] = "user"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -642,7 +641,7 @@ class Schedule(pydantic.BaseModel):
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -680,7 +679,7 @@ class ScheduleRun(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -693,7 +692,7 @@ class ScheduleRunError(pydantic.BaseModel):
     type: typing.Literal["error"] = "error"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -716,7 +715,7 @@ class ScheduleRunIgnored(pydantic.BaseModel):
     type: typing.Literal["ignored"] = "ignored"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -742,7 +741,7 @@ class ScheduleRunSubmitted(pydantic.BaseModel):
     type: typing.Literal["submitted"] = "submitted"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -757,7 +756,7 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
     type: typing.Literal["scheduleSucceeded"] = "scheduleSucceeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -780,7 +779,7 @@ class ScheduleVersion(pydantic.BaseModel):
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -802,7 +801,7 @@ class SearchBuildsAndFilter(pydantic.BaseModel):
     type: typing.Literal["and"] = "and"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -815,7 +814,7 @@ class SearchBuildsEqualsFilter(pydantic.BaseModel):
     type: typing.Literal["eq"] = "eq"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -846,7 +845,7 @@ class SearchBuildsGteFilter(pydantic.BaseModel):
     type: typing.Literal["gte"] = "gte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -863,7 +862,7 @@ class SearchBuildsLtFilter(pydantic.BaseModel):
     type: typing.Literal["lt"] = "lt"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -879,7 +878,7 @@ class SearchBuildsNotFilter(pydantic.BaseModel):
     type: typing.Literal["not"] = "not"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -891,7 +890,7 @@ class SearchBuildsOrFilter(pydantic.BaseModel):
     type: typing.Literal["or"] = "or"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -902,7 +901,7 @@ class SearchBuildsOrderBy(pydantic.BaseModel):
     fields: typing.List[SearchBuildsOrderByItem]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -918,7 +917,7 @@ class SearchBuildsOrderByItem(pydantic.BaseModel):
     direction: core_models.OrderByDirection
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -930,7 +929,7 @@ class SearchBuildsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -943,7 +942,7 @@ class TimeTrigger(pydantic.BaseModel):
     type: typing.Literal["time"] = "time"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -956,7 +955,7 @@ class TransactionalMediaSetJobOutput(pydantic.BaseModel):
     type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -989,7 +988,7 @@ class UpstreamTarget(pydantic.BaseModel):
     type: typing.Literal["upstream"] = "upstream"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1003,7 +1002,7 @@ class UserScope(pydantic.BaseModel):
     type: typing.Literal["user"] = "user"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 

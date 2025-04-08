@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import typing
-from datetime import datetime
 
 import pydantic
 
@@ -34,7 +33,7 @@ class Branch(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -51,7 +50,7 @@ class Dataset(pydantic.BaseModel):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -73,12 +72,12 @@ class File(pydantic.BaseModel):
     updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-FileUpdatedTime = datetime
+FileUpdatedTime = core.AwareDatetime
 """FileUpdatedTime"""
 
 
@@ -89,7 +88,7 @@ class ListBranchesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -101,7 +100,7 @@ class ListFilesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -119,17 +118,17 @@ class Transaction(pydantic.BaseModel):
     created_time: TransactionCreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
-    closed_time: typing.Optional[datetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
+    closed_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-TransactionCreatedTime = datetime
+TransactionCreatedTime = core.AwareDatetime
 """The timestamp when the transaction was created, in ISO 8601 timestamp format."""
 
 

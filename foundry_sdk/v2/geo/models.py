@@ -62,7 +62,7 @@ class Feature(pydantic.BaseModel):
     type: typing.Literal["Feature"] = "Feature"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -75,7 +75,7 @@ class FeatureCollection(pydantic.BaseModel):
     type: typing.Literal["FeatureCollection"] = "FeatureCollection"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -92,7 +92,7 @@ class GeoPoint(pydantic.BaseModel):
     type: typing.Literal["Point"] = "Point"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -127,7 +127,7 @@ class GeometryCollection(pydantic.BaseModel):
     type: typing.Literal["GeometryCollection"] = "GeometryCollection"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -140,7 +140,7 @@ class LineString(pydantic.BaseModel):
     type: typing.Literal["LineString"] = "LineString"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -175,7 +175,7 @@ class MultiLineString(pydantic.BaseModel):
     type: typing.Literal["MultiLineString"] = "MultiLineString"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -188,7 +188,7 @@ class MultiPoint(pydantic.BaseModel):
     type: typing.Literal["MultiPoint"] = "MultiPoint"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -201,7 +201,7 @@ class MultiPolygon(pydantic.BaseModel):
     type: typing.Literal["MultiPolygon"] = "MultiPolygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -214,7 +214,7 @@ class Polygon(pydantic.BaseModel):
     type: typing.Literal["Polygon"] = "Polygon"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 

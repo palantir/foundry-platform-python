@@ -16,9 +16,11 @@
 import inspect
 import typing
 import warnings
+from datetime import timezone
 from functools import wraps
 from typing import Any
 from typing import Callable
+from typing import ForwardRef
 from typing import List
 from typing import TypeVar
 
@@ -40,6 +42,7 @@ UUID = Annotated[
     ),
 ]
 
+
 Long = Annotated[
     int,
     pydantic.PlainSerializer(
@@ -50,6 +53,20 @@ Long = Annotated[
         when_used="json",
     ),
 ]
+"""A long integer that is serialized to a string in JSON."""
+
+
+AwareDatetime = Annotated[
+    pydantic.AwareDatetime,
+    pydantic.PlainSerializer(
+        lambda value: value.astimezone(timezone.utc).isoformat(),
+        return_type=str,
+        # Important: This ensures the value is not serialized when using to_dict()
+        # We only want to serialize when dumping to a JSON string
+        when_used="json",
+    ),
+]
+"""A datetime object that enforces timezones and is always serialized to UTC."""
 
 
 Timeout = Annotated[int, pydantic.Field(gt=0)]
@@ -81,17 +98,18 @@ def maybe_ignore_preview(func: AnyCallableT) -> AnyCallableT:
     return wrapper  # type: ignore
 
 
-def resolve_forward_references(type_obj: Any, globalns, localns):
-    if not hasattr(type_obj, "__origin__") or not hasattr(type_obj, "__args__"):
+def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> Any:
+    if typing.get_origin(type_obj) is None:
         return type_obj
 
     args = tuple(
         (
             typing._eval_type(arg, globalns, localns)  # type: ignore
-            if isinstance(arg, typing.ForwardRef)
+            if isinstance(arg, ForwardRef)
             else resolve_forward_references(arg, globalns, localns)
         )
-        for arg in type_obj.__args__  # type: ignore
+        for arg in typing.get_args(type_obj)  # type: ignore
     )
 
     setattr(type_obj, "__args__", args)
+    return type_obj

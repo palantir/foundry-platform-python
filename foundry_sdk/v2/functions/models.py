@@ -56,7 +56,7 @@ class ExecuteQueryResponse(pydantic.BaseModel):
     value: DataValue
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -79,7 +79,7 @@ class Parameter(pydantic.BaseModel):
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -103,7 +103,7 @@ class Query(pydantic.BaseModel):
     version: FunctionVersion
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -142,7 +142,7 @@ class QueryAggregationRangeType(pydantic.BaseModel):
     type: typing.Literal["range"] = "range"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -165,7 +165,7 @@ class QueryArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -207,7 +207,7 @@ class QuerySetType(pydantic.BaseModel):
     type: typing.Literal["set"] = "set"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -219,7 +219,7 @@ class QueryStructField(pydantic.BaseModel):
     field_type: QueryDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -231,7 +231,7 @@ class QueryStructType(pydantic.BaseModel):
     type: typing.Literal["struct"] = "struct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -243,7 +243,7 @@ class QueryUnionType(pydantic.BaseModel):
     type: typing.Literal["union"] = "union"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -260,7 +260,7 @@ class ThreeDimensionalAggregation(pydantic.BaseModel):
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -273,7 +273,7 @@ class TwoDimensionalAggregation(pydantic.BaseModel):
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -290,7 +290,7 @@ class ValueType(pydantic.BaseModel):
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -332,7 +332,7 @@ class ValueTypeDataTypeArrayType(pydantic.BaseModel):
     type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -343,7 +343,7 @@ class ValueTypeDataTypeBinaryType(pydantic.BaseModel):
     type: typing.Literal["binary"] = "binary"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -354,7 +354,7 @@ class ValueTypeDataTypeBooleanType(pydantic.BaseModel):
     type: typing.Literal["boolean"] = "boolean"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -365,7 +365,7 @@ class ValueTypeDataTypeByteType(pydantic.BaseModel):
     type: typing.Literal["byte"] = "byte"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -376,7 +376,7 @@ class ValueTypeDataTypeDateType(pydantic.BaseModel):
     type: typing.Literal["date"] = "date"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -387,7 +387,7 @@ class ValueTypeDataTypeDecimalType(pydantic.BaseModel):
     type: typing.Literal["decimal"] = "decimal"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -398,7 +398,7 @@ class ValueTypeDataTypeDoubleType(pydantic.BaseModel):
     type: typing.Literal["double"] = "double"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -409,7 +409,7 @@ class ValueTypeDataTypeFloatType(pydantic.BaseModel):
     type: typing.Literal["float"] = "float"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -420,7 +420,7 @@ class ValueTypeDataTypeIntegerType(pydantic.BaseModel):
     type: typing.Literal["integer"] = "integer"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -431,7 +431,7 @@ class ValueTypeDataTypeLongType(pydantic.BaseModel):
     type: typing.Literal["long"] = "long"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -444,7 +444,7 @@ class ValueTypeDataTypeMapType(pydantic.BaseModel):
     type: typing.Literal["map"] = "map"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -456,7 +456,7 @@ class ValueTypeDataTypeOptionalType(pydantic.BaseModel):
     type: typing.Literal["optional"] = "optional"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -467,7 +467,7 @@ class ValueTypeDataTypeShortType(pydantic.BaseModel):
     type: typing.Literal["short"] = "short"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -478,7 +478,7 @@ class ValueTypeDataTypeStringType(pydantic.BaseModel):
     type: typing.Literal["string"] = "string"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -490,7 +490,7 @@ class ValueTypeDataTypeStructElement(pydantic.BaseModel):
     field_type: ValueTypeDataType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -506,7 +506,7 @@ class ValueTypeDataTypeStructType(pydantic.BaseModel):
     type: typing.Literal["struct"] = "struct"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -517,7 +517,7 @@ class ValueTypeDataTypeTimestampType(pydantic.BaseModel):
     type: typing.Literal["timestamp"] = "timestamp"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -529,7 +529,7 @@ class ValueTypeDataTypeUnionType(pydantic.BaseModel):
     type: typing.Literal["union"] = "union"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -542,7 +542,7 @@ class ValueTypeDataTypeValueTypeReference(pydantic.BaseModel):
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -559,7 +559,7 @@ class ValueTypeReference(pydantic.BaseModel):
     type: typing.Literal["valueTypeReference"] = "valueTypeReference"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -588,7 +588,7 @@ class VersionId(pydantic.BaseModel):
     base_type: typing.Optional[ValueTypeDataType] = pydantic.Field(alias=str("baseType"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 

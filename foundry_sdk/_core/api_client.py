@@ -40,7 +40,6 @@ import pydantic
 from typing_extensions import NotRequired
 from typing_extensions import ParamSpec
 from typing_extensions import TypedDict
-from typing_extensions import deprecated
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.auth_utils import Token

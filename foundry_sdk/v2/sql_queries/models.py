@@ -29,7 +29,7 @@ class CanceledQueryStatus(pydantic.BaseModel):
     type: typing.Literal["canceled"] = "canceled"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -43,13 +43,9 @@ class FailedQueryStatus(pydantic.BaseModel):
     type: typing.Literal["failed"] = "failed"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
-
-
-QueryId = str
-"""The identifier of a Query."""
 
 
 QueryStatus = typing_extensions.Annotated[
@@ -64,23 +60,27 @@ QueryStatus = typing_extensions.Annotated[
 class RunningQueryStatus(pydantic.BaseModel):
     """RunningQueryStatus"""
 
-    query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
+    query_id: SqlQueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
     type: typing.Literal["running"] = "running"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
+
+
+SqlQueryId = str
+"""The identifier of a SQL Query."""
 
 
 class SucceededQueryStatus(pydantic.BaseModel):
     """SucceededQueryStatus"""
 
-    query_id: QueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
+    query_id: SqlQueryId = pydantic.Field(alias=str("queryId"))  # type: ignore[literal-required]
     type: typing.Literal["succeeded"] = "succeeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -90,8 +90,8 @@ core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals(
 __all__ = [
     "CanceledQueryStatus",
     "FailedQueryStatus",
-    "QueryId",
     "QueryStatus",
     "RunningQueryStatus",
+    "SqlQueryId",
     "SucceededQueryStatus",
 ]

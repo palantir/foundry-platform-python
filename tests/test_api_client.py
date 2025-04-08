@@ -109,17 +109,6 @@ def create_client(
     return ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
 
 
-def test_can_override_session_using_deprecated_method():
-    client = create_mock_client()
-
-    with warnings.catch_warnings(record=True) as w:
-        assert isinstance(client.session._session, httpx.Client)
-        # Ensure the warning is emitted when accessing the session
-        assert len(w) == 1
-
-        client.session._session.headers["Foo"] = "Bar"
-
-
 def test_authorization_header():
     client = create_mock_client()
     client.call_api(RequestInfo.with_defaults("GET", "/foo/bar"))

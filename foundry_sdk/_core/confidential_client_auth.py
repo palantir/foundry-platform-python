@@ -15,7 +15,6 @@
 
 import threading
 import time
-import warnings
 from typing import List
 from typing import Optional
 
@@ -94,18 +93,6 @@ class ConfidentialClientAuth(OAuth):
 
         refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
         refresh_thread.start()
-
-    def sign_in_as_service_user(self) -> SignInResponse:
-        warnings.warn(
-            "sign_in_as_service_user() is deprecated. Use get_token() instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-
-        token = self.get_token()
-        return SignInResponse(
-            session={"accessToken": token.access_token, "expiresIn": token.expires_in}
-        )
 
     def sign_out(self) -> SignOutResponse:
         if self._token:

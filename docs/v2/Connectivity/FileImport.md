@@ -31,7 +31,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -44,7 +44,7 @@ dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
 # List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-file_import_filters = None
+file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -276,7 +276,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -338,7 +338,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -353,7 +353,7 @@ dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
 # List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
-file_import_filters = None
+file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.

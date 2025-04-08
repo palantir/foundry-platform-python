@@ -30,7 +30,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -39,7 +39,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # ConnectionRid
 connection_rid = None
 # CreateTableImportRequestTableImportConfig
-config = None
+config = {"type": "jdbcImportConfig", "query": "SELECT * FROM table"}
 # DatasetRid | The RID of the output dataset.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -162,7 +162,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -275,7 +275,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 

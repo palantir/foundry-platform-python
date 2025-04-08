@@ -15,8 +15,9 @@
 
 from __future__ import annotations
 
+import decimal
 import typing
-from datetime import datetime
+from datetime import date
 
 import pydantic
 import typing_extensions
@@ -42,7 +43,7 @@ class ApiKeyAuthentication(pydantic.BaseModel):
     type: typing.Literal["apiKey"] = "apiKey"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -54,7 +55,7 @@ class AsPlaintextValue(pydantic.BaseModel):
     type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -66,7 +67,7 @@ class AsSecretName(pydantic.BaseModel):
     type: typing.Literal["asSecretName"] = "asSecretName"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -85,7 +86,7 @@ class AwsAccessKey(pydantic.BaseModel):
     type: typing.Literal["awsAccessKey"] = "awsAccessKey"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -108,7 +109,7 @@ class AwsOidcAuthentication(pydantic.BaseModel):
     type: typing.Literal["oidc"] = "oidc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -121,7 +122,7 @@ class BasicCredentials(pydantic.BaseModel):
     type: typing.Literal["basic"] = "basic"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -133,7 +134,7 @@ class BearerToken(pydantic.BaseModel):
     type: typing.Literal["bearerToken"] = "bearerToken"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -148,7 +149,7 @@ class CloudIdentity(pydantic.BaseModel):
     type: typing.Literal["cloudIdentity"] = "cloudIdentity"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -168,14 +169,17 @@ class Connection(pydantic.BaseModel):
     configuration: ConnectionConfiguration
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
-        "S3ConnectionConfiguration", "RestConnectionConfiguration", "JdbcConnectionConfiguration"
+        "S3ConnectionConfiguration",
+        "RestConnectionConfiguration",
+        "SnowflakeConnectionConfiguration",
+        "JdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -190,15 +194,66 @@ ConnectionRid = core.RID
 """The Resource Identifier (RID) of a Connection (also known as a source)."""
 
 
+class CreateConnectionRequestAsPlaintextValue(pydantic.BaseModel):
+    """CreateConnectionRequestAsPlaintextValue"""
+
+    value: PlaintextValue
+    type: typing.Literal["asPlaintextValue"] = "asPlaintextValue"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestAsSecretName(pydantic.BaseModel):
+    """CreateConnectionRequestAsSecretName"""
+
+    value: SecretName
+    type: typing.Literal["asSecretName"] = "asSecretName"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestBasicCredentials(pydantic.BaseModel):
+    """CreateConnectionRequestBasicCredentials"""
+
+    password: CreateConnectionRequestEncryptedProperty
+    username: str
+    type: typing.Literal["basic"] = "basic"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
         "CreateConnectionRequestS3ConnectionConfiguration",
         "CreateConnectionRequestRestConnectionConfiguration",
+        "CreateConnectionRequestSnowflakeConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
 ]
 """CreateConnectionRequestConnectionConfiguration"""
+
+
+CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
+    typing.Union[CreateConnectionRequestAsSecretName, CreateConnectionRequestAsPlaintextValue],
+    pydantic.Field(discriminator="type"),
+]
+"""
+When reading an encrypted property, the secret name representing the encrypted value will be returned.
+When writing to an encrypted property:
+- If a plaintext value is passed as an input, the plaintext value will be encrypted and saved to the property.
+- If a secret name is passed as an input, the secret name must match the existing secret name of the property
+  and the property will retain its previously encrypted value.
+"""
 
 
 class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
@@ -210,8 +265,8 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
 
     jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -221,7 +276,7 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["jdbc"] = "jdbc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -251,7 +306,7 @@ class CreateConnectionRequestRestConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["rest"] = "rest"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -341,7 +396,110 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["s3"] = "s3"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestSnowflakeExternalOauth",
+        "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+        CreateConnectionRequestBasicCredentials,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""CreateConnectionRequestSnowflakeAuthenticationMode"""
+
+
+class CreateConnectionRequestSnowflakeConnectionConfiguration(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeConnectionConfiguration"""
+
+    schema_: typing.Optional[str] = pydantic.Field(alias=str("schema"), default=None)  # type: ignore[literal-required]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    database: typing.Optional[str] = None
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing.Optional[str] = None
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    account_identifier: str = pydantic.Field(alias=str("accountIdentifier"))  # type: ignore[literal-required]
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    warehouse: typing.Optional[str] = None
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authentication_mode: CreateConnectionRequestSnowflakeAuthenticationMode = pydantic.Field(alias=str("authenticationMode"))  # type: ignore[literal-required]
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    type: typing.Literal["snowflake"] = "snowflake"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestSnowflakeExternalOauth(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeExternalOauth"""
+
+    type: typing.Literal["externalOauth"] = "externalOauth"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestSnowflakeKeyPairAuthentication(pydantic.BaseModel):
+    """CreateConnectionRequestSnowflakeKeyPairAuthentication"""
+
+    private_key: CreateConnectionRequestEncryptedProperty = pydantic.Field(alias=str("privateKey"))  # type: ignore[literal-required]
+    user: str
+    type: typing.Literal["keyPair"] = "keyPair"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -349,6 +507,7 @@ class CreateConnectionRequestS3ConnectionConfiguration(pydantic.BaseModel):
 class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -359,7 +518,7 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -367,6 +526,7 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
 class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftAccessImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -377,7 +537,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -385,6 +545,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
 class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -395,7 +556,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -403,6 +564,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
 class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestOracleImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -413,7 +575,7 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -421,6 +583,7 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
 class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestPostgreSqlImportConfig"""
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: str
     """
     A single SQL query can be executed per sync, which should output a data table 
@@ -431,7 +594,26 @@ class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestSnowflakeTableImportConfig"""
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -442,11 +624,44 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
         CreateTableImportRequestMicrosoftSqlServerImportConfig,
         CreateTableImportRequestPostgreSqlImportConfig,
         CreateTableImportRequestMicrosoftAccessImportConfig,
+        CreateTableImportRequestSnowflakeTableImportConfig,
         CreateTableImportRequestOracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
 """The import configuration for a specific [connector type](/docs/foundry/data-integration/source-type-overview)."""
+
+
+class DateColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a date type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: date = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the date column to reference in the query."""
+
+    type: typing.Literal["dateColumnInitialIncrementalState"] = "dateColumnInitialIncrementalState"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class DecimalColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a decimal data type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: decimal.Decimal = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the decimal column to reference in the query."""
+
+    type: typing.Literal["decimalColumnInitialIncrementalState"] = (
+        "decimalColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class Domain(pydantic.BaseModel):
@@ -472,7 +687,7 @@ class Domain(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -498,7 +713,7 @@ class FileAnyPathMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["anyPathMatchesFilter"] = "anyPathMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -515,7 +730,7 @@ class FileAtLeastCountFilter(pydantic.BaseModel):
     type: typing.Literal["atLeastCountFilter"] = "atLeastCountFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -540,7 +755,7 @@ class FileChangedSinceLastUploadFilter(pydantic.BaseModel):
     type: typing.Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -568,7 +783,7 @@ class FileImport(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -583,7 +798,7 @@ class FileImportCustomFilter(pydantic.BaseModel):
     type: typing.Literal["customFilter"] = "customFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -629,7 +844,7 @@ FileImportRid = core.RID
 class FileLastModifiedAfterFilter(pydantic.BaseModel):
     """Only import files that have been modified after a specified timestamp"""
 
-    after_timestamp: typing.Optional[datetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
+    after_timestamp: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("afterTimestamp"), default=None)  # type: ignore[literal-required]
     """
     Timestamp threshold, specified in ISO-8601 format.
     If not specified, defaults to the timestamp the filter is added to the file import.
@@ -638,7 +853,7 @@ class FileLastModifiedAfterFilter(pydantic.BaseModel):
     type: typing.Literal["lastModifiedAfterFilter"] = "lastModifiedAfterFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -663,7 +878,7 @@ class FilePathMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["pathMatchesFilter"] = "pathMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -689,7 +904,7 @@ class FilePathNotMatchesFilter(pydantic.BaseModel):
     type: typing.Literal["pathNotMatchesFilter"] = "pathNotMatchesFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -720,7 +935,7 @@ class FileSizeFilter(pydantic.BaseModel):
     type: typing.Literal["fileSizeFilter"] = "fileSizeFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -738,7 +953,7 @@ class FilesCountLimitFilter(pydantic.BaseModel):
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -752,7 +967,24 @@ class HeaderApiKey(pydantic.BaseModel):
     type: typing.Literal["header"] = "header"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class IntegerColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a numeric integer datatype."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: int = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the integer column to reference in the query."""
+
+    type: typing.Literal["integerColumnInitialIncrementalState"] = (
+        "integerColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -768,8 +1000,8 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
 
     jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     """
-    The list of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection for additional 
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
     available JDBC properties to add to your connection configuration.
     """
 
@@ -777,7 +1009,7 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["jdbc"] = "jdbc"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -792,10 +1024,11 @@ class JdbcImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -807,7 +1040,7 @@ class ListFileImportsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -819,7 +1052,22 @@ class ListTableImportsResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class LongColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a numeric long datatype."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: core.Long = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the long column to reference in the query."""
+
+    type: typing.Literal["longColumnInitialIncrementalState"] = "longColumnInitialIncrementalState"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -834,10 +1082,11 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -852,10 +1101,11 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -870,10 +1120,11 @@ class OracleImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -892,10 +1143,11 @@ class PostgreSqlImportConfig(pydantic.BaseModel):
     The query results are saved to the output dataset in Foundry.
     """
 
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -913,7 +1165,7 @@ class QueryParameterApiKey(pydantic.BaseModel):
     type: typing.Literal["queryParameter"] = "queryParameter"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -963,7 +1215,7 @@ class RestConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["rest"] = "rest"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -977,7 +1229,7 @@ class RestConnectionOAuth2(pydantic.BaseModel):
     type: typing.Literal["oauth2"] = "oauth2"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1083,7 +1335,7 @@ class S3ConnectionConfiguration(pydantic.BaseModel):
     type: typing.Literal["s3"] = "s3"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1105,7 +1357,7 @@ class S3KmsConfiguration(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1129,7 +1381,7 @@ class S3ProxyConfiguration(pydantic.BaseModel):
     credentials: typing.Optional[BasicCredentials] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1150,7 +1402,7 @@ class SecretsNames(pydantic.BaseModel):
     type: typing.Literal["asSecretsNames"] = "asSecretsNames"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1167,7 +1419,159 @@ class SecretsWithPlaintextValues(pydantic.BaseModel):
     type: typing.Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+SnowflakeAuthenticationMode = typing_extensions.Annotated[
+    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", BasicCredentials],
+    pydantic.Field(discriminator="type"),
+]
+"""SnowflakeAuthenticationMode"""
+
+
+class SnowflakeConnectionConfiguration(pydantic.BaseModel):
+    """The configuration needed to connect to a Snowflake database."""
+
+    account_identifier: str = pydantic.Field(alias=str("accountIdentifier"))  # type: ignore[literal-required]
+    """
+    An [account identifier](https://docs.snowflake.com/en/user-guide/admin-account-identifier) uniquely 
+    identifies a Snowflake account within your organization, as well as throughout the global network of 
+    Snowflake-supported cloud platforms and cloud regions.
+
+    The URL for an account uses the following format: <account_identifier>.snowflakecomputing.com.
+    An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
+    """
+
+    database: typing.Optional[str] = None
+    """
+    Specifies the default database to use once connected. If unspecified, defaults to the empty string.
+    The specified database should be an existing database for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#db
+    """
+
+    role: typing.Optional[str] = None
+    """
+    Specifies the default access control role to use in the Snowflake session initiated by the driver. 
+    If unspecified, no role will be used when the session is initiated by the driver.
+
+    The specified role should be an existing role that has already been assigned to the specified user for 
+    the driver. If the specified role has not already been assigned to the user, the role is not used when 
+    the session is initiated by the driver.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#role
+    """
+
+    schema_: typing.Optional[str] = pydantic.Field(alias=str("schema"), default=None)  # type: ignore[literal-required]
+    """
+    Specifies the default schema to use for the specified database once connected. If unspecified, 
+    defaults to the empty string.
+    The specified schema should be an existing schema for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema
+    """
+
+    warehouse: typing.Optional[str] = None
+    """
+    Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
+    The specified warehouse should be an existing warehouse for which the specified default role has privileges.
+
+    See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse
+    """
+
+    authentication_mode: SnowflakeAuthenticationMode = pydantic.Field(alias=str("authenticationMode"))  # type: ignore[literal-required]
+    """The authentication mode to use to connect to the Snowflake database."""
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    """
+
+    type: typing.Literal["snowflake"] = "snowflake"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class SnowflakeExternalOauth(pydantic.BaseModel):
+    """
+    Use an External OAuth security integration to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/oauth-ext-custom
+    """
+
+    audience: str
+    """Identifies the recipients that the access token is intended for as a string URI."""
+
+    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
+    """Identifies the principal that issued the access token as a string URI."""
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["externalOauth"] = "externalOauth"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class SnowflakeKeyPairAuthentication(pydantic.BaseModel):
+    """
+    Use a key-pair to connect and authenticate to Snowflake.
+
+    See https://docs.snowflake.com/en/user-guide/key-pair-auth
+    """
+
+    user: str
+    private_key: EncryptedProperty = pydantic.Field(alias=str("privateKey"))  # type: ignore[literal-required]
+    type: typing.Literal["keyPair"] = "keyPair"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class SnowflakeTableImportConfig(pydantic.BaseModel):
+    """The table import configuration for a [Snowflake connection](/docs/foundry/available-connectors/snowflake)."""
+
+    query: str
+    """
+    A single SQL query can be executed per sync, which should output a data table 
+    and avoid operations like invoking stored procedures. 
+    The query results are saved to the output dataset in Foundry.
+    """
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class StringColumnInitialIncrementalState(pydantic.BaseModel):
+    """The state for an incremental table import using a column with a string data type."""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: str = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the string column to reference in the query."""
+
+    type: typing.Literal["stringColumnInitialIncrementalState"] = (
+        "stringColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1209,7 +1613,7 @@ class StsRoleConfiguration(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1235,7 +1639,7 @@ class TableImport(pydantic.BaseModel):
     config: TableImportConfig
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
 
@@ -1250,6 +1654,7 @@ TableImportConfig = typing_extensions.Annotated[
         MicrosoftSqlServerImportConfig,
         PostgreSqlImportConfig,
         MicrosoftAccessImportConfig,
+        SnowflakeTableImportConfig,
         OracleImportConfig,
     ],
     pydantic.Field(discriminator="type"),
@@ -1259,6 +1664,28 @@ TableImportConfig = typing_extensions.Annotated[
 
 TableImportDisplayName = str
 """TableImportDisplayName"""
+
+
+TableImportInitialIncrementalState = typing_extensions.Annotated[
+    typing.Union[
+        StringColumnInitialIncrementalState,
+        DateColumnInitialIncrementalState,
+        IntegerColumnInitialIncrementalState,
+        "TimestampColumnInitialIncrementalState",
+        LongColumnInitialIncrementalState,
+        DecimalColumnInitialIncrementalState,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The incremental configuration for a table import enables append-style transactions from the same table without duplication of data.
+You must provide a monotonically increasing column such as a timestamp or id and an initial value for this column. 
+An incremental table import will import rows where the value is greater than the largest already imported.
+
+You can use the '?' character to reference the incremental state value when constructing your query. 
+Normally this would be used in a WHERE clause or similar filter applied in order to only sync data with an incremental column value 
+larger than the previously observed maximum value stored in the incremental state.
+"""
 
 
 TableImportMode = typing.Literal["SNAPSHOT", "APPEND"]
@@ -1274,6 +1701,23 @@ TableImportRid = core.RID
 """The Resource Identifier (RID) of a TableImport (also known as a batch sync)."""
 
 
+class TimestampColumnInitialIncrementalState(pydantic.BaseModel):
+    """TimestampColumnInitialIncrementalState"""
+
+    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    current_value: core.AwareDatetime = pydantic.Field(alias=str("currentValue"))  # type: ignore[literal-required]
+    """The initial incremental state value for the timestamp column in UTC to reference in the query."""
+
+    type: typing.Literal["timestampColumnInitialIncrementalState"] = (
+        "timestampColumnInitialIncrementalState"
+    )
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
@@ -1281,6 +1725,12 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
@@ -1293,7 +1743,11 @@ core.resolve_forward_references(
 )
 core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
 core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())
 core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    TableImportInitialIncrementalState, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "ApiKeyAuthentication",
@@ -1309,16 +1763,27 @@ __all__ = [
     "ConnectionConfiguration",
     "ConnectionDisplayName",
     "ConnectionRid",
+    "CreateConnectionRequestAsPlaintextValue",
+    "CreateConnectionRequestAsSecretName",
+    "CreateConnectionRequestBasicCredentials",
     "CreateConnectionRequestConnectionConfiguration",
+    "CreateConnectionRequestEncryptedProperty",
     "CreateConnectionRequestJdbcConnectionConfiguration",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfiguration",
+    "CreateConnectionRequestSnowflakeAuthenticationMode",
+    "CreateConnectionRequestSnowflakeConnectionConfiguration",
+    "CreateConnectionRequestSnowflakeExternalOauth",
+    "CreateConnectionRequestSnowflakeKeyPairAuthentication",
     "CreateTableImportRequestJdbcImportConfig",
     "CreateTableImportRequestMicrosoftAccessImportConfig",
     "CreateTableImportRequestMicrosoftSqlServerImportConfig",
     "CreateTableImportRequestOracleImportConfig",
     "CreateTableImportRequestPostgreSqlImportConfig",
+    "CreateTableImportRequestSnowflakeTableImportConfig",
     "CreateTableImportRequestTableImportConfig",
+    "DateColumnInitialIncrementalState",
+    "DecimalColumnInitialIncrementalState",
     "Domain",
     "EncryptedProperty",
     "FileAnyPathMatchesFilter",
@@ -1337,10 +1802,12 @@ __all__ = [
     "FileSizeFilter",
     "FilesCountLimitFilter",
     "HeaderApiKey",
+    "IntegerColumnInitialIncrementalState",
     "JdbcConnectionConfiguration",
     "JdbcImportConfig",
     "ListFileImportsResponse",
     "ListTableImportsResponse",
+    "LongColumnInitialIncrementalState",
     "MicrosoftAccessImportConfig",
     "MicrosoftSqlServerImportConfig",
     "OracleImportConfig",
@@ -1361,12 +1828,20 @@ __all__ = [
     "SecretName",
     "SecretsNames",
     "SecretsWithPlaintextValues",
+    "SnowflakeAuthenticationMode",
+    "SnowflakeConnectionConfiguration",
+    "SnowflakeExternalOauth",
+    "SnowflakeKeyPairAuthentication",
+    "SnowflakeTableImportConfig",
+    "StringColumnInitialIncrementalState",
     "StsRoleConfiguration",
     "TableImport",
     "TableImportAllowSchemaChanges",
     "TableImportConfig",
     "TableImportDisplayName",
+    "TableImportInitialIncrementalState",
     "TableImportMode",
     "TableImportRid",
+    "TimestampColumnInitialIncrementalState",
     "UriScheme",
 ]

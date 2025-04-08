@@ -1,6 +1,6 @@
-# QueryId
+# Plaintext
 
-The identifier of a Query.
+Plaintext
 
 ## Type
 ```python

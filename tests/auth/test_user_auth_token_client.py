@@ -13,18 +13,13 @@
 #  limitations under the License.
 
 
-import warnings
-
 import pytest
 
 from foundry_sdk import UserTokenAuth
 
 
-def test_missing_token_raises_type_error():
+def test_invalid_token_raises_appropriate_error():
     assert pytest.raises(TypeError, lambda: UserTokenAuth())  # type: ignore
-
-
-def test_warns_if_given_hostname():
-    with warnings.catch_warnings(record=True) as w:
-        UserTokenAuth(hostname="foo", token="bar")
-        assert len(w) == 1
+    assert pytest.raises(TypeError, lambda: UserTokenAuth(1))  # type: ignore
+    assert pytest.raises(TypeError, lambda: UserTokenAuth(None))  # type: ignore
+    assert pytest.raises(ValueError, lambda: UserTokenAuth(""))

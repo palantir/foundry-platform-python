@@ -31,6 +31,7 @@ from foundry_sdk._core.resource_iterator import ResourceIterator
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth
 from foundry_sdk._core.utils import RID
 from foundry_sdk._core.utils import UUID
+from foundry_sdk._core.utils import AwareDatetime
 from foundry_sdk._core.utils import Long
 from foundry_sdk._core.utils import Timeout
 from foundry_sdk._core.utils import maybe_ignore_preview

@@ -57,7 +57,6 @@ class BuildClient:
         self,
         build_rid: core_models.BuildRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -66,8 +65,6 @@ class BuildClient:
 
         :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -80,9 +77,7 @@ class BuildClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/{buildRid}/cancel",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "buildRid": build_rid,
                 },
@@ -110,7 +105,6 @@ class BuildClient:
         branch_name: typing.Optional[datasets_models.BranchName] = None,
         force_build: typing.Optional[orchestration_models.ForceBuild] = None,
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         retry_backoff_duration: typing.Optional[orchestration_models.RetryBackoffDuration] = None,
         retry_count: typing.Optional[orchestration_models.RetryCount] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -130,8 +124,6 @@ class BuildClient:
         :type force_build: Optional[ForceBuild]
         :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
         :type notifications_enabled: Optional[NotificationsEnabled]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param retry_backoff_duration:
         :type retry_backoff_duration: Optional[RetryBackoffDuration]
         :param retry_count: The number of retry attempts for failed jobs.
@@ -148,9 +140,7 @@ class BuildClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/create",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -199,7 +189,6 @@ class BuildClient:
         self,
         build_rid: core_models.BuildRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.Build:
@@ -207,8 +196,6 @@ class BuildClient:
         Get the Build with the specified rid.
         :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -221,9 +208,7 @@ class BuildClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/orchestration/builds/{buildRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "buildRid": build_rid,
                 },
@@ -251,7 +236,6 @@ class BuildClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.GetBuildsBatchResponse:
@@ -261,8 +245,6 @@ class BuildClient:
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
         :type body: List[GetBuildsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -273,9 +255,7 @@ class BuildClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/builds/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",

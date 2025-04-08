@@ -14,10 +14,7 @@
 
 
 import os
-import warnings
 from typing import Callable
-from typing import Optional
-from typing import Tuple
 from typing import TypeVar
 
 import httpx
@@ -41,22 +38,14 @@ class _UserToken(Token):
 
 
 class UserTokenAuth(Auth):
-    def __init__(self, hostname: Optional[str] = None, token: str = "") -> None:
-        if hostname is not None:
-            warnings.warn(
-                "The 'hostname' parameter is deprecated and will be removed in the next major version.",
-                DeprecationWarning,
-                stacklevel=2,
-            )
+    def __init__(self, token: str) -> None:
+        if not isinstance(token, str):
+            raise TypeError(f"The token must be a string, not {type(token)}.")
 
-        if token == "":
-            raise TypeError(
-                "UserTokenAuth.__init__() missing 1 required keyword-only argument: 'token'"
-            )
+        if not token:
+            raise ValueError("The token cannot be empty.")
 
-        self._hostname = hostname
         self._token = _UserToken(token)
-        super().__init__()
 
     def get_token(self) -> Token:
         if self._token is None:

@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import warnings
 from typing import Generic
 from typing import List
 from typing import Optional
@@ -39,14 +38,6 @@ class ResourceIterator(Generic[T]):
     @property
     def next_page_token(self) -> Optional[str]:
         return self._page_iterator.next_page_token
-
-    @property
-    def page_iterator(self):
-        warnings.warn(
-            "Accessing the page_iterator directly is deprecated. You can now access data and next_page_token directly on the ResourceIterator.",
-            DeprecationWarning,
-        )
-        return self._page_iterator
 
     def __iter__(self):
         return self

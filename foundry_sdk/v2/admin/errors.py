@@ -15,10 +15,10 @@
 
 import typing
 from dataclasses import dataclass
-from datetime import datetime
 
 import typing_extensions
 
+from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.admin import models as admin_models
 from foundry_sdk.v2.core import models as core_models
@@ -370,7 +370,7 @@ class InvalidGroupMembershipExpirationParameters(typing_extensions.TypedDict):
     groupId: core_models.PrincipalId
     expirationProvided: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
     maximumDuration: typing_extensions.NotRequired[str]
-    latestExpiration: typing_extensions.NotRequired[datetime]
+    latestExpiration: typing_extensions.NotRequired[core.AwareDatetime]
 
 
 @dataclass

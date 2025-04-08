@@ -69,6 +69,16 @@ class OntologiesClient:
         )
 
     @cached_property
+    def CipherTextProperty(self):
+        from foundry_sdk.v2.ontologies.cipher_text_property import CipherTextPropertyClient  # NOQA
+
+        return CipherTextPropertyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def LinkedObject(self):
         from foundry_sdk.v2.ontologies.linked_object import LinkedObjectClient
 

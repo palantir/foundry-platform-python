@@ -298,6 +298,12 @@ def test_ontologies_v2_attachment_property_import():
     assert AttachmentPropertyClient is not None
 
 
+def test_ontologies_v2_cipher_text_property_import():
+    from foundry_sdk.v2.ontologies.cipher_text_property import CipherTextPropertyClient
+
+    assert CipherTextPropertyClient is not None
+
+
 def test_ontologies_v2_linked_object_import():
     from foundry_sdk.v2.ontologies.linked_object import LinkedObjectClient
 
@@ -392,10 +398,10 @@ def test_orchestration_v2_schedule_version_import():
     assert ScheduleVersionClient is not None
 
 
-def test_sql_queries_v2_query_import():
-    from foundry_sdk.v2.sql_queries.query import QueryClient
+def test_sql_queries_v2_sql_query_import():
+    from foundry_sdk.v2.sql_queries.sql_query import SqlQueryClient
 
-    assert QueryClient is not None
+    assert SqlQueryClient is not None
 
 
 def test_streams_v2_dataset_import():

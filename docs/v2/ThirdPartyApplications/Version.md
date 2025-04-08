@@ -24,7 +24,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes |
 ### Example
 
 ```python
-from foundry_sdk.v2 import FoundryClient
+from foundry_sdk import FoundryClient
 import foundry_sdk
 from pprint import pprint
 
