@@ -903,6 +903,7 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportDisplayName](docs/v2/Connectivity/models/TableImportDisplayName.md) | `from foundry_sdk.v2.connectivity.models import TableImportDisplayName` |
 **Connectivity** | [TableImportInitialIncrementalState](docs/v2/Connectivity/models/TableImportInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import TableImportInitialIncrementalState` |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry_sdk.v2.connectivity.models import TableImportMode` |
+**Connectivity** | [TableImportQuery](docs/v2/Connectivity/models/TableImportQuery.md) | `from foundry_sdk.v2.connectivity.models import TableImportQuery` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry_sdk.v2.connectivity.models import TableImportRid` |
 **Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry_sdk.v2.connectivity.models import UriScheme` |
