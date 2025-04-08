@@ -65,6 +65,7 @@ import the **v2** client from a sub-module you would import it like this:
 
 ```python
 from foundry_sdk.v2 import FoundryClient
+```
 
 More information about how the API is versioned can be found [here](https://www.palantir.com/docs/foundry_sdk/api/general/overview/versioning/).
 
