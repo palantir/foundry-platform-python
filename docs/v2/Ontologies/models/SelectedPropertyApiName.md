@@ -1,7 +1,11 @@
 # SelectedPropertyApiName
 
-By default, anytime an object is requested, every property belonging to that object is returned.
-The response can be filtered to only include certain properties using the `properties` query parameter.
+By default, whenever an object is requested, all of its properties are returned, except for properties of the 
+following types:
+- Vector
+
+The response can be filtered to only include certain properties using the `properties` query parameter. Note
+that ontology object set endpoints refer to this parameter as `select`.
 
 Properties to include can be specified in one of two ways.
 

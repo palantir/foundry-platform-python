@@ -951,13 +951,7 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -975,13 +969,7 @@ class CreateTableImportRequestJdbcImportConfigDict(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["jdbcImportConfig"]
 
 
@@ -989,13 +977,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestMicrosoftAccessImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1013,13 +995,7 @@ class CreateTableImportRequestMicrosoftAccessImportConfigDict(typing_extensions.
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["microsoftAccessImportConfig"]
 
 
@@ -1027,13 +1003,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
     """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1051,13 +1021,7 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfigDict(typing_extensio
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["microsoftSqlServerImportConfig"]
 
 
@@ -1065,13 +1029,7 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestOracleImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1089,13 +1047,7 @@ class CreateTableImportRequestOracleImportConfigDict(typing_extensions.TypedDict
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["oracleImportConfig"]
 
 
@@ -1103,13 +1055,7 @@ class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestPostgreSqlImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1127,13 +1073,7 @@ class CreateTableImportRequestPostgreSqlImportConfigDict(typing_extensions.Typed
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["postgreSqlImportConfig"]
 
 
@@ -1141,13 +1081,7 @@ class CreateTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestSnowflakeTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1165,13 +1099,7 @@ class CreateTableImportRequestSnowflakeTableImportConfigDict(typing_extensions.T
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     type: typing.Literal["snowflakeImportConfig"]
 
 
@@ -1920,13 +1848,7 @@ class JdbcConnectionConfigurationDict(typing_extensions.TypedDict):
 class JdbcImportConfig(pydantic.BaseModel):
     """The import configuration for a [custom JDBC connection](/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1941,13 +1863,7 @@ class JdbcImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["jdbcImportConfig"]
 
@@ -2030,13 +1946,7 @@ class LongColumnInitialIncrementalStateDict(typing_extensions.TypedDict):
 class MicrosoftAccessImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft Access connection](/docs/foundry/available-connectors/microsoft-access)."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2053,13 +1963,7 @@ class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["microsoftAccessImportConfig"]
 
@@ -2067,13 +1971,7 @@ class MicrosoftAccessImportConfigDict(typing_extensions.TypedDict):
 class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft SQL Server connection](/docs/foundry/available-connectors/microsoft-sql-server)."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2090,13 +1988,7 @@ class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["microsoftSqlServerImportConfig"]
 
@@ -2104,13 +1996,7 @@ class MicrosoftSqlServerImportConfigDict(typing_extensions.TypedDict):
 class OracleImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2127,13 +2013,7 @@ class OracleImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["oracleImportConfig"]
 
@@ -2145,13 +2025,7 @@ PlaintextValue = str
 class PostgreSqlImportConfig(pydantic.BaseModel):
     """The import configuration for a [PostgreSQL connection](/docs/foundry/available-connectors/postgresql)."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2168,13 +2042,7 @@ class PostgreSqlImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["postgreSqlImportConfig"]
 
@@ -2937,13 +2805,7 @@ class SnowflakeKeyPairAuthenticationDict(typing_extensions.TypedDict):
 class SnowflakeTableImportConfig(pydantic.BaseModel):
     """The table import configuration for a [Snowflake connection](/docs/foundry/available-connectors/snowflake)."""
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -2960,13 +2822,7 @@ class SnowflakeTableImportConfigDict(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    query: str
-    """
-    A single SQL query can be executed per sync, which should output a data table 
-    and avoid operations like invoking stored procedures. 
-    The query results are saved to the output dataset in Foundry.
-    """
-
+    query: TableImportQuery
     initialIncrementalState: typing_extensions.NotRequired[TableImportInitialIncrementalStateDict]
     type: typing.Literal["snowflakeImportConfig"]
 
@@ -3220,6 +3076,14 @@ Import mode governs how data is read from an external system, and written into a
 
 SNAPSHOT: Defines a new dataset state consisting only of data from a particular import execution.
 APPEND: Purely additive and yields data from previous import executions in addition to newly added data.
+"""
+
+
+TableImportQuery = str
+"""
+A single SQL query can be executed per sync, which should output a data table 
+and avoid operations like invoking stored procedures. 
+The query results are saved to the output dataset in Foundry.
 """
 
 
@@ -3487,6 +3351,7 @@ __all__ = [
     "TableImportInitialIncrementalState",
     "TableImportInitialIncrementalStateDict",
     "TableImportMode",
+    "TableImportQuery",
     "TableImportRid",
     "TimestampColumnInitialIncrementalState",
     "TimestampColumnInitialIncrementalStateDict",

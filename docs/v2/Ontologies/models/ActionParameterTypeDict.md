@@ -26,6 +26,7 @@ MediaReferenceTypeDict | mediaReference
 ActionParameterArrayTypeDict | array
 OntologyObjectSetTypeDict | objectSet
 GeohashTypeDict | geohash
+VectorTypeDict | vector
 OntologyObjectTypeDict | object
 TimestampTypeDict | timestamp
 

@@ -274,6 +274,8 @@ class OntologyObjectSetClient:
 
         Note that null value properties will not be returned.
 
+        Vector properties will not be returned unless included in the `select` parameter.
+
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
@@ -381,6 +383,8 @@ class OntologyObjectSetClient:
 
         Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
         will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
+
+        Vector properties will not be returned unless included in the `select` parameter.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
@@ -494,6 +498,8 @@ class OntologyObjectSetClient:
 
         Note that null value properties will not be returned. In addition, property metadata (rid, apiName, and primaryKey)
         will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
+
+        Vector properties will not be returned unless included in the `select` parameter.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 

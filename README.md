@@ -1110,6 +1110,7 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportInitialIncrementalState](docs/v2/Connectivity/models/TableImportInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalState` |
 **Connectivity** | [TableImportInitialIncrementalStateDict](docs/v2/Connectivity/models/TableImportInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TableImportInitialIncrementalStateDict` |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry.v2.connectivity.models import TableImportMode` |
+**Connectivity** | [TableImportQuery](docs/v2/Connectivity/models/TableImportQuery.md) | `from foundry.v2.connectivity.models import TableImportQuery` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry.v2.connectivity.models import TableImportRid` |
 **Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
 **Connectivity** | [TimestampColumnInitialIncrementalStateDict](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalStateDict.md) | `from foundry.v2.connectivity.models import TimestampColumnInitialIncrementalStateDict` |
