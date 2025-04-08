@@ -426,14 +426,14 @@ def datasets_dataset_file_delete(
 
     #### Advanced Usage
 
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 
     To **delete a File from a specific Branch** specify the Branch's identifier as `branchId`. A new delete Transaction
     will be created and committed on this branch.
 
     To **delete a File using a manually opened Transaction**, specify the Transaction's resource identifier
     as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a
-    single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
+    single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
     open a transaction.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
@@ -484,7 +484,7 @@ def datasets_dataset_file_get(
 
     #### Advanced Usage
 
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 
     To **get a file's metadata from a specific Branch** specify the Branch's identifier as `branchId`. This will
     retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest
@@ -534,7 +534,7 @@ def datasets_dataset_file_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -560,7 +560,7 @@ def datasets_dataset_file_list(
 
     #### Advanced Usage
 
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 
     To **list files on a specific Branch** specify the Branch's identifier as `branchId`. This will include the most
     recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the
@@ -630,7 +630,7 @@ def datasets_dataset_file_read(
 
     #### Advanced Usage
 
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 
     To **get a file's content from a specific Branch** specify the Branch's identifier as `branchId`. This will
     retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
@@ -705,16 +705,16 @@ def datasets_dataset_file_upload(
 
     #### Advanced Usage
 
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 
     To **upload a file to a specific Branch** specify the Branch's identifier as `branchId`. A new transaction will
     be created and committed on this branch. By default the TransactionType will be `UPDATE`, to override this
     default specify `transactionType` in addition to `branchId`.
-    See [createBranch](/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
+    See [createBranch](https://palantir.com/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
 
     To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
     `transactionRid`. This is useful for uploading multiple files in a single transaction.
-    See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
+    See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
@@ -811,7 +811,7 @@ def datasets_dataset_branch_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -998,7 +998,7 @@ def ontologies_ontology_object_get_linked_object(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -1024,7 +1024,7 @@ def ontologies_ontology_object_list(
     Lists the objects for the given Ontology and object type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+    See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -1063,7 +1063,7 @@ def ontologies_ontology_object_list(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -1091,7 +1091,7 @@ def ontologies_ontology_object_list_linked_objects(
     Lists the linked objects for a specific object and the given link type.
 
     This endpoint supports filtering objects.
-    See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+    See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
     Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
     repeated objects in the response pages.
@@ -1258,7 +1258,7 @@ def ontologies_ontology_query_type_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 100.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -1346,7 +1346,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -1440,7 +1440,7 @@ def ontologies_ontology_action_type_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -1575,7 +1575,7 @@ def ontologies_action_apply(
     Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
     some time to be visible.
 
-    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+    Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
 
     Third-party applications using this endpoint via OAuth2 must request the
@@ -1608,8 +1608,8 @@ def ontologies_action_apply_batch(
     Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
     call Functions may receive a higher limit.
 
-    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) and
-    [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+    Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
+    [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
     Third-party applications using this endpoint via OAuth2 must request the
     following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -1640,7 +1640,7 @@ def ontologies_action_validate(
     that determine if the request is `VALID` or `INVALID`.
     For performance reasons, validations will not consider existing objects or other data in Foundry.
     For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
-    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+    Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint. Unspecified parameters will be given a default value of `null`.
 
     Third-party applications using this endpoint via OAuth2 must request the

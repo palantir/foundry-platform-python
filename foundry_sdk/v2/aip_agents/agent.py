@@ -137,7 +137,7 @@ class AgentClient:
     ) -> aip_agents_models.Agent:
         """
         Get details for an AIP Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
         :type agent_rid: AgentRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]

@@ -68,7 +68,7 @@ Get details for an AIP Agent.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/). |  |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/). |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **version** | Optional[AgentVersionString] | The version of the Agent to retrieve. If not specified, the latest published version will be returned.  | [optional] |
 
@@ -84,7 +84,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](/docs/foundry/agent-studio/overview/).
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

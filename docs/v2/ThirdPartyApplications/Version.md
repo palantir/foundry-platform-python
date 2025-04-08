@@ -186,7 +186,7 @@ Upload a new version of the Website.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
+**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion |  |  |
 
 ### Return type
@@ -205,7 +205,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
 # VersionVersion
 version = None
@@ -246,7 +246,7 @@ Upload a snapshot version of the Website. Snapshot versions are automatically de
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **third_party_application_rid** | ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console. |  |
-**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
+**body** | bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.  |  |
 **version** | VersionVersion |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **snapshot_identifier** | Optional[str] | The identifier of the snapshot. If the identifier follows the format `foundry.v1@<repositoryRid>@<pullRequestRid>@<commitHash>`, PR preview for such identifier will be accessible from foundry code repositories.  | [optional] |
@@ -267,7 +267,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 third_party_application_rid = (
     "ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6"
 )
-# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+# bytes | The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
 body = None
 # VersionVersion
 version = None

@@ -217,7 +217,7 @@ class BranchClient:
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
         :type dataset_rid: DatasetRid
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]

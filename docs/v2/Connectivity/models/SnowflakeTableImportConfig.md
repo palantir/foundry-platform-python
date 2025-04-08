@@ -1,6 +1,6 @@
 # SnowflakeTableImportConfig
 
-The table import configuration for a [Snowflake connection](/docs/foundry/available-connectors/snowflake).
+The table import configuration for a [Snowflake connection](https://palantir.com/docs/foundry/available-connectors/snowflake).
 
 
 ## Properties

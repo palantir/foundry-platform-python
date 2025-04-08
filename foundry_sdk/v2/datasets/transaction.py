@@ -111,7 +111,7 @@ class TransactionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[core_models.BuildRid]:
         """
-        Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+        Get the [Build](https://palantir.com/docs/foundry/data-integration/builds#builds) that computed the
         given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
@@ -333,7 +333,7 @@ class TransactionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[core_models.JobRid]:
         """
-        Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+        Get the [Job](https://palantir.com/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
         given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
         is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 

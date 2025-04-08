@@ -221,7 +221,7 @@ See [README](../../../README.md#authorization)
 Lists the objects for the given Ontology and object type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **order_by** | Optional[OrderBy] |  | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
@@ -267,7 +267,7 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 object_type = "employee"
 # Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
 page_token = None
@@ -307,7 +307,7 @@ See [README](../../../README.md#authorization)
 Lists the linked objects for a specific object and the given link type.
 
 This endpoint supports filtering objects.
-See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
 Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
 repeated objects in the response pages.
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | The primary key of the object from which the links originate. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
 **link_type** | LinkTypeApiName | The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.  |  |
 **order_by** | Optional[OrderBy] |  | [optional] |
-**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **properties** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
@@ -359,7 +359,7 @@ primary_key = 50030
 link_type = "directReport"
 # Optional[OrderBy]
 order_by = None
-# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
 page_token = None

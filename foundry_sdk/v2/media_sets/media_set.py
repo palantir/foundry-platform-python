@@ -381,7 +381,7 @@ class MediaSetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.MediaReference:
         """
-        Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
+        Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
 
         Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 

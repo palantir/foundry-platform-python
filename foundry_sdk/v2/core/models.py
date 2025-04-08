@@ -222,7 +222,7 @@ EnrollmentRid = core.RID
 class Field(pydantic.BaseModel):
     """
     A field in a Foundry schema. For more information on supported data types, see the
-    [supported field types](/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
+    [supported field types](https://palantir.com/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
     """
 
     name: FieldName
@@ -776,7 +776,7 @@ RoleId = str
 """
 The unique ID for a Role. Roles are sets of permissions that grant different levels of access to resources.
 The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See more about 
-[roles](/docs/foundry/security/projects-and-roles#roles) in the user documentation.
+[roles](https://palantir.com/docs/foundry/security/projects-and-roles#roles) in the user documentation.
 """
 
 
@@ -818,7 +818,7 @@ class StreamSchema(pydantic.BaseModel):
     - Timestamp
 
     For additional information on keys for Foundry streams, see the
-    [streaming keys](/docs/foundry/building-pipelines/streaming-keys/) user documentation.
+    [streaming keys](https://palantir.com/docs/foundry/building-pipelines/streaming-keys/) user documentation.
     """
 
     change_data_capture: typing.Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
@@ -961,7 +961,7 @@ Configuration for utilizing the stream as a change data capture (CDC) dataset. T
 least one key needs to be provided.
 
 For more information on CDC in
-Foundry, see the [Change Data Capture](/docs/foundry/data-integration/change-data-capture/) user documentation.
+Foundry, see the [Change Data Capture](https://palantir.com/docs/foundry/data-integration/change-data-capture/) user documentation.
 """
 
 

@@ -7,7 +7,7 @@ Method | HTTP request | Release Stage |
 # **create**
 Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
 default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
-[streams](/docs/foundry/data-integration/streams/) user documentation.
+[streams](https://palantir.com/docs/foundry/data-integration/streams/) user documentation.
 
 
 ### Parameters

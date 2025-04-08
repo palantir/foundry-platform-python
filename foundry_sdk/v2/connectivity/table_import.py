@@ -216,7 +216,7 @@ class TableImportClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.BuildRid:
         """
-        Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+        Executes the TableImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
         The returned BuildRid can be used to check the status via the Orchestration API.
 
         :param connection_rid:

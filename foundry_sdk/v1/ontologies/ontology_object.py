@@ -255,7 +255,7 @@ class OntologyObjectClient:
         Lists the objects for the given Ontology and object type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+        See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -277,7 +277,7 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
@@ -336,7 +336,7 @@ class OntologyObjectClient:
         Lists the linked objects for a specific object and the given link type.
 
         This endpoint supports filtering objects.
-        See the [Filtering Objects documentation](/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
+        See the [Filtering Objects documentation](https://palantir.com/docs/foundry/api/ontology-resources/objects/ontology-object-basics#filter-objects) for details.
 
         Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
         repeated objects in the response pages.
@@ -362,7 +362,7 @@ class OntologyObjectClient:
         :type link_type: LinkTypeApiName
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]

@@ -12,7 +12,7 @@ Method | HTTP request | Release Stage |
 Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
 view of the default branch - `master` for most enrollments.
 #### Advanced Usage
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
+See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
 To **get a file's content from a specific Branch** specify the Branch's name as `branchName`. This will 
 retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
 earliest ancestor transaction of the branch if there are no snapshot transactions.
@@ -94,12 +94,12 @@ See [README](../../../README.md#authorization)
 Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default 
 branch - `master` for most enrollments. The file will still be visible on historical views.
 #### Advanced Usage
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 To **delete a File from a specific Branch** specify the Branch's name as `branchName`. A new delete Transaction 
 will be created and committed on this branch.
 To **delete a File using a manually opened Transaction**, specify the Transaction's resource identifier 
 as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a
-single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to 
+single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to 
 open a transaction.
 
 
@@ -162,7 +162,7 @@ See [README](../../../README.md#authorization)
 Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
 view of the default branch - `master` for most enrollments.
 #### Advanced Usage
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
+See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
 To **get a file's metadata from a specific Branch** specify the Branch's name as `branchName`. This will 
 retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest
 ancestor transaction of the branch if there are no snapshot transactions.
@@ -243,7 +243,7 @@ See [README](../../../README.md#authorization)
 Lists Files contained in a Dataset. By default files are listed on the latest view of the default 
 branch - `master` for most enrollments.
 #### Advanced Usage
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
 To **list files on a specific Branch** specify the Branch's name as `branchName`. This will include the most
 recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the 
 branch if there are no snapshot transactions.
@@ -331,14 +331,14 @@ The body of the request must contain the binary content of the file and the `Con
 By default the file is uploaded to a new transaction on the default branch - `master` for most enrollments.
 If the file already exists only the most recent version will be visible in the updated view.
 #### Advanced Usage
-See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
+See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions. 
 To **upload a file to a specific Branch** specify the Branch's name as `branchName`. A new transaction will 
 be created and committed on this branch. By default the TransactionType will be `UPDATE`, to override this
 default specify `transactionType` in addition to `branchName`. 
-See [createBranch](/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
+See [createBranch](https://palantir.com/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
 To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
 `transactionRid`. This is useful for uploading multiple files in a single transaction. 
-See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
+See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
 
 ### Parameters

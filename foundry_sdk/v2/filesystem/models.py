@@ -109,8 +109,8 @@ FolderRid = core.RID
 FolderType = typing.Literal["FOLDER", "SPACE", "PROJECT"]
 """
 A folder can be a regular Folder, a
-[Project](/docs/foundry/getting-started/projects-and-resources/#projects) or a
-[Space](/docs/foundry/security/orgs-and-spaces/#spaces).
+[Project](https://palantir.com/docs/foundry/getting-started/projects-and-resources/#projects) or a
+[Space](https://palantir.com/docs/foundry/security/orgs-and-spaces/#spaces).
 """
 
 
@@ -183,7 +183,7 @@ class ListSpacesResponse(pydantic.BaseModel):
 
 class Marking(pydantic.BaseModel):
     """
-    [Markings](/docs/foundry/security/markings/) provide an additional level of access control for files,
+    [Markings](https://palantir.com/docs/foundry/security/markings/) provide an additional level of access control for files,
     folders, and Projects within Foundry. Markings define eligibility criteria that restrict visibility
     and actions to users who meet those criteria. To access a resource, a user must be a member of all
     Markings applied to a resource to access it.
@@ -200,7 +200,7 @@ class Marking(pydantic.BaseModel):
 
 class Organization(pydantic.BaseModel):
     """
-    [Organizations](/docs/foundry/security/orgs-and-spaces/#organizations) are access requirements applied to
+    [Organizations](https://palantir.com/docs/foundry/security/orgs-and-spaces/#organizations) are access requirements applied to
     Projects that enforce strict silos between groups of users and resources. Every user is a member of only
     one Organization, but can be a guest member of multiple Organizations. In order to meet access requirements,
     users must be a member or guest member of at least one Organization applied to a Project.

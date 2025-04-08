@@ -213,7 +213,7 @@ class VersionClient:
         Upload a new version of the Website.
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version:
         :type version: VersionVersion
@@ -269,7 +269,7 @@ class VersionClient:
 
         :param third_party_application_rid: An RID identifying a third-party application created in Developer Console.
         :type third_party_application_rid: ThirdPartyApplicationRid
-        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
+        :param body: The zip file that contains the contents of your application. For more information,  refer to the [documentation](https://palantir.com/docs/foundry/ontology-sdk/deploy-osdk-application-on-foundry/) user documentation.
         :type body: bytes
         :param version:
         :type version: VersionVersion

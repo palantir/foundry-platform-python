@@ -1376,7 +1376,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1389,7 +1389,7 @@ def aip_agents_agent_session():
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval](/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -1578,7 +1578,7 @@ def aip_agents_agent_session_list(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any values for [application variables](/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+    help="""Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
 """,
 )
 @click.option(
@@ -1600,7 +1600,7 @@ def aip_agents_agent_session_rag_context(
     preview: typing.Optional[bool],
 ):
     """
-    Retrieve relevant [context](/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+    Retrieve relevant [context](https://palantir.com/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
     This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
     """
@@ -1621,7 +1621,7 @@ def aip_agents_agent_session_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1634,7 +1634,7 @@ def aip_agents_agent_session_rag_context(
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -1844,7 +1844,7 @@ def connectivity_connection_create(
     preview: typing.Optional[bool],
 ):
     """
-    Creates a new Connection with a [direct connection](/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
+    Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
 
     Any secrets specified in the request body are transmitted over the network encrypted using TLS. Once the
     secrets reach Foundry's servers, they will be temporarily decrypted and remain in plaintext in memory to
@@ -1897,7 +1897,7 @@ def connectivity_connection_get_configuration(
     preview: typing.Optional[bool],
 ):
     """
-    Retrieves the ConnectionConfiguration of the [Connection](/docs/foundry/data-connection/set-up-source/) itself.
+    Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
     This operation is intended for use when other Connection data is not required, providing a lighter-weight alternative to `getConnection` operation.
 
     """
@@ -2046,7 +2046,7 @@ def connectivity_connection_table_import_execute(
     preview: typing.Optional[bool],
 ):
     """
-    Executes the TableImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    Executes the TableImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
     The returned BuildRid can be used to check the status via the Orchestration API.
 
     """
@@ -2133,7 +2133,7 @@ def connectivity_connection_file_import():
     "--file_import_filters",
     type=str,
     required=True,
-    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
+    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
 )
 @click.option(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
@@ -2222,7 +2222,7 @@ def connectivity_connection_file_import_execute(
     preview: typing.Optional[bool],
 ):
     """
-    Executes the FileImport, which runs asynchronously as a [Foundry Build](/docs/foundry/data-integration/builds/).
+    Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
     The returned BuildRid can be used to check the status via the Orchestration API.
 
     """
@@ -2305,7 +2305,7 @@ def connectivity_connection_file_import_list(
     "--file_import_filters",
     type=str,
     required=True,
-    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
+    help="""Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)""",
 )
 @click.option(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
@@ -2521,7 +2521,7 @@ def datasets_dataset_file_content(
     Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
     view of the default branch - `master` for most enrollments.
     #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
     To **get a file's content from a specific Branch** specify the Branch's name as `branchName`. This will
     retrieve the content for the most recent version of the file since the latest snapshot transaction, or the
     earliest ancestor transaction of the branch if there are no snapshot transactions.
@@ -2576,12 +2576,12 @@ def datasets_dataset_file_delete(
     Deletes a File from a Dataset. By default the file is deleted in a new transaction on the default
     branch - `master` for most enrollments. The file will still be visible on historical views.
     #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
     To **delete a File from a specific Branch** specify the Branch's name as `branchName`. A new delete Transaction
     will be created and committed on this branch.
     To **delete a File using a manually opened Transaction**, specify the Transaction's resource identifier
     as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a
-    single transaction. See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
+    single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
     open a transaction.
 
     """
@@ -2631,7 +2631,7 @@ def datasets_dataset_file_get(
     Gets metadata about a File contained in a Dataset. By default this retrieves the file's metadata from the latest
     view of the default branch - `master` for most enrollments.
     #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
     To **get a file's metadata from a specific Branch** specify the Branch's name as `branchName`. This will
     retrieve metadata for the most recent version of the file since the latest snapshot transaction, or the earliest
     ancestor transaction of the branch if there are no snapshot transactions.
@@ -2704,7 +2704,7 @@ def datasets_dataset_file_list(
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
     branch - `master` for most enrollments.
     #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
     To **list files on a specific Branch** specify the Branch's name as `branchName`. This will include the most
     recent version of all files since the latest snapshot transaction, or the earliest ancestor transaction of the
     branch if there are no snapshot transactions.
@@ -2773,14 +2773,14 @@ def datasets_dataset_file_upload(
     By default the file is uploaded to a new transaction on the default branch - `master` for most enrollments.
     If the file already exists only the most recent version will be visible in the updated view.
     #### Advanced Usage
-    See [Datasets Core Concepts](/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
+    See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
     To **upload a file to a specific Branch** specify the Branch's name as `branchName`. A new transaction will
     be created and committed on this branch. By default the TransactionType will be `UPDATE`, to override this
     default specify `transactionType` in addition to `branchName`.
-    See [createBranch](/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
+    See [createBranch](https://palantir.com/docs/foundry/api/datasets-resources/branches/create-branch/) to create a custom branch.
     To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
     `transactionRid`. This is useful for uploading multiple files in a single transaction.
-    See [createTransaction](/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
+    See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
     """
     result = client.datasets.Dataset.File.upload(
@@ -2834,7 +2834,7 @@ def datasets_dataset_transaction_build(
     preview: typing.Optional[bool],
 ):
     """
-    Get the [Build](/docs/foundry/data-integration/builds#builds) that computed the
+    Get the [Build](https://palantir.com/docs/foundry/data-integration/builds#builds) that computed the
     given Transaction. Not all Transactions have an associated Build. For example, if a Dataset
     is updated by a User uploading a CSV file into the browser, no Build will be tied to the Transaction.
 
@@ -2936,7 +2936,7 @@ def datasets_dataset_transaction_job(
     preview: typing.Optional[bool],
 ):
     """
-    Get the [Job](/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
+    Get the [Job](https://palantir.com/docs/foundry/data-integration/builds#jobs-and-jobspecs) that computed the
     given Transaction. Not all Transactions have an associated Job. For example, if a Dataset
     is updated by a User uploading a CSV file into the browser, no Job will be tied to the Transaction.
 
@@ -4080,7 +4080,7 @@ def media_sets_media_set_reference(
     read_token: typing.Optional[str],
 ):
     """
-    Gets the [media reference](/docs/foundry/data-integration/media-sets/#media-references) for this media item.
+    Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
 
     Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
@@ -5019,7 +5019,7 @@ Setting this to true may improve performance of this endpoint for object types i
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5275,7 +5275,7 @@ def ontologies_ontology_interface_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5536,7 +5536,7 @@ def ontologies_ontology_query_type_get(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 100.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5655,7 +5655,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5771,7 +5771,7 @@ def ontologies_ontology_action_type_get_by_rid(
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 500.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -6070,7 +6070,7 @@ Setting this to true may improve performance of this endpoint for object types i
     type=int,
     required=False,
     help="""The desired size of the page to be returned. Defaults to 1,000.
-See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -6492,7 +6492,7 @@ def ontologies_action_apply(
 
     Changes to the Ontology are eventually consistent and may take some time to be visible.
 
-    Note that [parameter default values](/docs/foundry/action-types/parameters-default-value/) are not currently supported by
+    Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
 
     Third-party applications using this endpoint via OAuth2 must request the
@@ -6546,7 +6546,7 @@ def ontologies_action_apply_batch(
     Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
     call Functions may receive a higher limit.
 
-    Note that [notifications](/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+    Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
     Third-party applications using this endpoint via OAuth2 must request the
     following operation scopes: `api:ontologies-read api:ontologies-write`.
@@ -7260,7 +7260,7 @@ def streams_dataset_create(
     """
     Creates a streaming dataset with a stream on the specified branch, or if no branch is specified, on the
     default branch ('master' for most enrollments). For more information on streaming datasets, refer to the
-    [streams](/docs/foundry/data-integration/streams/) user documentation.
+    [streams](https://palantir.com/docs/foundry/data-integration/streams/) user documentation.
 
     """
     result = client.streams.Dataset.create(

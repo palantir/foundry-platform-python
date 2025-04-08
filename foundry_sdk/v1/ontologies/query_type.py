@@ -116,7 +116,7 @@ class QueryTypeClient:
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the query types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
-        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
