@@ -124,6 +124,8 @@ class AuthenticationProviderClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: admin_models.ListAuthenticationProvidersResponse
+
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
         """
 
         return self._api_client.call_api(
@@ -143,7 +145,9 @@ class AuthenticationProviderClient:
                 body_type=None,
                 response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -181,6 +185,7 @@ class AuthenticationProviderClient:
         :return: Returns the result object.
         :rtype: core_models.PrincipalId
 
+        :raises AuthenticationProviderNotFound: The given AuthenticationProvider could not be found.
         :raises PreregisterGroupPermissionDenied: Could not preregisterGroup the AuthenticationProvider.
         """
 
@@ -213,6 +218,7 @@ class AuthenticationProviderClient:
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "AuthenticationProviderNotFound": admin_errors.AuthenticationProviderNotFound,
                     "PreregisterGroupPermissionDenied": admin_errors.PreregisterGroupPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -266,6 +272,7 @@ class AuthenticationProviderClient:
         :return: Returns the result object.
         :rtype: core_models.PrincipalId
 
+        :raises AuthenticationProviderNotFound: The given AuthenticationProvider could not be found.
         :raises PreregisterUserPermissionDenied: Could not preregisterUser the AuthenticationProvider.
         """
 
@@ -308,6 +315,7 @@ class AuthenticationProviderClient:
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "AuthenticationProviderNotFound": admin_errors.AuthenticationProviderNotFound,
                     "PreregisterUserPermissionDenied": admin_errors.PreregisterUserPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

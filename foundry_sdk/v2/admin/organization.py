@@ -129,6 +129,7 @@ class OrganizationClient:
         :rtype: admin_models.Organization
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises OrganizationNotFound: The given Organization could not be found.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
 
@@ -163,6 +164,7 @@ class OrganizationClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
                     "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

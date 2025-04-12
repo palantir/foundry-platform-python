@@ -74,9 +74,10 @@ class MarkingMemberClient:
         :rtype: None
 
         :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
-        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
@@ -105,9 +106,10 @@ class MarkingMemberClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
-                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -146,7 +148,9 @@ class MarkingMemberClient:
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.MarkingMember]
 
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
+        :raises MarkingNotFound: The given Marking could not be found.
         """
 
         return self._api_client.call_api(
@@ -170,7 +174,9 @@ class MarkingMemberClient:
                 response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -201,6 +207,10 @@ class MarkingMemberClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
@@ -229,6 +239,10 @@ class MarkingMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

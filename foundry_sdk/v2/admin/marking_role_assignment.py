@@ -74,6 +74,10 @@ class MarkingRoleAssignmentClient:
         :rtype: None
 
         :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
+        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
         return self._api_client.call_api(
@@ -102,6 +106,10 @@ class MarkingRoleAssignmentClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
+                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -135,6 +143,9 @@ class MarkingRoleAssignmentClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.MarkingRoleAssignment]
+
+        :raises ListMarkingRoleAssignmentsPermissionDenied: The provided token does not have permission to list assigned roles for this marking.
+        :raises MarkingNotFound: The given Marking could not be found.
         """
 
         return self._api_client.call_api(
@@ -156,7 +167,10 @@ class MarkingRoleAssignmentClient:
                 body_type=None,
                 response_type=admin_models.ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ListMarkingRoleAssignmentsPermissionDenied": admin_errors.ListMarkingRoleAssignmentsPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -186,6 +200,8 @@ class MarkingRoleAssignmentClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises ListMarkingRoleAssignmentsPermissionDenied: The provided token does not have permission to list assigned roles for this marking.
         :raises MarkingNotFound: The given Marking could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
@@ -218,6 +234,8 @@ class MarkingRoleAssignmentClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "ListMarkingRoleAssignmentsPermissionDenied": admin_errors.ListMarkingRoleAssignmentsPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,

@@ -140,6 +140,7 @@ class EnrollmentClient:
         :return: Returns the result object.
         :rtype: admin_models.Enrollment
 
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
         :raises GetCurrentEnrollmentPermissionDenied: Could not getCurrent the Enrollment.
         """
 
@@ -159,6 +160,7 @@ class EnrollmentClient:
                 response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
                     "GetCurrentEnrollmentPermissionDenied": admin_errors.GetCurrentEnrollmentPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

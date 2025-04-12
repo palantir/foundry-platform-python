@@ -8,7 +8,7 @@
 > This SDK is incubating and subject to change.
 
 The Foundry Platform SDK is a Python SDK built on top of the Foundry API.
-Review [Foundry API documentation](https://www.palantir.com/docs/foundry_sdk/api/) for more details.
+Review [Foundry API documentation](https://www.palantir.com/docs/foundry/api/) for more details.
 
 > [!NOTE]
 > This Python package is automatically generated based on the Foundry API specification.
@@ -67,7 +67,7 @@ import the **v2** client from a sub-module you would import it like this:
 from foundry_sdk.v2 import FoundryClient
 ```
 
-More information about how the API is versioned can be found [here](https://www.palantir.com/docs/foundry_sdk/api/general/overview/versioning/).
+More information about how the API is versioned can be found [here](https://www.palantir.com/docs/foundry/api/general/overview/versioning/).
 
 <a id="authorization"></a>
 ## Authorization and client initalization
@@ -270,13 +270,13 @@ except PalantirRPCException as e:
 
 ```
 
-All HTTP exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry_sdk/api/general/overview/errors) for details about the Foundry error information.
+All HTTP exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
 
 | Property          | Type                   | Description                                                                                                                                                       |
 | ----------------- | -----------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry_sdk/api/general/overview/errors).        |
-| error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry_sdk/api/general/overview/errors). |
-| parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry_sdk/api/general/overview/errors).  |
+| name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
+| error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
+| parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
 
 ### Other exceptions
 There are a handful of other exception classes that could be thrown when instantiating or using a client.
@@ -839,11 +839,11 @@ Namespace | Name | Import |
 **Connectivity** | [CreateConnectionRequestSnowflakeConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestSnowflakeExternalOauth](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeExternalOauth` |
 **Connectivity** | [CreateConnectionRequestSnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeKeyPairAuthentication.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeKeyPairAuthentication` |
-**Connectivity** | [CreateTableImportRequestJdbcImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestJdbcImportConfig` |
-**Connectivity** | [CreateTableImportRequestMicrosoftAccessImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftAccessImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftAccessImportConfig` |
-**Connectivity** | [CreateTableImportRequestMicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftSqlServerImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftSqlServerImportConfig` |
-**Connectivity** | [CreateTableImportRequestOracleImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestOracleImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestOracleImportConfig` |
-**Connectivity** | [CreateTableImportRequestPostgreSqlImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestPostgreSqlImportConfig` |
+**Connectivity** | [CreateTableImportRequestJdbcTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestJdbcTableImportConfig` |
+**Connectivity** | [CreateTableImportRequestMicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftAccessTableImportConfig` |
+**Connectivity** | [CreateTableImportRequestMicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftSqlServerTableImportConfig` |
+**Connectivity** | [CreateTableImportRequestOracleTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestOracleTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestOracleTableImportConfig` |
+**Connectivity** | [CreateTableImportRequestPostgreSqlTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestPostgreSqlTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestSnowflakeTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestSnowflakeTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestSnowflakeTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
 **Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import DateColumnInitialIncrementalState` |
@@ -868,15 +868,15 @@ Namespace | Name | Import |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry_sdk.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import JdbcConnectionConfiguration` |
-**Connectivity** | [JdbcImportConfig](docs/v2/Connectivity/models/JdbcImportConfig.md) | `from foundry_sdk.v2.connectivity.models import JdbcImportConfig` |
+**Connectivity** | [JdbcTableImportConfig](docs/v2/Connectivity/models/JdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import JdbcTableImportConfig` |
 **Connectivity** | [ListFileImportsResponse](docs/v2/Connectivity/models/ListFileImportsResponse.md) | `from foundry_sdk.v2.connectivity.models import ListFileImportsResponse` |
 **Connectivity** | [ListTableImportsResponse](docs/v2/Connectivity/models/ListTableImportsResponse.md) | `from foundry_sdk.v2.connectivity.models import ListTableImportsResponse` |
 **Connectivity** | [LongColumnInitialIncrementalState](docs/v2/Connectivity/models/LongColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import LongColumnInitialIncrementalState` |
-**Connectivity** | [MicrosoftAccessImportConfig](docs/v2/Connectivity/models/MicrosoftAccessImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftAccessImportConfig` |
-**Connectivity** | [MicrosoftSqlServerImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftSqlServerImportConfig` |
-**Connectivity** | [OracleImportConfig](docs/v2/Connectivity/models/OracleImportConfig.md) | `from foundry_sdk.v2.connectivity.models import OracleImportConfig` |
+**Connectivity** | [MicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/MicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftAccessTableImportConfig` |
+**Connectivity** | [MicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftSqlServerTableImportConfig` |
+**Connectivity** | [OracleTableImportConfig](docs/v2/Connectivity/models/OracleTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import OracleTableImportConfig` |
 **Connectivity** | [PlaintextValue](docs/v2/Connectivity/models/PlaintextValue.md) | `from foundry_sdk.v2.connectivity.models import PlaintextValue` |
-**Connectivity** | [PostgreSqlImportConfig](docs/v2/Connectivity/models/PostgreSqlImportConfig.md) | `from foundry_sdk.v2.connectivity.models import PostgreSqlImportConfig` |
+**Connectivity** | [PostgreSqlTableImportConfig](docs/v2/Connectivity/models/PostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import PostgreSqlTableImportConfig` |
 **Connectivity** | [Protocol](docs/v2/Connectivity/models/Protocol.md) | `from foundry_sdk.v2.connectivity.models import Protocol` |
 **Connectivity** | [QueryParameterApiKey](docs/v2/Connectivity/models/QueryParameterApiKey.md) | `from foundry_sdk.v2.connectivity.models import QueryParameterApiKey` |
 **Connectivity** | [Region](docs/v2/Connectivity/models/Region.md) | `from foundry_sdk.v2.connectivity.models import Region` |

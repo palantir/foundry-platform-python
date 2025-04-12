@@ -10,12 +10,12 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-CreateTableImportRequestJdbcImportConfig | jdbcImportConfig
-CreateTableImportRequestMicrosoftSqlServerImportConfig | microsoftSqlServerImportConfig
-CreateTableImportRequestPostgreSqlImportConfig | postgreSqlImportConfig
-CreateTableImportRequestMicrosoftAccessImportConfig | microsoftAccessImportConfig
+CreateTableImportRequestJdbcTableImportConfig | jdbcImportConfig
+CreateTableImportRequestMicrosoftSqlServerTableImportConfig | microsoftSqlServerImportConfig
+CreateTableImportRequestPostgreSqlTableImportConfig | postgreSqlImportConfig
+CreateTableImportRequestMicrosoftAccessTableImportConfig | microsoftAccessImportConfig
 CreateTableImportRequestSnowflakeTableImportConfig | snowflakeImportConfig
-CreateTableImportRequestOracleImportConfig | oracleImportConfig
+CreateTableImportRequestOracleTableImportConfig | oracleImportConfig
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
