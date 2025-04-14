@@ -70,6 +70,8 @@ class GroupProviderInfoClient:
         :return: Returns the result object.
         :rtype: admin_models.GroupProviderInfo
 
+        :raises GetGroupProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given group.
+        :raises GroupNotFound: The given Group could not be found.
         :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         """
 
@@ -91,6 +93,8 @@ class GroupProviderInfoClient:
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetGroupProviderInfoPermissionDenied": admin_errors.GetGroupProviderInfoPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
                     "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -122,6 +126,10 @@ class GroupProviderInfoClient:
         :return: Returns the result object.
         :rtype: admin_models.GroupProviderInfo
 
+        :raises CannotReplaceProviderInfoForPrincipalInProtectedRealm: Provider information for Principals in this Realm cannot be replaced.
+        :raises GetGroupProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given group.
+        :raises GroupNotFound: The given Group could not be found.
+        :raises GroupProviderInfoNotFound: The given GroupProviderInfo could not be found.
         :raises ReplaceGroupProviderInfoPermissionDenied: Could not replace the GroupProviderInfo.
         """
 
@@ -151,6 +159,10 @@ class GroupProviderInfoClient:
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CannotReplaceProviderInfoForPrincipalInProtectedRealm": admin_errors.CannotReplaceProviderInfoForPrincipalInProtectedRealm,
+                    "GetGroupProviderInfoPermissionDenied": admin_errors.GetGroupProviderInfoPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
+                    "GroupProviderInfoNotFound": admin_errors.GroupProviderInfoNotFound,
                     "ReplaceGroupProviderInfoPermissionDenied": admin_errors.ReplaceGroupProviderInfoPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

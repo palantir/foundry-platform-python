@@ -70,6 +70,8 @@ class UserProviderInfoClient:
         :return: Returns the result object.
         :rtype: admin_models.UserProviderInfo
 
+        :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
+        :raises UserNotFound: The given User could not be found.
         :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
 
@@ -91,6 +93,8 @@ class UserProviderInfoClient:
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
                     "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -122,7 +126,11 @@ class UserProviderInfoClient:
         :return: Returns the result object.
         :rtype: admin_models.UserProviderInfo
 
+        :raises CannotReplaceProviderInfoForPrincipalInProtectedRealm: Provider information for Principals in this Realm cannot be replaced.
+        :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
         :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
+        :raises UserNotFound: The given User could not be found.
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
 
         return self._api_client.call_api(
@@ -151,7 +159,11 @@ class UserProviderInfoClient:
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CannotReplaceProviderInfoForPrincipalInProtectedRealm": admin_errors.CannotReplaceProviderInfoForPrincipalInProtectedRealm,
+                    "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
                     "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

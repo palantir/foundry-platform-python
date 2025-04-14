@@ -1,4 +1,4 @@
-# OracleImportConfig
+# OracleTableImportConfig
 
 The import configuration for an Oracle Database 21 connection.
 

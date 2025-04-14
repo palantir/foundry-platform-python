@@ -22,6 +22,7 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.admin import models as admin_models
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 
 
@@ -79,6 +80,7 @@ class HostClient:
         :rtype: core.ResourceIterator[admin_models.Host]
 
         :raises EnrollmentNotFound: The given Enrollment could not be found.
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         :raises ListHostsPermissionDenied: You do not have permission to list hosts for this enrollment
         """
 
@@ -103,6 +105,7 @@ class HostClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                    "InvalidPageSize": core_errors.InvalidPageSize,
                     "ListHostsPermissionDenied": admin_errors.ListHostsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),

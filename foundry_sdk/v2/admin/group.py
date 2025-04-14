@@ -24,6 +24,7 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.admin import models as admin_models
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 
 
@@ -165,6 +166,8 @@ class GroupClient:
         :rtype: None
 
         :raises DeleteGroupPermissionDenied: Could not delete the Group.
+        :raises DeleteGroupPermissionDenied: Could not delete the Group.
+        :raises GroupNotFound: The given Group could not be found.
         """
 
         return self._api_client.call_api(
@@ -182,6 +185,8 @@ class GroupClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
+                    "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
+                    "GroupNotFound": admin_errors.GroupNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -301,6 +306,8 @@ class GroupClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.Group]
+
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
 
         return self._api_client.call_api(
@@ -319,7 +326,9 @@ class GroupClient:
                 body_type=None,
                 response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -350,6 +359,7 @@ class GroupClient:
         :return: Returns the result object.
         :rtype: admin_models.SearchGroupsResponse
 
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         :raises SearchGroupsPermissionDenied: Could not search the Group.
         """
 
@@ -379,6 +389,7 @@ class GroupClient:
                 response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
                     "SearchGroupsPermissionDenied": admin_errors.SearchGroupsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

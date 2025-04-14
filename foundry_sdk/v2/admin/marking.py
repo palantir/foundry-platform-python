@@ -24,6 +24,7 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.admin import models as admin_models
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 
 
@@ -107,6 +108,8 @@ class MarkingClient:
         :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
         :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
         :raises CreateMarkingPermissionDenied: Could not create the Marking.
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -145,6 +148,8 @@ class MarkingClient:
                     "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
                     "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
                     "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -278,6 +283,8 @@ class MarkingClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.Marking]
+
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
 
         return self._api_client.call_api(
@@ -297,7 +304,9 @@ class MarkingClient:
                 body_type=None,
                 response_type=admin_models.ListMarkingsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

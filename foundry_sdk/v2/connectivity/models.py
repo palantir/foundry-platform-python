@@ -504,8 +504,8 @@ class CreateConnectionRequestSnowflakeKeyPairAuthentication(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
-    """CreateTableImportRequestJdbcImportConfig"""
+class CreateTableImportRequestJdbcTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestJdbcTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: TableImportQuery
@@ -517,8 +517,8 @@ class CreateTableImportRequestJdbcImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
-    """CreateTableImportRequestMicrosoftAccessImportConfig"""
+class CreateTableImportRequestMicrosoftAccessTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestMicrosoftAccessTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: TableImportQuery
@@ -530,8 +530,8 @@ class CreateTableImportRequestMicrosoftAccessImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel):
-    """CreateTableImportRequestMicrosoftSqlServerImportConfig"""
+class CreateTableImportRequestMicrosoftSqlServerTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestMicrosoftSqlServerTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: TableImportQuery
@@ -543,8 +543,8 @@ class CreateTableImportRequestMicrosoftSqlServerImportConfig(pydantic.BaseModel)
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
-    """CreateTableImportRequestOracleImportConfig"""
+class CreateTableImportRequestOracleTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestOracleTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: TableImportQuery
@@ -556,8 +556,8 @@ class CreateTableImportRequestOracleImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateTableImportRequestPostgreSqlImportConfig(pydantic.BaseModel):
-    """CreateTableImportRequestPostgreSqlImportConfig"""
+class CreateTableImportRequestPostgreSqlTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestPostgreSqlTableImportConfig"""
 
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     query: TableImportQuery
@@ -584,12 +584,12 @@ class CreateTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        CreateTableImportRequestJdbcImportConfig,
-        CreateTableImportRequestMicrosoftSqlServerImportConfig,
-        CreateTableImportRequestPostgreSqlImportConfig,
-        CreateTableImportRequestMicrosoftAccessImportConfig,
+        CreateTableImportRequestJdbcTableImportConfig,
+        CreateTableImportRequestMicrosoftSqlServerTableImportConfig,
+        CreateTableImportRequestPostgreSqlTableImportConfig,
+        CreateTableImportRequestMicrosoftAccessTableImportConfig,
         CreateTableImportRequestSnowflakeTableImportConfig,
-        CreateTableImportRequestOracleImportConfig,
+        CreateTableImportRequestOracleTableImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -978,7 +978,7 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class JdbcImportConfig(pydantic.BaseModel):
+class JdbcTableImportConfig(pydantic.BaseModel):
     """The import configuration for a [custom JDBC connection](https://palantir.com/docs/foundry/available-connectors/custom-jdbc-sources)."""
 
     query: TableImportQuery
@@ -1030,7 +1030,7 @@ class LongColumnInitialIncrementalState(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MicrosoftAccessImportConfig(pydantic.BaseModel):
+class MicrosoftAccessTableImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft Access connection](https://palantir.com/docs/foundry/available-connectors/microsoft-access)."""
 
     query: TableImportQuery
@@ -1043,7 +1043,7 @@ class MicrosoftAccessImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
+class MicrosoftSqlServerTableImportConfig(pydantic.BaseModel):
     """The import configuration for a [Microsoft SQL Server connection](https://palantir.com/docs/foundry/available-connectors/microsoft-sql-server)."""
 
     query: TableImportQuery
@@ -1056,7 +1056,7 @@ class MicrosoftSqlServerImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class OracleImportConfig(pydantic.BaseModel):
+class OracleTableImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
     query: TableImportQuery
@@ -1073,7 +1073,7 @@ PlaintextValue = str
 """PlaintextValue"""
 
 
-class PostgreSqlImportConfig(pydantic.BaseModel):
+class PostgreSqlTableImportConfig(pydantic.BaseModel):
     """The import configuration for a [PostgreSQL connection](https://palantir.com/docs/foundry/available-connectors/postgresql)."""
 
     query: TableImportQuery
@@ -1578,12 +1578,12 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        JdbcImportConfig,
-        MicrosoftSqlServerImportConfig,
-        PostgreSqlImportConfig,
-        MicrosoftAccessImportConfig,
+        JdbcTableImportConfig,
+        MicrosoftSqlServerTableImportConfig,
+        PostgreSqlTableImportConfig,
+        MicrosoftAccessTableImportConfig,
         SnowflakeTableImportConfig,
-        OracleImportConfig,
+        OracleTableImportConfig,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1711,11 +1711,11 @@ __all__ = [
     "CreateConnectionRequestSnowflakeConnectionConfiguration",
     "CreateConnectionRequestSnowflakeExternalOauth",
     "CreateConnectionRequestSnowflakeKeyPairAuthentication",
-    "CreateTableImportRequestJdbcImportConfig",
-    "CreateTableImportRequestMicrosoftAccessImportConfig",
-    "CreateTableImportRequestMicrosoftSqlServerImportConfig",
-    "CreateTableImportRequestOracleImportConfig",
-    "CreateTableImportRequestPostgreSqlImportConfig",
+    "CreateTableImportRequestJdbcTableImportConfig",
+    "CreateTableImportRequestMicrosoftAccessTableImportConfig",
+    "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
+    "CreateTableImportRequestOracleTableImportConfig",
+    "CreateTableImportRequestPostgreSqlTableImportConfig",
     "CreateTableImportRequestSnowflakeTableImportConfig",
     "CreateTableImportRequestTableImportConfig",
     "DateColumnInitialIncrementalState",
@@ -1740,15 +1740,15 @@ __all__ = [
     "HeaderApiKey",
     "IntegerColumnInitialIncrementalState",
     "JdbcConnectionConfiguration",
-    "JdbcImportConfig",
+    "JdbcTableImportConfig",
     "ListFileImportsResponse",
     "ListTableImportsResponse",
     "LongColumnInitialIncrementalState",
-    "MicrosoftAccessImportConfig",
-    "MicrosoftSqlServerImportConfig",
-    "OracleImportConfig",
+    "MicrosoftAccessTableImportConfig",
+    "MicrosoftSqlServerTableImportConfig",
+    "OracleTableImportConfig",
     "PlaintextValue",
-    "PostgreSqlImportConfig",
+    "PostgreSqlTableImportConfig",
     "Protocol",
     "QueryParameterApiKey",
     "Region",

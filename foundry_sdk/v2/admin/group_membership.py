@@ -20,7 +20,9 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.admin import models as admin_models
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 
 
@@ -81,6 +83,9 @@ class GroupMembershipClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.GroupMembership]
+
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
@@ -102,7 +107,10 @@ class GroupMembershipClient:
                 body_type=None,
                 response_type=admin_models.ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UserNotFound": admin_errors.UserNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

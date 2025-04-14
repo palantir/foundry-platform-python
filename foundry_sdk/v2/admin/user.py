@@ -24,6 +24,7 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.admin import models as admin_models
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 
 
@@ -90,6 +91,7 @@ class UserClient:
         :rtype: None
 
         :raises DeleteUserPermissionDenied: Could not delete the User.
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
@@ -107,6 +109,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -265,6 +268,7 @@ class UserClient:
         :rtype: admin_models.GetUserMarkingsResponse
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
+        :raises UserNotFound: The given User could not be found.
         """
 
         return self._api_client.call_api(
@@ -286,6 +290,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -314,6 +319,8 @@ class UserClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.User]
+
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
 
         return self._api_client.call_api(
@@ -332,7 +339,9 @@ class UserClient:
                 body_type=None,
                 response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -411,6 +420,7 @@ class UserClient:
         :return: Returns the result object.
         :rtype: admin_models.SearchUsersResponse
 
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         :raises SearchUsersPermissionDenied: Could not search the User.
         """
 
@@ -440,6 +450,7 @@ class UserClient:
                 response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidPageSize": core_errors.InvalidPageSize,
                     "SearchUsersPermissionDenied": admin_errors.SearchUsersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
