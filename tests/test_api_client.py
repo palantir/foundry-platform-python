@@ -49,6 +49,7 @@ from foundry_sdk import WriteTimeout
 from foundry_sdk import __version__
 from foundry_sdk._core import ApiClient
 from foundry_sdk._core import RequestInfo
+from foundry_sdk._core.api_client import ApiResponse
 from tests.server import FooData
 
 HOSTNAME = "localhost:8123"
@@ -414,3 +415,21 @@ def test_empty_404_error():
         )
 
         client.call_api(RequestInfo.with_defaults("POST", "/abc"))
+
+
+def test_response_decode_bytes():
+    response = ApiResponse(
+        RequestInfo.with_defaults("GET", "/foo/bar", response_type=bytes),
+        httpx.Response(200, content=b"foo"),
+    )
+
+    assert response.decode() == b"foo"
+
+
+def test_response_decode_optional_bytes():
+    response = ApiResponse(
+        RequestInfo.with_defaults("GET", "/foo/bar", response_type=Optional[bytes]),
+        httpx.Response(200, content=b"foo"),
+    )
+
+    assert response.decode() == b"foo"

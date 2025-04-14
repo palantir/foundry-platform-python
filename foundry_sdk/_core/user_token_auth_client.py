@@ -21,6 +21,7 @@ import httpx
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
@@ -39,12 +40,7 @@ class _UserToken(Token):
 
 class UserTokenAuth(Auth):
     def __init__(self, token: str) -> None:
-        if not isinstance(token, str):
-            raise TypeError(f"The token must be a string, not {type(token)}.")
-
-        if not token:
-            raise ValueError("The token cannot be empty.")
-
+        assert_non_empty_string(token, "token")
         self._token = _UserToken(token)
 
     def get_token(self) -> Token:

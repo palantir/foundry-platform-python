@@ -24,6 +24,7 @@ from foundry_sdk._core.oauth_utils import OAuth
 from foundry_sdk._core.oauth_utils import OAuthToken
 from foundry_sdk._core.oauth_utils import SignInResponse
 from foundry_sdk._core.oauth_utils import SignOutResponse
+from foundry_sdk._core.utils import assert_non_empty_string
 
 
 class ConfidentialClientAuth(OAuth):
@@ -48,6 +49,16 @@ class ConfidentialClientAuth(OAuth):
         *,
         config: Optional[Config] = None,
     ) -> None:
+        assert_non_empty_string(client_id, "client_id")
+        assert_non_empty_string(client_secret, "client_secret")
+
+        if hostname is not None:
+            assert_non_empty_string(hostname, "hostname")
+
+        if scopes is not None:
+            if not isinstance(scopes, list):
+                raise TypeError(f"The scopes must be a list, not {type(scopes)}.")
+
         self._client_id = client_id
         self._client_secret = client_secret
         self._token: Optional[OAuthToken] = None
