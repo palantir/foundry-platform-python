@@ -33,6 +33,8 @@ from typing import Type
 from typing import TypeVar
 from typing import Union
 from typing import cast
+from typing import get_args
+from typing import get_origin
 from urllib.parse import quote
 
 import httpx
@@ -47,6 +49,7 @@ from foundry_sdk._core.binary_stream import BinaryStream
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._core.resource_iterator import ResourceIterator
+from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
 from foundry_sdk._errors import ConflictError
@@ -248,17 +251,23 @@ class ApiResponse(Generic[T]):
         return json.loads(response_text)
 
     def decode(self) -> T:
-        if self._request_info.response_type is bytes:
+        _type = self._request_info.response_type
+
+        if _type is bytes or (
+            get_origin(_type) is Union
+            and bytes in get_args(_type)
+            and type(None) in get_args(_type)
+        ):
             return cast(T, self._response.content)
-        elif self._request_info.response_type is None:
+        elif _type is None:
             return cast(T, None)
 
         data = self.json()
 
-        if self._request_info.response_type is Any:
+        if _type is Any:
             return data
 
-        type_adapter = _get_type_adapter(self._request_info.response_type)
+        type_adapter = _get_type_adapter(_type)
         return type_adapter.validate_python(data)
 
     def close(self):
@@ -330,8 +339,7 @@ class ApiClient:
                 "PublicClientAuth, not an instance of {type(auth)}."
             )
 
-        if not isinstance(hostname, str):
-            raise TypeError(f"hostname must be a string, not {type(hostname)}.")
+        assert_non_empty_string(hostname, "hostname")
 
         if config is not None and not isinstance(config, Config):
             raise TypeError(f"config must be an instance of Config, not {type(config)}.")

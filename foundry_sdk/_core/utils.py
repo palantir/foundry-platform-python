@@ -113,3 +113,11 @@ def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> 
 
     setattr(type_obj, "__args__", args)
     return type_obj
+
+
+def assert_non_empty_string(value: str, name: str) -> None:
+    if not isinstance(value, str):
+        raise TypeError(f"The {name} must be a string, not {type(value)}.")
+
+    if not value:
+        raise ValueError(f"The {name} cannot be empty.")

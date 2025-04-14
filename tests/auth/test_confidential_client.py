@@ -76,15 +76,15 @@ def test_confidential_client_instantiate():
 
 def test_confidential_client_url():
     assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="https://a.b.c.com").url
+        ConfidentialClientAuth(client_id="1", client_secret="1", hostname="https://a.b.c.com").url
         == "a.b.c.com"
     )
     assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="http://a.b.c.com").url
+        ConfidentialClientAuth(client_id="1", client_secret="1", hostname="http://a.b.c.com").url
         == "a.b.c.com"
     )
     assert (
-        ConfidentialClientAuth(client_id="", client_secret="", hostname="a.b.c.com/").url
+        ConfidentialClientAuth(client_id="1", client_secret="1", hostname="a.b.c.com/").url
         == "a.b.c.com"
     )
 
@@ -138,3 +138,26 @@ def test_confidential_client_execute_with_token_method_raises_401():
 
         verify(auth, times=1)._refresh_token()
         verify(auth, times=1).sign_out()
+
+
+def test_invalid_client_id_raises_appropriate_error():
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth())  # type: ignore
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth(1, "1"))  # type: ignore
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth(None, "1"))  # type: ignore
+    assert pytest.raises(ValueError, lambda: ConfidentialClientAuth("", "1"))
+
+
+def test_invalid_client_secret_raises_appropriate_error():
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth("1"))  # type: ignore
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth("1", 1))  # type: ignore
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth("1", None))  # type: ignore
+    assert pytest.raises(ValueError, lambda: ConfidentialClientAuth("1", ""))
+
+
+def test_invalid_hostname_raises_appropriate_error():
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth("1", "1", 1))  # type: ignore
+    assert pytest.raises(ValueError, lambda: ConfidentialClientAuth("1", "1", ""))  # type: ignore
+
+
+def test_invalid_scopes_raises_appropriate_error():
+    assert pytest.raises(TypeError, lambda: ConfidentialClientAuth("1", "1", scopes=1))  # type: ignore
