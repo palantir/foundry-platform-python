@@ -1,0 +1,33 @@
+{
+  "name": "@osdk/python-platform-docs",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/palantir/foundry-platform-python.git"
+  },
+  "bugs": {
+    "url": "https://github.com/palantir/foundry-platform-python/issues"
+  },
+  "homepage": "https://github.com/palantir/foundry-platform-python#readme",
+  "devDependencies": {
+    "@osdk/docs-spec-core": "^0.5.0",
+    "@osdk/platform-docs-spec": "^0.6.0",
+    "typescript": "^5.8.3"
+  },
+  "sls": {
+    "dependencies": {
+      "com.palantir.foundry.api:api-gateway": {
+        "minVersion": "1.1141.0",
+        "maxVersion": "1.x.x",
+        "optional": false
+      }
+    }
+  }
+}

@@ -8,7 +8,6 @@ palantir_aliases:
 
 version: 2.1
 
-
 jobs:
   test:
     parameters:
@@ -36,7 +35,6 @@ jobs:
       - checkout
       - run: pip install --user tox
       - run: python -m tox -e black
-
 
   circle-all:
     docker:
@@ -103,9 +101,36 @@ workflows:
             - httpx-0.28
 
             - black
+            - npm-build-18.20
+            - npm-build-20.19
+            - npm-build-22.14
+            - npm-pack-dry-run-18.20
+            - npm-pack-dry-run-20.19
+            - npm-pack-dry-run-22.14
       - publish:
           requires:
             - circle-all
           filters:
             tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
             branches: { ignore: /.*/ }
+      - npm-publish:
+          requires:
+            - publish
+            - npm-build-22.14
+          filters:
+            tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
+            branches: { ignore: /.*/ }
+      - npm-build:
+          <<: *always-run
+          name: npm-build-<< matrix.node_version >>
+          matrix:
+            parameters:
+              node_version: ["18.20", "20.19", "22.14"]
+      - npm-pack-dry-run:
+          <<: *always-run
+          name: npm-pack-dry-run-<< matrix.node_version >>
+          matrix:
+            parameters:
+              node_version: ["18.20", "20.19", "22.14"]
+          requires:
+            - npm-build-<< matrix.node_version >>
