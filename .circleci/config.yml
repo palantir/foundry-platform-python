@@ -7,6 +7,8 @@ palantir_aliases:
         only: /.*/
 
 version: 2.1
+
+
 jobs:
   test:
     parameters:
@@ -35,6 +37,7 @@ jobs:
       - run: pip install --user tox
       - run: python -m tox -e black
 
+
   circle-all:
     docker:
       - image: node:lts
@@ -46,7 +49,7 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout
-      - run: python scripts/set_version.py
+      - run: python scripts/set_python_version.py
       - run: poetry version $(git describe --tags --abbrev=0)
       - run: poetry publish -v -u $PYPI_USERNAME -p $PYPI_PASSWORD --build
 
@@ -79,7 +82,7 @@ workflows:
               pydantic_version: ["2.10"]
               httpx_version: ["0.25", "0.26", "0.27", "0.28"]
       - black:
-        <<: *always-run
+          <<: *always-run
       - circle-all:
           <<: *always-run
           requires:

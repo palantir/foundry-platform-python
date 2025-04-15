@@ -17,6 +17,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"BLOBSTER_CONFIGURATION"` |
 | `"BLOBSTER_DOCUMENT"` |
 | `"BLOBSTER_IMAGE"` |
+| `"BLOBSTER_JUPYTERNOTEBOOK"` |
 | `"BLOBSTER_PDF"` |
 | `"BLOBSTER_PRESENTATION"` |
 | `"BLOBSTER_SPREADSHEET"` |
@@ -62,6 +63,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"OPUS_GRAPH_TEMPLATE"` |
 | `"OPUS_MAP"` |
 | `"OPUS_MAP_LAYER"` |
+| `"OPUS_MAP_TEMPLATE"` |
 | `"OPUS_SEARCH_AROUND"` |
 | `"QUIVER_ANALYSIS"` |
 | `"QUIVER_ARTIFACT"` |

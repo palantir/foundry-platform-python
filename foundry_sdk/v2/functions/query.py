@@ -59,11 +59,12 @@ class QueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.ExecuteQueryResponse:
         """
-        Executes a Query using the given parameters.
+        Executes a Query using the given parameters. By default, this executes the latest version of the query.
 
         Optional parameters do not need to be supplied.
 
@@ -73,6 +74,8 @@ class QueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param version:
+        :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -97,6 +100,7 @@ class QueryClient:
                 },
                 body={
                     "parameters": parameters,
+                    "version": version,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -105,6 +109,7 @@ class QueryClient:
                             functions_models.ParameterId,
                             typing.Optional[functions_models.DataValue],
                         ],
+                        "version": typing.Optional[functions_models.FunctionVersion],
                     },
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
@@ -124,16 +129,19 @@ class QueryClient:
         query_api_name: functions_models.QueryApiName,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.Query:
         """
-        Gets a specific query type with the given API name.
+        Gets a specific query type with the given API name. By default, this gets the latest version of the query.
 
         :param query_api_name:
         :type query_api_name: QueryApiName
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param version:
+        :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -148,6 +156,7 @@ class QueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}",
                 query_params={
                     "preview": preview,
+                    "version": version,
                 },
                 path_params={
                     "queryApiName": query_api_name,
@@ -174,16 +183,19 @@ class QueryClient:
         *,
         rid: functions_models.FunctionRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.Query:
         """
-        Gets a specific query type with the given RID.
+        Gets a specific query type with the given RID.By default, this gets the latest version of the query.
 
         :param rid:
         :type rid: FunctionRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param version:
+        :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -206,11 +218,13 @@ class QueryClient:
                 },
                 body={
                     "rid": rid,
+                    "version": version,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
                         "rid": functions_models.FunctionRid,
+                        "version": typing.Optional[functions_models.FunctionVersion],
                     },
                 ),
                 response_type=functions_models.Query,

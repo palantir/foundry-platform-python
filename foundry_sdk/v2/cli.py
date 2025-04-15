@@ -2120,6 +2120,60 @@ def connectivity_connection_table_import_list(
     click.echo(repr(result))
 
 
+@connectivity_connection_table_import.command("replace")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("table_import_rid", type=str, required=True)
+@click.option("--config", type=str, required=True, help="""""")
+@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
+)
+@click.option(
+    "--allow_schema_changes",
+    type=bool,
+    required=False,
+    help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def connectivity_connection_table_import_replace(
+    client: foundry_sdk.v2.FoundryClient,
+    connection_rid: str,
+    table_import_rid: str,
+    config: str,
+    dataset_rid: str,
+    display_name: str,
+    import_mode: typing.Literal["SNAPSHOT", "APPEND"],
+    allow_schema_changes: typing.Optional[bool],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the TableImport with the specified rid.
+    """
+    result = client.connectivity.Connection.TableImport.replace(
+        connection_rid=connection_rid,
+        table_import_rid=table_import_rid,
+        config=json.loads(config),
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        import_mode=import_mode,
+        allow_schema_changes=allow_schema_changes,
+        branch_name=branch_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_connection.group("file_import")
 def connectivity_connection_file_import():
     pass
@@ -3779,15 +3833,17 @@ def functions_query():
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_execute(
     client: foundry_sdk.v2.FoundryClient,
     query_api_name: str,
     parameters: str,
     preview: typing.Optional[bool],
+    version: typing.Optional[str],
 ):
     """
-    Executes a Query using the given parameters.
+    Executes a Query using the given parameters. By default, this executes the latest version of the query.
 
     Optional parameters do not need to be supplied.
 
@@ -3796,6 +3852,7 @@ def functions_query_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         preview=preview,
+        version=version,
     )
     click.echo(repr(result))
 
@@ -3805,19 +3862,22 @@ def functions_query_execute(
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_get(
     client: foundry_sdk.v2.FoundryClient,
     query_api_name: str,
     preview: typing.Optional[bool],
+    version: typing.Optional[str],
 ):
     """
-    Gets a specific query type with the given API name.
+    Gets a specific query type with the given API name. By default, this gets the latest version of the query.
 
     """
     result = client.functions.Query.get(
         query_api_name=query_api_name,
         preview=preview,
+        version=version,
     )
     click.echo(repr(result))
 
@@ -3827,19 +3887,22 @@ def functions_query_get(
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_get_by_rid(
     client: foundry_sdk.v2.FoundryClient,
     rid: str,
     preview: typing.Optional[bool],
+    version: typing.Optional[str],
 ):
     """
-    Gets a specific query type with the given RID.
+    Gets a specific query type with the given RID.By default, this gets the latest version of the query.
 
     """
     result = client.functions.Query.get_by_rid(
         rid=rid,
         preview=preview,
+        version=version,
     )
     click.echo(repr(result))
 
@@ -4460,6 +4523,13 @@ def ontologies_query():
     help="""The package name of the generated SDK.
 """,
 )
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the Query to execute.
+""",
+)
 @click.pass_obj
 def ontologies_query_execute(
     client: foundry_sdk.v2.FoundryClient,
@@ -4468,6 +4538,7 @@ def ontologies_query_execute(
     parameters: str,
     artifact_repository: typing.Optional[str],
     package_name: typing.Optional[str],
+    version: typing.Optional[str],
 ):
     """
     Executes a Query using the given parameters.
@@ -4484,6 +4555,7 @@ def ontologies_query_execute(
         parameters=json.loads(parameters),
         artifact_repository=artifact_repository,
         package_name=package_name,
+        version=version,
     )
     click.echo(repr(result))
 
@@ -5516,11 +5588,19 @@ def ontologies_ontology_query_type():
 @ontologies_ontology_query_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the Query to get.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_query_type_get(
     client: foundry_sdk.v2.FoundryClient,
     ontology: str,
     query_api_name: str,
+    version: typing.Optional[str],
 ):
     """
     Gets a specific query type with the given API name.
@@ -5531,6 +5611,7 @@ def ontologies_ontology_query_type_get(
     result = client.ontologies.Ontology.QueryType.get(
         ontology=ontology,
         query_api_name=query_api_name,
+        version=version,
     )
     click.echo(repr(result))
 

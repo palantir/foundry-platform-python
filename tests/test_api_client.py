@@ -15,6 +15,8 @@
 
 import json
 import warnings
+from datetime import datetime
+from datetime import timezone
 from typing import Any
 from typing import Dict
 from typing import Literal
@@ -415,6 +417,34 @@ def test_empty_404_error():
         )
 
         client.call_api(RequestInfo.with_defaults("POST", "/abc"))
+
+
+def test_create_headers():
+    client = create_client()
+    expected_headers = {
+        "Authorization": "Bearer bar",
+        "bool_header": "true",
+        "bytes_header": "bytes".encode("utf-8"),
+        "datetime_header": "2025-01-01T10:00:00+00:00",
+        "float_header": "123.123",
+        "int_header": "123",
+        "str_header": "string",
+    }
+    assert expected_headers == client._create_headers(
+        request_info=RequestInfo.with_defaults(
+            "GET",
+            "/files/{path}",
+            header_params={
+                "bool_header": True,
+                "bytes_header": "bytes".encode("utf-8"),
+                "datetime_header": datetime(2025, 1, 1, 10, 0, 0, tzinfo=timezone.utc),
+                "float_header": 123.123,
+                "int_header": 123,
+                "str_header": "string",
+            },
+        ),
+        token=UserTokenAuth(token="bar").get_token(),
+    )
 
 
 def test_response_decode_bytes():

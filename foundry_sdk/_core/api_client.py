@@ -19,6 +19,8 @@ import functools
 import json
 import re
 from dataclasses import dataclass
+from datetime import datetime
+from datetime import timezone
 from inspect import isclass
 from typing import Any
 from typing import Callable
@@ -451,7 +453,13 @@ class ApiClient:
             # Passing in None leads to this
             # Header value must be str or bytes, not <class 'NoneType'>
             **{
-                key: value for key, value in request_info.header_params.items() if value is not None
+                key: (
+                    value.astimezone(timezone.utc).isoformat()
+                    if isinstance(value, datetime)
+                    else value if isinstance(value, (bytes, str)) else json.dumps(value)
+                )
+                for key, value in request_info.header_params.items()
+                if value is not None
             },
         }
 
