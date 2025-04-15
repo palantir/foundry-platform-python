@@ -17,6 +17,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
+**version** | Optional[FunctionVersion] | The version of the Query to get.  | [optional] |
 
 ### Return type
 **QueryTypeV2**
@@ -34,10 +35,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
 query_api_name = "getEmployeesInCity"
+# Optional[FunctionVersion] | The version of the Query to get.
+version = None
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.QueryType.get(ontology, query_api_name)
+    api_response = foundry_client.ontologies.Ontology.QueryType.get(
+        ontology, query_api_name, version=version
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

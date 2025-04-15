@@ -22,6 +22,7 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -45,6 +46,8 @@ parameters = {"city": "New York"}
 artifact_repository = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
+# Optional[FunctionVersion] | The version of the Query to execute.
+version = None
 
 
 try:
@@ -54,6 +57,7 @@ try:
         parameters=parameters,
         artifact_repository=artifact_repository,
         package_name=package_name,
+        version=version,
     )
     print("The execute response:\n")
     pprint(api_response)

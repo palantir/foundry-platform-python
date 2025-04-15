@@ -59,6 +59,7 @@ class QueryClient:
         ],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ExecuteQueryResponse:
@@ -80,6 +81,8 @@ class QueryClient:
         :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
+        :param version: The version of the Query to execute.
+        :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -93,6 +96,7 @@ class QueryClient:
                 query_params={
                     "artifactRepository": artifact_repository,
                     "packageName": package_name,
+                    "version": version,
                 },
                 path_params={
                     "ontology": ontology,

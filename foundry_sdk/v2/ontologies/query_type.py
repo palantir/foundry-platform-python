@@ -55,6 +55,7 @@ class QueryTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         query_api_name: ontologies_models.QueryApiName,
         *,
+        version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.QueryTypeV2:
@@ -67,6 +68,8 @@ class QueryTypeClient:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
+        :param version: The version of the Query to get.
+        :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -77,7 +80,9 @@ class QueryTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
-                query_params={},
+                query_params={
+                    "version": version,
+                },
                 path_params={
                     "ontology": ontology,
                     "queryApiName": query_api_name,

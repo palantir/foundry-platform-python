@@ -174,6 +174,22 @@ class QueryTimeExceededLimit(errors.InternalServerError):
     error_instance_id: str
 
 
+class QueryVersionNotFoundParameters(typing_extensions.TypedDict):
+    """The query could not be found at the provided version."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    apiName: functions_models.QueryApiName
+    version: functions_models.FunctionVersion
+
+
+@dataclass
+class QueryVersionNotFound(errors.NotFoundError):
+    name: typing.Literal["QueryVersionNotFound"]
+    parameters: QueryVersionNotFoundParameters
+    error_instance_id: str
+
+
 class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
@@ -234,6 +250,7 @@ __all__ = [
     "QueryNotFound",
     "QueryRuntimeError",
     "QueryTimeExceededLimit",
+    "QueryVersionNotFound",
     "UnknownParameter",
     "ValueTypeNotFound",
     "VersionIdNotFound",

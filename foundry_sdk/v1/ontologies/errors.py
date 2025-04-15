@@ -1665,6 +1665,22 @@ class QueryTimeExceededLimit(errors.InternalServerError):
     error_instance_id: str
 
 
+class QueryVersionNotFoundParameters(typing_extensions.TypedDict):
+    """The query could not be found at the provided version."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    apiName: ontologies_models.QueryApiName
+    version: ontologies_models.FunctionVersion
+
+
+@dataclass
+class QueryVersionNotFound(errors.NotFoundError):
+    name: typing.Literal["QueryVersionNotFound"]
+    parameters: QueryVersionNotFoundParameters
+    error_instance_id: str
+
+
 class RateLimitReachedParameters(typing_extensions.TypedDict):
     """Unable to decrypt this CipherText because the available rate limits in Cipher licenses were reached."""
 
@@ -1920,6 +1936,7 @@ __all__ = [
     "QueryNotFound",
     "QueryRuntimeError",
     "QueryTimeExceededLimit",
+    "QueryVersionNotFound",
     "RateLimitReached",
     "SearchVectorDimensionsDiffer",
     "SharedPropertiesNotFound",
