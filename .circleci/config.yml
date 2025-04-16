@@ -87,7 +87,7 @@ jobs:
           command: |
             cd docs-snippets-npm
             npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
-            npm publish
+            npm publish --access=public
 
   circle-all:
     docker:
