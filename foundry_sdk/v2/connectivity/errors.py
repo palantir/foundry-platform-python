@@ -472,22 +472,6 @@ class ReplaceFileImportPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class ReplaceTableImportPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not replace the TableImport."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    tableImportRid: connectivity_models.TableImportRid
-    connectionRid: connectivity_models.ConnectionRid
-
-
-@dataclass
-class ReplaceTableImportPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ReplaceTableImportPermissionDenied"]
-    parameters: ReplaceTableImportPermissionDeniedParameters
-    error_instance_id: str
-
-
 class SecretNamesDoNotExistParameters(typing_extensions.TypedDict):
     """The secret names provided do not exist on the connection."""
 
@@ -521,7 +505,7 @@ class TableImportNotFound(errors.NotFoundError):
 
 
 class TableImportNotSupportedForConnectionParameters(typing_extensions.TypedDict):
-    """The specified connection does not support creating or replacing a table import with the specified config."""
+    """The specified connection does not support creating a table import with the specified config."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -596,7 +580,6 @@ __all__ = [
     "PropertyCannotBeBlank",
     "PropertyCannotBeEmpty",
     "ReplaceFileImportPermissionDenied",
-    "ReplaceTableImportPermissionDenied",
     "SecretNamesDoNotExist",
     "TableImportNotFound",
     "TableImportNotSupportedForConnection",

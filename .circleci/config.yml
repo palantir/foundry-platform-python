@@ -8,6 +8,21 @@ palantir_aliases:
 
 version: 2.1
 
+commands:
+  setup-npm-project:
+    description: "Setup npm project - checkout code, set version, install dependencies and build"
+    steps:
+      - checkout
+      - run: node scripts/set_npm_version.js
+      - run:
+          name: Install npm dependencies and build
+          command: |
+            echo "Node version: $(node -v)"
+            echo "NPM version: $(npm -v)"
+            cd docs-snippets-npm
+            npm install
+            npm run build
+
 jobs:
   test:
     parameters:
@@ -35,6 +50,44 @@ jobs:
       - checkout
       - run: pip install --user tox
       - run: python -m tox -e black
+
+  npm-build:
+    parameters:
+      node_version:
+        type: string
+    docker:
+      - image: cimg/node:<< parameters.node_version >>
+    steps:
+      - setup-npm-project
+      - run:
+          name: Echo build completion
+          command: echo "Completed building docs-snippets-npm on Node.js << parameters.node_version >>"
+
+  npm-pack-dry-run:
+    parameters:
+      node_version:
+        type: string
+    docker:
+      - image: cimg/node:<< parameters.node_version >>
+    steps:
+      - setup-npm-project
+      - run:
+          name: Run npm pack dry-run
+          command: |
+            cd docs-snippets-npm
+            npm pack --dry-run
+
+  npm-publish:
+    docker:
+      - image: cimg/node:22.14
+    steps:
+      - setup-npm-project
+      - run:
+          name: Publish npm package
+          command: |
+            cd docs-snippets-npm
+            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            npm publish
 
   circle-all:
     docker:

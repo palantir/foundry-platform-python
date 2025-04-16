@@ -96,7 +96,7 @@ class TableImportClient:
         :raises ConnectionNotFound: The given Connection could not be found.
         :raises CreateTableImportPermissionDenied: Could not create the TableImport.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
-        :raises TableImportNotSupportedForConnection: The specified connection does not support creating or replacing a table import with the specified config.
+        :raises TableImportNotSupportedForConnection: The specified connection does not support creating a table import with the specified config.
         :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
         """
 
@@ -372,111 +372,6 @@ class TableImportClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def replace(
-        self,
-        connection_rid: connectivity_models.ConnectionRid,
-        table_import_rid: connectivity_models.TableImportRid,
-        *,
-        config: connectivity_models.ReplaceTableImportRequestTableImportConfig,
-        dataset_rid: datasets_models.DatasetRid,
-        display_name: connectivity_models.TableImportDisplayName,
-        import_mode: connectivity_models.TableImportMode,
-        allow_schema_changes: typing.Optional[
-            connectivity_models.TableImportAllowSchemaChanges
-        ] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> connectivity_models.TableImport:
-        """
-        Replace the TableImport with the specified rid.
-        :param connection_rid:
-        :type connection_rid: ConnectionRid
-        :param table_import_rid:
-        :type table_import_rid: TableImportRid
-        :param config:
-        :type config: ReplaceTableImportRequestTableImportConfig
-        :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
-        :param display_name:
-        :type display_name: TableImportDisplayName
-        :param import_mode:
-        :type import_mode: TableImportMode
-        :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
-        :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
-        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: connectivity_models.TableImport
-
-        :raises ChangingBranchNameNotSupportedForImports: Changing of branch name is not supported for imports.
-        :raises ChangingOutputDatasetNotSupportedForImports: Changing of output dataset is not supported for imports.
-        :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
-        :raises ReplaceTableImportPermissionDenied: Could not replace the TableImport.
-        :raises TableImportNotFound: The given TableImport could not be found.
-        :raises TableImportNotSupportedForConnection: The specified connection does not support creating or replacing a table import with the specified config.
-        :raises TableImportTypeNotSupported: The specified table import type is not yet supported in the Platform API.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="PUT",
-                resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "connectionRid": connection_rid,
-                    "tableImportRid": table_import_rid,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body={
-                    "datasetRid": dataset_rid,
-                    "importMode": import_mode,
-                    "displayName": display_name,
-                    "allowSchemaChanges": allow_schema_changes,
-                    "branchName": branch_name,
-                    "config": config,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
-                        "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
-                        "allowSchemaChanges": typing.Optional[
-                            connectivity_models.TableImportAllowSchemaChanges
-                        ],
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "config": connectivity_models.ReplaceTableImportRequestTableImportConfig,
-                    },
-                ),
-                response_type=connectivity_models.TableImport,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ChangingBranchNameNotSupportedForImports": connectivity_errors.ChangingBranchNameNotSupportedForImports,
-                    "ChangingOutputDatasetNotSupportedForImports": connectivity_errors.ChangingOutputDatasetNotSupportedForImports,
-                    "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
-                    "ReplaceTableImportPermissionDenied": connectivity_errors.ReplaceTableImportPermissionDenied,
-                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
-                    "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
-                    "TableImportTypeNotSupported": connectivity_errors.TableImportTypeNotSupported,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _TableImportClientRaw:
     def __init__(self, client: TableImportClient) -> None:
@@ -485,14 +380,12 @@ class _TableImportClientRaw:
         def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.TableImport): ...
         def list(_: connectivity_models.ListTableImportsResponse): ...
-        def replace(_: connectivity_models.TableImport): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.execute = core.with_raw_response(execute, client.execute)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _TableImportClientStreaming:
@@ -501,10 +394,8 @@ class _TableImportClientStreaming:
         def execute(_: core_models.BuildRid): ...
         def get(_: connectivity_models.TableImport): ...
         def list(_: connectivity_models.ListTableImportsResponse): ...
-        def replace(_: connectivity_models.TableImport): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.execute = core.with_streaming_response(execute, client.execute)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.replace = core.with_streaming_response(replace, client.replace)
