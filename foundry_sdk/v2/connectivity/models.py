@@ -1108,98 +1108,6 @@ Region = str
 """The region of the external system."""
 
 
-class ReplaceTableImportRequestJdbcTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestJdbcTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["jdbcImportConfig"] = "jdbcImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ReplaceTableImportRequestMicrosoftAccessTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestMicrosoftAccessTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["microsoftAccessImportConfig"] = "microsoftAccessImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ReplaceTableImportRequestOracleTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestOracleTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ReplaceTableImportRequestPostgreSqlTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestPostgreSqlTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["postgreSqlImportConfig"] = "postgreSqlImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ReplaceTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
-    """ReplaceTableImportRequestSnowflakeTableImportConfig"""
-
-    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
-    query: TableImportQuery
-    type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
-    typing.Union[
-        ReplaceTableImportRequestJdbcTableImportConfig,
-        ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig,
-        ReplaceTableImportRequestPostgreSqlTableImportConfig,
-        ReplaceTableImportRequestMicrosoftAccessTableImportConfig,
-        ReplaceTableImportRequestSnowflakeTableImportConfig,
-        ReplaceTableImportRequestOracleTableImportConfig,
-    ],
-    pydantic.Field(discriminator="type"),
-]
-"""The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
-
-
 RestAuthenticationMode = typing_extensions.Annotated[
     typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
@@ -1765,9 +1673,6 @@ core.resolve_forward_references(
 )
 core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
 core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
-)
 core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
@@ -1847,13 +1752,6 @@ __all__ = [
     "Protocol",
     "QueryParameterApiKey",
     "Region",
-    "ReplaceTableImportRequestJdbcTableImportConfig",
-    "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
-    "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
-    "ReplaceTableImportRequestOracleTableImportConfig",
-    "ReplaceTableImportRequestPostgreSqlTableImportConfig",
-    "ReplaceTableImportRequestSnowflakeTableImportConfig",
-    "ReplaceTableImportRequestTableImportConfig",
     "RestAuthenticationMode",
     "RestConnectionAdditionalSecrets",
     "RestConnectionConfiguration",

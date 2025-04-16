@@ -8,6 +8,20 @@ palantir_aliases:
 
 version: 2.1
 
+commands:
+  setup-npm-project:
+    description: "Setup npm project - checkout code, set version, install dependencies and build"
+    steps:
+      - checkout
+      - run: node scripts/set_npm_version.js
+      - run:
+          name: Install npm dependencies and build
+          command: |
+            echo "Node version: $(node -v)"
+            echo "NPM version: $(npm -v)"
+            cd docs-snippets-npm
+            npm install
+            npm run build
 
 jobs:
   test:
@@ -37,6 +51,43 @@ jobs:
       - run: pip install --user tox
       - run: python -m tox -e black
 
+  npm-build:
+    parameters:
+      node_version:
+        type: string
+    docker:
+      - image: cimg/node:<< parameters.node_version >>
+    steps:
+      - setup-npm-project
+      - run:
+          name: Echo build completion
+          command: echo "Completed building docs-snippets-npm on Node.js << parameters.node_version >>"
+
+  npm-pack-dry-run:
+    parameters:
+      node_version:
+        type: string
+    docker:
+      - image: cimg/node:<< parameters.node_version >>
+    steps:
+      - setup-npm-project
+      - run:
+          name: Run npm pack dry-run
+          command: |
+            cd docs-snippets-npm
+            npm pack --dry-run
+
+  npm-publish:
+    docker:
+      - image: cimg/node:22.14
+    steps:
+      - setup-npm-project
+      - run:
+          name: Publish npm package
+          command: |
+            cd docs-snippets-npm
+            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            npm publish
 
   circle-all:
     docker:
@@ -103,9 +154,36 @@ workflows:
             - httpx-0.28
 
             - black
+            - npm-build-18.20
+            - npm-build-20.19
+            - npm-build-22.14
+            - npm-pack-dry-run-18.20
+            - npm-pack-dry-run-20.19
+            - npm-pack-dry-run-22.14
       - publish:
           requires:
             - circle-all
           filters:
             tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
             branches: { ignore: /.*/ }
+      - npm-publish:
+          requires:
+            - publish
+            - npm-build-22.14
+          filters:
+            tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
+            branches: { ignore: /.*/ }
+      - npm-build:
+          <<: *always-run
+          name: npm-build-<< matrix.node_version >>
+          matrix:
+            parameters:
+              node_version: ["18.20", "20.19", "22.14"]
+      - npm-pack-dry-run:
+          <<: *always-run
+          name: npm-pack-dry-run-<< matrix.node_version >>
+          matrix:
+            parameters:
+              node_version: ["18.20", "20.19", "22.14"]
+          requires:
+            - npm-build-<< matrix.node_version >>

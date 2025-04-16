@@ -880,13 +880,6 @@ Namespace | Name | Import |
 **Connectivity** | [Protocol](docs/v2/Connectivity/models/Protocol.md) | `from foundry_sdk.v2.connectivity.models import Protocol` |
 **Connectivity** | [QueryParameterApiKey](docs/v2/Connectivity/models/QueryParameterApiKey.md) | `from foundry_sdk.v2.connectivity.models import QueryParameterApiKey` |
 **Connectivity** | [Region](docs/v2/Connectivity/models/Region.md) | `from foundry_sdk.v2.connectivity.models import Region` |
-**Connectivity** | [ReplaceTableImportRequestJdbcTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestJdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestJdbcTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestMicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestMicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestMicrosoftAccessTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestOracleTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestOracleTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestOracleTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestPostgreSqlTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestPostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestPostgreSqlTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestSnowflakeTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestSnowflakeTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestSnowflakeTableImportConfig` |
-**Connectivity** | [ReplaceTableImportRequestTableImportConfig](docs/v2/Connectivity/models/ReplaceTableImportRequestTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import ReplaceTableImportRequestTableImportConfig` |
 **Connectivity** | [RestAuthenticationMode](docs/v2/Connectivity/models/RestAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import RestAuthenticationMode` |
 **Connectivity** | [RestConnectionAdditionalSecrets](docs/v2/Connectivity/models/RestConnectionAdditionalSecrets.md) | `from foundry_sdk.v2.connectivity.models import RestConnectionAdditionalSecrets` |
 **Connectivity** | [RestConnectionConfiguration](docs/v2/Connectivity/models/RestConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import RestConnectionConfiguration` |
@@ -1841,7 +1834,6 @@ Namespace | Name | Import |
 **Connectivity** | PropertyCannotBeBlank | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeBlank` |
 **Connectivity** | PropertyCannotBeEmpty | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeEmpty` |
 **Connectivity** | ReplaceFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import ReplaceFileImportPermissionDenied` |
-**Connectivity** | ReplaceTableImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import ReplaceTableImportPermissionDenied` |
 **Connectivity** | SecretNamesDoNotExist | `from foundry_sdk.v2.connectivity.errors import SecretNamesDoNotExist` |
 **Connectivity** | TableImportNotFound | `from foundry_sdk.v2.connectivity.errors import TableImportNotFound` |
 **Connectivity** | TableImportNotSupportedForConnection | `from foundry_sdk.v2.connectivity.errors import TableImportNotSupportedForConnection` |
