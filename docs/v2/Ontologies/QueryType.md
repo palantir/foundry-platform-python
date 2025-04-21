@@ -40,7 +40,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.QueryType.get(
+    api_response = client.ontologies.Ontology.QueryType.get(
         ontology, query_api_name, version=version
     )
     print("The get response:\n")

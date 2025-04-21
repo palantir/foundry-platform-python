@@ -34,7 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.MarkingCategory.get(marking_category_id, preview=preview)
+    api_response = client.admin.MarkingCategory.get(marking_category_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

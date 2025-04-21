@@ -54,7 +54,7 @@ stream_type = "LOW_LATENCY"
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.create(
+    api_response = client.streams.Dataset.Stream.create(
         dataset_rid,
         branch_name=branch_name,
         schema=schema,
@@ -117,7 +117,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.get(
+    api_response = client.streams.Dataset.Stream.get(
         dataset_rid, stream_branch_name, preview=preview
     )
     print("The get response:\n")
@@ -179,7 +179,7 @@ view_rid = None
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.publish_binary_record(
+    api_response = client.streams.Dataset.Stream.publish_binary_record(
         dataset_rid, stream_branch_name, body, preview=preview, view_rid=view_rid
     )
     print("The publish_binary_record response:\n")
@@ -242,7 +242,7 @@ view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.publish_record(
+    api_response = client.streams.Dataset.Stream.publish_record(
         dataset_rid, stream_branch_name, record=record, preview=preview, view_rid=view_rid
     )
     print("The publish_record response:\n")
@@ -305,7 +305,7 @@ view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.publish_records(
+    api_response = client.streams.Dataset.Stream.publish_records(
         dataset_rid, stream_branch_name, records=records, preview=preview, view_rid=view_rid
     )
     print("The publish_records response:\n")
@@ -379,7 +379,7 @@ stream_type = "LOW_LATENCY"
 
 
 try:
-    api_response = foundry_client.streams.Dataset.Stream.reset(
+    api_response = client.streams.Dataset.Stream.reset(
         dataset_rid,
         stream_branch_name,
         compressed=compressed,

@@ -54,7 +54,7 @@ stream_type = "LOW_LATENCY"
 
 
 try:
-    api_response = foundry_client.streams.Dataset.create(
+    api_response = client.streams.Dataset.create(
         name=name,
         parent_folder_rid=parent_folder_rid,
         schema=schema,

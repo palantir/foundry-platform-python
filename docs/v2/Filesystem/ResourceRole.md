@@ -38,9 +38,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.Role.add(
-        resource_rid, roles=roles, preview=preview
-    )
+    api_response = client.filesystem.Resource.Role.add(resource_rid, roles=roles, preview=preview)
     print("The add response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -158,7 +156,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.Role.remove(
+    api_response = client.filesystem.Resource.Role.remove(
         resource_rid, roles=roles, preview=preview
     )
     print("The remove response:\n")

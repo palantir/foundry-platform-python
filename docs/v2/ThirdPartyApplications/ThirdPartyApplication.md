@@ -35,7 +35,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.third_party_applications.ThirdPartyApplication.get(
+    api_response = client.third_party_applications.ThirdPartyApplication.get(
         third_party_application_rid, preview=preview
     )
     print("The get response:\n")

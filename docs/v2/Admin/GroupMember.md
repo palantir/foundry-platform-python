@@ -38,7 +38,7 @@ expiration = None
 
 
 try:
-    api_response = foundry_client.admin.Group.GroupMember.add(
+    api_response = client.admin.Group.GroupMember.add(
         group_id, principal_ids=principal_ids, expiration=expiration
     )
     print("The add response:\n")
@@ -154,9 +154,7 @@ principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 
 
 try:
-    api_response = foundry_client.admin.Group.GroupMember.remove(
-        group_id, principal_ids=principal_ids
-    )
+    api_response = client.admin.Group.GroupMember.remove(group_id, principal_ids=principal_ids)
     print("The remove response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

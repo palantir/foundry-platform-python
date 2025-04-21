@@ -60,7 +60,7 @@ query = {"not": {"field": "properties.name", "eq": "john"}}
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.aggregate(
+    api_response = client.ontologies.OntologyObject.aggregate(
         ontology_rid, object_type, aggregation=aggregation, group_by=group_by, query=query
     )
     print("The aggregate response:\n")
@@ -121,7 +121,7 @@ properties = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.get(
+    api_response = client.ontologies.OntologyObject.get(
         ontology_rid, object_type, primary_key, properties=properties
     )
     print("The get response:\n")
@@ -189,7 +189,7 @@ properties = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.get_linked_object(
+    api_response = client.ontologies.OntologyObject.get_linked_object(
         ontology_rid,
         object_type,
         primary_key,
@@ -465,7 +465,7 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.search(
+    api_response = client.ontologies.OntologyObject.search(
         ontology_rid,
         object_type,
         fields=fields,

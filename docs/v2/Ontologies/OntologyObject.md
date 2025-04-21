@@ -68,7 +68,7 @@ where = {"type": "eq", "field": "name", "value": "john"}
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.aggregate(
+    api_response = client.ontologies.OntologyObject.aggregate(
         ontology,
         object_type,
         aggregation=aggregation,
@@ -136,7 +136,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.count(
+    api_response = client.ontologies.OntologyObject.count(
         ontology, object_type, artifact_repository=artifact_repository, package_name=package_name
     )
     print("The count response:\n")
@@ -206,7 +206,7 @@ select = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.get(
+    api_response = client.ontologies.OntologyObject.get(
         ontology,
         object_type,
         primary_key,
@@ -408,7 +408,7 @@ where = {"type": "eq", "field": "age", "value": 21}
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObject.search(
+    api_response = client.ontologies.OntologyObject.search(
         ontology,
         object_type,
         select=select,

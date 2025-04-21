@@ -34,7 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Organization.get(organization_rid, preview=preview)
+    api_response = client.admin.Organization.get(organization_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -93,7 +93,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Organization.replace(
+    api_response = client.admin.Organization.replace(
         organization_rid, name=name, description=description, host=host, preview=preview
     )
     print("The replace response:\n")

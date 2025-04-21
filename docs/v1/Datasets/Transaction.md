@@ -40,7 +40,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
     print("The abort response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -94,7 +94,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
     print("The commit response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -150,7 +150,7 @@ transaction_type = "SNAPSHOT"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.create(
+    api_response = client.datasets.Dataset.Transaction.create(
         dataset_rid, branch_id=branch_id, transaction_type=transaction_type
     )
     print("The create response:\n")
@@ -227,7 +227,7 @@ transaction_rid = "ri.foundry.main.transaction.abffc380-ea68-4843-9be1-9f44d2565
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

@@ -39,7 +39,7 @@ parameters = {"city": "New York"}
 
 
 try:
-    api_response = foundry_client.ontologies.Query.execute(
+    api_response = client.ontologies.Query.execute(
         ontology_rid, query_api_name, parameters=parameters
     )
     print("The execute response:\n")

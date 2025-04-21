@@ -42,7 +42,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.create(
+    api_response = client.datasets.Dataset.Branch.create(
         dataset_rid, branch_id=branch_id, transaction_rid=transaction_rid
     )
     print("The create response:\n")
@@ -97,7 +97,7 @@ branch_id = "my-branch"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.delete(dataset_rid, branch_id)
+    api_response = client.datasets.Dataset.Branch.delete(dataset_rid, branch_id)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -150,7 +150,7 @@ branch_id = "master"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.get(dataset_rid, branch_id)
+    api_response = client.datasets.Dataset.Branch.get(dataset_rid, branch_id)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

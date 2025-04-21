@@ -1572,8 +1572,10 @@ def ontologies_action_apply(
     parameters: str,
 ):
     """
-    Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
-    some time to be visible.
+    Applies an action using the given parameters.
+
+    Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+    Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
@@ -1603,7 +1605,8 @@ def ontologies_action_apply_batch(
 ):
     """
     Applies multiple actions (of the same Action Type) using the given parameters.
-    Changes to the Ontology are eventually consistent and may take some time to be visible.
+    Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+    Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
     Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
     call Functions may receive a higher limit.

@@ -41,7 +41,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.add_organizations(
+    api_response = client.filesystem.Project.add_organizations(
         project_rid, organization_rids=organization_rids, preview=preview
     )
     print("The add_organizations response:\n")
@@ -117,7 +117,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.create(
+    api_response = client.filesystem.Project.create(
         default_roles=default_roles,
         display_name=display_name,
         organization_rids=organization_rids,
@@ -187,7 +187,7 @@ project_description = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.create_from_template(
+    api_response = client.filesystem.Project.create_from_template(
         template_rid=template_rid,
         variable_values=variable_values,
         default_roles=default_roles,
@@ -244,7 +244,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.get(project_rid, preview=preview)
+    api_response = client.filesystem.Project.get(project_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -356,7 +356,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Project.remove_organizations(
+    api_response = client.filesystem.Project.remove_organizations(
         project_rid, organization_rids=organization_rids, preview=preview
     )
     print("The remove_organizations response:\n")

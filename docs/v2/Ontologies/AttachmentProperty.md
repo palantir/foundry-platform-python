@@ -52,7 +52,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.AttachmentProperty.get_attachment(
+    api_response = client.ontologies.AttachmentProperty.get_attachment(
         ontology,
         object_type,
         primary_key,
@@ -128,7 +128,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.AttachmentProperty.get_attachment_by_rid(
+    api_response = client.ontologies.AttachmentProperty.get_attachment_by_rid(
         ontology,
         object_type,
         primary_key,
@@ -202,7 +202,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.AttachmentProperty.read_attachment(
+    api_response = client.ontologies.AttachmentProperty.read_attachment(
         ontology,
         object_type,
         primary_key,
@@ -280,7 +280,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.AttachmentProperty.read_attachment_by_rid(
+    api_response = client.ontologies.AttachmentProperty.read_attachment_by_rid(
         ontology,
         object_type,
         primary_key,

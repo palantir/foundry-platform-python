@@ -46,9 +46,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.abort(
-        media_set_rid, transaction_id, preview=preview
-    )
+    api_response = client.media_sets.MediaSet.abort(media_set_rid, transaction_id, preview=preview)
     print("The abort response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -104,9 +102,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.commit(
-        media_set_rid, transaction_id, preview=preview
-    )
+    api_response = client.media_sets.MediaSet.commit(media_set_rid, transaction_id, preview=preview)
     print("The commit response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -162,7 +158,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.create(
+    api_response = client.media_sets.MediaSet.create(
         media_set_rid, branch_name=branch_name, preview=preview
     )
     print("The create response:\n")
@@ -223,7 +219,7 @@ read_token = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.info(
+    api_response = client.media_sets.MediaSet.info(
         media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The info response:\n")
@@ -284,7 +280,7 @@ read_token = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.read(
+    api_response = client.media_sets.MediaSet.read(
         media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The read response:\n")
@@ -345,7 +341,7 @@ read_token = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.read_original(
+    api_response = client.media_sets.MediaSet.read_original(
         media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The read_original response:\n")
@@ -406,7 +402,7 @@ read_token = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.reference(
+    api_response = client.media_sets.MediaSet.reference(
         media_set_rid, media_item_rid, preview=preview, read_token=read_token
     )
     print("The reference response:\n")
@@ -481,7 +477,7 @@ view_rid = None
 
 
 try:
-    api_response = foundry_client.media_sets.MediaSet.upload(
+    api_response = client.media_sets.MediaSet.upload(
         media_set_rid,
         body,
         branch_name=branch_name,

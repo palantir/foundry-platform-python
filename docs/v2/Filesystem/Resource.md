@@ -44,7 +44,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.add_markings(
+    api_response = client.filesystem.Resource.add_markings(
         resource_rid, marking_ids=marking_ids, preview=preview
     )
     print("The add_markings response:\n")
@@ -98,7 +98,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.delete(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.delete(resource_rid, preview=preview)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -148,7 +148,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.get(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.get(resource_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -200,9 +200,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.get_access_requirements(
-        resource_rid, preview=preview
-    )
+    api_response = client.filesystem.Resource.get_access_requirements(resource_rid, preview=preview)
     print("The get_access_requirements response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -252,7 +250,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.get_by_path(path=path, preview=preview)
+    api_response = client.filesystem.Resource.get_by_path(path=path, preview=preview)
     print("The get_by_path response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -363,9 +361,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.permanently_delete(
-        resource_rid, preview=preview
-    )
+    api_response = client.filesystem.Resource.permanently_delete(resource_rid, preview=preview)
     print("The permanently_delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -418,7 +414,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.remove_markings(
+    api_response = client.filesystem.Resource.remove_markings(
         resource_rid, marking_ids=marking_ids, preview=preview
     )
     print("The remove_markings response:\n")
@@ -472,7 +468,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Resource.restore(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.restore(resource_rid, preview=preview)
     print("The restore response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

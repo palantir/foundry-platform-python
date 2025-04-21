@@ -37,7 +37,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.AgentVersion.get(
+    api_response = client.aip_agents.Agent.AgentVersion.get(
         agent_rid, agent_version_string, preview=preview
     )
     print("The get response:\n")

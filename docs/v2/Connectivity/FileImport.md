@@ -56,7 +56,7 @@ subfolder = "subfolder1/subfolder2"
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.FileImport.create(
+    api_response = client.connectivity.Connection.FileImport.create(
         connection_rid,
         dataset_rid=dataset_rid,
         display_name=display_name,
@@ -121,7 +121,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.FileImport.delete(
+    api_response = client.connectivity.Connection.FileImport.delete(
         connection_rid, file_import_rid, preview=preview
     )
     print("The delete response:\n")
@@ -178,7 +178,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.FileImport.execute(
+    api_response = client.connectivity.Connection.FileImport.execute(
         connection_rid, file_import_rid, preview=preview
     )
     print("The execute response:\n")
@@ -233,7 +233,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.FileImport.get(
+    api_response = client.connectivity.Connection.FileImport.get(
         connection_rid, file_import_rid, preview=preview
     )
     print("The get response:\n")
@@ -365,7 +365,7 @@ subfolder = "subfolder1/subfolder2"
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.FileImport.replace(
+    api_response = client.connectivity.Connection.FileImport.replace(
         connection_rid,
         file_import_rid,
         dataset_rid=dataset_rid,

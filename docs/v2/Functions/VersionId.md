@@ -37,7 +37,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.functions.ValueType.VersionId.get(
+    api_response = client.functions.ValueType.VersionId.get(
         value_type_rid, version_id_version_id, preview=preview
     )
     print("The get response:\n")

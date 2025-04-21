@@ -38,7 +38,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.MarkingMember.add(
+    api_response = client.admin.Marking.MarkingMember.add(
         marking_id, principal_ids=principal_ids, preview=preview
     )
     print("The add response:\n")
@@ -159,7 +159,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.MarkingMember.remove(
+    api_response = client.admin.Marking.MarkingMember.remove(
         marking_id, principal_ids=principal_ids, preview=preview
     )
     print("The remove response:\n")

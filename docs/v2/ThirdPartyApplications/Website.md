@@ -37,7 +37,7 @@ version = "1.2.0"
 
 
 try:
-    api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.deploy(
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.deploy(
         third_party_application_rid, version=version
     )
     print("The deploy response:\n")
@@ -88,7 +88,7 @@ third_party_application_rid = (
 
 
 try:
-    api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.get(
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.get(
         third_party_application_rid
     )
     print("The get response:\n")
@@ -139,7 +139,7 @@ third_party_application_rid = (
 
 
 try:
-    api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.undeploy(
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.undeploy(
         third_party_application_rid
     )
     print("The undeploy response:\n")

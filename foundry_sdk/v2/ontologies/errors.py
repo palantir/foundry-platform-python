@@ -858,6 +858,22 @@ class InvalidUserId(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidVectorDimensionParameters(typing_extensions.TypedDict):
+    """The dimensions of the provided vector don't match the dimensions of the embedding model being queried."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    expectedSize: int
+    providedSize: int
+
+
+@dataclass
+class InvalidVectorDimension(errors.BadRequestError):
+    name: typing.Literal["InvalidVectorDimension"]
+    parameters: InvalidVectorDimensionParameters
+    error_instance_id: str
+
+
 class LinkAlreadyExistsParameters(typing_extensions.TypedDict):
     """The link the user is attempting to create already exists."""
 
@@ -1696,19 +1712,6 @@ class RateLimitReached(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class SearchVectorDimensionsDifferParameters(typing_extensions.TypedDict):
-    """The dimensions of the provided vector don't match the dimensions of the embedding model being queried."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class SearchVectorDimensionsDiffer(errors.BadRequestError):
-    name: typing.Literal["SearchVectorDimensionsDiffer"]
-    parameters: SearchVectorDimensionsDifferParameters
-    error_instance_id: str
-
-
 class SharedPropertiesNotFoundParameters(typing_extensions.TypedDict):
     """The requested shared property types are not present on every object type."""
 
@@ -1745,6 +1748,9 @@ class TooManyNearestNeighborsRequestedParameters(typing_extensions.TypedDict):
     """The value of numNeighbors must be in the range 1 &lt;= numNeighbors &lt;= 500."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    requestedNumNeighbors: int
+    maxNumNeighbors: int
 
 
 @dataclass
@@ -1888,6 +1894,7 @@ __all__ = [
     "InvalidSortOrder",
     "InvalidSortType",
     "InvalidUserId",
+    "InvalidVectorDimension",
     "LinkAlreadyExists",
     "LinkTypeNotFound",
     "LinkedObjectNotFound",
@@ -1938,7 +1945,6 @@ __all__ = [
     "QueryTimeExceededLimit",
     "QueryVersionNotFound",
     "RateLimitReached",
-    "SearchVectorDimensionsDiffer",
     "SharedPropertiesNotFound",
     "SharedPropertyTypeNotFound",
     "TooManyNearestNeighborsRequested",

@@ -38,7 +38,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.MarkingRoleAssignment.add(
+    api_response = client.admin.Marking.MarkingRoleAssignment.add(
         marking_id, role_assignments=role_assignments, preview=preview
     )
     print("The add response:\n")
@@ -151,7 +151,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.MarkingRoleAssignment.remove(
+    api_response = client.admin.Marking.MarkingRoleAssignment.remove(
         marking_id, role_assignments=role_assignments, preview=preview
     )
     print("The remove response:\n")

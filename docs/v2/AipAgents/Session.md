@@ -68,7 +68,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.blocking_continue(
+    api_response = client.aip_agents.Agent.Session.blocking_continue(
         agent_rid,
         session_rid,
         parameter_inputs=parameter_inputs,
@@ -137,7 +137,7 @@ response = "The status of your order is **In Transit**."
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.cancel(
+    api_response = client.aip_agents.Agent.Session.cancel(
         agent_rid, session_rid, message_id=message_id, preview=preview, response=response
     )
     print("The cancel response:\n")
@@ -194,7 +194,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.create(
+    api_response = client.aip_agents.Agent.Session.create(
         agent_rid, agent_version=agent_version, preview=preview
     )
     print("The create response:\n")
@@ -249,9 +249,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.get(
-        agent_rid, session_rid, preview=preview
-    )
+    api_response = client.aip_agents.Agent.Session.get(agent_rid, session_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -373,7 +371,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.rag_context(
+    api_response = client.aip_agents.Agent.Session.rag_context(
         agent_rid,
         session_rid,
         parameter_inputs=parameter_inputs,
@@ -461,7 +459,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.streaming_continue(
+    api_response = client.aip_agents.Agent.Session.streaming_continue(
         agent_rid,
         session_rid,
         parameter_inputs=parameter_inputs,
@@ -527,7 +525,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.update_title(
+    api_response = client.aip_agents.Agent.Session.update_title(
         agent_rid, session_rid, title=title, preview=preview
     )
     print("The update_title response:\n")

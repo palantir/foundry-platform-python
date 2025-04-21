@@ -51,7 +51,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.ontologies.Query.execute(
+    api_response = client.ontologies.Query.execute(
         ontology,
         query_api_name,
         parameters=parameters,

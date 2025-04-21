@@ -40,7 +40,7 @@ transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa393
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.create(
+    api_response = client.datasets.Dataset.Branch.create(
         dataset_rid, name=name, transaction_rid=transaction_rid
     )
     print("The create response:\n")
@@ -93,7 +93,7 @@ branch_name = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.delete(dataset_rid, branch_name)
+    api_response = client.datasets.Dataset.Branch.delete(dataset_rid, branch_name)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -144,7 +144,7 @@ branch_name = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Branch.get(dataset_rid, branch_name)
+    api_response = client.datasets.Dataset.Branch.get(dataset_rid, branch_name)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

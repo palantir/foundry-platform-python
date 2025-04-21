@@ -39,7 +39,7 @@ object_type = "employee"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get(ontology_rid, object_type)
+    api_response = client.ontologies.Ontology.ObjectType.get(ontology_rid, object_type)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -96,7 +96,7 @@ link_type = "directReport"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
+    api_response = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
         ontology_rid, object_type, link_type
     )
     print("The get_outgoing_link_type response:\n")
