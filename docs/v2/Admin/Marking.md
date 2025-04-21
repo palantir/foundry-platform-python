@@ -50,7 +50,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.create(
+    api_response = client.admin.Marking.create(
         category_id=category_id,
         initial_members=initial_members,
         initial_role_assignments=initial_role_assignments,
@@ -107,7 +107,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.get(marking_id, preview=preview)
+    api_response = client.admin.Marking.get(marking_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -159,7 +159,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Marking.get_batch(body, preview=preview)
+    api_response = client.admin.Marking.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

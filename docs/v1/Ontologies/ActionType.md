@@ -37,9 +37,7 @@ action_type_api_name = "promote-employee"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ActionType.get(
-        ontology_rid, action_type_api_name
-    )
+    api_response = client.ontologies.Ontology.ActionType.get(ontology_rid, action_type_api_name)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

@@ -36,7 +36,7 @@ attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca
 
 
 try:
-    api_response = foundry_client.ontologies.Attachment.get(attachment_rid)
+    api_response = client.ontologies.Attachment.get(attachment_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -87,7 +87,7 @@ attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca
 
 
 try:
-    api_response = foundry_client.ontologies.Attachment.read(attachment_rid)
+    api_response = client.ontologies.Attachment.read(attachment_rid)
     print("The read response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -151,7 +151,7 @@ filename = "My Image.jpeg"
 
 
 try:
-    api_response = foundry_client.ontologies.Attachment.upload(
+    api_response = client.ontologies.Attachment.upload(
         body, content_length=content_length, content_type=content_type, filename=filename
     )
     print("The upload response:\n")

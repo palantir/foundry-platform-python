@@ -36,7 +36,7 @@ build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 
 
 try:
-    api_response = foundry_client.orchestration.Build.cancel(build_rid)
+    api_response = client.orchestration.Build.cancel(build_rid)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -110,7 +110,7 @@ retry_count = 1
 
 
 try:
-    api_response = foundry_client.orchestration.Build.create(
+    api_response = client.orchestration.Build.create(
         fallback_branches=fallback_branches,
         target=target,
         abort_on_failure=abort_on_failure,
@@ -166,7 +166,7 @@ build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get(build_rid)
+    api_response = client.orchestration.Build.get(build_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -215,7 +215,7 @@ body = [{"buildRid": "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58
 
 
 try:
-    api_response = foundry_client.orchestration.Build.get_batch(body)
+    api_response = client.orchestration.Build.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -331,7 +331,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Build.search(
+    api_response = client.orchestration.Build.search(
         where=where, order_by=order_by, page_size=page_size, page_token=page_token, preview=preview
     )
     print("The search response:\n")

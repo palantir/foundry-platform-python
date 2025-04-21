@@ -7,8 +7,10 @@ Method | HTTP request | Release Stage |
 [**validate**](#validate) | **POST** /v1/ontologies/{ontologyRid}/actions/{actionType}/validate | Stable |
 
 # **apply**
-Applies an action using the given parameters. Changes to the Ontology are eventually consistent and may take
-some time to be visible.
+Applies an action using the given parameters.
+
+Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
 Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint.
@@ -46,9 +48,7 @@ parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 
 
 try:
-    api_response = foundry_client.ontologies.Action.apply(
-        ontology_rid, action_type, parameters=parameters
-    )
+    api_response = client.ontologies.Action.apply(ontology_rid, action_type, parameters=parameters)
     print("The apply response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -71,7 +71,8 @@ See [README](../../../README.md#authorization)
 
 # **apply_batch**
 Applies multiple actions (of the same Action Type) using the given parameters.
-Changes to the Ontology are eventually consistent and may take some time to be visible.
+Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
 Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
 call Functions may receive a higher limit.
@@ -115,7 +116,7 @@ requests = [
 
 
 try:
-    api_response = foundry_client.ontologies.Action.apply_batch(
+    api_response = client.ontologies.Action.apply_batch(
         ontology_rid, action_type, requests=requests
     )
     print("The apply_batch response:\n")
@@ -192,7 +193,7 @@ parameters = {
 
 
 try:
-    api_response = foundry_client.ontologies.Action.validate(
+    api_response = client.ontologies.Action.validate(
         ontology_rid, action_type, parameters=parameters
     )
     print("The validate response:\n")

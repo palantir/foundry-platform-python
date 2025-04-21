@@ -93,7 +93,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.get(agent_rid, preview=preview, version=version)
+    api_response = client.aip_agents.Agent.get(agent_rid, preview=preview, version=version)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

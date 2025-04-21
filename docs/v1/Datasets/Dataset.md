@@ -41,9 +41,7 @@ parent_folder_rid = "ri.foundry.main.folder.bfe58487-4c56-4c58-aba7-25defd6163c4
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.create(
-        name=name, parent_folder_rid=parent_folder_rid
-    )
+    api_response = client.datasets.Dataset.create(name=name, parent_folder_rid=parent_folder_rid)
     print("The create response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -100,7 +98,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.delete_schema(
+    api_response = client.datasets.Dataset.delete_schema(
         dataset_rid, branch_id=branch_id, preview=preview, transaction_rid=transaction_rid
     )
     print("The delete_schema response:\n")
@@ -152,7 +150,7 @@ dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.get(dataset_rid)
+    api_response = client.datasets.Dataset.get(dataset_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -209,7 +207,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.get_schema(
+    api_response = client.datasets.Dataset.get_schema(
         dataset_rid, branch_id=branch_id, preview=preview, transaction_rid=transaction_rid
     )
     print("The get_schema response:\n")
@@ -281,7 +279,7 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.read(
+    api_response = client.datasets.Dataset.read(
         dataset_rid,
         format=format,
         branch_id=branch_id,
@@ -403,7 +401,7 @@ preview = True
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.replace_schema(
+    api_response = client.datasets.Dataset.replace_schema(
         dataset_rid, body, branch_id=branch_id, preview=preview
     )
     print("The replace_schema response:\n")

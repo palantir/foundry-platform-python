@@ -74,7 +74,7 @@ where = {"type": "eq", "field": "name", "value": "john"}
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyInterface.aggregate(
+    api_response = client.ontologies.OntologyInterface.aggregate(
         ontology,
         interface_type,
         aggregation=aggregation,
@@ -143,7 +143,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyInterface.get(
+    api_response = client.ontologies.OntologyInterface.get(
         ontology, interface_type, preview=preview
     )
     print("The get response:\n")
@@ -329,7 +329,7 @@ where = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyInterface.search(
+    api_response = client.ontologies.OntologyInterface.search(
         ontology,
         interface_type,
         augmented_properties=augmented_properties,

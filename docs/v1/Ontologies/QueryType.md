@@ -37,7 +37,7 @@ query_api_name = "getEmployeesInCity"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.QueryType.get(ontology_rid, query_api_name)
+    api_response = client.ontologies.Ontology.QueryType.get(ontology_rid, query_api_name)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

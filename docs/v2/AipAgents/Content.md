@@ -36,7 +36,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.aip_agents.Agent.Session.Content.get(
+    api_response = client.aip_agents.Agent.Session.Content.get(
         agent_rid, session_rid, preview=preview
     )
     print("The get response:\n")

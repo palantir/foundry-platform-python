@@ -43,7 +43,7 @@ property = "performance"
 
 
 try:
-    api_response = foundry_client.ontologies.CipherTextProperty.decrypt(
+    api_response = client.ontologies.CipherTextProperty.decrypt(
         ontology, object_type, primary_key, property
     )
     print("The decrypt response:\n")

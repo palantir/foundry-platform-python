@@ -56,7 +56,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.aggregate(
+    api_response = client.ontologies.OntologyObjectSet.aggregate(
         ontology,
         aggregation=aggregation,
         group_by=group_by,
@@ -118,7 +118,7 @@ object_set = {"type": "base", "objectType": "Employee"}
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.create_temporary(
+    api_response = client.ontologies.OntologyObjectSet.create_temporary(
         ontology, object_set=object_set
     )
     print("The create_temporary response:\n")
@@ -173,7 +173,7 @@ object_set_rid = "ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.get(ontology, object_set_rid)
+    api_response = client.ontologies.OntologyObjectSet.get(ontology, object_set_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -254,7 +254,7 @@ page_token = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.load(
+    api_response = client.ontologies.OntologyObjectSet.load(
         ontology,
         object_set=object_set,
         select=select,
@@ -353,7 +353,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.load_multiple_object_types(
+    api_response = client.ontologies.OntologyObjectSet.load_multiple_object_types(
         ontology,
         object_set=object_set,
         select=select,
@@ -455,7 +455,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
+    api_response = client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
         ontology,
         object_set=object_set,
         select=select,

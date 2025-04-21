@@ -60,7 +60,7 @@ select = None
 
 
 try:
-    api_response = foundry_client.ontologies.LinkedObject.get_linked_object(
+    api_response = client.ontologies.LinkedObject.get_linked_object(
         ontology,
         object_type,
         primary_key,

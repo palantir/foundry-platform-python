@@ -63,7 +63,7 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.File.content(
+    api_response = client.datasets.Dataset.File.content(
         dataset_rid,
         file_path,
         branch_name=branch_name,
@@ -135,7 +135,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.File.delete(
+    api_response = client.datasets.Dataset.File.delete(
         dataset_rid, file_path, branch_name=branch_name, transaction_rid=transaction_rid
     )
     print("The delete response:\n")
@@ -212,7 +212,7 @@ start_transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.File.get(
+    api_response = client.datasets.Dataset.File.get(
         dataset_rid,
         file_path,
         branch_name=branch_name,
@@ -379,7 +379,7 @@ transaction_type = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.File.upload(
+    api_response = client.datasets.Dataset.File.upload(
         dataset_rid,
         file_path,
         body,

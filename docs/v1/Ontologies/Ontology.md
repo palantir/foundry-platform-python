@@ -34,7 +34,7 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.get(ontology_rid)
+    api_response = client.ontologies.Ontology.get(ontology_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -80,7 +80,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.list()
+    api_response = client.ontologies.Ontology.list()
     print("The list response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

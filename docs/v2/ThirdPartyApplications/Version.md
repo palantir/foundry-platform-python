@@ -39,10 +39,8 @@ version_version = "1.2.0"
 
 
 try:
-    api_response = (
-        foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.delete(
-            third_party_application_rid, version_version
-        )
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.Version.delete(
+        third_party_application_rid, version_version
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -95,10 +93,8 @@ version_version = "1.2.0"
 
 
 try:
-    api_response = (
-        foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.get(
-            third_party_application_rid, version_version
-        )
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.Version.get(
+        third_party_application_rid, version_version
     )
     print("The get response:\n")
     pprint(api_response)
@@ -212,10 +208,8 @@ version = None
 
 
 try:
-    api_response = (
-        foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.upload(
-            third_party_application_rid, body, version=version
-        )
+    api_response = client.third_party_applications.ThirdPartyApplication.Website.Version.upload(
+        third_party_application_rid, body, version=version
     )
     print("The upload response:\n")
     pprint(api_response)
@@ -280,12 +274,14 @@ snapshot_identifier = (
 
 
 try:
-    api_response = foundry_client.third_party_applications.ThirdPartyApplication.Website.Version.upload_snapshot(
-        third_party_application_rid,
-        body,
-        version=version,
-        preview=preview,
-        snapshot_identifier=snapshot_identifier,
+    api_response = (
+        client.third_party_applications.ThirdPartyApplication.Website.Version.upload_snapshot(
+            third_party_application_rid,
+            body,
+            version=version,
+            preview=preview,
+            snapshot_identifier=snapshot_identifier,
+        )
     )
     print("The upload_snapshot response:\n")
     pprint(api_response)

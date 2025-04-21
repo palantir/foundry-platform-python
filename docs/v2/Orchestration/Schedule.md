@@ -67,7 +67,7 @@ trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.create(
+    api_response = client.orchestration.Schedule.create(
         action=action,
         description=description,
         display_name=display_name,
@@ -124,7 +124,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.delete(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.delete(schedule_rid, preview=preview)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -174,7 +174,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.get(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.get(schedule_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -224,7 +224,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.pause(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.pause(schedule_rid, preview=preview)
     print("The pause response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -304,7 +304,7 @@ trigger = {"type": "time", "cronExpression": "0 0 * * *", "timeZone": "UTC"}
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.replace(
+    api_response = client.orchestration.Schedule.replace(
         schedule_rid,
         action=action,
         description=description,
@@ -362,7 +362,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.run(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.run(schedule_rid, preview=preview)
     print("The run response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -470,7 +470,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Schedule.unpause(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.unpause(schedule_rid, preview=preview)
     print("The unpause response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

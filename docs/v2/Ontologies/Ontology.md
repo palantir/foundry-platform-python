@@ -35,7 +35,7 @@ ontology = "palantir"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.get(ontology)
+    api_response = client.ontologies.Ontology.get(ontology)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -83,7 +83,7 @@ ontology = "palantir"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.get_full_metadata(ontology)
+    api_response = client.ontologies.Ontology.get_full_metadata(ontology)
     print("The get_full_metadata response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -129,7 +129,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.list()
+    api_response = client.ontologies.Ontology.list()
     print("The list response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

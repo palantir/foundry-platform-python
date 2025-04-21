@@ -2120,6 +2120,60 @@ def connectivity_connection_table_import_list(
     click.echo(repr(result))
 
 
+@connectivity_connection_table_import.command("replace")
+@click.argument("connection_rid", type=str, required=True)
+@click.argument("table_import_rid", type=str, required=True)
+@click.option("--config", type=str, required=True, help="""""")
+@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
+)
+@click.option(
+    "--allow_schema_changes",
+    type=bool,
+    required=False,
+    help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def connectivity_connection_table_import_replace(
+    client: foundry_sdk.v2.FoundryClient,
+    connection_rid: str,
+    table_import_rid: str,
+    config: str,
+    dataset_rid: str,
+    display_name: str,
+    import_mode: typing.Literal["SNAPSHOT", "APPEND"],
+    allow_schema_changes: typing.Optional[bool],
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the TableImport with the specified rid.
+    """
+    result = client.connectivity.Connection.TableImport.replace(
+        connection_rid=connection_rid,
+        table_import_rid=table_import_rid,
+        config=json.loads(config),
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        import_mode=import_mode,
+        allow_schema_changes=allow_schema_changes,
+        branch_name=branch_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_connection.group("file_import")
 def connectivity_connection_file_import():
     pass
@@ -6523,7 +6577,8 @@ def ontologies_action_apply(
     """
     Applies an action using the given parameters.
 
-    Changes to the Ontology are eventually consistent and may take some time to be visible.
+    Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+    Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
@@ -6574,7 +6629,9 @@ def ontologies_action_apply_batch(
 ):
     """
     Applies multiple actions (of the same Action Type) using the given parameters.
-    Changes to the Ontology are eventually consistent and may take some time to be visible.
+
+    Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+    Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
     Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
     call Functions may receive a higher limit.

@@ -34,9 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.ScheduleVersion.get(
-        schedule_version_rid, preview=preview
-    )
+    api_response = client.orchestration.ScheduleVersion.get(schedule_version_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -86,7 +84,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.ScheduleVersion.schedule(
+    api_response = client.orchestration.ScheduleVersion.schedule(
         schedule_version_rid, preview=preview
     )
     print("The schedule response:\n")

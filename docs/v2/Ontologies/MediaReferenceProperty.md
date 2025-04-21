@@ -53,7 +53,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.MediaReferenceProperty.get_media_content(
+    api_response = client.ontologies.MediaReferenceProperty.get_media_content(
         ontology,
         object_type,
         primary_key,
@@ -129,7 +129,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.MediaReferenceProperty.get_media_metadata(
+    api_response = client.ontologies.MediaReferenceProperty.get_media_metadata(
         ontology,
         object_type,
         primary_key,
@@ -203,7 +203,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.MediaReferenceProperty.upload(
+    api_response = client.ontologies.MediaReferenceProperty.upload(
         ontology, object_type, property, body, media_item_path=media_item_path, preview=preview
     )
     print("The upload response:\n")

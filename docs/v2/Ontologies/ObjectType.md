@@ -40,7 +40,7 @@ object_type = "employee"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get(ontology, object_type)
+    api_response = client.ontologies.Ontology.ObjectType.get(ontology, object_type)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -96,7 +96,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get_full_metadata(
+    api_response = client.ontologies.Ontology.ObjectType.get_full_metadata(
         ontology, object_type, preview=preview
     )
     print("The get_full_metadata response:\n")
@@ -155,7 +155,7 @@ link_type = "directReport"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
+    api_response = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
         ontology, object_type, link_type
     )
     print("The get_outgoing_link_type response:\n")

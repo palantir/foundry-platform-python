@@ -54,7 +54,7 @@ description = "Create and modify data sources in the platform"
 
 
 try:
-    api_response = foundry_client.admin.Group.create(
+    api_response = client.admin.Group.create(
         attributes=attributes, name=name, organizations=organizations, description=description
     )
     print("The create response:\n")
@@ -103,7 +103,7 @@ group_id = None
 
 
 try:
-    api_response = foundry_client.admin.Group.delete(group_id)
+    api_response = client.admin.Group.delete(group_id)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -150,7 +150,7 @@ group_id = None
 
 
 try:
-    api_response = foundry_client.admin.Group.get(group_id)
+    api_response = client.admin.Group.get(group_id)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -199,7 +199,7 @@ body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
 
 
 try:
-    api_response = foundry_client.admin.Group.get_batch(body)
+    api_response = client.admin.Group.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -304,7 +304,7 @@ page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmV
 
 
 try:
-    api_response = foundry_client.admin.Group.search(
+    api_response = client.admin.Group.search(
         where=where, page_size=page_size, page_token=page_token
     )
     print("The search response:\n")

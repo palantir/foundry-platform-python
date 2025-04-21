@@ -51,7 +51,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.TimeSeriesPropertyV2.get_first_point(
+    api_response = client.ontologies.TimeSeriesPropertyV2.get_first_point(
         ontology,
         object_type,
         primary_key,
@@ -124,7 +124,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.TimeSeriesPropertyV2.get_last_point(
+    api_response = client.ontologies.TimeSeriesPropertyV2.get_last_point(
         ontology,
         object_type,
         primary_key,
@@ -210,7 +210,7 @@ range = {
 
 
 try:
-    api_response = foundry_client.ontologies.TimeSeriesPropertyV2.stream_points(
+    api_response = client.ontologies.TimeSeriesPropertyV2.stream_points(
         ontology,
         object_type,
         primary_key,

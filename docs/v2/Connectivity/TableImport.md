@@ -7,6 +7,7 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
 [**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Private Beta |
 
 # **create**
 Creates a new TableImport.
@@ -55,7 +56,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.TableImport.create(
+    api_response = client.connectivity.Connection.TableImport.create(
         connection_rid,
         config=config,
         dataset_rid=dataset_rid,
@@ -120,7 +121,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.TableImport.delete(
+    api_response = client.connectivity.Connection.TableImport.delete(
         connection_rid, table_import_rid, preview=preview
     )
     print("The delete response:\n")
@@ -177,7 +178,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.TableImport.execute(
+    api_response = client.connectivity.Connection.TableImport.execute(
         connection_rid, table_import_rid, preview=preview
     )
     print("The execute response:\n")
@@ -232,7 +233,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.TableImport.get(
+    api_response = client.connectivity.Connection.TableImport.get(
         connection_rid, table_import_rid, preview=preview
     )
     print("The get response:\n")
@@ -311,6 +312,87 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListTableImportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the TableImport with the specified rid.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid |  |  |
+**table_import_rid** | TableImportRid |  |  |
+**config** | ReplaceTableImportRequestTableImportConfig |  |  |
+**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
+**display_name** | TableImportDisplayName |  |  |
+**import_mode** | TableImportMode |  |  |
+**allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
+**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**TableImport**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ConnectionRid
+connection_rid = None
+# TableImportRid
+table_import_rid = None
+# ReplaceTableImportRequestTableImportConfig
+config = {"type": "jdbcImportConfig", "query": "SELECT * FROM table"}
+# DatasetRid | The RID of the output dataset.
+dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
+# TableImportDisplayName
+display_name = "My table import"
+# TableImportMode
+import_mode = "SNAPSHOT"
+# Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
+allow_schema_changes = True
+# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+branch_name = "master"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.connectivity.Connection.TableImport.replace(
+        connection_rid,
+        table_import_rid,
+        config=config,
+        dataset_rid=dataset_rid,
+        display_name=display_name,
+        import_mode=import_mode,
+        allow_schema_changes=allow_schema_changes,
+        branch_name=branch_name,
+        preview=preview,
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling TableImport.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | TableImport  | The replaced TableImport | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

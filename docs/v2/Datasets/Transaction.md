@@ -40,7 +40,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.abort(dataset_rid, transaction_rid)
     print("The abort response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -96,7 +96,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.build(
+    api_response = client.datasets.Dataset.Transaction.build(
         dataset_rid, transaction_rid, preview=preview
     )
     print("The build response:\n")
@@ -150,7 +150,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.commit(dataset_rid, transaction_rid)
     print("The commit response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -204,7 +204,7 @@ branch_name = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.create(
+    api_response = client.datasets.Dataset.Transaction.create(
         dataset_rid, transaction_type=transaction_type, branch_name=branch_name
     )
     print("The create response:\n")
@@ -279,7 +279,7 @@ transaction_rid = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
+    api_response = client.datasets.Dataset.Transaction.get(dataset_rid, transaction_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -335,7 +335,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.datasets.Dataset.Transaction.job(
+    api_response = client.datasets.Dataset.Transaction.job(
         dataset_rid, transaction_rid, preview=preview
     )
     print("The job response:\n")

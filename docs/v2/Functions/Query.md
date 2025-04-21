@@ -44,7 +44,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.functions.Query.execute(
+    api_response = client.functions.Query.execute(
         query_api_name, parameters=parameters, preview=preview, version=version
     )
     print("The execute response:\n")
@@ -100,9 +100,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.functions.Query.get(
-        query_api_name, preview=preview, version=version
-    )
+    api_response = client.functions.Query.get(query_api_name, preview=preview, version=version)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -156,9 +154,7 @@ version = None
 
 
 try:
-    api_response = foundry_client.functions.Query.get_by_rid(
-        rid=rid, preview=preview, version=version
-    )
+    api_response = client.functions.Query.get_by_rid(rid=rid, preview=preview, version=version)
     print("The get_by_rid response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

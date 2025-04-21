@@ -37,7 +37,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.SqlQuery.cancel(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.cancel(sql_query_id, preview=preview)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -91,7 +91,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.SqlQuery.execute(
+    api_response = client.sql_queries.SqlQuery.execute(
         query=query, fallback_branch_ids=fallback_branch_ids, preview=preview
     )
     print("The execute response:\n")
@@ -145,7 +145,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.SqlQuery.get_results(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.get_results(sql_query_id, preview=preview)
     print("The get_results response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -196,7 +196,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.sql_queries.SqlQuery.get_status(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.get_status(sql_query_id, preview=preview)
     print("The get_status response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

@@ -34,7 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.functions.ValueType.get(value_type_rid, preview=preview)
+    api_response = client.functions.ValueType.get(value_type_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

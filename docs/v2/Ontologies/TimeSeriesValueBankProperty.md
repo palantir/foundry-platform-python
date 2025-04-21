@@ -50,7 +50,7 @@ package_name = None
 
 
 try:
-    api_response = foundry_client.ontologies.TimeSeriesValueBankProperty.get_latest_value(
+    api_response = client.ontologies.TimeSeriesValueBankProperty.get_latest_value(
         ontology,
         object_type,
         primary_key,
@@ -130,7 +130,7 @@ range = {
 
 
 try:
-    api_response = foundry_client.ontologies.TimeSeriesValueBankProperty.stream_values(
+    api_response = client.ontologies.TimeSeriesValueBankProperty.stream_values(
         ontology,
         object_type,
         primary_key,

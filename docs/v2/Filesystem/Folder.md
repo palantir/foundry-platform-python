@@ -99,7 +99,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Folder.create(
+    api_response = client.filesystem.Folder.create(
         display_name=display_name, parent_folder_rid=parent_folder_rid, preview=preview
     )
     print("The create response:\n")
@@ -151,7 +151,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.filesystem.Folder.get(folder_rid, preview=preview)
+    api_response = client.filesystem.Folder.get(folder_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

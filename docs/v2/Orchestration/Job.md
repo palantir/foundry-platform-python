@@ -34,7 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Job.get(job_rid, preview=preview)
+    api_response = client.orchestration.Job.get(job_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -86,7 +86,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.orchestration.Job.get_batch(body, preview=preview)
+    api_response = client.orchestration.Job.get_batch(body, preview=preview)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

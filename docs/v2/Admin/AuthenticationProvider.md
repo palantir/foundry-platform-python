@@ -39,7 +39,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.AuthenticationProvider.get(
+    api_response = client.admin.Enrollment.AuthenticationProvider.get(
         enrollment_rid, authentication_provider_rid, preview=preview
     )
     print("The get response:\n")
@@ -93,7 +93,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.AuthenticationProvider.list(
+    api_response = client.admin.Enrollment.AuthenticationProvider.list(
         enrollment_rid, preview=preview
     )
     print("The list response:\n")
@@ -156,7 +156,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.AuthenticationProvider.preregister_group(
+    api_response = client.admin.Enrollment.AuthenticationProvider.preregister_group(
         enrollment_rid,
         authentication_provider_rid,
         name=name,
@@ -245,7 +245,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.AuthenticationProvider.preregister_user(
+    api_response = client.admin.Enrollment.AuthenticationProvider.preregister_user(
         enrollment_rid,
         authentication_provider_rid,
         organization=organization,

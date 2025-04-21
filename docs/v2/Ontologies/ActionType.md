@@ -38,7 +38,7 @@ action_type = "promote-employee"
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ActionType.get(ontology, action_type)
+    api_response = client.ontologies.Ontology.ActionType.get(ontology, action_type)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -91,9 +91,7 @@ action_type_rid = "ri.ontology.main.action-type.7ed72754-7491-428a-bb18-4d7296eb
 
 
 try:
-    api_response = foundry_client.ontologies.Ontology.ActionType.get_by_rid(
-        ontology, action_type_rid
-    )
+    api_response = client.ontologies.Ontology.ActionType.get_by_rid(ontology, action_type_rid)
     print("The get_by_rid response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

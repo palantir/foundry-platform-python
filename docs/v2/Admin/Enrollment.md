@@ -34,7 +34,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.get(enrollment_rid, preview=preview)
+    api_response = client.admin.Enrollment.get(enrollment_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -82,7 +82,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.admin.Enrollment.get_current(preview=preview)
+    api_response = client.admin.Enrollment.get_current(preview=preview)
     print("The get_current response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

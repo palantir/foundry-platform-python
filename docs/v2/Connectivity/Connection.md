@@ -55,7 +55,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.create(
+    api_response = client.connectivity.Connection.create(
         configuration=configuration,
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
@@ -110,7 +110,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.get(connection_rid, preview=preview)
+    api_response = client.connectivity.Connection.get(connection_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -162,9 +162,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.get_configuration(
-        connection_rid, preview=preview
-    )
+    api_response = client.connectivity.Connection.get_configuration(connection_rid, preview=preview)
     print("The get_configuration response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -228,7 +226,7 @@ preview = None
 
 
 try:
-    api_response = foundry_client.connectivity.Connection.update_secrets(
+    api_response = client.connectivity.Connection.update_secrets(
         connection_rid, secrets=secrets, preview=preview
     )
     print("The update_secrets response:\n")
