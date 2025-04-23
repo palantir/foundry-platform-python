@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/ontologies/{ontology} | Stable |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/fullMetadata | Public Beta |
 [**list**](#list) | **GET** /v2/ontologies | Stable |
+[**load_metadata**](#load_metadata) | **POST** /v2/ontologies/{ontology}/metadata | Private Beta |
 
 # **get**
 Gets a specific ontology with the given Ontology RID.
@@ -147,6 +148,76 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListOntologiesV2Response  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **load_metadata**
+Load Ontology metadata for the requested object, link, action, query, and interface types.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**action_types** | List[ActionTypeApiName] |  |  |
+**interface_types** | List[InterfaceTypeApiName] |  |  |
+**link_types** | List[LinkTypeApiName] |  |  |
+**object_types** | List[ObjectTypeApiName] |  |  |
+**query_types** | List[VersionedQueryTypeApiName] |  |  |
+
+### Return type
+**OntologyFullMetadata**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# List[ActionTypeApiName]
+action_types = None
+# List[InterfaceTypeApiName]
+interface_types = None
+# List[LinkTypeApiName]
+link_types = None
+# List[ObjectTypeApiName]
+object_types = None
+# List[VersionedQueryTypeApiName]
+query_types = None
+
+
+try:
+    api_response = client.ontologies.Ontology.load_metadata(
+        ontology,
+        action_types=action_types,
+        interface_types=interface_types,
+        link_types=link_types,
+        object_types=object_types,
+        query_types=query_types,
+    )
+    print("The load_metadata response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Ontology.load_metadata: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | OntologyFullMetadata  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

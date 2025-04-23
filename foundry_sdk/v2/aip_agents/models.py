@@ -406,6 +406,9 @@ class SessionExchangeContexts(pydantic.BaseModel):
     object_contexts: typing.List[ObjectContext] = pydantic.Field(alias=str("objectContexts"))  # type: ignore[literal-required]
     """Relevant object context for the user's message that was included in the prompt to the Agent."""
 
+    function_retrieved_contexts: typing.List[FunctionRetrievedContext] = pydantic.Field(alias=str("functionRetrievedContexts"))  # type: ignore[literal-required]
+    """Context retrieved from running a function that was included as additional context in the prompt to the Agent."""
+
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
