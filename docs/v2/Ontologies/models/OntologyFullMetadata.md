@@ -8,7 +8,7 @@ OntologyFullMetadata
 **ontology** | OntologyV2 | Yes |  |
 **object_types** | Dict[ObjectTypeApiName, ObjectTypeFullMetadata] | Yes |  |
 **action_types** | Dict[ActionTypeApiName, ActionTypeV2] | Yes |  |
-**query_types** | Dict[QueryApiName, QueryTypeV2] | Yes |  |
+**query_types** | Dict[VersionedQueryTypeApiName, QueryTypeV2] | Yes |  |
 **interface_types** | Dict[InterfaceTypeApiName, InterfaceType] | Yes |  |
 **shared_property_types** | Dict[SharedPropertyTypeApiName, SharedPropertyType] | Yes |  |
 

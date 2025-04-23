@@ -5580,6 +5580,38 @@ def ontologies_ontology_list(
     click.echo(repr(result))
 
 
+@ontologies_ontology.command("load_metadata")
+@click.argument("ontology", type=str, required=True)
+@click.option("--action_types", type=str, required=True, help="""""")
+@click.option("--interface_types", type=str, required=True, help="""""")
+@click.option("--link_types", type=str, required=True, help="""""")
+@click.option("--object_types", type=str, required=True, help="""""")
+@click.option("--query_types", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_ontology_load_metadata(
+    client: foundry_sdk.v2.FoundryClient,
+    ontology: str,
+    action_types: str,
+    interface_types: str,
+    link_types: str,
+    object_types: str,
+    query_types: str,
+):
+    """
+    Load Ontology metadata for the requested object, link, action, query, and interface types.
+
+    """
+    result = client.ontologies.Ontology.load_metadata(
+        ontology=ontology,
+        action_types=json.loads(action_types),
+        interface_types=json.loads(interface_types),
+        link_types=json.loads(link_types),
+        object_types=json.loads(object_types),
+        query_types=json.loads(query_types),
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology.group("query_type")
 def ontologies_ontology_query_type():
     pass

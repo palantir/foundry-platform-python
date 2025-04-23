@@ -33,6 +33,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"EDDIE_LOGIC"` |
 | `"EDDIE_PIPELINE"` |
 | `"FFORMS_FORM"` |
+| `"FLOW_WORKFLOW"` |
 | `"FOUNDRY_DATASET"` |
 | `"FOUNDRY_DEPLOYED_APP"` |
 | `"FOUNDRY_ACADEMY_TUTORIAL"` |

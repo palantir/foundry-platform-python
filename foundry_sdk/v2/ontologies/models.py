@@ -2317,7 +2317,7 @@ class OntologyFullMetadata(pydantic.BaseModel):
     ontology: OntologyV2
     object_types: typing.Dict[ObjectTypeApiName, ObjectTypeFullMetadata] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
     action_types: typing.Dict[ActionTypeApiName, ActionTypeV2] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
-    query_types: typing.Dict[QueryApiName, QueryTypeV2] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
+    query_types: typing.Dict[VersionedQueryTypeApiName, QueryTypeV2] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
     interface_types: typing.Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
     shared_property_types: typing.Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -3694,6 +3694,17 @@ structs.
 """
 
 
+VersionedQueryTypeApiName = str
+"""
+The name of the Query in the API and an optional version identifier separated by a colon.
+If the API name contains a colon, then a version identifier of either "latest" or a semantic version must
+be included.
+If the API does not contain a colon, then either the version identifier must be excluded or a version
+identifier of a semantic version must be included.
+Examples: 'myGroup:myFunction:latest', 'myGroup:myFunction:1.0.0', 'myFunction', 'myFunction:2.0.0'
+"""
+
+
 class WithinBoundingBoxQuery(pydantic.BaseModel):
     """
     Returns objects where the specified field contains a point within the bounding box provided. Allows you to
@@ -4092,6 +4103,7 @@ __all__ = [
     "ValidateActionResponseV2",
     "ValidationResult",
     "ValueType",
+    "VersionedQueryTypeApiName",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxQuery",
     "WithinDistanceOfQuery",

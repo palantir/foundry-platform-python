@@ -199,16 +199,90 @@ class OntologyClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def load_metadata(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        action_types: typing.List[ontologies_models.ActionTypeApiName],
+        interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
+        link_types: typing.List[ontologies_models.LinkTypeApiName],
+        object_types: typing.List[ontologies_models.ObjectTypeApiName],
+        query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.OntologyFullMetadata:
+        """
+        Load Ontology metadata for the requested object, link, action, query, and interface types.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param action_types:
+        :type action_types: List[ActionTypeApiName]
+        :param interface_types:
+        :type interface_types: List[InterfaceTypeApiName]
+        :param link_types:
+        :type link_types: List[LinkTypeApiName]
+        :param object_types:
+        :type object_types: List[ObjectTypeApiName]
+        :param query_types:
+        :type query_types: List[VersionedQueryTypeApiName]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.OntologyFullMetadata
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/metadata",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "objectTypes": object_types,
+                    "linkTypes": link_types,
+                    "actionTypes": action_types,
+                    "queryTypes": query_types,
+                    "interfaceTypes": interface_types,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "objectTypes": typing.List[ontologies_models.ObjectTypeApiName],
+                        "linkTypes": typing.List[ontologies_models.LinkTypeApiName],
+                        "actionTypes": typing.List[ontologies_models.ActionTypeApiName],
+                        "queryTypes": typing.List[ontologies_models.VersionedQueryTypeApiName],
+                        "interfaceTypes": typing.List[ontologies_models.InterfaceTypeApiName],
+                    },
+                ),
+                response_type=ontologies_models.OntologyFullMetadata,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OntologyClientRaw:
     def __init__(self, client: OntologyClient) -> None:
         def get(_: ontologies_models.OntologyV2): ...
         def get_full_metadata(_: ontologies_models.OntologyFullMetadata): ...
         def list(_: ontologies_models.ListOntologiesV2Response): ...
+        def load_metadata(_: ontologies_models.OntologyFullMetadata): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
         self.list = core.with_raw_response(list, client.list)
+        self.load_metadata = core.with_raw_response(load_metadata, client.load_metadata)
 
 
 class _OntologyClientStreaming:
@@ -216,9 +290,11 @@ class _OntologyClientStreaming:
         def get(_: ontologies_models.OntologyV2): ...
         def get_full_metadata(_: ontologies_models.OntologyFullMetadata): ...
         def list(_: ontologies_models.ListOntologiesV2Response): ...
+        def load_metadata(_: ontologies_models.OntologyFullMetadata): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_full_metadata = core.with_streaming_response(
             get_full_metadata, client.get_full_metadata
         )
         self.list = core.with_streaming_response(list, client.list)
+        self.load_metadata = core.with_streaming_response(load_metadata, client.load_metadata)
