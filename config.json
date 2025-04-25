@@ -27,9 +27,16 @@
       "operationName": "getDataset"
     },
     "packageName": "datasets",
+    "errorPackageName": "datasets",
     "exampleError": "DatasetNotFound",
     "exampleGenericError": "UnauthorizedError",
-    "exampleErrorMessage": "There was an error with the request"
+    "exampleErrorMessage": "There was an error with the request",
+    "errorTestParameters": {
+      "datasetRid": "ri.a.b.c.d"
+    },
+    "errorTest2Parameters": {
+      "datasetRid": 123
+    }
   },
   "paginationExampleOperation": {
     "majorVersion": "v2",
