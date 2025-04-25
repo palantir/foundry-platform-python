@@ -29,8 +29,8 @@
     "packageName": "foundry_sdk",
     "errorPackageName": "foundry_sdk.v1.datasets.errors",
     "exampleError": "BranchNotFound",
-    "exampleGenericError": "Resource not found",
-    "exampleErrorMessage": "Branch not found",
+    "exampleGenericError": "NotFoundError",
+    "exampleErrorMessage": "Resource not found",
     "errorTestParameters": {
       "datasetRid": "ri.a.b.c.d",
       "branchId": "main"

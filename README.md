@@ -237,7 +237,7 @@ try:
     response = client.datasets.Dataset.get(dataset_rid)
     ...
 except BranchNotFound as e:
-    print("Branch not found", e.parameters[...])
+    print("Resource not found", e.parameters[...])
 
 ```
 
@@ -259,13 +259,13 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 
 ```python
 from foundry_sdk import PalantirRPCException
-from foundry_sdk import Resource not found
+from foundry_sdk import NotFoundError
 
 try:
     api_response = client.datasets.Dataset.get(dataset_rid)
     ...
-except Resource not found as e:
-    print("Branch not found", e)
+except NotFoundError as e:
+    print("Resource not found", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
 
