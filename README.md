@@ -259,12 +259,12 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 
 ```python
 from foundry_sdk import PalantirRPCException
-from foundry_sdk import NotFoundError
+from foundry_sdk import Resource not found
 
 try:
     api_response = client.datasets.Dataset.get(dataset_rid)
     ...
-except NotFoundError as e:
+except Resource not found as e:
     print("Branch not found", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
