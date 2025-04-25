@@ -27,7 +27,7 @@
       "operationName": "getDataset"
     },
     "packageName": "datasets",
-    "errorPackageName": "datasets",
+    "errorPackageName": "foundry.v1.datasets.errors",
     "exampleError": "DatasetNotFound",
     "exampleGenericError": "UnauthorizedError",
     "exampleErrorMessage": "There was an error with the request",
