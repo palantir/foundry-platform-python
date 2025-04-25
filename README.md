@@ -230,13 +230,13 @@ class DatasetNotFound(NotFoundError):
 As a user, you can catch this exception and handle it accordingly.
 
 ```python
-from foundry_sdk.v2.datasets.errors import DatasetNotFound
+from foundry_sdk.v1.datasets.errors import BranchNotFound
 
 try:
     response = client.datasets.Dataset.get(dataset_rid)
     ...
-except DatasetNotFound as e:
-    print("There was an error with the request", e.parameters[...])
+except BranchNotFound as e:
+    print("Branch not found", e.parameters[...])
 
 ```
 
@@ -258,13 +258,13 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 
 ```python
 from foundry_sdk import PalantirRPCException
-from foundry_sdk import UnauthorizedError
+from foundry_sdk.v1.datasets.errors import NotFoundError
 
 try:
     api_response = client.datasets.Dataset.get(dataset_rid)
     ...
-except UnauthorizedError as e:
-    print("There was an error with the request", e)
+except NotFoundError as e:
+    print("Branch not found", e)
 except PalantirRPCException as e:
     print("Another HTTP exception occurred", e)
 
@@ -553,6 +553,7 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Branch | [**list**](docs/v2/Datasets/Branch.md#list) | **GET** /v2/datasets/{datasetRid}/branches |
 **Datasets** | Dataset | [**create**](docs/v2/Datasets/Dataset.md#create) | **POST** /v2/datasets |
 **Datasets** | Dataset | [**get**](docs/v2/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
+**Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
 **Datasets** | Dataset | [**read_table**](docs/v2/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
 **Datasets** | File | [**content**](docs/v2/Datasets/File.md#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content |
 **Datasets** | File | [**delete**](docs/v2/Datasets/File.md#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} |
@@ -604,6 +605,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | AttachmentProperty | [**get_attachment_by_rid**](docs/v2/Ontologies/AttachmentProperty.md#get_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid} |
 **Ontologies** | AttachmentProperty | [**read_attachment**](docs/v2/Ontologies/AttachmentProperty.md#read_attachment) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/content |
 **Ontologies** | AttachmentProperty | [**read_attachment_by_rid**](docs/v2/Ontologies/AttachmentProperty.md#read_attachment_by_rid) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/attachments/{property}/{attachmentRid}/content |
+**Ontologies** | CipherTextProperty | [**decrypt**](docs/v2/Ontologies/CipherTextProperty.md#decrypt) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/ciphertexts/{property}/decrypt |
 **Ontologies** | LinkedObject | [**get_linked_object**](docs/v2/Ontologies/LinkedObject.md#get_linked_object) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey} |
 **Ontologies** | LinkedObject | [**list_linked_objects**](docs/v2/Ontologies/LinkedObject.md#list_linked_objects) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType} |
 **Ontologies** | MediaReferenceProperty | [**get_media_content**](docs/v2/Ontologies/MediaReferenceProperty.md#get_media_content) | **GET** /v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/media/{property}/content |
@@ -999,6 +1001,7 @@ Namespace | Name | Import |
 **Core** | [Reference](docs/v2/Core/models/Reference.md) | `from foundry_sdk.v2.core.models import Reference` |
 **Core** | [ReleaseStatus](docs/v2/Core/models/ReleaseStatus.md) | `from foundry_sdk.v2.core.models import ReleaseStatus` |
 **Core** | [RoleId](docs/v2/Core/models/RoleId.md) | `from foundry_sdk.v2.core.models import RoleId` |
+**Core** | [ScheduleRid](docs/v2/Core/models/ScheduleRid.md) | `from foundry_sdk.v2.core.models import ScheduleRid` |
 **Core** | [ShortType](docs/v2/Core/models/ShortType.md) | `from foundry_sdk.v2.core.models import ShortType` |
 **Core** | [SizeBytes](docs/v2/Core/models/SizeBytes.md) | `from foundry_sdk.v2.core.models import SizeBytes` |
 **Core** | [StreamSchema](docs/v2/Core/models/StreamSchema.md) | `from foundry_sdk.v2.core.models import StreamSchema` |
@@ -1027,6 +1030,7 @@ Namespace | Name | Import |
 **Datasets** | [FileUpdatedTime](docs/v2/Datasets/models/FileUpdatedTime.md) | `from foundry_sdk.v2.datasets.models import FileUpdatedTime` |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
+**Datasets** | [ListSchedulesResponse](docs/v2/Datasets/models/ListSchedulesResponse.md) | `from foundry_sdk.v2.datasets.models import ListSchedulesResponse` |
 **Datasets** | [TableExportFormat](docs/v2/Datasets/models/TableExportFormat.md) | `from foundry_sdk.v2.datasets.models import TableExportFormat` |
 **Datasets** | [Transaction](docs/v2/Datasets/models/Transaction.md) | `from foundry_sdk.v2.datasets.models import Transaction` |
 **Datasets** | [TransactionCreatedTime](docs/v2/Datasets/models/TransactionCreatedTime.md) | `from foundry_sdk.v2.datasets.models import TransactionCreatedTime` |
@@ -1482,7 +1486,6 @@ Namespace | Name | Import |
 **Orchestration** | [RetryCount](docs/v2/Orchestration/models/RetryCount.md) | `from foundry_sdk.v2.orchestration.models import RetryCount` |
 **Orchestration** | [Schedule](docs/v2/Orchestration/models/Schedule.md) | `from foundry_sdk.v2.orchestration.models import Schedule` |
 **Orchestration** | [SchedulePaused](docs/v2/Orchestration/models/SchedulePaused.md) | `from foundry_sdk.v2.orchestration.models import SchedulePaused` |
-**Orchestration** | [ScheduleRid](docs/v2/Orchestration/models/ScheduleRid.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRid` |
 **Orchestration** | [ScheduleRun](docs/v2/Orchestration/models/ScheduleRun.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRun` |
 **Orchestration** | [ScheduleRunError](docs/v2/Orchestration/models/ScheduleRunError.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRunError` |
 **Orchestration** | [ScheduleRunErrorName](docs/v2/Orchestration/models/ScheduleRunErrorName.md) | `from foundry_sdk.v2.orchestration.models import ScheduleRunErrorName` |
@@ -1885,6 +1888,7 @@ Namespace | Name | Import |
 **Datasets** | FileNotFound | `from foundry_sdk.v2.datasets.errors import FileNotFound` |
 **Datasets** | FileNotFoundOnBranch | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnBranch` |
 **Datasets** | FileNotFoundOnTransactionRange | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnTransactionRange` |
+**Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
 **Datasets** | GetFileContentPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetFileContentPermissionDenied` |
 **Datasets** | InvalidBranchName | `from foundry_sdk.v2.datasets.errors import InvalidBranchName` |
 **Datasets** | InvalidTransactionType | `from foundry_sdk.v2.datasets.errors import InvalidTransactionType` |

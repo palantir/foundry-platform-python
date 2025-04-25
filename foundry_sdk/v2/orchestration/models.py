@@ -620,7 +620,7 @@ not all types of failures can be retried.
 class Schedule(pydantic.BaseModel):
     """Schedule"""
 
-    rid: ScheduleRid
+    rid: core_models.ScheduleRid
     display_name: typing.Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     description: typing.Optional[str] = None
     current_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("currentVersionRid"))  # type: ignore[literal-required]
@@ -650,17 +650,13 @@ SchedulePaused = bool
 """SchedulePaused"""
 
 
-ScheduleRid = core.RID
-"""The Resource Identifier (RID) of a Schedule."""
-
-
 class ScheduleRun(pydantic.BaseModel):
     """ScheduleRun"""
 
     rid: ScheduleRunRid
     """The RID of a schedule run"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
     schedule_version_rid: ScheduleVersionRid = pydantic.Field(alias=str("scheduleVersionRid"))  # type: ignore[literal-required]
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The time at which the schedule run was created."""
@@ -752,7 +748,7 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
     successfully.
     """
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
     type: typing.Literal["scheduleSucceeded"] = "scheduleSucceeded"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -767,7 +763,7 @@ class ScheduleVersion(pydantic.BaseModel):
     rid: ScheduleVersionRid
     """The RID of a schedule version"""
 
-    schedule_rid: ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
+    schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     """The time the schedule version was created"""
 
@@ -1082,7 +1078,6 @@ __all__ = [
     "RetryCount",
     "Schedule",
     "SchedulePaused",
-    "ScheduleRid",
     "ScheduleRun",
     "ScheduleRunError",
     "ScheduleRunErrorName",

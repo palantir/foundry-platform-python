@@ -191,7 +191,7 @@ class DeleteSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -343,7 +343,7 @@ class PauseSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -358,7 +358,7 @@ class ReplaceSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -373,7 +373,7 @@ class RunSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -388,7 +388,7 @@ class ScheduleNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -465,7 +465,7 @@ class TargetNotSupportedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass
@@ -480,7 +480,7 @@ class UnpauseSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    scheduleRid: orchestration_models.ScheduleRid
+    scheduleRid: core_models.ScheduleRid
 
 
 @dataclass

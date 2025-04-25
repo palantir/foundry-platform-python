@@ -105,6 +105,18 @@ class ListFilesResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ListSchedulesResponse(pydantic.BaseModel):
+    """ListSchedulesResponse"""
+
+    data: typing.List[core_models.ScheduleRid]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 TableExportFormat = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
@@ -154,6 +166,7 @@ __all__ = [
     "FileUpdatedTime",
     "ListBranchesResponse",
     "ListFilesResponse",
+    "ListSchedulesResponse",
     "TableExportFormat",
     "Transaction",
     "TransactionCreatedTime",
