@@ -273,11 +273,14 @@ class SessionClient:
         :rtype: aip_agents_models.Session
 
         :raises AgentNotFound: The given Agent could not be found.
+        :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
         :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
@@ -307,11 +310,14 @@ class SessionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
                     "CreateSessionPermissionDenied": aip_agents_errors.CreateSessionPermissionDenied,
                     "FunctionLocatorNotFound": aip_agents_errors.FunctionLocatorNotFound,
+                    "InvalidAgentVersion": aip_agents_errors.InvalidAgentVersion,
                     "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -342,6 +348,7 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.Session
 
+        :raises AgentNotFound: The given Agent could not be found.
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -364,6 +371,7 @@ class SessionClient:
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

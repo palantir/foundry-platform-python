@@ -73,7 +73,9 @@ class ContentClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.Content
 
+        :raises AgentNotFound: The given Agent could not be found.
         :raises ContentNotFound: The given Content could not be found.
+        :raises SessionNotFound: The given Session could not be found.
         """
 
         return self._api_client.call_api(
@@ -95,7 +97,9 @@ class ContentClient:
                 response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "ContentNotFound": aip_agents_errors.ContentNotFound,
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

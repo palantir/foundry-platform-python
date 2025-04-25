@@ -24,18 +24,20 @@ from datetime import datetime
 
 import click
 
-import foundry_sdk.v2
+from foundry_sdk import EnvironmentNotConfigured
+from foundry_sdk import UserTokenAuth
+from foundry_sdk.v2 import FoundryClient
 
 
 @dataclasses.dataclass
 class _Context:
-    obj: foundry_sdk.v2.FoundryClient
+    obj: FoundryClient
 
 
 def get_from_environ(key: str) -> str:
     value = os.environ.get(key)
     if value is None:
-        raise foundry_sdk.EnvironmentNotConfigured(f"Please set {key} using `export {key}=<{key}>`")
+        raise EnvironmentNotConfigured(f"Please set {key} using `export {key}=<{key}>`")
 
     return value
 
@@ -43,9 +45,9 @@ def get_from_environ(key: str) -> str:
 @click.group()  # type: ignore
 @click.pass_context  # type: ignore
 def cli(ctx: _Context):
-    "An experimental CLI for the Foundry API"
-    ctx.obj = foundry_sdk.v2.FoundryClient(
-        auth=foundry_sdk.UserTokenAuth(token=get_from_environ("FOUNDRY_TOKEN")),
+    """An experimental CLI for the Foundry API"""
+    ctx.obj = FoundryClient(
+        auth=UserTokenAuth(token=get_from_environ("FOUNDRY_TOKEN")),
         hostname=get_from_environ("FOUNDRY_HOSTNAME"),
     )
 
@@ -64,7 +66,7 @@ def admin_user():
 @click.argument("user_id", type=str, required=True)
 @click.pass_obj
 def admin_user_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
 ):
     """
@@ -80,7 +82,7 @@ def admin_user_delete(
 @click.argument("user_id", type=str, required=True)
 @click.pass_obj
 def admin_user_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
 ):
     """
@@ -96,7 +98,7 @@ def admin_user_get(
 @click.argument("body", type=str, required=True)
 @click.pass_obj
 def admin_user_get_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: str,
 ):
     """
@@ -113,7 +115,7 @@ def admin_user_get_batch(
 @admin_user.command("get_current")
 @click.pass_obj
 def admin_user_get_current(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
 ):
     """ """
     result = client.admin.User.get_current()
@@ -127,7 +129,7 @@ def admin_user_get_current(
 )
 @click.pass_obj
 def admin_user_get_markings(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
     preview: typing.Optional[bool],
 ):
@@ -155,7 +157,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_user_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -175,7 +177,7 @@ def admin_user_list(
 @click.argument("user_id", type=str, required=True)
 @click.pass_obj
 def admin_user_profile_picture(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
 ):
     """ """
@@ -191,7 +193,7 @@ def admin_user_profile_picture(
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def admin_user_search(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     where: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -240,7 +242,7 @@ Defaults to false.
 )
 @click.pass_obj
 def admin_user_group_membership_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -277,7 +279,7 @@ def admin_user_user_provider_info():
 )
 @click.pass_obj
 def admin_user_user_provider_info_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
     preview: typing.Optional[bool],
 ):
@@ -306,7 +308,7 @@ At most one User can have a given provider ID in a given Realm.
 )
 @click.pass_obj
 def admin_user_user_provider_info_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     user_id: str,
     provider_id: str,
     preview: typing.Optional[bool],
@@ -334,7 +336,7 @@ def admin_organization():
 )
 @click.pass_obj
 def admin_organization_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     organization_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -365,7 +367,7 @@ Organization.
 )
 @click.pass_obj
 def admin_organization_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     organization_rid: str,
     name: str,
     description: typing.Optional[str],
@@ -397,7 +399,7 @@ def admin_marking_category():
 )
 @click.pass_obj
 def admin_marking_category_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_category_id: str,
     preview: typing.Optional[bool],
 ):
@@ -428,7 +430,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_marking_category_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -476,7 +478,7 @@ you will create a Marking that you cannot administer.
 )
 @click.pass_obj
 def admin_marking_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     category_id: str,
     initial_members: str,
     initial_role_assignments: str,
@@ -505,7 +507,7 @@ def admin_marking_create(
 )
 @click.pass_obj
 def admin_marking_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     preview: typing.Optional[bool],
 ):
@@ -526,7 +528,7 @@ def admin_marking_get(
 )
 @click.pass_obj
 def admin_marking_get_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: str,
     preview: typing.Optional[bool],
 ):
@@ -559,7 +561,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_marking_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -588,7 +590,7 @@ def admin_marking_marking_role_assignment():
 )
 @click.pass_obj
 def admin_marking_marking_role_assignment_add(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     role_assignments: str,
     preview: typing.Optional[bool],
@@ -620,7 +622,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_marking_marking_role_assignment_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -647,7 +649,7 @@ def admin_marking_marking_role_assignment_list(
 )
 @click.pass_obj
 def admin_marking_marking_role_assignment_remove(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     role_assignments: str,
     preview: typing.Optional[bool],
@@ -674,7 +676,7 @@ def admin_marking_marking_member():
 )
 @click.pass_obj
 def admin_marking_marking_member_add(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     principal_ids: str,
     preview: typing.Optional[bool],
@@ -718,7 +720,7 @@ Defaults to false.
 )
 @click.pass_obj
 def admin_marking_marking_member_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -748,7 +750,7 @@ def admin_marking_marking_member_list(
 )
 @click.pass_obj
 def admin_marking_marking_member_remove(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     marking_id: str,
     principal_ids: str,
     preview: typing.Optional[bool],
@@ -785,7 +787,7 @@ def admin_group():
 @click.option("--description", type=str, required=False, help="""A description of the Group.""")
 @click.pass_obj
 def admin_group_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     attributes: str,
     name: str,
     organizations: str,
@@ -807,7 +809,7 @@ def admin_group_create(
 @click.argument("group_id", type=str, required=True)
 @click.pass_obj
 def admin_group_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
 ):
     """
@@ -823,7 +825,7 @@ def admin_group_delete(
 @click.argument("group_id", type=str, required=True)
 @click.pass_obj
 def admin_group_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
 ):
     """
@@ -839,7 +841,7 @@ def admin_group_get(
 @click.argument("body", type=str, required=True)
 @click.pass_obj
 def admin_group_get_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: str,
 ):
     """
@@ -867,7 +869,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_group_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -889,7 +891,7 @@ def admin_group_list(
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def admin_group_search(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     where: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -917,7 +919,7 @@ def admin_group_group_member():
 @click.option("--expiration", type=click.DateTime(), required=False, help="""""")
 @click.pass_obj
 def admin_group_group_member_add(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
     principal_ids: str,
     expiration: typing.Optional[datetime],
@@ -958,7 +960,7 @@ Defaults to false.
 )
 @click.pass_obj
 def admin_group_group_member_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -988,7 +990,7 @@ def admin_group_group_member_list(
 @click.option("--principal_ids", type=str, required=True, help="""""")
 @click.pass_obj
 def admin_group_group_member_remove(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
     principal_ids: str,
 ):
@@ -1012,7 +1014,7 @@ def admin_group_group_provider_info():
 )
 @click.pass_obj
 def admin_group_group_provider_info_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
     preview: typing.Optional[bool],
 ):
@@ -1041,7 +1043,7 @@ At most one Group can have a given provider ID in a given Realm.
 )
 @click.pass_obj
 def admin_group_group_provider_info_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     group_id: str,
     provider_id: str,
     preview: typing.Optional[bool],
@@ -1069,7 +1071,7 @@ def admin_enrollment():
 )
 @click.pass_obj
 def admin_enrollment_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1089,7 +1091,7 @@ def admin_enrollment_get(
 )
 @click.pass_obj
 def admin_enrollment_get_current(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     preview: typing.Optional[bool],
 ):
     """
@@ -1115,7 +1117,7 @@ def admin_enrollment_authentication_provider():
 )
 @click.pass_obj
 def admin_enrollment_authentication_provider_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     authentication_provider_rid: str,
     preview: typing.Optional[bool],
@@ -1138,7 +1140,7 @@ def admin_enrollment_authentication_provider_get(
 )
 @click.pass_obj
 def admin_enrollment_authentication_provider_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1170,7 +1172,7 @@ def admin_enrollment_authentication_provider_list(
 )
 @click.pass_obj
 def admin_enrollment_authentication_provider_preregister_group(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     authentication_provider_rid: str,
     name: str,
@@ -1218,7 +1220,7 @@ time depending on any configured Organization assignment rules.
 )
 @click.pass_obj
 def admin_enrollment_authentication_provider_preregister_user(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     authentication_provider_rid: str,
     organization: str,
@@ -1271,7 +1273,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def admin_enrollment_host_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     enrollment_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -1316,7 +1318,7 @@ Defaults to 100 if not specified.
 )
 @click.pass_obj
 def aip_agents_agent_all_sessions(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -1348,7 +1350,7 @@ def aip_agents_agent_all_sessions(
 )
 @click.pass_obj
 def aip_agents_agent_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     preview: typing.Optional[bool],
     version: typing.Optional[str],
@@ -1398,7 +1400,7 @@ If omitted, relevant context for the user message is automatically retrieved and
 )
 @click.pass_obj
 def aip_agents_agent_session_blocking_continue(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     parameter_inputs: str,
@@ -1450,7 +1452,7 @@ When omitted, the exchange is not added to the session.
 )
 @click.pass_obj
 def aip_agents_agent_session_cancel(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     message_id: str,
@@ -1489,7 +1491,7 @@ If not specified, defaults to use the latest published version of the Agent at s
 )
 @click.pass_obj
 def aip_agents_agent_session_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     agent_version: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -1515,7 +1517,7 @@ def aip_agents_agent_session_create(
 )
 @click.pass_obj
 def aip_agents_agent_session_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     preview: typing.Optional[bool],
@@ -1549,7 +1551,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def aip_agents_agent_session_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -1592,7 +1594,7 @@ def aip_agents_agent_session_list(
 )
 @click.pass_obj
 def aip_agents_agent_session_rag_context(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     parameter_inputs: str,
@@ -1650,7 +1652,7 @@ If omitted, relevant context for the user message is automatically retrieved and
 )
 @click.pass_obj
 def aip_agents_agent_session_streaming_continue(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     parameter_inputs: str,
@@ -1697,7 +1699,7 @@ The maximum title length is 200 characters. Titles are truncated if they exceed 
 )
 @click.pass_obj
 def aip_agents_agent_session_update_title(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     title: str,
@@ -1730,7 +1732,7 @@ def aip_agents_agent_session_content():
 )
 @click.pass_obj
 def aip_agents_agent_session_content_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     session_rid: str,
     preview: typing.Optional[bool],
@@ -1759,7 +1761,7 @@ def aip_agents_agent_agent_version():
 )
 @click.pass_obj
 def aip_agents_agent_agent_version_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     agent_version_string: str,
     preview: typing.Optional[bool],
@@ -1793,7 +1795,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def aip_agents_agent_agent_version_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     agent_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -1837,7 +1839,7 @@ def connectivity_connection():
 )
 @click.pass_obj
 def connectivity_connection_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     configuration: str,
     display_name: str,
     parent_folder_rid: str,
@@ -1871,7 +1873,7 @@ def connectivity_connection_create(
 )
 @click.pass_obj
 def connectivity_connection_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1892,7 +1894,7 @@ def connectivity_connection_get(
 )
 @click.pass_obj
 def connectivity_connection_get_configuration(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -1922,7 +1924,7 @@ def connectivity_connection_get_configuration(
 )
 @click.pass_obj
 def connectivity_connection_update_secrets(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     secrets: str,
     preview: typing.Optional[bool],
@@ -1979,7 +1981,7 @@ def connectivity_connection_table_import():
 )
 @click.pass_obj
 def connectivity_connection_table_import_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     config: str,
     dataset_rid: str,
@@ -2013,7 +2015,7 @@ def connectivity_connection_table_import_create(
 )
 @click.pass_obj
 def connectivity_connection_table_import_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
     preview: typing.Optional[bool],
@@ -2040,7 +2042,7 @@ def connectivity_connection_table_import_delete(
 )
 @click.pass_obj
 def connectivity_connection_table_import_execute(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
     preview: typing.Optional[bool],
@@ -2066,7 +2068,7 @@ def connectivity_connection_table_import_execute(
 )
 @click.pass_obj
 def connectivity_connection_table_import_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
     preview: typing.Optional[bool],
@@ -2100,7 +2102,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def connectivity_connection_table_import_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -2146,7 +2148,7 @@ def connectivity_connection_table_import_list(
 )
 @click.pass_obj
 def connectivity_connection_table_import_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
     config: str,
@@ -2209,7 +2211,7 @@ def connectivity_connection_file_import():
 )
 @click.pass_obj
 def connectivity_connection_file_import_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     dataset_rid: str,
     display_name: str,
@@ -2243,7 +2245,7 @@ def connectivity_connection_file_import_create(
 )
 @click.pass_obj
 def connectivity_connection_file_import_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
     preview: typing.Optional[bool],
@@ -2270,7 +2272,7 @@ def connectivity_connection_file_import_delete(
 )
 @click.pass_obj
 def connectivity_connection_file_import_execute(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
     preview: typing.Optional[bool],
@@ -2296,7 +2298,7 @@ def connectivity_connection_file_import_execute(
 )
 @click.pass_obj
 def connectivity_connection_file_import_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
     preview: typing.Optional[bool],
@@ -2330,7 +2332,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def connectivity_connection_file_import_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -2381,7 +2383,7 @@ def connectivity_connection_file_import_list(
 )
 @click.pass_obj
 def connectivity_connection_file_import_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
     dataset_rid: str,
@@ -2429,7 +2431,7 @@ def datasets_dataset():
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.pass_obj
 def datasets_dataset_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     name: str,
     parent_folder_rid: str,
 ):
@@ -2448,7 +2450,7 @@ def datasets_dataset_create(
 @click.argument("dataset_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
 ):
     """
@@ -2456,6 +2458,43 @@ def datasets_dataset_get(
     """
     result = client.datasets.Dataset.get(
         dataset_rid=dataset_rid,
+    )
+    click.echo(repr(result))
+
+
+@datasets_dataset.command("get_schedules")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+""",
+)
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_get_schedules(
+    client: FoundryClient,
+    dataset_rid: str,
+    branch_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the RIDs of the Schedules that target the given Dataset
+
+    """
+    result = client.datasets.Dataset.get_schedules(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2506,7 +2545,7 @@ def datasets_dataset_get(
 )
 @click.pass_obj
 def datasets_dataset_read_table(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     format: typing.Literal["ARROW", "CSV"],
     branch_name: typing.Optional[str],
@@ -2564,7 +2603,7 @@ def datasets_dataset_file():
 )
 @click.pass_obj
 def datasets_dataset_file_content(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_name: typing.Optional[str],
@@ -2620,7 +2659,7 @@ def datasets_dataset_file_content(
 )
 @click.pass_obj
 def datasets_dataset_file_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_name: typing.Optional[str],
@@ -2674,7 +2713,7 @@ def datasets_dataset_file_delete(
 )
 @click.pass_obj
 def datasets_dataset_file_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     file_path: str,
     branch_name: typing.Optional[str],
@@ -2746,7 +2785,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def datasets_dataset_file_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     branch_name: typing.Optional[str],
     end_transaction_rid: typing.Optional[str],
@@ -2813,7 +2852,7 @@ def datasets_dataset_file_list(
 )
 @click.pass_obj
 def datasets_dataset_file_upload(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     file_path: str,
     body: io.BufferedReader,
@@ -2858,7 +2897,7 @@ def datasets_dataset_transaction():
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_abort(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -2882,7 +2921,7 @@ def datasets_dataset_transaction_abort(
 )
 @click.pass_obj
 def datasets_dataset_transaction_build(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
     preview: typing.Optional[bool],
@@ -2906,7 +2945,7 @@ def datasets_dataset_transaction_build(
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_commit(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -2939,7 +2978,7 @@ def datasets_dataset_transaction_commit(
 )
 @click.pass_obj
 def datasets_dataset_transaction_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_type: typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"],
     branch_name: typing.Optional[str],
@@ -2961,7 +3000,7 @@ def datasets_dataset_transaction_create(
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_transaction_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
 ):
@@ -2984,7 +3023,7 @@ def datasets_dataset_transaction_get(
 )
 @click.pass_obj
 def datasets_dataset_transaction_job(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
     preview: typing.Optional[bool],
@@ -3019,7 +3058,7 @@ def datasets_dataset_branch():
 )
 @click.pass_obj
 def datasets_dataset_branch_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     name: str,
     transaction_rid: typing.Optional[str],
@@ -3041,7 +3080,7 @@ def datasets_dataset_branch_create(
 @click.argument("branch_name", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_branch_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     branch_name: str,
 ):
@@ -3061,7 +3100,7 @@ def datasets_dataset_branch_delete(
 @click.argument("branch_name", type=str, required=True)
 @click.pass_obj
 def datasets_dataset_branch_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     branch_name: str,
 ):
@@ -3091,7 +3130,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def datasets_dataset_branch_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -3135,7 +3174,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def filesystem_space_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -3166,7 +3205,7 @@ def filesystem_resource():
 )
 @click.pass_obj
 def filesystem_resource_add_markings(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     marking_ids: str,
     preview: typing.Optional[bool],
@@ -3189,7 +3228,7 @@ def filesystem_resource_add_markings(
 )
 @click.pass_obj
 def filesystem_resource_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3212,7 +3251,7 @@ def filesystem_resource_delete(
 )
 @click.pass_obj
 def filesystem_resource_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3233,7 +3272,7 @@ def filesystem_resource_get(
 )
 @click.pass_obj
 def filesystem_resource_get_access_requirements(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3261,7 +3300,7 @@ def filesystem_resource_get_access_requirements(
 )
 @click.pass_obj
 def filesystem_resource_get_by_path(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     path: str,
     preview: typing.Optional[bool],
 ):
@@ -3293,7 +3332,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def filesystem_resource_markings(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -3320,7 +3359,7 @@ def filesystem_resource_markings(
 )
 @click.pass_obj
 def filesystem_resource_permanently_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3344,7 +3383,7 @@ def filesystem_resource_permanently_delete(
 )
 @click.pass_obj
 def filesystem_resource_remove_markings(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     marking_ids: str,
     preview: typing.Optional[bool],
@@ -3367,7 +3406,7 @@ def filesystem_resource_remove_markings(
 )
 @click.pass_obj
 def filesystem_resource_restore(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3396,7 +3435,7 @@ def filesystem_resource_resource_role():
 )
 @click.pass_obj
 def filesystem_resource_resource_role_add(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     roles: str,
     preview: typing.Optional[bool],
@@ -3434,7 +3473,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def filesystem_resource_resource_role_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     include_inherited: typing.Optional[bool],
     page_size: typing.Optional[int],
@@ -3463,7 +3502,7 @@ def filesystem_resource_resource_role_list(
 )
 @click.pass_obj
 def filesystem_resource_resource_role_remove(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     resource_rid: str,
     roles: str,
     preview: typing.Optional[bool],
@@ -3490,7 +3529,7 @@ def filesystem_project():
 )
 @click.pass_obj
 def filesystem_project_add_organizations(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     project_rid: str,
     organization_rids: str,
     preview: typing.Optional[bool],
@@ -3518,7 +3557,7 @@ def filesystem_project_add_organizations(
 )
 @click.pass_obj
 def filesystem_project_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     default_roles: str,
     display_name: str,
     organization_rids: str,
@@ -3558,7 +3597,7 @@ def filesystem_project_create(
 @click.option("--project_description", type=str, required=False, help="""""")
 @click.pass_obj
 def filesystem_project_create_from_template(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     template_rid: str,
     variable_values: str,
     default_roles: typing.Optional[str],
@@ -3587,7 +3626,7 @@ def filesystem_project_create_from_template(
 )
 @click.pass_obj
 def filesystem_project_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     project_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3619,7 +3658,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def filesystem_project_organizations(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     project_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -3647,7 +3686,7 @@ def filesystem_project_organizations(
 )
 @click.pass_obj
 def filesystem_project_remove_organizations(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     project_rid: str,
     organization_rids: str,
     preview: typing.Optional[bool],
@@ -3686,7 +3725,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def filesystem_folder_children(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     folder_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -3723,7 +3762,7 @@ this value will be the root folder (`ri.compass.main.folder.0`).
 )
 @click.pass_obj
 def filesystem_folder_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     display_name: str,
     parent_folder_rid: str,
     preview: typing.Optional[bool],
@@ -3746,7 +3785,7 @@ def filesystem_folder_create(
 )
 @click.pass_obj
 def filesystem_folder_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     folder_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3777,7 +3816,7 @@ def functions_value_type():
 )
 @click.pass_obj
 def functions_value_type_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     value_type_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -3805,7 +3844,7 @@ def functions_value_type_version_id():
 )
 @click.pass_obj
 def functions_value_type_version_id_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     value_type_rid: str,
     version_id_version_id: str,
     preview: typing.Optional[bool],
@@ -3836,7 +3875,7 @@ def functions_query():
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_execute(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     query_api_name: str,
     parameters: str,
     preview: typing.Optional[bool],
@@ -3865,7 +3904,7 @@ def functions_query_execute(
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     query_api_name: str,
     preview: typing.Optional[bool],
     version: typing.Optional[str],
@@ -3890,7 +3929,7 @@ def functions_query_get(
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_get_by_rid(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     rid: str,
     preview: typing.Optional[bool],
     version: typing.Optional[str],
@@ -3934,7 +3973,7 @@ def media_sets_media_set():
 )
 @click.pass_obj
 def media_sets_media_set_abort(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     transaction_id: str,
     preview: typing.Optional[bool],
@@ -3965,7 +4004,7 @@ def media_sets_media_set_abort(
 )
 @click.pass_obj
 def media_sets_media_set_commit(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     transaction_id: str,
     preview: typing.Optional[bool],
@@ -4002,7 +4041,7 @@ def media_sets_media_set_commit(
 )
 @click.pass_obj
 def media_sets_media_set_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     branch_name: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -4034,7 +4073,7 @@ def media_sets_media_set_create(
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_info(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
     preview: typing.Optional[bool],
@@ -4068,7 +4107,7 @@ def media_sets_media_set_info(
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_read(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
     preview: typing.Optional[bool],
@@ -4102,7 +4141,7 @@ def media_sets_media_set_read(
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_read_original(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
     preview: typing.Optional[bool],
@@ -4136,7 +4175,7 @@ def media_sets_media_set_read_original(
 @click.option("--read_token", type=str, required=False, help="""""")
 @click.pass_obj
 def media_sets_media_set_reference(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     media_item_rid: str,
     preview: typing.Optional[bool],
@@ -4200,7 +4239,7 @@ def media_sets_media_set_reference(
 )
 @click.pass_obj
 def media_sets_media_set_upload(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     media_set_rid: str,
     body: io.BufferedReader,
     branch_name: typing.Optional[str],
@@ -4262,7 +4301,7 @@ def ontologies_time_series_value_bank_property():
 )
 @click.pass_obj
 def ontologies_time_series_value_bank_property_get_latest_value(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -4310,7 +4349,7 @@ def ontologies_time_series_value_bank_property_get_latest_value(
 @click.option("--range", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_time_series_value_bank_property_stream_values(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -4364,7 +4403,7 @@ def ontologies_time_series_property_v2():
 )
 @click.pass_obj
 def ontologies_time_series_property_v2_get_first_point(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -4411,7 +4450,7 @@ def ontologies_time_series_property_v2_get_first_point(
 )
 @click.pass_obj
 def ontologies_time_series_property_v2_get_last_point(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -4468,7 +4507,7 @@ JSON. ARROW is more efficient than JSON at streaming a large sized response.
 @click.option("--range", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_time_series_property_v2_stream_points(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -4532,7 +4571,7 @@ def ontologies_query():
 )
 @click.pass_obj
 def ontologies_query_execute(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     query_api_name: str,
     parameters: str,
@@ -4592,7 +4631,7 @@ def ontologies_ontology_object_set():
 )
 @click.pass_obj
 def ontologies_ontology_object_set_aggregate(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     aggregation: str,
     group_by: str,
@@ -4624,7 +4663,7 @@ def ontologies_ontology_object_set_aggregate(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_set_create_temporary(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_set: str,
 ):
@@ -4647,7 +4686,7 @@ def ontologies_ontology_object_set_create_temporary(
 @click.argument("object_set_rid", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_object_set_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_set_rid: str,
 ):
@@ -4695,7 +4734,7 @@ Setting this to true may improve performance of this endpoint for object types i
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_set_load(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
@@ -4771,7 +4810,7 @@ Setting this to true may improve performance of this endpoint for object types i
 )
 @click.pass_obj
 def ontologies_ontology_object_set_load_multiple_object_types(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
@@ -4854,7 +4893,7 @@ Setting this to true may improve performance of this endpoint for object types i
 )
 @click.pass_obj
 def ontologies_ontology_object_set_load_objects_or_interfaces(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
@@ -4934,7 +4973,7 @@ def ontologies_ontology_object():
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_aggregate(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     aggregation: str,
@@ -4982,7 +5021,7 @@ def ontologies_ontology_object_aggregate(
 )
 @click.pass_obj
 def ontologies_ontology_object_count(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     artifact_repository: typing.Optional[str],
@@ -5039,7 +5078,7 @@ the properties.
 )
 @click.pass_obj
 def ontologies_ontology_object_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -5111,7 +5150,7 @@ the properties.
 )
 @click.pass_obj
 def ontologies_ontology_object_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     artifact_repository: typing.Optional[str],
@@ -5192,7 +5231,7 @@ Setting this to true may improve performance of this endpoint for object types i
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_search(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     select: str,
@@ -5220,11 +5259,11 @@ def ontologies_ontology_object_search(
     | not                                     | The sub-query does not match.                                                                                     | N/A (applied on a query)        |
     | and                                     | All the sub-queries match.                                                                                        | N/A (applied on queries)        |
     | or                                      | At least one of the sub-queries match.                                                                            | N/A (applied on queries)        |
-    | startsWith                              | The provided property starts with the provided term.                                                              | string                          |
     | containsAllTermsInOrderPrefixLastTerm   | The provided property contains all the terms provided in order. The last term can be a partial prefix match.      | string                          |
     | containsAllTermsInOrder                 | The provided property contains the provided term as a substring.                                                  | string                          |
     | containsAnyTerm                         | The provided property contains at least one of the terms separated by whitespace.                                 | string                          |
     | containsAllTerms                        | The provided property contains all the terms separated by whitespace.                                             | string                          |
+    | startsWith                              | Deprecated alias for containsAllTermsInOrderPrefixLastTerm.                                                       | string                          |
 
     Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
     Partial terms are not matched by terms filters except where explicitly noted.
@@ -5273,7 +5312,7 @@ def ontologies_ontology_interface():
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_interface_aggregate(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     interface_type: str,
     aggregation: str,
@@ -5322,7 +5361,7 @@ def ontologies_ontology_interface_aggregate(
 )
 @click.pass_obj
 def ontologies_ontology_interface_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     interface_type: str,
     preview: typing.Optional[bool],
@@ -5366,7 +5405,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.pass_obj
 def ontologies_ontology_interface_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5454,7 +5493,7 @@ Omit this parameter to include all properties of the interface type in the respo
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_interface_search(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     interface_type: str,
     augmented_properties: str,
@@ -5533,7 +5572,7 @@ def ontologies_ontology():
 @click.argument("ontology", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
 ):
     """
@@ -5552,7 +5591,7 @@ def ontologies_ontology_get(
 @click.argument("ontology", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_get_full_metadata(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
 ):
     """
@@ -5568,7 +5607,7 @@ def ontologies_ontology_get_full_metadata(
 @ontologies_ontology.command("list")
 @click.pass_obj
 def ontologies_ontology_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
 ):
     """
     Lists the Ontologies visible to the current user.
@@ -5589,7 +5628,7 @@ def ontologies_ontology_list(
 @click.option("--query_types", type=str, required=True, help="""""")
 @click.pass_obj
 def ontologies_ontology_load_metadata(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     action_types: str,
     interface_types: str,
@@ -5629,7 +5668,7 @@ def ontologies_ontology_query_type():
 )
 @click.pass_obj
 def ontologies_ontology_query_type_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     query_api_name: str,
     version: typing.Optional[str],
@@ -5661,7 +5700,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_query_type_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5693,7 +5732,7 @@ def ontologies_ontology_object_type():
 @click.argument("object_type", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_object_type_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
 ):
@@ -5722,7 +5761,7 @@ def ontologies_ontology_object_type_get(
 )
 @click.pass_obj
 def ontologies_ontology_object_type_get_full_metadata(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     preview: typing.Optional[bool],
@@ -5747,7 +5786,7 @@ def ontologies_ontology_object_type_get_full_metadata(
 @click.argument("link_type", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_object_type_get_outgoing_link_type(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     link_type: str,
@@ -5780,7 +5819,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5812,7 +5851,7 @@ def ontologies_ontology_object_type_list(
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_type_list_outgoing_link_types(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     page_size: typing.Optional[int],
@@ -5844,7 +5883,7 @@ def ontologies_ontology_action_type():
 @click.argument("action_type", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_action_type_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     action_type: str,
 ):
@@ -5866,7 +5905,7 @@ def ontologies_ontology_action_type_get(
 @click.argument("action_type_rid", type=str, required=True)
 @click.pass_obj
 def ontologies_ontology_action_type_get_by_rid(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     action_type_rid: str,
 ):
@@ -5896,7 +5935,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_action_type_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5951,7 +5990,7 @@ def ontologies_media_reference_property():
 )
 @click.pass_obj
 def ontologies_media_reference_property_get_media_content(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6006,7 +6045,7 @@ def ontologies_media_reference_property_get_media_content(
 )
 @click.pass_obj
 def ontologies_media_reference_property_get_media_metadata(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6054,7 +6093,7 @@ def ontologies_media_reference_property_get_media_metadata(
 )
 @click.pass_obj
 def ontologies_media_reference_property_upload(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     property: str,
@@ -6123,7 +6162,7 @@ the properties.
 )
 @click.pass_obj
 def ontologies_linked_object_get_linked_object(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6203,7 +6242,7 @@ the properties.
 )
 @click.pass_obj
 def ontologies_linked_object_list_linked_objects(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6262,7 +6301,7 @@ def ontologies_cipher_text_property():
 @click.argument("property", type=str, required=True)
 @click.pass_obj
 def ontologies_cipher_text_property_decrypt(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6310,7 +6349,7 @@ def ontologies_attachment_property():
 )
 @click.pass_obj
 def ontologies_attachment_property_get_attachment(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6358,7 +6397,7 @@ def ontologies_attachment_property_get_attachment(
 )
 @click.pass_obj
 def ontologies_attachment_property_get_attachment_by_rid(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6407,7 +6446,7 @@ def ontologies_attachment_property_get_attachment_by_rid(
 )
 @click.pass_obj
 def ontologies_attachment_property_read_attachment(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6455,7 +6494,7 @@ def ontologies_attachment_property_read_attachment(
 )
 @click.pass_obj
 def ontologies_attachment_property_read_attachment_by_rid(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     object_type: str,
     primary_key: str,
@@ -6494,7 +6533,7 @@ def ontologies_attachment():
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
 def ontologies_attachment_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     attachment_rid: str,
 ):
     """
@@ -6514,7 +6553,7 @@ def ontologies_attachment_get(
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
 def ontologies_attachment_read(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     attachment_rid: str,
 ):
     """
@@ -6546,7 +6585,7 @@ def ontologies_attachment_read(
 )
 @click.pass_obj
 def ontologies_attachment_upload(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: io.BufferedReader,
     content_length: int,
     content_type: str,
@@ -6598,7 +6637,7 @@ def ontologies_action():
 )
 @click.pass_obj
 def ontologies_action_apply(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     action: str,
     parameters: str,
@@ -6651,7 +6690,7 @@ def ontologies_action_apply(
 )
 @click.pass_obj
 def ontologies_action_apply_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     ontology: str,
     action: str,
     requests: str,
@@ -6702,7 +6741,7 @@ def orchestration_schedule_version():
 )
 @click.pass_obj
 def orchestration_schedule_version_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_version_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6723,7 +6762,7 @@ def orchestration_schedule_version_get(
 )
 @click.pass_obj
 def orchestration_schedule_version_schedule(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_version_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6758,7 +6797,7 @@ permission to see the trigger, this will be empty.
 )
 @click.pass_obj
 def orchestration_schedule_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     action: str,
     description: typing.Optional[str],
     display_name: typing.Optional[str],
@@ -6787,7 +6826,7 @@ def orchestration_schedule_create(
 )
 @click.pass_obj
 def orchestration_schedule_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6808,7 +6847,7 @@ def orchestration_schedule_delete(
 )
 @click.pass_obj
 def orchestration_schedule_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6829,7 +6868,7 @@ def orchestration_schedule_get(
 )
 @click.pass_obj
 def orchestration_schedule_pause(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6860,7 +6899,7 @@ permission to see the trigger, this will be empty.
 )
 @click.pass_obj
 def orchestration_schedule_replace(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     action: str,
     description: typing.Optional[str],
@@ -6891,7 +6930,7 @@ def orchestration_schedule_replace(
 )
 @click.pass_obj
 def orchestration_schedule_run(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6921,7 +6960,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def orchestration_schedule_runs(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -6947,7 +6986,7 @@ def orchestration_schedule_runs(
 )
 @click.pass_obj
 def orchestration_schedule_unpause(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     schedule_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6971,7 +7010,7 @@ def orchestration_job():
 )
 @click.pass_obj
 def orchestration_job_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     job_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -6992,7 +7031,7 @@ def orchestration_job_get(
 )
 @click.pass_obj
 def orchestration_job_get_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: str,
     preview: typing.Optional[bool],
 ):
@@ -7017,7 +7056,7 @@ def orchestration_build():
 @click.argument("build_rid", type=str, required=True)
 @click.pass_obj
 def orchestration_build_cancel(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     build_rid: str,
 ):
     """
@@ -7054,7 +7093,7 @@ No notification will be sent if the schedule has `scopeMode` set to `ProjectScop
 )
 @click.pass_obj
 def orchestration_build_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     fallback_branches: str,
     target: str,
     abort_on_failure: typing.Optional[bool],
@@ -7084,7 +7123,7 @@ def orchestration_build_create(
 @click.argument("build_rid", type=str, required=True)
 @click.pass_obj
 def orchestration_build_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     build_rid: str,
 ):
     """
@@ -7100,7 +7139,7 @@ def orchestration_build_get(
 @click.argument("body", type=str, required=True)
 @click.pass_obj
 def orchestration_build_get_batch(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     body: str,
 ):
     """
@@ -7132,7 +7171,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def orchestration_build_jobs(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     build_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -7166,7 +7205,7 @@ def orchestration_build_jobs(
 )
 @click.pass_obj
 def orchestration_build_search(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     where: str,
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -7203,7 +7242,7 @@ def sql_queries_sql_query():
 )
 @click.pass_obj
 def sql_queries_sql_query_cancel(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     sql_query_id: str,
     preview: typing.Optional[bool],
 ):
@@ -7243,7 +7282,7 @@ provided that exists. If no fallback branches are provided the default branch is
 )
 @click.pass_obj
 def sql_queries_sql_query_execute(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     query: str,
     fallback_branch_ids: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -7269,7 +7308,7 @@ def sql_queries_sql_query_execute(
 )
 @click.pass_obj
 def sql_queries_sql_query_get_results(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     sql_query_id: str,
     preview: typing.Optional[bool],
 ):
@@ -7292,7 +7331,7 @@ def sql_queries_sql_query_get_results(
 )
 @click.pass_obj
 def sql_queries_sql_query_get_status(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     sql_query_id: str,
     preview: typing.Optional[bool],
 ):
@@ -7369,7 +7408,7 @@ LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
 )
 @click.pass_obj
 def streams_dataset_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     name: str,
     parent_folder_rid: str,
     schema: str,
@@ -7437,7 +7476,7 @@ LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
 )
 @click.pass_obj
 def streams_dataset_stream_create(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     branch_name: str,
     schema: str,
@@ -7470,7 +7509,7 @@ def streams_dataset_stream_create(
 )
 @click.pass_obj
 def streams_dataset_stream_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
     preview: typing.Optional[bool],
@@ -7508,7 +7547,7 @@ underlying streaming data structures is needed.
 )
 @click.pass_obj
 def streams_dataset_stream_publish_binary_record(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
     body: io.BufferedReader,
@@ -7555,7 +7594,7 @@ underlying streaming data structures is needed.
 )
 @click.pass_obj
 def streams_dataset_stream_publish_record(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
     record: str,
@@ -7603,7 +7642,7 @@ underlying streaming data structures is needed.
 )
 @click.pass_obj
 def streams_dataset_stream_publish_records(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
     records: str,
@@ -7672,7 +7711,7 @@ If omitted, the stream type of the existing stream on the branch will be used.
 )
 @click.pass_obj
 def streams_dataset_stream_reset(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
     compressed: typing.Optional[bool],
@@ -7720,7 +7759,7 @@ def third_party_applications_third_party_application():
 )
 @click.pass_obj
 def third_party_applications_third_party_application_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     preview: typing.Optional[bool],
 ):
@@ -7744,7 +7783,7 @@ def third_party_applications_third_party_application_website():
 @click.option("--version", type=str, required=True, help="""""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_deploy(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     version: str,
 ):
@@ -7762,7 +7801,7 @@ def third_party_applications_third_party_application_website_deploy(
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.pass_obj
 def third_party_applications_third_party_application_website_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
 ):
     """
@@ -7778,7 +7817,7 @@ def third_party_applications_third_party_application_website_get(
 @click.argument("third_party_application_rid", type=str, required=True)
 @click.pass_obj
 def third_party_applications_third_party_application_website_undeploy(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
 ):
     """
@@ -7800,7 +7839,7 @@ def third_party_applications_third_party_application_website_version():
 @click.argument("version_version", type=str, required=True)
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_delete(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     version_version: str,
 ):
@@ -7819,7 +7858,7 @@ def third_party_applications_third_party_application_website_version_delete(
 @click.argument("version_version", type=str, required=True)
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_get(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     version_version: str,
 ):
@@ -7848,7 +7887,7 @@ and use it to populate the `pageToken` field of the next request.""",
 )
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_list(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -7872,7 +7911,7 @@ def third_party_applications_third_party_application_website_version_list(
 @click.option("--version", type=str, required=True, help="""""")
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_upload(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     body: io.BufferedReader,
     version: str,
@@ -7906,7 +7945,7 @@ accessible from foundry code repositories.
 )
 @click.pass_obj
 def third_party_applications_third_party_application_website_version_upload_snapshot(
-    client: foundry_sdk.v2.FoundryClient,
+    client: FoundryClient,
     third_party_application_rid: str,
     body: io.BufferedReader,
     version: str,

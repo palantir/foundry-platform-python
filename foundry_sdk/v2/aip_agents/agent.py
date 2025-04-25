@@ -96,6 +96,7 @@ class AgentClient:
         :return: Returns the result object.
         :rtype: core.ResourceIterator[aip_agents_models.Session]
 
+        :raises GetAllSessionsAgentsPermissionDenied: The calling user does not have permission to list all sessions across all Agents. Listing all sessions across all agents requires the `api:aip-agents-write` scope.
         :raises ListSessionsForAgentsPermissionDenied: Could not allSessions the Agent.
         """
 
@@ -117,6 +118,7 @@ class AgentClient:
                 response_type=aip_agents_models.AgentsSessionsPage,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetAllSessionsAgentsPermissionDenied": aip_agents_errors.GetAllSessionsAgentsPermissionDenied,
                     "ListSessionsForAgentsPermissionDenied": aip_agents_errors.ListSessionsForAgentsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),

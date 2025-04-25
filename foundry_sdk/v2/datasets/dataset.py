@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import errors as filesystem_errors
@@ -185,6 +186,68 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_schedules(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[core_models.ScheduleRid]:
+        """
+        Get the RIDs of the Schedules that target the given Dataset
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[core_models.ScheduleRid]
+
+        :raises GetDatasetSchedulesPermissionDenied: Could not getSchedules the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getSchedules",
+                query_params={
+                    "branchName": branch_name,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.ListSchedulesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetDatasetSchedulesPermissionDenied": datasets_errors.GetDatasetSchedulesPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_table(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -269,10 +332,12 @@ class _DatasetClientRaw:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
         self.read_table = core.with_raw_response(read_table, client.read_table)
 
 
@@ -280,8 +345,10 @@ class _DatasetClientStreaming:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
         self.read_table = core.with_streaming_response(read_table, client.read_table)

@@ -1,6 +1,6 @@
 # ScheduleRid
 
-The Resource Identifier (RID) of a Schedule.
+The RID of a Schedule.
 
 ## Type
 ```python

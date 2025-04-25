@@ -780,6 +780,10 @@ The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See mor
 """
 
 
+ScheduleRid = core.RID
+"""The RID of a Schedule."""
+
+
 class ShortType(pydantic.BaseModel):
     """ShortType"""
 
@@ -1067,6 +1071,7 @@ __all__ = [
     "Reference",
     "ReleaseStatus",
     "RoleId",
+    "ScheduleRid",
     "ShortType",
     "SizeBytes",
     "StreamSchema",

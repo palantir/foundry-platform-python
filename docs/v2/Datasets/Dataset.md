@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/datasets | Stable |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
+[**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
 
 # **create**
@@ -101,6 +102,71 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Dataset  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_schedules**
+Get the RIDs of the Schedules that target the given Dataset
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListSchedulesResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+branch_name = None
+# Optional[PageSize]
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    for dataset in client.datasets.Dataset.get_schedules(
+        dataset_rid,
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    ):
+        pprint(dataset)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_schedules: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListSchedulesResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

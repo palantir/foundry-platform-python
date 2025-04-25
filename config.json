@@ -26,16 +26,18 @@
       "majorVersion": "v2",
       "operationName": "getDataset"
     },
-    "packageName": "datasets",
-    "errorPackageName": "datasets",
-    "exampleError": "DatasetNotFound",
-    "exampleGenericError": "UnauthorizedError",
-    "exampleErrorMessage": "There was an error with the request",
+    "packageName": "foundry_sdk",
+    "errorPackageName": "foundry_sdk.v1.datasets.errors",
+    "exampleError": "BranchNotFound",
+    "exampleGenericError": "NotFoundError",
+    "exampleErrorMessage": "Resource not found",
     "errorTestParameters": {
-      "datasetRid": "ri.a.b.c.d"
+      "datasetRid": "ri.a.b.c.d",
+      "branchId": "main"
     },
     "errorTest2Parameters": {
-      "datasetRid": 123
+      "datasetRid": "ri.a.b.c.d",
+      "branchId": 123
     }
   },
   "paginationExampleOperation": {

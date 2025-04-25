@@ -314,6 +314,21 @@ class FileNotFoundOnTransactionRange(errors.NotFoundError):
     error_instance_id: str
 
 
+class GetDatasetSchedulesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getSchedules the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class GetDatasetSchedulesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetSchedulesPermissionDenied"]
+    parameters: GetDatasetSchedulesPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetFileContentPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not content the File."""
 
@@ -577,6 +592,7 @@ __all__ = [
     "FileNotFound",
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
+    "GetDatasetSchedulesPermissionDenied",
     "GetFileContentPermissionDenied",
     "InvalidBranchName",
     "InvalidTransactionType",

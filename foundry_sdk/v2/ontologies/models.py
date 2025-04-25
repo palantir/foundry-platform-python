@@ -3282,6 +3282,7 @@ SharedPropertyTypeRid = core.RID
 
 class StartsWithQuery(pydantic.BaseModel):
     """
+    Deprecated alias for `containsAllTermsInOrderPrefixLastTerm`, which is preferred because the name `startsWith` is misleading.
     Returns objects where the specified field starts with the provided value. Allows you to specify a property to
     query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
     """

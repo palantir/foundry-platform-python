@@ -130,7 +130,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def delete(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -177,7 +177,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def get(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -226,7 +226,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def pause(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -273,7 +273,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def replace(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         action: orchestration_models.ReplaceScheduleRequestAction,
         description: typing.Optional[str] = None,
@@ -355,7 +355,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def run(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -404,7 +404,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def runs(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -458,7 +458,7 @@ class ScheduleClient:
     @errors.handle_unexpected
     def unpause(
         self,
-        schedule_rid: orchestration_models.ScheduleRid,
+        schedule_rid: core_models.ScheduleRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,

@@ -73,7 +73,10 @@ class AgentVersionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.AgentVersion
 
+        :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
+        :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.call_api(
@@ -95,7 +98,10 @@ class AgentVersionClient:
                 response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
                     "AgentVersionNotFound": aip_agents_errors.AgentVersionNotFound,
+                    "InvalidAgentVersion": aip_agents_errors.InvalidAgentVersion,
+                    "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -130,6 +136,8 @@ class AgentVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[aip_agents_models.AgentVersion]
+
+        :raises AgentNotFound: The given Agent could not be found.
         """
 
         return self._api_client.call_api(
@@ -151,7 +159,9 @@ class AgentVersionClient:
                 body_type=None,
                 response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
