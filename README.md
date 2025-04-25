@@ -208,22 +208,21 @@ the [Pydantic error documentation](https://docs.pydantic.dev/latest/errors/error
 experience. See [Static Type Analysis](#static-types) below for more information.
 
 ### HTTP exceptions
-Each operation includes a list of possible exceptions that can be thrown which can be thrown by the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts with dataset branches might throw a `BranchNotFound` error, which is defined as follows:
+Each operation includes a list of possible exceptions that can be thrown which can be thrown by the server, all of which inherit from `PalantirRPCException`. For example, an operation that interacts with datasets might throw a `DatasetNotFound` error, which is defined as follows:
 
 ```python
-class BranchNotFoundParameters(typing_extensions.TypedDict):
-    """The requested branch could not be found, or the client token does not have access to it."""
+class DatasetNotFoundParameters(TypedDict):
+    """The given Dataset could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: DatasetRid
 
 
 @dataclass
-class BranchNotFound(errors.NotFoundError):
-    name: typing.Literal["BranchNotFound"]
-    parameters: BranchNotFoundParameters
+class DatasetNotFound(NotFoundError):
+    name: Literal["DatasetNotFound"]
+    parameters: DatasetNotFoundParameters
     error_instance_id: str
 
 ```
@@ -259,7 +258,7 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 
 ```python
 from foundry_sdk import PalantirRPCException
-from foundry_sdk import NotFoundError
+from foundry_sdk.v1.datasets.errors import NotFoundError
 
 try:
     api_response = client.datasets.Dataset.get(dataset_rid)
