@@ -142,6 +142,12 @@ def test_admin_v2_organization_import():
     assert OrganizationClient is not None
 
 
+def test_admin_v2_role_import():
+    from foundry_sdk.v2.admin.role import RoleClient
+
+    assert RoleClient is not None
+
+
 def test_admin_v2_user_import():
     from foundry_sdk.v2.admin.user import UserClient
 

@@ -122,7 +122,7 @@ class BuildClient:
         :type branch_name: Optional[BranchName]
         :param force_build:
         :type force_build: Optional[ForceBuild]
-        :param notifications_enabled: The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
+        :param notifications_enabled:
         :type notifications_enabled: Optional[NotificationsEnabled]
         :param retry_backoff_duration:
         :type retry_backoff_duration: Optional[RetryBackoffDuration]
@@ -282,7 +282,6 @@ class BuildClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[orchestration_models.Job]:
@@ -294,8 +293,6 @@ class BuildClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -309,7 +306,6 @@ class BuildClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "buildRid": build_rid,

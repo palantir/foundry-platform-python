@@ -158,6 +158,28 @@ class GetMarkingsBatchResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class GetRolesBatchRequestElement(pydantic.BaseModel):
+    """GetRolesBatchRequestElement"""
+
+    role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class GetRolesBatchResponse(pydantic.BaseModel):
+    """GetRolesBatchResponse"""
+
+    data: typing.Dict[core_models.RoleId, Role]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class GetUserMarkingsResponse(pydantic.BaseModel):
     """GetUserMarkingsResponse"""
 
@@ -568,6 +590,33 @@ ProviderId = str
 """A value that uniquely identifies a User or Group in an external authentication provider. This value is determined by the external authentication provider and must be unique per Realm."""
 
 
+class Role(pydantic.BaseModel):
+    """Role"""
+
+    id: core_models.RoleId
+    display_name: RoleDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: RoleDescription
+    operations: typing.List[str]
+    """A list of permissions that this role has."""
+
+    can_assigns: typing.List[core_models.RoleId] = pydantic.Field(alias=str("canAssigns"))  # type: ignore[literal-required]
+    """A list of roles that this role inherits."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+RoleDescription = str
+"""RoleDescription"""
+
+
+RoleDisplayName = str
+"""RoleDisplayName"""
+
+
 class SamlAuthenticationProtocol(pydantic.BaseModel):
     """SamlAuthenticationProtocol"""
 
@@ -716,6 +765,8 @@ __all__ = [
     "GetGroupsBatchResponse",
     "GetMarkingsBatchRequestElement",
     "GetMarkingsBatchResponse",
+    "GetRolesBatchRequestElement",
+    "GetRolesBatchResponse",
     "GetUserMarkingsResponse",
     "GetUsersBatchRequestElement",
     "GetUsersBatchResponse",
@@ -754,6 +805,9 @@ __all__ = [
     "OrganizationName",
     "PrincipalFilterType",
     "ProviderId",
+    "Role",
+    "RoleDescription",
+    "RoleDisplayName",
     "SamlAuthenticationProtocol",
     "SamlServiceProviderMetadata",
     "SearchGroupsResponse",

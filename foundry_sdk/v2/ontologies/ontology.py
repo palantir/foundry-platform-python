@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -211,6 +212,7 @@ class OntologyClient:
         link_types: typing.List[ontologies_models.LinkTypeApiName],
         object_types: typing.List[ontologies_models.ObjectTypeApiName],
         query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.OntologyFullMetadata:
@@ -229,6 +231,8 @@ class OntologyClient:
         :type object_types: List[ObjectTypeApiName]
         :param query_types:
         :type query_types: List[VersionedQueryTypeApiName]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,7 +243,9 @@ class OntologyClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/metadata",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "ontology": ontology,
                 },

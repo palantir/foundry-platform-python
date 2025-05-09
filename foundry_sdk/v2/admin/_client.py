@@ -89,6 +89,16 @@ class AdminClient:
         )
 
     @cached_property
+    def Role(self):
+        from foundry_sdk.v2.admin.role import RoleClient
+
+        return RoleClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def User(self):
         from foundry_sdk.v2.admin.user import UserClient
 

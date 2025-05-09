@@ -3,13 +3,13 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/orchestration/schedules | Public Beta |
-[**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} | Stable |
 [**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
-[**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause | Public Beta |
+[**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause | Stable |
 [**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
-[**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run | Public Beta |
-[**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Public Beta |
-[**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause | Public Beta |
+[**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run | Stable |
+[**runs**](#runs) | **GET** /v2/orchestration/schedules/{scheduleRid}/runs | Stable |
+[**unpause**](#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause | Stable |
 
 # **create**
 Creates a new Schedule.
@@ -103,7 +103,6 @@ Delete the Schedule with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -119,12 +118,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.orchestration.Schedule.delete(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.delete(schedule_rid)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -203,7 +200,6 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -219,12 +215,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.orchestration.Schedule.pause(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.pause(schedule_rid)
     print("The pause response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -341,7 +335,6 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ScheduleRun**
@@ -357,12 +350,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.orchestration.Schedule.run(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.run(schedule_rid)
     print("The run response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -394,7 +385,6 @@ Name | Type | Description  | Notes |
 **schedule_rid** | ScheduleRid |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListRunsOfScheduleResponse**
@@ -414,13 +404,11 @@ schedule_rid = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     for schedule in client.orchestration.Schedule.runs(
-        schedule_rid, page_size=page_size, page_token=page_token, preview=preview
+        schedule_rid, page_size=page_size, page_token=page_token
     ):
         pprint(schedule)
 except foundry_sdk.PalantirRPCException as e:
@@ -449,7 +437,6 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **schedule_rid** | ScheduleRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -465,12 +452,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ScheduleRid
 schedule_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.orchestration.Schedule.unpause(schedule_rid, preview=preview)
+    api_response = client.orchestration.Schedule.unpause(schedule_rid)
     print("The unpause response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

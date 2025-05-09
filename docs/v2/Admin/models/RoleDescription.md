@@ -1,11 +1,10 @@
-# Record
+# RoleDescription
 
-A record to be published to a stream.
-
+RoleDescription
 
 ## Type
 ```python
-Dict[str, Optional[Any]]
+str
 ```
 
 

@@ -9,6 +9,7 @@ Method | HTTP request | Release Stage |
 [**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings | Public Beta |
 [**list**](#list) | **GET** /v2/admin/users | Stable |
 [**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture | Stable |
+[**revoke_all_tokens**](#revoke_all_tokens) | **POST** /v2/admin/users/{userId}/revokeAllTokens | Public Beta |
 [**search**](#search) | **POST** /v2/admin/users/search | Stable |
 
 # **delete**
@@ -342,6 +343,60 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Optional[bytes]  | The user's profile picture in binary format. The format is the original format uploaded by the user.  The response will contain a `Content-Type` header that can be used to identify the media type.  | application/octet-stream |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **revoke_all_tokens**
+Revoke all active authentication tokens for the user including active browser sessions and long-lived 
+development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+The caller must have permission to manage users for the target user's organization.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**user_id** | PrincipalId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# PrincipalId
+user_id = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.User.revoke_all_tokens(user_id, preview=preview)
+    print("The revoke_all_tokens response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling User.revoke_all_tokens: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
