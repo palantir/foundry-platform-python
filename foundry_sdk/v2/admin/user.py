@@ -397,6 +397,59 @@ class UserClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def revoke_all_tokens(
+        self,
+        user_id: core_models.PrincipalId,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Revoke all active authentication tokens for the user including active browser sessions and long-lived
+        development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+        The caller must have permission to manage users for the target user's organization.
+
+        :param user_id:
+        :type user_id: PrincipalId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises RevokeAllTokensUserPermissionDenied: Could not revokeAllTokens the User.
+        :raises UserNotFound: The given User could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/users/{userId}/revokeAllTokens",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={},
+                body=None,
+                body_type=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "RevokeAllTokensUserPermissionDenied": admin_errors.RevokeAllTokensUserPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def search(
         self,
         *,
@@ -467,6 +520,7 @@ class _UserClientRaw:
         def get_markings(_: admin_models.GetUserMarkingsResponse): ...
         def list(_: admin_models.ListUsersResponse): ...
         def profile_picture(_: typing.Optional[bytes]): ...
+        def revoke_all_tokens(_: None): ...
         def search(_: admin_models.SearchUsersResponse): ...
 
         self.delete = core.with_raw_response(delete, client.delete)
@@ -476,6 +530,7 @@ class _UserClientRaw:
         self.get_markings = core.with_raw_response(get_markings, client.get_markings)
         self.list = core.with_raw_response(list, client.list)
         self.profile_picture = core.with_raw_response(profile_picture, client.profile_picture)
+        self.revoke_all_tokens = core.with_raw_response(revoke_all_tokens, client.revoke_all_tokens)
         self.search = core.with_raw_response(search, client.search)
 
 

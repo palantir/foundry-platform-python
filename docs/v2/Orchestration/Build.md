@@ -6,7 +6,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/orchestration/builds/create | Stable |
 [**get**](#get) | **GET** /v2/orchestration/builds/{buildRid} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/orchestration/builds/getBatch | Stable |
-[**jobs**](#jobs) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Public Beta |
+[**jobs**](#jobs) | **GET** /v2/orchestration/builds/{buildRid}/jobs | Stable |
 [**search**](#search) | **POST** /v2/orchestration/builds/search | Private Beta |
 
 # **cancel**
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes |
 **abort_on_failure** | Optional[AbortOnFailure] |  | [optional] |
 **branch_name** | Optional[BranchName] | The target branch the build should run on. | [optional] |
 **force_build** | Optional[ForceBuild] |  | [optional] |
-**notifications_enabled** | Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`. | [optional] |
+**notifications_enabled** | Optional[NotificationsEnabled] |  | [optional] |
 **retry_backoff_duration** | Optional[RetryBackoffDuration] |  | [optional] |
 **retry_count** | Optional[RetryCount] | The number of retry attempts for failed jobs. | [optional] |
 
@@ -101,7 +101,7 @@ abort_on_failure = False
 branch_name = "master"
 # Optional[ForceBuild]
 force_build = None
-# Optional[NotificationsEnabled] | The notification will be sent to the user that has most recently edited the schedule. No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
+# Optional[NotificationsEnabled]
 notifications_enabled = None
 # Optional[RetryBackoffDuration]
 retry_backoff_duration = {"unit": "SECONDS", "value": 30}
@@ -246,7 +246,6 @@ Name | Type | Description  | Notes |
 **build_rid** | BuildRid | The RID of a Build. |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListJobsOfBuildResponse**
@@ -266,13 +265,11 @@ build_rid = "ri.foundry.main.build.a4386b7e-d546-49be-8a36-eefc355f5c58"
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     for build in client.orchestration.Build.jobs(
-        build_rid, page_size=page_size, page_token=page_token, preview=preview
+        build_rid, page_size=page_size, page_token=page_token
     ):
         pprint(build)
 except foundry_sdk.PalantirRPCException as e:

@@ -519,6 +519,7 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | User | [**get_markings**](docs/v2/Admin/User.md#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings |
 **Admin** | User | [**list**](docs/v2/Admin/User.md#list) | **GET** /v2/admin/users |
 **Admin** | User | [**profile_picture**](docs/v2/Admin/User.md#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture |
+**Admin** | User | [**revoke_all_tokens**](docs/v2/Admin/User.md#revoke_all_tokens) | **POST** /v2/admin/users/{userId}/revokeAllTokens |
 **Admin** | User | [**search**](docs/v2/Admin/User.md#search) | **POST** /v2/admin/users/search |
 **Admin** | UserProviderInfo | [**get**](docs/v2/Admin/UserProviderInfo.md#get) | **GET** /v2/admin/users/{userId}/providerInfo |
 **Admin** | UserProviderInfo | [**replace**](docs/v2/Admin/UserProviderInfo.md#replace) | **PUT** /v2/admin/users/{userId}/providerInfo |
@@ -736,6 +737,8 @@ Namespace | Name | Import |
 **Admin** | [GetGroupsBatchResponse](docs/v2/Admin/models/GetGroupsBatchResponse.md) | `from foundry_sdk.v2.admin.models import GetGroupsBatchResponse` |
 **Admin** | [GetMarkingsBatchRequestElement](docs/v2/Admin/models/GetMarkingsBatchRequestElement.md) | `from foundry_sdk.v2.admin.models import GetMarkingsBatchRequestElement` |
 **Admin** | [GetMarkingsBatchResponse](docs/v2/Admin/models/GetMarkingsBatchResponse.md) | `from foundry_sdk.v2.admin.models import GetMarkingsBatchResponse` |
+**Admin** | [GetRolesBatchRequestElement](docs/v2/Admin/models/GetRolesBatchRequestElement.md) | `from foundry_sdk.v2.admin.models import GetRolesBatchRequestElement` |
+**Admin** | [GetRolesBatchResponse](docs/v2/Admin/models/GetRolesBatchResponse.md) | `from foundry_sdk.v2.admin.models import GetRolesBatchResponse` |
 **Admin** | [GetUserMarkingsResponse](docs/v2/Admin/models/GetUserMarkingsResponse.md) | `from foundry_sdk.v2.admin.models import GetUserMarkingsResponse` |
 **Admin** | [GetUsersBatchRequestElement](docs/v2/Admin/models/GetUsersBatchRequestElement.md) | `from foundry_sdk.v2.admin.models import GetUsersBatchRequestElement` |
 **Admin** | [GetUsersBatchResponse](docs/v2/Admin/models/GetUsersBatchResponse.md) | `from foundry_sdk.v2.admin.models import GetUsersBatchResponse` |
@@ -774,6 +777,9 @@ Namespace | Name | Import |
 **Admin** | [OrganizationName](docs/v2/Admin/models/OrganizationName.md) | `from foundry_sdk.v2.admin.models import OrganizationName` |
 **Admin** | [PrincipalFilterType](docs/v2/Admin/models/PrincipalFilterType.md) | `from foundry_sdk.v2.admin.models import PrincipalFilterType` |
 **Admin** | [ProviderId](docs/v2/Admin/models/ProviderId.md) | `from foundry_sdk.v2.admin.models import ProviderId` |
+**Admin** | [Role](docs/v2/Admin/models/Role.md) | `from foundry_sdk.v2.admin.models import Role` |
+**Admin** | [RoleDescription](docs/v2/Admin/models/RoleDescription.md) | `from foundry_sdk.v2.admin.models import RoleDescription` |
+**Admin** | [RoleDisplayName](docs/v2/Admin/models/RoleDisplayName.md) | `from foundry_sdk.v2.admin.models import RoleDisplayName` |
 **Admin** | [SamlAuthenticationProtocol](docs/v2/Admin/models/SamlAuthenticationProtocol.md) | `from foundry_sdk.v2.admin.models import SamlAuthenticationProtocol` |
 **Admin** | [SamlServiceProviderMetadata](docs/v2/Admin/models/SamlServiceProviderMetadata.md) | `from foundry_sdk.v2.admin.models import SamlServiceProviderMetadata` |
 **Admin** | [SearchGroupsResponse](docs/v2/Admin/models/SearchGroupsResponse.md) | `from foundry_sdk.v2.admin.models import SearchGroupsResponse` |
@@ -1789,6 +1795,8 @@ Namespace | Name | Import |
 **Admin** | ReplaceGroupProviderInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceGroupProviderInfoPermissionDenied` |
 **Admin** | ReplaceOrganizationPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceOrganizationPermissionDenied` |
 **Admin** | ReplaceUserProviderInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceUserProviderInfoPermissionDenied` |
+**Admin** | RevokeAllTokensUserPermissionDenied | `from foundry_sdk.v2.admin.errors import RevokeAllTokensUserPermissionDenied` |
+**Admin** | RoleNotFound | `from foundry_sdk.v2.admin.errors import RoleNotFound` |
 **Admin** | SearchGroupsPermissionDenied | `from foundry_sdk.v2.admin.errors import SearchGroupsPermissionDenied` |
 **Admin** | SearchUsersPermissionDenied | `from foundry_sdk.v2.admin.errors import SearchUsersPermissionDenied` |
 **Admin** | UserNotFound | `from foundry_sdk.v2.admin.errors import UserNotFound` |

@@ -683,6 +683,36 @@ class ReplaceUserProviderInfoPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class RevokeAllTokensUserPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not revokeAllTokens the User."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    userId: core_models.PrincipalId
+
+
+@dataclass
+class RevokeAllTokensUserPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RevokeAllTokensUserPermissionDenied"]
+    parameters: RevokeAllTokensUserPermissionDeniedParameters
+    error_instance_id: str
+
+
+class RoleNotFoundParameters(typing_extensions.TypedDict):
+    """The given Role could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    roleId: core_models.RoleId
+
+
+@dataclass
+class RoleNotFound(errors.NotFoundError):
+    name: typing.Literal["RoleNotFound"]
+    parameters: RoleNotFoundParameters
+    error_instance_id: str
+
+
 class SearchGroupsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not search the Group."""
 
@@ -784,6 +814,8 @@ __all__ = [
     "ReplaceGroupProviderInfoPermissionDenied",
     "ReplaceOrganizationPermissionDenied",
     "ReplaceUserProviderInfoPermissionDenied",
+    "RevokeAllTokensUserPermissionDenied",
+    "RoleNotFound",
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
     "UserNotFound",

@@ -471,7 +471,8 @@ class NewLogicTrigger(pydantic.BaseModel):
 NotificationsEnabled = bool
 """
 Whether to receive a notification at the end of the build.
-The notification will be sent to the user that has performed the request.
+The notification will be sent to the user that has most recently edited the schedule.
+No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.
 """
 
 

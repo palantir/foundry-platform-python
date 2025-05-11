@@ -187,6 +187,31 @@ def admin_user_profile_picture(
     click.echo(repr(result))
 
 
+@admin_user.command("revoke_all_tokens")
+@click.argument("user_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_user_revoke_all_tokens(
+    client: FoundryClient,
+    user_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Revoke all active authentication tokens for the user including active browser sessions and long-lived
+    development tokens. If the user has active sessions in a browser, this will force re-authentication.
+
+    The caller must have permission to manage users for the target user's organization.
+
+    """
+    result = client.admin.User.revoke_all_tokens(
+        user_id=user_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_user.command("search")
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
@@ -319,6 +344,55 @@ def admin_user_user_provider_info_replace(
     result = client.admin.User.ProviderInfo.replace(
         user_id=user_id,
         provider_id=provider_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("role")
+def admin_role():
+    pass
+
+
+@admin_role.command("get")
+@click.argument("role_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_role_get(
+    client: FoundryClient,
+    role_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Role with the specified id.
+    """
+    result = client.admin.Role.get(
+        role_id=role_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_role.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_role_get_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Execute multiple get requests on Role.
+
+    The maximum batch size for this endpoint is 500.
+    """
+    result = client.admin.Role.get_batch(
+        body=json.loads(body),
         preview=preview,
     )
     click.echo(repr(result))
@@ -5626,6 +5700,13 @@ def ontologies_ontology_list(
 @click.option("--link_types", type=str, required=True, help="""""")
 @click.option("--object_types", type=str, required=True, help="""""")
 @click.option("--query_types", type=str, required=True, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_load_metadata(
     client: FoundryClient,
@@ -5635,6 +5716,7 @@ def ontologies_ontology_load_metadata(
     link_types: str,
     object_types: str,
     query_types: str,
+    preview: typing.Optional[bool],
 ):
     """
     Load Ontology metadata for the requested object, link, action, query, and interface types.
@@ -5647,6 +5729,7 @@ def ontologies_ontology_load_metadata(
         link_types=json.loads(link_types),
         object_types=json.loads(object_types),
         query_types=json.loads(query_types),
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6821,21 +6904,16 @@ def orchestration_schedule_create(
 
 @orchestration_schedule.command("delete")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_schedule_delete(
     client: FoundryClient,
     schedule_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Delete the Schedule with the specified rid.
     """
     result = client.orchestration.Schedule.delete(
         schedule_rid=schedule_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6863,19 +6941,14 @@ def orchestration_schedule_get(
 
 @orchestration_schedule.command("pause")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_schedule_pause(
     client: FoundryClient,
     schedule_rid: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.pause(
         schedule_rid=schedule_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6925,19 +6998,14 @@ def orchestration_schedule_replace(
 
 @orchestration_schedule.command("run")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_schedule_run(
     client: FoundryClient,
     schedule_rid: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.run(
         schedule_rid=schedule_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -6955,16 +7023,12 @@ def orchestration_schedule_run(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_schedule_runs(
     client: FoundryClient,
     schedule_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Get the most recent runs of a Schedule. If no page size is provided, a page size of 100 will be used.
@@ -6974,26 +7038,20 @@ def orchestration_schedule_runs(
         schedule_rid=schedule_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @orchestration_schedule.command("unpause")
 @click.argument("schedule_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_schedule_unpause(
     client: FoundryClient,
     schedule_rid: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.orchestration.Schedule.unpause(
         schedule_rid=schedule_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -7077,13 +7135,7 @@ def orchestration_build_cancel(
     "--branch_name", type=str, required=False, help="""The target branch the build should run on."""
 )
 @click.option("--force_build", type=bool, required=False, help="""""")
-@click.option(
-    "--notifications_enabled",
-    type=bool,
-    required=False,
-    help="""The notification will be sent to the user that has most recently edited the schedule.
-No notification will be sent if the schedule has `scopeMode` set to `ProjectScope`.""",
-)
+@click.option("--notifications_enabled", type=bool, required=False, help="""""")
 @click.option("--retry_backoff_duration", type=str, required=False, help="""""")
 @click.option(
     "--retry_count",
@@ -7166,16 +7218,12 @@ def orchestration_build_get_batch(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def orchestration_build_jobs(
     client: FoundryClient,
     build_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Get the Jobs in the Build.
@@ -7184,7 +7232,6 @@ def orchestration_build_jobs(
         build_rid=build_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 

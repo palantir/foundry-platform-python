@@ -84,7 +84,7 @@ PartitionsCount = int
 """The number of partitions for a Foundry stream."""
 
 
-Record = typing.Dict[str, typing.Any]
+Record = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
 
 

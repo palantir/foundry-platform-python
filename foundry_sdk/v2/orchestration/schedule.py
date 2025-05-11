@@ -132,7 +132,6 @@ class ScheduleClient:
         self,
         schedule_rid: core_models.ScheduleRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -140,8 +139,6 @@ class ScheduleClient:
         Delete the Schedule with the specified rid.
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -154,9 +151,7 @@ class ScheduleClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "scheduleRid": schedule_rid,
                 },
@@ -228,7 +223,6 @@ class ScheduleClient:
         self,
         schedule_rid: core_models.ScheduleRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -236,8 +230,6 @@ class ScheduleClient:
 
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -250,9 +242,7 @@ class ScheduleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/pause",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "scheduleRid": schedule_rid,
                 },
@@ -357,7 +347,6 @@ class ScheduleClient:
         self,
         schedule_rid: core_models.ScheduleRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.ScheduleRun:
@@ -365,8 +354,6 @@ class ScheduleClient:
 
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -379,9 +366,7 @@ class ScheduleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/run",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "scheduleRid": schedule_rid,
                 },
@@ -408,7 +393,6 @@ class ScheduleClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[orchestration_models.ScheduleRun]:
@@ -421,8 +405,6 @@ class ScheduleClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -436,7 +418,6 @@ class ScheduleClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "scheduleRid": schedule_rid,
@@ -460,7 +441,6 @@ class ScheduleClient:
         self,
         schedule_rid: core_models.ScheduleRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -468,8 +448,6 @@ class ScheduleClient:
 
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -482,9 +460,7 @@ class ScheduleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/orchestration/schedules/{scheduleRid}/unpause",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "scheduleRid": schedule_rid,
                 },

@@ -165,6 +165,7 @@ Name | Type | Description  | Notes |
 **link_types** | List[LinkTypeApiName] |  |  |
 **object_types** | List[ObjectTypeApiName] |  |  |
 **query_types** | List[VersionedQueryTypeApiName] |  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **OntologyFullMetadata**
@@ -190,6 +191,8 @@ link_types = None
 object_types = None
 # List[VersionedQueryTypeApiName]
 query_types = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
@@ -200,6 +203,7 @@ try:
         link_types=link_types,
         object_types=object_types,
         query_types=query_types,
+        preview=preview,
     )
     print("The load_metadata response:\n")
     pprint(api_response)
