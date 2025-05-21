@@ -75,7 +75,7 @@ class TableImportClient:
         :type connection_rid: ConnectionRid
         :param config:
         :type config: CreateTableImportRequestTableImportConfig
-        :param dataset_rid: The RID of the output dataset.
+        :param dataset_rid: The RID of the output dataset. Can not be modified after the table import is created.
         :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: TableImportDisplayName
@@ -83,7 +83,7 @@ class TableImportClient:
         :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
-        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.
         :type branch_name: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -381,13 +381,11 @@ class TableImportClient:
         table_import_rid: connectivity_models.TableImportRid,
         *,
         config: connectivity_models.ReplaceTableImportRequestTableImportConfig,
-        dataset_rid: datasets_models.DatasetRid,
         display_name: connectivity_models.TableImportDisplayName,
         import_mode: connectivity_models.TableImportMode,
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -400,16 +398,12 @@ class TableImportClient:
         :type table_import_rid: TableImportRid
         :param config:
         :type config: ReplaceTableImportRequestTableImportConfig
-        :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: TableImportDisplayName
         :param import_mode:
         :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
-        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -417,8 +411,6 @@ class TableImportClient:
         :return: Returns the result object.
         :rtype: connectivity_models.TableImport
 
-        :raises ChangingBranchNameNotSupportedForImports: Changing of branch name is not supported for imports.
-        :raises ChangingOutputDatasetNotSupportedForImports: Changing of output dataset is not supported for imports.
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
         :raises ReplaceTableImportPermissionDenied: Could not replace the TableImport.
         :raises TableImportNotFound: The given TableImport could not be found.
@@ -442,31 +434,25 @@ class TableImportClient:
                     "Accept": "application/json",
                 },
                 body={
-                    "datasetRid": dataset_rid,
                     "importMode": import_mode,
                     "displayName": display_name,
                     "allowSchemaChanges": allow_schema_changes,
-                    "branchName": branch_name,
                     "config": config,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
                         "importMode": connectivity_models.TableImportMode,
                         "displayName": connectivity_models.TableImportDisplayName,
                         "allowSchemaChanges": typing.Optional[
                             connectivity_models.TableImportAllowSchemaChanges
                         ],
-                        "branchName": typing.Optional[datasets_models.BranchName],
                         "config": connectivity_models.ReplaceTableImportRequestTableImportConfig,
                     },
                 ),
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "ChangingBranchNameNotSupportedForImports": connectivity_errors.ChangingBranchNameNotSupportedForImports,
-                    "ChangingOutputDatasetNotSupportedForImports": connectivity_errors.ChangingOutputDatasetNotSupportedForImports,
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
                     "ReplaceTableImportPermissionDenied": connectivity_errors.ReplaceTableImportPermissionDenied,
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,

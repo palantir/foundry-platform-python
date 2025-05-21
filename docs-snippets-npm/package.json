@@ -18,13 +18,13 @@
   "homepage": "https://github.com/palantir/foundry-platform-python#readme",
   "devDependencies": {
     "@osdk/docs-spec-core": "^0.5.0",
-    "@osdk/platform-docs-spec": "^0.6.0",
+    "@osdk/docs-spec-platform": "^0.8.0",
     "typescript": "^5.8.3"
   },
   "sls": {
     "dependencies": {
       "com.palantir.foundry.api:api-gateway": {
-        "minVersion": "1.1163.0",
+        "minVersion": "1.1174.0",
         "maxVersion": "1.x.x",
         "optional": false
       }

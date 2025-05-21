@@ -2980,6 +2980,14 @@ SdkPackageName = str
 """SdkPackageName"""
 
 
+SdkPackageRid = core.RID
+"""SdkPackageRid"""
+
+
+SdkVersion = str
+"""SdkVersion"""
+
+
 SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
         OrQueryV2,
@@ -4054,6 +4062,8 @@ __all__ = [
     "ReturnEditsMode",
     "RollingAggregateWindowPoints",
     "SdkPackageName",
+    "SdkPackageRid",
+    "SdkVersion",
     "SearchJsonQueryV2",
     "SearchObjectsResponseV2",
     "SearchOrderByType",

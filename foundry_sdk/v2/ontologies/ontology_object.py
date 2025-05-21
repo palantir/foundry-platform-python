@@ -194,9 +194,9 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -212,12 +212,12 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -231,9 +231,9 @@ class OntologyObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "excludeRid": exclude_rid,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
                 },
                 path_params={

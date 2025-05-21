@@ -725,6 +725,13 @@ class NullType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+Operation = str
+"""
+An operation that can be performed on a resource. Operations are used to define the permissions that a Role has.
+Operations are typically in the format `service:action`, where `service` is related to the type of resource and `action` is the action being performed.
+"""
+
+
 OperationScope = str
 """OperationScope"""
 
@@ -772,12 +779,55 @@ ReleaseStatus = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED
 """The release status of the entity."""
 
 
+class Role(pydantic.BaseModel):
+    """A set of permissions that can be assigned to a principal for a specific resource type."""
+
+    id: RoleId
+    role_set_id: RoleSetId = pydantic.Field(alias=str("roleSetId"))  # type: ignore[literal-required]
+    name: str
+    description: str
+    is_default: bool = pydantic.Field(alias=str("isDefault"))  # type: ignore[literal-required]
+    """Default roles are provided by Palantir and cannot be edited or modified by administrators."""
+
+    type: RoleContext
+    """The type of resource that is valid for this role."""
+
+    operations: typing.List[Operation]
+    """The operations that a principal can perform with this role on the assigned resource."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class RoleAssignmentUpdate(pydantic.BaseModel):
+    """RoleAssignmentUpdate"""
+
+    role_id: RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+    principal_id: PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+RoleContext = typing.Literal["ORGANIZATION"]
+"""RoleContext"""
+
+
 RoleId = str
 """
 The unique ID for a Role. Roles are sets of permissions that grant different levels of access to resources.
 The default roles in Foundry are: Owner, Editor, Viewer, and Discoverer. See more about 
 [roles](https://palantir.com/docs/foundry/security/projects-and-roles#roles) in the user documentation.
 """
+
+
+RoleSetId = str
+"""RoleSetId"""
 
 
 ScheduleRid = core.RID
@@ -1059,6 +1109,7 @@ __all__ = [
     "MediaSetViewRid",
     "MediaType",
     "NullType",
+    "Operation",
     "OperationScope",
     "OrderByDirection",
     "OrganizationRid",
@@ -1070,7 +1121,11 @@ __all__ = [
     "Realm",
     "Reference",
     "ReleaseStatus",
+    "Role",
+    "RoleAssignmentUpdate",
+    "RoleContext",
     "RoleId",
+    "RoleSetId",
     "ScheduleRid",
     "ShortType",
     "SizeBytes",

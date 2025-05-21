@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
@@ -104,7 +105,15 @@ class DatasetClient:
         :return: Returns the result object.
         :rtype: datasets_models.Dataset
 
+        :raises BranchAlreadyExists: The branch cannot be created because a branch with that name already exists.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FolderNotFound: The given Folder could not be found.
+        :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
+        :raises TransactionNotCommitted: The given transaction has not been committed.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -131,7 +140,15 @@ class DatasetClient:
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BranchAlreadyExists": datasets_errors.BranchAlreadyExists,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                    "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -215,6 +232,8 @@ class DatasetClient:
         :return: Returns the result object.
         :rtype: core.ResourceIterator[core_models.ScheduleRid]
 
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises GetDatasetSchedulesPermissionDenied: Could not getSchedules the Dataset.
         """
 
@@ -239,6 +258,8 @@ class DatasetClient:
                 response_type=datasets_models.ListSchedulesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "GetDatasetSchedulesPermissionDenied": datasets_errors.GetDatasetSchedulesPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
@@ -286,6 +307,8 @@ class DatasetClient:
         :rtype: bytes
 
         :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises DatasetReadNotSupported: The dataset does not support being read.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
         :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
         :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
@@ -317,6 +340,8 @@ class DatasetClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
+                    "DatasetReadNotSupported": datasets_errors.DatasetReadNotSupported,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "ReadTableDatasetPermissionDenied": datasets_errors.ReadTableDatasetPermissionDenied,
                     "ReadTableError": datasets_errors.ReadTableError,
                     "ReadTableRowLimitExceeded": datasets_errors.ReadTableRowLimitExceeded,

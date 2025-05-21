@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v1.datasets import errors as datasets_errors
 from foundry_sdk.v1.datasets import models as datasets_models
 
 
@@ -71,6 +72,11 @@ class TransactionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Transaction
+
+        :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
+        :raises TransactionNotOpen: The given transaction is not open.
         """
 
         return self._api_client.call_api(
@@ -89,7 +95,12 @@ class TransactionClient:
                 body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                    "TransactionNotOpen": datasets_errors.TransactionNotOpen,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -119,6 +130,11 @@ class TransactionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Transaction
+
+        :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
+        :raises TransactionNotOpen: The given transaction is not open.
         """
 
         return self._api_client.call_api(
@@ -137,7 +153,12 @@ class TransactionClient:
                 body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                    "TransactionNotOpen": datasets_errors.TransactionNotOpen,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -169,6 +190,12 @@ class TransactionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Transaction
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         """
 
         return self._api_client.call_api(
@@ -196,7 +223,13 @@ class TransactionClient:
                 ),
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CreateTransactionPermissionDenied": datasets_errors.CreateTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -225,6 +258,9 @@ class TransactionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Transaction
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -243,7 +279,10 @@ class TransactionClient:
                 body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )

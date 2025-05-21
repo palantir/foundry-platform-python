@@ -21,6 +21,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import errors as filesystem_errors
@@ -105,7 +106,11 @@ class DatasetClient:
         :return: Returns the result object.
         :rtype: streams_models.Dataset
 
+        :raises CannotCreateStreamingDatasetInUserFolder: Cannot create a streaming dataset in a user folder.
         :raises CreateStreamingDatasetPermissionDenied: Could not create the Dataset.
+        :raises InvalidFieldSchema: The field schema failed validations
+        :raises InvalidSchema: The schema failed validations
+        :raises InvalidStreamType: The stream type is invalid.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -145,7 +150,11 @@ class DatasetClient:
                 response_type=streams_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CannotCreateStreamingDatasetInUserFolder": streams_errors.CannotCreateStreamingDatasetInUserFolder,
                     "CreateStreamingDatasetPermissionDenied": streams_errors.CreateStreamingDatasetPermissionDenied,
+                    "InvalidFieldSchema": core_errors.InvalidFieldSchema,
+                    "InvalidSchema": core_errors.InvalidSchema,
+                    "InvalidStreamType": streams_errors.InvalidStreamType,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

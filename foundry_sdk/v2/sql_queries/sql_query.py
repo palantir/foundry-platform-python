@@ -73,7 +73,12 @@ class SqlQueryClient:
         :rtype: None
 
         :raises CancelSqlQueryPermissionDenied: Could not cancel the SqlQuery.
+        :raises QueryCanceled: The query was canceled.
+        :raises QueryFailed: The query failed.
+        :raises QueryParseError: The query cannot be parsed.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
+        :raises QueryRunning: The query is running.
+        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
 
         return self._api_client.call_api(
@@ -93,7 +98,12 @@ class SqlQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CancelSqlQueryPermissionDenied": sql_queries_errors.CancelSqlQueryPermissionDenied,
+                    "QueryCanceled": sql_queries_errors.QueryCanceled,
+                    "QueryFailed": sql_queries_errors.QueryFailed,
+                    "QueryParseError": sql_queries_errors.QueryParseError,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
+                    "QueryRunning": sql_queries_errors.QueryRunning,
+                    "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -126,7 +136,11 @@ class SqlQueryClient:
         :rtype: sql_queries_models.QueryStatus
 
         :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
+        :raises QueryCanceled: The query was canceled.
+        :raises QueryFailed: The query failed.
         :raises QueryParseError: The query cannot be parsed.
+        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
+        :raises QueryRunning: The query is running.
         :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
 
@@ -159,7 +173,11 @@ class SqlQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
+                    "QueryCanceled": sql_queries_errors.QueryCanceled,
+                    "QueryFailed": sql_queries_errors.QueryFailed,
                     "QueryParseError": sql_queries_errors.QueryParseError,
+                    "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
+                    "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -193,7 +211,10 @@ class SqlQueryClient:
         :raises GetResultsSqlQueryPermissionDenied: Could not getResults the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
+        :raises QueryParseError: The query cannot be parsed.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
+        :raises QueryRunning: The query is running.
+        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
 
         return self._api_client.call_api(
@@ -217,7 +238,10 @@ class SqlQueryClient:
                     "GetResultsSqlQueryPermissionDenied": sql_queries_errors.GetResultsSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
+                    "QueryParseError": sql_queries_errors.QueryParseError,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
+                    "QueryRunning": sql_queries_errors.QueryRunning,
+                    "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -247,7 +271,12 @@ class SqlQueryClient:
         :rtype: sql_queries_models.QueryStatus
 
         :raises GetStatusSqlQueryPermissionDenied: Could not getStatus the SqlQuery.
+        :raises QueryCanceled: The query was canceled.
+        :raises QueryFailed: The query failed.
+        :raises QueryParseError: The query cannot be parsed.
         :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
+        :raises QueryRunning: The query is running.
+        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
 
         return self._api_client.call_api(
@@ -269,7 +298,12 @@ class SqlQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetStatusSqlQueryPermissionDenied": sql_queries_errors.GetStatusSqlQueryPermissionDenied,
+                    "QueryCanceled": sql_queries_errors.QueryCanceled,
+                    "QueryFailed": sql_queries_errors.QueryFailed,
+                    "QueryParseError": sql_queries_errors.QueryParseError,
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
+                    "QueryRunning": sql_queries_errors.QueryRunning,
+                    "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

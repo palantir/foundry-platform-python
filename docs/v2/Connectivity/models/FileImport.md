@@ -7,8 +7,8 @@ FileImport
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | FileImportRid | Yes |  |
 **connection_rid** | ConnectionRid | Yes | The RID of the Connection (also known as a source) that the File Import uses to import data. |
-**dataset_rid** | DatasetRid | Yes | The RID of the output dataset. |
-**branch_name** | Optional[BranchName] | No | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. |
+**dataset_rid** | DatasetRid | Yes | The RID of the output dataset. Can not be modified after the file import is created. |
+**branch_name** | Optional[BranchName] | No | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created. |
 **display_name** | FileImportDisplayName | Yes |  |
 **file_import_filters** | List[FileImportFilter] | Yes | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |
 **import_mode** | FileImportMode | Yes |  |

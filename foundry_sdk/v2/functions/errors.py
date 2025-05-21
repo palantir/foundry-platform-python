@@ -50,6 +50,27 @@ class GetByRidQueriesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InvalidQueryOutputValueParameters(typing_extensions.TypedDict):
+    """
+    The value of the query's output is invalid. This may be because the return value did not match the specified
+    output type or constraints.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    outputDataType: functions_models.QueryDataType
+    outputValue: typing_extensions.NotRequired[functions_models.DataValue]
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
+
+
+@dataclass
+class InvalidQueryOutputValue(errors.BadRequestError):
+    name: typing.Literal["InvalidQueryOutputValue"]
+    parameters: InvalidQueryOutputValueParameters
+    error_instance_id: str
+
+
 class InvalidQueryParameterValueParameters(typing_extensions.TypedDict):
     """
     The value of the given parameter is invalid. See the documentation of `DataValue` for details on
@@ -243,6 +264,7 @@ class VersionIdNotFound(errors.NotFoundError):
 __all__ = [
     "ExecuteQueryPermissionDenied",
     "GetByRidQueriesPermissionDenied",
+    "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",
     "MissingParameter",
     "QueryEncounteredUserFacingError",

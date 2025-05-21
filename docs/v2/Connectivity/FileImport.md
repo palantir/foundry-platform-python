@@ -7,7 +7,7 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
 [**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
-[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Private Beta |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
 
 # **create**
 Creates a new FileImport.
@@ -17,11 +17,11 @@ Creates a new FileImport.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
+**dataset_rid** | DatasetRid | The RID of the output dataset. Can not be modified after the file import is created. |  |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
-**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
@@ -39,7 +39,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ConnectionRid
 connection_rid = None
-# DatasetRid | The RID of the output dataset.
+# DatasetRid | The RID of the output dataset. Can not be modified after the file import is created.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
@@ -47,7 +47,7 @@ display_name = "My file import"
 file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
-# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.
 branch_name = "master"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -324,11 +324,9 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **file_import_rid** | FileImportRid |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
-**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
@@ -348,16 +346,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # FileImportRid
 file_import_rid = None
-# DatasetRid | The RID of the output dataset.
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # FileImportDisplayName
 display_name = "My file import"
 # List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
 file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
-# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-branch_name = "master"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
@@ -368,11 +362,9 @@ try:
     api_response = client.connectivity.Connection.FileImport.replace(
         connection_rid,
         file_import_rid,
-        dataset_rid=dataset_rid,
         display_name=display_name,
         file_import_filters=file_import_filters,
         import_mode=import_mode,
-        branch_name=branch_name,
         preview=preview,
         subfolder=subfolder,
     )

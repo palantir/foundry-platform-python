@@ -1,0 +1,12 @@
+# SuccessToolCallOutput
+
+The successful output of a tool call.
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**output** | ToolOutputValue | Yes |  |
+**type** | Literal["success"] | Yes | None |
+
+
+[[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

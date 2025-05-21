@@ -30,6 +30,7 @@ Name | Type | Description  | Notes |
 **user_input** | UserTextInput | The user message for the Agent to respond to. |  |
 **contexts_override** | Optional[List[InputContext]] | If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**session_trace_id** | Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.  | [optional] |
 
 ### Return type
 **SessionExchangeResult**
@@ -65,6 +66,8 @@ user_input = {"text": "What is the status of my order?"}
 contexts_override = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.
+session_trace_id = "12345678-1234-5678-1234-123456789abc"
 
 
 try:
@@ -75,6 +78,7 @@ try:
         user_input=user_input,
         contexts_override=contexts_override,
         preview=preview,
+        session_trace_id=session_trace_id,
     )
     print("The blocking_continue response:\n")
     pprint(api_response)
@@ -419,6 +423,7 @@ Name | Type | Description  | Notes |
 **contexts_override** | Optional[List[InputContext]] | If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.  | [optional] |
 **message_id** | Optional[MessageId] | A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**session_trace_id** | Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`, which can be loaded via the `getContent` endpoint.  | [optional] |
 
 ### Return type
 **bytes**
@@ -456,6 +461,8 @@ contexts_override = None
 message_id = "00f8412a-c29d-4063-a417-8052825285a5"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[SessionTraceId] | The unique identifier to use for this continue session trace. By generating and passing this ID to the `streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`, which can be loaded via the `getContent` endpoint.
+session_trace_id = "12345678-1234-5678-1234-123456789abc"
 
 
 try:
@@ -467,6 +474,7 @@ try:
         contexts_override=contexts_override,
         message_id=message_id,
         preview=preview,
+        session_trace_id=session_trace_id,
     )
     print("The streaming_continue response:\n")
     pprint(api_response)

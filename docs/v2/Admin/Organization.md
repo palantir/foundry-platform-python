@@ -3,6 +3,7 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/admin/organizations/{organizationRid} | Public Beta |
+[**list_available_roles**](#list_available_roles) | **GET** /v2/admin/organizations/{organizationRid}/listAvailableRoles | Public Beta |
 [**replace**](#replace) | **PUT** /v2/admin/organizations/{organizationRid} | Public Beta |
 
 # **get**
@@ -52,6 +53,57 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Organization  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list_available_roles**
+List all roles that can be assigned to a principal for the given Organization.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**organization_rid** | OrganizationRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListAvailableOrganizationRolesResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OrganizationRid
+organization_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.Organization.list_available_roles(organization_rid, preview=preview)
+    print("The list_available_roles response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Organization.list_available_roles: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListAvailableOrganizationRolesResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

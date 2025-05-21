@@ -142,6 +142,14 @@ def test_admin_v2_organization_import():
     assert OrganizationClient is not None
 
 
+def test_admin_v2_organization_role_assignment_import():
+    from foundry_sdk.v2.admin.organization_role_assignment import (
+        OrganizationRoleAssignmentClient,
+    )  # NOQA
+
+    assert OrganizationRoleAssignmentClient is not None
+
+
 def test_admin_v2_role_import():
     from foundry_sdk.v2.admin.role import RoleClient
 
@@ -182,6 +190,12 @@ def test_aip_agents_v2_session_import():
     from foundry_sdk.v2.aip_agents.session import SessionClient
 
     assert SessionClient is not None
+
+
+def test_aip_agents_v2_session_trace_import():
+    from foundry_sdk.v2.aip_agents.session_trace import SessionTraceClient
+
+    assert SessionTraceClient is not None
 
 
 def test_connectivity_v2_connection_import():

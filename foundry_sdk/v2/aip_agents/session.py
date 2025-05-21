@@ -59,6 +59,16 @@ class SessionClient:
             config=self._config,
         )
 
+    @cached_property
+    def SessionTrace(self):
+        from foundry_sdk.v2.aip_agents.session_trace import SessionTraceClient
+
+        return SessionTraceClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -73,6 +83,7 @@ class SessionClient:
         user_input: aip_agents_models.UserTextInput,
         contexts_override: typing.Optional[typing.List[aip_agents_models.InputContext]] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        session_trace_id: typing.Optional[aip_agents_models.SessionTraceId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.SessionExchangeResult:
@@ -96,6 +107,8 @@ class SessionClient:
         :type contexts_override: Optional[List[InputContext]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param session_trace_id: The unique identifier to use for this continue session trace. By generating and passing this ID to the `blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.
+        :type session_trace_id: Optional[SessionTraceId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -113,6 +126,7 @@ class SessionClient:
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
+        :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         """
 
         return self._api_client.call_api(
@@ -134,6 +148,7 @@ class SessionClient:
                     "userInput": user_input,
                     "parameterInputs": parameter_inputs,
                     "contextsOverride": contexts_override,
+                    "sessionTraceId": session_trace_id,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -145,6 +160,7 @@ class SessionClient:
                         "contextsOverride": typing.Optional[
                             typing.List[aip_agents_models.InputContext]
                         ],
+                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
                     },
                 ),
                 response_type=aip_agents_models.SessionExchangeResult,
@@ -162,6 +178,7 @@ class SessionClient:
                     "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
+                    "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -539,6 +556,7 @@ class SessionClient:
         contexts_override: typing.Optional[typing.List[aip_agents_models.InputContext]] = None,
         message_id: typing.Optional[aip_agents_models.MessageId] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        session_trace_id: typing.Optional[aip_agents_models.SessionTraceId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -565,6 +583,8 @@ class SessionClient:
         :type message_id: Optional[MessageId]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param session_trace_id: The unique identifier to use for this continue session trace. By generating and passing this ID to the `streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used to generate a result, while the result is in progress. If omitted, it will be generated automatically. Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`, which can be loaded via the `getContent` endpoint.
+        :type session_trace_id: Optional[SessionTraceId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -577,6 +597,7 @@ class SessionClient:
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
+        :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
         """
 
@@ -600,6 +621,7 @@ class SessionClient:
                     "parameterInputs": parameter_inputs,
                     "contextsOverride": contexts_override,
                     "messageId": message_id,
+                    "sessionTraceId": session_trace_id,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -612,6 +634,7 @@ class SessionClient:
                             typing.List[aip_agents_models.InputContext]
                         ],
                         "messageId": typing.Optional[aip_agents_models.MessageId],
+                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
                     },
                 ),
                 response_type=bytes,
@@ -624,6 +647,7 @@ class SessionClient:
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
+                    "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                     "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

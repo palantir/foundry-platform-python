@@ -457,6 +457,45 @@ class SessionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class SessionTraceIdAlreadyExistsParameters(typing_extensions.TypedDict):
+    """The provided trace ID already exists for the session and cannot be reused."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
+    sessionTraceId: aip_agents_models.SessionTraceId
+
+
+@dataclass
+class SessionTraceIdAlreadyExists(errors.BadRequestError):
+    name: typing.Literal["SessionTraceIdAlreadyExists"]
+    parameters: SessionTraceIdAlreadyExistsParameters
+    error_instance_id: str
+
+
+class SessionTraceNotFoundParameters(typing_extensions.TypedDict):
+    """The given SessionTrace could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sessionTraceId: aip_agents_models.SessionTraceId
+    """The unique identifier for the trace."""
+
+    agentRid: aip_agents_models.AgentRid
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+
+    sessionRid: aip_agents_models.SessionRid
+    """The Resource Identifier (RID) of the conversation session."""
+
+
+@dataclass
+class SessionTraceNotFound(errors.NotFoundError):
+    name: typing.Literal["SessionTraceNotFound"]
+    parameters: SessionTraceNotFoundParameters
+    error_instance_id: str
+
+
 class StreamingContinueSessionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not streamingContinue the Session."""
 
@@ -518,6 +557,8 @@ __all__ = [
     "RateLimitExceeded",
     "SessionExecutionFailed",
     "SessionNotFound",
+    "SessionTraceIdAlreadyExists",
+    "SessionTraceNotFound",
     "StreamingContinueSessionPermissionDenied",
     "UpdateSessionTitlePermissionDenied",
 ]

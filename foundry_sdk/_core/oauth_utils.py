@@ -119,13 +119,15 @@ class AuthorizeRequest(pydantic.BaseModel):
 class OAuth(Auth, ABC):
     def __init__(
         self,
-        hostname: Optional[str],
-        config: Optional[Config],
+        hostname: Optional[str] = None,
+        should_refresh: bool = True,
+        *,
+        config: Optional[Config] = None,
     ) -> None:
         self._config = config
         self._hostname = hostname
-        self._parameterized_directly = config is not None or hostname is not None
         self._client: Optional[HttpClient] = None
+        self._should_refresh = should_refresh
 
     @abstractmethod
     def sign_out(self) -> SignOutResponse:
@@ -133,7 +135,10 @@ class OAuth(Auth, ABC):
 
     def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
         try:
-            return self._run_with_attempted_refresh(func)
+            if self._should_refresh:
+                return self._run_with_attempted_refresh(func)
+            else:
+                return func(self.get_token())
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
                 self.sign_out()
@@ -169,20 +174,34 @@ class OAuth(Auth, ABC):
                 raise e
 
     def _parameterize(self, hostname: str, config: Optional[Config]) -> None:
-        if self._parameterized_directly:
-            warnings.warn(
-                f"When a {self.__class__.__name__} instance is given to a FoundryClient, its hostname "
-                "and config are automatically provided by the FoundryClient. Please remove these "
-                "parameters from the {self.__class__.__name__} initialization.",
-                UserWarning,
-                stacklevel=2,
-            )
-
         if self._client is not None:
             return
 
-        self._config = config
-        self._hostname = hostname
+        if self._config is None:
+            self._config = config
+        else:
+            if self._config == config:
+                warnings.warn(
+                    f"When a {self.__class__.__name__} instance is given to a FoundryClient, if a config "
+                    "is not set it will be provided by the FoundryClient. You are using the same config "
+                    "here and in the FoundryClient. Please remove the config parameter from the "
+                    "{self.__class__.__name__} initialization.",
+                    UserWarning,
+                    stacklevel=2,
+                )
+
+        if self._hostname is None:
+            self._hostname = hostname
+        else:
+            if self._hostname == hostname:
+                warnings.warn(
+                    f"When a {self.__class__.__name__} instance is given to a FoundryClient, if a hostname "
+                    "is not set it will be provided by the FoundryClient. You are using the same hostname "
+                    "here and in the FoundryClient. Please remove the hostname parameter from the "
+                    "{self.__class__.__name__} initialization.",
+                    UserWarning,
+                    stacklevel=2,
+                )
 
         # Set here so that the next call to _parameterize() doesn't re-create another HttpClient
         # This method may be called many times dependening on how many different ApiClients

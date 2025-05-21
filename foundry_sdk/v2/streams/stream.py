@@ -20,7 +20,9 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.streams import errors as streams_errors
 from foundry_sdk.v2.streams import models as streams_models
@@ -87,7 +89,11 @@ class StreamClient:
         :return: Returns the result object.
         :rtype: streams_models.Stream
 
+        :raises BranchAlreadyExists: The branch cannot be created because a branch with that name already exists.
         :raises CreateStreamPermissionDenied: Could not create the Stream.
+        :raises InvalidFieldSchema: The field schema failed validations
+        :raises InvalidSchema: The schema failed validations
+        :raises InvalidStreamType: The stream type is invalid.
         """
 
         return self._api_client.call_api(
@@ -124,7 +130,11 @@ class StreamClient:
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BranchAlreadyExists": datasets_errors.BranchAlreadyExists,
                     "CreateStreamPermissionDenied": streams_errors.CreateStreamPermissionDenied,
+                    "InvalidFieldSchema": core_errors.InvalidFieldSchema,
+                    "InvalidSchema": core_errors.InvalidSchema,
+                    "InvalidStreamType": streams_errors.InvalidStreamType,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -157,6 +167,9 @@ class StreamClient:
         :return: Returns the result object.
         :rtype: streams_models.Stream
 
+        :raises InvalidFieldSchema: The field schema failed validations
+        :raises InvalidStreamNoSchema: The requested stream exists but is invalid, as it does not have a schema.
+        :raises InvalidStreamType: The stream type is invalid.
         :raises StreamNotFound: The given Stream could not be found.
         """
 
@@ -179,6 +192,9 @@ class StreamClient:
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidFieldSchema": core_errors.InvalidFieldSchema,
+                    "InvalidStreamNoSchema": streams_errors.InvalidStreamNoSchema,
+                    "InvalidStreamType": streams_errors.InvalidStreamType,
                     "StreamNotFound": streams_errors.StreamNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -430,7 +446,12 @@ class StreamClient:
         :return: Returns the result object.
         :rtype: streams_models.Stream
 
+        :raises InvalidFieldSchema: The field schema failed validations
+        :raises InvalidSchema: The schema failed validations
+        :raises InvalidStreamNoSchema: The requested stream exists but is invalid, as it does not have a schema.
+        :raises InvalidStreamType: The stream type is invalid.
         :raises ResetStreamPermissionDenied: Could not reset the Stream.
+        :raises StreamNotFound: The given Stream could not be found.
         """
 
         return self._api_client.call_api(
@@ -466,7 +487,12 @@ class StreamClient:
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidFieldSchema": core_errors.InvalidFieldSchema,
+                    "InvalidSchema": core_errors.InvalidSchema,
+                    "InvalidStreamNoSchema": streams_errors.InvalidStreamNoSchema,
+                    "InvalidStreamType": streams_errors.InvalidStreamType,
                     "ResetStreamPermissionDenied": streams_errors.ResetStreamPermissionDenied,
+                    "StreamNotFound": streams_errors.StreamNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

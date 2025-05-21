@@ -69,6 +69,21 @@ class AddMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the OrganizationRoleAssignment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class AddOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddOrganizationRoleAssignmentsPermissionDenied"]
+    parameters: AddOrganizationRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class AuthenticationProviderNotFoundParameters(typing_extensions.TypedDict):
     """The given AuthenticationProvider could not be found."""
 
@@ -423,6 +438,21 @@ class InvalidProfilePicture(errors.BadRequestError):
     error_instance_id: str
 
 
+class ListAvailableRolesOrganizationPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not listAvailableRoles the Organization."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class ListAvailableRolesOrganizationPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListAvailableRolesOrganizationPermissionDenied"]
+    parameters: ListAvailableRolesOrganizationPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ListHostsPermissionDeniedParameters(typing_extensions.TypedDict):
     """You do not have permission to list hosts for this enrollment"""
 
@@ -465,6 +495,21 @@ class ListMarkingRoleAssignmentsPermissionDeniedParameters(typing_extensions.Typ
 class ListMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["ListMarkingRoleAssignmentsPermissionDenied"]
     parameters: ListMarkingRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ListOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The provided token does not have permission to list assigned roles for this organization."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class ListOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListOrganizationRoleAssignmentsPermissionDenied"]
+    parameters: ListOrganizationRoleAssignmentsPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -638,6 +683,21 @@ class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(errors.BadRe
     error_instance_id: str
 
 
+class RemoveOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the OrganizationRoleAssignment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class RemoveOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveOrganizationRoleAssignmentsPermissionDenied"]
+    parameters: RemoveOrganizationRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the GroupProviderInfo."""
 
@@ -773,6 +833,7 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
+    "AddOrganizationRoleAssignmentsPermissionDenied",
     "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CreateGroupPermissionDenied",
@@ -797,9 +858,11 @@ __all__ = [
     "InvalidGroupOrganizations",
     "InvalidHostName",
     "InvalidProfilePicture",
+    "ListAvailableRolesOrganizationPermissionDenied",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
     "ListMarkingRoleAssignmentsPermissionDenied",
+    "ListOrganizationRoleAssignmentsPermissionDenied",
     "MarkingCategoryNotFound",
     "MarkingNotFound",
     "OrganizationNotFound",
@@ -811,6 +874,7 @@ __all__ = [
     "RemoveMarkingMembersPermissionDenied",
     "RemoveMarkingRoleAssignmentsPermissionDenied",
     "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
+    "RemoveOrganizationRoleAssignmentsPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
     "ReplaceOrganizationPermissionDenied",
     "ReplaceUserProviderInfoPermissionDenied",

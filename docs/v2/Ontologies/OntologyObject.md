@@ -172,9 +172,9 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 
 ### Return type
@@ -195,12 +195,12 @@ ontology = "palantir"
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 # Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
 
@@ -210,9 +210,9 @@ try:
         ontology,
         object_type,
         primary_key,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         select=select,
     )
     print("The get response:\n")

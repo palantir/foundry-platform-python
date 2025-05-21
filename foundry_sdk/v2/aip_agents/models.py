@@ -180,6 +180,24 @@ class Content(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class FailureToolCallOutput(pydantic.BaseModel):
+    """The failed output of a tool call."""
+
+    correction_message: str = pydantic.Field(alias=str("correctionMessage"))  # type: ignore[literal-required]
+    """
+    The correction message returned by the tool if the tool call was not successful.
+    This is a message that the tool returned to the Agent, which may be used to correct the
+    Agent's input to the tool.
+    """
+
+    type: typing.Literal["failure"] = "failure"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class FunctionRetrievedContext(pydantic.BaseModel):
     """Context retrieved from running a function to include as additional context in the prompt to the Agent."""
 
@@ -351,6 +369,30 @@ For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the
 """
 
 
+class RidToolInputValue(pydantic.BaseModel):
+    """A Resource Identifier (RID) that was passed as input to a tool."""
+
+    rid: core.RID
+    type: typing.Literal["rid"] = "rid"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class RidToolOutputValue(pydantic.BaseModel):
+    """A Resource Identifier (RID) value that was returned from a tool."""
+
+    rid: core.RID
+    type: typing.Literal["rid"] = "rid"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class Session(pydantic.BaseModel):
     """Session"""
 
@@ -437,6 +479,12 @@ class SessionExchangeResult(pydantic.BaseModel):
     In that case, the response (if any) was provided by the client as part of the cancellation request rather than by the Agent.
     """
 
+    session_trace_id: SessionTraceId = pydantic.Field(alias=str("sessionTraceId"))  # type: ignore[literal-required]
+    """
+    The unique identifier for the session trace. The session trace lists the sequence of steps that an Agent
+    takes to arrive at an answer. For example, a trace may include steps such as context retrieval and tool calls.
+    """
+
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -480,6 +528,51 @@ SessionRid = core.RID
 """The Resource Identifier (RID) of the conversation session."""
 
 
+class SessionTrace(pydantic.BaseModel):
+    """SessionTrace"""
+
+    id: SessionTraceId
+    """The unique identifier for the trace."""
+
+    status: SessionTraceStatus
+    """
+    This indicates whether the Agent has finished generating the final response. Clients should keep polling
+    the `getSessionTrace` endpoint until the status is `COMPLETE`.
+    """
+
+    contexts: typing.Optional[SessionExchangeContexts] = None
+    """
+    Any additional context which was provided by the client or retrieved automatically by the agent, grouped
+    by context type. Empty if no additional context was provided or configured to be automatically
+    retrieved. A present SessionExchangeContexts object with empty lists indicates that context retrieval
+    was attempted but no context was found.
+    Note that this field will only be populated once the response generation has completed.
+    """
+
+    tool_call_groups: typing.List[ToolCallGroup] = pydantic.Field(alias=str("toolCallGroups"))  # type: ignore[literal-required]
+    """
+    List of tool call groups that were triggered at the same point in the trace for the agent response
+    generation. The groups are returned in the same order as they were triggered by the agent.
+    """
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+SessionTraceId = core.UUID
+"""
+The unique identifier for a trace. The trace lists the sequence of steps that an Agent took to arrive at an
+answer. For example, a trace may include steps such as context retrieval and tool calls.
+"""
+
+
+SessionTraceStatus = typing.Literal["IN_PROGRESS", "COMPLETE"]
+"""SessionTraceStatus"""
+
+
 class StringParameter(pydantic.BaseModel):
     """StringParameter"""
 
@@ -506,6 +599,133 @@ class StringParameterValue(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class StringToolInputValue(pydantic.BaseModel):
+    """A string value that was passed as input to a tool."""
+
+    value: str
+    type: typing.Literal["string"] = "string"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class StringToolOutputValue(pydantic.BaseModel):
+    """A string value that was returned from a tool."""
+
+    value: str
+    type: typing.Literal["string"] = "string"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class SuccessToolCallOutput(pydantic.BaseModel):
+    """The successful output of a tool call."""
+
+    output: ToolOutputValue
+    type: typing.Literal["success"] = "success"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ToolCall(pydantic.BaseModel):
+    """A tool call with its input and output."""
+
+    tool_metadata: ToolMetadata = pydantic.Field(alias=str("toolMetadata"))  # type: ignore[literal-required]
+    """Details about the tool that was called, including the name and type of the tool."""
+
+    input: ToolCallInput
+    output: typing.Optional[ToolCallOutput] = None
+    """Empty if the tool call is in progress."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ToolCallGroup(pydantic.BaseModel):
+    """List of tool calls that were triggered at the same point in the trace for the agent response generation."""
+
+    tool_calls: typing.List[ToolCall] = pydantic.Field(alias=str("toolCalls"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ToolCallInput(pydantic.BaseModel):
+    """Input parameters for a tool call."""
+
+    thought: typing.Optional[str] = None
+    """Any additional message content that the Agent provided for why it chose to call the tool."""
+
+    inputs: typing.Dict[ToolInputName, ToolInputValue]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+ToolCallOutput = typing_extensions.Annotated[
+    typing.Union[SuccessToolCallOutput, FailureToolCallOutput], pydantic.Field(discriminator="type")
+]
+"""The output of a tool call."""
+
+
+ToolInputName = str
+"""The name of a tool input parameter."""
+
+
+ToolInputValue = typing_extensions.Annotated[
+    typing.Union[StringToolInputValue, RidToolInputValue], pydantic.Field(discriminator="type")
+]
+"""A tool input value, which can be either a string or a Resource Identifier (RID)."""
+
+
+class ToolMetadata(pydantic.BaseModel):
+    """Details about the used tool."""
+
+    name: str
+    """The name of the tool that was called, as configured on the Agent."""
+
+    type: ToolType
+    """The type of the tool that was called."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+ToolOutputValue = typing_extensions.Annotated[
+    typing.Union[StringToolOutputValue, RidToolOutputValue], pydantic.Field(discriminator="type")
+]
+"""A tool output value, which can be either a string or a Resource Identifier (RID)."""
+
+
+ToolType = typing.Literal[
+    "FUNCTION",
+    "ACTION",
+    "ONTOLOGY_SEMANTIC_SEARCH",
+    "OBJECT_QUERY",
+    "UPDATE_APPLICATION_VARIABLE",
+    "REQUEST_CLARIFICATION",
+]
+"""ToolType"""
+
+
 class UserTextInput(pydantic.BaseModel):
     """UserTextInput"""
 
@@ -523,6 +743,9 @@ core.resolve_forward_references(InputContext, globalns=globals(), localns=locals
 core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
 
 __all__ = [
     "Agent",
@@ -536,6 +759,7 @@ __all__ = [
     "AgentsSessionsPage",
     "CancelSessionResponse",
     "Content",
+    "FailureToolCallOutput",
     "FunctionRetrievedContext",
     "InputContext",
     "ListAgentVersionsResponse",
@@ -551,13 +775,30 @@ __all__ = [
     "ParameterType",
     "ParameterValue",
     "ParameterValueUpdate",
+    "RidToolInputValue",
+    "RidToolOutputValue",
     "Session",
     "SessionExchange",
     "SessionExchangeContexts",
     "SessionExchangeResult",
     "SessionMetadata",
     "SessionRid",
+    "SessionTrace",
+    "SessionTraceId",
+    "SessionTraceStatus",
     "StringParameter",
     "StringParameterValue",
+    "StringToolInputValue",
+    "StringToolOutputValue",
+    "SuccessToolCallOutput",
+    "ToolCall",
+    "ToolCallGroup",
+    "ToolCallInput",
+    "ToolCallOutput",
+    "ToolInputName",
+    "ToolInputValue",
+    "ToolMetadata",
+    "ToolOutputValue",
+    "ToolType",
     "UserTextInput",
 ]

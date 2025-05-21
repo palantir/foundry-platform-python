@@ -21,7 +21,6 @@ import typing_extensions
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
 
 
 class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters(typing_extensions.TypedDict):
@@ -34,38 +33,6 @@ class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters(typing_exten
 class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap(errors.BadRequestError):
     name: typing.Literal["AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap"]
     parameters: AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters
-    error_instance_id: str
-
-
-class ChangingBranchNameNotSupportedForImportsParameters(typing_extensions.TypedDict):
-    """Changing of branch name is not supported for imports."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    existingBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
-    newBranchName: typing_extensions.NotRequired[datasets_models.BranchName]
-
-
-@dataclass
-class ChangingBranchNameNotSupportedForImports(errors.BadRequestError):
-    name: typing.Literal["ChangingBranchNameNotSupportedForImports"]
-    parameters: ChangingBranchNameNotSupportedForImportsParameters
-    error_instance_id: str
-
-
-class ChangingOutputDatasetNotSupportedForImportsParameters(typing_extensions.TypedDict):
-    """Changing of output dataset is not supported for imports."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    existingOutputDatasetRid: datasets_models.DatasetRid
-    newOutputDatasetRid: datasets_models.DatasetRid
-
-
-@dataclass
-class ChangingOutputDatasetNotSupportedForImports(errors.BadRequestError):
-    name: typing.Literal["ChangingOutputDatasetNotSupportedForImports"]
-    parameters: ChangingOutputDatasetNotSupportedForImportsParameters
     error_instance_id: str
 
 
@@ -568,8 +535,6 @@ class UpdateSecretsForConnectionPermissionDenied(errors.PermissionDeniedError):
 
 __all__ = [
     "AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap",
-    "ChangingBranchNameNotSupportedForImports",
-    "ChangingOutputDatasetNotSupportedForImports",
     "ConnectionDetailsNotDetermined",
     "ConnectionNotFound",
     "ConnectionTypeNotSupported",
