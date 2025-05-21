@@ -21,7 +21,9 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v1.core import errors as core_errors
 from foundry_sdk.v1.core import models as core_models
+from foundry_sdk.v1.datasets import errors as datasets_errors
 from foundry_sdk.v1.datasets import models as datasets_models
 
 
@@ -102,6 +104,16 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Dataset
+
+        :raises BranchAlreadyExists: The branch cannot be created because a branch with that name already exists.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
+        :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FolderNotFound: The requested folder could not be found, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
+        :raises TransactionNotCommitted: The given transaction has not been committed.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -127,7 +139,17 @@ class DatasetClient:
                 ),
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchAlreadyExists": datasets_errors.BranchAlreadyExists,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
+                    "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FolderNotFound": core_errors.FolderNotFound,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "ResourceNameAlreadyExists": core_errors.ResourceNameAlreadyExists,
+                    "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -160,6 +182,13 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DeleteSchemaPermissionDenied: todo
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -179,7 +208,14 @@ class DatasetClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DeleteSchemaPermissionDenied": datasets_errors.DeleteSchemaPermissionDenied,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -205,6 +241,8 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Dataset
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -222,7 +260,9 @@ class DatasetClient:
                 body_type=None,
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -255,6 +295,11 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Optional[typing.Any]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -276,7 +321,12 @@ class DatasetClient:
                 body_type=None,
                 response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -322,6 +372,12 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+        :raises DatasetReadNotSupported: The dataset does not support being read.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises ReadTablePermissionDenied: The provided token does not have permission to read the given dataset as a table.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -346,7 +402,13 @@ class DatasetClient:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ColumnTypesNotSupported": datasets_errors.ColumnTypesNotSupported,
+                    "DatasetReadNotSupported": datasets_errors.DatasetReadNotSupported,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "ReadTablePermissionDenied": datasets_errors.ReadTablePermissionDenied,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -379,6 +441,19 @@ class DatasetClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
+        :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises PutSchemaPermissionDenied: todo
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
+        :raises TransactionNotOpen: The given transaction is not open.
         """
 
         return self._api_client.call_api(
@@ -399,7 +474,20 @@ class DatasetClient:
                 body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
+                    "CreateTransactionPermissionDenied": datasets_errors.CreateTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidTransactionType": datasets_errors.InvalidTransactionType,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "PutSchemaPermissionDenied": datasets_errors.PutSchemaPermissionDenied,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                    "TransactionNotOpen": datasets_errors.TransactionNotOpen,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )

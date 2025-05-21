@@ -21,6 +21,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v1.core import models as core_models
+from foundry_sdk.v1.datasets import errors as datasets_errors
 from foundry_sdk.v1.datasets import models as datasets_models
 
 
@@ -74,6 +75,13 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Branch
+
+        :raises BranchAlreadyExists: The branch cannot be created because a branch with that name already exists.
+        :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises TransactionNotCommitted: The given transaction has not been committed.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -101,7 +109,14 @@ class BranchClient:
                 ),
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchAlreadyExists": datasets_errors.BranchAlreadyExists,
+                    "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -130,6 +145,11 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DeleteBranchPermissionDenied: The provided token does not have permission to delete the given branch from this dataset.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
         """
 
         return self._api_client.call_api(
@@ -146,7 +166,12 @@ class BranchClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DeleteBranchPermissionDenied": datasets_errors.DeleteBranchPermissionDenied,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -175,6 +200,9 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.Branch
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -193,7 +221,10 @@ class BranchClient:
                 body_type=None,
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -225,6 +256,8 @@ class BranchClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[datasets_models.Branch]
+
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -245,7 +278,9 @@ class BranchClient:
                 body_type=None,
                 response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

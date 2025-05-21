@@ -45,7 +45,7 @@ class ConfidentialClientAuth(OAuth):
         client_secret: str,
         hostname: Optional[str] = None,
         scopes: Optional[List[str]] = None,
-        should_refresh: bool = False,
+        should_refresh: bool = True,
         *,
         config: Optional[Config] = None,
     ) -> None:
@@ -69,7 +69,7 @@ class ConfidentialClientAuth(OAuth):
             client_secret,
             scopes=scopes,
         )
-        super().__init__(hostname, config)
+        super().__init__(hostname=hostname, should_refresh=should_refresh, config=config)
 
     @property
     def scopes(self) -> List[str]:

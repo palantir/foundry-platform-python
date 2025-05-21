@@ -389,18 +389,37 @@ def test_config_shared_with_auth():
     assert auth._config == config
 
 
-def test_client_hostname_prioritized():
-    config = Config(timeout=1)
-    auth = ConfidentialClientAuth(client_id="foo", client_secret="bar", hostname="localhost:9876")
+def test_auth_config_prioritized():
+    auth_config = Config(timeout=1)
+    auth = ConfidentialClientAuth(
+        client_id="foo", client_secret="bar", hostname="localhost:9876", config=auth_config
+    )
 
     with warnings.catch_warnings(record=True) as w:
-        ApiClient(auth=auth, hostname="localhost:1234", config=config)
+        ApiClient(auth=auth, hostname="localhost:1234", config=Config(timeout=2))
+        # No warning because the hostnames are different
+        assert len(w) == 0
 
-        # Make sure the ApiClient hostname is prioritized
-        assert auth._hostname == "localhost:1234"
+    # Make sure the ApiClient hostname is prioritized
+    assert auth._hostname == "localhost:9876"
+    assert auth._config == auth_config
 
-        # And make sure the user receives a warning
-        assert len(w) == 1
+
+def test_duplicate_auth_config_warns():
+    hostname = "localhost:1234"
+    config = Config(timeout=1)
+    auth = ConfidentialClientAuth(
+        client_id="foo", client_secret="bar", hostname=hostname, config=config
+    )
+
+    with warnings.catch_warnings(record=True) as w:
+        ApiClient(auth=auth, hostname=hostname, config=config)
+        # Two warnings because both the hostname and config are the same
+        assert len(w) == 2
+
+    # Make sure the ApiClient hostname is prioritized
+    assert auth._hostname == hostname
+    assert auth._config == config
 
 
 def test_empty_404_error():

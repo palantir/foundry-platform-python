@@ -1304,6 +1304,10 @@ application and assign them API names. In every other case, API names should be 
 """
 
 
+PropertyTypeRid = core.RID
+"""PropertyTypeRid"""
+
+
 PropertyValue = typing.Any
 """
 Represents the value of a property in the following format.
@@ -1527,6 +1531,14 @@ ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 
 SdkPackageName = str
 """SdkPackageName"""
+
+
+SdkPackageRid = core.RID
+"""SdkPackageRid"""
+
+
+SdkVersion = str
+"""SdkVersion"""
 
 
 SearchJsonQuery = typing_extensions.Annotated[
@@ -1914,6 +1926,7 @@ __all__ = [
     "PropertyApiName",
     "PropertyFilter",
     "PropertyId",
+    "PropertyTypeRid",
     "PropertyValue",
     "PropertyValueEscapedString",
     "QueryAggregationKeyType",
@@ -1932,6 +1945,8 @@ __all__ = [
     "RangeConstraint",
     "ReturnEditsMode",
     "SdkPackageName",
+    "SdkPackageRid",
+    "SdkVersion",
     "SearchJsonQuery",
     "SearchObjectsResponse",
     "SearchOrderBy",

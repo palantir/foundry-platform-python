@@ -328,6 +328,17 @@ class ListAuthenticationProvidersResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ListAvailableOrganizationRolesResponse(pydantic.BaseModel):
+    """ListAvailableOrganizationRolesResponse"""
+
+    data: typing.List[core_models.Role]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ListGroupMembersResponse(pydantic.BaseModel):
     """ListGroupMembersResponse"""
 
@@ -416,6 +427,18 @@ class ListMarkingsResponse(pydantic.BaseModel):
     """ListMarkingsResponse"""
 
     data: typing.List[Marking]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ListOrganizationRoleAssignmentsResponse(pydantic.BaseModel):
+    """ListOrganizationRoleAssignmentsResponse"""
+
+    data: typing.List[OrganizationRoleAssignment]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -580,6 +603,19 @@ class Organization(pydantic.BaseModel):
 
 OrganizationName = str
 """OrganizationName"""
+
+
+class OrganizationRoleAssignment(pydantic.BaseModel):
+    """OrganizationRoleAssignment"""
+
+    principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
+    role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PrincipalFilterType = typing.Literal["queryString"]
@@ -780,6 +816,7 @@ __all__ = [
     "Host",
     "HostName",
     "ListAuthenticationProvidersResponse",
+    "ListAvailableOrganizationRolesResponse",
     "ListGroupMembersResponse",
     "ListGroupMembershipsResponse",
     "ListGroupsResponse",
@@ -788,6 +825,7 @@ __all__ = [
     "ListMarkingMembersResponse",
     "ListMarkingRoleAssignmentsResponse",
     "ListMarkingsResponse",
+    "ListOrganizationRoleAssignmentsResponse",
     "ListUsersResponse",
     "Marking",
     "MarkingCategory",
@@ -803,6 +841,7 @@ __all__ = [
     "OidcAuthenticationProtocol",
     "Organization",
     "OrganizationName",
+    "OrganizationRoleAssignment",
     "PrincipalFilterType",
     "ProviderId",
     "Role",

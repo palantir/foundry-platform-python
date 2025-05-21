@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
@@ -74,9 +75,13 @@ class BranchClient:
         :return: Returns the result object.
         :rtype: datasets_models.Branch
 
+        :raises BranchAlreadyExists: The branch cannot be created because a branch with that name already exists.
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises CreateBranchPermissionDenied: The provided token does not have permission to create a branch of this dataset.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises TransactionNotCommitted: The given transaction has not been committed.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -105,9 +110,13 @@ class BranchClient:
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "BranchAlreadyExists": datasets_errors.BranchAlreadyExists,
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "CreateBranchPermissionDenied": datasets_errors.CreateBranchPermissionDenied,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -139,6 +148,7 @@ class BranchClient:
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises DeleteBranchPermissionDenied: The provided token does not have permission to delete the given branch from this dataset.
+        :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
         """
 
         return self._api_client.call_api(
@@ -159,6 +169,7 @@ class BranchClient:
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "DeleteBranchPermissionDenied": datasets_errors.DeleteBranchPermissionDenied,
+                    "InvalidBranchName": datasets_errors.InvalidBranchName,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -243,6 +254,7 @@ class BranchClient:
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
 
         return self._api_client.call_api(
@@ -266,6 +278,7 @@ class BranchClient:
                 throwable_errors={
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidPageSize": core_errors.InvalidPageSize,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),

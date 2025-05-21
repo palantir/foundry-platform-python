@@ -71,7 +71,7 @@ class FileImportClient:
         Creates a new FileImport.
         :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param dataset_rid: The RID of the output dataset.
+        :param dataset_rid: The RID of the output dataset. Can not be modified after the file import is created.
         :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: FileImportDisplayName
@@ -79,7 +79,7 @@ class FileImportClient:
         :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
-        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.
         :type branch_name: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -380,11 +380,9 @@ class FileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        dataset_rid: datasets_models.DatasetRid,
         display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -396,16 +394,12 @@ class FileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param dataset_rid: The RID of the output dataset.
-        :type dataset_rid: DatasetRid
         :param display_name:
         :type display_name: FileImportDisplayName
         :param file_import_filters: Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)
         :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
-        :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-        :type branch_name: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
@@ -440,20 +434,16 @@ class FileImportClient:
                     "Accept": "application/json",
                 },
                 body={
-                    "datasetRid": dataset_rid,
                     "importMode": import_mode,
                     "displayName": display_name,
-                    "branchName": branch_name,
                     "subfolder": subfolder,
                     "fileImportFilters": file_import_filters,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
                         "importMode": connectivity_models.FileImportMode,
                         "displayName": connectivity_models.FileImportDisplayName,
-                        "branchName": typing.Optional[datasets_models.BranchName],
                         "subfolder": typing.Optional[str],
                         "fileImportFilters": typing.List[connectivity_models.FileImportFilter],
                     },

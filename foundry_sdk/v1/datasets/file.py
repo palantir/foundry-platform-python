@@ -20,7 +20,9 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v1.core import errors as core_errors
 from foundry_sdk.v1.core import models as core_models
+from foundry_sdk.v1.datasets import errors as datasets_errors
 from foundry_sdk.v1.datasets import models as datasets_models
 
 
@@ -90,6 +92,21 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
+
+        :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
+        :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises PutSchemaPermissionDenied: todo
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
+        :raises TransactionNotOpen: The given transaction is not open.
         """
 
         return self._api_client.call_api(
@@ -109,7 +126,22 @@ class FileClient:
                 body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
+                    "CreateTransactionPermissionDenied": datasets_errors.CreateTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "InvalidTransactionType": datasets_errors.InvalidTransactionType,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "PutSchemaPermissionDenied": datasets_errors.PutSchemaPermissionDenied,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                    "TransactionNotOpen": datasets_errors.TransactionNotOpen,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -168,6 +200,14 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.File
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -190,7 +230,15 @@ class FileClient:
                 body_type=None,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -254,6 +302,12 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[datasets_models.File]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -277,7 +331,13 @@ class FileClient:
                 body_type=None,
                 response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -337,6 +397,14 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: bytes
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
+        :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -359,7 +427,15 @@ class FileClient:
                 body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
+                    "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -417,6 +493,19 @@ class FileClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: datasets_models.File
+
+        :raises AbortTransactionPermissionDenied: The provided token does not have permission to abort the given transaction on the given dataset.
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CommitTransactionPermissionDenied: The provided token does not have permission to commit the given transaction on the given dataset.
+        :raises CreateTransactionPermissionDenied: The provided token does not have permission to create a transaction on this dataset.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
+        :raises InvalidBranchId: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
+        :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
+        :raises TransactionNotOpen: The given transaction is not open.
+        :raises UploadFilePermissionDenied: The provided token does not have permission to upload the given file to the given dataset and transaction.
         """
 
         return self._api_client.call_api(
@@ -440,7 +529,20 @@ class FileClient:
                 body_type=bytes,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "AbortTransactionPermissionDenied": datasets_errors.AbortTransactionPermissionDenied,
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CommitTransactionPermissionDenied": datasets_errors.CommitTransactionPermissionDenied,
+                    "CreateTransactionPermissionDenied": datasets_errors.CreateTransactionPermissionDenied,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "FileAlreadyExists": datasets_errors.FileAlreadyExists,
+                    "InvalidBranchId": datasets_errors.InvalidBranchId,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
+                    "TransactionNotFound": datasets_errors.TransactionNotFound,
+                    "TransactionNotOpen": datasets_errors.TransactionNotOpen,
+                    "UploadFilePermissionDenied": datasets_errors.UploadFilePermissionDenied,
+                },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )

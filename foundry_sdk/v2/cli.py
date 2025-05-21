@@ -424,6 +424,28 @@ def admin_organization_get(
     click.echo(repr(result))
 
 
+@admin_organization.command("list_available_roles")
+@click.argument("organization_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_list_available_roles(
+    client: FoundryClient,
+    organization_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    List all roles that can be assigned to a principal for the given Organization.
+
+    """
+    result = client.admin.Organization.list_available_roles(
+        organization_rid=organization_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_organization.command("replace")
 @click.argument("organization_rid", type=str, required=True)
 @click.option("--name", type=str, required=True, help="""""")
@@ -456,6 +478,83 @@ def admin_organization_replace(
         name=name,
         description=description,
         host=host,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization.group("organization_role_assignment")
+def admin_organization_organization_role_assignment():
+    pass
+
+
+@admin_organization_organization_role_assignment.command("add")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_role_assignment_add(
+    client: FoundryClient,
+    organization_rid: str,
+    role_assignments: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
+
+    """
+    result = client.admin.Organization.OrganizationRoleAssignment.add(
+        organization_rid=organization_rid,
+        role_assignments=json.loads(role_assignments),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization_organization_role_assignment.command("list")
+@click.argument("organization_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_role_assignment_list(
+    client: FoundryClient,
+    organization_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    List all principals who are assigned a role for the given Organization.
+
+    """
+    result = client.admin.Organization.OrganizationRoleAssignment.list(
+        organization_rid=organization_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization_organization_role_assignment.command("remove")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_role_assignment_remove(
+    client: FoundryClient,
+    organization_rid: str,
+    role_assignments: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Remove roles from principals for the given Organization. At most 100 role assignments can be removed in a single request.
+
+    """
+    result = client.admin.Organization.OrganizationRoleAssignment.remove(
+        organization_rid=organization_rid,
+        role_assignments=json.loads(role_assignments),
         preview=preview,
     )
     click.echo(repr(result))
@@ -1472,6 +1571,16 @@ If omitted, relevant context for the user message is automatically retrieved and
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option(
+    "--session_trace_id",
+    type=str,
+    required=False,
+    help="""The unique identifier to use for this continue session trace. By generating and passing this ID to the
+`blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used
+to generate a result, while the result is in progress. If omitted, it will be generated automatically.
+Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.
+""",
+)
 @click.pass_obj
 def aip_agents_agent_session_blocking_continue(
     client: FoundryClient,
@@ -1481,6 +1590,7 @@ def aip_agents_agent_session_blocking_continue(
     user_input: str,
     contexts_override: typing.Optional[str],
     preview: typing.Optional[bool],
+    session_trace_id: typing.Optional[str],
 ):
     """
     Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -1498,6 +1608,7 @@ def aip_agents_agent_session_blocking_continue(
         user_input=json.loads(user_input),
         contexts_override=None if contexts_override is None else json.loads(contexts_override),
         preview=preview,
+        session_trace_id=session_trace_id,
     )
     click.echo(repr(result))
 
@@ -1724,6 +1835,17 @@ If omitted, relevant context for the user message is automatically retrieved and
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option(
+    "--session_trace_id",
+    type=str,
+    required=False,
+    help="""The unique identifier to use for this continue session trace. By generating and passing this ID to the
+`streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used
+to generate a result, while the result is in progress. If omitted, it will be generated automatically.
+Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`,
+which can be loaded via the `getContent` endpoint.
+""",
+)
 @click.pass_obj
 def aip_agents_agent_session_streaming_continue(
     client: FoundryClient,
@@ -1734,6 +1856,7 @@ def aip_agents_agent_session_streaming_continue(
     contexts_override: typing.Optional[str],
     message_id: typing.Optional[str],
     preview: typing.Optional[bool],
+    session_trace_id: typing.Optional[str],
 ):
     """
     Continue a conversation session with an Agent, or add the first exchange to a session after creation.
@@ -1753,6 +1876,7 @@ def aip_agents_agent_session_streaming_continue(
         contexts_override=None if contexts_override is None else json.loads(contexts_override),
         message_id=message_id,
         preview=preview,
+        session_trace_id=session_trace_id,
     )
     click.echo(result)
 
@@ -1788,6 +1912,41 @@ def aip_agents_agent_session_update_title(
         agent_rid=agent_rid,
         session_rid=session_rid,
         title=title,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@aip_agents_agent_session.group("session_trace")
+def aip_agents_agent_session_session_trace():
+    pass
+
+
+@aip_agents_agent_session_session_trace.command("get")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.argument("session_trace_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def aip_agents_agent_session_session_trace_get(
+    client: FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    session_trace_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at
+    an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
+    poll this endpoint to check the realtime progress of a response until the trace is completed.
+
+    """
+    result = client.aip_agents.Agent.Session.SessionTrace.get(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        session_trace_id=session_trace_id,
         preview=preview,
     )
     click.echo(repr(result))
@@ -2033,7 +2192,12 @@ def connectivity_connection_table_import():
 @connectivity_connection_table_import.command("create")
 @click.argument("connection_rid", type=str, required=True)
 @click.option("--config", type=str, required=True, help="""""")
-@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option(
+    "--dataset_rid",
+    type=str,
+    required=True,
+    help="""The RID of the output dataset. Can not be modified after the table import is created.""",
+)
 @click.option("--display_name", type=str, required=True, help="""""")
 @click.option(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
@@ -2048,7 +2212,7 @@ def connectivity_connection_table_import():
     "--branch_name",
     type=str,
     required=False,
-    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -2200,7 +2364,6 @@ def connectivity_connection_table_import_list(
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
 @click.option("--config", type=str, required=True, help="""""")
-@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
 @click.option("--display_name", type=str, required=True, help="""""")
 @click.option(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND"]), required=True, help=""""""
@@ -2212,12 +2375,6 @@ def connectivity_connection_table_import_list(
     help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
 )
 @click.option(
-    "--branch_name",
-    type=str,
-    required=False,
-    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
-)
-@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
@@ -2226,11 +2383,9 @@ def connectivity_connection_table_import_replace(
     connection_rid: str,
     table_import_rid: str,
     config: str,
-    dataset_rid: str,
     display_name: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND"],
     allow_schema_changes: typing.Optional[bool],
-    branch_name: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -2240,11 +2395,9 @@ def connectivity_connection_table_import_replace(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
         config=json.loads(config),
-        dataset_rid=dataset_rid,
         display_name=display_name,
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
-        branch_name=branch_name,
         preview=preview,
     )
     click.echo(repr(result))
@@ -2257,7 +2410,12 @@ def connectivity_connection_file_import():
 
 @connectivity_connection_file_import.command("create")
 @click.argument("connection_rid", type=str, required=True)
-@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
+@click.option(
+    "--dataset_rid",
+    type=str,
+    required=True,
+    help="""The RID of the output dataset. Can not be modified after the file import is created.""",
+)
 @click.option("--display_name", type=str, required=True, help="""""")
 @click.option(
     "--file_import_filters",
@@ -2272,7 +2430,7 @@ def connectivity_connection_file_import():
     "--branch_name",
     type=str,
     required=False,
-    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
+    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -2429,7 +2587,6 @@ def connectivity_connection_file_import_list(
 @connectivity_connection_file_import.command("replace")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option("--dataset_rid", type=str, required=True, help="""The RID of the output dataset.""")
 @click.option("--display_name", type=str, required=True, help="""""")
 @click.option(
     "--file_import_filters",
@@ -2439,12 +2596,6 @@ def connectivity_connection_file_import_list(
 )
 @click.option(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
-)
-@click.option(
-    "--branch_name",
-    type=str,
-    required=False,
-    help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.""",
 )
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
@@ -2460,11 +2611,9 @@ def connectivity_connection_file_import_replace(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    dataset_rid: str,
     display_name: str,
     file_import_filters: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    branch_name: typing.Optional[str],
     preview: typing.Optional[bool],
     subfolder: typing.Optional[str],
 ):
@@ -2474,11 +2623,9 @@ def connectivity_connection_file_import_replace(
     result = client.connectivity.Connection.FileImport.replace(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        dataset_rid=dataset_rid,
         display_name=display_name,
         file_import_filters=json.loads(file_import_filters),
         import_mode=import_mode,
-        branch_name=branch_name,
         preview=preview,
         subfolder=subfolder,
     )
@@ -5121,13 +5268,6 @@ def ontologies_ontology_object_count(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -5136,10 +5276,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.option(
@@ -5156,9 +5303,9 @@ def ontologies_ontology_object_get(
     ontology: str,
     object_type: str,
     primary_key: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     select: typing.Optional[str],
 ):
     """
@@ -5171,9 +5318,9 @@ def ontologies_ontology_object_get(
         ontology=ontology,
         object_type=object_type,
         primary_key=primary_key,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
     )
     click.echo(repr(result))

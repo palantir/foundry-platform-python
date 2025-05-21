@@ -7,7 +7,7 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
 [**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
-[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Private Beta |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
 
 # **create**
 Creates a new TableImport.
@@ -18,11 +18,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **config** | CreateTableImportRequestTableImportConfig |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
+**dataset_rid** | DatasetRid | The RID of the output dataset. Can not be modified after the table import is created. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
-**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
+**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -41,7 +41,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # CreateTableImportRequestTableImportConfig
 config = {"type": "jdbcImportConfig", "query": "SELECT * FROM table"}
-# DatasetRid | The RID of the output dataset.
+# DatasetRid | The RID of the output dataset. Can not be modified after the table import is created.
 dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName
 display_name = "My table import"
@@ -49,7 +49,7 @@ display_name = "My table import"
 import_mode = "SNAPSHOT"
 # Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
 allow_schema_changes = True
-# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
+# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.
 branch_name = "master"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -325,11 +325,9 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **table_import_rid** | TableImportRid |  |  |
 **config** | ReplaceTableImportRequestTableImportConfig |  |  |
-**dataset_rid** | DatasetRid | The RID of the output dataset. |  |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
-**branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -350,16 +348,12 @@ connection_rid = None
 table_import_rid = None
 # ReplaceTableImportRequestTableImportConfig
 config = {"type": "jdbcImportConfig", "query": "SELECT * FROM table"}
-# DatasetRid | The RID of the output dataset.
-dataset_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # TableImportDisplayName
 display_name = "My table import"
 # TableImportMode
 import_mode = "SNAPSHOT"
 # Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
 allow_schema_changes = True
-# Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments.
-branch_name = "master"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -369,11 +363,9 @@ try:
         connection_rid,
         table_import_rid,
         config=config,
-        dataset_rid=dataset_rid,
         display_name=display_name,
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
-        branch_name=branch_name,
         preview=preview,
     )
     print("The replace response:\n")

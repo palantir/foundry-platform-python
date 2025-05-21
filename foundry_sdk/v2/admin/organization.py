@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -47,6 +48,18 @@ class OrganizationClient:
 
         self.with_streaming_response = _OrganizationClientStreaming(self)
         self.with_raw_response = _OrganizationClientRaw(self)
+
+    @cached_property
+    def OrganizationRoleAssignment(self):
+        from foundry_sdk.v2.admin.organization_role_assignment import (
+            OrganizationRoleAssignmentClient,
+        )  # NOQA
+
+        return OrganizationRoleAssignmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -91,6 +104,58 @@ class OrganizationClient:
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list_available_roles(
+        self,
+        organization_rid: core_models.OrganizationRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.ListAvailableOrganizationRolesResponse:
+        """
+        List all roles that can be assigned to a principal for the given Organization.
+
+        :param organization_rid:
+        :type organization_rid: OrganizationRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.ListAvailableOrganizationRolesResponse
+
+        :raises ListAvailableRolesOrganizationPermissionDenied: Could not listAvailableRoles the Organization.
+        :raises OrganizationNotFound: The given Organization could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/organizations/{organizationRid}/listAvailableRoles",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "organizationRid": organization_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=admin_models.ListAvailableOrganizationRolesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ListAvailableRolesOrganizationPermissionDenied": admin_errors.ListAvailableRolesOrganizationPermissionDenied,
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -175,16 +240,24 @@ class OrganizationClient:
 class _OrganizationClientRaw:
     def __init__(self, client: OrganizationClient) -> None:
         def get(_: admin_models.Organization): ...
+        def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.list_available_roles = core.with_raw_response(
+            list_available_roles, client.list_available_roles
+        )
         self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _OrganizationClientStreaming:
     def __init__(self, client: OrganizationClient) -> None:
         def get(_: admin_models.Organization): ...
+        def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.list_available_roles = core.with_streaming_response(
+            list_available_roles, client.list_available_roles
+        )
         self.replace = core.with_streaming_response(replace, client.replace)

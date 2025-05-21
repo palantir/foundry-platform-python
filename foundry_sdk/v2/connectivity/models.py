@@ -732,10 +732,10 @@ class FileImport(pydantic.BaseModel):
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    """The RID of the output dataset."""
+    """The RID of the output dataset. Can not be modified after the file import is created."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
+    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created."""
 
     display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
@@ -1646,10 +1646,10 @@ class TableImport(pydantic.BaseModel):
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    """The RID of the output dataset."""
+    """The RID of the output dataset. Can not be modified after the table import is created."""
 
     branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
-    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments."""
+    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created."""
 
     display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]

@@ -763,6 +763,27 @@ class InvalidPropertyValue(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidQueryOutputValueParameters(typing_extensions.TypedDict):
+    """
+    The value of the query's output is invalid. This may be because the return value did not match the specified
+    output type or constraints.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    outputDataType: ontologies_models.QueryDataType
+    outputValue: typing_extensions.NotRequired[ontologies_models.DataValue]
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+
+
+@dataclass
+class InvalidQueryOutputValue(errors.BadRequestError):
+    name: typing.Literal["InvalidQueryOutputValue"]
+    parameters: InvalidQueryOutputValueParameters
+    error_instance_id: str
+
+
 class InvalidQueryParameterValueParameters(typing_extensions.TypedDict):
     """
     The value of the given parameter is invalid. See the documentation of `DataValue` for details on
@@ -1018,6 +1039,108 @@ class MarketplaceQueryMappingNotFoundParameters(typing_extensions.TypedDict):
 class MarketplaceQueryMappingNotFound(errors.NotFoundError):
     name: typing.Literal["MarketplaceQueryMappingNotFound"]
     parameters: MarketplaceQueryMappingNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkActionMappingNotFoundParameters(typing_extensions.TypedDict):
+    """The given action could not be mapped to a Marketplace installation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    actionType: ontologies_models.ActionTypeApiName
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkActionMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkActionMappingNotFound"]
+    parameters: MarketplaceSdkActionMappingNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkInstallationNotFoundParameters(typing_extensions.TypedDict):
+    """The given marketplace installation could not be found or the user does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkInstallationNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkInstallationNotFound"]
+    parameters: MarketplaceSdkInstallationNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkLinkMappingNotFoundParameters(typing_extensions.TypedDict):
+    """The given link could not be mapped to a Marketplace installation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    linkType: ontologies_models.LinkTypeApiName
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkLinkMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkLinkMappingNotFound"]
+    parameters: MarketplaceSdkLinkMappingNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkObjectMappingNotFoundParameters(typing_extensions.TypedDict):
+    """The given object could not be mapped to a Marketplace installation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: ontologies_models.ObjectTypeApiName
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkObjectMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkObjectMappingNotFound"]
+    parameters: MarketplaceSdkObjectMappingNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkPropertyMappingNotFoundParameters(typing_extensions.TypedDict):
+    """The given property could not be mapped to a Marketplace installation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    propertyType: ontologies_models.PropertyApiName
+    objectType: ontologies_models.ObjectTypeApiName
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkPropertyMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkPropertyMappingNotFound"]
+    parameters: MarketplaceSdkPropertyMappingNotFoundParameters
+    error_instance_id: str
+
+
+class MarketplaceSdkQueryMappingNotFoundParameters(typing_extensions.TypedDict):
+    """The given query could not be mapped to a Marketplace installation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryType: ontologies_models.QueryApiName
+    sdkPackageRid: ontologies_models.SdkPackageRid
+    sdkVersion: ontologies_models.SdkVersion
+
+
+@dataclass
+class MarketplaceSdkQueryMappingNotFound(errors.NotFoundError):
+    name: typing.Literal["MarketplaceSdkQueryMappingNotFound"]
+    parameters: MarketplaceSdkQueryMappingNotFoundParameters
     error_instance_id: str
 
 
@@ -1575,6 +1698,21 @@ class PropertyTypeNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class PropertyTypeRidNotFoundParameters(typing_extensions.TypedDict):
+    """The requested property type RID is not found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    propertyTypeRid: typing_extensions.NotRequired[ontologies_models.PropertyTypeRid]
+
+
+@dataclass
+class PropertyTypeRidNotFound(errors.NotFoundError):
+    name: typing.Literal["PropertyTypeRidNotFound"]
+    parameters: PropertyTypeRidNotFoundParameters
+    error_instance_id: str
+
+
 class PropertyTypesSearchNotSupportedParameters(typing_extensions.TypedDict):
     """
     The search on the property types are not supported. See the `Search Objects` documentation for
@@ -1889,6 +2027,7 @@ __all__ = [
     "InvalidPropertyFiltersCombination",
     "InvalidPropertyType",
     "InvalidPropertyValue",
+    "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",
     "InvalidRangeQuery",
     "InvalidSortOrder",
@@ -1904,6 +2043,12 @@ __all__ = [
     "MarketplaceLinkMappingNotFound",
     "MarketplaceObjectMappingNotFound",
     "MarketplaceQueryMappingNotFound",
+    "MarketplaceSdkActionMappingNotFound",
+    "MarketplaceSdkInstallationNotFound",
+    "MarketplaceSdkLinkMappingNotFound",
+    "MarketplaceSdkObjectMappingNotFound",
+    "MarketplaceSdkPropertyMappingNotFound",
+    "MarketplaceSdkQueryMappingNotFound",
     "MissingParameter",
     "MultipleGroupByOnFieldNotSupported",
     "MultiplePropertyValuesNotSupported",
@@ -1937,6 +2082,7 @@ __all__ = [
     "PropertyNotFound",
     "PropertyTypeDoesNotSupportNearestNeighbors",
     "PropertyTypeNotFound",
+    "PropertyTypeRidNotFound",
     "PropertyTypesSearchNotSupported",
     "QueryEncounteredUserFacingError",
     "QueryMemoryExceededLimit",
