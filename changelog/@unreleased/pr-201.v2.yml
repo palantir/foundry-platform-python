@@ -1,0 +1,6 @@
+type: feature
+feature:
+  description: You can now call the Foundry APIs asynchronously using the new `AsyncFoundryClient`
+    client, now available in beta!
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/201
