@@ -28,6 +28,7 @@ import pytest
 from httpx._utils import URLPattern
 
 from foundry_sdk._core.config import Config
+from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._versions import __version__
 
@@ -36,8 +37,20 @@ def assert_http_transport(transport: Optional[httpx.BaseTransport]) -> httpx.HTT
     return assert_isinstance(transport, httpx.HTTPTransport)
 
 
+def assert_async_http_transport(
+    transport: Optional[httpx.AsyncBaseTransport],
+) -> httpx.AsyncHTTPTransport:
+    return assert_isinstance(transport, httpx.AsyncHTTPTransport)
+
+
 def assert_http_proxy(pool: Optional[httpcore.ConnectionPool]) -> httpcore.HTTPProxy:
     return assert_isinstance(pool, httpcore.HTTPProxy)
+
+
+def assert_async_http_proxy(
+    pool: Optional[httpcore.AsyncConnectionPool],
+) -> httpcore.AsyncHTTPProxy:
+    return assert_isinstance(pool, httpcore.AsyncHTTPProxy)
 
 
 T = TypeVar("T")
@@ -53,6 +66,11 @@ def assert_isinstance(instance: Any, type: Type[T]) -> T:
 def create_client(config: Optional[Config] = None):
     config = config or Config()
     return HttpClient("localhost:8123", config=config)
+
+
+def create_async_client(config: Optional[Config] = None):
+    config = config or Config()
+    return AsyncHttpClient("localhost:8123", config=config)
 
 
 def test_clean_hostname():
@@ -169,7 +187,7 @@ def test_timeout():
     assert client.timeout == httpx.Timeout(60)
 
 
-def test_verify_cofigures_transport():
+def test_verify_configures_transport():
     client = create_client()
     transport = assert_http_transport(client._transport)
     pool = assert_isinstance(transport._pool, httpcore.ConnectionPool)
@@ -196,3 +214,76 @@ def test_scheme():
 
     client = create_client(Config(scheme="http"))
     assert str(client.base_url) == "http://localhost:8123"
+
+
+def test_async_headers():
+    client = create_async_client(Config(default_headers={"Foo": "Bar", "User-Agent": "Baz"}))
+    assert client.headers == {
+        "Accept-Encoding": "gzip, deflate",
+        "Accept": "*/*",
+        "Connection": "keep-alive",
+        "Foo": "Bar",
+        "User-Agent": "Baz",
+    }
+
+
+def test_async_bad_proxy_url():
+    with pytest.raises(ValueError):
+        create_async_client(Config(proxies={"https": "htts://foo.bar"}))
+
+
+def test_async_timeout():
+    client = create_async_client(config=Config(timeout=60))
+    assert client.timeout == httpx.Timeout(60)
+
+
+def test_async_verify_configures_transport():
+    client = create_async_client()
+    transport = assert_async_http_transport(client._transport)
+    pool = assert_isinstance(transport._pool, httpcore.AsyncConnectionPool)
+
+    assert pool._ssl_context is not None
+    assert pool._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+
+    client = create_async_client(Config(verify=False))
+    transport = assert_async_http_transport(client._transport)
+    pool = assert_isinstance(transport._pool, httpcore.AsyncConnectionPool)
+
+    assert pool._ssl_context is not None
+    assert pool._ssl_context.verify_mode == ssl.VerifyMode.CERT_NONE
+
+
+def test_async_default_params():
+    client = create_async_client(Config(default_params={"foo": "bar"}))
+    assert client.params._dict == {"foo": ["bar"]}
+
+
+def test_async_scheme():
+    client = create_async_client()
+    assert str(client.base_url) == "https://localhost:8123"
+
+    client = create_client(Config(scheme="http"))
+    assert str(client.base_url) == "http://localhost:8123"
+
+
+def test_async_proxies():
+    client = create_async_client(
+        Config(proxies={"https": "https://foo.bar", "http": "http://foo.bar"})
+    )
+
+    transport = assert_async_http_transport(client._mounts[URLPattern("https://")])
+    proxy = assert_async_http_proxy(transport._pool)
+    assert proxy._ssl_context is not None
+    assert proxy._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+    assert proxy._proxy_ssl_context is not None
+    assert proxy._proxy_ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+    assert proxy._proxy_url.scheme == b"https"
+    assert proxy._proxy_url.host == b"foo.bar"
+
+    transport = assert_async_http_transport(client._mounts[URLPattern("http://")])
+    proxy = assert_async_http_proxy(transport._pool)
+    assert proxy._ssl_context is not None
+    assert proxy._ssl_context.verify_mode == ssl.VerifyMode.CERT_REQUIRED
+    assert proxy._proxy_ssl_context is None
+    assert proxy._proxy_url.scheme == b"http"
+    assert proxy._proxy_url.host == b"foo.bar"

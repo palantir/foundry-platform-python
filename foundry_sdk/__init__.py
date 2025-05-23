@@ -14,6 +14,7 @@
 
 
 from foundry_sdk._core import ApiResponse
+from foundry_sdk._core import AsyncApiResponse
 from foundry_sdk._core import Auth
 from foundry_sdk._core import ConfidentialClientAuth
 from foundry_sdk._core import Config

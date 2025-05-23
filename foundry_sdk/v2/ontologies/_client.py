@@ -173,3 +173,87 @@ class OntologiesClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncOntologiesClient:
+    """
+    The Async API client for the Ontologies Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v2.ontologies.action import AsyncActionClient
+        from foundry_sdk.v2.ontologies.attachment import AsyncAttachmentClient
+        from foundry_sdk.v2.ontologies.attachment_property import (
+            AsyncAttachmentPropertyClient,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.cipher_text_property import (
+            AsyncCipherTextPropertyClient,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.linked_object import AsyncLinkedObjectClient
+        from foundry_sdk.v2.ontologies.media_reference_property import (
+            AsyncMediaReferencePropertyClient,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.ontology import AsyncOntologyClient
+        from foundry_sdk.v2.ontologies.ontology_interface import (
+            AsyncOntologyInterfaceClient,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_object import AsyncOntologyObjectClient
+        from foundry_sdk.v2.ontologies.ontology_object_set import (
+            AsyncOntologyObjectSetClient,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.query import AsyncQueryClient
+        from foundry_sdk.v2.ontologies.time_series_property_v2 import (
+            AsyncTimeSeriesPropertyV2Client,
+        )  # NOQA
+        from foundry_sdk.v2.ontologies.time_series_value_bank_property import (
+            AsyncTimeSeriesValueBankPropertyClient,
+        )  # NOQA
+
+        self.Action = AsyncActionClient(auth=auth, hostname=hostname, config=config)
+
+        self.Attachment = AsyncAttachmentClient(auth=auth, hostname=hostname, config=config)
+
+        self.AttachmentProperty = AsyncAttachmentPropertyClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.CipherTextProperty = AsyncCipherTextPropertyClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.LinkedObject = AsyncLinkedObjectClient(auth=auth, hostname=hostname, config=config)
+
+        self.MediaReferenceProperty = AsyncMediaReferencePropertyClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.Ontology = AsyncOntologyClient(auth=auth, hostname=hostname, config=config)
+
+        self.OntologyInterface = AsyncOntologyInterfaceClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.OntologyObject = AsyncOntologyObjectClient(auth=auth, hostname=hostname, config=config)
+
+        self.OntologyObjectSet = AsyncOntologyObjectSetClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.Query = AsyncQueryClient(auth=auth, hostname=hostname, config=config)
+
+        self.TimeSeriesPropertyV2 = AsyncTimeSeriesPropertyV2Client(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.TimeSeriesValueBankProperty = AsyncTimeSeriesValueBankPropertyClient(
+            auth=auth, hostname=hostname, config=config
+        )

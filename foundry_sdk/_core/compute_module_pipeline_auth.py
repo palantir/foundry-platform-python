@@ -69,8 +69,8 @@ class ComputeModulePipelineAuth(Auth):
             self._token = _PipelineToken(f.read().strip())
         return self._token
 
-    def execute_with_token(self, func: Callable[[Token], httpx.Response]) -> httpx.Response:
+    def execute_with_token(self, func: Callable[[Token], T]) -> T:
         return func(self.get_token())
 
-    def run_with_token(self, func: Callable[[Token], httpx.Response]) -> None:
+    def run_with_token(self, func: Callable[[Token], T]) -> None:
         func(self.get_token())

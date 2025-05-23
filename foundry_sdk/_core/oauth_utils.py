@@ -26,6 +26,7 @@ from typing import Callable
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import TypeVar
 from urllib.parse import urlencode
 
 import httpx
@@ -116,6 +117,9 @@ class AuthorizeRequest(pydantic.BaseModel):
     code_verifier: str
 
 
+T = TypeVar("T")
+
+
 class OAuth(Auth, ABC):
     def __init__(
         self,
@@ -133,7 +137,7 @@ class OAuth(Auth, ABC):
     def sign_out(self) -> SignOutResponse:
         pass
 
-    def execute_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> httpx.Response:
+    def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
         try:
             if self._should_refresh:
                 return self._run_with_attempted_refresh(func)
@@ -146,7 +150,7 @@ class OAuth(Auth, ABC):
         except Exception as e:
             raise e
 
-    def run_with_token(self, func: Callable[[OAuthToken], httpx.Response]) -> None:
+    def run_with_token(self, func: Callable[[OAuthToken], T]) -> None:
         self.execute_with_token(func)
 
     @abstractmethod
@@ -157,9 +161,7 @@ class OAuth(Auth, ABC):
     def get_token(self) -> OAuthToken:
         pass
 
-    def _run_with_attempted_refresh(
-        self, func: Callable[[OAuthToken], httpx.Response]
-    ) -> httpx.Response:
+    def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """
         Attempt to run func, and if it fails with a 401, refresh the token and try again.
         If it fails with a 401 again, raise the exception.

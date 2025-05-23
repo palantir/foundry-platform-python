@@ -87,3 +87,35 @@ class OntologiesClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncOntologiesClient:
+    """
+    The Async API client for the Ontologies Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v1.ontologies.action import AsyncActionClient
+        from foundry_sdk.v1.ontologies.attachment import AsyncAttachmentClient
+        from foundry_sdk.v1.ontologies.ontology import AsyncOntologyClient
+        from foundry_sdk.v1.ontologies.ontology_object import AsyncOntologyObjectClient
+        from foundry_sdk.v1.ontologies.query import AsyncQueryClient
+
+        self.Action = AsyncActionClient(auth=auth, hostname=hostname, config=config)
+
+        self.Attachment = AsyncAttachmentClient(auth=auth, hostname=hostname, config=config)
+
+        self.Ontology = AsyncOntologyClient(auth=auth, hostname=hostname, config=config)
+
+        self.OntologyObject = AsyncOntologyObjectClient(auth=auth, hostname=hostname, config=config)
+
+        self.Query = AsyncQueryClient(auth=auth, hostname=hostname, config=config)

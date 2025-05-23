@@ -77,3 +77,32 @@ class FilesystemClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncFilesystemClient:
+    """
+    The Async API client for the Filesystem Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v2.filesystem.folder import AsyncFolderClient
+        from foundry_sdk.v2.filesystem.project import AsyncProjectClient
+        from foundry_sdk.v2.filesystem.resource import AsyncResourceClient
+        from foundry_sdk.v2.filesystem.space import AsyncSpaceClient
+
+        self.Folder = AsyncFolderClient(auth=auth, hostname=hostname, config=config)
+
+        self.Project = AsyncProjectClient(auth=auth, hostname=hostname, config=config)
+
+        self.Resource = AsyncResourceClient(auth=auth, hostname=hostname, config=config)
+
+        self.Space = AsyncSpaceClient(auth=auth, hostname=hostname, config=config)
