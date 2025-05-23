@@ -107,3 +107,43 @@ class AdminClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncAdminClient:
+    """
+    The Async API client for the Admin Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v2.admin.enrollment import AsyncEnrollmentClient
+        from foundry_sdk.v2.admin.group import AsyncGroupClient
+        from foundry_sdk.v2.admin.marking import AsyncMarkingClient
+        from foundry_sdk.v2.admin.marking_category import AsyncMarkingCategoryClient
+        from foundry_sdk.v2.admin.organization import AsyncOrganizationClient
+        from foundry_sdk.v2.admin.role import AsyncRoleClient
+        from foundry_sdk.v2.admin.user import AsyncUserClient
+
+        self.Enrollment = AsyncEnrollmentClient(auth=auth, hostname=hostname, config=config)
+
+        self.Group = AsyncGroupClient(auth=auth, hostname=hostname, config=config)
+
+        self.Marking = AsyncMarkingClient(auth=auth, hostname=hostname, config=config)
+
+        self.MarkingCategory = AsyncMarkingCategoryClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.Organization = AsyncOrganizationClient(auth=auth, hostname=hostname, config=config)
+
+        self.Role = AsyncRoleClient(auth=auth, hostname=hostname, config=config)
+
+        self.User = AsyncUserClient(auth=auth, hostname=hostname, config=config)

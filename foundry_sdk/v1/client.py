@@ -38,3 +38,32 @@ class FoundryClient:
 
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
+
+
+class AsyncFoundryClient:
+    """
+    The Async Foundry V1 API client.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+        preview: bool = False,
+    ):
+        if not preview:
+            raise ValueError(
+                "The AsyncFoundryClient client is in beta. "
+                "Please set the preview parameter to True to use it."
+            )
+
+        from foundry_sdk.v1.datasets._client import AsyncDatasetsClient
+        from foundry_sdk.v1.ontologies._client import AsyncOntologiesClient
+
+        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
+        self.ontologies = AsyncOntologiesClient(auth=auth, hostname=hostname, config=config)

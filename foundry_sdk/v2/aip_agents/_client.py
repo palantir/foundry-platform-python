@@ -47,3 +47,23 @@ class AipAgentsClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncAipAgentsClient:
+    """
+    The Async API client for the AipAgents Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v2.aip_agents.agent import AsyncAgentClient
+
+        self.Agent = AsyncAgentClient(auth=auth, hostname=hostname, config=config)

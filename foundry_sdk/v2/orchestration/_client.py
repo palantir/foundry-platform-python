@@ -77,3 +77,34 @@ class OrchestrationClient:
             hostname=self._hostname,
             config=self._config,
         )
+
+
+class AsyncOrchestrationClient:
+    """
+    The Async API client for the Orchestration Namespace.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        from foundry_sdk.v2.orchestration.build import AsyncBuildClient
+        from foundry_sdk.v2.orchestration.job import AsyncJobClient
+        from foundry_sdk.v2.orchestration.schedule import AsyncScheduleClient
+        from foundry_sdk.v2.orchestration.schedule_version import AsyncScheduleVersionClient  # NOQA
+
+        self.Build = AsyncBuildClient(auth=auth, hostname=hostname, config=config)
+
+        self.Job = AsyncJobClient(auth=auth, hostname=hostname, config=config)
+
+        self.Schedule = AsyncScheduleClient(auth=auth, hostname=hostname, config=config)
+
+        self.ScheduleVersion = AsyncScheduleVersionClient(
+            auth=auth, hostname=hostname, config=config
+        )

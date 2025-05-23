@@ -18,9 +18,12 @@ import warnings
 from datetime import datetime
 from datetime import timezone
 from typing import Any
+from typing import AsyncIterator
 from typing import Dict
+from typing import List
 from typing import Literal
 from typing import Optional
+from typing import Union
 from typing import cast
 from unittest.mock import ANY
 from unittest.mock import Mock
@@ -50,8 +53,10 @@ from foundry_sdk import UserTokenAuth
 from foundry_sdk import WriteTimeout
 from foundry_sdk import __version__
 from foundry_sdk._core import ApiClient
+from foundry_sdk._core import ApiResponse
+from foundry_sdk._core import AsyncApiClient
 from foundry_sdk._core import RequestInfo
-from foundry_sdk._core.api_client import ApiResponse
+from tests.server import FooBar
 from tests.server import FooData
 
 HOSTNAME = "localhost:8123"
@@ -73,8 +78,12 @@ EXAMPLE_ERROR = json.dumps(
 )
 
 
-def assert_called_with(client: ApiClient, **kwargs):
-    build_request = cast(Mock, client._session.build_request)
+def assert_called_with(client: Union[ApiClient, AsyncApiClient], **kwargs):
+    if isinstance(client, AsyncApiClient):
+        build_request = cast(Mock, client._client.build_request)
+    else:
+        build_request = cast(Mock, client._session.build_request)
+
     build_request.assert_called_with(
         **{
             "method": ANY,
@@ -95,10 +104,24 @@ def _throw(exception: Exception):
     return wrapper
 
 
+def get_mock_awaitable(return_value):
+    async def mock_awaitable(*args, **kwargs):
+        return return_value
+
+    return Mock(wraps=mock_awaitable)
+
+
 def create_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
     client = ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
     client._session.build_request = Mock(wraps=client._session.build_request)
     client._session.send = Mock(return_value=AttrDict(status_code=200, headers={}))
+    return client
+
+
+def create_async_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
+    client = AsyncApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
+    client._client.build_request = Mock(wraps=client._client.build_request)
+    client._client.send = get_mock_awaitable(AttrDict(status_code=200, headers={}))
     return client
 
 
@@ -110,6 +133,16 @@ def create_client(
     config = config or Config()
     config.scheme = scheme
     return ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
+
+
+def create_async_client(
+    config: Optional[Config] = None,
+    hostname=HOSTNAME,
+    scheme: Literal["https", "http"] = "http",
+):
+    config = config or Config()
+    config.scheme = scheme
+    return AsyncApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
 
 
 def test_authorization_header():
@@ -353,10 +386,23 @@ def test_passing_in_str_auth():
             "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
         )
 
+    with pytest.raises(TypeError) as e:
+        AsyncApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
+        assert str(e.value).startswith(
+            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+        )
+
 
 def test_passing_in_int_to_auth():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=2, hostname="localhost:8123")  # type: ignore
+        assert (
+            str(e.value)
+            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+        )
+
+    with pytest.raises(TypeError) as e:
+        AsyncApiClient(auth=2, hostname="localhost:8123")  # type: ignore
         assert (
             str(e.value)
             == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
@@ -368,10 +414,18 @@ def test_passing_in_int_to_hostname():
         ApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
         assert str(e.value) == "hostname must be a string, not int."
 
+    with pytest.raises(TypeError) as e:
+        AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
+        assert str(e.value) == "hostname must be a string, not int."
+
 
 def test_passing_in_int_to_config():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
+        assert str(e.value) == "config must be an instance of Config, not int."
+
+    with pytest.raises(TypeError) as e:
+        AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
         assert str(e.value) == "config must be an instance of Config, not int."
 
 
@@ -482,3 +536,87 @@ def test_response_decode_optional_bytes():
     )
 
     assert response.decode() == b"foo"
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_headers():
+    client = create_async_mock_client()
+    await client.call_api(RequestInfo.with_defaults("GET", "/foo", header_params={"Foo": "Bar"}))
+    assert_called_with(client, headers={"Authorization": "Bearer bar", "Foo": "Bar"})
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_timeout():
+    client = create_async_mock_client(config=Config(timeout=60))
+    await client.call_api(RequestInfo.with_defaults("GET", "/foo/bar", request_timeout=30))
+    assert_called_with(client, timeout=30)
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_path():
+    client = create_async_mock_client()
+    await client.call_api(RequestInfo.with_defaults("GET", "/files"))
+    assert_called_with(client, url="/api/files")
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_query_params():
+    client = create_async_mock_client()
+    await client.call_api(RequestInfo.with_defaults("GET", "/foo", query_params={"foo": "bar"}))
+    assert_called_with(client, url="/api/foo", params=[("foo", "bar")])
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_default_raw_response_type():
+    client = create_async_client()
+    request_info = RequestInfo.with_defaults(
+        "GET", "/foo/bar", response_mode="DECODED", response_type=FooBar
+    )
+
+    response = await client.call_api(request_info)
+    assert response == FooBar(foo="foo", bar=2)
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_streaming_response_type():
+    client = create_async_client()
+    request_info = RequestInfo.with_defaults("GET", "/foo/stream", response_mode="STREAMING")
+
+    async with client.call_api(request_info) as response:
+        iterator = response.aiter_bytes()
+        assert await iterator.__anext__() == b"foo\n"
+        assert await iterator.__anext__() == b"bar\n"
+        assert await iterator.__anext__() == b"baz"
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_raw_response_type():
+    client = create_async_client()
+    request_info = RequestInfo.with_defaults("GET", "/foo/bar", response_mode="RAW")
+
+    response = await client.call_api(request_info)
+    assert response.text == '{"foo":"foo","bar":2}'
+    assert response.json() == {"foo": "foo", "bar": 2}
+
+
+async def collect_async_iterator(aiterator: AsyncIterator[Any]) -> List[Any]:
+    """Collects the items from an async iterator into a list."""
+    result = []
+    async for item in aiterator:
+        result.append(item)
+    return result
+
+
+@pytest.mark.asyncio(scope="session")
+async def test_async_iterator_response_type():
+    client = create_async_client()
+    request_info = RequestInfo.with_defaults(
+        "GET",
+        "/foo/iterator",
+        response_mode="ITERATOR",
+        response_type=FooData,
+    )
+
+    response = client.call_api(request_info)
+    assert len(await response._page_iterator.get_data()) == 2
+    assert len(await collect_async_iterator(response)) == 2

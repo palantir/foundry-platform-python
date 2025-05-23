@@ -4,9 +4,6 @@
 [![PyPI Version](https://img.shields.io/pypi/v/foundry-platform-sdk)](https://pypi.org/project/foundry-platform-sdk/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey.svg)](https://opensource.org/licenses/Apache-2.0)
 
-> [!WARNING]
-> This SDK is incubating and subject to change.
-
 The Foundry Platform SDK is a Python SDK built on top of the Foundry API.
 Review [Foundry API documentation](https://www.palantir.com/docs/foundry/api/) for more details.
 
@@ -308,23 +305,95 @@ To iterate over all items, you can simply create a `ResourceIterator` instance a
 for item in client.datasets.Dataset.Branch.list(dataset_rid):
     print(item)
 
+# Or, you can collect all the items in a list
+results = list(client.datasets.Dataset.Branch.list(dataset_rid))
+
 ```
 
 This will automatically fetch and iterate through all the pages of data from the specified API endpoint. For more granular control, you can manually fetch each page using the `next_page_token`.
 
 ```python
-page = client.datasets.Dataset.Branch.list(dataset_rid, page_size=page_size)
-
-while page.next_page_token:
+next_page_token: Optional[str] = None
+while True:
+    page = client.datasets.Dataset.Branch.list(
+        dataset_rid, page_size=page_size, page_token=next_page_token
+    )
     for branch in page.data:
         print(branch)
 
-    page = client.datasets.Dataset.Branch.list(
-        dataset_rid, page_size=page_size, page_token=page.next_page_token
-    )
+    if page.next_page_token is None:
+        break
+
+    next_page_token = page.next_page_token
 
 ```
 
+### Asynchronous Pagination (Beta)
+
+> [!WARNING]
+> The asynchronous client is in beta and may change in future releases.
+
+When using the `AsyncFoundryClient` client, pagination works similar to the synchronous client
+but you need to use `async for` to iterate over the results. Here's an example:
+
+
+```python
+async for item in client.datasets.Dataset.Branch.list(dataset_rid):
+    print(item)
+
+# Or, you can collect all the items in a list
+results = [item async for item in client.datasets.Dataset.Branch.list(dataset_rid)]
+
+```
+
+For more control over asynchronous pagination, you can manually handle the pagination
+tokens and use the `with_raw_response` utility to fetch each page.
+
+
+```python
+next_page_token: Optional[str] = None
+while True:
+    response = await client.client.datasets.Dataset.Branch.with_raw_response.list(
+        dataset_rid, page_token=next_page_token
+    )
+
+    page = response.decode()
+    for item in page.data:
+        print(item)
+
+    if page.next_page_token is None:
+        break
+
+    next_page_token = page.next_page_token
+
+```
+
+<a id="async-client"></a>
+### Asynchronous Client (Beta)
+
+> [!WARNING]
+> The asynchronous client is in beta and may change in future releases.
+
+This SDK supports creating an asynchronous client, just import and instantiate the
+`AsyncFoundryClient` instead of the `FoundryClient`.
+
+```python
+from foundry import AsyncFoundryClient
+import foundry
+import asyncio
+from pprint import pprint
+
+async def main():
+    client = AsyncFoundryClient(...)
+    response = await client.datasets.Dataset.Branch.create(dataset_rid, name=name, transaction_rid=transaction_rid)
+    pprint(response)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+When using asynchronous clients, you'll just need to use the `await` keyword when calling APIs. Otherwise, the behaviour
+between the `FoundryClient` and `AsyncFoundryClient` is nearly identical.
 
 <a id="binary-streaming"></a>
 ## Streaming
