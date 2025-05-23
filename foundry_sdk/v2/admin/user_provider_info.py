@@ -186,3 +186,166 @@ class _UserProviderInfoClientStreaming:
 
         self.get = core.with_streaming_response(get, client.get)
         self.replace = core.with_streaming_response(replace, client.replace)
+
+
+class AsyncUserProviderInfoClient:
+    """
+    The API client for the UserProviderInfo Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+
+        self.with_streaming_response = _AsyncUserProviderInfoClientStreaming(self)
+        self.with_raw_response = _AsyncUserProviderInfoClientRaw(self)
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get(
+        self,
+        user_id: core_models.PrincipalId,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.UserProviderInfo]:
+        """
+        Get the UserProviderInfo.
+        :param user_id:
+        :type user_id: PrincipalId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.UserProviderInfo]
+
+        :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
+        :raises UserNotFound: The given User could not be found.
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/users/{userId}/providerInfo",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=admin_models.UserProviderInfo,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        user_id: core_models.PrincipalId,
+        *,
+        provider_id: admin_models.ProviderId,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.UserProviderInfo]:
+        """
+        Replace the UserProviderInfo.
+        :param user_id:
+        :type user_id: PrincipalId
+        :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
+        :type provider_id: ProviderId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.UserProviderInfo]
+
+        :raises CannotReplaceProviderInfoForPrincipalInProtectedRealm: Provider information for Principals in this Realm cannot be replaced.
+        :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
+        :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
+        :raises UserNotFound: The given User could not be found.
+        :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/admin/users/{userId}/providerInfo",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "userId": user_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "providerId": provider_id,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "providerId": admin_models.ProviderId,
+                    },
+                ),
+                response_type=admin_models.UserProviderInfo,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CannotReplaceProviderInfoForPrincipalInProtectedRealm": admin_errors.CannotReplaceProviderInfoForPrincipalInProtectedRealm,
+                    "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
+                    "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                    "UserNotFound": admin_errors.UserNotFound,
+                    "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+
+class _AsyncUserProviderInfoClientRaw:
+    def __init__(self, client: AsyncUserProviderInfoClient) -> None:
+        def get(_: admin_models.UserProviderInfo): ...
+        def replace(_: admin_models.UserProviderInfo): ...
+
+        self.get = core.async_with_raw_response(get, client.get)
+        self.replace = core.async_with_raw_response(replace, client.replace)
+
+
+class _AsyncUserProviderInfoClientStreaming:
+    def __init__(self, client: AsyncUserProviderInfoClient) -> None:
+        def get(_: admin_models.UserProviderInfo): ...
+        def replace(_: admin_models.UserProviderInfo): ...
+
+        self.get = core.async_with_streaming_response(get, client.get)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

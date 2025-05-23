@@ -15,10 +15,14 @@
 
 from foundry_sdk._core.api_client import ApiClient
 from foundry_sdk._core.api_client import ApiResponse
+from foundry_sdk._core.api_client import AsyncApiClient
+from foundry_sdk._core.api_client import AsyncApiResponse
 from foundry_sdk._core.api_client import RequestInfo
 from foundry_sdk._core.api_client import SdkInternal
 from foundry_sdk._core.api_client import StreamedApiResponse
 from foundry_sdk._core.api_client import StreamingContextManager
+from foundry_sdk._core.api_client import async_with_raw_response
+from foundry_sdk._core.api_client import async_with_streaming_response
 from foundry_sdk._core.api_client import with_raw_response
 from foundry_sdk._core.api_client import with_streaming_response
 from foundry_sdk._core.auth_utils import Auth
@@ -27,6 +31,7 @@ from foundry_sdk._core.compute_module_pipeline_auth import ComputeModulePipeline
 from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.public_client_auth import PublicClientAuth
+from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth
 from foundry_sdk._core.utils import RID

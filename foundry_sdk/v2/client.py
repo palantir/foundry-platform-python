@@ -62,3 +62,56 @@ class FoundryClient:
         self.third_party_applications = ThirdPartyApplicationsClient(
             auth=auth, hostname=hostname, config=config
         )
+
+
+class AsyncFoundryClient:
+    """
+    The Async Foundry V2 API client.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+        preview: bool = False,
+    ):
+        if not preview:
+            raise ValueError(
+                "The AsyncFoundryClient client is in beta. "
+                "Please set the preview parameter to True to use it."
+            )
+
+        from foundry_sdk.v2.admin._client import AsyncAdminClient
+        from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient
+        from foundry_sdk.v2.connectivity._client import AsyncConnectivityClient
+        from foundry_sdk.v2.datasets._client import AsyncDatasetsClient
+        from foundry_sdk.v2.filesystem._client import AsyncFilesystemClient
+        from foundry_sdk.v2.functions._client import AsyncFunctionsClient
+        from foundry_sdk.v2.media_sets._client import AsyncMediaSetsClient
+        from foundry_sdk.v2.ontologies._client import AsyncOntologiesClient
+        from foundry_sdk.v2.orchestration._client import AsyncOrchestrationClient
+        from foundry_sdk.v2.sql_queries._client import AsyncSqlQueriesClient
+        from foundry_sdk.v2.streams._client import AsyncStreamsClient
+        from foundry_sdk.v2.third_party_applications._client import (
+            AsyncThirdPartyApplicationsClient,
+        )  # NOQA
+
+        self.admin = AsyncAdminClient(auth=auth, hostname=hostname, config=config)
+        self.aip_agents = AsyncAipAgentsClient(auth=auth, hostname=hostname, config=config)
+        self.connectivity = AsyncConnectivityClient(auth=auth, hostname=hostname, config=config)
+        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
+        self.filesystem = AsyncFilesystemClient(auth=auth, hostname=hostname, config=config)
+        self.functions = AsyncFunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.media_sets = AsyncMediaSetsClient(auth=auth, hostname=hostname, config=config)
+        self.ontologies = AsyncOntologiesClient(auth=auth, hostname=hostname, config=config)
+        self.orchestration = AsyncOrchestrationClient(auth=auth, hostname=hostname, config=config)
+        self.sql_queries = AsyncSqlQueriesClient(auth=auth, hostname=hostname, config=config)
+        self.streams = AsyncStreamsClient(auth=auth, hostname=hostname, config=config)
+        self.third_party_applications = AsyncThirdPartyApplicationsClient(
+            auth=auth, hostname=hostname, config=config
+        )

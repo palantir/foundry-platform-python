@@ -13,13 +13,16 @@
 #  limitations under the License.
 
 
+import warnings
 from typing import Generic
 from typing import List
 from typing import Optional
 from typing import TypeVar
 
-from .page_iterator import PageFunction
-from .page_iterator import PageIterator
+from foundry_sdk._core.page_iterator import AsyncPageFunction
+from foundry_sdk._core.page_iterator import AsyncPageIterator
+from foundry_sdk._core.page_iterator import PageFunction
+from foundry_sdk._core.page_iterator import PageIterator
 
 T = TypeVar("T")
 
@@ -56,3 +59,28 @@ class ResourceIterator(Generic[T]):
             self._index = 0
         except StopIteration:
             raise StopIteration("End of iteration reached")
+
+
+class AsyncResourceIterator(Generic[T]):
+    """A generic class for async iterating over paged responses."""
+
+    def __init__(self, paged_func: AsyncPageFunction[T], page_size: Optional[int] = None) -> None:
+        self._page_iterator = AsyncPageIterator(paged_func, page_size)
+        self._data: Optional[List[T]] = None
+        self._index = 0
+
+    def __aiter__(self):
+        return self
+
+    async def __anext__(self):
+        if self._data is None:
+            self._data = await self._page_iterator.__anext__()
+
+        if self._index >= len(self._data):
+            self._data = await self._page_iterator.__anext__()
+            self._index = 0
+            return await self.__anext__()
+
+        obj = self._data[self._index]
+        self._index += 1
+        return obj

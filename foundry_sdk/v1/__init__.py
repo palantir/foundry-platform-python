@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
+from foundry_sdk.v1.client import AsyncFoundryClient
 from foundry_sdk.v1.client import FoundryClient
 
 __all__ = [
     "FoundryClient",
+    "AsyncFoundryClient",
 ]

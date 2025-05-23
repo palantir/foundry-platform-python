@@ -266,3 +266,246 @@ class _MarkingMemberClientStreaming:
         def list(_: admin_models.ListMarkingMembersResponse): ...
 
         self.list = core.with_streaming_response(list, client.list)
+
+
+class AsyncMarkingMemberClient:
+    """
+    The API client for the MarkingMember Resource.
+
+    :param auth: Your auth configuration.
+    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param config: Optionally specify the configuration for the HTTP session.
+    """
+
+    def __init__(
+        self,
+        auth: core.Auth,
+        hostname: str,
+        config: typing.Optional[core.Config] = None,
+    ):
+        self._auth = auth
+        self._hostname = hostname
+        self._config = config
+        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+
+        self.with_streaming_response = _AsyncMarkingMemberClientStreaming(self)
+        self.with_raw_response = _AsyncMarkingMemberClientRaw(self)
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def add(
+        self,
+        marking_id: core_models.MarkingId,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+
+        :param marking_id:
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": typing.List[core_models.PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list(
+        self,
+        marking_id: core_models.MarkingId,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transitive: typing.Optional[bool] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncResourceIterator[admin_models.MarkingMember]:
+        """
+        Lists all principals who can view resources protected by the given Marking. Ignores the `pageSize` parameter.
+        Requires `api:admin-write` because only marking administrators can view marking members.
+
+        :param marking_id:
+        :type marking_id: MarkingId
+        :param page_size: The page size to use for the endpoint.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param transitive: When true, includes the transitive members of groups contained within groups that are members of this  Marking. For example, say the Marking has member Group A, and Group A has member User B. If  `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B  will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
+        :type transitive: Optional[bool]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncResourceIterator[admin_models.MarkingMember]
+
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises ListMarkingMembersPermissionDenied: The provided token does not have permission to list the members of this marking.
+        :raises MarkingNotFound: The given Marking could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                    "transitive": transitive,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=admin_models.ListMarkingMembersResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "ListMarkingMembersPermissionDenied": admin_errors.ListMarkingMembersPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def remove(
+        self,
+        marking_id: core_models.MarkingId,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+
+        :param marking_id:
+        :type marking_id: MarkingId
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
+        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "principalIds": principal_ids,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "principalIds": typing.List[core_models.PrincipalId],
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
+                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+
+class _AsyncMarkingMemberClientRaw:
+    def __init__(self, client: AsyncMarkingMemberClient) -> None:
+        def add(_: None): ...
+        def list(_: admin_models.ListMarkingMembersResponse): ...
+        def remove(_: None): ...
+
+        self.add = core.async_with_raw_response(add, client.add)
+        self.list = core.async_with_raw_response(list, client.list)
+        self.remove = core.async_with_raw_response(remove, client.remove)
+
+
+class _AsyncMarkingMemberClientStreaming:
+    def __init__(self, client: AsyncMarkingMemberClient) -> None:
+        def list(_: admin_models.ListMarkingMembersResponse): ...
+
+        self.list = core.async_with_streaming_response(list, client.list)
