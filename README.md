@@ -1579,6 +1579,7 @@ Namespace | Name | Import |
 **Orchestration** | [ListJobsOfBuildResponse](docs/v2/Orchestration/models/ListJobsOfBuildResponse.md) | `from foundry_sdk.v2.orchestration.models import ListJobsOfBuildResponse` |
 **Orchestration** | [ListRunsOfScheduleResponse](docs/v2/Orchestration/models/ListRunsOfScheduleResponse.md) | `from foundry_sdk.v2.orchestration.models import ListRunsOfScheduleResponse` |
 **Orchestration** | [ManualTarget](docs/v2/Orchestration/models/ManualTarget.md) | `from foundry_sdk.v2.orchestration.models import ManualTarget` |
+**Orchestration** | [ManualTrigger](docs/v2/Orchestration/models/ManualTrigger.md) | `from foundry_sdk.v2.orchestration.models import ManualTrigger` |
 **Orchestration** | [MediaSetUpdatedTrigger](docs/v2/Orchestration/models/MediaSetUpdatedTrigger.md) | `from foundry_sdk.v2.orchestration.models import MediaSetUpdatedTrigger` |
 **Orchestration** | [NewLogicTrigger](docs/v2/Orchestration/models/NewLogicTrigger.md) | `from foundry_sdk.v2.orchestration.models import NewLogicTrigger` |
 **Orchestration** | [NotificationsEnabled](docs/v2/Orchestration/models/NotificationsEnabled.md) | `from foundry_sdk.v2.orchestration.models import NotificationsEnabled` |

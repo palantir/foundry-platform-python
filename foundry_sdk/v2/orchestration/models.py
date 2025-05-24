@@ -434,6 +434,17 @@ class ManualTarget(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ManualTrigger(pydantic.BaseModel):
+    """Only trigger the Schedule manually. If placed in an AND or OR condition, this Trigger will be ignored."""
+
+    type: typing.Literal["manual"] = "manual"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class MediaSetUpdatedTrigger(pydantic.BaseModel):
     """
     Trigger whenever an update is made to a media set on the target
@@ -967,6 +978,7 @@ Trigger = typing_extensions.Annotated[
         ScheduleSucceededTrigger,
         MediaSetUpdatedTrigger,
         TimeTrigger,
+        ManualTrigger,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1062,6 +1074,7 @@ __all__ = [
     "ListJobsOfBuildResponse",
     "ListRunsOfScheduleResponse",
     "ManualTarget",
+    "ManualTrigger",
     "MediaSetUpdatedTrigger",
     "NewLogicTrigger",
     "NotificationsEnabled",
