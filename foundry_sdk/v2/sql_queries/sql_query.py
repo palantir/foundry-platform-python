@@ -122,9 +122,11 @@ class SqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
         """
-        Executes a new query. Only the user that invoked the query can operate on the query.
+        Executes a new query. Only the user that invoked the query can operate on the query. The size of query
+        results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
+        increases.
 
-        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
+        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) on the supported syntax for referencing datasets in SQL queries.
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
@@ -197,7 +199,7 @@ class SqlQueryClient:
     ) -> bytes:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
+        one minute. They can be safely retried while the query is still running.
 
         :param sql_query_id: The id of a query.
         :type sql_query_id: SqlQueryId
@@ -430,9 +432,11 @@ class AsyncSqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
         """
-        Executes a new query. Only the user that invoked the query can operate on the query.
+        Executes a new query. Only the user that invoked the query can operate on the query. The size of query
+        results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
+        increases.
 
-        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
+        :param query: The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) on the supported syntax for referencing datasets in SQL queries.
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
@@ -505,7 +509,7 @@ class AsyncSqlQueryClient:
     ) -> typing.Awaitable[bytes]:
         """
         Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute.
+        one minute. They can be safely retried while the query is still running.
 
         :param sql_query_id: The id of a query.
         :type sql_query_id: SqlQueryId

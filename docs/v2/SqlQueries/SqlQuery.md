@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Private Beta |
-[**execute**](#execute) | **POST** /v2/sqlQueries/execute | Private Beta |
-[**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Private Beta |
-[**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Private Beta |
+[**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Public Beta |
+[**execute**](#execute) | **POST** /v2/sqlQueries/execute | Public Beta |
+[**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Public Beta |
+[**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Public Beta |
 
 # **cancel**
 Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -59,14 +59,16 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **execute**
-Executes a new query. Only the user that invoked the query can operate on the query.
+Executes a new query. Only the user that invoked the query can operate on the query. The size of query
+results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
+increases.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**query** | str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.  |  |
+**query** | str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) on the supported syntax for referencing datasets in SQL queries.  |  |
 **fallback_branch_ids** | Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -82,8 +84,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only.
-query = None
+# str | The SQL query to execute. Queries should confirm to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) on the supported syntax for referencing datasets in SQL queries.
+query = "SELECT * FROM `/Path/To/Dataset`"
 # Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
 fallback_branch_ids = ["master"]
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -116,7 +118,7 @@ See [README](../../../README.md#authorization)
 
 # **get_results**
 Gets the results of a query. This endpoint implements long polling and requests will time out after
-one minute.
+one minute. They can be safely retried while the query is still running.
 
 
 ### Parameters

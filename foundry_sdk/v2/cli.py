@@ -7458,7 +7458,8 @@ def sql_queries_sql_query_cancel(
     required=True,
     help="""The SQL query to execute. Queries should confirm to the
 [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
-queries only.
+queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
+on the supported syntax for referencing datasets in SQL queries.
 """,
 )
 @click.option(
@@ -7482,7 +7483,9 @@ def sql_queries_sql_query_execute(
     preview: typing.Optional[bool],
 ):
     """
-    Executes a new query. Only the user that invoked the query can operate on the query.
+    Executes a new query. Only the user that invoked the query can operate on the query. The size of query
+    results are limited by default to 1 million rows. Contact your Palantir representative to discuss limit
+    increases.
 
     """
     result = client.sql_queries.SqlQuery.execute(
@@ -7508,7 +7511,7 @@ def sql_queries_sql_query_get_results(
 ):
     """
     Gets the results of a query. This endpoint implements long polling and requests will time out after
-    one minute.
+    one minute. They can be safely retried while the query is still running.
 
     """
     result = client.sql_queries.SqlQuery.get_results(

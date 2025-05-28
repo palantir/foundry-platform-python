@@ -730,6 +730,10 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | Schedule | [**unpause**](docs/v2/Orchestration/Schedule.md#unpause) | **POST** /v2/orchestration/schedules/{scheduleRid}/unpause |
 **Orchestration** | ScheduleVersion | [**get**](docs/v2/Orchestration/ScheduleVersion.md#get) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid} |
 **Orchestration** | ScheduleVersion | [**schedule**](docs/v2/Orchestration/ScheduleVersion.md#schedule) | **GET** /v2/orchestration/scheduleVersions/{scheduleVersionRid}/schedule |
+**SqlQueries** | SqlQuery | [**cancel**](docs/v2/SqlQueries/SqlQuery.md#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel |
+**SqlQueries** | SqlQuery | [**execute**](docs/v2/SqlQueries/SqlQuery.md#execute) | **POST** /v2/sqlQueries/execute |
+**SqlQueries** | SqlQuery | [**get_results**](docs/v2/SqlQueries/SqlQuery.md#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults |
+**SqlQueries** | SqlQuery | [**get_status**](docs/v2/SqlQueries/SqlQuery.md#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus |
 **Streams** | Dataset | [**create**](docs/v2/Streams/Dataset.md#create) | **POST** /v2/streams/datasets/create |
 **Streams** | Stream | [**create**](docs/v2/Streams/Stream.md#create) | **POST** /v2/streams/datasets/{datasetRid}/streams |
 **Streams** | Stream | [**get**](docs/v2/Streams/Stream.md#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} |
