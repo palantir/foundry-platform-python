@@ -3385,12 +3385,17 @@ class StructFieldType(pydantic.BaseModel):
     """StructFieldType"""
 
     api_name: StructFieldApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    rid: StructFieldTypeRid
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
+
+
+StructFieldTypeRid = core.RID
+"""The unique resource identifier of a struct field, useful for interacting with other Foundry APIs."""
 
 
 class StructType(pydantic.BaseModel):
@@ -4092,6 +4097,7 @@ __all__ = [
     "StructFieldApiName",
     "StructFieldSelector",
     "StructFieldType",
+    "StructFieldTypeRid",
     "StructType",
     "SubmissionCriteriaEvaluation",
     "SubtractPropertyExpression",

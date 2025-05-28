@@ -6,6 +6,7 @@ StructFieldType
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | StructFieldApiName | Yes |  |
+**rid** | StructFieldTypeRid | Yes |  |
 **data_type** | ObjectPropertyType | Yes |  |
 
 

@@ -51,6 +51,7 @@ from foundry_sdk._errors import WriteTimeout
 # The SDK version
 from foundry_sdk._versions import __openapi_document_version__
 from foundry_sdk._versions import __version__
+from foundry_sdk.v2 import AsyncFoundryClient
 from foundry_sdk.v2 import FoundryClient
 
 # The OpenAPI specification version
@@ -88,4 +89,5 @@ __all__ = [
     "TimeoutError",
     "ApiNotFoundError",
     "FoundryClient",
+    "AsyncFoundryClient",
 ]
