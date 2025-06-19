@@ -383,6 +383,21 @@ class RunSchedulePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ScheduleAlreadyRunningParameters(typing_extensions.TypedDict):
+    """The target schedule is currently running."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    scheduleRid: core_models.ScheduleRid
+
+
+@dataclass
+class ScheduleAlreadyRunning(errors.ConflictError):
+    name: typing.Literal["ScheduleAlreadyRunning"]
+    parameters: ScheduleAlreadyRunningParameters
+    error_instance_id: str
+
+
 class ScheduleNotFoundParameters(typing_extensions.TypedDict):
     """The given Schedule could not be found."""
 
@@ -516,6 +531,7 @@ __all__ = [
     "PauseSchedulePermissionDenied",
     "ReplaceSchedulePermissionDenied",
     "RunSchedulePermissionDenied",
+    "ScheduleAlreadyRunning",
     "ScheduleNotFound",
     "ScheduleTriggerResourcesNotFound",
     "ScheduleTriggerResourcesPermissionDenied",

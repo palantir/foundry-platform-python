@@ -1222,7 +1222,10 @@ class InterfaceLinkType(pydantic.BaseModel):
 
 
 InterfaceLinkTypeApiName = str
-"""A string indicating the API name to use for the interface link."""
+"""
+The name of the interface link type in the API. To find the API name for your Interface Link Type, check the 
+[Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+"""
 
 
 InterfaceLinkTypeCardinality = typing.Literal["ONE", "MANY"]
@@ -1418,6 +1421,10 @@ LinkTypeApiName = str
 The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager**
 application.
 """
+
+
+LinkTypeId = str
+"""The unique ID of a link type. To find the ID for your link type, check the **Ontology Manager** application."""
 
 
 LinkTypeRid = core.RID
@@ -1915,6 +1922,7 @@ ObjectSet = typing_extensions.Annotated[
         "ObjectSetStaticType",
         "ObjectSetIntersectionType",
         "ObjectSetWithPropertiesType",
+        "ObjectSetInterfaceLinkSearchAroundType",
         "ObjectSetSubtractType",
         "ObjectSetNearestNeighborsType",
         "ObjectSetUnionType",
@@ -2009,6 +2017,19 @@ class ObjectSetInterfaceBaseType(pydantic.BaseModel):
     """
 
     type: typing.Literal["interfaceBase"] = "interfaceBase"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ObjectSetInterfaceLinkSearchAroundType(pydantic.BaseModel):
+    """ObjectSetInterfaceLinkSearchAroundType"""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    interface_link: InterfaceLinkTypeApiName = pydantic.Field(alias=str("interfaceLink"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceLinkSearchAround"] = "interfaceLinkSearchAround"
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -3942,6 +3963,7 @@ __all__ = [
     "LeastPropertyExpression",
     "LinkSideObject",
     "LinkTypeApiName",
+    "LinkTypeId",
     "LinkTypeRid",
     "LinkTypeSideCardinality",
     "LinkTypeSideV2",
@@ -3986,6 +4008,7 @@ __all__ = [
     "ObjectSetBaseType",
     "ObjectSetFilterType",
     "ObjectSetInterfaceBaseType",
+    "ObjectSetInterfaceLinkSearchAroundType",
     "ObjectSetIntersectionType",
     "ObjectSetMethodInputType",
     "ObjectSetNearestNeighborsType",

@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**abort**](#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort | Public Beta |
 [**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit | Public Beta |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
+[**get_rid_by_path**](#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath | Public Beta |
 [**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
 [**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
 [**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
@@ -178,6 +179,78 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | TransactionId  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_rid_by_path**
+Returns the media item RID for the media item with the specified path.
+
+Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_path** | MediaItemPath | The path of the media item.  |  |
+**branch_name** | Optional[BranchName] | Specifies the specific branch by name in which to search for this media item. May not be provided if branch rid or view rid are provided. | [optional] |
+**branch_rid** | Optional[BranchRid] | Specifies the specific branch by rid in which to search for this media item. May not be provided if branch name or view rid are provided. | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**view_rid** | Optional[MediaSetViewRid] | Specifies the specific view by rid in which to search for this media item. May not be provided if branch name or branch rid are provided. | [optional] |
+
+### Return type
+**GetMediaItemRidByPathResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemPath | The path of the media item.
+media_item_path = None
+# Optional[BranchName] | Specifies the specific branch by name in which to search for this media item. May not be provided if branch rid or view rid are provided.
+branch_name = None
+# Optional[BranchRid] | Specifies the specific branch by rid in which to search for this media item. May not be provided if branch name or view rid are provided.
+branch_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaSetViewRid] | Specifies the specific view by rid in which to search for this media item. May not be provided if branch name or branch rid are provided.
+view_rid = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.get_rid_by_path(
+        media_set_rid,
+        media_item_path=media_item_path,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        preview=preview,
+        view_rid=view_rid,
+    )
+    print("The get_rid_by_path response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.get_rid_by_path: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetMediaItemRidByPathResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

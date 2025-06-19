@@ -2152,15 +2152,11 @@ def connectivity_connection_get_configuration(
     help="""The secrets to be updated. The specified secret names must already be configured on the connection.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_update_secrets(
     client: FoundryClient,
     connection_rid: str,
     secrets: str,
-    preview: typing.Optional[bool],
 ):
     """
     Updates the secrets on the connection to the specified secret values.
@@ -2179,7 +2175,6 @@ def connectivity_connection_update_secrets(
     result = client.connectivity.Connection.update_secrets(
         connection_rid=connection_rid,
         secrets=json.loads(secrets),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4281,6 +4276,67 @@ def media_sets_media_set_create(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("get_rid_by_path")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=True,
+    help="""The path of the media item.
+""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name in which to search for this media item. May not be provided if branch rid or view rid are provided.""",
+)
+@click.option(
+    "--branch_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by rid in which to search for this media item. May not be provided if branch name or view rid are provided.""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid in which to search for this media item. May not be provided if branch name or branch rid are provided.""",
+)
+@click.pass_obj
+def media_sets_media_set_get_rid_by_path(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_path: str,
+    branch_name: typing.Optional[str],
+    branch_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Returns the media item RID for the media item with the specified path.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+    """
+    result = client.media_sets.MediaSet.get_rid_by_path(
+        media_set_rid=media_set_rid,
+        media_item_path=media_item_path,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("info")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
@@ -4507,17 +4563,17 @@ def ontologies_time_series_value_bank_property():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property_name", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -4527,8 +4583,8 @@ def ontologies_time_series_value_bank_property_get_latest_value(
     object_type: str,
     primary_key: str,
     property_name: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
@@ -4542,8 +4598,8 @@ def ontologies_time_series_value_bank_property_get_latest_value(
         object_type=object_type,
         primary_key=primary_key,
         property_name=property_name,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -4553,21 +4609,21 @@ def ontologies_time_series_value_bank_property_get_latest_value(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
-@click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option("--range", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_time_series_value_bank_property_stream_values(
     client: FoundryClient,
@@ -4575,9 +4631,9 @@ def ontologies_time_series_value_bank_property_stream_values(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
     range: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Stream all of the points of a time series property (this includes geotime series references).
@@ -4591,9 +4647,9 @@ def ontologies_time_series_value_bank_property_stream_values(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
         range=None if range is None else json.loads(range),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(result)
 
@@ -4609,17 +4665,17 @@ def ontologies_time_series_property_v2():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -4629,8 +4685,8 @@ def ontologies_time_series_property_v2_get_first_point(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the first point of a time series property.
@@ -4644,8 +4700,8 @@ def ontologies_time_series_property_v2_get_first_point(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -4656,17 +4712,17 @@ def ontologies_time_series_property_v2_get_first_point(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -4676,8 +4732,8 @@ def ontologies_time_series_property_v2_get_last_point(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the last point of a time series property.
@@ -4691,8 +4747,8 @@ def ontologies_time_series_property_v2_get_last_point(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -4704,13 +4760,6 @@ def ontologies_time_series_property_v2_get_last_point(
 @click.argument("property", type=str, required=True)
 @click.option("--aggregate", type=str, required=False, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--format",
     type=click.Choice(["JSON", "ARROW"]),
     required=False,
@@ -4718,14 +4767,21 @@ def ontologies_time_series_property_v2_get_last_point(
 JSON. ARROW is more efficient than JSON at streaming a large sized response.
 """,
 )
+@click.option("--range", type=str, required=False, help="""""")
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
 """,
 )
-@click.option("--range", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_time_series_property_v2_stream_points(
     client: FoundryClient,
@@ -4734,10 +4790,10 @@ def ontologies_time_series_property_v2_stream_points(
     primary_key: str,
     property: str,
     aggregate: typing.Optional[str],
-    artifact_repository: typing.Optional[str],
     format: typing.Optional[typing.Literal["JSON", "ARROW"]],
-    package_name: typing.Optional[str],
     range: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Stream all of the points of a time series property.
@@ -4752,10 +4808,10 @@ def ontologies_time_series_property_v2_stream_points(
         primary_key=primary_key,
         property=property,
         aggregate=None if aggregate is None else json.loads(aggregate),
-        artifact_repository=artifact_repository,
         format=format,
-        package_name=package_name,
         range=None if range is None else json.loads(range),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(result)
 
@@ -4837,17 +4893,17 @@ def ontologies_ontology_object_set():
     help="""""",
 )
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -4858,8 +4914,8 @@ def ontologies_ontology_object_set_aggregate(
     group_by: str,
     object_set: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -4873,8 +4929,8 @@ def ontologies_ontology_object_set_aggregate(
         group_by=json.loads(group_by),
         object_set=json.loads(object_set),
         accuracy=accuracy,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -4929,13 +4985,6 @@ def ontologies_ontology_object_set_get(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -4944,27 +4993,45 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_load(
     client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+    snapshot: typing.Optional[bool],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -4983,12 +5050,13 @@ def ontologies_ontology_object_set_load(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -4998,13 +5066,6 @@ def ontologies_ontology_object_set_load(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -5013,13 +5074,6 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
@@ -5029,19 +5083,44 @@ Setting this to true may improve performance of this endpoint for object types i
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_load_multiple_object_types(
     client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+    snapshot: typing.Optional[bool],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting
@@ -5065,13 +5144,14 @@ def ontologies_ontology_object_set_load_multiple_object_types(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -5081,13 +5161,6 @@ def ontologies_ontology_object_set_load_multiple_object_types(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -5096,13 +5169,6 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
@@ -5112,19 +5178,44 @@ Setting this to true may improve performance of this endpoint for object types i
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_load_objects_or_interfaces(
     client: FoundryClient,
     ontology: str,
     object_set: str,
     select: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+    snapshot: typing.Optional[bool],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition. If the requested
@@ -5150,13 +5241,14 @@ def ontologies_ontology_object_set_load_objects_or_interfaces(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -5369,6 +5461,16 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 the properties.
 """,
 )
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_list(
     client: FoundryClient,
@@ -5381,6 +5483,7 @@ def ontologies_ontology_object_list(
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     select: typing.Optional[str],
+    snapshot: typing.Optional[bool],
 ):
     """
     Lists the objects for the given Ontology and object type.
@@ -5410,6 +5513,7 @@ def ontologies_ontology_object_list(
         page_size=page_size,
         page_token=page_token,
         select=None if select is None else json.loads(select),
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -5449,6 +5553,16 @@ Setting this to true may improve performance of this endpoint for object types i
 )
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
 @click.option("--where", type=str, required=False, help="""""")
 @click.pass_obj
 def ontologies_ontology_object_search(
@@ -5462,6 +5576,7 @@ def ontologies_ontology_object_search(
     package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    snapshot: typing.Optional[bool],
     where: typing.Optional[str],
 ):
     """
@@ -5502,6 +5617,7 @@ def ontologies_ontology_object_search(
         package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        snapshot=snapshot,
         where=None if where is None else json.loads(where),
     )
     click.echo(repr(result))
@@ -5574,6 +5690,13 @@ def ontologies_ontology_interface_aggregate(
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -5585,6 +5708,7 @@ def ontologies_ontology_interface_get(
     client: FoundryClient,
     ontology: str,
     interface_type: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -5601,6 +5725,7 @@ def ontologies_ontology_interface_get(
     result = client.ontologies.OntologyInterface.get(
         ontology=ontology,
         interface_type=interface_type,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -5810,10 +5935,18 @@ def ontologies_ontology_get(
 
 @ontologies_ontology.command("get_full_metadata")
 @click.argument("ontology", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load metadata from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_get_full_metadata(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
 ):
     """
     Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
@@ -5821,6 +5954,7 @@ def ontologies_ontology_get_full_metadata(
     """
     result = client.ontologies.Ontology.get_full_metadata(
         ontology=ontology,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -5848,6 +5982,13 @@ def ontologies_ontology_list(
 @click.option("--object_types", type=str, required=True, help="""""")
 @click.option("--query_types", type=str, required=True, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load metadata from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -5863,6 +6004,7 @@ def ontologies_ontology_load_metadata(
     link_types: str,
     object_types: str,
     query_types: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -5876,6 +6018,7 @@ def ontologies_ontology_load_metadata(
         link_types=json.loads(link_types),
         object_types=json.loads(object_types),
         query_types=json.loads(query_types),
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -5960,11 +6103,19 @@ def ontologies_ontology_object_type():
 @ontologies_ontology_object_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_get(
     client: FoundryClient,
     ontology: str,
     object_type: str,
+    branch: typing.Optional[str],
 ):
     """
     Gets a specific object type with the given API name.
@@ -5975,6 +6126,7 @@ def ontologies_ontology_object_type_get(
     result = client.ontologies.Ontology.ObjectType.get(
         ontology=ontology,
         object_type=object_type,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -5982,6 +6134,13 @@ def ontologies_ontology_object_type_get(
 @ontologies_ontology_object_type.command("get_full_metadata")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--preview",
     type=bool,
@@ -5994,6 +6153,7 @@ def ontologies_ontology_object_type_get_full_metadata(
     client: FoundryClient,
     ontology: str,
     object_type: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -6005,6 +6165,7 @@ def ontologies_ontology_object_type_get_full_metadata(
     result = client.ontologies.Ontology.ObjectType.get_full_metadata(
         ontology=ontology,
         object_type=object_type,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -6014,12 +6175,20 @@ def ontologies_ontology_object_type_get_full_metadata(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_get_outgoing_link_type(
     client: FoundryClient,
     ontology: str,
     object_type: str,
     link_type: str,
+    branch: typing.Optional[str],
 ):
     """
     Get an outgoing link for an object type.
@@ -6032,6 +6201,7 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
         ontology=ontology,
         object_type=object_type,
         link_type=link_type,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -6076,6 +6246,13 @@ def ontologies_ontology_object_type_list(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The desired size of the page to be returned."""
 )
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -6084,6 +6261,7 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     client: FoundryClient,
     ontology: str,
     object_type: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -6097,6 +6275,7 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
         ontology=ontology,
         object_type=object_type,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
     )
@@ -6111,11 +6290,19 @@ def ontologies_ontology_action_type():
 @ontologies_ontology_action_type.command("get")
 @click.argument("ontology", type=str, required=True)
 @click.argument("action_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_action_type_get(
     client: FoundryClient,
     ontology: str,
     action_type: str,
+    branch: typing.Optional[str],
 ):
     """
     Gets a specific action type with the given API name.
@@ -6126,6 +6313,7 @@ def ontologies_ontology_action_type_get(
     result = client.ontologies.Ontology.ActionType.get(
         ontology=ontology,
         action_type=action_type,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -6133,11 +6321,19 @@ def ontologies_ontology_action_type_get(
 @ontologies_ontology_action_type.command("get_by_rid")
 @click.argument("ontology", type=str, required=True)
 @click.argument("action_type_rid", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_action_type_get_by_rid(
     client: FoundryClient,
     ontology: str,
     action_type_rid: str,
+    branch: typing.Optional[str],
 ):
     """
     Gets a specific action type with the given RID.
@@ -6148,6 +6344,7 @@ def ontologies_ontology_action_type_get_by_rid(
     result = client.ontologies.Ontology.ActionType.get_by_rid(
         ontology=ontology,
         action_type_rid=action_type_rid,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -6198,24 +6395,24 @@ def ontologies_media_reference_property():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
-@click.option(
     "--preview",
     type=bool,
     required=False,
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -6225,9 +6422,9 @@ def ontologies_media_reference_property_get_media_content(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Gets the content of a media item referenced by this property.
@@ -6240,9 +6437,9 @@ def ontologies_media_reference_property_get_media_content(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(result)
 
@@ -6253,24 +6450,24 @@ def ontologies_media_reference_property_get_media_content(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
-@click.option(
     "--preview",
     type=bool,
     required=False,
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -6280,9 +6477,9 @@ def ontologies_media_reference_property_get_media_metadata(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Gets metadata about the media item referenced by this property.
@@ -6295,9 +6492,9 @@ def ontologies_media_reference_property_get_media_metadata(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -6349,6 +6546,51 @@ def ontologies_media_reference_property_upload(
     click.echo(repr(result))
 
 
+@ontologies_media_reference_property.command("upload_media")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=False,
+    help="""The path to write the media item to. Required if the backing media set requires paths.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_media_reference_property_upload_media(
+    client: FoundryClient,
+    ontology: str,
+    action_type: str,
+    body: io.BufferedReader,
+    media_item_path: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted.
+
+    The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+    """
+    result = client.ontologies.MediaReferenceProperty.upload_media(
+        ontology=ontology,
+        action_type=action_type,
+        body=body.read(),
+        media_item_path=media_item_path,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("linked_object")
 def ontologies_linked_object():
     pass
@@ -6361,13 +6603,6 @@ def ontologies_linked_object():
 @click.argument("link_type", type=str, required=True)
 @click.argument("linked_object_primary_key", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -6376,10 +6611,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.option(
@@ -6398,9 +6640,9 @@ def ontologies_linked_object_get_linked_object(
     primary_key: str,
     link_type: str,
     linked_object_primary_key: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     select: typing.Optional[str],
 ):
     """
@@ -6417,9 +6659,9 @@ def ontologies_linked_object_get_linked_object(
         primary_key=primary_key,
         link_type=link_type,
         linked_object_primary_key=linked_object_primary_key,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
     )
     click.echo(repr(result))
@@ -6431,13 +6673,6 @@ def ontologies_linked_object_get_linked_object(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -6446,13 +6681,6 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option(
     "--page_size",
     type=int,
@@ -6463,11 +6691,35 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.option(
     "--select",
     type=str,
     required=False,
     help="""The properties of the object type that should be included in the response. Omit this parameter to get all
 the properties.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
 """,
 )
 @click.pass_obj
@@ -6477,13 +6729,14 @@ def ontologies_linked_object_list_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
-    artifact_repository: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     select: typing.Optional[str],
+    snapshot: typing.Optional[bool],
 ):
     """
     Lists the linked objects for a specific object and the given link type.
@@ -6508,13 +6761,14 @@ def ontologies_linked_object_list_linked_objects(
         object_type=object_type,
         primary_key=primary_key,
         link_type=link_type,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -6857,6 +7111,13 @@ def ontologies_action():
     help="""The repository associated with a marketplace installation.
 """,
 )
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+""",
+)
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
     "--package_name",
@@ -6872,6 +7133,7 @@ def ontologies_action_apply(
     action: str,
     parameters: str,
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     options: typing.Optional[str],
     package_name: typing.Optional[str],
 ):
@@ -6893,6 +7155,7 @@ def ontologies_action_apply(
         action=action,
         parameters=json.loads(parameters),
         artifact_repository=artifact_repository,
+        branch=branch,
         options=None if options is None else json.loads(options),
         package_name=package_name,
     )
@@ -6910,6 +7173,13 @@ def ontologies_action_apply(
     help="""The repository associated with a marketplace installation.
 """,
 )
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+""",
+)
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
     "--package_name",
@@ -6925,6 +7195,7 @@ def ontologies_action_apply_batch(
     action: str,
     requests: str,
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     options: typing.Optional[str],
     package_name: typing.Optional[str],
 ):
@@ -6948,6 +7219,7 @@ def ontologies_action_apply_batch(
         action=action,
         requests=json.loads(requests),
         artifact_repository=artifact_repository,
+        branch=branch,
         options=None if options is None else json.loads(options),
         package_name=package_name,
     )

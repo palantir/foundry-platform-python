@@ -123,6 +123,7 @@ class SessionClient:
         :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
@@ -175,6 +176,7 @@ class SessionClient:
                     "InvalidParameterType": aip_agents_errors.InvalidParameterType,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
@@ -297,6 +299,7 @@ class SessionClient:
         :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -334,6 +337,7 @@ class SessionClient:
                     "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -496,6 +500,7 @@ class SessionClient:
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -535,6 +540,7 @@ class SessionClient:
                     "GetRagContextForSessionPermissionDenied": aip_agents_errors.GetRagContextForSessionPermissionDenied,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -596,6 +602,7 @@ class SessionClient:
         :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
@@ -646,6 +653,7 @@ class SessionClient:
                     "InvalidParameterType": aip_agents_errors.InvalidParameterType,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                     "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,
@@ -867,6 +875,7 @@ class AsyncSessionClient:
         :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
@@ -919,6 +928,7 @@ class AsyncSessionClient:
                     "InvalidParameterType": aip_agents_errors.InvalidParameterType,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
@@ -1041,6 +1051,7 @@ class AsyncSessionClient:
         :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -1078,6 +1089,7 @@ class AsyncSessionClient:
                     "NoPublishedAgentVersion": aip_agents_errors.NoPublishedAgentVersion,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1240,6 +1252,7 @@ class AsyncSessionClient:
         :raises GetRagContextForSessionPermissionDenied: Could not ragContext the Session.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         """
 
@@ -1279,6 +1292,7 @@ class AsyncSessionClient:
                     "GetRagContextForSessionPermissionDenied": aip_agents_errors.GetRagContextForSessionPermissionDenied,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1340,6 +1354,7 @@ class AsyncSessionClient:
         :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+        :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
         :raises StreamingContinueSessionPermissionDenied: Could not streamingContinue the Session.
@@ -1390,6 +1405,7 @@ class AsyncSessionClient:
                     "InvalidParameterType": aip_agents_errors.InvalidParameterType,
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
+                    "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
                     "StreamingContinueSessionPermissionDenied": aip_agents_errors.StreamingContinueSessionPermissionDenied,

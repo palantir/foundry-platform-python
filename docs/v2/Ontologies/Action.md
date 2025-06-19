@@ -26,6 +26,7 @@ Name | Type | Description  | Notes |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
@@ -49,6 +50,8 @@ action = "rename-employee"
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
+branch = None
 # Optional[ApplyActionRequestOptions]
 options = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
@@ -61,6 +64,7 @@ try:
         action,
         parameters=parameters,
         artifact_repository=artifact_repository,
+        branch=branch,
         options=options,
         package_name=package_name,
     )
@@ -107,6 +111,7 @@ Name | Type | Description  | Notes |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **requests** | List[BatchApplyActionRequestItem] |  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
 **options** | Optional[BatchApplyActionRequestOptions] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
@@ -133,6 +138,8 @@ requests = [
 ]
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
+branch = None
 # Optional[BatchApplyActionRequestOptions]
 options = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
@@ -145,6 +152,7 @@ try:
         action,
         requests=requests,
         artifact_repository=artifact_repository,
+        branch=branch,
         options=options,
         package_name=package_name,
     )

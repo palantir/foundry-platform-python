@@ -35,6 +35,21 @@ class ConflictingMediaSetIdentifiers(errors.BadRequestError):
     error_instance_id: str
 
 
+class GetMediaItemRidByPathPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The token does not have permission to view paths in this media set."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+
+
+@dataclass
+class GetMediaItemRidByPathPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetMediaItemRidByPathPermissionDenied"]
+    parameters: GetMediaItemRidByPathPermissionDeniedParameters
+    error_instance_id: str
+
+
 class MediaItemNotFoundParameters(typing_extensions.TypedDict):
     """The requested media item could not be found, or the client token does not have access to it."""
 
@@ -51,7 +66,24 @@ class MediaItemNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MediaSetNotFoundParameters(typing_extensions.TypedDict):
+    """The requested media set could not be found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+
+
+@dataclass
+class MediaSetNotFound(errors.NotFoundError):
+    name: typing.Literal["MediaSetNotFound"]
+    parameters: MediaSetNotFoundParameters
+    error_instance_id: str
+
+
 __all__ = [
     "ConflictingMediaSetIdentifiers",
+    "GetMediaItemRidByPathPermissionDenied",
     "MediaItemNotFound",
+    "MediaSetNotFound",
 ]

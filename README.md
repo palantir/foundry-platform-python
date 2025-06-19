@@ -609,6 +609,7 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**rag_context**](docs/v2/AipAgents/Session.md#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
 **AipAgents** | Session | [**streaming_continue**](docs/v2/AipAgents/Session.md#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
 **AipAgents** | Session | [**update_title**](docs/v2/AipAgents/Session.md#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle |
+**AipAgents** | SessionTrace | [**get**](docs/v2/AipAgents/SessionTrace.md#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/sessionTraces/{sessionTraceId} |
 **Connectivity** | Connection | [**get**](docs/v2/Connectivity/Connection.md#get) | **GET** /v2/connectivity/connections/{connectionRid} |
 **Connectivity** | Connection | [**get_configuration**](docs/v2/Connectivity/Connection.md#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration |
 **Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
@@ -665,6 +666,7 @@ Namespace | Resource | Operation | HTTP request |
 **MediaSets** | MediaSet | [**abort**](docs/v2/MediaSets/MediaSet.md#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort |
 **MediaSets** | MediaSet | [**commit**](docs/v2/MediaSets/MediaSet.md#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit |
 **MediaSets** | MediaSet | [**create**](docs/v2/MediaSets/MediaSet.md#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions |
+**MediaSets** | MediaSet | [**get_rid_by_path**](docs/v2/MediaSets/MediaSet.md#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath |
 **MediaSets** | MediaSet | [**info**](docs/v2/MediaSets/MediaSet.md#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} |
 **MediaSets** | MediaSet | [**read**](docs/v2/MediaSets/MediaSet.md#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content |
 **MediaSets** | MediaSet | [**read_original**](docs/v2/MediaSets/MediaSet.md#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original |
@@ -940,14 +942,19 @@ Namespace | Name | Import |
 **Connectivity** | [CreateConnectionRequestAsSecretName](docs/v2/Connectivity/models/CreateConnectionRequestAsSecretName.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestAsSecretName` |
 **Connectivity** | [CreateConnectionRequestBasicCredentials](docs/v2/Connectivity/models/CreateConnectionRequestBasicCredentials.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestBasicCredentials` |
 **Connectivity** | [CreateConnectionRequestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestDatabricksAuthenticationMode](docs/v2/Connectivity/models/CreateConnectionRequestDatabricksAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestDatabricksAuthenticationMode` |
+**Connectivity** | [CreateConnectionRequestDatabricksConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestDatabricksConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestDatabricksConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestEncryptedProperty](docs/v2/Connectivity/models/CreateConnectionRequestEncryptedProperty.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestEncryptedProperty` |
 **Connectivity** | [CreateConnectionRequestJdbcConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestJdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestJdbcConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestOauthMachineToMachineAuth](docs/v2/Connectivity/models/CreateConnectionRequestOauthMachineToMachineAuth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestOauthMachineToMachineAuth` |
+**Connectivity** | [CreateConnectionRequestPersonalAccessToken](docs/v2/Connectivity/models/CreateConnectionRequestPersonalAccessToken.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestPersonalAccessToken` |
 **Connectivity** | [CreateConnectionRequestRestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestRestConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestSnowflakeAuthenticationMode](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeAuthenticationMode` |
 **Connectivity** | [CreateConnectionRequestSnowflakeConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestSnowflakeExternalOauth](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeExternalOauth` |
 **Connectivity** | [CreateConnectionRequestSnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeKeyPairAuthentication.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeKeyPairAuthentication` |
+**Connectivity** | [CreateConnectionRequestWorkflowIdentityFederation](docs/v2/Connectivity/models/CreateConnectionRequestWorkflowIdentityFederation.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestWorkflowIdentityFederation` |
 **Connectivity** | [CreateTableImportRequestJdbcTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestJdbcTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestMicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftAccessTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestMicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestMicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestMicrosoftSqlServerTableImportConfig` |
@@ -955,6 +962,8 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestPostgreSqlTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestPostgreSqlTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestSnowflakeTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestSnowflakeTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestSnowflakeTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
+**Connectivity** | [DatabricksAuthenticationMode](docs/v2/Connectivity/models/DatabricksAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import DatabricksAuthenticationMode` |
+**Connectivity** | [DatabricksConnectionConfiguration](docs/v2/Connectivity/models/DatabricksConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import DatabricksConnectionConfiguration` |
 **Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import DateColumnInitialIncrementalState` |
 **Connectivity** | [DecimalColumnInitialIncrementalState](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import DecimalColumnInitialIncrementalState` |
 **Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry_sdk.v2.connectivity.models import Domain` |
@@ -983,7 +992,9 @@ Namespace | Name | Import |
 **Connectivity** | [LongColumnInitialIncrementalState](docs/v2/Connectivity/models/LongColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import LongColumnInitialIncrementalState` |
 **Connectivity** | [MicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/MicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftAccessTableImportConfig` |
 **Connectivity** | [MicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftSqlServerTableImportConfig` |
+**Connectivity** | [OauthMachineToMachineAuth](docs/v2/Connectivity/models/OauthMachineToMachineAuth.md) | `from foundry_sdk.v2.connectivity.models import OauthMachineToMachineAuth` |
 **Connectivity** | [OracleTableImportConfig](docs/v2/Connectivity/models/OracleTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import OracleTableImportConfig` |
+**Connectivity** | [PersonalAccessToken](docs/v2/Connectivity/models/PersonalAccessToken.md) | `from foundry_sdk.v2.connectivity.models import PersonalAccessToken` |
 **Connectivity** | [PlaintextValue](docs/v2/Connectivity/models/PlaintextValue.md) | `from foundry_sdk.v2.connectivity.models import PlaintextValue` |
 **Connectivity** | [PostgreSqlTableImportConfig](docs/v2/Connectivity/models/PostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import PostgreSqlTableImportConfig` |
 **Connectivity** | [Protocol](docs/v2/Connectivity/models/Protocol.md) | `from foundry_sdk.v2.connectivity.models import Protocol` |
@@ -1025,6 +1036,7 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry_sdk.v2.connectivity.models import TableImportRid` |
 **Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry_sdk.v2.connectivity.models import UriScheme` |
+**Connectivity** | [WorkflowIdentityFederation](docs/v2/Connectivity/models/WorkflowIdentityFederation.md) | `from foundry_sdk.v2.connectivity.models import WorkflowIdentityFederation` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry_sdk.v2.core.models import AnyType` |
 **Core** | [ArrayFieldType](docs/v2/Core/models/ArrayFieldType.md) | `from foundry_sdk.v2.core.models import ArrayFieldType` |
 **Core** | [AttachmentType](docs/v2/Core/models/AttachmentType.md) | `from foundry_sdk.v2.core.models import AttachmentType` |
@@ -1069,6 +1081,7 @@ Namespace | Name | Import |
 **Core** | [FilterUuidType](docs/v2/Core/models/FilterUuidType.md) | `from foundry_sdk.v2.core.models import FilterUuidType` |
 **Core** | [FloatType](docs/v2/Core/models/FloatType.md) | `from foundry_sdk.v2.core.models import FloatType` |
 **Core** | [FolderRid](docs/v2/Core/models/FolderRid.md) | `from foundry_sdk.v2.core.models import FolderRid` |
+**Core** | [FoundryBranch](docs/v2/Core/models/FoundryBranch.md) | `from foundry_sdk.v2.core.models import FoundryBranch` |
 **Core** | [FoundryLiveDeployment](docs/v2/Core/models/FoundryLiveDeployment.md) | `from foundry_sdk.v2.core.models import FoundryLiveDeployment` |
 **Core** | [FullRowChangeDataCaptureConfiguration](docs/v2/Core/models/FullRowChangeDataCaptureConfiguration.md) | `from foundry_sdk.v2.core.models import FullRowChangeDataCaptureConfiguration` |
 **Core** | [GeohashType](docs/v2/Core/models/GeohashType.md) | `from foundry_sdk.v2.core.models import GeohashType` |
@@ -1251,6 +1264,7 @@ Namespace | Name | Import |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry_sdk.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry_sdk.v2.media_sets.models import BranchRid` |
 **MediaSets** | [GetMediaItemInfoResponse](docs/v2/MediaSets/models/GetMediaItemInfoResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemInfoResponse` |
+**MediaSets** | [GetMediaItemRidByPathResponse](docs/v2/MediaSets/models/GetMediaItemRidByPathResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemRidByPathResponse` |
 **MediaSets** | [LogicalTimestamp](docs/v2/MediaSets/models/LogicalTimestamp.md) | `from foundry_sdk.v2.media_sets.models import LogicalTimestamp` |
 **MediaSets** | [MediaAttribution](docs/v2/MediaSets/models/MediaAttribution.md) | `from foundry_sdk.v2.media_sets.models import MediaAttribution` |
 **MediaSets** | [PutMediaItemResponse](docs/v2/MediaSets/models/PutMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import PutMediaItemResponse` |
@@ -1370,6 +1384,7 @@ Namespace | Name | Import |
 **Ontologies** | [LinkedObjectTypeApiName](docs/v2/Ontologies/models/LinkedObjectTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import LinkedObjectTypeApiName` |
 **Ontologies** | [LinkSideObject](docs/v2/Ontologies/models/LinkSideObject.md) | `from foundry_sdk.v2.ontologies.models import LinkSideObject` |
 **Ontologies** | [LinkTypeApiName](docs/v2/Ontologies/models/LinkTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeApiName` |
+**Ontologies** | [LinkTypeId](docs/v2/Ontologies/models/LinkTypeId.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeId` |
 **Ontologies** | [LinkTypeRid](docs/v2/Ontologies/models/LinkTypeRid.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeRid` |
 **Ontologies** | [LinkTypeSideCardinality](docs/v2/Ontologies/models/LinkTypeSideCardinality.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeSideCardinality` |
 **Ontologies** | [LinkTypeSideV2](docs/v2/Ontologies/models/LinkTypeSideV2.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeSideV2` |
@@ -1412,6 +1427,7 @@ Namespace | Name | Import |
 **Ontologies** | [ObjectSetBaseType](docs/v2/Ontologies/models/ObjectSetBaseType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetBaseType` |
 **Ontologies** | [ObjectSetFilterType](docs/v2/Ontologies/models/ObjectSetFilterType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetFilterType` |
 **Ontologies** | [ObjectSetInterfaceBaseType](docs/v2/Ontologies/models/ObjectSetInterfaceBaseType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetInterfaceBaseType` |
+**Ontologies** | [ObjectSetInterfaceLinkSearchAroundType](docs/v2/Ontologies/models/ObjectSetInterfaceLinkSearchAroundType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetInterfaceLinkSearchAroundType` |
 **Ontologies** | [ObjectSetIntersectionType](docs/v2/Ontologies/models/ObjectSetIntersectionType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetIntersectionType` |
 **Ontologies** | [ObjectSetMethodInputType](docs/v2/Ontologies/models/ObjectSetMethodInputType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetMethodInputType` |
 **Ontologies** | [ObjectSetNearestNeighborsType](docs/v2/Ontologies/models/ObjectSetNearestNeighborsType.md) | `from foundry_sdk.v2.ontologies.models import ObjectSetNearestNeighborsType` |
@@ -1763,6 +1779,7 @@ Namespace | Name | Import |
 **Ontologies** | [InterfaceTypeRid](docs/v1/Ontologies/models/InterfaceTypeRid.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeRid` |
 **Ontologies** | [IsNullQuery](docs/v1/Ontologies/models/IsNullQuery.md) | `from foundry_sdk.v1.ontologies.models import IsNullQuery` |
 **Ontologies** | [LinkTypeApiName](docs/v1/Ontologies/models/LinkTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeApiName` |
+**Ontologies** | [LinkTypeId](docs/v1/Ontologies/models/LinkTypeId.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeId` |
 **Ontologies** | [LinkTypeSide](docs/v1/Ontologies/models/LinkTypeSide.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeSide` |
 **Ontologies** | [LinkTypeSideCardinality](docs/v1/Ontologies/models/LinkTypeSideCardinality.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeSideCardinality` |
 **Ontologies** | [ListActionTypesResponse](docs/v1/Ontologies/models/ListActionTypesResponse.md) | `from foundry_sdk.v1.ontologies.models import ListActionTypesResponse` |
@@ -1936,6 +1953,7 @@ Namespace | Name | Import |
 **AipAgents** | NoPublishedAgentVersion | `from foundry_sdk.v2.aip_agents.errors import NoPublishedAgentVersion` |
 **AipAgents** | ObjectTypeIdsNotFound | `from foundry_sdk.v2.aip_agents.errors import ObjectTypeIdsNotFound` |
 **AipAgents** | ObjectTypeRidsNotFound | `from foundry_sdk.v2.aip_agents.errors import ObjectTypeRidsNotFound` |
+**AipAgents** | OntologyEntitiesNotFound | `from foundry_sdk.v2.aip_agents.errors import OntologyEntitiesNotFound` |
 **AipAgents** | RateLimitExceeded | `from foundry_sdk.v2.aip_agents.errors import RateLimitExceeded` |
 **AipAgents** | SessionExecutionFailed | `from foundry_sdk.v2.aip_agents.errors import SessionExecutionFailed` |
 **AipAgents** | SessionNotFound | `from foundry_sdk.v2.aip_agents.errors import SessionNotFound` |
@@ -1966,6 +1984,7 @@ Namespace | Name | Import |
 **Connectivity** | FileSizeFilterLessThanMustBeOneByteOrLarger | `from foundry_sdk.v2.connectivity.errors import FileSizeFilterLessThanMustBeOneByteOrLarger` |
 **Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry_sdk.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
 **Connectivity** | GetConfigurationPermissionDenied | `from foundry_sdk.v2.connectivity.errors import GetConfigurationPermissionDenied` |
+**Connectivity** | HostNameCannotHaveProtocolOrPort | `from foundry_sdk.v2.connectivity.errors import HostNameCannotHaveProtocolOrPort` |
 **Connectivity** | ParentFolderNotFoundForConnection | `from foundry_sdk.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
 **Connectivity** | PropertyCannotBeBlank | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeBlank` |
 **Connectivity** | PropertyCannotBeEmpty | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeEmpty` |
@@ -2102,7 +2121,9 @@ Namespace | Name | Import |
 **Functions** | ValueTypeNotFound | `from foundry_sdk.v2.functions.errors import ValueTypeNotFound` |
 **Functions** | VersionIdNotFound | `from foundry_sdk.v2.functions.errors import VersionIdNotFound` |
 **MediaSets** | ConflictingMediaSetIdentifiers | `from foundry_sdk.v2.media_sets.errors import ConflictingMediaSetIdentifiers` |
+**MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
 **MediaSets** | MediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import MediaItemNotFound` |
+**MediaSets** | MediaSetNotFound | `from foundry_sdk.v2.media_sets.errors import MediaSetNotFound` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
@@ -2245,6 +2266,7 @@ Namespace | Name | Import |
 **Orchestration** | PauseSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import PauseSchedulePermissionDenied` |
 **Orchestration** | ReplaceSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import ReplaceSchedulePermissionDenied` |
 **Orchestration** | RunSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import RunSchedulePermissionDenied` |
+**Orchestration** | ScheduleAlreadyRunning | `from foundry_sdk.v2.orchestration.errors import ScheduleAlreadyRunning` |
 **Orchestration** | ScheduleNotFound | `from foundry_sdk.v2.orchestration.errors import ScheduleNotFound` |
 **Orchestration** | ScheduleTriggerResourcesNotFound | `from foundry_sdk.v2.orchestration.errors import ScheduleTriggerResourcesNotFound` |
 **Orchestration** | ScheduleTriggerResourcesPermissionDenied | `from foundry_sdk.v2.orchestration.errors import ScheduleTriggerResourcesPermissionDenied` |

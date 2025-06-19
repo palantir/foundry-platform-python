@@ -47,6 +47,17 @@ class GetMediaItemInfoResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class GetMediaItemRidByPathResponse(pydantic.BaseModel):
+    """GetMediaItemRidByPathResponse"""
+
+    media_item_rid: typing.Optional[core_models.MediaItemRid] = pydantic.Field(alias=str("mediaItemRid"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 LogicalTimestamp = core.Long
 """
 A number representing a logical ordering to be used for transactions, etc.
@@ -90,6 +101,7 @@ __all__ = [
     "BranchName",
     "BranchRid",
     "GetMediaItemInfoResponse",
+    "GetMediaItemRidByPathResponse",
     "LogicalTimestamp",
     "MediaAttribution",
     "PutMediaItemResponse",

@@ -58,8 +58,8 @@ class OntologyObjectSetClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AggregateObjectsResponseV2:
@@ -78,10 +78,10 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -93,8 +93,8 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -236,12 +236,13 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetResponseV2:
@@ -263,18 +264,20 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -286,8 +289,8 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -303,6 +306,7 @@ class OntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -313,6 +317,7 @@ class OntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
@@ -331,13 +336,14 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse:
@@ -364,20 +370,22 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -389,9 +397,9 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -407,6 +415,7 @@ class OntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -417,6 +426,7 @@ class OntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
@@ -435,13 +445,14 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse:
@@ -470,20 +481,22 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -495,9 +508,9 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -513,6 +526,7 @@ class OntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -523,6 +537,7 @@ class OntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,
@@ -619,8 +634,8 @@ class AsyncOntologyObjectSetClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.AggregateObjectsResponseV2]:
@@ -639,10 +654,10 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -654,8 +669,8 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -797,12 +812,13 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetResponseV2]:
@@ -824,18 +840,20 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -847,8 +865,8 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -864,6 +882,7 @@ class AsyncOntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -874,6 +893,7 @@ class AsyncOntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
@@ -892,13 +912,14 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse]:
@@ -925,20 +946,22 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -950,9 +973,9 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -968,6 +991,7 @@ class AsyncOntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -978,6 +1002,7 @@ class AsyncOntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
@@ -996,13 +1021,14 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse]:
@@ -1031,20 +1057,22 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1056,9 +1084,9 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -1074,6 +1102,7 @@ class AsyncOntologyObjectSetClient:
                     "pageToken": page_token,
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -1084,6 +1113,7 @@ class AsyncOntologyObjectSetClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2ObjectsOrInterfacesResponse,

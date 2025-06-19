@@ -1,6 +1,8 @@
 # InterfaceLinkTypeApiName
 
-A string indicating the API name to use for the interface link.
+The name of the interface link type in the API. To find the API name for your Interface Link Type, check the 
+[Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+
 
 ## Type
 ```python

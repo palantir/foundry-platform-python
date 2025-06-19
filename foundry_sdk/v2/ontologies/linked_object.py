@@ -58,9 +58,9 @@ class LinkedObjectClient:
         link_type: ontologies_models.LinkTypeApiName,
         linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -82,12 +82,12 @@ class LinkedObjectClient:
         :type link_type: LinkTypeApiName
         :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -101,9 +101,9 @@ class LinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "excludeRid": exclude_rid,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
                 },
                 path_params={
@@ -135,13 +135,14 @@ class LinkedObjectClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[ontologies_models.OntologyObjectV2]:
@@ -170,20 +171,22 @@ class LinkedObjectClient:
         :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -195,13 +198,14 @@ class LinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
-                    "packageName": package_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
+                    "snapshot": snapshot,
                 },
                 path_params={
                     "ontology": ontology,
@@ -280,9 +284,9 @@ class AsyncLinkedObjectClient:
         link_type: ontologies_models.LinkTypeApiName,
         linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -304,12 +308,12 @@ class AsyncLinkedObjectClient:
         :type link_type: LinkTypeApiName
         :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param request_timeout: timeout setting for this request in seconds.
@@ -323,9 +327,9 @@ class AsyncLinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "excludeRid": exclude_rid,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
                 },
                 path_params={
@@ -357,13 +361,14 @@ class AsyncLinkedObjectClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         link_type: ontologies_models.LinkTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[ontologies_models.OntologyObjectV2]:
@@ -392,20 +397,22 @@ class AsyncLinkedObjectClient:
         :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -417,13 +424,14 @@ class AsyncLinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
-                    "packageName": package_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
+                    "snapshot": snapshot,
                 },
                 path_params={
                     "ontology": ontology,

@@ -452,6 +452,10 @@ FolderRid = core.RID
 """FolderRid"""
 
 
+FoundryBranch = str
+"""The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
+
+
 class FoundryLiveDeployment(pydantic.BaseModel):
     """FoundryLiveDeployment"""
 
@@ -1082,6 +1086,7 @@ __all__ = [
     "FilterUuidType",
     "FloatType",
     "FolderRid",
+    "FoundryBranch",
     "FoundryLiveDeployment",
     "FullRowChangeDataCaptureConfiguration",
     "GeoPointType",

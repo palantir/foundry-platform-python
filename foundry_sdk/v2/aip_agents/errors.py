@@ -399,6 +399,30 @@ class ObjectTypeRidsNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class OntologyEntitiesNotFoundParameters(typing_extensions.TypedDict):
+    """
+    Some ontology types are configured for use by the Agent but could not be found.
+    The types either do not exist or the client token does not have access.
+    Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: typing_extensions.NotRequired[aip_agents_models.SessionRid]
+    """The session RID where the error occurred. This is omitted if the error occurred during session creation."""
+
+    objectTypeRids: typing.List[ontologies_models.ObjectTypeRid]
+    linkTypeRids: typing.List[ontologies_models.LinkTypeRid]
+
+
+@dataclass
+class OntologyEntitiesNotFound(errors.NotFoundError):
+    name: typing.Literal["OntologyEntitiesNotFound"]
+    parameters: OntologyEntitiesNotFoundParameters
+    error_instance_id: str
+
+
 class RateLimitExceededParameters(typing_extensions.TypedDict):
     """Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry."""
 
@@ -554,6 +578,7 @@ __all__ = [
     "NoPublishedAgentVersion",
     "ObjectTypeIdsNotFound",
     "ObjectTypeRidsNotFound",
+    "OntologyEntitiesNotFound",
     "RateLimitExceeded",
     "SessionExecutionFailed",
     "SessionNotFound",

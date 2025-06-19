@@ -143,6 +143,7 @@ class OntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -161,6 +162,8 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
+        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -174,6 +177,7 @@ class OntologyInterfaceClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -551,6 +555,7 @@ class AsyncOntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -569,6 +574,8 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
+        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -582,6 +589,7 @@ class AsyncOntologyInterfaceClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={

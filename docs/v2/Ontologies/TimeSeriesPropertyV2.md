@@ -21,8 +21,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
 **property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **Optional[TimeSeriesPoint]**
@@ -44,10 +44,10 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -56,8 +56,8 @@ try:
         object_type,
         primary_key,
         property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The get_first_point response:\n")
     pprint(api_response)
@@ -94,8 +94,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
 **property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **Optional[TimeSeriesPoint]**
@@ -117,10 +117,10 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -129,8 +129,8 @@ try:
         object_type,
         primary_key,
         property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The get_last_point response:\n")
     pprint(api_response)
@@ -168,10 +168,10 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the time series property.  |  |
 **property** | PropertyApiName | The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **aggregate** | Optional[AggregateTimeSeries] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **format** | Optional[StreamingOutputFormat] | The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **range** | Optional[TimeRange] |  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **bytes**
@@ -195,18 +195,18 @@ primary_key = 50030
 property = None
 # Optional[AggregateTimeSeries]
 aggregate = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[StreamingOutputFormat] | The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
 format = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
 # Optional[TimeRange]
 range = {
     "type": "relative",
     "startTime": {"when": "BEFORE", "value": 5, "unit": "MONTHS"},
     "endTime": {"when": "BEFORE", "value": 1, "unit": "MONTHS"},
 }
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -216,10 +216,10 @@ try:
         primary_key,
         property,
         aggregate=aggregate,
-        artifact_repository=artifact_repository,
         format=format,
-        package_name=package_name,
         range=range,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The stream_points response:\n")
     pprint(api_response)

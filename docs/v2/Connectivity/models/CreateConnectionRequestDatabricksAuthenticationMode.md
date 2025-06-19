@@ -1,6 +1,6 @@
-# ConnectionConfiguration
+# CreateConnectionRequestDatabricksAuthenticationMode
 
-ConnectionConfiguration
+The method of authentication for connecting to an external Databricks system.
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
 of of the models listed below.
@@ -9,11 +9,10 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-S3ConnectionConfiguration | s3
-RestConnectionConfiguration | rest
-SnowflakeConnectionConfiguration | snowflake
-DatabricksConnectionConfiguration | databricks
-JdbcConnectionConfiguration | jdbc
+CreateConnectionRequestWorkflowIdentityFederation | workflowIdentityFederation
+CreateConnectionRequestOauthMachineToMachineAuth | oauthM2M
+CreateConnectionRequestPersonalAccessToken | personalAccessToken
+CreateConnectionRequestBasicCredentials | basic
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

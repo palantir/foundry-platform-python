@@ -24,8 +24,8 @@ Name | Type | Description  | Notes |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -49,10 +49,10 @@ group_by = None
 object_set = None
 # Optional[AggregationAccuracyRequest]
 accuracy = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -62,8 +62,8 @@ try:
         group_by=group_by,
         object_set=object_set,
         accuracy=accuracy,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The aggregate response:\n")
     pprint(api_response)
@@ -214,12 +214,13 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 
 ### Return type
 **LoadObjectSetResponseV2**
@@ -239,18 +240,20 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
 order_by = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
 page_token = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
 
 
 try:
@@ -258,12 +261,13 @@ try:
         ontology,
         object_set=object_set,
         select=select,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     print("The load response:\n")
     pprint(api_response)
@@ -310,13 +314,14 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 
 ### Return type
 **LoadObjectSetV2MultipleObjectTypesResponse**
@@ -336,20 +341,22 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
 order_by = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
 page_token = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
 
 
 try:
@@ -357,13 +364,14 @@ try:
         ontology,
         object_set=object_set,
         select=select,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     print("The load_multiple_object_types response:\n")
     pprint(api_response)
@@ -412,13 +420,14 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 
 ### Return type
 **LoadObjectSetV2ObjectsOrInterfacesResponse**
@@ -438,20 +447,22 @@ ontology = "palantir"
 object_set = {"type": "base", "interfaceBase": "Person"}
 # List[SelectedPropertyApiName]
 select = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
 order_by = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
 page_token = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
 
 
 try:
@@ -459,13 +470,14 @@ try:
         ontology,
         object_set=object_set,
         select=select,
-        artifact_repository=artifact_repository,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        snapshot=snapshot,
     )
     print("The load_objects_or_interfaces response:\n")
     pprint(api_response)
