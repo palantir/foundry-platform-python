@@ -5,7 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
 [**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
-[**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Public Beta |
+[**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Stable |
 
 # **create**
 Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
@@ -203,7 +203,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **secrets** | Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -221,14 +220,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # Dict[SecretName, PlaintextValue] | The secrets to be updated. The specified secret names must already be configured on the connection.
 secrets = {"Password": "MySecretPassword"}
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.update_secrets(
-        connection_rid, secrets=secrets, preview=preview
-    )
+    api_response = client.connectivity.Connection.update_secrets(connection_rid, secrets=secrets)
     print("The update_secrets response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

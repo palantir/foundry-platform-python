@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -58,6 +59,7 @@ class ActionClient:
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -83,6 +85,8 @@ class ActionClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
@@ -99,6 +103,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -140,6 +145,7 @@ class ActionClient:
         *,
         requests: typing.List[ontologies_models.BatchApplyActionRequestItem],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -167,6 +173,8 @@ class ActionClient:
         :type requests: List[BatchApplyActionRequestItem]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
@@ -183,6 +191,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -267,6 +276,7 @@ class AsyncActionClient:
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -292,6 +302,8 @@ class AsyncActionClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
@@ -308,6 +320,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -349,6 +362,7 @@ class AsyncActionClient:
         *,
         requests: typing.List[ontologies_models.BatchApplyActionRequestItem],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -376,6 +390,8 @@ class AsyncActionClient:
         :type requests: List[BatchApplyActionRequestItem]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
         :param package_name: The package name of the generated SDK.
@@ -392,6 +408,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={

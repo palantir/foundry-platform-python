@@ -378,6 +378,21 @@ class GetConfigurationPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class HostNameCannotHaveProtocolOrPortParameters(typing_extensions.TypedDict):
+    """The hostname should not include a protocol (e.g., https://) or port number (e.g., :443)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    hostName: str
+
+
+@dataclass
+class HostNameCannotHaveProtocolOrPort(errors.BadRequestError):
+    name: typing.Literal["HostNameCannotHaveProtocolOrPort"]
+    parameters: HostNameCannotHaveProtocolOrPortParameters
+    error_instance_id: str
+
+
 class ParentFolderNotFoundForConnectionParameters(typing_extensions.TypedDict):
     """The parent folder for the specified connection could not be found."""
 
@@ -557,6 +572,7 @@ __all__ = [
     "FileSizeFilterMissingGreaterThanAndLessThan",
     "FilesCountLimitFilterInvalidLimit",
     "GetConfigurationPermissionDenied",
+    "HostNameCannotHaveProtocolOrPort",
     "ParentFolderNotFoundForConnection",
     "PropertyCannotBeBlank",
     "PropertyCannotBeEmpty",

@@ -55,6 +55,7 @@ class ObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ObjectTypeV2:
@@ -67,6 +68,8 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -77,7 +80,9 @@ class ObjectTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,
@@ -102,6 +107,7 @@ class ObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -115,6 +121,8 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -128,6 +136,7 @@ class ObjectTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -155,6 +164,7 @@ class ObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         link_type: ontologies_models.LinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LinkTypeSideV2:
@@ -170,6 +180,8 @@ class ObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -180,7 +192,9 @@ class ObjectTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,
@@ -262,6 +276,7 @@ class ObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -277,6 +292,8 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -292,6 +309,7 @@ class ObjectTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -383,6 +401,7 @@ class AsyncObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ObjectTypeV2]:
@@ -395,6 +414,8 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -405,7 +426,9 @@ class AsyncObjectTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,
@@ -430,6 +453,7 @@ class AsyncObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -443,6 +467,8 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -456,6 +482,7 @@ class AsyncObjectTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -483,6 +510,7 @@ class AsyncObjectTypeClient:
         object_type: ontologies_models.ObjectTypeApiName,
         link_type: ontologies_models.LinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LinkTypeSideV2]:
@@ -498,6 +526,8 @@ class AsyncObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -508,7 +538,9 @@ class AsyncObjectTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "objectType": object_type,
@@ -590,6 +622,7 @@ class AsyncObjectTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -605,6 +638,8 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -620,6 +655,7 @@ class AsyncObjectTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },

@@ -86,7 +86,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # FallbackBranches
-fallback_branches = ["master"]
+fallback_branches = []
 # BuildTarget | The targets of the schedule.
 target = {
     "type": "manual",

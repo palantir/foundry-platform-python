@@ -120,6 +120,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -138,13 +139,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
 interface_type = "Employee"
+# Optional[FoundryBranch] | The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.get(
-        ontology, interface_type, preview=preview
+        ontology, interface_type, branch=branch, preview=preview
     )
     print("The get response:\n")
     pprint(api_response)

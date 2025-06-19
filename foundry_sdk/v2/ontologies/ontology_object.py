@@ -268,6 +268,7 @@ class OntologyObjectClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[ontologies_models.OntologyObjectV2]:
@@ -306,6 +307,8 @@ class OntologyObjectClient:
         :type page_token: Optional[PageToken]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -324,6 +327,7 @@ class OntologyObjectClient:
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "select": select,
+                    "snapshot": snapshot,
                 },
                 path_params={
                     "ontology": ontology,
@@ -356,6 +360,7 @@ class OntologyObjectClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -405,6 +410,8 @@ class OntologyObjectClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param where:
         :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
@@ -436,6 +443,7 @@ class OntologyObjectClient:
                     "pageToken": page_token,
                     "select": select,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -446,6 +454,7 @@ class OntologyObjectClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "select": typing.List[ontologies_models.PropertyApiName],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,
@@ -730,6 +739,7 @@ class AsyncOntologyObjectClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
+        snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[ontologies_models.OntologyObjectV2]:
@@ -768,6 +778,8 @@ class AsyncOntologyObjectClient:
         :type page_token: Optional[PageToken]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -786,6 +798,7 @@ class AsyncOntologyObjectClient:
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "select": select,
+                    "snapshot": snapshot,
                 },
                 path_params={
                     "ontology": ontology,
@@ -818,6 +831,7 @@ class AsyncOntologyObjectClient:
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -867,6 +881,8 @@ class AsyncOntologyObjectClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+        :type snapshot: Optional[bool]
         :param where:
         :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
@@ -898,6 +914,7 @@ class AsyncOntologyObjectClient:
                     "pageToken": page_token,
                     "select": select,
                     "excludeRid": exclude_rid,
+                    "snapshot": snapshot,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -908,6 +925,7 @@ class AsyncOntologyObjectClient:
                         "pageToken": typing.Optional[core_models.PageToken],
                         "select": typing.List[ontologies_models.PropertyApiName],
                         "excludeRid": typing.Optional[bool],
+                        "snapshot": typing.Optional[bool],
                     },
                 ),
                 response_type=ontologies_models.SearchObjectsResponseV2,

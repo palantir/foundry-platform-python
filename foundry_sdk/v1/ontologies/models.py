@@ -648,6 +648,10 @@ application.
 """
 
 
+LinkTypeId = str
+"""The unique ID of a link type. To find the ID for your link type, check the **Ontology Manager** application."""
+
+
 class LinkTypeSide(pydantic.BaseModel):
     """LinkTypeSide"""
 
@@ -1874,6 +1878,7 @@ __all__ = [
     "InterfaceTypeRid",
     "IsNullQuery",
     "LinkTypeApiName",
+    "LinkTypeId",
     "LinkTypeSide",
     "LinkTypeSideCardinality",
     "ListActionTypesResponse",

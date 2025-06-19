@@ -128,6 +128,7 @@ class OntologyClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.OntologyFullMetadata:
@@ -136,6 +137,8 @@ class OntologyClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -146,7 +149,9 @@ class OntologyClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                 },
@@ -212,6 +217,7 @@ class OntologyClient:
         link_types: typing.List[ontologies_models.LinkTypeApiName],
         object_types: typing.List[ontologies_models.ObjectTypeApiName],
         query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -231,6 +237,8 @@ class OntologyClient:
         :type object_types: List[ObjectTypeApiName]
         :param query_types:
         :type query_types: List[VersionedQueryTypeApiName]
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -244,6 +252,7 @@ class OntologyClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/metadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -409,6 +418,7 @@ class AsyncOntologyClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.OntologyFullMetadata]:
@@ -417,6 +427,8 @@ class AsyncOntologyClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -427,7 +439,9 @@ class AsyncOntologyClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/fullMetadata",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                 },
@@ -493,6 +507,7 @@ class AsyncOntologyClient:
         link_types: typing.List[ontologies_models.LinkTypeApiName],
         object_types: typing.List[ontologies_models.ObjectTypeApiName],
         query_types: typing.List[ontologies_models.VersionedQueryTypeApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -512,6 +527,8 @@ class AsyncOntologyClient:
         :type object_types: List[ObjectTypeApiName]
         :param query_types:
         :type query_types: List[VersionedQueryTypeApiName]
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -525,6 +542,7 @@ class AsyncOntologyClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/metadata",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={

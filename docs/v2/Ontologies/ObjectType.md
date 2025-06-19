@@ -20,6 +20,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definition from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **ObjectTypeV2**
@@ -37,10 +38,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
+# Optional[FoundryBranch] | The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
-    api_response = client.ontologies.Ontology.ObjectType.get(ontology, object_type)
+    api_response = client.ontologies.Ontology.ObjectType.get(ontology, object_type, branch=branch)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -73,6 +76,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -91,13 +95,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
+# Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
 
 try:
     api_response = client.ontologies.Ontology.ObjectType.get_full_metadata(
-        ontology, object_type, preview=preview
+        ontology, object_type, branch=branch, preview=preview
     )
     print("The get_full_metadata response:\n")
     pprint(api_response)
@@ -133,6 +139,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.  |  |
 **link_type** | LinkTypeApiName | The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **LinkTypeSideV2**
@@ -152,11 +159,13 @@ ontology = "palantir"
 object_type = "Employee"
 # LinkTypeApiName | The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
 link_type = "directReport"
+# Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
     api_response = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
-        ontology, object_type, link_type
+        ontology, object_type, link_type, branch=branch
     )
     print("The get_outgoing_link_type response:\n")
     pprint(api_response)
@@ -252,6 +261,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -271,6 +281,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
 object_type = "Flight"
+# Optional[FoundryBranch] | The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+branch = None
 # Optional[PageSize] | The desired size of the page to be returned.
 page_size = None
 # Optional[PageToken]
@@ -279,7 +291,7 @@ page_token = None
 
 try:
     for object_type in client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
-        ontology, object_type, page_size=page_size, page_token=page_token
+        ontology, object_type, branch=branch, page_size=page_size, page_token=page_token
     ):
         pprint(object_type)
 except foundry_sdk.PalantirRPCException as e:

@@ -32,7 +32,16 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[ResourceRole]
-roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
+roles = [
+    {
+        "resourceRolePrincipal": {
+            "type": "principalWithId",
+            "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
+            "principalType": "GROUP",
+        },
+        "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
+    }
+]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -150,7 +159,16 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[ResourceRole]
-roles = [{"roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268"}]
+roles = [
+    {
+        "resourceRolePrincipal": {
+            "type": "principalWithId",
+            "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
+            "principalType": "GROUP",
+        },
+        "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
+    }
+]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 

@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/sessionTraces/{sessionTraceId} | Private Beta |
+[**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/sessionTraces/{sessionTraceId} | Public Beta |
 
 # **get**
 Get the trace of an Agent response. The trace lists the sequence of steps that an Agent took to arrive at

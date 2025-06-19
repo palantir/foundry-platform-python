@@ -202,6 +202,70 @@ class MediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_rid_by_path(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        *,
+        media_item_path: core_models.MediaItemPath,
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> media_sets_models.GetMediaItemRidByPathResponse:
+        """
+        Returns the media item RID for the media item with the specified path.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_path: The path of the media item.
+        :type media_item_path: MediaItemPath
+        :param branch_name: Specifies the specific branch by name in which to search for this media item. May not be provided if branch rid or view rid are provided.
+        :type branch_name: Optional[BranchName]
+        :param branch_rid: Specifies the specific branch by rid in which to search for this media item. May not be provided if branch name or view rid are provided.
+        :type branch_rid: Optional[BranchRid]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param view_rid: Specifies the specific view by rid in which to search for this media item. May not be provided if branch name or branch rid are provided.
+        :type view_rid: Optional[MediaSetViewRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: media_sets_models.GetMediaItemRidByPathResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/getRidByPath",
+                query_params={
+                    "mediaItemPath": media_item_path,
+                    "branchName": branch_name,
+                    "branchRid": branch_rid,
+                    "preview": preview,
+                    "viewRid": view_rid,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=media_sets_models.GetMediaItemRidByPathResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def info(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -503,6 +567,7 @@ class _MediaSetClientRaw:
         def abort(_: None): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
+        def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
@@ -512,6 +577,7 @@ class _MediaSetClientRaw:
         self.abort = core.with_raw_response(abort, client.abort)
         self.commit = core.with_raw_response(commit, client.commit)
         self.create = core.with_raw_response(create, client.create)
+        self.get_rid_by_path = core.with_raw_response(get_rid_by_path, client.get_rid_by_path)
         self.info = core.with_raw_response(info, client.info)
         self.read = core.with_raw_response(read, client.read)
         self.read_original = core.with_raw_response(read_original, client.read_original)
@@ -522,6 +588,7 @@ class _MediaSetClientRaw:
 class _MediaSetClientStreaming:
     def __init__(self, client: MediaSetClient) -> None:
         def create(_: media_sets_models.TransactionId): ...
+        def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
@@ -529,6 +596,7 @@ class _MediaSetClientStreaming:
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
+        self.get_rid_by_path = core.with_streaming_response(get_rid_by_path, client.get_rid_by_path)
         self.info = core.with_streaming_response(info, client.info)
         self.read = core.with_streaming_response(read, client.read)
         self.read_original = core.with_streaming_response(read_original, client.read_original)
@@ -705,6 +773,70 @@ class AsyncMediaSetClient:
                 body=None,
                 body_type=None,
                 response_type=media_sets_models.TransactionId,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_rid_by_path(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        *,
+        media_item_path: core_models.MediaItemPath,
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[media_sets_models.GetMediaItemRidByPathResponse]:
+        """
+        Returns the media item RID for the media item with the specified path.
+
+        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_path: The path of the media item.
+        :type media_item_path: MediaItemPath
+        :param branch_name: Specifies the specific branch by name in which to search for this media item. May not be provided if branch rid or view rid are provided.
+        :type branch_name: Optional[BranchName]
+        :param branch_rid: Specifies the specific branch by rid in which to search for this media item. May not be provided if branch name or view rid are provided.
+        :type branch_rid: Optional[BranchRid]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param view_rid: Specifies the specific view by rid in which to search for this media item. May not be provided if branch name or branch rid are provided.
+        :type view_rid: Optional[MediaSetViewRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[media_sets_models.GetMediaItemRidByPathResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/getRidByPath",
+                query_params={
+                    "mediaItemPath": media_item_path,
+                    "branchName": branch_name,
+                    "branchRid": branch_rid,
+                    "preview": preview,
+                    "viewRid": view_rid,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=media_sets_models.GetMediaItemRidByPathResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1015,6 +1147,7 @@ class _AsyncMediaSetClientRaw:
         def abort(_: None): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
+        def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
@@ -1024,6 +1157,7 @@ class _AsyncMediaSetClientRaw:
         self.abort = core.async_with_raw_response(abort, client.abort)
         self.commit = core.async_with_raw_response(commit, client.commit)
         self.create = core.async_with_raw_response(create, client.create)
+        self.get_rid_by_path = core.async_with_raw_response(get_rid_by_path, client.get_rid_by_path)
         self.info = core.async_with_raw_response(info, client.info)
         self.read = core.async_with_raw_response(read, client.read)
         self.read_original = core.async_with_raw_response(read_original, client.read_original)
@@ -1034,6 +1168,7 @@ class _AsyncMediaSetClientRaw:
 class _AsyncMediaSetClientStreaming:
     def __init__(self, client: AsyncMediaSetClient) -> None:
         def create(_: media_sets_models.TransactionId): ...
+        def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
@@ -1041,6 +1176,9 @@ class _AsyncMediaSetClientStreaming:
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
+        self.get_rid_by_path = core.async_with_streaming_response(
+            get_rid_by_path, client.get_rid_by_path
+        )
         self.info = core.async_with_streaming_response(info, client.info)
         self.read = core.async_with_streaming_response(read, client.read)
         self.read_original = core.async_with_streaming_response(read_original, client.read_original)

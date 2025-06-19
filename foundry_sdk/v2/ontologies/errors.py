@@ -913,8 +913,9 @@ class LinkTypeNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ontologies_models.ObjectTypeApiName
-    linkType: ontologies_models.LinkTypeApiName
+    objectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
+    linkType: typing_extensions.NotRequired[ontologies_models.LinkTypeApiName]
+    linkTypeId: typing_extensions.NotRequired[ontologies_models.LinkTypeId]
 
 
 @dataclass
@@ -1097,7 +1098,8 @@ class MarketplaceSdkObjectMappingNotFoundParameters(typing_extensions.TypedDict)
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    objectType: ontologies_models.ObjectTypeApiName
+    localObjectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
+    objectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeRid]
     sdkPackageRid: ontologies_models.SdkPackageRid
     sdkVersion: ontologies_models.SdkVersion
 

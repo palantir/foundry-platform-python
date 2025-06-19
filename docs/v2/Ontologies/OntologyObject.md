@@ -266,6 +266,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 
 ### Return type
 **ListObjectsResponseV2**
@@ -297,6 +298,8 @@ page_size = None
 page_token = None
 # Optional[List[SelectedPropertyApiName]] | The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
 select = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
 
 
 try:
@@ -310,6 +313,7 @@ try:
         page_size=page_size,
         page_token=page_token,
         select=select,
+        snapshot=snapshot,
     ):
         pprint(ontology_object)
 except foundry_sdk.PalantirRPCException as e:
@@ -371,6 +375,7 @@ Name | Type | Description  | Notes |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
 ### Return type
@@ -403,6 +408,8 @@ package_name = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
 # Optional[SearchJsonQueryV2]
 where = {"type": "eq", "field": "age", "value": 21}
 
@@ -418,6 +425,7 @@ try:
         package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        snapshot=snapshot,
         where=where,
     )
     print("The search response:\n")

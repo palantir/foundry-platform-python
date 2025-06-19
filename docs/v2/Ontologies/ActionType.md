@@ -18,6 +18,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action_type** | ActionTypeApiName | The name of the action type in the API.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **ActionTypeV2**
@@ -35,10 +36,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ActionTypeApiName | The name of the action type in the API.
 action_type = "promote-employee"
+# Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
-    api_response = client.ontologies.Ontology.ActionType.get(ontology, action_type)
+    api_response = client.ontologies.Ontology.ActionType.get(ontology, action_type, branch=branch)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -71,6 +74,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action_type_rid** | ActionTypeRid | The RID of the action type.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **ActionTypeV2**
@@ -88,10 +92,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ActionTypeRid | The RID of the action type.
 action_type_rid = "ri.ontology.main.action-type.7ed72754-7491-428a-bb18-4d7296eb2167"
+# Optional[FoundryBranch] | The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
-    api_response = client.ontologies.Ontology.ActionType.get_by_rid(ontology, action_type_rid)
+    api_response = client.ontologies.Ontology.ActionType.get_by_rid(
+        ontology, action_type_rid, branch=branch
+    )
     print("The get_by_rid response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

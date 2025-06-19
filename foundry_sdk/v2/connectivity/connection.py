@@ -264,7 +264,6 @@ class ConnectionClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -285,8 +284,6 @@ class ConnectionClient:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -301,9 +298,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -596,7 +591,6 @@ class AsyncConnectionClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         secrets: typing.Dict[connectivity_models.SecretName, connectivity_models.PlaintextValue],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -617,8 +611,6 @@ class AsyncConnectionClient:
         :type connection_rid: ConnectionRid
         :param secrets: The secrets to be updated. The specified secret names must already be configured on the connection.
         :type secrets: Dict[SecretName, PlaintextValue]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -633,9 +625,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateSecrets",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },

@@ -66,6 +66,7 @@ Get the full Ontology metadata. This includes the objects, links, actions, queri
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **OntologyFullMetadata**
@@ -81,10 +82,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
+# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
-    api_response = client.ontologies.Ontology.get_full_metadata(ontology)
+    api_response = client.ontologies.Ontology.get_full_metadata(ontology, branch=branch)
     print("The get_full_metadata response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -165,6 +168,7 @@ Name | Type | Description  | Notes |
 **link_types** | List[LinkTypeApiName] |  |  |
 **object_types** | List[ObjectTypeApiName] |  |  |
 **query_types** | List[VersionedQueryTypeApiName] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -191,6 +195,8 @@ link_types = None
 object_types = None
 # List[VersionedQueryTypeApiName]
 query_types = None
+# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
@@ -203,6 +209,7 @@ try:
         link_types=link_types,
         object_types=object_types,
         query_types=query_types,
+        branch=branch,
         preview=preview,
     )
     print("The load_metadata response:\n")

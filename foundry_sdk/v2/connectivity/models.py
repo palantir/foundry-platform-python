@@ -179,6 +179,7 @@ ConnectionConfiguration = typing_extensions.Annotated[
         "S3ConnectionConfiguration",
         "RestConnectionConfiguration",
         "SnowflakeConnectionConfiguration",
+        "DatabricksConnectionConfiguration",
         "JdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -236,11 +237,52 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
         "CreateConnectionRequestS3ConnectionConfiguration",
         "CreateConnectionRequestRestConnectionConfiguration",
         "CreateConnectionRequestSnowflakeConnectionConfiguration",
+        "CreateConnectionRequestDatabricksConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
 ]
 """CreateConnectionRequestConnectionConfiguration"""
+
+
+CreateConnectionRequestDatabricksAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestWorkflowIdentityFederation",
+        "CreateConnectionRequestOauthMachineToMachineAuth",
+        "CreateConnectionRequestPersonalAccessToken",
+        CreateConnectionRequestBasicCredentials,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""The method of authentication for connecting to an external Databricks system."""
+
+
+class CreateConnectionRequestDatabricksConnectionConfiguration(pydantic.BaseModel):
+    """CreateConnectionRequestDatabricksConnectionConfiguration"""
+
+    host_name: str = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
+    """The hostname of the Databricks workspace."""
+
+    http_path: str = pydantic.Field(alias=str("httpPath"))  # type: ignore[literal-required]
+    """The Databricks compute resource’s HTTP Path value."""
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    This should only contain unencrypted properties, all values specified here are sent unencrypted to Foundry.
+    """
+
+    authentication: CreateConnectionRequestDatabricksAuthenticationMode
+    """The method of authentication to use."""
+
+    type: typing.Literal["databricks"] = "databricks"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
@@ -274,6 +316,35 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
     """The URL that the JDBC driver uses to connect to a database."""
 
     type: typing.Literal["jdbc"] = "jdbc"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestOauthMachineToMachineAuth(pydantic.BaseModel):
+    """CreateConnectionRequestOauthMachineToMachineAuth"""
+
+    client_id: str = pydantic.Field(alias=str("clientID"))  # type: ignore[literal-required]
+    """The client ID for the service principal."""
+
+    client_secret: CreateConnectionRequestEncryptedProperty = pydantic.Field(alias=str("clientSecret"))  # type: ignore[literal-required]
+    """The value of the client secret."""
+
+    type: typing.Literal["oauthM2M"] = "oauthM2M"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class CreateConnectionRequestPersonalAccessToken(pydantic.BaseModel):
+    """CreateConnectionRequestPersonalAccessToken"""
+
+    personal_access_token: CreateConnectionRequestEncryptedProperty = pydantic.Field(alias=str("personalAccessToken"))  # type: ignore[literal-required]
+    type: typing.Literal["personalAccessToken"] = "personalAccessToken"
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -504,6 +575,31 @@ class CreateConnectionRequestSnowflakeKeyPairAuthentication(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class CreateConnectionRequestWorkflowIdentityFederation(pydantic.BaseModel):
+    """CreateConnectionRequestWorkflowIdentityFederation"""
+
+    audience: str
+    """
+    Identifies the recipients that the access token is intended for as a string URI. 
+    This should be the primary host name where the Connection lives.
+    """
+
+    service_principal_application_id: typing.Optional[str] = pydantic.Field(alias=str("servicePrincipalApplicationId"), default=None)  # type: ignore[literal-required]
+    """
+    The ID of the Databricks [service principal](https://docs.databricks.com/aws/en/admin/users-groups/service-principals). 
+    If provided, a federated JWT token is exchanged using a
+    service principal federation policy. If not provided, a federated JWT token is exchanged using an account
+    federation policy.
+    """
+
+    type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class CreateTableImportRequestJdbcTableImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcTableImportConfig"""
 
@@ -594,6 +690,50 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
+
+
+DatabricksAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "WorkflowIdentityFederation",
+        "OauthMachineToMachineAuth",
+        "PersonalAccessToken",
+        BasicCredentials,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""The method of authentication for connecting to an external Databricks system."""
+
+
+class DatabricksConnectionConfiguration(pydantic.BaseModel):
+    """
+    The configuration needed to connect to a [Databricks external system](https://palantir.com/docs/foundry/available-connectors/databricks).
+    Refer to the [official Databricks documentation](https://docs.databricks.com/aws/en/integrations/compute-details)
+    for more information on how to obtain connection details for your system.
+    """
+
+    host_name: str = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
+    """The hostname of the Databricks workspace."""
+
+    http_path: str = pydantic.Field(alias=str("httpPath"))  # type: ignore[literal-required]
+    """The Databricks compute resource’s HTTP Path value."""
+
+    authentication: DatabricksAuthenticationMode
+    """The method of authentication to use."""
+
+    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
+    """
+    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+    available JDBC properties to add to your connection configuration.
+    This should only contain unencrypted properties, all values specified here are sent unencrypted to Foundry.
+    """
+
+    type: typing.Literal["databricks"] = "databricks"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class DateColumnInitialIncrementalState(pydantic.BaseModel):
@@ -1056,12 +1196,48 @@ class MicrosoftSqlServerTableImportConfig(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class OauthMachineToMachineAuth(pydantic.BaseModel):
+    """
+    Authenticate as a service principal using OAuth. Create a service principal in Databricks and generate an OAuth secret to obtain a client ID and secret.
+    Read the [official Databricks documentation](https://docs.databricks.com/aws/en/dev-tools/auth/oauth-m2m) for more information about OAuth machine-to-machine
+    authentication.
+    """
+
+    client_id: str = pydantic.Field(alias=str("clientID"))  # type: ignore[literal-required]
+    """The client ID for the service principal."""
+
+    client_secret: EncryptedProperty = pydantic.Field(alias=str("clientSecret"))  # type: ignore[literal-required]
+    """The value of the client secret."""
+
+    type: typing.Literal["oauthM2M"] = "oauthM2M"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class OracleTableImportConfig(pydantic.BaseModel):
     """The import configuration for an Oracle Database 21 connection."""
 
     query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["oracleImportConfig"] = "oracleImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class PersonalAccessToken(pydantic.BaseModel):
+    """
+    Authenticate as a user or service principal using a personal access token.
+    Read the [official Databricks documentation](https://docs.databricks.com/aws/en/dev-tools/auth/pat) for information on generating a personal access token.
+    """
+
+    personal_access_token: EncryptedProperty = pydantic.Field(alias=str("personalAccessToken"))  # type: ignore[literal-required]
+    type: typing.Literal["personalAccessToken"] = "personalAccessToken"
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -1750,9 +1926,49 @@ UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
 
+class WorkflowIdentityFederation(pydantic.BaseModel):
+    """
+    Authenticate as a service principal using workload identity federation. This is the recommended way to connect to Databricks.
+    Workload identity federation allows workloads running in Foundry to access Databricks APIs without the need for Databricks secrets.
+    Refer to our [OIDC documentation](https://palantir.com/docs/foundry/data-connection/oidc) for an overview of how OpenID Connect is supported in Foundry.
+    A service principal federation policy must exist in Databricks to allow Foundry to act as an identity provider.
+    Refer to the [official documentation](https://docs.databricks.com/aws/en/dev-tools/auth/oauth-federation) for guidance.
+    """
+
+    service_principal_application_id: typing.Optional[str] = pydantic.Field(alias=str("servicePrincipalApplicationId"), default=None)  # type: ignore[literal-required]
+    """
+    The ID of the Databricks [service principal](https://docs.databricks.com/aws/en/admin/users-groups/service-principals). 
+    If provided, a federated JWT token is exchanged using a
+    service principal federation policy. If not provided, a federated JWT token is exchanged using an account
+    federation policy.
+    """
+
+    issuer_url: str = pydantic.Field(alias=str("issuerUrl"))  # type: ignore[literal-required]
+    """Identifies the principal that issued the access token as a string URI."""
+
+    audience: str
+    """
+    Identifies the recipients that the access token is intended for as a string URI. 
+    This should be the primary host name where the Connection lives.
+    """
+
+    subject: ConnectionRid
+    """The RID of the Connection that is connecting to the external system."""
+
+    type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
     CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
@@ -1763,6 +1979,7 @@ core.resolve_forward_references(
 core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())
 core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
 core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
 core.resolve_forward_references(
@@ -1798,14 +2015,19 @@ __all__ = [
     "CreateConnectionRequestAsSecretName",
     "CreateConnectionRequestBasicCredentials",
     "CreateConnectionRequestConnectionConfiguration",
+    "CreateConnectionRequestDatabricksAuthenticationMode",
+    "CreateConnectionRequestDatabricksConnectionConfiguration",
     "CreateConnectionRequestEncryptedProperty",
     "CreateConnectionRequestJdbcConnectionConfiguration",
+    "CreateConnectionRequestOauthMachineToMachineAuth",
+    "CreateConnectionRequestPersonalAccessToken",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfiguration",
     "CreateConnectionRequestSnowflakeAuthenticationMode",
     "CreateConnectionRequestSnowflakeConnectionConfiguration",
     "CreateConnectionRequestSnowflakeExternalOauth",
     "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+    "CreateConnectionRequestWorkflowIdentityFederation",
     "CreateTableImportRequestJdbcTableImportConfig",
     "CreateTableImportRequestMicrosoftAccessTableImportConfig",
     "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
@@ -1813,6 +2035,8 @@ __all__ = [
     "CreateTableImportRequestPostgreSqlTableImportConfig",
     "CreateTableImportRequestSnowflakeTableImportConfig",
     "CreateTableImportRequestTableImportConfig",
+    "DatabricksAuthenticationMode",
+    "DatabricksConnectionConfiguration",
     "DateColumnInitialIncrementalState",
     "DecimalColumnInitialIncrementalState",
     "Domain",
@@ -1841,7 +2065,9 @@ __all__ = [
     "LongColumnInitialIncrementalState",
     "MicrosoftAccessTableImportConfig",
     "MicrosoftSqlServerTableImportConfig",
+    "OauthMachineToMachineAuth",
     "OracleTableImportConfig",
+    "PersonalAccessToken",
     "PlaintextValue",
     "PostgreSqlTableImportConfig",
     "Protocol",
@@ -1883,4 +2109,5 @@ __all__ = [
     "TableImportRid",
     "TimestampColumnInitialIncrementalState",
     "UriScheme",
+    "WorkflowIdentityFederation",
 ]

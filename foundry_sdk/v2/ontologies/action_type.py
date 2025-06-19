@@ -55,6 +55,7 @@ class ActionTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         action_type: ontologies_models.ActionTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ActionTypeV2:
@@ -67,6 +68,8 @@ class ActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -77,7 +80,9 @@ class ActionTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "actionType": action_type,
@@ -102,6 +107,7 @@ class ActionTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         action_type_rid: ontologies_models.ActionTypeRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ActionTypeV2:
@@ -114,6 +120,8 @@ class ActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -124,7 +132,9 @@ class ActionTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes/byRid/{actionTypeRid}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "actionTypeRid": action_type_rid,
@@ -250,6 +260,7 @@ class AsyncActionTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         action_type: ontologies_models.ActionTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ActionTypeV2]:
@@ -262,6 +273,8 @@ class AsyncActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -272,7 +285,9 @@ class AsyncActionTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes/{actionType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "actionType": action_type,
@@ -297,6 +312,7 @@ class AsyncActionTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         action_type_rid: ontologies_models.ActionTypeRid,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ActionTypeV2]:
@@ -309,6 +325,8 @@ class AsyncActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -319,7 +337,9 @@ class AsyncActionTypeClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes/byRid/{actionTypeRid}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "actionTypeRid": action_type_rid,

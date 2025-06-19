@@ -56,8 +56,8 @@ class TimeSeriesPropertyV2Client:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
@@ -75,10 +75,10 @@ class TimeSeriesPropertyV2Client:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -90,8 +90,8 @@ class TimeSeriesPropertyV2Client:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -121,8 +121,8 @@ class TimeSeriesPropertyV2Client:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
@@ -140,10 +140,10 @@ class TimeSeriesPropertyV2Client:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -155,8 +155,8 @@ class TimeSeriesPropertyV2Client:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -187,10 +187,10 @@ class TimeSeriesPropertyV2Client:
         property: ontologies_models.PropertyApiName,
         *,
         aggregate: typing.Optional[ontologies_models.AggregateTimeSeries] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         range: typing.Optional[ontologies_models.TimeRange] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -210,14 +210,14 @@ class TimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param aggregate:
         :type aggregate: Optional[AggregateTimeSeries]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[TimeRange]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -229,9 +229,9 @@ class TimeSeriesPropertyV2Client:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "format": format,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -317,8 +317,8 @@ class AsyncTimeSeriesPropertyV2Client:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeSeriesPoint]]:
@@ -336,10 +336,10 @@ class AsyncTimeSeriesPropertyV2Client:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -351,8 +351,8 @@ class AsyncTimeSeriesPropertyV2Client:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/firstPoint",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -382,8 +382,8 @@ class AsyncTimeSeriesPropertyV2Client:
         primary_key: ontologies_models.PropertyValueEscapedString,
         property: ontologies_models.PropertyApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeSeriesPoint]]:
@@ -401,10 +401,10 @@ class AsyncTimeSeriesPropertyV2Client:
         :type primary_key: PropertyValueEscapedString
         :param property: The API name of the time series property. To find the API name for your time series property, check the **Ontology Manager** or use the **Get object type** endpoint.
         :type property: PropertyApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -416,8 +416,8 @@ class AsyncTimeSeriesPropertyV2Client:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/lastPoint",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -448,10 +448,10 @@ class AsyncTimeSeriesPropertyV2Client:
         property: ontologies_models.PropertyApiName,
         *,
         aggregate: typing.Optional[ontologies_models.AggregateTimeSeries] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         format: typing.Optional[ontologies_models.StreamingOutputFormat] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         range: typing.Optional[ontologies_models.TimeRange] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
@@ -471,14 +471,14 @@ class AsyncTimeSeriesPropertyV2Client:
         :type property: PropertyApiName
         :param aggregate:
         :type aggregate: Optional[AggregateTimeSeries]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param format: The output format to serialize the output binary stream in. Default is JSON. ARROW is more efficient than JSON at streaming a large sized response.
         :type format: Optional[StreamingOutputFormat]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param range:
         :type range: Optional[TimeRange]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -490,9 +490,9 @@ class AsyncTimeSeriesPropertyV2Client:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/timeseries/{property}/streamPoints",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "format": format,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

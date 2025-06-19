@@ -13,6 +13,7 @@ ObjectSetSearchAroundType | searchAround
 ObjectSetStaticType | static
 ObjectSetIntersectionType | intersect
 ObjectSetWithPropertiesType | withProperties
+ObjectSetInterfaceLinkSearchAroundType | interfaceLinkSearchAround
 ObjectSetSubtractType | subtract
 ObjectSetNearestNeighborsType | nearestNeighbors
 ObjectSetUnionType | union
