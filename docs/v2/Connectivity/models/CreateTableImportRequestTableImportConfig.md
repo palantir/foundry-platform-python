@@ -10,6 +10,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+CreateTableImportRequestDatabricksTableImportConfig | databricksImportConfig
 CreateTableImportRequestJdbcTableImportConfig | jdbcImportConfig
 CreateTableImportRequestMicrosoftSqlServerTableImportConfig | microsoftSqlServerImportConfig
 CreateTableImportRequestPostgreSqlTableImportConfig | postgreSqlImportConfig

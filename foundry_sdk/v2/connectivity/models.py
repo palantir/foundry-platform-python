@@ -600,6 +600,19 @@ class CreateConnectionRequestWorkflowIdentityFederation(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class CreateTableImportRequestDatabricksTableImportConfig(pydantic.BaseModel):
+    """CreateTableImportRequestDatabricksTableImportConfig"""
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    query: TableImportQuery
+    type: typing.Literal["databricksImportConfig"] = "databricksImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class CreateTableImportRequestJdbcTableImportConfig(pydantic.BaseModel):
     """CreateTableImportRequestJdbcTableImportConfig"""
 
@@ -680,6 +693,7 @@ class CreateTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
+        CreateTableImportRequestDatabricksTableImportConfig,
         CreateTableImportRequestJdbcTableImportConfig,
         CreateTableImportRequestMicrosoftSqlServerTableImportConfig,
         CreateTableImportRequestPostgreSqlTableImportConfig,
@@ -729,6 +743,19 @@ class DatabricksConnectionConfiguration(pydantic.BaseModel):
     """
 
     type: typing.Literal["databricks"] = "databricks"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class DatabricksTableImportConfig(pydantic.BaseModel):
+    """The table import configuration for a [Databricks connection](https://palantir.com/docs/foundry/available-connectors/databricks)."""
+
+    query: TableImportQuery
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["databricksImportConfig"] = "databricksImportConfig"
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -1284,6 +1311,19 @@ Region = str
 """The region of the external system."""
 
 
+class ReplaceTableImportRequestDatabricksTableImportConfig(pydantic.BaseModel):
+    """ReplaceTableImportRequestDatabricksTableImportConfig"""
+
+    initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
+    query: TableImportQuery
+    type: typing.Literal["databricksImportConfig"] = "databricksImportConfig"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ReplaceTableImportRequestJdbcTableImportConfig(pydantic.BaseModel):
     """ReplaceTableImportRequestJdbcTableImportConfig"""
 
@@ -1364,6 +1404,7 @@ class ReplaceTableImportRequestSnowflakeTableImportConfig(pydantic.BaseModel):
 
 ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
+        ReplaceTableImportRequestDatabricksTableImportConfig,
         ReplaceTableImportRequestJdbcTableImportConfig,
         ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig,
         ReplaceTableImportRequestPostgreSqlTableImportConfig,
@@ -1846,6 +1887,7 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
+        DatabricksTableImportConfig,
         JdbcTableImportConfig,
         MicrosoftSqlServerTableImportConfig,
         PostgreSqlTableImportConfig,
@@ -2028,6 +2070,7 @@ __all__ = [
     "CreateConnectionRequestSnowflakeExternalOauth",
     "CreateConnectionRequestSnowflakeKeyPairAuthentication",
     "CreateConnectionRequestWorkflowIdentityFederation",
+    "CreateTableImportRequestDatabricksTableImportConfig",
     "CreateTableImportRequestJdbcTableImportConfig",
     "CreateTableImportRequestMicrosoftAccessTableImportConfig",
     "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
@@ -2037,6 +2080,7 @@ __all__ = [
     "CreateTableImportRequestTableImportConfig",
     "DatabricksAuthenticationMode",
     "DatabricksConnectionConfiguration",
+    "DatabricksTableImportConfig",
     "DateColumnInitialIncrementalState",
     "DecimalColumnInitialIncrementalState",
     "Domain",
@@ -2073,6 +2117,7 @@ __all__ = [
     "Protocol",
     "QueryParameterApiKey",
     "Region",
+    "ReplaceTableImportRequestDatabricksTableImportConfig",
     "ReplaceTableImportRequestJdbcTableImportConfig",
     "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
     "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
