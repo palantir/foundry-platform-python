@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/connectivity/connections | Private Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
 [**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
+[**update_export_settings**](#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings | Private Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Stable |
 
 # **create**
@@ -180,6 +181,63 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ConnectionConfiguration  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **update_export_settings**
+Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
+Only users with Information Security Officer role can modify the export settings.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid |  |  |
+**export_settings** | ConnectionExportSettings |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ConnectionRid
+connection_rid = None
+# ConnectionExportSettings
+export_settings = {"exportsEnabled": True, "exportEnabledWithoutMarkingsValidation": False}
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.connectivity.Connection.update_export_settings(
+        connection_rid, export_settings=export_settings, preview=preview
+    )
+    print("The update_export_settings response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Connection.update_export_settings: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

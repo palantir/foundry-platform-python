@@ -4,7 +4,9 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**aggregate**](#aggregate) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate | Private Beta |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} | Public Beta |
+[**get_outgoing_interface_link_type**](#get_outgoing_interface_link_type) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType} | Private Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
+[**list_outgoing_interface_link_types**](#list_outgoing_interface_link_types) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes | Private Beta |
 [**search**](#search) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/search | Private Beta |
 
 # **aggregate**
@@ -169,6 +171,65 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_outgoing_interface_link_type**
+Get an outgoing interface link type for an interface type.
+
+Third-party applications using this endpoint via OAuth2 must request the
+following operation scopes: `api:ontologies-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
+**interface_link_type** | InterfaceLinkTypeApiName | The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.  |  |
+
+### Return type
+**InterfaceLinkType**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+interface_type = "Employee"
+# InterfaceLinkTypeApiName | The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
+interface_link_type = "worksAt"
+
+
+try:
+    api_response = client.ontologies.OntologyInterface.get_outgoing_interface_link_type(
+        ontology, interface_type, interface_link_type
+    )
+    print("The get_outgoing_interface_link_type response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyInterface.get_outgoing_interface_link_type: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | InterfaceLinkType  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **list**
 :::callout{theme=warning title=Warning}
   This endpoint is in preview and may be modified or removed at any time.
@@ -234,6 +295,62 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListInterfaceTypesResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list_outgoing_interface_link_types**
+List the outgoing interface link types for an interface type.
+
+Third-party applications using this endpoint via OAuth2 must request the
+following operation scopes: `api:ontologies-read`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
+
+### Return type
+**ListOutgoingInterfaceLinkTypesResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+interface_type = "Employee"
+
+
+try:
+    api_response = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
+        ontology, interface_type
+    )
+    print("The list_outgoing_interface_link_types response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyInterface.list_outgoing_interface_link_types: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListOutgoingInterfaceLinkTypesResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

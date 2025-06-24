@@ -199,6 +199,58 @@ class OntologyInterfaceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_outgoing_interface_link_type(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
+        interface_link_type: ontologies_models.InterfaceLinkTypeApiName,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.InterfaceLinkType:
+        """
+        Get an outgoing interface link type for an interface type.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+        :type interface_type: InterfaceTypeApiName
+        :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
+        :type interface_link_type: InterfaceLinkTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.InterfaceLinkType
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "interfaceType": interface_type,
+                    "interfaceLinkType": interface_link_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.InterfaceLinkType,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -257,6 +309,54 @@ class OntologyInterfaceClient:
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list_outgoing_interface_link_types(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.ListOutgoingInterfaceLinkTypesResponse:
+        """
+        List the outgoing interface link types for an interface type.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+        :type interface_type: InterfaceTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.ListOutgoingInterfaceLinkTypesResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "interfaceType": interface_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
         )
 
@@ -414,12 +514,22 @@ class _OntologyInterfaceClientRaw:
     def __init__(self, client: OntologyInterfaceClient) -> None:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
+        def get_outgoing_interface_link_type(_: ontologies_models.InterfaceLinkType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def list_outgoing_interface_link_types(
+            _: ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+        ): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_raw_response(aggregate, client.aggregate)
         self.get = core.with_raw_response(get, client.get)
+        self.get_outgoing_interface_link_type = core.with_raw_response(
+            get_outgoing_interface_link_type, client.get_outgoing_interface_link_type
+        )
         self.list = core.with_raw_response(list, client.list)
+        self.list_outgoing_interface_link_types = core.with_raw_response(
+            list_outgoing_interface_link_types, client.list_outgoing_interface_link_types
+        )
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -427,12 +537,22 @@ class _OntologyInterfaceClientStreaming:
     def __init__(self, client: OntologyInterfaceClient) -> None:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
+        def get_outgoing_interface_link_type(_: ontologies_models.InterfaceLinkType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def list_outgoing_interface_link_types(
+            _: ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+        ): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.with_streaming_response(aggregate, client.aggregate)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_outgoing_interface_link_type = core.with_streaming_response(
+            get_outgoing_interface_link_type, client.get_outgoing_interface_link_type
+        )
         self.list = core.with_streaming_response(list, client.list)
+        self.list_outgoing_interface_link_types = core.with_streaming_response(
+            list_outgoing_interface_link_types, client.list_outgoing_interface_link_types
+        )
         self.search = core.with_streaming_response(search, client.search)
 
 
@@ -611,6 +731,58 @@ class AsyncOntologyInterfaceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_outgoing_interface_link_type(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
+        interface_link_type: ontologies_models.InterfaceLinkTypeApiName,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.InterfaceLinkType]:
+        """
+        Get an outgoing interface link type for an interface type.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+        :type interface_type: InterfaceTypeApiName
+        :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
+        :type interface_link_type: InterfaceLinkTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.InterfaceLinkType]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType}",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "interfaceType": interface_type,
+                    "interfaceLinkType": interface_link_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.InterfaceLinkType,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -669,6 +841,54 @@ class AsyncOntologyInterfaceClient:
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list_outgoing_interface_link_types(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        interface_type: ontologies_models.InterfaceTypeApiName,
+        *,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.ListOutgoingInterfaceLinkTypesResponse]:
+        """
+        List the outgoing interface link types for an interface type.
+
+        Third-party applications using this endpoint via OAuth2 must request the
+        following operation scopes: `api:ontologies-read`.
+
+        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :type ontology: OntologyIdentifier
+        :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
+        :type interface_type: InterfaceTypeApiName
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.ListOutgoingInterfaceLinkTypesResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes",
+                query_params={},
+                path_params={
+                    "ontology": ontology,
+                    "interfaceType": interface_type,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
             ),
         )
 
@@ -826,12 +1046,22 @@ class _AsyncOntologyInterfaceClientRaw:
     def __init__(self, client: AsyncOntologyInterfaceClient) -> None:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
+        def get_outgoing_interface_link_type(_: ontologies_models.InterfaceLinkType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def list_outgoing_interface_link_types(
+            _: ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+        ): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.async_with_raw_response(aggregate, client.aggregate)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_outgoing_interface_link_type = core.async_with_raw_response(
+            get_outgoing_interface_link_type, client.get_outgoing_interface_link_type
+        )
         self.list = core.async_with_raw_response(list, client.list)
+        self.list_outgoing_interface_link_types = core.async_with_raw_response(
+            list_outgoing_interface_link_types, client.list_outgoing_interface_link_types
+        )
         self.search = core.async_with_raw_response(search, client.search)
 
 
@@ -839,10 +1069,20 @@ class _AsyncOntologyInterfaceClientStreaming:
     def __init__(self, client: AsyncOntologyInterfaceClient) -> None:
         def aggregate(_: ontologies_models.AggregateObjectsResponseV2): ...
         def get(_: ontologies_models.InterfaceType): ...
+        def get_outgoing_interface_link_type(_: ontologies_models.InterfaceLinkType): ...
         def list(_: ontologies_models.ListInterfaceTypesResponse): ...
+        def list_outgoing_interface_link_types(
+            _: ontologies_models.ListOutgoingInterfaceLinkTypesResponse,
+        ): ...
         def search(_: ontologies_models.SearchObjectsResponseV2): ...
 
         self.aggregate = core.async_with_streaming_response(aggregate, client.aggregate)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_outgoing_interface_link_type = core.async_with_streaming_response(
+            get_outgoing_interface_link_type, client.get_outgoing_interface_link_type
+        )
         self.list = core.async_with_streaming_response(list, client.list)
+        self.list_outgoing_interface_link_types = core.async_with_streaming_response(
+            list_outgoing_interface_link_types, client.list_outgoing_interface_link_types
+        )
         self.search = core.async_with_streaming_response(search, client.search)

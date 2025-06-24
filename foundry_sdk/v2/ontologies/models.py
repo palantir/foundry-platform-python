@@ -1567,6 +1567,20 @@ class ListOntologiesV2Response(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ListOutgoingInterfaceLinkTypesResponse(pydantic.BaseModel):
+    """ListOutgoingInterfaceLinkTypesResponse"""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    data: typing.List[InterfaceLinkType]
+    """The list of interface link types in the current page."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ListOutgoingLinkTypesResponseV2(pydantic.BaseModel):
     """ListOutgoingLinkTypesResponseV2"""
 
@@ -3976,6 +3990,7 @@ __all__ = [
     "ListObjectTypesV2Response",
     "ListObjectsResponseV2",
     "ListOntologiesV2Response",
+    "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
     "LoadObjectSetResponseV2",
