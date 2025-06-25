@@ -533,6 +533,21 @@ class TableImportTypeNotSupported(errors.InternalServerError):
     error_instance_id: str
 
 
+class UpdateExportSettingsForConnectionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not updateExportSettings the Connection."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    connectionRid: connectivity_models.ConnectionRid
+
+
+@dataclass
+class UpdateExportSettingsForConnectionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["UpdateExportSettingsForConnectionPermissionDenied"]
+    parameters: UpdateExportSettingsForConnectionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class UpdateSecretsForConnectionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not update secrets for the Connection."""
 
@@ -582,5 +597,6 @@ __all__ = [
     "TableImportNotFound",
     "TableImportNotSupportedForConnection",
     "TableImportTypeNotSupported",
+    "UpdateExportSettingsForConnectionPermissionDenied",
     "UpdateSecretsForConnectionPermissionDenied",
 ]

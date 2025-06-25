@@ -259,6 +259,67 @@ class ConnectionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def update_export_settings(
+        self,
+        connection_rid: connectivity_models.ConnectionRid,
+        *,
+        export_settings: connectivity_models.ConnectionExportSettings,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
+        Only users with Information Security Officer role can modify the export settings.
+
+        :param connection_rid:
+        :type connection_rid: ConnectionRid
+        :param export_settings:
+        :type export_settings: ConnectionExportSettings
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises UpdateExportSettingsForConnectionPermissionDenied: Could not updateExportSettings the Connection.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/{connectionRid}/updateExportSettings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "exportSettings": export_settings,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "exportSettings": connectivity_models.ConnectionExportSettings,
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "UpdateExportSettingsForConnectionPermissionDenied": connectivity_errors.UpdateExportSettingsForConnectionPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def update_secrets(
         self,
         connection_rid: connectivity_models.ConnectionRid,
@@ -333,11 +394,15 @@ class _ConnectionClientRaw:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_configuration = core.with_raw_response(get_configuration, client.get_configuration)
+        self.update_export_settings = core.with_raw_response(
+            update_export_settings, client.update_export_settings
+        )
         self.update_secrets = core.with_raw_response(update_secrets, client.update_secrets)
 
 
@@ -586,6 +651,67 @@ class AsyncConnectionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def update_export_settings(
+        self,
+        connection_rid: connectivity_models.ConnectionRid,
+        *,
+        export_settings: connectivity_models.ConnectionExportSettings,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
+        Only users with Information Security Officer role can modify the export settings.
+
+        :param connection_rid:
+        :type connection_rid: ConnectionRid
+        :param export_settings:
+        :type export_settings: ConnectionExportSettings
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises UpdateExportSettingsForConnectionPermissionDenied: Could not updateExportSettings the Connection.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/{connectionRid}/updateExportSettings",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body={
+                    "exportSettings": export_settings,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "exportSettings": connectivity_models.ConnectionExportSettings,
+                    },
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "UpdateExportSettingsForConnectionPermissionDenied": connectivity_errors.UpdateExportSettingsForConnectionPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def update_secrets(
         self,
         connection_rid: connectivity_models.ConnectionRid,
@@ -660,12 +786,16 @@ class _AsyncConnectionClientRaw:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_configuration = core.async_with_raw_response(
             get_configuration, client.get_configuration
+        )
+        self.update_export_settings = core.async_with_raw_response(
+            update_export_settings, client.update_export_settings
         )
         self.update_secrets = core.async_with_raw_response(update_secrets, client.update_secrets)
 

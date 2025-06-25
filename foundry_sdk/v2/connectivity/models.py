@@ -166,6 +166,7 @@ class Connection(pydantic.BaseModel):
     display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     """The display name of the Connection. The display name must not be blank."""
 
+    export_settings: ConnectionExportSettings = pydantic.Field(alias=str("exportSettings"))  # type: ignore[literal-required]
     configuration: ConnectionConfiguration
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -189,6 +190,27 @@ ConnectionConfiguration = typing_extensions.Annotated[
 
 ConnectionDisplayName = str
 """The display name of the Connection. The display name must not be blank."""
+
+
+class ConnectionExportSettings(pydantic.BaseModel):
+    """The [export settings of a Connection](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)."""
+
+    exports_enabled: bool = pydantic.Field(alias=str("exportsEnabled"))  # type: ignore[literal-required]
+    """Allow exporting datasets from Foundry to this Connection."""
+
+    export_enabled_without_markings_validation: bool = pydantic.Field(alias=str("exportEnabledWithoutMarkingsValidation"))  # type: ignore[literal-required]
+    """
+    In certain interactive workflows the Connection can be used in, it is not currently possible to validate the 
+    security markings of the data being exported. 
+    By enabling exports without markings validation, you acknowledge that you are responsible for ensuring 
+    that the data being exported is compliant with your organization's policies.
+    """
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ConnectionRid = core.RID
@@ -266,14 +288,7 @@ class CreateConnectionRequestDatabricksConnectionConfiguration(pydantic.BaseMode
     http_path: str = pydantic.Field(alias=str("httpPath"))  # type: ignore[literal-required]
     """The Databricks compute resource’s HTTP Path value."""
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    This should only contain unencrypted properties, all values specified here are sent unencrypted to Foundry.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     authentication: CreateConnectionRequestDatabricksAuthenticationMode
     """The method of authentication to use."""
 
@@ -305,13 +320,7 @@ class CreateConnectionRequestJdbcConnectionConfiguration(pydantic.BaseModel):
     driver_class: str = pydantic.Field(alias=str("driverClass"))  # type: ignore[literal-required]
     """The fully-qualified driver class name that is used to connect to the database."""
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     url: str
     """The URL that the JDBC driver uses to connect to a database."""
 
@@ -525,13 +534,7 @@ class CreateConnectionRequestSnowflakeConnectionConfiguration(pydantic.BaseModel
     An example URL is https://acme-test_aws_us_east_2.snowflakecomputing.com.
     """
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     warehouse: typing.Optional[str] = None
     """
     Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string. 
@@ -734,14 +737,7 @@ class DatabricksConnectionConfiguration(pydantic.BaseModel):
     authentication: DatabricksAuthenticationMode
     """The method of authentication to use."""
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    This should only contain unencrypted properties, all values specified here are sent unencrypted to Foundry.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     type: typing.Literal["databricks"] = "databricks"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1129,13 +1125,7 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
     driver_class: str = pydantic.Field(alias=str("driverClass"))  # type: ignore[literal-required]
     """The fully-qualified driver class name that is used to connect to the database."""
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     credentials: typing.Optional[BasicCredentials] = None
     type: typing.Literal["jdbc"] = "jdbc"
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -1143,6 +1133,15 @@ class JdbcConnectionConfiguration(pydantic.BaseModel):
     def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
+
+
+JdbcProperties = typing.Dict[str, str]
+"""
+A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
+to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
+available JDBC properties to add to your connection configuration.
+This should only contain unencrypted properties, all values specified here are sent unencrypted to Foundry.
+"""
 
 
 class JdbcTableImportConfig(pydantic.BaseModel):
@@ -1727,13 +1726,7 @@ class SnowflakeConnectionConfiguration(pydantic.BaseModel):
     authentication_mode: SnowflakeAuthenticationMode = pydantic.Field(alias=str("authenticationMode"))  # type: ignore[literal-required]
     """The authentication mode to use to connect to the Snowflake database."""
 
-    jdbc_properties: typing.Dict[str, str] = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
-    """
-    A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed 
-    to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional 
-    available JDBC properties to add to your connection configuration.
-    """
-
+    jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     type: typing.Literal["snowflake"] = "snowflake"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -2024,6 +2017,7 @@ core.resolve_forward_references(
 core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())
 core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
 core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(JdbcProperties, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
@@ -2052,6 +2046,7 @@ __all__ = [
     "Connection",
     "ConnectionConfiguration",
     "ConnectionDisplayName",
+    "ConnectionExportSettings",
     "ConnectionRid",
     "CreateConnectionRequestAsPlaintextValue",
     "CreateConnectionRequestAsSecretName",
@@ -2103,6 +2098,7 @@ __all__ = [
     "HeaderApiKey",
     "IntegerColumnInitialIncrementalState",
     "JdbcConnectionConfiguration",
+    "JdbcProperties",
     "JdbcTableImportConfig",
     "ListFileImportsResponse",
     "ListTableImportsResponse",

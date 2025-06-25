@@ -12,7 +12,7 @@ The configuration needed to connect to a Snowflake database.
 **schema_** | Optional[str] | No | Specifies the default schema to use for the specified database once connected. If unspecified,  defaults to the empty string. The specified schema should be an existing schema for which the specified default role has privileges.  See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#schema  |
 **warehouse** | Optional[str] | No | Specifies the virtual warehouse to use once connected. If unspecified, defaults to the empty string.  The specified warehouse should be an existing warehouse for which the specified default role has privileges.  See https://docs.snowflake.com/developer-guide/jdbc/jdbc-parameters#warehouse  |
 **authentication_mode** | SnowflakeAuthenticationMode | Yes | The authentication mode to use to connect to the Snowflake database.  |
-**jdbc_properties** | Dict[str, str] | Yes | A map of [properties](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Properties.html) passed  to the JDBC driver to configure behavior. Refer to the documentation of your specific connection type for additional  available JDBC properties to add to your connection configuration.  |
+**jdbc_properties** | JdbcProperties | Yes |  |
 **type** | Literal["snowflake"] | Yes | None |
 
 

@@ -2143,6 +2143,32 @@ def connectivity_connection_get_configuration(
     click.echo(repr(result))
 
 
+@connectivity_connection.command("update_export_settings")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--export_settings", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def connectivity_connection_update_export_settings(
+    client: FoundryClient,
+    connection_rid: str,
+    export_settings: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
+    Only users with Information Security Officer role can modify the export settings.
+
+    """
+    result = client.connectivity.Connection.update_export_settings(
+        connection_rid=connection_rid,
+        export_settings=json.loads(export_settings),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @connectivity_connection.command("update_secrets")
 @click.argument("connection_rid", type=str, required=True)
 @click.option(
@@ -5731,6 +5757,32 @@ def ontologies_ontology_interface_get(
     click.echo(repr(result))
 
 
+@ontologies_ontology_interface.command("get_outgoing_interface_link_type")
+@click.argument("ontology", type=str, required=True)
+@click.argument("interface_type", type=str, required=True)
+@click.argument("interface_link_type", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_interface_get_outgoing_interface_link_type(
+    client: FoundryClient,
+    ontology: str,
+    interface_type: str,
+    interface_link_type: str,
+):
+    """
+    Get an outgoing interface link type for an interface type.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyInterface.get_outgoing_interface_link_type(
+        ontology=ontology,
+        interface_type=interface_type,
+        interface_link_type=interface_link_type,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_interface.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
@@ -5776,6 +5828,29 @@ def ontologies_ontology_interface_list(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_interface.command("list_outgoing_interface_link_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("interface_type", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_interface_list_outgoing_interface_link_types(
+    client: FoundryClient,
+    ontology: str,
+    interface_type: str,
+):
+    """
+    List the outgoing interface link types for an interface type.
+
+    Third-party applications using this endpoint via OAuth2 must request the
+    following operation scopes: `api:ontologies-read`.
+
+    """
+    result = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
+        ontology=ontology,
+        interface_type=interface_type,
     )
     click.echo(repr(result))
 
