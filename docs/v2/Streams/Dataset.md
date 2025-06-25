@@ -40,7 +40,13 @@ name = "My Dataset"
 # FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # StreamSchema | The Foundry schema to apply to the new stream.
-schema = None
+schema = {
+    "fields": [
+        {"name": "timestamp", "schema": {"nullable": False, "dataType": {"type": "timestamp"}}},
+        {"name": "value", "schema": {"nullable": False, "dataType": {"type": "string"}}},
+    ],
+    "keyFieldNames": ["timestamp"],
+}
 # Optional[BranchName] | The branch to create the initial stream on. If not specified, the default branch will be used ('master' for most enrollments).
 branch_name = "master"
 # Optional[Compressed] | Whether or not compression is enabled for the stream. Defaults to false.

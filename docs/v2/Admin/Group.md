@@ -296,7 +296,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # GroupSearchFilter
-where = {"type": "queryString"}
+where = {"type": "queryString", "value": "jsmith"}
 # Optional[PageSize]
 page_size = 100
 # Optional[PageToken]

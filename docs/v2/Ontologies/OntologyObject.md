@@ -24,6 +24,7 @@ Name | Type | Description  | Notes |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
@@ -61,6 +62,8 @@ group_by = [
 accuracy = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+branch = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 # Optional[SearchJsonQueryV2]
@@ -75,6 +78,7 @@ try:
         group_by=group_by,
         accuracy=accuracy,
         artifact_repository=artifact_repository,
+        branch=branch,
         package_name=package_name,
         where=where,
     )
@@ -111,6 +115,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used.  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 
 ### Return type
@@ -131,13 +136,19 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used.
+branch = None
 # Optional[SdkPackageName] | The package name of the generated SDK.
 package_name = None
 
 
 try:
     api_response = client.ontologies.OntologyObject.count(
-        ontology, object_type, artifact_repository=artifact_repository, package_name=package_name
+        ontology,
+        object_type,
+        artifact_repository=artifact_repository,
+        branch=branch,
+        package_name=package_name,
     )
     print("The count response:\n")
     pprint(api_response)
@@ -172,6 +183,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -195,6 +207,8 @@ ontology = "palantir"
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
+# Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -210,6 +224,7 @@ try:
         ontology,
         object_type,
         primary_key,
+        branch=branch,
         exclude_rid=exclude_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -260,6 +275,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[OrderBy] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
@@ -286,6 +302,8 @@ ontology = "palantir"
 object_type = "employee"
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[OrderBy]
@@ -307,6 +325,7 @@ try:
         ontology,
         object_type,
         artifact_repository=artifact_repository,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         package_name=package_name,
@@ -370,6 +389,7 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
 **artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
@@ -398,6 +418,8 @@ object_type = "employee"
 select = None
 # Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
 artifact_repository = None
+# Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
@@ -420,6 +442,7 @@ try:
         object_type,
         select=select,
         artifact_repository=artifact_repository,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         package_name=package_name,

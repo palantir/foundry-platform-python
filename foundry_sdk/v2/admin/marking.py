@@ -106,10 +106,11 @@ class MarkingClient:
         :rtype: admin_models.Marking
 
         :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
-        :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
         :raises CreateMarkingPermissionDenied: Could not create the Marking.
         :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
+        :raises MarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises MarkingNameIsEmpty: The marking name is empty.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -146,10 +147,11 @@ class MarkingClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
-                    "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
                     "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
                     "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
                     "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                    "MarkingNameInCategoryAlreadyExists": admin_errors.MarkingNameInCategoryAlreadyExists,
+                    "MarkingNameIsEmpty": admin_errors.MarkingNameIsEmpty,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -311,6 +313,81 @@ class MarkingClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        marking_id: core_models.MarkingId,
+        *,
+        name: admin_models.MarkingName,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.Marking:
+        """
+        Replace the Marking with the specified id.
+        :param marking_id:
+        :type marking_id: MarkingId
+        :param name:
+        :type name: MarkingName
+        :param description:
+        :type description: Optional[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.Marking
+
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises MarkingNameIsEmpty: The marking name is empty.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises ReplaceMarkingPermissionDenied: Could not replace the Marking.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/admin/markings/{markingId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "name": name,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "name": admin_models.MarkingName,
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=admin_models.Marking,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNameInCategoryAlreadyExists": admin_errors.MarkingNameInCategoryAlreadyExists,
+                    "MarkingNameIsEmpty": admin_errors.MarkingNameIsEmpty,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "ReplaceMarkingPermissionDenied": admin_errors.ReplaceMarkingPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _MarkingClientRaw:
     def __init__(self, client: MarkingClient) -> None:
@@ -318,11 +395,13 @@ class _MarkingClientRaw:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def replace(_: admin_models.Marking): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
+        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _MarkingClientStreaming:
@@ -331,11 +410,13 @@ class _MarkingClientStreaming:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def replace(_: admin_models.Marking): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
+        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncMarkingClient:
@@ -418,10 +499,11 @@ class AsyncMarkingClient:
         :rtype: typing.Awaitable[admin_models.Marking]
 
         :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
-        :raises CreateMarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
         :raises CreateMarkingPermissionDenied: Could not create the Marking.
         :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
+        :raises MarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises MarkingNameIsEmpty: The marking name is empty.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -458,10 +540,11 @@ class AsyncMarkingClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateMarkingMissingInitialAdminRole": admin_errors.CreateMarkingMissingInitialAdminRole,
-                    "CreateMarkingNameInCategoryAlreadyExists": admin_errors.CreateMarkingNameInCategoryAlreadyExists,
                     "CreateMarkingPermissionDenied": admin_errors.CreateMarkingPermissionDenied,
                     "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
                     "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                    "MarkingNameInCategoryAlreadyExists": admin_errors.MarkingNameInCategoryAlreadyExists,
+                    "MarkingNameIsEmpty": admin_errors.MarkingNameIsEmpty,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -623,6 +706,81 @@ class AsyncMarkingClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        marking_id: core_models.MarkingId,
+        *,
+        name: admin_models.MarkingName,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.Marking]:
+        """
+        Replace the Marking with the specified id.
+        :param marking_id:
+        :type marking_id: MarkingId
+        :param name:
+        :type name: MarkingName
+        :param description:
+        :type description: Optional[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.Marking]
+
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
+        :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
+        :raises MarkingNameInCategoryAlreadyExists: A marking with the same name already exists in the category.
+        :raises MarkingNameIsEmpty: The marking name is empty.
+        :raises MarkingNotFound: The given Marking could not be found.
+        :raises ReplaceMarkingPermissionDenied: Could not replace the Marking.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/admin/markings/{markingId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingId": marking_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "name": name,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "name": admin_models.MarkingName,
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=admin_models.Marking,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
+                    "MarkingNameInCategoryAlreadyExists": admin_errors.MarkingNameInCategoryAlreadyExists,
+                    "MarkingNameIsEmpty": admin_errors.MarkingNameIsEmpty,
+                    "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "ReplaceMarkingPermissionDenied": admin_errors.ReplaceMarkingPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncMarkingClientRaw:
     def __init__(self, client: AsyncMarkingClient) -> None:
@@ -630,11 +788,13 @@ class _AsyncMarkingClientRaw:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def replace(_: admin_models.Marking): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.list = core.async_with_raw_response(list, client.list)
+        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncMarkingClientStreaming:
@@ -643,8 +803,10 @@ class _AsyncMarkingClientStreaming:
         def get(_: admin_models.Marking): ...
         def get_batch(_: admin_models.GetMarkingsBatchResponse): ...
         def list(_: admin_models.ListMarkingsResponse): ...
+        def replace(_: admin_models.Marking): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.list = core.async_with_streaming_response(list, client.list)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

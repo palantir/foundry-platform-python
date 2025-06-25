@@ -59,6 +59,7 @@ class OntologyObjectClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -81,6 +82,8 @@ class OntologyObjectClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param where:
@@ -97,6 +100,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/aggregate",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -138,6 +142,7 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -153,6 +158,8 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -167,6 +174,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -194,6 +202,7 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         primary_key: ontologies_models.PropertyValueEscapedString,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -212,6 +221,8 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
+        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -231,6 +242,7 @@ class OntologyObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -262,6 +274,7 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -295,6 +308,8 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -321,6 +336,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
                     "packageName": package_name,
@@ -355,6 +371,7 @@ class OntologyObjectClient:
         *,
         select: typing.List[ontologies_models.PropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -400,6 +417,8 @@ class OntologyObjectClient:
         :type select: List[PropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -426,6 +445,7 @@ class OntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -530,6 +550,7 @@ class AsyncOntologyObjectClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -552,6 +573,8 @@ class AsyncOntologyObjectClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param where:
@@ -568,6 +591,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/aggregate",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -609,6 +633,7 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -624,6 +649,8 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param package_name: The package name of the generated SDK.
         :type package_name: Optional[SdkPackageName]
         :param request_timeout: timeout setting for this request in seconds.
@@ -638,6 +665,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={
@@ -665,6 +693,7 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         primary_key: ontologies_models.PropertyValueEscapedString,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -683,6 +712,8 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
+        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -702,6 +733,7 @@ class AsyncOntologyObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -733,6 +765,7 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -766,6 +799,8 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -792,6 +827,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
                     "packageName": package_name,
@@ -826,6 +862,7 @@ class AsyncOntologyObjectClient:
         *,
         select: typing.List[ontologies_models.PropertyApiName],
         artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
@@ -871,6 +908,8 @@ class AsyncOntologyObjectClient:
         :type select: List[PropertyApiName]
         :param artifact_repository: The repository associated with a marketplace installation.
         :type artifact_repository: Optional[ArtifactRepositoryRid]
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -897,6 +936,7 @@ class AsyncOntologyObjectClient:
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
                     "artifactRepository": artifact_repository,
+                    "branch": branch,
                     "packageName": package_name,
                 },
                 path_params={

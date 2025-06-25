@@ -58,6 +58,7 @@ class LinkedObjectClient:
         link_type: ontologies_models.LinkTypeApiName,
         linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -82,6 +83,8 @@ class LinkedObjectClient:
         :type link_type: LinkTypeApiName
         :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -101,6 +104,7 @@ class LinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -135,6 +139,7 @@ class LinkedObjectClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         link_type: ontologies_models.LinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -171,6 +176,8 @@ class LinkedObjectClient:
         :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
+        :param branch: The Foundry branch to list linked objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -198,6 +205,7 @@ class LinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
                     "pageSize": page_size,
@@ -284,6 +292,7 @@ class AsyncLinkedObjectClient:
         link_type: ontologies_models.LinkTypeApiName,
         linked_object_primary_key: ontologies_models.PropertyValueEscapedString,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
@@ -308,6 +317,8 @@ class AsyncLinkedObjectClient:
         :type link_type: LinkTypeApiName
         :param linked_object_primary_key: The primary key of the requested linked object. To look up the expected primary key for your object type, use the `Get object type` endpoint (passing the linked object type) or the **Ontology Manager**.
         :type linked_object_primary_key: PropertyValueEscapedString
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param sdk_package_rid: The package rid of the generated SDK.
@@ -327,6 +338,7 @@ class AsyncLinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}/{linkedObjectPrimaryKey}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -361,6 +373,7 @@ class AsyncLinkedObjectClient:
         primary_key: ontologies_models.PropertyValueEscapedString,
         link_type: ontologies_models.LinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -397,6 +410,8 @@ class AsyncLinkedObjectClient:
         :type primary_key: PropertyValueEscapedString
         :param link_type: The API name of the link that exists between the object and the requested objects. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
+        :param branch: The Foundry branch to list linked objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -424,6 +439,7 @@ class AsyncLinkedObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/{primaryKey}/links/{linkType}",
                 query_params={
+                    "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
                     "pageSize": page_size,

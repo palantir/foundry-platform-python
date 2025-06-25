@@ -58,6 +58,7 @@ class OntologyInterfaceClient:
         aggregation: typing.List[ontologies_models.AggregationV2],
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -88,6 +89,8 @@ class OntologyInterfaceClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
@@ -103,6 +106,7 @@ class OntologyInterfaceClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -378,6 +382,7 @@ class OntologyInterfaceClient:
         other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
         selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
         selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -438,6 +443,8 @@ class OntologyInterfaceClient:
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
         :type selected_shared_property_types: List[SharedPropertyTypeApiName]
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -459,6 +466,7 @@ class OntologyInterfaceClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/search",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -590,6 +598,7 @@ class AsyncOntologyInterfaceClient:
         aggregation: typing.List[ontologies_models.AggregationV2],
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -620,6 +629,8 @@ class AsyncOntologyInterfaceClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param where:
@@ -635,6 +646,7 @@ class AsyncOntologyInterfaceClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/aggregate",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={
@@ -910,6 +922,7 @@ class AsyncOntologyInterfaceClient:
         other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
         selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
         selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -970,6 +983,8 @@ class AsyncOntologyInterfaceClient:
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
         :type selected_shared_property_types: List[SharedPropertyTypeApiName]
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -991,6 +1006,7 @@ class AsyncOntologyInterfaceClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/interfaces/{interfaceType}/search",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                 },
                 path_params={

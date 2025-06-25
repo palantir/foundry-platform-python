@@ -571,6 +571,7 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | Marking | [**get**](docs/v2/Admin/Marking.md#get) | **GET** /v2/admin/markings/{markingId} |
 **Admin** | Marking | [**get_batch**](docs/v2/Admin/Marking.md#get_batch) | **POST** /v2/admin/markings/getBatch |
 **Admin** | Marking | [**list**](docs/v2/Admin/Marking.md#list) | **GET** /v2/admin/markings |
+**Admin** | Marking | [**replace**](docs/v2/Admin/Marking.md#replace) | **PUT** /v2/admin/markings/{markingId} |
 **Admin** | MarkingCategory | [**get**](docs/v2/Admin/MarkingCategory.md#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} |
 **Admin** | MarkingCategory | [**list**](docs/v2/Admin/MarkingCategory.md#list) | **GET** /v2/admin/markingCategories |
 **Admin** | MarkingMember | [**add**](docs/v2/Admin/MarkingMember.md#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add |
@@ -1781,6 +1782,8 @@ Namespace | Name | Import |
 **Ontologies** | [GroupMemberConstraint](docs/v1/Ontologies/models/GroupMemberConstraint.md) | `from foundry_sdk.v1.ontologies.models import GroupMemberConstraint` |
 **Ontologies** | [GteQuery](docs/v1/Ontologies/models/GteQuery.md) | `from foundry_sdk.v1.ontologies.models import GteQuery` |
 **Ontologies** | [GtQuery](docs/v1/Ontologies/models/GtQuery.md) | `from foundry_sdk.v1.ontologies.models import GtQuery` |
+**Ontologies** | [InterfaceLinkTypeApiName](docs/v1/Ontologies/models/InterfaceLinkTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import InterfaceLinkTypeApiName` |
+**Ontologies** | [InterfaceLinkTypeRid](docs/v1/Ontologies/models/InterfaceLinkTypeRid.md) | `from foundry_sdk.v1.ontologies.models import InterfaceLinkTypeRid` |
 **Ontologies** | [InterfaceTypeApiName](docs/v1/Ontologies/models/InterfaceTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeApiName` |
 **Ontologies** | [InterfaceTypeRid](docs/v1/Ontologies/models/InterfaceTypeRid.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeRid` |
 **Ontologies** | [IsNullQuery](docs/v1/Ontologies/models/IsNullQuery.md) | `from foundry_sdk.v1.ontologies.models import IsNullQuery` |
@@ -1894,7 +1897,6 @@ Namespace | Name | Import |
 **Admin** | CannotReplaceProviderInfoForPrincipalInProtectedRealm | `from foundry_sdk.v2.admin.errors import CannotReplaceProviderInfoForPrincipalInProtectedRealm` |
 **Admin** | CreateGroupPermissionDenied | `from foundry_sdk.v2.admin.errors import CreateGroupPermissionDenied` |
 **Admin** | CreateMarkingMissingInitialAdminRole | `from foundry_sdk.v2.admin.errors import CreateMarkingMissingInitialAdminRole` |
-**Admin** | CreateMarkingNameInCategoryAlreadyExists | `from foundry_sdk.v2.admin.errors import CreateMarkingNameInCategoryAlreadyExists` |
 **Admin** | CreateMarkingPermissionDenied | `from foundry_sdk.v2.admin.errors import CreateMarkingPermissionDenied` |
 **Admin** | DeleteGroupPermissionDenied | `from foundry_sdk.v2.admin.errors import DeleteGroupPermissionDenied` |
 **Admin** | DeleteUserPermissionDenied | `from foundry_sdk.v2.admin.errors import DeleteUserPermissionDenied` |
@@ -1920,6 +1922,8 @@ Namespace | Name | Import |
 **Admin** | ListMarkingRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import ListMarkingRoleAssignmentsPermissionDenied` |
 **Admin** | ListOrganizationRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import ListOrganizationRoleAssignmentsPermissionDenied` |
 **Admin** | MarkingCategoryNotFound | `from foundry_sdk.v2.admin.errors import MarkingCategoryNotFound` |
+**Admin** | MarkingNameInCategoryAlreadyExists | `from foundry_sdk.v2.admin.errors import MarkingNameInCategoryAlreadyExists` |
+**Admin** | MarkingNameIsEmpty | `from foundry_sdk.v2.admin.errors import MarkingNameIsEmpty` |
 **Admin** | MarkingNotFound | `from foundry_sdk.v2.admin.errors import MarkingNotFound` |
 **Admin** | OrganizationNotFound | `from foundry_sdk.v2.admin.errors import OrganizationNotFound` |
 **Admin** | PreregisterGroupPermissionDenied | `from foundry_sdk.v2.admin.errors import PreregisterGroupPermissionDenied` |
@@ -1932,6 +1936,7 @@ Namespace | Name | Import |
 **Admin** | RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed | `from foundry_sdk.v2.admin.errors import RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed` |
 **Admin** | RemoveOrganizationRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveOrganizationRoleAssignmentsPermissionDenied` |
 **Admin** | ReplaceGroupProviderInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceGroupProviderInfoPermissionDenied` |
+**Admin** | ReplaceMarkingPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceMarkingPermissionDenied` |
 **Admin** | ReplaceOrganizationPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceOrganizationPermissionDenied` |
 **Admin** | ReplaceUserProviderInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceUserProviderInfoPermissionDenied` |
 **Admin** | RevokeAllTokensUserPermissionDenied | `from foundry_sdk.v2.admin.errors import RevokeAllTokensUserPermissionDenied` |
@@ -2156,6 +2161,7 @@ Namespace | Name | Import |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry_sdk.v2.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry_sdk.v2.ontologies.errors import FunctionInvalidInput` |
 **Ontologies** | HighScaleComputationNotEnabled | `from foundry_sdk.v2.ontologies.errors import HighScaleComputationNotEnabled` |
+**Ontologies** | InterfaceLinkTypeNotFound | `from foundry_sdk.v2.ontologies.errors import InterfaceLinkTypeNotFound` |
 **Ontologies** | InterfaceTypeNotFound | `from foundry_sdk.v2.ontologies.errors import InterfaceTypeNotFound` |
 **Ontologies** | InterfaceTypesNotFound | `from foundry_sdk.v2.ontologies.errors import InterfaceTypesNotFound` |
 **Ontologies** | InvalidAggregationOrdering | `from foundry_sdk.v2.ontologies.errors import InvalidAggregationOrdering` |
@@ -2384,6 +2390,7 @@ Namespace | Name | Import |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry_sdk.v1.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry_sdk.v1.ontologies.errors import FunctionInvalidInput` |
 **Ontologies** | HighScaleComputationNotEnabled | `from foundry_sdk.v1.ontologies.errors import HighScaleComputationNotEnabled` |
+**Ontologies** | InterfaceLinkTypeNotFound | `from foundry_sdk.v1.ontologies.errors import InterfaceLinkTypeNotFound` |
 **Ontologies** | InterfaceTypeNotFound | `from foundry_sdk.v1.ontologies.errors import InterfaceTypeNotFound` |
 **Ontologies** | InterfaceTypesNotFound | `from foundry_sdk.v1.ontologies.errors import InterfaceTypesNotFound` |
 **Ontologies** | InvalidAggregationOrdering | `from foundry_sdk.v1.ontologies.errors import InvalidAggregationOrdering` |
