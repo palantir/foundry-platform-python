@@ -617,6 +617,17 @@ class GteQuery(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+InterfaceLinkTypeApiName = str
+"""
+The name of the interface link type in the API. To find the API name for your Interface Link Type, check the 
+[Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
+"""
+
+
+InterfaceLinkTypeRid = core.RID
+"""The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
+
+
 InterfaceTypeApiName = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
@@ -1874,6 +1885,8 @@ __all__ = [
     "GroupMemberConstraint",
     "GtQuery",
     "GteQuery",
+    "InterfaceLinkTypeApiName",
+    "InterfaceLinkTypeRid",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
     "IsNullQuery",

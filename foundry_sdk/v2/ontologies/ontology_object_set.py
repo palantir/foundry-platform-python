@@ -58,6 +58,7 @@ class OntologyObjectSetClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -78,6 +79,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -93,6 +96,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -236,6 +240,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -264,6 +269,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -289,6 +296,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -336,6 +344,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -370,6 +379,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -397,6 +408,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -445,6 +457,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -481,6 +494,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -508,6 +523,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -634,6 +650,7 @@ class AsyncOntologyObjectSetClient:
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -654,6 +671,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -669,6 +688,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -812,6 +832,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -840,6 +861,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -865,6 +888,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -912,6 +936,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -946,6 +971,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -973,6 +1000,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
@@ -1021,6 +1049,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
@@ -1057,6 +1086,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+        :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
@@ -1084,6 +1115,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces",
                 query_params={
+                    "branch": branch,
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,

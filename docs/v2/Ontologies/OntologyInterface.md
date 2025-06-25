@@ -34,6 +34,7 @@ Name | Type | Description  | Notes |
 **aggregation** | List[AggregationV2] |  |  |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
@@ -69,6 +70,8 @@ group_by = [
 ]
 # Optional[AggregationAccuracyRequest]
 accuracy = None
+# Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SearchJsonQueryV2]
@@ -82,6 +85,7 @@ try:
         aggregation=aggregation,
         group_by=group_by,
         accuracy=accuracy,
+        branch=branch,
         preview=preview,
         where=where,
     )
@@ -404,6 +408,7 @@ Name | Type | Description  | Notes |
 **other_interface_types** | List[InterfaceTypeApiName] | A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.  |  |
 **selected_object_types** | List[ObjectTypeApiName] | A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.  |  |
 **selected_shared_property_types** | List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -436,6 +441,8 @@ other_interface_types = None
 selected_object_types = None
 # List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
 selected_shared_property_types = None
+# Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.
+branch = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -457,6 +464,7 @@ try:
         other_interface_types=other_interface_types,
         selected_object_types=selected_object_types,
         selected_shared_property_types=selected_shared_property_types,
+        branch=branch,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,

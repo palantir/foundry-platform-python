@@ -750,6 +750,33 @@ def admin_marking_list(
     click.echo(repr(result))
 
 
+@admin_marking.command("replace")
+@click.argument("marking_id", type=str, required=True)
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_replace(
+    client: FoundryClient,
+    marking_id: str,
+    name: str,
+    description: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the Marking with the specified id.
+    """
+    result = client.admin.Marking.replace(
+        marking_id=marking_id,
+        name=name,
+        description=description,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_marking.group("marking_role_assignment")
 def admin_marking_marking_role_assignment():
     pass
@@ -4919,6 +4946,13 @@ def ontologies_ontology_object_set():
     help="""""",
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -4940,6 +4974,7 @@ def ontologies_ontology_object_set_aggregate(
     group_by: str,
     object_set: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -4955,6 +4990,7 @@ def ontologies_ontology_object_set_aggregate(
         group_by=json.loads(group_by),
         object_set=json.loads(object_set),
         accuracy=accuracy,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -5011,6 +5047,13 @@ def ontologies_ontology_object_set_get(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object set from. If not specified, the default branch is used.
+""",
+)
+@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -5051,6 +5094,7 @@ def ontologies_ontology_object_set_load(
     ontology: str,
     object_set: str,
     select: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -5076,6 +5120,7 @@ def ontologies_ontology_object_set_load(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
@@ -5091,6 +5136,13 @@ def ontologies_ontology_object_set_load(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -5139,6 +5191,7 @@ def ontologies_ontology_object_set_load_multiple_object_types(
     ontology: str,
     object_set: str,
     select: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -5170,6 +5223,7 @@ def ontologies_ontology_object_set_load_multiple_object_types(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
@@ -5186,6 +5240,13 @@ def ontologies_ontology_object_set_load_multiple_object_types(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -5234,6 +5295,7 @@ def ontologies_ontology_object_set_load_objects_or_interfaces(
     ontology: str,
     object_set: str,
     select: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -5267,6 +5329,7 @@ def ontologies_ontology_object_set_load_objects_or_interfaces(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
@@ -5303,6 +5366,13 @@ def ontologies_ontology_object():
 """,
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--package_name",
     type=str,
     required=False,
@@ -5319,6 +5389,7 @@ def ontologies_ontology_object_aggregate(
     group_by: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     package_name: typing.Optional[str],
     where: typing.Optional[str],
 ):
@@ -5335,6 +5406,7 @@ def ontologies_ontology_object_aggregate(
         group_by=json.loads(group_by),
         accuracy=accuracy,
         artifact_repository=artifact_repository,
+        branch=branch,
         package_name=package_name,
         where=None if where is None else json.loads(where),
     )
@@ -5352,6 +5424,13 @@ def ontologies_ontology_object_aggregate(
 """,
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to count the objects from. If not specified, the default branch is used.
+""",
+)
+@click.option(
     "--package_name",
     type=str,
     required=False,
@@ -5364,6 +5443,7 @@ def ontologies_ontology_object_count(
     ontology: str,
     object_type: str,
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     package_name: typing.Optional[str],
 ):
     """
@@ -5376,6 +5456,7 @@ def ontologies_ontology_object_count(
         ontology=ontology,
         object_type=object_type,
         artifact_repository=artifact_repository,
+        branch=branch,
         package_name=package_name,
     )
     click.echo(repr(result))
@@ -5385,6 +5466,13 @@ def ontologies_ontology_object_count(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the object from. If not specified, the default branch is used.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -5421,6 +5509,7 @@ def ontologies_ontology_object_get(
     ontology: str,
     object_type: str,
     primary_key: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -5436,6 +5525,7 @@ def ontologies_ontology_object_get(
         ontology=ontology,
         object_type=object_type,
         primary_key=primary_key,
+        branch=branch,
         exclude_rid=exclude_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -5452,6 +5542,13 @@ def ontologies_ontology_object_get(
     type=str,
     required=False,
     help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list objects from. If not specified, the default branch will be used.
 """,
 )
 @click.option(
@@ -5503,6 +5600,7 @@ def ontologies_ontology_object_list(
     ontology: str,
     object_type: str,
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     package_name: typing.Optional[str],
@@ -5533,6 +5631,7 @@ def ontologies_ontology_object_list(
         ontology=ontology,
         object_type=object_type,
         artifact_repository=artifact_repository,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         package_name=package_name,
@@ -5559,6 +5658,13 @@ def ontologies_ontology_object_list(
     type=str,
     required=False,
     help="""The repository associated with a marketplace installation.
+""",
+)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to search objects from. If not specified, the default branch will be used.
 """,
 )
 @click.option(
@@ -5597,6 +5703,7 @@ def ontologies_ontology_object_search(
     object_type: str,
     select: str,
     artifact_repository: typing.Optional[str],
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     package_name: typing.Optional[str],
@@ -5638,6 +5745,7 @@ def ontologies_ontology_object_search(
         object_type=object_type,
         select=json.loads(select),
         artifact_repository=artifact_repository,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
         package_name=package_name,
@@ -5666,6 +5774,13 @@ def ontologies_ontology_interface():
     help="""""",
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -5681,6 +5796,7 @@ def ontologies_ontology_interface_aggregate(
     aggregation: str,
     group_by: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     where: typing.Optional[str],
 ):
@@ -5706,6 +5822,7 @@ def ontologies_ontology_interface_aggregate(
         aggregation=json.loads(aggregation),
         group_by=json.loads(group_by),
         accuracy=accuracy,
+        branch=branch,
         preview=preview,
         where=None if where is None else json.loads(where),
     )
@@ -5901,6 +6018,13 @@ parameter to include all object types.
 Omit this parameter to include all properties of the interface type in the response.
 """,
 )
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to search objects from. If not specified, the default branch will be used.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5922,6 +6046,7 @@ def ontologies_ontology_interface_search(
     other_interface_types: str,
     selected_object_types: str,
     selected_shared_property_types: str,
+    branch: typing.Optional[str],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5975,6 +6100,7 @@ def ontologies_ontology_interface_search(
         other_interface_types=json.loads(other_interface_types),
         selected_object_types=json.loads(selected_object_types),
         selected_shared_property_types=json.loads(selected_shared_property_types),
+        branch=branch,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -6223,6 +6349,20 @@ def ontologies_ontology_object_type_get(
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_get_full_metadata(
     client: FoundryClient,
@@ -6230,6 +6370,8 @@ def ontologies_ontology_object_type_get_full_metadata(
     object_type: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Gets the full metadata for a specific object type with the given API name.
@@ -6242,6 +6384,8 @@ def ontologies_ontology_object_type_get_full_metadata(
         object_type=object_type,
         branch=branch,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -6678,6 +6822,13 @@ def ontologies_linked_object():
 @click.argument("link_type", type=str, required=True)
 @click.argument("linked_object_primary_key", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+""",
+)
+@click.option(
     "--exclude_rid",
     type=bool,
     required=False,
@@ -6715,6 +6866,7 @@ def ontologies_linked_object_get_linked_object(
     primary_key: str,
     link_type: str,
     linked_object_primary_key: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
@@ -6734,6 +6886,7 @@ def ontologies_linked_object_get_linked_object(
         primary_key=primary_key,
         link_type=link_type,
         linked_object_primary_key=linked_object_primary_key,
+        branch=branch,
         exclude_rid=exclude_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
@@ -6747,6 +6900,13 @@ def ontologies_linked_object_get_linked_object(
 @click.argument("object_type", type=str, required=True)
 @click.argument("primary_key", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list linked objects from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--exclude_rid",
     type=bool,
@@ -6804,6 +6964,7 @@ def ontologies_linked_object_list_linked_objects(
     object_type: str,
     primary_key: str,
     link_type: str,
+    branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
@@ -6836,6 +6997,7 @@ def ontologies_linked_object_list_linked_objects(
         object_type=object_type,
         primary_key=primary_key,
         link_type=link_type,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         page_size=page_size,

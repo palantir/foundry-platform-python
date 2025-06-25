@@ -373,7 +373,13 @@ partitions_count = 1
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[StreamSchema] | The Foundry schema to apply to the new stream.   If omitted, the schema of the existing stream on the branch will be used.
-schema = None
+schema = {
+    "fields": [
+        {"name": "timestamp", "schema": {"nullable": False, "dataType": {"type": "timestamp"}}},
+        {"name": "value", "schema": {"nullable": False, "dataType": {"type": "string"}}},
+    ],
+    "keyFieldNames": ["timestamp"],
+}
 # Optional[StreamType] | A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.  If omitted, the stream type of the existing stream on the branch will be used.
 stream_type = "LOW_LATENCY"
 

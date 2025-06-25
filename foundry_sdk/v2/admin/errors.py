@@ -142,22 +142,6 @@ class CreateMarkingMissingInitialAdminRole(errors.BadRequestError):
     error_instance_id: str
 
 
-class CreateMarkingNameInCategoryAlreadyExistsParameters(typing_extensions.TypedDict):
-    """A marking with the same name already exists in the category."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    displayName: str
-    categoryId: admin_models.MarkingCategoryId
-
-
-@dataclass
-class CreateMarkingNameInCategoryAlreadyExists(errors.BadRequestError):
-    name: typing.Literal["CreateMarkingNameInCategoryAlreadyExists"]
-    parameters: CreateMarkingNameInCategoryAlreadyExistsParameters
-    error_instance_id: str
-
-
 class CreateMarkingPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Marking."""
 
@@ -528,6 +512,35 @@ class MarkingCategoryNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MarkingNameInCategoryAlreadyExistsParameters(typing_extensions.TypedDict):
+    """A marking with the same name already exists in the category."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    displayName: str
+    categoryId: admin_models.MarkingCategoryId
+
+
+@dataclass
+class MarkingNameInCategoryAlreadyExists(errors.BadRequestError):
+    name: typing.Literal["MarkingNameInCategoryAlreadyExists"]
+    parameters: MarkingNameInCategoryAlreadyExistsParameters
+    error_instance_id: str
+
+
+class MarkingNameIsEmptyParameters(typing_extensions.TypedDict):
+    """The marking name is empty."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class MarkingNameIsEmpty(errors.BadRequestError):
+    name: typing.Literal["MarkingNameIsEmpty"]
+    parameters: MarkingNameIsEmptyParameters
+    error_instance_id: str
+
+
 class MarkingNotFoundParameters(typing_extensions.TypedDict):
     """The given Marking could not be found."""
 
@@ -713,6 +726,21 @@ class ReplaceGroupProviderInfoPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceMarkingPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Marking."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    markingId: core_models.MarkingId
+
+
+@dataclass
+class ReplaceMarkingPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceMarkingPermissionDenied"]
+    parameters: ReplaceMarkingPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceOrganizationPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Organization."""
 
@@ -838,7 +866,6 @@ __all__ = [
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CreateGroupPermissionDenied",
     "CreateMarkingMissingInitialAdminRole",
-    "CreateMarkingNameInCategoryAlreadyExists",
     "CreateMarkingPermissionDenied",
     "DeleteGroupPermissionDenied",
     "DeleteUserPermissionDenied",
@@ -864,6 +891,8 @@ __all__ = [
     "ListMarkingRoleAssignmentsPermissionDenied",
     "ListOrganizationRoleAssignmentsPermissionDenied",
     "MarkingCategoryNotFound",
+    "MarkingNameInCategoryAlreadyExists",
+    "MarkingNameIsEmpty",
     "MarkingNotFound",
     "OrganizationNotFound",
     "PreregisterGroupPermissionDenied",
@@ -876,6 +905,7 @@ __all__ = [
     "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
     "RemoveOrganizationRoleAssignmentsPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
+    "ReplaceMarkingPermissionDenied",
     "ReplaceOrganizationPermissionDenied",
     "ReplaceUserProviderInfoPermissionDenied",
     "RevokeAllTokensUserPermissionDenied",

@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/markings/{markingId} | Public Beta |
 [**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Public Beta |
 [**list**](#list) | **GET** /v2/admin/markings | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/markings/{markingId} | Public Beta |
 
 # **create**
 Creates a new Marking.
@@ -231,6 +232,64 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListMarkingsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the Marking with the specified id.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_id** | MarkingId |  |  |
+**name** | MarkingName |  |  |
+**description** | Optional[str] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**Marking**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MarkingId
+marking_id = None
+# MarkingName
+name = "PII"
+# Optional[str]
+description = "Contains personally identifiable information about our customers"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.Marking.replace(
+        marking_id, name=name, description=description, preview=preview
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Marking.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Marking  | The replaced Marking | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

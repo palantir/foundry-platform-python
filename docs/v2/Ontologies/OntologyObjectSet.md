@@ -24,6 +24,7 @@ Name | Type | Description  | Notes |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
@@ -49,6 +50,8 @@ group_by = None
 object_set = None
 # Optional[AggregationAccuracyRequest]
 accuracy = None
+# Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -62,6 +65,7 @@ try:
         group_by=group_by,
         object_set=object_set,
         accuracy=accuracy,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -214,6 +218,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -240,6 +245,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
@@ -261,6 +268,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         page_size=page_size,
@@ -314,6 +322,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -341,6 +350,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
@@ -364,6 +375,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         page_size=page_size,
@@ -420,6 +432,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -447,6 +460,8 @@ ontology = "palantir"
 object_set = {"type": "base", "interfaceBase": "Person"}
 # List[SelectedPropertyApiName]
 select = None
+# Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
@@ -470,6 +485,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
         page_size=page_size,

@@ -435,6 +435,26 @@ class HighScaleComputationNotEnabled(errors.InternalServerError):
     error_instance_id: str
 
 
+class InterfaceLinkTypeNotFoundParameters(typing_extensions.TypedDict):
+    """The requested interface link type is not found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceTypeApiName: typing_extensions.NotRequired[ontologies_models.InterfaceTypeApiName]
+    interfaceTypeRid: typing_extensions.NotRequired[ontologies_models.InterfaceTypeRid]
+    interfaceLinkTypeApiName: typing_extensions.NotRequired[
+        ontologies_models.InterfaceLinkTypeApiName
+    ]
+    interfaceLinkTypeRid: typing_extensions.NotRequired[ontologies_models.InterfaceLinkTypeRid]
+
+
+@dataclass
+class InterfaceLinkTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfaceLinkTypeNotFound"]
+    parameters: InterfaceLinkTypeNotFoundParameters
+    error_instance_id: str
+
+
 class InterfaceTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested interface type is not found, or the client token does not have access to it."""
 
@@ -2009,6 +2029,7 @@ __all__ = [
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
+    "InterfaceLinkTypeNotFound",
     "InterfaceTypeNotFound",
     "InterfaceTypesNotFound",
     "InvalidAggregationOrdering",
