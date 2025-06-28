@@ -120,13 +120,13 @@
           "GeometryCollection"
         ],
         "Ontologies": [
-          "QueryTwoDimensionalAggregation",
-          "QueryThreeDimensionalAggregation",
-          "NestedQueryAggregation",
-          "QueryAggregation",
           "DerivedPropertyDefinition",
           "DerivedPropertyApiName",
           "MethodObjectSet",
+          "NestedQueryAggregation",
+          "QueryTwoDimensionalAggregation",
+          "QueryThreeDimensionalAggregation",
+          "QueryAggregation",
           "SelectedPropertyOperation",
           "SelectedPropertyMaxAggregation",
           "SelectedPropertyMinAggregation",
