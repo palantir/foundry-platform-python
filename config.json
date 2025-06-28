@@ -120,6 +120,10 @@
           "GeometryCollection"
         ],
         "Ontologies": [
+          "QueryTwoDimensionalAggregation",
+          "QueryThreeDimensionalAggregation",
+          "NestedQueryAggregation",
+          "QueryAggregation",
           "DerivedPropertyDefinition",
           "DerivedPropertyApiName",
           "MethodObjectSet",
