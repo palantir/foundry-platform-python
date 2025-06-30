@@ -62,8 +62,6 @@ class MediaSetClient:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -112,8 +110,6 @@ class MediaSetClient:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -161,8 +157,6 @@ class MediaSetClient:
     ) -> media_sets_models.TransactionId:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -216,8 +210,6 @@ class MediaSetClient:
     ) -> media_sets_models.GetMediaItemRidByPathResponse:
         """
         Returns the media item RID for the media item with the specified path.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -279,8 +271,6 @@ class MediaSetClient:
         """
         Gets information about the media item.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -334,8 +324,6 @@ class MediaSetClient:
     ) -> bytes:
         """
         Gets the content of a media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -391,8 +379,6 @@ class MediaSetClient:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
@@ -446,8 +432,6 @@ class MediaSetClient:
     ) -> core_models.MediaReference:
         """
         Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -508,8 +492,6 @@ class MediaSetClient:
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -642,8 +624,6 @@ class AsyncMediaSetClient:
         """
         Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -692,8 +672,6 @@ class AsyncMediaSetClient:
         """
         Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param transaction_id:
@@ -741,8 +719,6 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[media_sets_models.TransactionId]:
         """
         Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -796,8 +772,6 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[media_sets_models.GetMediaItemRidByPathResponse]:
         """
         Returns the media item RID for the media item with the specified path.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -859,8 +833,6 @@ class AsyncMediaSetClient:
         """
         Gets information about the media item.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
         :param media_item_rid: The RID of the media item.
@@ -914,8 +886,6 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[bytes]:
         """
         Gets the content of a media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
@@ -971,8 +941,6 @@ class AsyncMediaSetClient:
         """
         Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
         :param media_set_rid:
         :type media_set_rid: MediaSetRid
         :param media_item_rid:
@@ -1026,8 +994,6 @@ class AsyncMediaSetClient:
     ) -> typing.Awaitable[core_models.MediaReference]:
         """
         Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
         :param media_set_rid: The RID of the media set.
         :type media_set_rid: MediaSetRid
@@ -1088,8 +1054,6 @@ class AsyncMediaSetClient:
         Uploads a media item to an existing media set.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
         A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
         :param media_set_rid:
         :type media_set_rid: MediaSetRid

@@ -64,8 +64,6 @@ class OntologyObjectClient:
         """
         Perform functions on object fields in the specified ontology and object type.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
         :param object_type: The type of the object to aggregate on.
@@ -131,8 +129,6 @@ class OntologyObjectClient:
         """
         Gets a specific object with the given primary key.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -189,8 +185,6 @@ class OntologyObjectClient:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
         LinkedObjectNotFound is thrown.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -268,8 +262,6 @@ class OntologyObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -349,8 +341,6 @@ class OntologyObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -441,8 +431,6 @@ class OntologyObjectClient:
 
         Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
         Partial terms are not matched by terms filters except where explicitly noted.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
@@ -582,8 +570,6 @@ class AsyncOntologyObjectClient:
         """
         Perform functions on object fields in the specified ontology and object type.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid
         :param object_type: The type of the object to aggregate on.
@@ -649,8 +635,6 @@ class AsyncOntologyObjectClient:
         """
         Gets a specific object with the given primary key.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -707,8 +691,6 @@ class AsyncOntologyObjectClient:
         """
         Get a specific linked object that originates from another object. If there is no link between the two objects,
         LinkedObjectNotFound is thrown.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -786,8 +768,6 @@ class AsyncOntologyObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -867,8 +847,6 @@ class AsyncOntologyObjectClient:
         in the response.
 
         Note that null value properties will not be returned.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -959,8 +937,6 @@ class AsyncOntologyObjectClient:
 
         Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
         Partial terms are not matched by terms filters except where explicitly noted.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the objects.
         :type ontology_rid: OntologyRid

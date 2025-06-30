@@ -79,8 +79,6 @@ def datasets_dataset_create(
     """
     Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.create(
         name=name,
@@ -136,8 +134,6 @@ def datasets_dataset_get(
 ):
     """
     Gets the Dataset with the given DatasetRid.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
     """
     result = client.datasets.Dataset.get(
@@ -238,8 +234,6 @@ def datasets_dataset_read(
 
     This endpoint currently does not support views (Virtual datasets composed of other datasets).
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
     """
     result = client.datasets.Dataset.read(
         dataset_rid=dataset_rid,
@@ -303,8 +297,6 @@ def datasets_dataset_transaction_abort(
     Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
     not updated.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.Transaction.abort(
         dataset_rid=dataset_rid,
@@ -325,8 +317,6 @@ def datasets_dataset_transaction_commit(
     """
     Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
     updated to point to the Transaction.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
     """
     result = client.datasets.Dataset.Transaction.commit(
@@ -361,8 +351,6 @@ def datasets_dataset_transaction_create(
     """
     Creates a Transaction on a Branch of a Dataset.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.Transaction.create(
         dataset_rid=dataset_rid,
@@ -383,8 +371,6 @@ def datasets_dataset_transaction_get(
 ):
     """
     Gets a Transaction of a Dataset.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
     """
     result = client.datasets.Dataset.Transaction.get(
@@ -437,8 +423,6 @@ def datasets_dataset_file_delete(
     as `transactionRid`. The transaction must be of type `DELETE`. This is useful for deleting multiple files in a
     single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
     open a transaction.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
     """
     result = client.datasets.Dataset.File.delete(
@@ -503,8 +487,6 @@ def datasets_dataset_file_get(
 
     To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
     `startTransactionRid` and `endTransactionRid`.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
     """
     result = client.datasets.Dataset.File.get(
@@ -582,8 +564,6 @@ def datasets_dataset_file_list(
     `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
     Transaction.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
     """
     result = client.datasets.Dataset.File.list(
         dataset_rid=dataset_rid,
@@ -651,8 +631,6 @@ def datasets_dataset_file_read(
     To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
     `startTransactionRid` and `endTransactionRid`.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
     """
     result = client.datasets.Dataset.File.read(
         dataset_rid=dataset_rid,
@@ -718,8 +696,6 @@ def datasets_dataset_file_upload(
     `transactionRid`. This is useful for uploading multiple files in a single transaction.
     See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.File.upload(
         dataset_rid=dataset_rid,
@@ -751,8 +727,6 @@ def datasets_dataset_branch_create(
     """
     Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.Branch.create(
         dataset_rid=dataset_rid,
@@ -774,8 +748,6 @@ def datasets_dataset_branch_delete(
     """
     Deletes the Branch with the given BranchId.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
     """
     result = client.datasets.Dataset.Branch.delete(
         dataset_rid=dataset_rid,
@@ -795,8 +767,6 @@ def datasets_dataset_branch_get(
 ):
     """
     Get a Branch of a Dataset.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
     """
     result = client.datasets.Dataset.Branch.get(
@@ -826,8 +796,6 @@ def datasets_dataset_branch_list(
 ):
     """
     Lists the Branches of a Dataset.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
     """
     result = client.datasets.Dataset.Branch.list(
@@ -866,8 +834,6 @@ def ontologies_query_execute(
 ):
     """
     Executes a Query using the given parameters. Optional parameters do not need to be supplied.
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Query.execute(
@@ -900,8 +866,6 @@ def ontologies_ontology_object_aggregate(
 ):
     """
     Perform functions on object fields in the specified ontology and object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.aggregate(
@@ -936,8 +900,6 @@ def ontologies_ontology_object_get(
 ):
     """
     Gets a specific object with the given primary key.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.get(
@@ -976,8 +938,6 @@ def ontologies_ontology_object_get_linked_object(
     """
     Get a specific linked object that originates from another object. If there is no link between the two objects,
     LinkedObjectNotFound is thrown.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.get_linked_object(
@@ -1039,8 +999,6 @@ def ontologies_ontology_object_list(
     in the response.
 
     Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.list(
@@ -1107,8 +1065,6 @@ def ontologies_ontology_object_list_linked_objects(
 
     Note that null value properties will not be returned.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObject.list_linked_objects(
         ontology_rid=ontology_rid,
@@ -1172,8 +1128,6 @@ def ontologies_ontology_object_search(
     Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
     Partial terms are not matched by terms filters except where explicitly noted.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObject.search(
         ontology_rid=ontology_rid,
@@ -1202,8 +1156,6 @@ def ontologies_ontology_get(
     """
     Gets a specific ontology with the given Ontology RID.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.get(
         ontology_rid=ontology_rid,
@@ -1218,8 +1170,6 @@ def ontologies_ontology_list(
 ):
     """
     Lists the Ontologies visible to the current user.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.list()
@@ -1242,8 +1192,6 @@ def ontologies_ontology_query_type_get(
 ):
     """
     Gets a specific query type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.QueryType.get(
@@ -1277,8 +1225,6 @@ def ontologies_ontology_query_type_list(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.QueryType.list(
         ontology_rid=ontology_rid,
@@ -1305,8 +1251,6 @@ def ontologies_ontology_object_type_get(
     """
     Gets a specific object type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ObjectType.get(
         ontology_rid=ontology_rid,
@@ -1328,9 +1272,6 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 ):
     """
     Get an outgoing link for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
@@ -1366,8 +1307,6 @@ def ontologies_ontology_object_type_list(
     more results available, at least one result will be present in the
     response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ObjectType.list(
         ontology_rid=ontology_rid,
@@ -1395,9 +1334,6 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
     """
     List the outgoing links for an object type.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
         ontology_rid=ontology_rid,
@@ -1424,8 +1360,6 @@ def ontologies_ontology_action_type_get(
 ):
     """
     Gets a specific action type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.get(
@@ -1459,8 +1393,6 @@ def ontologies_ontology_action_type_list(
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ActionType.list(
         ontology_rid=ontology_rid,
@@ -1485,9 +1417,6 @@ def ontologies_attachment_get(
     """
     Get the metadata of an attachment.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.Attachment.get(
         attachment_rid=attachment_rid,
@@ -1504,9 +1433,6 @@ def ontologies_attachment_read(
 ):
     """
     Get the content of an attachment.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Attachment.read(
@@ -1544,9 +1470,6 @@ def ontologies_attachment_upload(
     a biweekly basis.
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-write`.
-
     """
     result = client.ontologies.Attachment.upload(
         body=body.read(),
@@ -1582,9 +1505,6 @@ def ontologies_action_apply(
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-write`.
-
     """
     result = client.ontologies.Action.apply(
         ontology_rid=ontology_rid,
@@ -1616,9 +1536,6 @@ def ontologies_action_apply_batch(
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
     [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-write`.
-
     """
     result = client.ontologies.Action.apply_batch(
         ontology_rid=ontology_rid,
@@ -1647,9 +1564,6 @@ def ontologies_action_validate(
     For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint. Unspecified parameters will be given a default value of `null`.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Action.validate(

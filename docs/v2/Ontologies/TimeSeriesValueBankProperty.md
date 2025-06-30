@@ -8,9 +8,6 @@ Method | HTTP request | Release Stage |
 # **get_latest_value**
 Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -80,9 +77,6 @@ See [README](../../../README.md#authorization)
 
 # **stream_values**
 Stream all of the points of a time series property (this includes geotime series references).
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

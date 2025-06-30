@@ -40,6 +40,38 @@ class AbortTransactionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not addBackingDatasets the View."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+    """The rid of the View."""
+
+
+@dataclass
+class AddBackingDatasetsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddBackingDatasetsPermissionDenied"]
+    parameters: AddBackingDatasetsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class AddPrimaryKeyPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not addPrimaryKey the View."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+    """The rid of the View."""
+
+
+@dataclass
+class AddPrimaryKeyPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddPrimaryKeyPermissionDenied"]
+    parameters: AddPrimaryKeyPermissionDeniedParameters
+    error_instance_id: str
+
+
 class BranchAlreadyExistsParameters(typing_extensions.TypedDict):
     """The branch cannot be created because a branch with that name already exists."""
 
@@ -164,6 +196,19 @@ class CreateTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 class CreateTransactionPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["CreateTransactionPermissionDenied"]
     parameters: CreateTransactionPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CreateViewPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the View."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateViewPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateViewPermissionDenied"]
+    parameters: CreateViewPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -377,6 +422,19 @@ class InvalidTransactionType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidViewBackingDatasetParameters(typing_extensions.TypedDict):
+    """Either you do not have access to one or more of the backing datasets or it does not exist."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidViewBackingDataset(errors.BadRequestError):
+    name: typing.Literal["InvalidViewBackingDataset"]
+    parameters: InvalidViewBackingDatasetParameters
+    error_instance_id: str
+
+
 class JobTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not job the Transaction."""
 
@@ -489,6 +547,38 @@ class ReadTableTimeout(errors.InternalServerError):
     error_instance_id: str
 
 
+class RemoveBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not removeBackingDatasets the View."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+    """The rid of the View."""
+
+
+@dataclass
+class RemoveBackingDatasetsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveBackingDatasetsPermissionDenied"]
+    parameters: RemoveBackingDatasetsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ReplaceBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replaceBackingDatasets the View."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+    """The rid of the View."""
+
+
+@dataclass
+class ReplaceBackingDatasetsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceBackingDatasetsPermissionDenied"]
+    parameters: ReplaceBackingDatasetsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class SchemaNotFoundParameters(typing_extensions.TypedDict):
     """A schema could not be found for the given dataset and branch, or the client token does not have access to it."""
 
@@ -573,8 +663,68 @@ class UploadFilePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ViewNotFoundParameters(typing_extensions.TypedDict):
+    """
+    The requested View could not be found. Either the view does not exist, the branch is not valid or the
+    client token does not have access to it.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+    branch: datasets_models.BranchName
+
+
+@dataclass
+class ViewNotFound(errors.NotFoundError):
+    name: typing.Literal["ViewNotFound"]
+    parameters: ViewNotFoundParameters
+    error_instance_id: str
+
+
+class ViewPrimaryKeyCannotBeModifiedParameters(typing_extensions.TypedDict):
+    """A primary key already exits."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ViewPrimaryKeyCannotBeModified(errors.ConflictError):
+    name: typing.Literal["ViewPrimaryKeyCannotBeModified"]
+    parameters: ViewPrimaryKeyCannotBeModifiedParameters
+    error_instance_id: str
+
+
+class ViewPrimaryKeyMustContainAtLeastOneColumnParameters(typing_extensions.TypedDict):
+    """No columns were provided as part of the primary key"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ViewPrimaryKeyMustContainAtLeastOneColumn(errors.BadRequestError):
+    name: typing.Literal["ViewPrimaryKeyMustContainAtLeastOneColumn"]
+    parameters: ViewPrimaryKeyMustContainAtLeastOneColumnParameters
+    error_instance_id: str
+
+
+class ViewPrimaryKeyRequiresBackingDatasetsParameters(typing_extensions.TypedDict):
+    """Cannot add a primary key to a View that does not have any backing datasets."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ViewPrimaryKeyRequiresBackingDatasets(errors.BadRequestError):
+    name: typing.Literal["ViewPrimaryKeyRequiresBackingDatasets"]
+    parameters: ViewPrimaryKeyRequiresBackingDatasetsParameters
+    error_instance_id: str
+
+
 __all__ = [
     "AbortTransactionPermissionDenied",
+    "AddBackingDatasetsPermissionDenied",
+    "AddPrimaryKeyPermissionDenied",
     "BranchAlreadyExists",
     "BranchNotFound",
     "BuildTransactionPermissionDenied",
@@ -583,6 +733,7 @@ __all__ = [
     "CreateBranchPermissionDenied",
     "CreateDatasetPermissionDenied",
     "CreateTransactionPermissionDenied",
+    "CreateViewPermissionDenied",
     "DatasetNotFound",
     "DatasetReadNotSupported",
     "DeleteBranchPermissionDenied",
@@ -596,6 +747,7 @@ __all__ = [
     "GetFileContentPermissionDenied",
     "InvalidBranchName",
     "InvalidTransactionType",
+    "InvalidViewBackingDataset",
     "JobTransactionPermissionDenied",
     "OpenTransactionAlreadyExists",
     "PutSchemaPermissionDenied",
@@ -603,9 +755,15 @@ __all__ = [
     "ReadTableError",
     "ReadTableRowLimitExceeded",
     "ReadTableTimeout",
+    "RemoveBackingDatasetsPermissionDenied",
+    "ReplaceBackingDatasetsPermissionDenied",
     "SchemaNotFound",
     "TransactionNotCommitted",
     "TransactionNotFound",
     "TransactionNotOpen",
     "UploadFilePermissionDenied",
+    "ViewNotFound",
+    "ViewPrimaryKeyCannotBeModified",
+    "ViewPrimaryKeyMustContainAtLeastOneColumn",
+    "ViewPrimaryKeyRequiresBackingDatasets",
 ]

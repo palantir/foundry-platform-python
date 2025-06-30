@@ -198,8 +198,11 @@ class SqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
         """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute. They can be safely retried while the query is still running.
+        Gets the results of a query. The results of the query are returned in the
+        [Apache Arrow](https://arrow.apache.org/) format.
+
+        This endpoint implements long polling and requests will time out after one minute. They can be safely
+        retried while the query is still running.
 
         :param sql_query_id: The id of a query.
         :type sql_query_id: SqlQueryId
@@ -508,8 +511,11 @@ class AsyncSqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
         """
-        Gets the results of a query. This endpoint implements long polling and requests will time out after
-        one minute. They can be safely retried while the query is still running.
+        Gets the results of a query. The results of the query are returned in the
+        [Apache Arrow](https://arrow.apache.org/) format.
+
+        This endpoint implements long polling and requests will time out after one minute. They can be safely
+        retried while the query is still running.
 
         :param sql_query_id: The id of a query.
         :type sql_query_id: SqlQueryId

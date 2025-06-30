@@ -108,6 +108,10 @@ class CipherTextType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+ComputeSeconds = float
+"""A measurement of compute usage expressed in [compute-seconds](https://palantir.com/docs/foundry/resource-management/usage-types#compute-second). For more information, please refer to the [Usage types](https://palantir.com/docs/foundry/resource-management/usage-types) documentation."""
+
+
 ContentLength = core.Long
 """ContentLength"""
 
@@ -207,6 +211,10 @@ class Duration(pydantic.BaseModel):
     def to_dict(self) -> typing.Dict[str, typing.Any]:
         """Return the dictionary representation of the model using the field aliases."""
         return self.model_dump(by_alias=True, exclude_none=True)
+
+
+DurationSeconds = core.Long
+"""A duration of time measured in seconds."""
 
 
 EmbeddingModel = typing_extensions.Annotated[
@@ -559,6 +567,13 @@ GroupName = str
 
 GroupRid = core.RID
 """The unique resource identifier (RID) of a multipass group."""
+
+
+IncludeComputeUsage = bool
+"""
+Indicates whether the response should include compute usage details for the request.
+Note: Enabling this flag may slow down query performance and is not recommended for use in production.
+"""
 
 
 class IntegerType(pydantic.BaseModel):
@@ -1051,6 +1066,7 @@ __all__ = [
     "ByteType",
     "ChangeDataCaptureConfiguration",
     "CipherTextType",
+    "ComputeSeconds",
     "ContentLength",
     "ContentType",
     "CreatedBy",
@@ -1063,6 +1079,7 @@ __all__ = [
     "DistanceUnit",
     "DoubleType",
     "Duration",
+    "DurationSeconds",
     "EmbeddingModel",
     "EnrollmentRid",
     "Field",
@@ -1095,6 +1112,7 @@ __all__ = [
     "GeotimeSeriesReferenceType",
     "GroupName",
     "GroupRid",
+    "IncludeComputeUsage",
     "IntegerType",
     "JobRid",
     "LmsEmbeddingModel",

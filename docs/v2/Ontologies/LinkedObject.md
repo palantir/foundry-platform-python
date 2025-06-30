@@ -10,8 +10,6 @@ Get a specific linked object that originates from another object.
 
 If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -109,8 +107,6 @@ is guaranteed that if there are more results available, at least one result will
 in the response.
 
 Note that null value properties will not be returned.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

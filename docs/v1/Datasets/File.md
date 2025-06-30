@@ -24,8 +24,6 @@ as `transactionRid`. The transaction must be of type `DELETE`. This is useful fo
 single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to 
 open a transaction.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -105,8 +103,6 @@ This will retrieve metadata for the most recent version of the file since the `s
 
 To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the 
 `startTransactionRid` and `endTransactionRid`.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters
@@ -196,8 +192,6 @@ the start and end transactions do not belong to the same root-to-leaf path.
 To **list files on a specific transaction** specify the Transaction's resource identifier as both the 
 `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
 Transaction.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters
@@ -310,8 +304,6 @@ is undefined when the start and end transactions do not belong to the same root-
 To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the 
 `startTransactionRid` and `endTransactionRid`.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
 
 ### Parameters
 
@@ -394,8 +386,6 @@ See [createBranch](https://palantir.com/docs/foundry/api/datasets-resources/bran
 To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
 `transactionRid`. This is useful for uploading multiple files in a single transaction. 
 See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
 
 ### Parameters

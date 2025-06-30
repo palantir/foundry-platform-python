@@ -100,6 +100,14 @@ def test_admin_v2_group_membership_import():
     assert GroupMembershipClient is not None
 
 
+def test_admin_v2_group_membership_expiration_policy_import():
+    from foundry_sdk.v2.admin.group_membership_expiration_policy import (
+        GroupMembershipExpirationPolicyClient,
+    )  # NOQA
+
+    assert GroupMembershipExpirationPolicyClient is not None
+
+
 def test_admin_v2_group_provider_info_import():
     from foundry_sdk.v2.admin.group_provider_info import GroupProviderInfoClient
 
@@ -238,6 +246,12 @@ def test_datasets_v2_transaction_import():
     from foundry_sdk.v2.datasets.transaction import TransactionClient
 
     assert TransactionClient is not None
+
+
+def test_datasets_v2_view_import():
+    from foundry_sdk.v2.datasets.view import ViewClient
+
+    assert ViewClient is not None
 
 
 def test_filesystem_v2_folder_import():

@@ -62,9 +62,6 @@ class CipherTextPropertyClient:
         """
         Decrypt the value of a ciphertext property.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -155,9 +152,6 @@ class AsyncCipherTextPropertyClient:
     ) -> typing.Awaitable[ontologies_models.DecryptionResult]:
         """
         Decrypt the value of a ciphertext property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier

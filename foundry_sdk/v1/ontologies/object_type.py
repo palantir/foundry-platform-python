@@ -61,8 +61,6 @@ class ObjectTypeClient:
         """
         Gets a specific object type with the given API name.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -108,9 +106,6 @@ class ObjectTypeClient:
     ) -> ontologies_models.LinkTypeSide:
         """
         Get an outgoing link for an object type.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -165,8 +160,6 @@ class ObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -217,9 +210,6 @@ class ObjectTypeClient:
     ) -> core.ResourceIterator[ontologies_models.LinkTypeSide]:
         """
         List the outgoing links for an object type.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -331,8 +321,6 @@ class AsyncObjectTypeClient:
         """
         Gets a specific object type with the given API name.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -378,9 +366,6 @@ class AsyncObjectTypeClient:
     ) -> typing.Awaitable[ontologies_models.LinkTypeSide]:
         """
         Get an outgoing link for an object type.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid
@@ -435,8 +420,6 @@ class AsyncObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object types. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
@@ -487,9 +470,6 @@ class AsyncObjectTypeClient:
     ) -> core.AsyncResourceIterator[ontologies_models.LinkTypeSide]:
         """
         List the outgoing links for an object type.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the object type. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager** application.
         :type ontology_rid: OntologyRid

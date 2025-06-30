@@ -74,9 +74,6 @@ class ActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -161,9 +158,6 @@ class ActionClient:
         call Functions may receive a higher limit.
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -291,9 +285,6 @@ class AsyncActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -378,9 +369,6 @@ class AsyncActionClient:
         call Functions may receive a higher limit.
 
         Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier

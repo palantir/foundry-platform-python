@@ -78,8 +78,6 @@ class FileClient:
         single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
         open a transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File path within the Dataset.
@@ -184,8 +182,6 @@ class FileClient:
         To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File's path within the Dataset.
@@ -284,8 +280,6 @@ class FileClient:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
@@ -381,8 +375,6 @@ class FileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File's path within the Dataset.
@@ -474,8 +466,6 @@ class FileClient:
         To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
         `transactionRid`. This is useful for uploading multiple files in a single transaction.
         See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
         :type dataset_rid: DatasetRid
@@ -628,8 +618,6 @@ class AsyncFileClient:
         single transaction. See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to
         open a transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to delete the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File path within the Dataset.
@@ -734,8 +722,6 @@ class AsyncFileClient:
         To **get a file's metadata from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File's path within the Dataset.
@@ -834,8 +820,6 @@ class AsyncFileClient:
         `startTransactionRid` and `endTransactionRid`. This will include only files that were modified as part of that
         Transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Files.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch on which to list Files. Defaults to `master` for most enrollments.
@@ -931,8 +915,6 @@ class AsyncFileClient:
         To **get a file's content from a specific transaction** specify the Transaction's resource identifier as both the
         `startTransactionRid` and `endTransactionRid`.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the File.
         :type dataset_rid: DatasetRid
         :param file_path: The File's path within the Dataset.
@@ -1024,8 +1006,6 @@ class AsyncFileClient:
         To **upload a file on a manually opened transaction** specify the Transaction's resource identifier as
         `transactionRid`. This is useful for uploading multiple files in a single transaction.
         See [createTransaction](https://palantir.com/docs/foundry/api/datasets-resources/transactions/create-transaction/) to open a transaction.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to upload the File.
         :type dataset_rid: DatasetRid

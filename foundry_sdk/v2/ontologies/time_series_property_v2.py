@@ -64,9 +64,6 @@ class TimeSeriesPropertyV2Client:
         """
         Get the first point of a time series property.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -128,9 +125,6 @@ class TimeSeriesPropertyV2Client:
     ) -> typing.Optional[ontologies_models.TimeSeriesPoint]:
         """
         Get the last point of a time series property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -196,9 +190,6 @@ class TimeSeriesPropertyV2Client:
     ) -> bytes:
         """
         Stream all of the points of a time series property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -325,9 +316,6 @@ class AsyncTimeSeriesPropertyV2Client:
         """
         Get the first point of a time series property.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
@@ -389,9 +377,6 @@ class AsyncTimeSeriesPropertyV2Client:
     ) -> typing.Awaitable[typing.Optional[ontologies_models.TimeSeriesPoint]]:
         """
         Get the last point of a time series property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -457,9 +442,6 @@ class AsyncTimeSeriesPropertyV2Client:
     ) -> typing.Awaitable[bytes]:
         """
         Stream all of the points of a time series property.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier

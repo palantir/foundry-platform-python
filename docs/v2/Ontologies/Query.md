@@ -9,9 +9,6 @@ Executes a Query using the given parameters.
 
 Optional parameters do not need to be supplied.
 
-Third-party applications using this endpoint via OAuth2 must request the 
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -20,8 +17,8 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
 
 ### Return type
@@ -42,10 +39,10 @@ ontology = "palantir"
 query_api_name = "getEmployeesInCity"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"city": "New York"}
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 # Optional[FunctionVersion] | The version of the Query to execute.
 version = None
 
@@ -55,8 +52,8 @@ try:
         ontology,
         query_api_name,
         parameters=parameters,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         version=version,
     )
     print("The execute response:\n")

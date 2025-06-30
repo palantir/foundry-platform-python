@@ -8,8 +8,6 @@ Method | HTTP request | Release Stage |
 # **get**
 Gets a specific ontology with the given Ontology RID.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -57,8 +55,6 @@ See [README](../../../README.md#authorization)
 
 # **list**
 Lists the Ontologies visible to the current user.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

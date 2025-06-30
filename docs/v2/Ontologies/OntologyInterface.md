@@ -14,15 +14,8 @@ Method | HTTP request | Release Stage |
 This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
 sets.
 :::
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-:::
-
 Perform functions on object fields in the specified ontology and of the specified interface type. Any 
 properties specified in the query must be shared property type API names defined on the interface.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -110,14 +103,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-:::
-
 Gets a specific interface type with the given API name.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -178,9 +164,6 @@ See [README](../../../README.md#authorization)
 # **get_outgoing_interface_link_type**
 Get an outgoing interface link type for an interface type.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -235,17 +218,10 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **list**
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-:::
-
 Lists the interface types for the given Ontology.
 
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
-results available, at least one result will be present in the response.        
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+results available, at least one result will be present in the response.
 
 
 ### Parameters
@@ -305,9 +281,6 @@ See [README](../../../README.md#authorization)
 # **list_outgoing_interface_link_types**
 List the outgoing interface link types for an interface type.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -363,11 +336,6 @@ See [README](../../../README.md#authorization)
   This endpoint will be removed once TS OSDK is updated to use `objectSets/loadObjects` with interface object
   sets.
 :::
-:::callout{theme=warning title=Warning}
-  This endpoint is in preview and may be modified or removed at any time.
-  To use this endpoint, add `preview=true` to the request query parameters.
-:::
-
 Search for objects in the specified ontology and interface type. Any properties specified in the "where" or 
 "orderBy" parameters must be shared property type API names defined on the interface. The following search 
 queries are supported:

@@ -94,8 +94,6 @@ class DatasetClient:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param name:
         :type name: DatasetName
         :param parent_folder_rid:
@@ -233,8 +231,6 @@ class DatasetClient:
         """
         Gets the Dataset with the given DatasetRid.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -351,8 +347,6 @@ class DatasetClient:
         Gets the content of a dataset as a table in the specified format.
 
         This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid
@@ -590,8 +584,6 @@ class AsyncDatasetClient:
         """
         Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param name:
         :type name: DatasetName
         :param parent_folder_rid:
@@ -729,8 +721,6 @@ class AsyncDatasetClient:
         """
         Gets the Dataset with the given DatasetRid.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -847,8 +837,6 @@ class AsyncDatasetClient:
         Gets the content of a dataset as a table in the specified format.
 
         This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The RID of the Dataset.
         :type dataset_rid: DatasetRid

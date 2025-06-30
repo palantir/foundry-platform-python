@@ -15,8 +15,6 @@ Method | HTTP request | Release Stage |
 # **abort**
 Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
 
 ### Parameters
 
@@ -71,8 +69,6 @@ See [README](../../../README.md#authorization)
 # **commit**
 Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
 
 ### Parameters
 
@@ -126,8 +122,6 @@ See [README](../../../README.md#authorization)
 
 # **create**
 Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
 
 ### Parameters
@@ -184,8 +178,6 @@ See [README](../../../README.md#authorization)
 
 # **get_rid_by_path**
 Returns the media item RID for the media item with the specified path.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
 
 ### Parameters
@@ -257,8 +249,6 @@ See [README](../../../README.md#authorization)
 # **info**
 Gets information about the media item.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
 
 ### Parameters
 
@@ -317,8 +307,6 @@ See [README](../../../README.md#authorization)
 
 # **read**
 Gets the content of a media item.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
 
 ### Parameters
@@ -379,8 +367,6 @@ See [README](../../../README.md#authorization)
 # **read_original**
 Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
 
 ### Parameters
 
@@ -439,8 +425,6 @@ See [README](../../../README.md#authorization)
 
 # **reference**
 Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
 
 ### Parameters
@@ -502,8 +486,6 @@ See [README](../../../README.md#authorization)
 Uploads a media item to an existing media set.
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
 
 ### Parameters

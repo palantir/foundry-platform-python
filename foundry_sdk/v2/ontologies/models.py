@@ -1615,6 +1615,7 @@ class LoadObjectSetResponseV2(pydantic.BaseModel):
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -1831,6 +1832,18 @@ class NegatePropertyExpression(pydantic.BaseModel):
 
     property: DerivedPropertyDefinition
     type: typing.Literal["negate"] = "negate"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class NestedQueryAggregation(pydantic.BaseModel):
+    """NestedQueryAggregation"""
+
+    key: typing.Any
+    groups: typing.List[QueryAggregation]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -2765,6 +2778,18 @@ PropertyValueEscapedString = str
 """Represents the value of a property in string format. This is used in URL parameters."""
 
 
+class QueryAggregation(pydantic.BaseModel):
+    """QueryAggregation"""
+
+    key: typing.Any
+    value: typing.Any
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
@@ -2900,6 +2925,28 @@ class QueryStructType(pydantic.BaseModel):
 
     fields: typing.List[QueryStructField]
     type: typing.Literal["struct"] = "struct"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class QueryThreeDimensionalAggregation(pydantic.BaseModel):
+    """QueryThreeDimensionalAggregation"""
+
+    groups: typing.List[NestedQueryAggregation]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class QueryTwoDimensionalAggregation(pydantic.BaseModel):
+    """QueryTwoDimensionalAggregation"""
+
+    groups: typing.List[QueryAggregation]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -4010,6 +4057,7 @@ __all__ = [
     "NearestNeighborsQuery",
     "NearestNeighborsQueryText",
     "NegatePropertyExpression",
+    "NestedQueryAggregation",
     "NotQueryV2",
     "ObjectEdit",
     "ObjectEdits",
@@ -4083,6 +4131,7 @@ __all__ = [
     "PropertyV2",
     "PropertyValue",
     "PropertyValueEscapedString",
+    "QueryAggregation",
     "QueryAggregationKeyType",
     "QueryAggregationRangeSubType",
     "QueryAggregationRangeType",
@@ -4095,6 +4144,8 @@ __all__ = [
     "QuerySetType",
     "QueryStructField",
     "QueryStructType",
+    "QueryThreeDimensionalAggregation",
+    "QueryTwoDimensionalAggregation",
     "QueryTypeV2",
     "QueryUnionType",
     "RangeConstraint",
