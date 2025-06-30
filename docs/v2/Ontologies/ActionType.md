@@ -9,8 +9,6 @@ Method | HTTP request | Release Stage |
 # **get**
 Gets a specific action type with the given API name.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -64,8 +62,6 @@ See [README](../../../README.md#authorization)
 
 # **get_by_rid**
 Gets a specific action type with the given RID.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -125,8 +121,6 @@ Lists the action types for the given Ontology.
 
 Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
 results available, at least one result will be present in the response.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

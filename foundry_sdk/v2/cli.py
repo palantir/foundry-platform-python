@@ -1108,6 +1108,70 @@ def admin_group_search(
     click.echo(repr(result))
 
 
+@admin_group.group("group_membership_expiration_policy")
+def admin_group_group_membership_expiration_policy():
+    pass
+
+
+@admin_group_group_membership_expiration_policy.command("get")
+@click.argument("group_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_group_group_membership_expiration_policy_get(
+    client: FoundryClient,
+    group_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the GroupMembershipExpirationPolicy.
+    """
+    result = client.admin.Group.MembershipExpirationPolicy.get(
+        group_id=group_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group_group_membership_expiration_policy.command("replace")
+@click.argument("group_id", type=str, required=True)
+@click.option(
+    "--maximum_duration",
+    type=int,
+    required=False,
+    help="""Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.
+""",
+)
+@click.option(
+    "--maximum_value",
+    type=click.DateTime(),
+    required=False,
+    help="""Members in this group must be added with expiration times that occur before this value.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_group_group_membership_expiration_policy_replace(
+    client: FoundryClient,
+    group_id: str,
+    maximum_duration: typing.Optional[int],
+    maximum_value: typing.Optional[datetime],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the GroupMembershipExpirationPolicy.
+    """
+    result = client.admin.Group.MembershipExpirationPolicy.replace(
+        group_id=group_id,
+        maximum_duration=maximum_duration,
+        maximum_value=maximum_value,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_group.group("group_member")
 def admin_group_group_member():
     pass
@@ -2690,6 +2754,190 @@ def datasets():
     pass
 
 
+@datasets.group("view")
+def datasets_view():
+    pass
+
+
+@datasets_view.command("add_backing_datasets")
+@click.argument("view_dataset_rid", type=str, required=True)
+@click.option("--backing_datasets", type=str, required=True, help="""""")
+@click.option("--branch", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_view_add_backing_datasets(
+    client: FoundryClient,
+    view_dataset_rid: str,
+    backing_datasets: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Adds one or more backing datasets to a View. Any duplicates with the same dataset RID and branch name are
+    ignored.
+
+    """
+    result = client.datasets.View.add_backing_datasets(
+        view_dataset_rid=view_dataset_rid,
+        backing_datasets=json.loads(backing_datasets),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@datasets_view.command("add_primary_key")
+@click.argument("view_dataset_rid", type=str, required=True)
+@click.option("--primary_key", type=str, required=True, help="""""")
+@click.option("--branch", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_view_add_primary_key(
+    client: FoundryClient,
+    view_dataset_rid: str,
+    primary_key: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Adds a primary key to a View that does not already have one. Primary keys are treated as
+    guarantees provided by the creator of the dataset.
+
+    """
+    result = client.datasets.View.add_primary_key(
+        view_dataset_rid=view_dataset_rid,
+        primary_key=json.loads(primary_key),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@datasets_view.command("create")
+@click.option("--backing_datasets", type=str, required=True, help="""""")
+@click.option("--parent_folder_rid", type=str, required=True, help="""""")
+@click.option("--view_name", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The branch name of the View. If not specified, defaults to `master` for most enrollments.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--primary_key", type=str, required=False, help="""""")
+@click.pass_obj
+def datasets_view_create(
+    client: FoundryClient,
+    backing_datasets: str,
+    parent_folder_rid: str,
+    view_name: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+    primary_key: typing.Optional[str],
+):
+    """
+    Create a new View.
+    """
+    result = client.datasets.View.create(
+        backing_datasets=json.loads(backing_datasets),
+        parent_folder_rid=parent_folder_rid,
+        view_name=view_name,
+        branch=branch,
+        preview=preview,
+        primary_key=None if primary_key is None else json.loads(primary_key),
+    )
+    click.echo(repr(result))
+
+
+@datasets_view.command("get")
+@click.argument("view_dataset_rid", type=str, required=True)
+@click.option("--branch", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_view_get(
+    client: FoundryClient,
+    view_dataset_rid: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get metadata for a View.
+    """
+    result = client.datasets.View.get(
+        view_dataset_rid=view_dataset_rid,
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@datasets_view.command("remove_backing_datasets")
+@click.argument("view_dataset_rid", type=str, required=True)
+@click.option("--backing_datasets", type=str, required=True, help="""""")
+@click.option("--branch", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_view_remove_backing_datasets(
+    client: FoundryClient,
+    view_dataset_rid: str,
+    backing_datasets: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Removes specified backing datasets from a View. Removing a dataset triggers a
+    [SNAPSHOT](https://palantir.com/docs/foundry/data-integration/datasets#snapshot) transaction on the next update. If a
+    specified dataset does not exist, no error is thrown.
+
+    """
+    result = client.datasets.View.remove_backing_datasets(
+        view_dataset_rid=view_dataset_rid,
+        backing_datasets=json.loads(backing_datasets),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@datasets_view.command("replace_backing_datasets")
+@click.argument("view_dataset_rid", type=str, required=True)
+@click.option("--backing_datasets", type=str, required=True, help="""""")
+@click.option("--branch", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_view_replace_backing_datasets(
+    client: FoundryClient,
+    view_dataset_rid: str,
+    backing_datasets: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replaces the backing datasets for a View. Removing any backing dataset triggers a
+    [SNAPSHOT](https://palantir.com/docs/foundry/data-integration/datasets#snapshot) transaction the next time the View is updated.
+
+    """
+    result = client.datasets.View.replace_backing_datasets(
+        view_dataset_rid=view_dataset_rid,
+        backing_datasets=json.loads(backing_datasets),
+        branch=branch,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets.group("dataset")
 def datasets_dataset():
     pass
@@ -4250,8 +4498,6 @@ def media_sets_media_set_abort(
     """
     Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
     """
     result = client.media_sets.MediaSet.abort(
         media_set_rid=media_set_rid,
@@ -4280,8 +4526,6 @@ def media_sets_media_set_commit(
 ):
     """
     Commits an open transaction. On success, items uploaded to the media set during this transaction will become available.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
     """
     result = client.media_sets.MediaSet.commit(
@@ -4317,8 +4561,6 @@ def media_sets_media_set_create(
 ):
     """
     Creates a new transaction. Items uploaded to the media set while this transaction is open will not be reflected until the transaction is committed.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
 
     """
     result = client.media_sets.MediaSet.create(
@@ -4376,8 +4618,6 @@ def media_sets_media_set_get_rid_by_path(
     """
     Returns the media item RID for the media item with the specified path.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
     """
     result = client.media_sets.MediaSet.get_rid_by_path(
         media_set_rid=media_set_rid,
@@ -4412,8 +4652,6 @@ def media_sets_media_set_info(
     """
     Gets information about the media item.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
     """
     result = client.media_sets.MediaSet.info(
         media_set_rid=media_set_rid,
@@ -4445,8 +4683,6 @@ def media_sets_media_set_read(
 ):
     """
     Gets the content of a media item.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
     """
     result = client.media_sets.MediaSet.read(
@@ -4480,8 +4716,6 @@ def media_sets_media_set_read_original(
     """
     Gets the content of an original file uploaded to the media item, even if it was transformed on upload due to being an additional input format.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
-
     """
     result = client.media_sets.MediaSet.read_original(
         media_set_rid=media_set_rid,
@@ -4513,8 +4747,6 @@ def media_sets_media_set_reference(
 ):
     """
     Gets the [media reference](https://palantir.com/docs/foundry/data-integration/media-sets/#media-references) for this media item.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-read`.
 
     """
     result = client.media_sets.MediaSet.reference(
@@ -4584,8 +4816,6 @@ def media_sets_media_set_upload(
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
     A branch name, or branch rid, or view rid may optionally be specified.  If none is specified, the item will be uploaded to the default branch. If more than one is specified, an error is thrown.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:mediasets-write`.
-
     """
     result = client.media_sets.MediaSet.upload(
         media_set_rid=media_set_rid,
@@ -4642,9 +4872,6 @@ def ontologies_time_series_value_bank_property_get_latest_value(
     """
     Get the latest value of a property backed by a timeseries. If a specific geotime series integration has both a history and a live integration, we will give precedence to the live integration.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.TimeSeriesValueBankProperty.get_latest_value(
         ontology=ontology,
@@ -4690,9 +4917,6 @@ def ontologies_time_series_value_bank_property_stream_values(
 ):
     """
     Stream all of the points of a time series property (this includes geotime series references).
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.TimeSeriesValueBankProperty.stream_values(
@@ -4744,9 +4968,6 @@ def ontologies_time_series_property_v2_get_first_point(
     """
     Get the first point of a time series property.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.TimeSeriesPropertyV2.get_first_point(
         ontology=ontology,
@@ -4790,9 +5011,6 @@ def ontologies_time_series_property_v2_get_last_point(
 ):
     """
     Get the last point of a time series property.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.TimeSeriesPropertyV2.get_last_point(
@@ -4851,9 +5069,6 @@ def ontologies_time_series_property_v2_stream_points(
     """
     Stream all of the points of a time series property.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.TimeSeriesPropertyV2.stream_points(
         ontology=ontology,
@@ -4879,17 +5094,17 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.option(
@@ -4905,8 +5120,8 @@ def ontologies_query_execute(
     ontology: str,
     query_api_name: str,
     parameters: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -4914,16 +5129,13 @@ def ontologies_query_execute(
 
     Optional parameters do not need to be supplied.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.Query.execute(
         ontology=ontology,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         version=version,
     )
     click.echo(repr(result))
@@ -4981,8 +5193,6 @@ def ontologies_ontology_object_set_aggregate(
     """
     Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObjectSet.aggregate(
         ontology=ontology,
@@ -5009,9 +5219,6 @@ def ontologies_ontology_object_set_create_temporary(
     """
     Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-write`.
-
     """
     result = client.ontologies.OntologyObjectSet.create_temporary(
         ontology=ontology,
@@ -5031,8 +5238,6 @@ def ontologies_ontology_object_set_get(
 ):
     """
     Gets the definition of the `ObjectSet` with the given RID.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObjectSet.get(
@@ -5061,6 +5266,7 @@ def ontologies_ontology_object_set_get(
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5096,6 +5302,7 @@ def ontologies_ontology_object_set_load(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    include_compute_usage: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5113,8 +5320,6 @@ def ontologies_ontology_object_set_load(
 
     Vector properties will not be returned unless included in the `select` parameter.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObjectSet.load(
         ontology=ontology,
@@ -5122,6 +5327,7 @@ def ontologies_ontology_object_set_load(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        include_compute_usage=include_compute_usage,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
@@ -5215,8 +5421,6 @@ def ontologies_ontology_object_set_load_multiple_object_types(
     will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
 
     Vector properties will not be returned unless included in the `select` parameter.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObjectSet.load_multiple_object_types(
@@ -5322,8 +5526,6 @@ def ontologies_ontology_object_set_load_objects_or_interfaces(
 
     Vector properties will not be returned unless included in the `select` parameter.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObjectSet.load_objects_or_interfaces(
         ontology=ontology,
@@ -5396,8 +5598,6 @@ def ontologies_ontology_object_aggregate(
     """
     Perform functions on object fields in the specified ontology and object type.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObject.aggregate(
         ontology=ontology,
@@ -5448,8 +5648,6 @@ def ontologies_ontology_object_count(
 ):
     """
     Returns a count of the objects of the given object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.count(
@@ -5517,8 +5715,6 @@ def ontologies_ontology_object_get(
 ):
     """
     Gets a specific object with the given primary key.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.get(
@@ -5623,8 +5819,6 @@ def ontologies_ontology_object_list(
     in the response.
 
     Note that null value properties will not be returned.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyObject.list(
@@ -5737,8 +5931,6 @@ def ontologies_ontology_object_search(
     Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
     Partial terms are not matched by terms filters except where explicitly noted.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.OntologyObject.search(
         ontology=ontology,
@@ -5805,15 +5997,8 @@ def ontologies_ontology_interface_aggregate(
     This endpoint will be removed once TS OSDK is updated to use `objectSets/aggregate` with interface object
     sets.
     :::
-    :::callout{theme=warning title=Warning}
-      This endpoint is in preview and may be modified or removed at any time.
-      To use this endpoint, add `preview=true` to the request query parameters.
-    :::
-
     Perform functions on object fields in the specified ontology and of the specified interface type. Any
     properties specified in the query must be shared property type API names defined on the interface.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyInterface.aggregate(
@@ -5855,14 +6040,7 @@ def ontologies_ontology_interface_get(
     preview: typing.Optional[bool],
 ):
     """
-    :::callout{theme=warning title=Warning}
-      This endpoint is in preview and may be modified or removed at any time.
-      To use this endpoint, add `preview=true` to the request query parameters.
-    :::
-
     Gets a specific interface type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyInterface.get(
@@ -5887,9 +6065,6 @@ def ontologies_ontology_interface_get_outgoing_interface_link_type(
 ):
     """
     Get an outgoing interface link type for an interface type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyInterface.get_outgoing_interface_link_type(
@@ -5927,17 +6102,10 @@ def ontologies_ontology_interface_list(
     preview: typing.Optional[bool],
 ):
     """
-    :::callout{theme=warning title=Warning}
-      This endpoint is in preview and may be modified or removed at any time.
-      To use this endpoint, add `preview=true` to the request query parameters.
-    :::
-
     Lists the interface types for the given Ontology.
 
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyInterface.list(
@@ -5960,9 +6128,6 @@ def ontologies_ontology_interface_list_outgoing_interface_link_types(
 ):
     """
     List the outgoing interface link types for an interface type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
@@ -6058,11 +6223,6 @@ def ontologies_ontology_interface_search(
       This endpoint will be removed once TS OSDK is updated to use `objectSets/loadObjects` with interface object
       sets.
     :::
-    :::callout{theme=warning title=Warning}
-      This endpoint is in preview and may be modified or removed at any time.
-      To use this endpoint, add `preview=true` to the request query parameters.
-    :::
-
     Search for objects in the specified ontology and interface type. Any properties specified in the "where" or
     "orderBy" parameters must be shared property type API names defined on the interface. The following search
     queries are supported:
@@ -6125,8 +6285,6 @@ def ontologies_ontology_get(
     """
     Gets a specific ontology with the given Ontology RID.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.get(
         ontology=ontology,
@@ -6167,8 +6325,6 @@ def ontologies_ontology_list(
 ):
     """
     Lists the Ontologies visible to the current user.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.list()
@@ -6250,8 +6406,6 @@ def ontologies_ontology_query_type_get(
     """
     Gets a specific query type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.QueryType.get(
         ontology=ontology,
@@ -6284,8 +6438,6 @@ def ontologies_ontology_query_type_list(
 
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.QueryType.list(
@@ -6320,8 +6472,6 @@ def ontologies_ontology_object_type_get(
 ):
     """
     Gets a specific object type with the given API name.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.get(
@@ -6376,8 +6526,6 @@ def ontologies_ontology_object_type_get_full_metadata(
     """
     Gets the full metadata for a specific object type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ObjectType.get_full_metadata(
         ontology=ontology,
@@ -6411,9 +6559,6 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 ):
     """
     Get an outgoing link for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(
@@ -6450,8 +6595,6 @@ def ontologies_ontology_object_type_list(
     more results available, at least one result will be present in the
     response.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ObjectType.list(
         ontology=ontology,
@@ -6486,9 +6629,6 @@ def ontologies_ontology_object_type_list_outgoing_link_types(
 ):
     """
     List the outgoing links for an object type.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ObjectType.list_outgoing_link_types(
@@ -6526,8 +6666,6 @@ def ontologies_ontology_action_type_get(
     """
     Gets a specific action type with the given API name.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.Ontology.ActionType.get(
         ontology=ontology,
@@ -6556,8 +6694,6 @@ def ontologies_ontology_action_type_get_by_rid(
 ):
     """
     Gets a specific action type with the given RID.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.get_by_rid(
@@ -6591,8 +6727,6 @@ def ontologies_ontology_action_type_list(
 
     Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
     results available, at least one result will be present in the response.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.Ontology.ActionType.list(
@@ -6648,8 +6782,6 @@ def ontologies_media_reference_property_get_media_content(
     """
     Gets the content of a media item referenced by this property.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.MediaReferenceProperty.get_media_content(
         ontology=ontology,
@@ -6703,8 +6835,6 @@ def ontologies_media_reference_property_get_media_metadata(
     """
     Gets metadata about the media item referenced by this property.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.MediaReferenceProperty.get_media_metadata(
         ontology=ontology,
@@ -6751,8 +6881,6 @@ def ontologies_media_reference_property_upload(
     Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
-
     """
     result = client.ontologies.MediaReferenceProperty.upload(
         ontology=ontology,
@@ -6796,8 +6924,6 @@ def ontologies_media_reference_property_upload_media(
     Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted.
 
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
 
     """
     result = client.ontologies.MediaReferenceProperty.upload_media(
@@ -6876,8 +7002,6 @@ def ontologies_linked_object_get_linked_object(
     Get a specific linked object that originates from another object.
 
     If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
-
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
     """
     result = client.ontologies.LinkedObject.get_linked_object(
@@ -6989,8 +7113,6 @@ def ontologies_linked_object_list_linked_objects(
 
     Note that null value properties will not be returned.
 
-    Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
     """
     result = client.ontologies.LinkedObject.list_linked_objects(
         ontology=ontology,
@@ -7030,9 +7152,6 @@ def ontologies_cipher_text_property_decrypt(
 ):
     """
     Decrypt the value of a ciphertext property.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
 
     """
     result = client.ontologies.CipherTextProperty.decrypt(
@@ -7081,9 +7200,6 @@ def ontologies_attachment_property_get_attachment(
     """
     Get the metadata of attachments parented to the given object.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.AttachmentProperty.get_attachment(
         ontology=ontology,
@@ -7130,9 +7246,6 @@ def ontologies_attachment_property_get_attachment_by_rid(
     """
     Get the metadata of a particular attachment in an attachment list.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.AttachmentProperty.get_attachment_by_rid(
         ontology=ontology,
@@ -7177,9 +7290,6 @@ def ontologies_attachment_property_read_attachment(
 ):
     """
     Get the content of an attachment.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.AttachmentProperty.read_attachment(
@@ -7229,9 +7339,6 @@ def ontologies_attachment_property_read_attachment_by_rid(
 
     The RID must exist in the attachment array of the property.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.AttachmentProperty.read_attachment_by_rid(
         ontology=ontology,
@@ -7260,9 +7367,6 @@ def ontologies_attachment_get(
     """
     Get the metadata of an attachment.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
-
     """
     result = client.ontologies.Attachment.get(
         attachment_rid=attachment_rid,
@@ -7279,9 +7383,6 @@ def ontologies_attachment_read(
 ):
     """
     Get the content of an attachment.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read`.
 
     """
     result = client.ontologies.Attachment.read(
@@ -7318,9 +7419,6 @@ def ontologies_attachment_upload(
     Previously mapped attachments which are not connected to any object anymore are also removed on
     a biweekly basis.
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-write`.
 
     """
     result = client.ontologies.Attachment.upload(
@@ -7383,9 +7481,6 @@ def ontologies_action_apply(
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
 
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-write`.
-
     """
     result = client.ontologies.Action.apply(
         ontology=ontology,
@@ -7446,9 +7541,6 @@ def ontologies_action_apply_batch(
     call Functions may receive a higher limit.
 
     Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
-
-    Third-party applications using this endpoint via OAuth2 must request the
-    following operation scopes: `api:ontologies-read api:ontologies-write`.
 
     """
     result = client.ontologies.Action.apply_batch(
@@ -8019,8 +8111,11 @@ def sql_queries_sql_query_get_results(
     preview: typing.Optional[bool],
 ):
     """
-    Gets the results of a query. This endpoint implements long polling and requests will time out after
-    one minute. They can be safely retried while the query is still running.
+    Gets the results of a query. The results of the query are returned in the
+    [Apache Arrow](https://arrow.apache.org/) format.
+
+    This endpoint implements long polling and requests will time out after one minute. They can be safely
+    retried while the query is still running.
 
     """
     result = client.sql_queries.SqlQuery.get_results(

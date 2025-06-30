@@ -67,8 +67,6 @@ class OntologyObjectSetClient:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
@@ -143,9 +141,6 @@ class OntologyObjectSetClient:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
@@ -198,8 +193,6 @@ class OntologyObjectSetClient:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
@@ -242,6 +235,7 @@ class OntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -261,8 +255,6 @@ class OntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
@@ -273,6 +265,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -315,6 +309,7 @@ class OntologyObjectSetClient:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                     "snapshot": snapshot,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -326,6 +321,7 @@ class OntologyObjectSetClient:
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
                         "snapshot": typing.Optional[bool],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
@@ -370,8 +366,6 @@ class OntologyObjectSetClient:
         will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
 
         Vector properties will not be returned unless included in the `select` parameter.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -485,8 +479,6 @@ class OntologyObjectSetClient:
         will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
 
         Vector properties will not be returned unless included in the `select` parameter.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -659,8 +651,6 @@ class AsyncOntologyObjectSetClient:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param aggregation:
@@ -735,9 +725,6 @@ class AsyncOntologyObjectSetClient:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
@@ -790,8 +777,6 @@ class AsyncOntologyObjectSetClient:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
@@ -834,6 +819,7 @@ class AsyncOntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -853,8 +839,6 @@ class AsyncOntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param object_set:
@@ -865,6 +849,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -907,6 +893,7 @@ class AsyncOntologyObjectSetClient:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                     "snapshot": snapshot,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -918,6 +905,7 @@ class AsyncOntologyObjectSetClient:
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
                         "snapshot": typing.Optional[bool],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
@@ -962,8 +950,6 @@ class AsyncOntologyObjectSetClient:
         will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
 
         Vector properties will not be returned unless included in the `select` parameter.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
@@ -1077,8 +1063,6 @@ class AsyncOntologyObjectSetClient:
         will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
 
         Vector properties will not be returned unless included in the `select` parameter.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier

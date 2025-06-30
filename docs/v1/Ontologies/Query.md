@@ -6,8 +6,6 @@ Method | HTTP request | Release Stage |
 
 # **execute**
 Executes a Query using the given parameters. Optional parameters do not need to be supplied.
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

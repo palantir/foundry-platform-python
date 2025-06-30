@@ -62,8 +62,6 @@ class QueryClient:
     ) -> ontologies_models.ExecuteQueryResponse:
         """
         Executes a Query using the given parameters. Optional parameters do not need to be supplied.
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -163,8 +161,6 @@ class AsyncQueryClient:
     ) -> typing.Awaitable[ontologies_models.ExecuteQueryResponse]:
         """
         Executes a Query using the given parameters. Optional parameters do not need to be supplied.
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid

@@ -117,8 +117,11 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_results**
-Gets the results of a query. This endpoint implements long polling and requests will time out after
-one minute. They can be safely retried while the query is still running.
+Gets the results of a query. The results of the query are returned in the
+[Apache Arrow](https://arrow.apache.org/) format.
+
+This endpoint implements long polling and requests will time out after one minute. They can be safely
+retried while the query is still running.
 
 
 ### Parameters

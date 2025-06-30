@@ -10,9 +10,7 @@ Method | HTTP request | Release Stage |
 [**load_objects_or_interfaces**](#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces | Public Beta |
 
 # **aggregate**
-Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.        
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
 
 ### Parameters
@@ -90,10 +88,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **create_temporary**
-Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.    
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-write`.
+Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
 
 ### Parameters
@@ -146,9 +141,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Gets the definition of the `ObjectSet` with the given RID.        
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
+Gets the definition of the `ObjectSet` with the given RID.
 
 
 ### Parameters
@@ -208,8 +201,6 @@ Note that null value properties will not be returned.
 
 Vector properties will not be returned unless included in the `select` parameter.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -220,6 +211,7 @@ Name | Type | Description  | Notes |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -249,6 +241,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[IncludeComputeUsage]
+include_compute_usage = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -270,6 +264,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        include_compute_usage=include_compute_usage,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
@@ -311,8 +306,6 @@ Note that null value properties will not be returned. In addition, property meta
 will be prefixed with '$' instead of '__' as is the case in `loadObjects`.
 
 Vector properties will not be returned unless included in the `select` parameter.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -421,8 +414,6 @@ Note that null value properties will not be returned. In addition, property meta
 will be prefixed with '$' instead of '__' as is the case in `/loadObjects`.
 
 Vector properties will not be returned unless included in the `select` parameter.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

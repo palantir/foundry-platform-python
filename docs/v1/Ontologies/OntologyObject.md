@@ -12,8 +12,6 @@ Method | HTTP request | Release Stage |
 # **aggregate**
 Perform functions on object fields in the specified ontology and object type.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -86,8 +84,6 @@ See [README](../../../README.md#authorization)
 # **get**
 Gets a specific object with the given primary key.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -147,8 +143,6 @@ See [README](../../../README.md#authorization)
 # **get_linked_object**
 Get a specific linked object that originates from another object. If there is no link between the two objects,
 LinkedObjectNotFound is thrown.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -235,8 +229,6 @@ in the response.
 
 Note that null value properties will not be returned.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -320,8 +312,6 @@ is guaranteed that if there are more results available, at least one result will
 in the response.
 
 Note that null value properties will not be returned.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -420,8 +410,6 @@ to filter objects based on the specified query. The supported queries are:
 
 Queries can be at most three levels deep. By default, terms are separated by whitespace or punctuation (`?!,:;-[](){}'"~`). Periods (`.`) on their own are ignored.
 Partial terms are not matched by terms filters except where explicitly noted.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters

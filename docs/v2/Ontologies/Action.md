@@ -14,9 +14,6 @@ Edits to objects or links in Object Storage V2 will be visible immediately after
 Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-write`.
-
 
 ### Parameters
 
@@ -98,9 +95,6 @@ Up to 20 actions may be applied in one call. Actions that only modify objects in
 call Functions may receive a higher limit.
 
 Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 
 ### Parameters

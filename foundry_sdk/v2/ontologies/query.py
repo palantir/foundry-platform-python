@@ -57,8 +57,8 @@ class QueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -68,19 +68,16 @@ class QueryClient:
 
         Optional parameters do not need to be supplied.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -94,8 +91,8 @@ class QueryClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "version": version,
                 },
                 path_params={
@@ -174,8 +171,8 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -185,19 +182,16 @@ class AsyncQueryClient:
 
         Optional parameters do not need to be supplied.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -211,8 +205,8 @@ class AsyncQueryClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
                 query_params={
-                    "artifactRepository": artifact_repository,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "version": version,
                 },
                 path_params={

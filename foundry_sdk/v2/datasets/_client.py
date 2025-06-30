@@ -48,6 +48,16 @@ class DatasetsClient:
             config=self._config,
         )
 
+    @cached_property
+    def View(self):
+        from foundry_sdk.v2.datasets.view import ViewClient
+
+        return ViewClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
 
 class AsyncDatasetsClient:
     """
@@ -65,5 +75,8 @@ class AsyncDatasetsClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.datasets.dataset import AsyncDatasetClient
+        from foundry_sdk.v2.datasets.view import AsyncViewClient
 
         self.Dataset = AsyncDatasetClient(auth=auth, hostname=hostname, config=config)
+
+        self.View = AsyncViewClient(auth=auth, hostname=hostname, config=config)

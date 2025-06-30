@@ -15,9 +15,6 @@ Edits to objects or links in Object Storage V2 will be visible immediately after
 Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-write`.
-
 
 ### Parameters
 
@@ -79,9 +76,6 @@ call Functions may receive a higher limit.
 
 Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
 [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 
 ### Parameters
@@ -147,9 +141,6 @@ For performance reasons, validations will not consider existing objects or other
 For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
 Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
 this endpoint. Unspecified parameters will be given a default value of `null`.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

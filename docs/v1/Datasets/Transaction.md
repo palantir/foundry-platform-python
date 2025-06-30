@@ -11,8 +11,6 @@ Method | HTTP request | Release Stage |
 Aborts an open Transaction. File modifications made on this Transaction are not preserved and the Branch is
 not updated.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -65,8 +63,6 @@ See [README](../../../README.md#authorization)
 Commits an open Transaction. File modifications made on this Transaction are preserved and the Branch is
 updated to point to the Transaction.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -117,8 +113,6 @@ See [README](../../../README.md#authorization)
 
 # **create**
 Creates a Transaction on a Branch of a Dataset.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
 
 
 ### Parameters
@@ -197,8 +191,6 @@ See [README](../../../README.md#authorization)
 
 # **get**
 Gets a Transaction of a Dataset.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters

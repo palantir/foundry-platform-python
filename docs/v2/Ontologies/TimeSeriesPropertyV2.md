@@ -9,9 +9,6 @@ Method | HTTP request | Release Stage |
 # **get_first_point**
 Get the first point of a time series property.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -82,9 +79,6 @@ See [README](../../../README.md#authorization)
 # **get_last_point**
 Get the last point of a time series property.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -154,9 +148,6 @@ See [README](../../../README.md#authorization)
 
 # **stream_points**
 Stream all of the points of a time series property.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

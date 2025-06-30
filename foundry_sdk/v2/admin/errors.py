@@ -316,6 +316,21 @@ class GetUserProviderInfoPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GroupMembershipExpirationPolicyNotFoundParameters(typing_extensions.TypedDict):
+    """The given GroupMembershipExpirationPolicy could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    groupId: core_models.PrincipalId
+
+
+@dataclass
+class GroupMembershipExpirationPolicyNotFound(errors.NotFoundError):
+    name: typing.Literal["GroupMembershipExpirationPolicyNotFound"]
+    parameters: GroupMembershipExpirationPolicyNotFoundParameters
+    error_instance_id: str
+
+
 class GroupNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """A group with this name already exists"""
 
@@ -367,9 +382,9 @@ class InvalidGroupMembershipExpirationParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     groupId: core_models.PrincipalId
-    expirationProvided: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
-    maximumDuration: typing_extensions.NotRequired[str]
-    latestExpiration: typing_extensions.NotRequired[core.AwareDatetime]
+    earliestExpiration: core.AwareDatetime
+    maximumDuration: typing_extensions.NotRequired[core_models.DurationSeconds]
+    maximumValue: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
 
 
 @dataclass
@@ -711,6 +726,21 @@ class RemoveOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedE
     error_instance_id: str
 
 
+class ReplaceGroupMembershipExpirationPolicyPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the GroupMembershipExpirationPolicy."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    groupId: core_models.PrincipalId
+
+
+@dataclass
+class ReplaceGroupMembershipExpirationPolicyPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceGroupMembershipExpirationPolicyPermissionDenied"]
+    parameters: ReplaceGroupMembershipExpirationPolicyPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the GroupProviderInfo."""
 
@@ -878,6 +908,7 @@ __all__ = [
     "GetMarkingsUserPermissionDenied",
     "GetProfilePictureOfUserPermissionDenied",
     "GetUserProviderInfoPermissionDenied",
+    "GroupMembershipExpirationPolicyNotFound",
     "GroupNameAlreadyExists",
     "GroupNotFound",
     "GroupProviderInfoNotFound",
@@ -904,6 +935,7 @@ __all__ = [
     "RemoveMarkingRoleAssignmentsPermissionDenied",
     "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
     "RemoveOrganizationRoleAssignmentsPermissionDenied",
+    "ReplaceGroupMembershipExpirationPolicyPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
     "ReplaceMarkingPermissionDenied",
     "ReplaceOrganizationPermissionDenied",

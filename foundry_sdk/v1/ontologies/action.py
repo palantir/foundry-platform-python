@@ -69,9 +69,6 @@ class ActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -139,9 +136,6 @@ class ActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
         [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -205,9 +199,6 @@ class ActionClient:
         For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint. Unspecified parameters will be given a default value of `null`.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
@@ -322,9 +313,6 @@ class AsyncActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -392,9 +380,6 @@ class AsyncActionClient:
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) and
         [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
 
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read api:ontologies-write`.
-
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid
         :param action_type: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
@@ -458,9 +443,6 @@ class AsyncActionClient:
         For example, the uniqueness of a primary key or the existence of a user ID will not be checked.
         Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
         this endpoint. Unspecified parameters will be given a default value of `null`.
-
-        Third-party applications using this endpoint via OAuth2 must request the
-        following operation scopes: `api:ontologies-read`.
 
         :param ontology_rid: The unique Resource Identifier (RID) of the Ontology that contains the action. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology_rid: OntologyRid

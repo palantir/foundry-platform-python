@@ -34,7 +34,7 @@ group_id = None
 # List[PrincipalId]
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
 # Optional[GroupMembershipExpiration]
-expiration = None
+expiration = "2026-01-31T00:00:00.000Z"
 
 
 try:

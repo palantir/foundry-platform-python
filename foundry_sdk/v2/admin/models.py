@@ -269,6 +269,22 @@ GroupMembershipExpiration = core.AwareDatetime
 """GroupMembershipExpiration"""
 
 
+class GroupMembershipExpirationPolicy(pydantic.BaseModel):
+    """GroupMembershipExpirationPolicy"""
+
+    maximum_value: typing.Optional[GroupMembershipExpiration] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
+    """Members in this group must be added with expiration times that occur before this value."""
+
+    maximum_duration: typing.Optional[core_models.DurationSeconds] = pydantic.Field(alias=str("maximumDuration"), default=None)  # type: ignore[literal-required]
+    """Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 GroupName = str
 """The name of the Group."""
 
@@ -810,6 +826,7 @@ __all__ = [
     "GroupMember",
     "GroupMembership",
     "GroupMembershipExpiration",
+    "GroupMembershipExpirationPolicy",
     "GroupName",
     "GroupProviderInfo",
     "GroupSearchFilter",

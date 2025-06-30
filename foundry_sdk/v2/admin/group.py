@@ -71,6 +71,18 @@ class GroupClient:
             config=self._config,
         )
 
+    @cached_property
+    def MembershipExpirationPolicy(self):
+        from foundry_sdk.v2.admin.group_membership_expiration_policy import (
+            GroupMembershipExpirationPolicyClient,
+        )  # NOQA
+
+        return GroupMembershipExpirationPolicyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -467,6 +479,18 @@ class AsyncGroupClient:
         from foundry_sdk.v2.admin.group_member import AsyncGroupMemberClient
 
         return AsyncGroupMemberClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def MembershipExpirationPolicy(self):
+        from foundry_sdk.v2.admin.group_membership_expiration_policy import (
+            AsyncGroupMembershipExpirationPolicyClient,
+        )  # NOQA
+
+        return AsyncGroupMembershipExpirationPolicyClient(
             auth=self._auth,
             hostname=self._hostname,
             config=self._config,

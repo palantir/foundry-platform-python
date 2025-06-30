@@ -10,9 +10,6 @@ Method | HTTP request | Release Stage |
 # **get_attachment**
 Get the metadata of attachments parented to the given object.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -82,9 +79,6 @@ See [README](../../../README.md#authorization)
 
 # **get_attachment_by_rid**
 Get the metadata of a particular attachment in an attachment list.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters
@@ -160,9 +154,6 @@ See [README](../../../README.md#authorization)
 # **read_attachment**
 Get the content of an attachment.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -234,9 +225,6 @@ See [README](../../../README.md#authorization)
 Get the content of an attachment by its RID.
 
 The RID must exist in the attachment array of the property.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

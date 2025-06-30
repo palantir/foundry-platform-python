@@ -10,8 +10,6 @@ Method | HTTP request | Release Stage |
 # **get_media_content**
 Gets the content of a media item referenced by this property.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -85,8 +83,6 @@ See [README](../../../README.md#authorization)
 
 # **get_media_metadata**
 Gets metadata about the media item referenced by this property.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters
@@ -163,8 +159,6 @@ See [README](../../../README.md#authorization)
 Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
-
 
 ### Parameters
 
@@ -231,8 +225,6 @@ See [README](../../../README.md#authorization)
 Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted. 
 
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
 
 
 ### Parameters

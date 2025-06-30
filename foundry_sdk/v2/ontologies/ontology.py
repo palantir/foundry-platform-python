@@ -91,8 +91,6 @@ class OntologyClient:
         """
         Gets a specific ontology with the given Ontology RID.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
@@ -178,8 +176,6 @@ class OntologyClient:
     ) -> ontologies_models.ListOntologiesV2Response:
         """
         Lists the Ontologies visible to the current user.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -381,8 +377,6 @@ class AsyncOntologyClient:
         """
         Gets a specific ontology with the given Ontology RID.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
@@ -468,8 +462,6 @@ class AsyncOntologyClient:
     ) -> typing.Awaitable[ontologies_models.ListOntologiesV2Response]:
         """
         Lists the Ontologies visible to the current user.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

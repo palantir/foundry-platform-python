@@ -9,9 +9,6 @@ Method | HTTP request | Release Stage |
 # **get**
 Get the metadata of an attachment.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -59,9 +56,6 @@ See [README](../../../README.md#authorization)
 
 # **read**
 Get the content of an attachment.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters
@@ -114,9 +108,6 @@ an action within one hour after upload will be removed.
 Previously mapped attachments which are not connected to any object anymore are also removed on
 a biweekly basis.
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-write`.
 
 
 ### Parameters

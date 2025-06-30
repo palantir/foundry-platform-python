@@ -11,8 +11,6 @@ Method | HTTP request | Release Stage |
 # **get**
 Gets a specific object type with the given API name.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -66,8 +64,6 @@ See [README](../../../README.md#authorization)
 
 # **get_full_metadata**
 Gets the full metadata for a specific object type with the given API name.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
 
 ### Parameters
@@ -139,9 +135,6 @@ See [README](../../../README.md#authorization)
 # **get_outgoing_link_type**
 Get an outgoing link for an object type.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -205,8 +198,6 @@ Each page may be smaller or larger than the requested page size. However, it is 
 more results available, at least one result will be present in the
 response.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
-
 
 ### Parameters
 
@@ -261,9 +252,6 @@ See [README](../../../README.md#authorization)
 
 # **list_outgoing_link_types**
 List the outgoing links for an object type.
-
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read`.
 
 
 ### Parameters

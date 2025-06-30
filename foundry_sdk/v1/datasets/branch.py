@@ -63,8 +63,6 @@ class BranchClient:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id:
@@ -135,8 +133,6 @@ class BranchClient:
         """
         Deletes the Branch with the given BranchId.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -190,8 +186,6 @@ class BranchClient:
         """
         Get a Branch of a Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -243,8 +237,6 @@ class BranchClient:
     ) -> core.ResourceIterator[datasets_models.Branch]:
         """
         Lists the Branches of a Dataset.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
         :type dataset_rid: DatasetRid
@@ -348,8 +340,6 @@ class AsyncBranchClient:
         """
         Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to create the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id:
@@ -420,8 +410,6 @@ class AsyncBranchClient:
         """
         Deletes the Branch with the given BranchId.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -475,8 +463,6 @@ class AsyncBranchClient:
         """
         Get a Branch of a Dataset.
 
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
         :param dataset_rid: The Resource Identifier (RID) of the Dataset that contains the Branch.
         :type dataset_rid: DatasetRid
         :param branch_id: The identifier (name) of the Branch.
@@ -528,8 +514,6 @@ class AsyncBranchClient:
     ) -> core.AsyncResourceIterator[datasets_models.Branch]:
         """
         Lists the Branches of a Dataset.
-
-        Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
         :param dataset_rid: The Resource Identifier (RID) of the Dataset on which to list Branches.
         :type dataset_rid: DatasetRid

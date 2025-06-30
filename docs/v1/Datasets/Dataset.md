@@ -12,8 +12,6 @@ Method | HTTP request | Release Stage |
 # **create**
 Creates a new Dataset. A default branch - `master` for most enrollments - will be created on the Dataset.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -124,8 +122,6 @@ See [README](../../../README.md#authorization)
 # **get**
 Gets the Dataset with the given DatasetRid.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
 
 ### Parameters
 
@@ -234,8 +230,6 @@ See [README](../../../README.md#authorization)
 Gets the content of a dataset as a table in the specified format.
 
 This endpoint currently does not support views (Virtual datasets composed of other datasets).
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters

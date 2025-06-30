@@ -7,9 +7,6 @@ Method | HTTP request | Release Stage |
 # **decrypt**
 Decrypt the value of a ciphertext property.
 
-Third-party applications using this endpoint via OAuth2 must request the
-following operation scopes: `api:ontologies-read api:ontologies-decrypt-ciphertext`.
-
 
 ### Parameters
 

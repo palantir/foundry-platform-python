@@ -77,6 +77,7 @@ class GroupMemberClient:
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises GroupNotFound: The given Group could not be found.
+        :raises InvalidGroupMembershipExpiration: The member expiration you provided does not conform to the Group's requirements for member expirations.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -108,6 +109,7 @@ class GroupMemberClient:
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
+                    "InvalidGroupMembershipExpiration": admin_errors.InvalidGroupMembershipExpiration,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -310,6 +312,7 @@ class AsyncGroupMemberClient:
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises GroupNotFound: The given Group could not be found.
+        :raises InvalidGroupMembershipExpiration: The member expiration you provided does not conform to the Group's requirements for member expirations.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -341,6 +344,7 @@ class AsyncGroupMemberClient:
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
+                    "InvalidGroupMembershipExpiration": admin_errors.InvalidGroupMembershipExpiration,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

@@ -10,8 +10,6 @@ Method | HTTP request | Release Stage |
 # **create**
 Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -68,8 +66,6 @@ See [README](../../../README.md#authorization)
 # **delete**
 Deletes the Branch with the given BranchId.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-write`.
-
 
 ### Parameters
 
@@ -121,8 +117,6 @@ See [README](../../../README.md#authorization)
 # **get**
 Get a Branch of a Dataset.
 
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
-
 
 ### Parameters
 
@@ -173,8 +167,6 @@ See [README](../../../README.md#authorization)
 
 # **list**
 Lists the Branches of a Dataset.
-
-Third-party applications using this endpoint via OAuth2 must request the following operation scope: `api:datasets-read`.
 
 
 ### Parameters

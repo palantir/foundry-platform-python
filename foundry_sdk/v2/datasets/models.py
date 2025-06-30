@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
@@ -117,6 +118,48 @@ class ListSchedulesResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class PrimaryKeyLatestWinsResolutionStrategy(pydantic.BaseModel):
+    """Picks the row with the highest value of a list of columns, compared in order."""
+
+    columns: typing.List[str]
+    type: typing.Literal["latestWins"] = "latestWins"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class PrimaryKeyResolutionDuplicate(pydantic.BaseModel):
+    """Duplicate primary key values may exist within the dataset – resolution required."""
+
+    deletion_column: typing.Optional[str] = pydantic.Field(alias=str("deletionColumn"), default=None)  # type: ignore[literal-required]
+    """
+    The name of the boolean column that indicates whether a row should be considered deleted. Based on the 
+    `resolutionStrategy`, if the final row selected for a given primary key has `true` in this column, that 
+    row will be excluded from the results. Otherwise, it will be included.
+    """
+
+    resolution_strategy: PrimaryKeyResolutionStrategy = pydantic.Field(alias=str("resolutionStrategy"))  # type: ignore[literal-required]
+    type: typing.Literal["duplicate"] = "duplicate"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class PrimaryKeyResolutionUnique(pydantic.BaseModel):
+    """Primary key values are unique within the dataset – no conflicts."""
+
+    type: typing.Literal["unique"] = "unique"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 TableExportFormat = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
@@ -156,6 +199,83 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 """The type of a Transaction."""
 
 
+class View(pydantic.BaseModel):
+    """View"""
+
+    view_name: DatasetName = pydantic.Field(alias=str("viewName"))  # type: ignore[literal-required]
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The rid of the View."""
+
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[BranchName] = None
+    """The branch name of the View. If not specified, defaults to `master` for most enrollments."""
+
+    backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
+    primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ViewBackingDataset(pydantic.BaseModel):
+    """One of the Datasets backing a View."""
+
+    branch: BranchName
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ViewPrimaryKey(pydantic.BaseModel):
+    """
+    The primary key of the dataset. Primary keys are treated as guarantees provided by the creator of the
+    dataset.
+    """
+
+    columns: typing.List[str]
+    """
+    The columns that constitute the primary key. These columns must satisfy the following constraints:
+    - The list of columns must be non-empty.
+    - The list must not contain duplicate columns after applying column normalization.
+    - Each referenced column must exist in the schema.
+    - The type of each referenced column must be one of the following: `BYTE`, `SHORT`, `DECIMAL`, `INTEGER`,
+      `LONG`, `STRING`, `BOOLEAN`, `TIMESTAMP` or `DATE`.
+    """
+
+    resolution: ViewPrimaryKeyResolution
+    """
+    The semantics of the primary key within the dataset. For example, the unique resolution means that every 
+    row in the dataset has a distinct primary key. The value of this field represents a contract for writers 
+    of the dataset. Writers are responsible for maintaining any related invariants, and readers may make 
+    optimizations based on this. Violating the assumptions of the resolution can cause undefined behavior, 
+    for example, having duplicate primary keys with the unique resolution.
+    """
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+ViewPrimaryKeyResolution = typing_extensions.Annotated[
+    typing.Union[PrimaryKeyResolutionUnique, PrimaryKeyResolutionDuplicate],
+    pydantic.Field(discriminator="type"),
+]
+"""Specifies how primary key conflicts are resolved within the view."""
+
+
+PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
+"""PrimaryKeyResolutionStrategy"""
+
+
+core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+
 __all__ = [
     "Branch",
     "BranchName",
@@ -167,10 +287,18 @@ __all__ = [
     "ListBranchesResponse",
     "ListFilesResponse",
     "ListSchedulesResponse",
+    "PrimaryKeyLatestWinsResolutionStrategy",
+    "PrimaryKeyResolutionDuplicate",
+    "PrimaryKeyResolutionStrategy",
+    "PrimaryKeyResolutionUnique",
     "TableExportFormat",
     "Transaction",
     "TransactionCreatedTime",
     "TransactionRid",
     "TransactionStatus",
     "TransactionType",
+    "View",
+    "ViewBackingDataset",
+    "ViewPrimaryKey",
+    "ViewPrimaryKeyResolution",
 ]
