@@ -195,6 +195,7 @@ class OntologyInterfaceClient:
         interface_type: ontologies_models.InterfaceTypeApiName,
         interface_link_type: ontologies_models.InterfaceLinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.InterfaceLinkType:
@@ -207,6 +208,8 @@ class OntologyInterfaceClient:
         :type interface_type: InterfaceTypeApiName
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -217,7 +220,9 @@ class OntologyInterfaceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "interfaceType": interface_type,
@@ -242,6 +247,7 @@ class OntologyInterfaceClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -256,6 +262,8 @@ class OntologyInterfaceClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -273,6 +281,7 @@ class OntologyInterfaceClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -300,6 +309,7 @@ class OntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ListOutgoingInterfaceLinkTypesResponse:
@@ -310,6 +320,8 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
+        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -320,7 +332,9 @@ class OntologyInterfaceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "interfaceType": interface_type,
@@ -703,6 +717,7 @@ class AsyncOntologyInterfaceClient:
         interface_type: ontologies_models.InterfaceTypeApiName,
         interface_link_type: ontologies_models.InterfaceLinkTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.InterfaceLinkType]:
@@ -715,6 +730,8 @@ class AsyncOntologyInterfaceClient:
         :type interface_type: InterfaceTypeApiName
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -725,7 +742,9 @@ class AsyncOntologyInterfaceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType}",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "interfaceType": interface_type,
@@ -750,6 +769,7 @@ class AsyncOntologyInterfaceClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -764,6 +784,8 @@ class AsyncOntologyInterfaceClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -781,6 +803,7 @@ class AsyncOntologyInterfaceClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -808,6 +831,7 @@ class AsyncOntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ListOutgoingInterfaceLinkTypesResponse]:
@@ -818,6 +842,8 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
+        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -828,7 +854,9 @@ class AsyncOntologyInterfaceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes",
-                query_params={},
+                query_params={
+                    "branch": branch,
+                },
                 path_params={
                     "ontology": ontology,
                     "interfaceType": interface_type,

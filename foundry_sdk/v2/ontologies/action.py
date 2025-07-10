@@ -58,10 +58,10 @@ class ActionClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.SyncApplyActionResponseV2:
@@ -80,14 +80,14 @@ class ActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -99,9 +99,9 @@ class ActionClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -141,10 +141,10 @@ class ActionClient:
         action: ontologies_models.ActionTypeApiName,
         *,
         requests: typing.List[ontologies_models.BatchApplyActionRequestItem],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.BatchApplyActionResponseV2:
@@ -165,14 +165,14 @@ class ActionClient:
         :type action: ActionTypeApiName
         :param requests:
         :type requests: List[BatchApplyActionRequestItem]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -184,9 +184,9 @@ class ActionClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -269,10 +269,10 @@ class AsyncActionClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.SyncApplyActionResponseV2]:
@@ -291,14 +291,14 @@ class AsyncActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -310,9 +310,9 @@ class AsyncActionClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -352,10 +352,10 @@ class AsyncActionClient:
         action: ontologies_models.ActionTypeApiName,
         *,
         requests: typing.List[ontologies_models.BatchApplyActionRequestItem],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.BatchApplyActionResponseV2]:
@@ -376,14 +376,14 @@ class AsyncActionClient:
         :type action: ActionTypeApiName
         :param requests:
         :type requests: List[BatchApplyActionRequestItem]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -395,9 +395,9 @@ class AsyncActionClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatch",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

@@ -19,8 +19,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object containing the attachment.  |  |
 **property** | PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **AttachmentMetadataResponse**
@@ -42,10 +42,10 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -54,8 +54,8 @@ try:
         object_type,
         primary_key,
         property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The get_attachment response:\n")
     pprint(api_response)
@@ -90,8 +90,8 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | The primary key of the object containing the attachment.  |  |
 **property** | PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **attachment_rid** | AttachmentRid | The RID of the attachment. |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **AttachmentV2**
@@ -115,10 +115,10 @@ primary_key = 50030
 property = "performance"
 # AttachmentRid | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -128,8 +128,8 @@ try:
         primary_key,
         property,
         attachment_rid,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The get_attachment_by_rid response:\n")
     pprint(api_response)
@@ -163,8 +163,8 @@ Name | Type | Description  | Notes |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object containing the attachment.  |  |
 **property** | PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **bytes**
@@ -186,10 +186,10 @@ object_type = "employee"
 primary_key = 50030
 # PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.
 property = "performance"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -198,8 +198,8 @@ try:
         object_type,
         primary_key,
         property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The read_attachment response:\n")
     pprint(api_response)
@@ -236,8 +236,8 @@ Name | Type | Description  | Notes |
 **primary_key** | PropertyValueEscapedString | The primary key of the object containing the attachment.  |  |
 **property** | PropertyApiName | The API name of the attachment property. To find the API name for your attachment, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **attachment_rid** | AttachmentRid | The RID of the attachment. |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **bytes**
@@ -261,10 +261,10 @@ primary_key = 50030
 property = "performance"
 # AttachmentRid | The RID of the attachment.
 attachment_rid = "ri.attachments.main.attachment.bb32154e-e043-4b00-9461-93136ca96b6f"
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -274,8 +274,8 @@ try:
         primary_key,
         property,
         attachment_rid,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The read_attachment_by_rid response:\n")
     pprint(api_response)

@@ -154,6 +154,7 @@ class ActionTypeClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -167,6 +168,8 @@ class ActionTypeClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -182,6 +185,7 @@ class ActionTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -353,6 +357,7 @@ class AsyncActionTypeClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -366,6 +371,8 @@ class AsyncActionTypeClient:
 
         :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
         :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
+        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -381,6 +388,7 @@ class AsyncActionTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/actionTypes",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },

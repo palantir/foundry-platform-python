@@ -26,7 +26,9 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
+StructEvaluatedConstraint | struct
 OneOfConstraint | oneOf
+ArrayEvaluatedConstraint | array
 GroupMemberConstraint | groupMember
 ObjectPropertyValueConstraint | objectPropertyValue
 RangeConstraint | range

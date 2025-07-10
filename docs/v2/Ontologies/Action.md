@@ -22,10 +22,10 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **SyncApplyActionResponseV2**
@@ -45,14 +45,14 @@ ontology = "palantir"
 action = "rename-employee"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
 branch = None
 # Optional[ApplyActionRequestOptions]
 options = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -60,10 +60,10 @@ try:
         ontology,
         action,
         parameters=parameters,
-        artifact_repository=artifact_repository,
         branch=branch,
         options=options,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The apply response:\n")
     pprint(api_response)
@@ -104,10 +104,10 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **requests** | List[BatchApplyActionRequestItem] |  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
 **options** | Optional[BatchApplyActionRequestOptions] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **BatchApplyActionResponseV2**
@@ -130,14 +130,14 @@ requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
 ]
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
 branch = None
 # Optional[BatchApplyActionRequestOptions]
 options = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
@@ -145,10 +145,10 @@ try:
         ontology,
         action,
         requests=requests,
-        artifact_repository=artifact_repository,
         branch=branch,
         options=options,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The apply_batch response:\n")
     pprint(api_response)

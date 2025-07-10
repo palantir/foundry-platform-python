@@ -1330,6 +1330,8 @@ Namespace | Name | Import |
 **Ontologies** | [ApplyActionRequestOptions](docs/v2/Ontologies/models/ApplyActionRequestOptions.md) | `from foundry_sdk.v2.ontologies.models import ApplyActionRequestOptions` |
 **Ontologies** | [ApproximateDistinctAggregationV2](docs/v2/Ontologies/models/ApproximateDistinctAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximateDistinctAggregationV2` |
 **Ontologies** | [ApproximatePercentileAggregationV2](docs/v2/Ontologies/models/ApproximatePercentileAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximatePercentileAggregationV2` |
+**Ontologies** | [ArrayEntryEvaluatedConstraint](docs/v2/Ontologies/models/ArrayEntryEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArrayEntryEvaluatedConstraint` |
+**Ontologies** | [ArrayEvaluatedConstraint](docs/v2/Ontologies/models/ArrayEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArrayEvaluatedConstraint` |
 **Ontologies** | [ArraySizeConstraint](docs/v2/Ontologies/models/ArraySizeConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArraySizeConstraint` |
 **Ontologies** | [ArtifactRepositoryRid](docs/v2/Ontologies/models/ArtifactRepositoryRid.md) | `from foundry_sdk.v2.ontologies.models import ArtifactRepositoryRid` |
 **Ontologies** | [AttachmentMetadataResponse](docs/v2/Ontologies/models/AttachmentMetadataResponse.md) | `from foundry_sdk.v2.ontologies.models import AttachmentMetadataResponse` |
@@ -1567,10 +1569,14 @@ Namespace | Name | Import |
 **Ontologies** | [StreamingOutputFormat](docs/v2/Ontologies/models/StreamingOutputFormat.md) | `from foundry_sdk.v2.ontologies.models import StreamingOutputFormat` |
 **Ontologies** | [StringLengthConstraint](docs/v2/Ontologies/models/StringLengthConstraint.md) | `from foundry_sdk.v2.ontologies.models import StringLengthConstraint` |
 **Ontologies** | [StringRegexMatchConstraint](docs/v2/Ontologies/models/StringRegexMatchConstraint.md) | `from foundry_sdk.v2.ontologies.models import StringRegexMatchConstraint` |
+**Ontologies** | [StructEvaluatedConstraint](docs/v2/Ontologies/models/StructEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import StructEvaluatedConstraint` |
 **Ontologies** | [StructFieldApiName](docs/v2/Ontologies/models/StructFieldApiName.md) | `from foundry_sdk.v2.ontologies.models import StructFieldApiName` |
+**Ontologies** | [StructFieldEvaluatedConstraint](docs/v2/Ontologies/models/StructFieldEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import StructFieldEvaluatedConstraint` |
+**Ontologies** | [StructFieldEvaluationResult](docs/v2/Ontologies/models/StructFieldEvaluationResult.md) | `from foundry_sdk.v2.ontologies.models import StructFieldEvaluationResult` |
 **Ontologies** | [StructFieldSelector](docs/v2/Ontologies/models/StructFieldSelector.md) | `from foundry_sdk.v2.ontologies.models import StructFieldSelector` |
 **Ontologies** | [StructFieldType](docs/v2/Ontologies/models/StructFieldType.md) | `from foundry_sdk.v2.ontologies.models import StructFieldType` |
 **Ontologies** | [StructFieldTypeRid](docs/v2/Ontologies/models/StructFieldTypeRid.md) | `from foundry_sdk.v2.ontologies.models import StructFieldTypeRid` |
+**Ontologies** | [StructParameterFieldApiName](docs/v2/Ontologies/models/StructParameterFieldApiName.md) | `from foundry_sdk.v2.ontologies.models import StructParameterFieldApiName` |
 **Ontologies** | [StructType](docs/v2/Ontologies/models/StructType.md) | `from foundry_sdk.v2.ontologies.models import StructType` |
 **Ontologies** | [SubmissionCriteriaEvaluation](docs/v2/Ontologies/models/SubmissionCriteriaEvaluation.md) | `from foundry_sdk.v2.ontologies.models import SubmissionCriteriaEvaluation` |
 **Ontologies** | [SubtractPropertyExpression](docs/v2/Ontologies/models/SubtractPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import SubtractPropertyExpression` |
@@ -1778,6 +1784,8 @@ Namespace | Name | Import |
 **Ontologies** | [ApplyActionRequestOptions](docs/v1/Ontologies/models/ApplyActionRequestOptions.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionRequestOptions` |
 **Ontologies** | [ApplyActionResponse](docs/v1/Ontologies/models/ApplyActionResponse.md) | `from foundry_sdk.v1.ontologies.models import ApplyActionResponse` |
 **Ontologies** | [ApproximateDistinctAggregation](docs/v1/Ontologies/models/ApproximateDistinctAggregation.md) | `from foundry_sdk.v1.ontologies.models import ApproximateDistinctAggregation` |
+**Ontologies** | [ArrayEntryEvaluatedConstraint](docs/v1/Ontologies/models/ArrayEntryEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import ArrayEntryEvaluatedConstraint` |
+**Ontologies** | [ArrayEvaluatedConstraint](docs/v1/Ontologies/models/ArrayEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import ArrayEvaluatedConstraint` |
 **Ontologies** | [ArraySizeConstraint](docs/v1/Ontologies/models/ArraySizeConstraint.md) | `from foundry_sdk.v1.ontologies.models import ArraySizeConstraint` |
 **Ontologies** | [ArtifactRepositoryRid](docs/v1/Ontologies/models/ArtifactRepositoryRid.md) | `from foundry_sdk.v1.ontologies.models import ArtifactRepositoryRid` |
 **Ontologies** | [Attachment](docs/v1/Ontologies/models/Attachment.md) | `from foundry_sdk.v1.ontologies.models import Attachment` |
@@ -1896,6 +1904,10 @@ Namespace | Name | Import |
 **Ontologies** | [SharedPropertyTypeRid](docs/v1/Ontologies/models/SharedPropertyTypeRid.md) | `from foundry_sdk.v1.ontologies.models import SharedPropertyTypeRid` |
 **Ontologies** | [StringLengthConstraint](docs/v1/Ontologies/models/StringLengthConstraint.md) | `from foundry_sdk.v1.ontologies.models import StringLengthConstraint` |
 **Ontologies** | [StringRegexMatchConstraint](docs/v1/Ontologies/models/StringRegexMatchConstraint.md) | `from foundry_sdk.v1.ontologies.models import StringRegexMatchConstraint` |
+**Ontologies** | [StructEvaluatedConstraint](docs/v1/Ontologies/models/StructEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import StructEvaluatedConstraint` |
+**Ontologies** | [StructFieldEvaluatedConstraint](docs/v1/Ontologies/models/StructFieldEvaluatedConstraint.md) | `from foundry_sdk.v1.ontologies.models import StructFieldEvaluatedConstraint` |
+**Ontologies** | [StructFieldEvaluationResult](docs/v1/Ontologies/models/StructFieldEvaluationResult.md) | `from foundry_sdk.v1.ontologies.models import StructFieldEvaluationResult` |
+**Ontologies** | [StructParameterFieldApiName](docs/v1/Ontologies/models/StructParameterFieldApiName.md) | `from foundry_sdk.v1.ontologies.models import StructParameterFieldApiName` |
 **Ontologies** | [SubmissionCriteriaEvaluation](docs/v1/Ontologies/models/SubmissionCriteriaEvaluation.md) | `from foundry_sdk.v1.ontologies.models import SubmissionCriteriaEvaluation` |
 **Ontologies** | [SumAggregation](docs/v1/Ontologies/models/SumAggregation.md) | `from foundry_sdk.v1.ontologies.models import SumAggregation` |
 **Ontologies** | [ThreeDimensionalAggregation](docs/v1/Ontologies/models/ThreeDimensionalAggregation.md) | `from foundry_sdk.v1.ontologies.models import ThreeDimensionalAggregation` |
@@ -2172,6 +2184,7 @@ Namespace | Name | Import |
 **MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
 **MediaSets** | MediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import MediaItemNotFound` |
 **MediaSets** | MediaSetNotFound | `from foundry_sdk.v2.media_sets.errors import MediaSetNotFound` |
+**MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
@@ -2181,6 +2194,7 @@ Namespace | Name | Import |
 **Ontologies** | ActionParameterObjectTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ActionParameterObjectTypeNotFound` |
 **Ontologies** | ActionTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ActionTypeNotFound` |
 **Ontologies** | ActionValidationFailed | `from foundry_sdk.v2.ontologies.errors import ActionValidationFailed` |
+**Ontologies** | AggregationAccuracyNotSupported | `from foundry_sdk.v2.ontologies.errors import AggregationAccuracyNotSupported` |
 **Ontologies** | AggregationGroupCountExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationGroupCountExceededLimit` |
 **Ontologies** | AggregationMemoryExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationMemoryExceededLimit` |
 **Ontologies** | AggregationNestedObjectSetSizeExceededLimit | `from foundry_sdk.v2.ontologies.errors import AggregationNestedObjectSetSizeExceededLimit` |
@@ -2410,6 +2424,7 @@ Namespace | Name | Import |
 **Ontologies** | ActionParameterObjectTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ActionParameterObjectTypeNotFound` |
 **Ontologies** | ActionTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ActionTypeNotFound` |
 **Ontologies** | ActionValidationFailed | `from foundry_sdk.v1.ontologies.errors import ActionValidationFailed` |
+**Ontologies** | AggregationAccuracyNotSupported | `from foundry_sdk.v1.ontologies.errors import AggregationAccuracyNotSupported` |
 **Ontologies** | AggregationGroupCountExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationGroupCountExceededLimit` |
 **Ontologies** | AggregationMemoryExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationMemoryExceededLimit` |
 **Ontologies** | AggregationNestedObjectSetSizeExceededLimit | `from foundry_sdk.v1.ontologies.errors import AggregationNestedObjectSetSizeExceededLimit` |
