@@ -128,6 +128,7 @@ results available, at least one result will be present in the response.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list the action types from. If not specified, the default branch will be used.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -145,6 +146,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
+# Optional[FoundryBranch] | The Foundry branch to list the action types from. If not specified, the default branch will be used.
+branch = None
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
@@ -153,7 +156,7 @@ page_token = None
 
 try:
     for action_type in client.ontologies.Ontology.ActionType.list(
-        ontology, page_size=page_size, page_token=page_token
+        ontology, branch=branch, page_size=page_size, page_token=page_token
     ):
         pprint(action_type)
 except foundry_sdk.PalantirRPCException as e:

@@ -5617,13 +5617,6 @@ def ontologies_ontology_object_aggregate(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -5631,10 +5624,17 @@ def ontologies_ontology_object_aggregate(
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -5642,9 +5642,9 @@ def ontologies_ontology_object_count(
     client: FoundryClient,
     ontology: str,
     object_type: str,
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Returns a count of the objects of the given object type.
@@ -5653,9 +5653,9 @@ def ontologies_ontology_object_count(
     result = client.ontologies.OntologyObject.count(
         ontology=ontology,
         object_type=object_type,
-        artifact_repository=artifact_repository,
         branch=branch,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -5734,13 +5734,6 @@ def ontologies_ontology_object_get(
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -5757,13 +5750,6 @@ Setting this to true may improve performance of this endpoint for object types i
 )
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
-@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -5772,6 +5758,20 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 """,
 )
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.option(
     "--select",
     type=str,
@@ -5795,13 +5795,13 @@ def ontologies_ontology_object_list(
     client: FoundryClient,
     ontology: str,
     object_type: str,
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     select: typing.Optional[str],
     snapshot: typing.Optional[bool],
 ):
@@ -5824,13 +5824,13 @@ def ontologies_ontology_object_list(
     result = client.ontologies.OntologyObject.list(
         ontology=ontology,
         object_type=object_type,
-        artifact_repository=artifact_repository,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         select=None if select is None else json.loads(select),
         snapshot=snapshot,
     )
@@ -6056,12 +6056,20 @@ def ontologies_ontology_interface_get(
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
 @click.argument("interface_link_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_get_outgoing_interface_link_type(
     client: FoundryClient,
     ontology: str,
     interface_type: str,
     interface_link_type: str,
+    branch: typing.Optional[str],
 ):
     """
     Get an outgoing interface link type for an interface type.
@@ -6071,12 +6079,20 @@ def ontologies_ontology_interface_get_outgoing_interface_link_type(
         ontology=ontology,
         interface_type=interface_type,
         interface_link_type=interface_link_type,
+        branch=branch,
     )
     click.echo(repr(result))
 
 
 @ontologies_ontology_interface.command("list")
 @click.argument("ontology", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+""",
+)
 @click.option(
     "--page_size",
     type=int,
@@ -6097,6 +6113,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 def ontologies_ontology_interface_list(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -6110,6 +6127,7 @@ def ontologies_ontology_interface_list(
     """
     result = client.ontologies.OntologyInterface.list(
         ontology=ontology,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -6120,11 +6138,19 @@ def ontologies_ontology_interface_list(
 @ontologies_ontology_interface.command("list_outgoing_interface_link_types")
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_list_outgoing_interface_link_types(
     client: FoundryClient,
     ontology: str,
     interface_type: str,
+    branch: typing.Optional[str],
 ):
     """
     List the outgoing interface link types for an interface type.
@@ -6133,6 +6159,7 @@ def ontologies_ontology_interface_list_outgoing_interface_link_types(
     result = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
         ontology=ontology,
         interface_type=interface_type,
+        branch=branch,
     )
     click.echo(repr(result))
 
@@ -6573,6 +6600,13 @@ def ontologies_ontology_object_type_get_outgoing_link_type(
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list the object types from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -6585,6 +6619,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 def ontologies_ontology_object_type_list(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -6598,6 +6633,7 @@ def ontologies_ontology_object_type_list(
     """
     result = client.ontologies.Ontology.ObjectType.list(
         ontology=ontology,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
     )
@@ -6707,6 +6743,13 @@ def ontologies_ontology_action_type_get_by_rid(
 @ontologies_ontology_action_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list the action types from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -6719,6 +6762,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 def ontologies_ontology_action_type_list(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -6731,6 +6775,7 @@ def ontologies_ontology_action_type_list(
     """
     result = client.ontologies.Ontology.ActionType.list(
         ontology=ontology,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
     )
@@ -7174,17 +7219,17 @@ def ontologies_attachment_property():
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7194,8 +7239,8 @@ def ontologies_attachment_property_get_attachment(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the metadata of attachments parented to the given object.
@@ -7206,8 +7251,8 @@ def ontologies_attachment_property_get_attachment(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -7219,17 +7264,17 @@ def ontologies_attachment_property_get_attachment(
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7240,8 +7285,8 @@ def ontologies_attachment_property_get_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the metadata of a particular attachment in an attachment list.
@@ -7253,8 +7298,8 @@ def ontologies_attachment_property_get_attachment_by_rid(
         primary_key=primary_key,
         property=property,
         attachment_rid=attachment_rid,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -7265,17 +7310,17 @@ def ontologies_attachment_property_get_attachment_by_rid(
 @click.argument("primary_key", type=str, required=True)
 @click.argument("property", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7285,8 +7330,8 @@ def ontologies_attachment_property_read_attachment(
     object_type: str,
     primary_key: str,
     property: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the content of an attachment.
@@ -7297,8 +7342,8 @@ def ontologies_attachment_property_read_attachment(
         object_type=object_type,
         primary_key=primary_key,
         property=property,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(result)
 
@@ -7310,17 +7355,17 @@ def ontologies_attachment_property_read_attachment(
 @click.argument("property", type=str, required=True)
 @click.argument("attachment_rid", type=str, required=True)
 @click.option(
-    "--artifact_repository",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The repository associated with a marketplace installation.
+    help="""The package rid of the generated SDK.
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_version",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7331,8 +7376,8 @@ def ontologies_attachment_property_read_attachment_by_rid(
     primary_key: str,
     property: str,
     attachment_rid: str,
-    artifact_repository: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Get the content of an attachment by its RID.
@@ -7346,8 +7391,8 @@ def ontologies_attachment_property_read_attachment_by_rid(
         primary_key=primary_key,
         property=property,
         attachment_rid=attachment_rid,
-        artifact_repository=artifact_repository,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(result)
 
@@ -7440,13 +7485,6 @@ def ontologies_action():
 @click.argument("action", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7455,10 +7493,17 @@ def ontologies_action():
 )
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7467,10 +7512,10 @@ def ontologies_action_apply(
     ontology: str,
     action: str,
     parameters: str,
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
     options: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Applies an action using the given parameters.
@@ -7486,10 +7531,10 @@ def ontologies_action_apply(
         ontology=ontology,
         action=action,
         parameters=json.loads(parameters),
-        artifact_repository=artifact_repository,
         branch=branch,
         options=None if options is None else json.loads(options),
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -7499,13 +7544,6 @@ def ontologies_action_apply(
 @click.argument("action", type=str, required=True)
 @click.option("--requests", type=str, required=True, help="""""")
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7514,10 +7552,17 @@ def ontologies_action_apply(
 )
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.pass_obj
@@ -7526,10 +7571,10 @@ def ontologies_action_apply_batch(
     ontology: str,
     action: str,
     requests: str,
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
     options: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Applies multiple actions (of the same Action Type) using the given parameters.
@@ -7547,10 +7592,10 @@ def ontologies_action_apply_batch(
         ontology=ontology,
         action=action,
         requests=json.loads(requests),
-        artifact_repository=artifact_repository,
         branch=branch,
         options=None if options is None else json.loads(options),
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 

@@ -161,6 +161,22 @@ class ActionValidationFailed(errors.BadRequestError):
     error_instance_id: str
 
 
+class AggregationAccuracyNotSupportedParameters(typing_extensions.TypedDict):
+    """
+    The given aggregation cannot be performed with the requested accuracy.
+    Try allowing approximate results or adjust your aggregation request.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class AggregationAccuracyNotSupported(errors.BadRequestError):
+    name: typing.Literal["AggregationAccuracyNotSupported"]
+    parameters: AggregationAccuracyNotSupportedParameters
+    error_instance_id: str
+
+
 class AggregationGroupCountExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of groups in the aggregations grouping exceeded the allowed limit. This can typically be fixed by
@@ -2013,6 +2029,7 @@ __all__ = [
     "ActionParameterObjectTypeNotFound",
     "ActionTypeNotFound",
     "ActionValidationFailed",
+    "AggregationAccuracyNotSupported",
     "AggregationGroupCountExceededLimit",
     "AggregationMemoryExceededLimit",
     "AggregationNestedObjectSetSizeExceededLimit",

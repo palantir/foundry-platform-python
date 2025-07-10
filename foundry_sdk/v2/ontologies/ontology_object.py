@@ -139,9 +139,9 @@ class OntologyObjectClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.CountObjectsResponseV2:
@@ -152,12 +152,12 @@ class OntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -169,9 +169,9 @@ class OntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -267,13 +267,13 @@ class OntologyObjectClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -298,20 +298,20 @@ class OntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
@@ -327,13 +327,13 @@ class OntologyObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
-                    "packageName": package_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
                     "snapshot": snapshot,
                 },
@@ -620,9 +620,9 @@ class AsyncOntologyObjectClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.CountObjectsResponseV2]:
@@ -633,12 +633,12 @@ class AsyncOntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -650,9 +650,9 @@ class AsyncOntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/count",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -748,13 +748,13 @@ class AsyncOntologyObjectClient:
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -779,20 +779,20 @@ class AsyncOntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[OrderBy]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size: The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param select: The properties of the object type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
@@ -808,13 +808,13 @@ class AsyncOntologyObjectClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
                     "excludeRid": exclude_rid,
                     "orderBy": order_by,
-                    "packageName": package_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "select": select,
                     "snapshot": snapshot,
                 },

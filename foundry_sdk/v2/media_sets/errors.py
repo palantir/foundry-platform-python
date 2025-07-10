@@ -81,9 +81,25 @@ class MediaSetNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MissingMediaItemPathParameters(typing_extensions.TypedDict):
+    """The given media set requires paths but no path was provided."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+
+
+@dataclass
+class MissingMediaItemPath(errors.BadRequestError):
+    name: typing.Literal["MissingMediaItemPath"]
+    parameters: MissingMediaItemPathParameters
+    error_instance_id: str
+
+
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
     "MediaItemNotFound",
     "MediaSetNotFound",
+    "MissingMediaItemPath",
 ]

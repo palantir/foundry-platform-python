@@ -427,6 +427,18 @@ class ApproximatePercentileAggregationV2(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ArrayEvaluatedConstraint(pydantic.BaseModel):
+    """Evaluated constraints of array parameters that support per-entry constraint evaluations."""
+
+    entries: typing.List[ArrayEntryEvaluatedConstraint]
+    type: typing.Literal["array"] = "array"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ArraySizeConstraint(pydantic.BaseModel):
     """The parameter expects an array of values and the size of the array must fall within the defined range."""
 
@@ -2548,7 +2560,9 @@ OrderByDirection = typing.Literal["ASC", "DESC"]
 
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
+        "StructEvaluatedConstraint",
         OneOfConstraint,
+        ArrayEvaluatedConstraint,
         GroupMemberConstraint,
         ObjectPropertyValueConstraint,
         "RangeConstraint",
@@ -3441,8 +3455,57 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class StructEvaluatedConstraint(pydantic.BaseModel):
+    """Represents the validity of a singleton struct parameter."""
+
+    struct_fields: typing.Dict[StructParameterFieldApiName, StructFieldEvaluationResult] = pydantic.Field(alias=str("structFields"))  # type: ignore[literal-required]
+    type: typing.Literal["struct"] = "struct"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 StructFieldApiName = str
 """The name of a struct field in the Ontology."""
+
+
+StructFieldEvaluatedConstraint = typing_extensions.Annotated[
+    typing.Union[
+        OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+A constraint that an action struct parameter field value must satisfy in order to be considered valid.
+Constraints can be configured on fields of struct parameters in the **Ontology Manager**. 
+Applicable constraints are determined dynamically based on parameter inputs. 
+Parameter values are evaluated against the final set of constraints.
+
+The type of the constraint.
+| Type                  | Description                                                                                                                                                                                                                     |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `oneOf`               | The struct parameter field has a manually predefined set of options.                                                                                                                                                            |
+| `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
+| `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
+| `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+"""
+
+
+class StructFieldEvaluationResult(pydantic.BaseModel):
+    """Represents the validity of a struct parameter's fields against the configured constraints."""
+
+    result: ValidationResult
+    evaluated_constraints: typing.List[StructFieldEvaluatedConstraint] = pydantic.Field(alias=str("evaluatedConstraints"))  # type: ignore[literal-required]
+    required: bool
+    """Represents whether the parameter is a required input to the action."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class StructFieldSelector(pydantic.BaseModel):
@@ -3478,6 +3541,10 @@ class StructFieldType(pydantic.BaseModel):
 
 StructFieldTypeRid = core.RID
 """The unique resource identifier of a struct field, useful for interacting with other Foundry APIs."""
+
+
+StructParameterFieldApiName = str
+"""The unique identifier of the struct parameter field."""
 
 
 class StructType(pydantic.BaseModel):
@@ -3855,6 +3922,10 @@ class WithinPolygonQuery(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
+"""Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
+
+
 CenterPointTypes = geo_models.GeoPoint
 """CenterPointTypes"""
 
@@ -3904,6 +3975,9 @@ core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), l
 core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
 core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
 core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
 core.resolve_forward_references(
@@ -3946,6 +4020,8 @@ __all__ = [
     "ApplyActionRequestOptions",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
+    "ArrayEntryEvaluatedConstraint",
+    "ArrayEvaluatedConstraint",
     "ArraySizeConstraint",
     "ArtifactRepositoryRid",
     "AttachmentMetadataResponse",
@@ -4183,10 +4259,14 @@ __all__ = [
     "StreamingOutputFormat",
     "StringLengthConstraint",
     "StringRegexMatchConstraint",
+    "StructEvaluatedConstraint",
     "StructFieldApiName",
+    "StructFieldEvaluatedConstraint",
+    "StructFieldEvaluationResult",
     "StructFieldSelector",
     "StructFieldType",
     "StructFieldTypeRid",
+    "StructParameterFieldApiName",
     "StructType",
     "SubmissionCriteriaEvaluation",
     "SubtractPropertyExpression",

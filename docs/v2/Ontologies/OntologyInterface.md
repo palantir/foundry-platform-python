@@ -172,6 +172,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
 **interface_link_type** | InterfaceLinkTypeApiName | The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **InterfaceLinkType**
@@ -191,11 +192,13 @@ ontology = "palantir"
 interface_type = "Employee"
 # InterfaceLinkTypeApiName | The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
 interface_link_type = "worksAt"
+# Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.get_outgoing_interface_link_type(
-        ontology, interface_type, interface_link_type
+        ontology, interface_type, interface_link_type, branch=branch
     )
     print("The get_outgoing_interface_link_type response:\n")
     pprint(api_response)
@@ -229,6 +232,7 @@ results available, at least one result will be present in the response.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list the interface types from. If not specified, the default branch will be used.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
@@ -247,6 +251,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
 ontology = "palantir"
+# Optional[FoundryBranch] | The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+branch = None
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
@@ -257,7 +263,7 @@ preview = None
 
 try:
     for ontology_interface in client.ontologies.OntologyInterface.list(
-        ontology, page_size=page_size, page_token=page_token, preview=preview
+        ontology, branch=branch, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(ontology_interface)
 except foundry_sdk.PalantirRPCException as e:
@@ -288,6 +294,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
 **ListOutgoingInterfaceLinkTypesResponse**
@@ -305,11 +312,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
 interface_type = "Employee"
+# Optional[FoundryBranch] | The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+branch = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.list_outgoing_interface_link_types(
-        ontology, interface_type
+        ontology, interface_type, branch=branch
     )
     print("The list_outgoing_interface_link_types response:\n")
     pprint(api_response)
