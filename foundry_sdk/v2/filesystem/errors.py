@@ -731,6 +731,21 @@ class RemoveResourceRolesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceProjectPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Project."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class ReplaceProjectPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceProjectPermissionDenied"]
+    parameters: ReplaceProjectPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ResourceNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """The provided resource name is already in use by another resource in the same folder."""
 
@@ -945,6 +960,7 @@ __all__ = [
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
+    "ReplaceProjectPermissionDenied",
     "ResourceNameAlreadyExists",
     "ResourceNotDirectlyTrashed",
     "ResourceNotFound",

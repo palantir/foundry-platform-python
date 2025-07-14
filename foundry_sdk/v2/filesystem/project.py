@@ -486,6 +486,75 @@ class ProjectClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        project_rid: filesystem_models.ProjectRid,
+        *,
+        display_name: filesystem_models.ResourceDisplayName,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.Project:
+        """
+        Replace the Project with the specified rid.
+        :param project_rid:
+        :type project_rid: ProjectRid
+        :param display_name: The display name of the Project. Must be unique and cannot contain a /
+        :type display_name: ResourceDisplayName
+        :param description: The description associated with the Project.
+        :type description: Optional[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.Project
+
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ReplaceProjectPermissionDenied: Could not replace the Project.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/filesystem/projects/{projectRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "projectRid": project_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "displayName": display_name,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "displayName": filesystem_models.ResourceDisplayName,
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=filesystem_models.Project,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ReplaceProjectPermissionDenied": filesystem_errors.ReplaceProjectPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _ProjectClientRaw:
     def __init__(self, client: ProjectClient) -> None:
@@ -495,6 +564,7 @@ class _ProjectClientRaw:
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
         def remove_organizations(_: None): ...
+        def replace(_: filesystem_models.Project): ...
 
         self.add_organizations = core.with_raw_response(add_organizations, client.add_organizations)
         self.create = core.with_raw_response(create, client.create)
@@ -506,6 +576,7 @@ class _ProjectClientRaw:
         self.remove_organizations = core.with_raw_response(
             remove_organizations, client.remove_organizations
         )
+        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _ProjectClientStreaming:
@@ -514,6 +585,7 @@ class _ProjectClientStreaming:
         def create_from_template(_: filesystem_models.Project): ...
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
+        def replace(_: filesystem_models.Project): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.create_from_template = core.with_streaming_response(
@@ -521,6 +593,7 @@ class _ProjectClientStreaming:
         )
         self.get = core.with_streaming_response(get, client.get)
         self.organizations = core.with_streaming_response(organizations, client.organizations)
+        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncProjectClient:
@@ -984,6 +1057,75 @@ class AsyncProjectClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        project_rid: filesystem_models.ProjectRid,
+        *,
+        display_name: filesystem_models.ResourceDisplayName,
+        description: typing.Optional[str] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.Project]:
+        """
+        Replace the Project with the specified rid.
+        :param project_rid:
+        :type project_rid: ProjectRid
+        :param display_name: The display name of the Project. Must be unique and cannot contain a /
+        :type display_name: ResourceDisplayName
+        :param description: The description associated with the Project.
+        :type description: Optional[str]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.Project]
+
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ReplaceProjectPermissionDenied: Could not replace the Project.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/filesystem/projects/{projectRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "projectRid": project_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "displayName": display_name,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "displayName": filesystem_models.ResourceDisplayName,
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=filesystem_models.Project,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ReplaceProjectPermissionDenied": filesystem_errors.ReplaceProjectPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncProjectClientRaw:
     def __init__(self, client: AsyncProjectClient) -> None:
@@ -993,6 +1135,7 @@ class _AsyncProjectClientRaw:
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
         def remove_organizations(_: None): ...
+        def replace(_: filesystem_models.Project): ...
 
         self.add_organizations = core.async_with_raw_response(
             add_organizations, client.add_organizations
@@ -1006,6 +1149,7 @@ class _AsyncProjectClientRaw:
         self.remove_organizations = core.async_with_raw_response(
             remove_organizations, client.remove_organizations
         )
+        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncProjectClientStreaming:
@@ -1014,6 +1158,7 @@ class _AsyncProjectClientStreaming:
         def create_from_template(_: filesystem_models.Project): ...
         def get(_: filesystem_models.Project): ...
         def organizations(_: filesystem_models.ListOrganizationsOfProjectResponse): ...
+        def replace(_: filesystem_models.Project): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.create_from_template = core.async_with_streaming_response(
@@ -1021,3 +1166,4 @@ class _AsyncProjectClientStreaming:
         )
         self.get = core.async_with_streaming_response(get, client.get)
         self.organizations = core.async_with_streaming_response(organizations, client.organizations)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

@@ -8,6 +8,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Public Beta |
 [**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
 [**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |
+[**replace**](#replace) | **PUT** /v2/filesystem/projects/{projectRid} | Private Beta |
 
 # **add_organizations**
 Adds a list of Organizations to a Project.
@@ -376,6 +377,64 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the Project with the specified rid.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**project_rid** | ProjectRid |  |  |
+**display_name** | ResourceDisplayName | The display name of the Project. Must be unique and cannot contain a / |  |
+**description** | Optional[str] | The description associated with the Project. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**Project**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ProjectRid
+project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
+# ResourceDisplayName | The display name of the Project. Must be unique and cannot contain a /
+display_name = "My Important Project"
+# Optional[str] | The description associated with the Project.
+description = "project description"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.filesystem.Project.replace(
+        project_rid, display_name=display_name, description=description, preview=preview
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Project.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Project  | The replaced Project | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

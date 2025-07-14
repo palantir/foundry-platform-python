@@ -663,6 +663,21 @@ class UploadFilePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ViewDatasetCleanupFailedParameters(typing_extensions.TypedDict):
+    """Failed to delete dataset following View creation failure."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    viewDatasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class ViewDatasetCleanupFailed(errors.InternalServerError):
+    name: typing.Literal["ViewDatasetCleanupFailed"]
+    parameters: ViewDatasetCleanupFailedParameters
+    error_instance_id: str
+
+
 class ViewNotFoundParameters(typing_extensions.TypedDict):
     """
     The requested View could not be found. Either the view does not exist, the branch is not valid or the
@@ -762,6 +777,7 @@ __all__ = [
     "TransactionNotFound",
     "TransactionNotOpen",
     "UploadFilePermissionDenied",
+    "ViewDatasetCleanupFailed",
     "ViewNotFound",
     "ViewPrimaryKeyCannotBeModified",
     "ViewPrimaryKeyMustContainAtLeastOneColumn",
