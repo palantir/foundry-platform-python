@@ -362,13 +362,13 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -405,20 +405,20 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param where:
@@ -434,9 +434,9 @@ class OntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -843,13 +843,13 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -886,20 +886,20 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
         :param page_size:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param where:
@@ -915,9 +915,9 @@ class AsyncOntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/search",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

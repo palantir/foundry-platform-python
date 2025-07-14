@@ -470,7 +470,7 @@ Represents the value of data in the following format. Note that these values can
 | Null                                | null                                                  | `null`                                                                                                                                                        |
 | Object Set                          | string OR the object set definition                   | `ri.object-set.main.versioned-object-set.h13274m8-23f5-431c-8aee-a4554157c57z`                                                                                |
 | Ontology Object Reference           | JSON encoding of the object's primary key             | `10033123` or `"EMP1234"`                                                                                                                                     |
-| Ontology Interface Object Reference | JSON encoding of the object's api name and primary key| `{"objectTypeApiName":"Employee", "primaryKeyValue":"EMP1234"}`                                                                                               |
+| Ontology Interface Object Reference | JSON encoding of the object's API name and primary key| `{"objectTypeApiName":"Employee", "primaryKeyValue":"EMP1234"}`                                                                                               |
 | Ontology Object Type Reference      | string of the object type's api name                  | `"Employee"`                                                                                                                                                  |
 | Set                                 | array                                                 | `["alpha", "bravo", "charlie"]`                                                                                                                               |
 | Short                               | number                                                | `8739`                                                                                                                                                        |
@@ -1035,6 +1035,19 @@ OntologyDataType = typing_extensions.Annotated[
 """A union of all the primitive types used by Palantir's Ontology-based products."""
 
 
+class OntologyInterfaceObjectType(pydantic.BaseModel):
+    """OntologyInterfaceObjectType"""
+
+    interface_type_api_name: typing.Optional[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypeApiName"), default=None)  # type: ignore[literal-required]
+    interface_type_rid: typing.Optional[InterfaceTypeRid] = pydantic.Field(alias=str("interfaceTypeRid"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["interfaceObject"] = "interfaceObject"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class OntologyMapType(pydantic.BaseModel):
     """OntologyMapType"""
 
@@ -1437,6 +1450,7 @@ class QueryArrayType(pydantic.BaseModel):
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
+        OntologyInterfaceObjectType,
         "QueryStructType",
         "QuerySetType",
         core_models.StringType,
@@ -1998,6 +2012,7 @@ __all__ = [
     "OntologyApiName",
     "OntologyArrayType",
     "OntologyDataType",
+    "OntologyInterfaceObjectType",
     "OntologyMapType",
     "OntologyObject",
     "OntologyObjectSetType",

@@ -4219,6 +4219,43 @@ def filesystem_project_remove_organizations(
     click.echo(repr(result))
 
 
+@filesystem_project.command("replace")
+@click.argument("project_rid", type=str, required=True)
+@click.option(
+    "--display_name",
+    type=str,
+    required=True,
+    help="""The display name of the Project. Must be unique and cannot contain a /""",
+)
+@click.option(
+    "--description",
+    type=str,
+    required=False,
+    help="""The description associated with the Project.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_project_replace(
+    client: FoundryClient,
+    project_rid: str,
+    display_name: str,
+    description: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the Project with the specified rid.
+    """
+    result = client.filesystem.Project.replace(
+        project_rid=project_rid,
+        display_name=display_name,
+        description=description,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("folder")
 def filesystem_folder():
     pass
@@ -5848,13 +5885,6 @@ def ontologies_ontology_object_list(
 """,
 )
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -5870,15 +5900,22 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
-@click.option(
-    "--package_name",
-    type=str,
-    required=False,
-    help="""The package name of the generated SDK.
-""",
-)
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.option(
     "--snapshot",
     type=bool,
@@ -5896,13 +5933,13 @@ def ontologies_ontology_object_search(
     ontology: str,
     object_type: str,
     select: str,
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
-    package_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     snapshot: typing.Optional[bool],
     where: typing.Optional[str],
 ):
@@ -5936,13 +5973,13 @@ def ontologies_ontology_object_search(
         ontology=ontology,
         object_type=object_type,
         select=json.loads(select),
-        artifact_repository=artifact_repository,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         snapshot=snapshot,
         where=None if where is None else json.loads(where),
     )

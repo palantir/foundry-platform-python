@@ -1851,6 +1851,7 @@ Namespace | Name | Import |
 **Ontologies** | [OntologyApiName](docs/v1/Ontologies/models/OntologyApiName.md) | `from foundry_sdk.v1.ontologies.models import OntologyApiName` |
 **Ontologies** | [OntologyArrayType](docs/v1/Ontologies/models/OntologyArrayType.md) | `from foundry_sdk.v1.ontologies.models import OntologyArrayType` |
 **Ontologies** | [OntologyDataType](docs/v1/Ontologies/models/OntologyDataType.md) | `from foundry_sdk.v1.ontologies.models import OntologyDataType` |
+**Ontologies** | [OntologyInterfaceObjectType](docs/v1/Ontologies/models/OntologyInterfaceObjectType.md) | `from foundry_sdk.v1.ontologies.models import OntologyInterfaceObjectType` |
 **Ontologies** | [OntologyMapType](docs/v1/Ontologies/models/OntologyMapType.md) | `from foundry_sdk.v1.ontologies.models import OntologyMapType` |
 **Ontologies** | [OntologyObject](docs/v1/Ontologies/models/OntologyObject.md) | `from foundry_sdk.v1.ontologies.models import OntologyObject` |
 **Ontologies** | [OntologyObjectSetType](docs/v1/Ontologies/models/OntologyObjectSetType.md) | `from foundry_sdk.v1.ontologies.models import OntologyObjectSetType` |
@@ -2104,6 +2105,7 @@ Namespace | Name | Import |
 **Datasets** | TransactionNotFound | `from foundry_sdk.v2.datasets.errors import TransactionNotFound` |
 **Datasets** | TransactionNotOpen | `from foundry_sdk.v2.datasets.errors import TransactionNotOpen` |
 **Datasets** | UploadFilePermissionDenied | `from foundry_sdk.v2.datasets.errors import UploadFilePermissionDenied` |
+**Datasets** | ViewDatasetCleanupFailed | `from foundry_sdk.v2.datasets.errors import ViewDatasetCleanupFailed` |
 **Datasets** | ViewNotFound | `from foundry_sdk.v2.datasets.errors import ViewNotFound` |
 **Datasets** | ViewPrimaryKeyCannotBeModified | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyCannotBeModified` |
 **Datasets** | ViewPrimaryKeyMustContainAtLeastOneColumn | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyMustContainAtLeastOneColumn` |
@@ -2155,6 +2157,7 @@ Namespace | Name | Import |
 **Filesystem** | RemoveMarkingsPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveMarkingsPermissionDenied` |
 **Filesystem** | RemoveOrganizationsPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveOrganizationsPermissionDenied` |
 **Filesystem** | RemoveResourceRolesPermissionDenied | `from foundry_sdk.v2.filesystem.errors import RemoveResourceRolesPermissionDenied` |
+**Filesystem** | ReplaceProjectPermissionDenied | `from foundry_sdk.v2.filesystem.errors import ReplaceProjectPermissionDenied` |
 **Filesystem** | ResourceNameAlreadyExists | `from foundry_sdk.v2.filesystem.errors import ResourceNameAlreadyExists` |
 **Filesystem** | ResourceNotDirectlyTrashed | `from foundry_sdk.v2.filesystem.errors import ResourceNotDirectlyTrashed` |
 **Filesystem** | ResourceNotFound | `from foundry_sdk.v2.filesystem.errors import ResourceNotFound` |

@@ -232,6 +232,7 @@ class ViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
@@ -272,6 +273,7 @@ class ViewClient:
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,
@@ -729,6 +731,7 @@ class AsyncViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
@@ -769,6 +772,7 @@ class AsyncViewClient:
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,

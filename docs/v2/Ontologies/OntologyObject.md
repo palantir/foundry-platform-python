@@ -378,13 +378,13 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
@@ -406,20 +406,20 @@ ontology = "palantir"
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 select = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
 # Optional[SearchOrderByV2]
 order_by = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
 # Optional[PageSize]
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
 # Optional[SearchJsonQueryV2]
@@ -431,13 +431,13 @@ try:
         ontology,
         object_type,
         select=select,
-        artifact_repository=artifact_repository,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
-        package_name=package_name,
         page_size=page_size,
         page_token=page_token,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         snapshot=snapshot,
         where=where,
     )

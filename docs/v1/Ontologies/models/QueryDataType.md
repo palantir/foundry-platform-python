@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 DateType | date
+OntologyInterfaceObjectType | interfaceObject
 QueryStructType | struct
 QuerySetType | set
 StringType | string
