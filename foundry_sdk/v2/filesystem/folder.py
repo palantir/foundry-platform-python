@@ -79,6 +79,9 @@ class FolderClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[filesystem_models.Resource]
+
+        :raises FolderNotFound: The given Folder could not be found.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -100,7 +103,10 @@ class FolderClient:
                 body_type=None,
                 response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -131,6 +137,7 @@ class FolderClient:
         :rtype: filesystem_models.Folder
 
         :raises CreateFolderPermissionDenied: Could not create the Folder.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -161,6 +168,7 @@ class FolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -293,6 +301,9 @@ class AsyncFolderClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[filesystem_models.Resource]
+
+        :raises FolderNotFound: The given Folder could not be found.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -314,7 +325,10 @@ class AsyncFolderClient:
                 body_type=None,
                 response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -345,6 +359,7 @@ class AsyncFolderClient:
         :rtype: typing.Awaitable[filesystem_models.Folder]
 
         :raises CreateFolderPermissionDenied: Could not create the Folder.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -375,6 +390,7 @@ class AsyncFolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

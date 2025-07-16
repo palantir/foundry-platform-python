@@ -24,6 +24,7 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.connectivity import errors as connectivity_errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import errors as filesystem_errors
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
@@ -109,6 +110,7 @@ class ConnectionClient:
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         :raises PropertyCannotBeBlank: The specified property cannot be blank.
         """
@@ -143,6 +145,7 @@ class ConnectionClient:
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
                     "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
                 },
@@ -501,6 +504,7 @@ class AsyncConnectionClient:
 
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         :raises PropertyCannotBeBlank: The specified property cannot be blank.
         """
@@ -535,6 +539,7 @@ class AsyncConnectionClient:
                 throwable_errors={
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
                     "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
                 },

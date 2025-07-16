@@ -21,9 +21,9 @@ Name | Type | Description  | Notes |
 **aggregation** | List[AggregationV2] |  |  |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**artifact_repository** | Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.  | [optional] |
-**package_name** | Optional[SdkPackageName] | The package name of the generated SDK.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
 ### Return type
@@ -58,12 +58,12 @@ group_by = [
 ]
 # Optional[AggregationAccuracyRequest]
 accuracy = None
-# Optional[ArtifactRepositoryRid] | The repository associated with a marketplace installation.
-artifact_repository = None
 # Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
 branch = None
-# Optional[SdkPackageName] | The package name of the generated SDK.
-package_name = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 # Optional[SearchJsonQueryV2]
 where = {"type": "eq", "field": "name", "value": "john"}
 
@@ -75,9 +75,9 @@ try:
         aggregation=aggregation,
         group_by=group_by,
         accuracy=accuracy,
-        artifact_repository=artifact_repository,
         branch=branch,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         where=where,
     )
     print("The aggregate response:\n")

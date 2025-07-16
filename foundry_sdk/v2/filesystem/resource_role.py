@@ -74,6 +74,7 @@ class ResourceRoleClient:
         :rtype: None
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -102,6 +103,7 @@ class ResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -138,6 +140,8 @@ class ResourceRoleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[filesystem_models.ResourceRole]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -160,7 +164,9 @@ class ResourceRoleClient:
                 body_type=None,
                 response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -191,6 +197,7 @@ class ResourceRoleClient:
         :rtype: None
 
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -219,6 +226,7 @@ class ResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -292,6 +300,7 @@ class AsyncResourceRoleClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -320,6 +329,7 @@ class AsyncResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -356,6 +366,8 @@ class AsyncResourceRoleClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[filesystem_models.ResourceRole]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -378,7 +390,9 @@ class AsyncResourceRoleClient:
                 body_type=None,
                 response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -409,6 +423,7 @@ class AsyncResourceRoleClient:
         :rtype: typing.Awaitable[None]
 
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -437,6 +452,7 @@ class AsyncResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

@@ -3016,6 +3016,92 @@ def datasets_dataset_get_schedules(
     click.echo(repr(result))
 
 
+@datasets_dataset.command("get_schema")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option("--branch_name", type=str, required=False, help="""""")
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--version_id",
+    type=str,
+    required=False,
+    help="""The schema version that should be used. If none is provided, the latest version will be used.
+""",
+)
+@click.pass_obj
+def datasets_dataset_get_schema(
+    client: FoundryClient,
+    dataset_rid: str,
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+    version_id: typing.Optional[str],
+):
+    """
+    Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+    """
+    result = client.datasets.Dataset.get_schema(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        end_transaction_rid=end_transaction_rid,
+        preview=preview,
+        version_id=version_id,
+    )
+    click.echo(repr(result))
+
+
+@datasets_dataset.command("put_schema")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option(
+    "--schema",
+    type=str,
+    required=True,
+    help="""The schema that will be added.
+""",
+)
+@click.option("--branch_name", type=str, required=False, help="""""")
+@click.option(
+    "--end_transaction_rid",
+    type=str,
+    required=False,
+    help="""The Resource Identifier (RID) of the end Transaction.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_put_schema(
+    client: FoundryClient,
+    dataset_rid: str,
+    schema: str,
+    branch_name: typing.Optional[str],
+    end_transaction_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Adds a schema on an existing dataset using a PUT request.
+
+    """
+    result = client.datasets.Dataset.put_schema(
+        dataset_rid=dataset_rid,
+        schema=json.loads(schema),
+        branch_name=branch_name,
+        end_transaction_rid=end_transaction_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.command("read_table")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option(
@@ -5598,13 +5684,6 @@ def ontologies_ontology_object():
     help="""""",
 )
 @click.option(
-    "--artifact_repository",
-    type=str,
-    required=False,
-    help="""The repository associated with a marketplace installation.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -5612,10 +5691,17 @@ def ontologies_ontology_object():
 """,
 )
 @click.option(
-    "--package_name",
+    "--sdk_package_rid",
     type=str,
     required=False,
-    help="""The package name of the generated SDK.
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
 """,
 )
 @click.option("--where", type=str, required=False, help="""""")
@@ -5627,9 +5713,9 @@ def ontologies_ontology_object_aggregate(
     aggregation: str,
     group_by: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
-    artifact_repository: typing.Optional[str],
     branch: typing.Optional[str],
-    package_name: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     where: typing.Optional[str],
 ):
     """
@@ -5642,9 +5728,9 @@ def ontologies_ontology_object_aggregate(
         aggregation=json.loads(aggregation),
         group_by=json.loads(group_by),
         accuracy=accuracy,
-        artifact_repository=artifact_repository,
         branch=branch,
-        package_name=package_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         where=None if where is None else json.loads(where),
     )
     click.echo(repr(result))

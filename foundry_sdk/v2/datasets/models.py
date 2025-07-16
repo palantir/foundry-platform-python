@@ -82,6 +82,20 @@ FileUpdatedTime = core.AwareDatetime
 """FileUpdatedTime"""
 
 
+class GetDatasetSchemaResponse(pydantic.BaseModel):
+    """GetDatasetSchemaResponse"""
+
+    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    end_transaction_rid: TransactionRid = pydantic.Field(alias=str("endTransactionRid"))  # type: ignore[literal-required]
+    schema_: core_models.DatasetSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    version_id: core_models.VersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ListBranchesResponse(pydantic.BaseModel):
     """ListBranchesResponse"""
 
@@ -284,6 +298,7 @@ __all__ = [
     "DatasetRid",
     "File",
     "FileUpdatedTime",
+    "GetDatasetSchemaResponse",
     "ListBranchesResponse",
     "ListFilesResponse",
     "ListSchedulesResponse",

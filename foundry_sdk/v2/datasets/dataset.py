@@ -269,6 +269,157 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_schema(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        version_id: typing.Optional[core_models.VersionId] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetDatasetSchemaResponse:
+        """
+        Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name:
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param version_id: The schema version that should be used. If none is provided, the latest version will be used.
+        :type version_id: Optional[VersionId]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetDatasetSchemaResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetViewNotFound: The requested dataset view could not be found. A dataset view represents the effective file contents of a dataset  for a branch at a point in time, calculated from transactions (SNAPSHOT, APPEND, UPDATE, DELETE). The view may not  exist if the dataset has no transactions, contains no files, the branch is not valid, or the client token does not have access to it.
+        :raises GetDatasetSchemaPermissionDenied: Could not getSchema the Dataset.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getSchema",
+                query_params={
+                    "branchName": branch_name,
+                    "endTransactionRid": end_transaction_rid,
+                    "preview": preview,
+                    "versionId": version_id,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.GetDatasetSchemaResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetViewNotFound": datasets_errors.DatasetViewNotFound,
+                    "GetDatasetSchemaPermissionDenied": datasets_errors.GetDatasetSchemaPermissionDenied,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def put_schema(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        schema: core_models.DatasetSchema,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetDatasetSchemaResponse:
+        """
+        Adds a schema on an existing dataset using a PUT request.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param schema: The schema that will be added.
+        :type schema: DatasetSchema
+        :param branch_name:
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetDatasetSchemaResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetViewNotFound: The requested dataset view could not be found. A dataset view represents the effective file contents of a dataset  for a branch at a point in time, calculated from transactions (SNAPSHOT, APPEND, UPDATE, DELETE). The view may not  exist if the dataset has no transactions, contains no files, the branch is not valid, or the client token does not have access to it.
+        :raises InvalidSchema: The schema failed validations
+        :raises PutDatasetSchemaPermissionDenied: Could not putSchema the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/datasets/{datasetRid}/putSchema",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "branchName": branch_name,
+                    "endTransactionRid": end_transaction_rid,
+                    "schema": schema,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
+                        "schema": core_models.DatasetSchema,
+                    },
+                ),
+                response_type=datasets_models.GetDatasetSchemaResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetViewNotFound": datasets_errors.DatasetViewNotFound,
+                    "InvalidSchema": core_errors.InvalidSchema,
+                    "PutDatasetSchemaPermissionDenied": datasets_errors.PutDatasetSchemaPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_table(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -358,11 +509,15 @@ class _DatasetClientRaw:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
+        def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
+        self.get_schema = core.with_raw_response(get_schema, client.get_schema)
+        self.put_schema = core.with_raw_response(put_schema, client.put_schema)
         self.read_table = core.with_raw_response(read_table, client.read_table)
 
 
@@ -371,11 +526,15 @@ class _DatasetClientStreaming:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
+        def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
+        self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
+        self.put_schema = core.with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.with_streaming_response(read_table, client.read_table)
 
 
@@ -619,6 +778,157 @@ class AsyncDatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_schema(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        version_id: typing.Optional[core_models.VersionId] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetDatasetSchemaResponse]:
+        """
+        Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name:
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param version_id: The schema version that should be used. If none is provided, the latest version will be used.
+        :type version_id: Optional[VersionId]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetDatasetSchemaResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetViewNotFound: The requested dataset view could not be found. A dataset view represents the effective file contents of a dataset  for a branch at a point in time, calculated from transactions (SNAPSHOT, APPEND, UPDATE, DELETE). The view may not  exist if the dataset has no transactions, contains no files, the branch is not valid, or the client token does not have access to it.
+        :raises GetDatasetSchemaPermissionDenied: Could not getSchema the Dataset.
+        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getSchema",
+                query_params={
+                    "branchName": branch_name,
+                    "endTransactionRid": end_transaction_rid,
+                    "preview": preview,
+                    "versionId": version_id,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.GetDatasetSchemaResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetViewNotFound": datasets_errors.DatasetViewNotFound,
+                    "GetDatasetSchemaPermissionDenied": datasets_errors.GetDatasetSchemaPermissionDenied,
+                    "InvalidParameterCombination": core_errors.InvalidParameterCombination,
+                    "SchemaNotFound": datasets_errors.SchemaNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def put_schema(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        schema: core_models.DatasetSchema,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetDatasetSchemaResponse]:
+        """
+        Adds a schema on an existing dataset using a PUT request.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param schema: The schema that will be added.
+        :type schema: DatasetSchema
+        :param branch_name:
+        :type branch_name: Optional[BranchName]
+        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
+        :type end_transaction_rid: Optional[TransactionRid]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetDatasetSchemaResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises DatasetViewNotFound: The requested dataset view could not be found. A dataset view represents the effective file contents of a dataset  for a branch at a point in time, calculated from transactions (SNAPSHOT, APPEND, UPDATE, DELETE). The view may not  exist if the dataset has no transactions, contains no files, the branch is not valid, or the client token does not have access to it.
+        :raises InvalidSchema: The schema failed validations
+        :raises PutDatasetSchemaPermissionDenied: Could not putSchema the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/datasets/{datasetRid}/putSchema",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "branchName": branch_name,
+                    "endTransactionRid": end_transaction_rid,
+                    "schema": schema,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "branchName": typing.Optional[datasets_models.BranchName],
+                        "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
+                        "schema": core_models.DatasetSchema,
+                    },
+                ),
+                response_type=datasets_models.GetDatasetSchemaResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "DatasetViewNotFound": datasets_errors.DatasetViewNotFound,
+                    "InvalidSchema": core_errors.InvalidSchema,
+                    "PutDatasetSchemaPermissionDenied": datasets_errors.PutDatasetSchemaPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def read_table(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -708,11 +1018,15 @@ class _AsyncDatasetClientRaw:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
+        def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_schedules = core.async_with_raw_response(get_schedules, client.get_schedules)
+        self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
+        self.put_schema = core.async_with_raw_response(put_schema, client.put_schema)
         self.read_table = core.async_with_raw_response(read_table, client.read_table)
 
 
@@ -721,9 +1035,13 @@ class _AsyncDatasetClientStreaming:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
+        def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_schedules = core.async_with_streaming_response(get_schedules, client.get_schedules)
+        self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
+        self.put_schema = core.async_with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.async_with_streaming_response(read_table, client.read_table)

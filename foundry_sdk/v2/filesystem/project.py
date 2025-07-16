@@ -74,6 +74,7 @@ class ProjectClient:
         :rtype: None
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -102,6 +103,7 @@ class ProjectClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -158,6 +160,7 @@ class ProjectClient:
         :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises SpaceNotFound: The referenced space cannot be found.
         """
 
@@ -204,6 +207,7 @@ class ProjectClient:
                     "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -260,6 +264,7 @@ class ProjectClient:
         :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
         :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
         :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
         :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
         :raises TemplateMarkingNameConflict: Creating the project from template would attempt to create new markings with names conflicting either with other new markings, or existing markings.
@@ -315,6 +320,7 @@ class ProjectClient:
                     "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
                     "MissingVariableValue": filesystem_errors.MissingVariableValue,
                     "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
                     "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
                     "TemplateMarkingNameConflict": filesystem_errors.TemplateMarkingNameConflict,
@@ -401,6 +407,8 @@ class ProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[core_models.OrganizationRid]
+
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -422,7 +430,9 @@ class ProjectClient:
                 body_type=None,
                 response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -452,6 +462,7 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises ProjectNotFound: The given Project could not be found.
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
@@ -480,6 +491,7 @@ class ProjectClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -516,6 +528,7 @@ class ProjectClient:
 
         :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.
         """
 
@@ -549,6 +562,7 @@ class ProjectClient:
                 throwable_errors={
                     "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ReplaceProjectPermissionDenied": filesystem_errors.ReplaceProjectPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -645,6 +659,7 @@ class AsyncProjectClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -673,6 +688,7 @@ class AsyncProjectClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -729,6 +745,7 @@ class AsyncProjectClient:
         :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises SpaceNotFound: The referenced space cannot be found.
         """
 
@@ -775,6 +792,7 @@ class AsyncProjectClient:
                     "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -831,6 +849,7 @@ class AsyncProjectClient:
         :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
         :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
         :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
         :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
         :raises TemplateMarkingNameConflict: Creating the project from template would attempt to create new markings with names conflicting either with other new markings, or existing markings.
@@ -886,6 +905,7 @@ class AsyncProjectClient:
                     "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
                     "MissingVariableValue": filesystem_errors.MissingVariableValue,
                     "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
                     "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
                     "TemplateMarkingNameConflict": filesystem_errors.TemplateMarkingNameConflict,
@@ -972,6 +992,8 @@ class AsyncProjectClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[core_models.OrganizationRid]
+
+        :raises ProjectNotFound: The given Project could not be found.
         """
 
         return self._api_client.call_api(
@@ -993,7 +1015,9 @@ class AsyncProjectClient:
                 body_type=None,
                 response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -1023,6 +1047,7 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises ProjectNotFound: The given Project could not be found.
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
 
@@ -1051,6 +1076,7 @@ class AsyncProjectClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1087,6 +1113,7 @@ class AsyncProjectClient:
 
         :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
+        :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.
         """
 
@@ -1120,6 +1147,7 @@ class AsyncProjectClient:
                 throwable_errors={
                     "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
+                    "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ReplaceProjectPermissionDenied": filesystem_errors.ReplaceProjectPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
