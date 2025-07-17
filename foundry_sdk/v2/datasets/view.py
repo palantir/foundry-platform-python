@@ -23,6 +23,7 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
+from foundry_sdk.v2.filesystem import errors as filesystem_errors
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
@@ -231,7 +232,9 @@ class ViewClient:
 
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
@@ -272,7 +275,9 @@ class ViewClient:
                 throwable_errors={
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
@@ -730,7 +735,9 @@ class AsyncViewClient:
 
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
+        :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
@@ -771,7 +778,9 @@ class AsyncViewClient:
                 throwable_errors={
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,

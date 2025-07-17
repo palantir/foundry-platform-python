@@ -128,6 +128,58 @@ CustomMetadata = typing.Dict[str, typing.Any]
 """CustomMetadata"""
 
 
+class DatasetFieldSchema(pydantic.BaseModel):
+    """A field in a Foundry dataset."""
+
+    type: str
+    name: FieldName
+    """The name of a column. May be absent in nested schema objects."""
+
+    nullable: bool
+    """Indicates whether values of this field may be null."""
+
+    user_defined_type_class: typing.Optional[str] = pydantic.Field(alias=str("userDefinedTypeClass"), default=None)  # type: ignore[literal-required]
+    """Canonical classname of the user-defined type for this field. This should be a subclass of Spark's `UserDefinedType`."""
+
+    custom_metadata: typing.Optional[CustomMetadata] = pydantic.Field(alias=str("customMetadata"), default=None)  # type: ignore[literal-required]
+    """User-supplied custom metadata about the column, such as Foundry web archetypes, descriptions, etc."""
+
+    array_subtype: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("arraySubtype"), default=None)  # type: ignore[literal-required]
+    """Only used with {@link FieldDataType#ARRAY}."""
+
+    precision: typing.Optional[int] = None
+    """Only used with {@link FieldDataType#DECIMAL}."""
+
+    scale: typing.Optional[int] = None
+    """Only used with {@link FieldDataType#DECIMAL}."""
+
+    map_key_type: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("mapKeyType"), default=None)  # type: ignore[literal-required]
+    """Only used with {@link FieldDataType#MAP}."""
+
+    map_value_type: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("mapValueType"), default=None)  # type: ignore[literal-required]
+    """Only used with {@link FieldDataType#MAP}."""
+
+    sub_schemas: typing.Optional[typing.List[DatasetFieldSchema]] = pydantic.Field(alias=str("subSchemas"), default=None)  # type: ignore[literal-required]
+    """Only used with {@link FieldDataType#STRUCT}."""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class DatasetSchema(pydantic.BaseModel):
+    """The schema for a Foundry dataset. Files uploaded to this dataset must match this schema."""
+
+    field_schema_list: typing.List[DatasetFieldSchema] = pydantic.Field(alias=str("fieldSchemaList"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class DateType(pydantic.BaseModel):
     """DateType"""
 
@@ -1024,6 +1076,10 @@ class VectorType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+VersionId = core.UUID
+"""The version identifier of a dataset schema."""
+
+
 ZoneId = str
 """A string representation of a java.time.ZoneId"""
 
@@ -1072,6 +1128,8 @@ __all__ = [
     "CreatedBy",
     "CreatedTime",
     "CustomMetadata",
+    "DatasetFieldSchema",
+    "DatasetSchema",
     "DateType",
     "DecimalType",
     "DisplayName",
@@ -1168,5 +1226,6 @@ __all__ = [
     "VectorSimilarityFunction",
     "VectorSimilarityFunctionValue",
     "VectorType",
+    "VersionId",
     "ZoneId",
 ]

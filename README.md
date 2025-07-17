@@ -635,6 +635,8 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Dataset | [**create**](docs/v2/Datasets/Dataset.md#create) | **POST** /v2/datasets |
 **Datasets** | Dataset | [**get**](docs/v2/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
 **Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
+**Datasets** | Dataset | [**get_schema**](docs/v2/Datasets/Dataset.md#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema |
+**Datasets** | Dataset | [**put_schema**](docs/v2/Datasets/Dataset.md#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema |
 **Datasets** | Dataset | [**read_table**](docs/v2/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
 **Datasets** | File | [**content**](docs/v2/Datasets/File.md#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content |
 **Datasets** | File | [**delete**](docs/v2/Datasets/File.md#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} |
@@ -1067,6 +1069,8 @@ Namespace | Name | Import |
 **Core** | [CreatedBy](docs/v2/Core/models/CreatedBy.md) | `from foundry_sdk.v2.core.models import CreatedBy` |
 **Core** | [CreatedTime](docs/v2/Core/models/CreatedTime.md) | `from foundry_sdk.v2.core.models import CreatedTime` |
 **Core** | [CustomMetadata](docs/v2/Core/models/CustomMetadata.md) | `from foundry_sdk.v2.core.models import CustomMetadata` |
+**Core** | [DatasetFieldSchema](docs/v2/Core/models/DatasetFieldSchema.md) | `from foundry_sdk.v2.core.models import DatasetFieldSchema` |
+**Core** | [DatasetSchema](docs/v2/Core/models/DatasetSchema.md) | `from foundry_sdk.v2.core.models import DatasetSchema` |
 **Core** | [DateType](docs/v2/Core/models/DateType.md) | `from foundry_sdk.v2.core.models import DateType` |
 **Core** | [DecimalType](docs/v2/Core/models/DecimalType.md) | `from foundry_sdk.v2.core.models import DecimalType` |
 **Core** | [DisplayName](docs/v2/Core/models/DisplayName.md) | `from foundry_sdk.v2.core.models import DisplayName` |
@@ -1163,6 +1167,7 @@ Namespace | Name | Import |
 **Core** | [VectorSimilarityFunction](docs/v2/Core/models/VectorSimilarityFunction.md) | `from foundry_sdk.v2.core.models import VectorSimilarityFunction` |
 **Core** | [VectorSimilarityFunctionValue](docs/v2/Core/models/VectorSimilarityFunctionValue.md) | `from foundry_sdk.v2.core.models import VectorSimilarityFunctionValue` |
 **Core** | [VectorType](docs/v2/Core/models/VectorType.md) | `from foundry_sdk.v2.core.models import VectorType` |
+**Core** | [VersionId](docs/v2/Core/models/VersionId.md) | `from foundry_sdk.v2.core.models import VersionId` |
 **Core** | [ZoneId](docs/v2/Core/models/ZoneId.md) | `from foundry_sdk.v2.core.models import ZoneId` |
 **Datasets** | [Branch](docs/v2/Datasets/models/Branch.md) | `from foundry_sdk.v2.datasets.models import Branch` |
 **Datasets** | [BranchName](docs/v2/Datasets/models/BranchName.md) | `from foundry_sdk.v2.datasets.models import BranchName` |
@@ -1171,6 +1176,7 @@ Namespace | Name | Import |
 **Datasets** | [DatasetRid](docs/v2/Datasets/models/DatasetRid.md) | `from foundry_sdk.v2.datasets.models import DatasetRid` |
 **Datasets** | [File](docs/v2/Datasets/models/File.md) | `from foundry_sdk.v2.datasets.models import File` |
 **Datasets** | [FileUpdatedTime](docs/v2/Datasets/models/FileUpdatedTime.md) | `from foundry_sdk.v2.datasets.models import FileUpdatedTime` |
+**Datasets** | [GetDatasetSchemaResponse](docs/v2/Datasets/models/GetDatasetSchemaResponse.md) | `from foundry_sdk.v2.datasets.models import GetDatasetSchemaResponse` |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
 **Datasets** | [ListSchedulesResponse](docs/v2/Datasets/models/ListSchedulesResponse.md) | `from foundry_sdk.v2.datasets.models import ListSchedulesResponse` |
@@ -2079,6 +2085,7 @@ Namespace | Name | Import |
 **Datasets** | CreateViewPermissionDenied | `from foundry_sdk.v2.datasets.errors import CreateViewPermissionDenied` |
 **Datasets** | DatasetNotFound | `from foundry_sdk.v2.datasets.errors import DatasetNotFound` |
 **Datasets** | DatasetReadNotSupported | `from foundry_sdk.v2.datasets.errors import DatasetReadNotSupported` |
+**Datasets** | DatasetViewNotFound | `from foundry_sdk.v2.datasets.errors import DatasetViewNotFound` |
 **Datasets** | DeleteBranchPermissionDenied | `from foundry_sdk.v2.datasets.errors import DeleteBranchPermissionDenied` |
 **Datasets** | DeleteFilePermissionDenied | `from foundry_sdk.v2.datasets.errors import DeleteFilePermissionDenied` |
 **Datasets** | DeleteSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import DeleteSchemaPermissionDenied` |
@@ -2087,12 +2094,14 @@ Namespace | Name | Import |
 **Datasets** | FileNotFoundOnBranch | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnBranch` |
 **Datasets** | FileNotFoundOnTransactionRange | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnTransactionRange` |
 **Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
+**Datasets** | GetDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchemaPermissionDenied` |
 **Datasets** | GetFileContentPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetFileContentPermissionDenied` |
 **Datasets** | InvalidBranchName | `from foundry_sdk.v2.datasets.errors import InvalidBranchName` |
 **Datasets** | InvalidTransactionType | `from foundry_sdk.v2.datasets.errors import InvalidTransactionType` |
 **Datasets** | InvalidViewBackingDataset | `from foundry_sdk.v2.datasets.errors import InvalidViewBackingDataset` |
 **Datasets** | JobTransactionPermissionDenied | `from foundry_sdk.v2.datasets.errors import JobTransactionPermissionDenied` |
 **Datasets** | OpenTransactionAlreadyExists | `from foundry_sdk.v2.datasets.errors import OpenTransactionAlreadyExists` |
+**Datasets** | PutDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import PutDatasetSchemaPermissionDenied` |
 **Datasets** | PutSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import PutSchemaPermissionDenied` |
 **Datasets** | ReadTableDatasetPermissionDenied | `from foundry_sdk.v2.datasets.errors import ReadTableDatasetPermissionDenied` |
 **Datasets** | ReadTableError | `from foundry_sdk.v2.datasets.errors import ReadTableError` |

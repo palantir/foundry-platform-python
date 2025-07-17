@@ -85,6 +85,7 @@ class ResourceClient:
         :rtype: None
 
         :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -113,6 +114,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -143,6 +145,7 @@ class ResourceClient:
         :rtype: None
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -162,6 +165,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -241,6 +245,7 @@ class ResourceClient:
         :rtype: filesystem_models.AccessRequirements
 
         :raises GetAccessRequirementsPermissionDenied: Could not getAccessRequirements the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -262,6 +267,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -290,6 +296,7 @@ class ResourceClient:
         :rtype: filesystem_models.Resource
 
         :raises GetByPathPermissionDenied: Could not getByPath the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -310,6 +317,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -344,6 +352,8 @@ class ResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[core_models.MarkingId]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -365,7 +375,9 @@ class ResourceClient:
                 body_type=None,
                 response_type=filesystem_models.ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -395,6 +407,7 @@ class ResourceClient:
         :rtype: None
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -414,6 +427,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -445,6 +459,7 @@ class ResourceClient:
         :rtype: None
 
         :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -473,6 +488,7 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -502,6 +518,7 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
 
@@ -521,6 +538,7 @@ class ResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                     "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -629,6 +647,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -657,6 +676,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -687,6 +707,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[None]
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -706,6 +727,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -785,6 +807,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[filesystem_models.AccessRequirements]
 
         :raises GetAccessRequirementsPermissionDenied: Could not getAccessRequirements the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -806,6 +829,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -834,6 +858,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[filesystem_models.Resource]
 
         :raises GetByPathPermissionDenied: Could not getByPath the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -854,6 +879,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -888,6 +914,8 @@ class AsyncResourceClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[core_models.MarkingId]
+
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -909,7 +937,9 @@ class AsyncResourceClient:
                 body_type=None,
                 response_type=filesystem_models.ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -939,6 +969,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[None]
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -958,6 +989,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -989,6 +1021,7 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[None]
 
         :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
+        :raises ResourceNotFound: The given Resource could not be found.
         """
 
         return self._api_client.call_api(
@@ -1017,6 +1050,7 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1046,6 +1080,7 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
 
@@ -1065,6 +1100,7 @@ class AsyncResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ResourceNotFound": filesystem_errors.ResourceNotFound,
                     "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

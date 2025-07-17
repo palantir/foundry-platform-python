@@ -58,9 +58,9 @@ class OntologyObjectClient:
         aggregation: typing.List[ontologies_models.AggregationV2],
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -78,12 +78,12 @@ class OntologyObjectClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param where:
         :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
@@ -97,9 +97,9 @@ class OntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/aggregate",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -539,9 +539,9 @@ class AsyncOntologyObjectClient:
         aggregation: typing.List[ontologies_models.AggregationV2],
         group_by: typing.List[ontologies_models.AggregationGroupByV2],
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
-        artifact_repository: typing.Optional[ontologies_models.ArtifactRepositoryRid] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        package_name: typing.Optional[ontologies_models.SdkPackageName] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -559,12 +559,12 @@ class AsyncOntologyObjectClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param artifact_repository: The repository associated with a marketplace installation.
-        :type artifact_repository: Optional[ArtifactRepositoryRid]
         :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
-        :param package_name: The package name of the generated SDK.
-        :type package_name: Optional[SdkPackageName]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param where:
         :type where: Optional[SearchJsonQueryV2]
         :param request_timeout: timeout setting for this request in seconds.
@@ -578,9 +578,9 @@ class AsyncOntologyObjectClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objects/{objectType}/aggregate",
                 query_params={
-                    "artifactRepository": artifact_repository,
                     "branch": branch,
-                    "packageName": package_name,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,

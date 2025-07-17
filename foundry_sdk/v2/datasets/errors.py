@@ -242,6 +242,26 @@ class DatasetReadNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class DatasetViewNotFoundParameters(typing_extensions.TypedDict):
+    """
+    The requested dataset view could not be found. A dataset view represents the effective file contents of a dataset
+    for a branch at a point in time, calculated from transactions (SNAPSHOT, APPEND, UPDATE, DELETE). The view may not
+    exist if the dataset has no transactions, contains no files, the branch is not valid, or the client token does not have access to it.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+    branch: datasets_models.BranchName
+
+
+@dataclass
+class DatasetViewNotFound(errors.NotFoundError):
+    name: typing.Literal["DatasetViewNotFound"]
+    parameters: DatasetViewNotFoundParameters
+    error_instance_id: str
+
+
 class DeleteBranchPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to delete the given branch from this dataset."""
 
@@ -374,6 +394,21 @@ class GetDatasetSchedulesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetDatasetSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getSchema the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class GetDatasetSchemaPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetSchemaPermissionDenied"]
+    parameters: GetDatasetSchemaPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetFileContentPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not content the File."""
 
@@ -464,6 +499,21 @@ class OpenTransactionAlreadyExistsParameters(typing_extensions.TypedDict):
 class OpenTransactionAlreadyExists(errors.ConflictError):
     name: typing.Literal["OpenTransactionAlreadyExists"]
     parameters: OpenTransactionAlreadyExistsParameters
+    error_instance_id: str
+
+
+class PutDatasetSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not putSchema the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class PutDatasetSchemaPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PutDatasetSchemaPermissionDenied"]
+    parameters: PutDatasetSchemaPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -751,6 +801,7 @@ __all__ = [
     "CreateViewPermissionDenied",
     "DatasetNotFound",
     "DatasetReadNotSupported",
+    "DatasetViewNotFound",
     "DeleteBranchPermissionDenied",
     "DeleteFilePermissionDenied",
     "DeleteSchemaPermissionDenied",
@@ -759,12 +810,14 @@ __all__ = [
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
     "GetDatasetSchedulesPermissionDenied",
+    "GetDatasetSchemaPermissionDenied",
     "GetFileContentPermissionDenied",
     "InvalidBranchName",
     "InvalidTransactionType",
     "InvalidViewBackingDataset",
     "JobTransactionPermissionDenied",
     "OpenTransactionAlreadyExists",
+    "PutDatasetSchemaPermissionDenied",
     "PutSchemaPermissionDenied",
     "ReadTableDatasetPermissionDenied",
     "ReadTableError",

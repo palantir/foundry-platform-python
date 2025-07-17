@@ -5,6 +5,8 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/datasets | Stable |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
 [**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
+[**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
+[**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
 
 # **create**
@@ -167,6 +169,164 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListSchedulesResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_schema**
+Gets a dataset's schema. If no `endTransactionRid` is provided, the latest committed version will be used.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | Optional[BranchName] |  | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**version_id** | Optional[VersionId] | The schema version that should be used. If none is provided, the latest version will be used.  | [optional] |
+
+### Return type
+**GetDatasetSchemaResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# Optional[BranchName]
+branch_name = None
+# Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
+end_transaction_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+# Optional[VersionId] | The schema version that should be used. If none is provided, the latest version will be used.
+version_id = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_schema(
+        dataset_rid,
+        branch_name=branch_name,
+        end_transaction_rid=end_transaction_rid,
+        preview=preview,
+        version_id=version_id,
+    )
+    print("The get_schema response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_schema: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetDatasetSchemaResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **put_schema**
+Adds a schema on an existing dataset using a PUT request.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**schema** | DatasetSchema | The schema that will be added.  |  |
+**branch_name** | Optional[BranchName] |  | [optional] |
+**end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetDatasetSchemaResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# DatasetSchema | The schema that will be added.
+schema = {
+    "fieldSchemaList": [
+        {
+            "name": "id",
+            "type": "long",
+            "nullable": False,
+            "customMetadata": {"description": "Primary key"},
+        },
+        {"name": "event_time", "type": "timestamp", "nullable": False},
+        {"name": "price", "type": "decimal", "precision": 10, "scale": 2, "nullable": True},
+        {
+            "name": "tags",
+            "type": "array",
+            "nullable": True,
+            "arraySubtype": {"type": "string", "nullable": False},
+        },
+        {
+            "name": "metrics",
+            "type": "struct",
+            "nullable": True,
+            "subSchemas": [
+                {"name": "temperature", "type": "double", "nullable": True},
+                {"name": "humidity", "type": "double", "nullable": True},
+            ],
+        },
+    ]
+}
+# Optional[BranchName]
+branch_name = "master"
+# Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
+end_transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.put_schema(
+        dataset_rid,
+        schema=schema,
+        branch_name=branch_name,
+        end_transaction_rid=end_transaction_rid,
+        preview=preview,
+    )
+    print("The put_schema response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.put_schema: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetDatasetSchemaResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
