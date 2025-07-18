@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -212,6 +213,60 @@ class ScheduleClient:
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[orchestration_models.GetSchedulesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> orchestration_models.GetSchedulesBatchResponse:
+        """
+        Fetch multiple schedules in a single request. Schedules not found or inaccessible to the user will be
+        omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchedulesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: orchestration_models.GetSchedulesBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetSchedulesBatchRequestElement],
+                    annotated_types.Len(min_length=1, max_length=1000),
+                ],
+                response_type=orchestration_models.GetSchedulesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -482,6 +537,7 @@ class _ScheduleClientRaw:
         def create(_: orchestration_models.Schedule): ...
         def delete(_: None): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def pause(_: None): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
@@ -491,6 +547,7 @@ class _ScheduleClientRaw:
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
+        self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.pause = core.with_raw_response(pause, client.pause)
         self.replace = core.with_raw_response(replace, client.replace)
         self.run = core.with_raw_response(run, client.run)
@@ -502,12 +559,14 @@ class _ScheduleClientStreaming:
     def __init__(self, client: ScheduleClient) -> None:
         def create(_: orchestration_models.Schedule): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
         def runs(_: orchestration_models.ListRunsOfScheduleResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.replace = core.with_streaming_response(replace, client.replace)
         self.run = core.with_streaming_response(run, client.run)
         self.runs = core.with_streaming_response(runs, client.runs)
@@ -700,6 +759,60 @@ class AsyncScheduleClient:
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[orchestration_models.GetSchedulesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[orchestration_models.GetSchedulesBatchResponse]:
+        """
+        Fetch multiple schedules in a single request. Schedules not found or inaccessible to the user will be
+        omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchedulesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[orchestration_models.GetSchedulesBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=typing_extensions.Annotated[
+                    typing.List[orchestration_models.GetSchedulesBatchRequestElement],
+                    annotated_types.Len(min_length=1, max_length=1000),
+                ],
+                response_type=orchestration_models.GetSchedulesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -970,6 +1083,7 @@ class _AsyncScheduleClientRaw:
         def create(_: orchestration_models.Schedule): ...
         def delete(_: None): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def pause(_: None): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
@@ -979,6 +1093,7 @@ class _AsyncScheduleClientRaw:
         self.create = core.async_with_raw_response(create, client.create)
         self.delete = core.async_with_raw_response(delete, client.delete)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.pause = core.async_with_raw_response(pause, client.pause)
         self.replace = core.async_with_raw_response(replace, client.replace)
         self.run = core.async_with_raw_response(run, client.run)
@@ -990,12 +1105,14 @@ class _AsyncScheduleClientStreaming:
     def __init__(self, client: AsyncScheduleClient) -> None:
         def create(_: orchestration_models.Schedule): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
         def runs(_: orchestration_models.ListRunsOfScheduleResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.replace = core.async_with_streaming_response(replace, client.replace)
         self.run = core.async_with_streaming_response(run, client.run)
         self.runs = core.async_with_streaming_response(runs, client.runs)

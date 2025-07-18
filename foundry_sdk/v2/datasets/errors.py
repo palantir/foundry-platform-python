@@ -425,6 +425,22 @@ class GetFileContentPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InputBackingDatasetNotInOutputViewProjectParameters(typing_extensions.TypedDict):
+    """
+    One or more backing datasets do not live in the same project as the view. Either move the input datasets to
+    the same project as the view or add them as project references.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InputBackingDatasetNotInOutputViewProject(errors.BadRequestError):
+    name: typing.Literal["InputBackingDatasetNotInOutputViewProject"]
+    parameters: InputBackingDatasetNotInOutputViewProjectParameters
+    error_instance_id: str
+
+
 class InvalidBranchNameParameters(typing_extensions.TypedDict):
     """The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs."""
 
@@ -812,6 +828,7 @@ __all__ = [
     "GetDatasetSchedulesPermissionDenied",
     "GetDatasetSchemaPermissionDenied",
     "GetFileContentPermissionDenied",
+    "InputBackingDatasetNotInOutputViewProject",
     "InvalidBranchName",
     "InvalidTransactionType",
     "InvalidViewBackingDataset",

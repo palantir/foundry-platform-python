@@ -1293,6 +1293,11 @@ export const PYTHON_PLATFORM_SNIPPETS: SdkSnippets<typeof PLATFORM_API_DOCS_SPEC
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# ScheduleRid\nschedule_rid = None\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.orchestration.Schedule.get(schedule_rid, preview=preview)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Schedule.get: %s\\n\" % e)"
           }
         ],
+        "v2.getSchedulesBatch": [
+          {
+            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# List[GetSchedulesBatchRequestElement] | Body of the request\nbody = [{\"scheduleRid\": \"ri.scheduler.main.schedule.5ad5c340-59f3-4a60-9fc6-161bb984f871\"}]\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.orchestration.Schedule.get_batch(body, preview=preview)\n    print(\"The get_batch response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Schedule.get_batch: %s\\n\" % e)"
+          }
+        ],
         "v2.pauseSchedule": [
           {
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# ScheduleRid\nschedule_rid = None\n\n\ntry:\n    api_response = client.orchestration.Schedule.pause(schedule_rid)\n    print(\"The pause response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Schedule.pause: %s\\n\" % e)"
