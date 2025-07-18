@@ -47,6 +47,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"LOGIC_FLOWS_CONNECTED_FLOW"` |
 | `"MACHINERY_DOCUMENT"` |
 | `"MAGRITTE_AGENT"` |
+| `"MAGRITTE_DRIVER"` |
 | `"MAGRITTE_SOURCE"` |
 | `"MARKETPLACE_BLOCK_SET_INSTALLATION"` |
 | `"MARKETPLACE_BLOCK_SET_REPO"` |

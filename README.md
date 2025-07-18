@@ -736,6 +736,7 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | Schedule | [**create**](docs/v2/Orchestration/Schedule.md#create) | **POST** /v2/orchestration/schedules |
 **Orchestration** | Schedule | [**delete**](docs/v2/Orchestration/Schedule.md#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**get**](docs/v2/Orchestration/Schedule.md#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
+**Orchestration** | Schedule | [**get_batch**](docs/v2/Orchestration/Schedule.md#get_batch) | **POST** /v2/orchestration/schedules/getBatch |
 **Orchestration** | Schedule | [**pause**](docs/v2/Orchestration/Schedule.md#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
 **Orchestration** | Schedule | [**replace**](docs/v2/Orchestration/Schedule.md#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**run**](docs/v2/Orchestration/Schedule.md#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run |
@@ -1635,6 +1636,8 @@ Namespace | Name | Import |
 **Orchestration** | [GetBuildsBatchResponse](docs/v2/Orchestration/models/GetBuildsBatchResponse.md) | `from foundry_sdk.v2.orchestration.models import GetBuildsBatchResponse` |
 **Orchestration** | [GetJobsBatchRequestElement](docs/v2/Orchestration/models/GetJobsBatchRequestElement.md) | `from foundry_sdk.v2.orchestration.models import GetJobsBatchRequestElement` |
 **Orchestration** | [GetJobsBatchResponse](docs/v2/Orchestration/models/GetJobsBatchResponse.md) | `from foundry_sdk.v2.orchestration.models import GetJobsBatchResponse` |
+**Orchestration** | [GetSchedulesBatchRequestElement](docs/v2/Orchestration/models/GetSchedulesBatchRequestElement.md) | `from foundry_sdk.v2.orchestration.models import GetSchedulesBatchRequestElement` |
+**Orchestration** | [GetSchedulesBatchResponse](docs/v2/Orchestration/models/GetSchedulesBatchResponse.md) | `from foundry_sdk.v2.orchestration.models import GetSchedulesBatchResponse` |
 **Orchestration** | [Job](docs/v2/Orchestration/models/Job.md) | `from foundry_sdk.v2.orchestration.models import Job` |
 **Orchestration** | [JobOutput](docs/v2/Orchestration/models/JobOutput.md) | `from foundry_sdk.v2.orchestration.models import JobOutput` |
 **Orchestration** | [JobStartedTime](docs/v2/Orchestration/models/JobStartedTime.md) | `from foundry_sdk.v2.orchestration.models import JobStartedTime` |
@@ -2096,6 +2099,7 @@ Namespace | Name | Import |
 **Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
 **Datasets** | GetDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchemaPermissionDenied` |
 **Datasets** | GetFileContentPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetFileContentPermissionDenied` |
+**Datasets** | InputBackingDatasetNotInOutputViewProject | `from foundry_sdk.v2.datasets.errors import InputBackingDatasetNotInOutputViewProject` |
 **Datasets** | InvalidBranchName | `from foundry_sdk.v2.datasets.errors import InvalidBranchName` |
 **Datasets** | InvalidTransactionType | `from foundry_sdk.v2.datasets.errors import InvalidTransactionType` |
 **Datasets** | InvalidViewBackingDataset | `from foundry_sdk.v2.datasets.errors import InvalidViewBackingDataset` |

@@ -81,6 +81,7 @@ class ViewClient:
         :rtype: datasets_models.View
 
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         """
@@ -114,6 +115,7 @@ class ViewClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddBackingDatasetsPermissionDenied": datasets_errors.AddBackingDatasetsPermissionDenied,
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },
@@ -233,6 +235,7 @@ class ViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
@@ -276,6 +279,7 @@ class ViewClient:
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
@@ -371,6 +375,7 @@ class ViewClient:
         :return: Returns the result object.
         :rtype: datasets_models.View
 
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises RemoveBackingDatasetsPermissionDenied: Could not removeBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
@@ -404,6 +409,7 @@ class ViewClient:
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "RemoveBackingDatasetsPermissionDenied": datasets_errors.RemoveBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,
@@ -442,6 +448,7 @@ class ViewClient:
         :return: Returns the result object.
         :rtype: datasets_models.View
 
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
@@ -475,6 +482,7 @@ class ViewClient:
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ReplaceBackingDatasetsPermissionDenied": datasets_errors.ReplaceBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,
@@ -584,6 +592,7 @@ class AsyncViewClient:
         :rtype: typing.Awaitable[datasets_models.View]
 
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         """
@@ -617,6 +626,7 @@ class AsyncViewClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddBackingDatasetsPermissionDenied": datasets_errors.AddBackingDatasetsPermissionDenied,
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },
@@ -736,6 +746,7 @@ class AsyncViewClient:
         :raises CreateDatasetPermissionDenied: The provided token does not have permission to create a dataset in this folder.
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
@@ -779,6 +790,7 @@ class AsyncViewClient:
                     "CreateDatasetPermissionDenied": datasets_errors.CreateDatasetPermissionDenied,
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
@@ -874,6 +886,7 @@ class AsyncViewClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[datasets_models.View]
 
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises RemoveBackingDatasetsPermissionDenied: Could not removeBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
@@ -907,6 +920,7 @@ class AsyncViewClient:
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "RemoveBackingDatasetsPermissionDenied": datasets_errors.RemoveBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,
@@ -945,6 +959,7 @@ class AsyncViewClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[datasets_models.View]
 
+        :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
@@ -978,6 +993,7 @@ class AsyncViewClient:
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "ReplaceBackingDatasetsPermissionDenied": datasets_errors.ReplaceBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,

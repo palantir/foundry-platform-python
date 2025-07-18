@@ -7855,6 +7855,31 @@ def orchestration_schedule_get(
     click.echo(repr(result))
 
 
+@orchestration_schedule.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def orchestration_schedule_get_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Fetch multiple schedules in a single request. Schedules not found or inaccessible to the user will be
+    omitted from the response.
+
+
+    The maximum batch size for this endpoint is 1000.
+    """
+    result = client.orchestration.Schedule.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @orchestration_schedule.command("pause")
 @click.argument("schedule_rid", type=str, required=True)
 @click.pass_obj

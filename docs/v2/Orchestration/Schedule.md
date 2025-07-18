@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/orchestration/schedules | Public Beta |
 [**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} | Stable |
 [**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**get_batch**](#get_batch) | **POST** /v2/orchestration/schedules/getBatch | Public Beta |
 [**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause | Stable |
 [**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
 [**run**](#run) | **POST** /v2/orchestration/schedules/{scheduleRid}/run | Stable |
@@ -189,6 +190,60 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Schedule  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_batch**
+Fetch multiple schedules in a single request. Schedules not found or inaccessible to the user will be 
+omitted from the response.
+
+
+The maximum batch size for this endpoint is 1000.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetSchedulesBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetSchedulesBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetSchedulesBatchRequestElement] | Body of the request
+body = [{"scheduleRid": "ri.scheduler.main.schedule.5ad5c340-59f3-4a60-9fc6-161bb984f871"}]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.orchestration.Schedule.get_batch(body, preview=preview)
+    print("The get_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Schedule.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetSchedulesBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
