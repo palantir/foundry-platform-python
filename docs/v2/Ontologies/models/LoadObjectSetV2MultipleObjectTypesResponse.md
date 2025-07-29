@@ -17,6 +17,7 @@ The `interfaceToObjectTypeMappings` field contains mappings from `SharedProperty
 **next_page_token** | Optional[PageToken] | No |  |
 **total_count** | TotalCount | Yes |  |
 **interface_to_object_type_mappings** | Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] | Yes |  |
+**compute_usage** | Optional[ComputeSeconds] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

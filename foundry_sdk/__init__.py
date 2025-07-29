@@ -23,6 +23,12 @@ from foundry_sdk._core import ResourceIterator
 from foundry_sdk._core import StreamedApiResponse
 from foundry_sdk._core import StreamingContextManager
 from foundry_sdk._core import UserTokenAuth
+
+# Context and environment variables
+from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VAR
+from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
+from foundry_sdk._core.context_and_environment_vars import TOKEN_ENV_VAR
+from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
 from foundry_sdk._errors import ConflictError
@@ -66,6 +72,10 @@ __all__ = [
     "PublicClientAuth",
     "UserTokenAuth",
     "Config",
+    "HOSTNAME_VAR",
+    "HOSTNAME_ENV_VAR",
+    "TOKEN_VAR",
+    "TOKEN_ENV_VAR",
     "PalantirException",
     "EnvironmentNotConfigured",
     "NotAuthenticated",

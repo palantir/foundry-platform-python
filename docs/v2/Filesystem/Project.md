@@ -5,7 +5,7 @@ Method | HTTP request | Release Stage |
 [**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Public Beta |
 [**create**](#create) | **POST** /v2/filesystem/projects/create | Public Beta |
 [**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Private Beta |
-[**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Public Beta |
+[**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Stable |
 [**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
 [**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |
 [**replace**](#replace) | **PUT** /v2/filesystem/projects/{projectRid} | Private Beta |
@@ -224,7 +224,6 @@ Get the Project with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Project**
@@ -240,12 +239,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ProjectRid
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Project.get(project_rid, preview=preview)
+    api_response = client.filesystem.Project.get(project_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

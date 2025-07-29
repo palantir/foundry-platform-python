@@ -187,7 +187,7 @@ class OAuth(Auth, ABC):
                     f"When a {self.__class__.__name__} instance is given to a FoundryClient, if a config "
                     "is not set it will be provided by the FoundryClient. You are using the same config "
                     "here and in the FoundryClient. Please remove the config parameter from the "
-                    "{self.__class__.__name__} initialization.",
+                    f"{self.__class__.__name__} initialization.",
                     UserWarning,
                     stacklevel=2,
                 )
@@ -200,7 +200,7 @@ class OAuth(Auth, ABC):
                     f"When a {self.__class__.__name__} instance is given to a FoundryClient, if a hostname "
                     "is not set it will be provided by the FoundryClient. You are using the same hostname "
                     "here and in the FoundryClient. Please remove the hostname parameter from the "
-                    "{self.__class__.__name__} initialization.",
+                    f"{self.__class__.__name__} initialization.",
                     UserWarning,
                     stacklevel=2,
                 )

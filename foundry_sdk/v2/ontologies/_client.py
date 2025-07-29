@@ -141,6 +141,16 @@ class OntologiesClient:
         )
 
     @cached_property
+    def OntologyValueType(self):
+        from foundry_sdk.v2.ontologies.ontology_value_type import OntologyValueTypeClient  # NOQA
+
+        return OntologyValueTypeClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Query(self):
         from foundry_sdk.v2.ontologies.query import QueryClient
 
@@ -210,6 +220,9 @@ class AsyncOntologiesClient:
         from foundry_sdk.v2.ontologies.ontology_object_set import (
             AsyncOntologyObjectSetClient,
         )  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_value_type import (
+            AsyncOntologyValueTypeClient,
+        )  # NOQA
         from foundry_sdk.v2.ontologies.query import AsyncQueryClient
         from foundry_sdk.v2.ontologies.time_series_property_v2 import (
             AsyncTimeSeriesPropertyV2Client,
@@ -245,6 +258,10 @@ class AsyncOntologiesClient:
         self.OntologyObject = AsyncOntologyObjectClient(auth=auth, hostname=hostname, config=config)
 
         self.OntologyObjectSet = AsyncOntologyObjectSetClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.OntologyValueType = AsyncOntologyValueTypeClient(
             auth=auth, hostname=hostname, config=config
         )
 

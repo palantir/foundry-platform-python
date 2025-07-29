@@ -16,23 +16,34 @@
 import typing
 
 from foundry_sdk import _core as core
+from foundry_sdk._core.client_init_helpers import (
+    get_hostname_from_context_or_environment_vars,
+)  # NOQA
+from foundry_sdk._core.client_init_helpers import (
+    get_user_token_auth_from_context_or_environment_vars,
+)  # NOQA
 
 
 class FoundryClient:
     """
     The Foundry V2 API client.
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param auth: Required. Your auth configuration.
+    :param hostname: Required. Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
-        auth: core.Auth,
-        hostname: str,
+        auth: typing.Optional[core.Auth] = None,
+        hostname: typing.Optional[str] = None,
         config: typing.Optional[core.Config] = None,
     ):
+        if auth is None:
+            auth = get_user_token_auth_from_context_or_environment_vars()
+        if hostname is None:
+            hostname = get_hostname_from_context_or_environment_vars()
+
         from foundry_sdk.v2.admin._client import AdminClient
         from foundry_sdk.v2.aip_agents._client import AipAgentsClient
         from foundry_sdk.v2.connectivity._client import ConnectivityClient
@@ -68,15 +79,15 @@ class AsyncFoundryClient:
     """
     The Async Foundry V2 API client.
 
-    :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param auth: Required. Your auth configuration.
+    :param hostname: Required. Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
-        auth: core.Auth,
-        hostname: str,
+        auth: typing.Optional[core.Auth] = None,
+        hostname: typing.Optional[str] = None,
         config: typing.Optional[core.Config] = None,
         preview: bool = False,
     ):
@@ -85,6 +96,10 @@ class AsyncFoundryClient:
                 "The AsyncFoundryClient client is in beta. "
                 "Please set the preview parameter to True to use it."
             )
+        if auth is None:
+            auth = get_user_token_auth_from_context_or_environment_vars()
+        if hostname is None:
+            hostname = get_hostname_from_context_or_environment_vars()
 
         from foundry_sdk.v2.admin._client import AsyncAdminClient
         from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient

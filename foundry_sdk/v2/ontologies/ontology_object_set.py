@@ -59,6 +59,7 @@ class OntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -79,6 +80,8 @@ class OntologyObjectSetClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -110,6 +113,7 @@ class OntologyObjectSetClient:
                     "objectSet": object_set,
                     "groupBy": group_by,
                     "accuracy": accuracy,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -118,6 +122,7 @@ class OntologyObjectSetClient:
                         "objectSet": ontologies_models.ObjectSet,
                         "groupBy": typing.List[ontologies_models.AggregationGroupByV2],
                         "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
@@ -342,6 +347,7 @@ class OntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -377,6 +383,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -422,6 +430,7 @@ class OntologyObjectSetClient:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                     "snapshot": snapshot,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -433,6 +442,7 @@ class OntologyObjectSetClient:
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
                         "snapshot": typing.Optional[bool],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
@@ -643,6 +653,7 @@ class AsyncOntologyObjectSetClient:
         object_set: ontologies_models.ObjectSet,
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -663,6 +674,8 @@ class AsyncOntologyObjectSetClient:
         :type accuracy: Optional[AggregationAccuracyRequest]
         :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
         :type branch: Optional[FoundryBranch]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -694,6 +707,7 @@ class AsyncOntologyObjectSetClient:
                     "objectSet": object_set,
                     "groupBy": group_by,
                     "accuracy": accuracy,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -702,6 +716,7 @@ class AsyncOntologyObjectSetClient:
                         "objectSet": ontologies_models.ObjectSet,
                         "groupBy": typing.List[ontologies_models.AggregationGroupByV2],
                         "accuracy": typing.Optional[ontologies_models.AggregationAccuracyRequest],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.AggregateObjectsResponseV2,
@@ -926,6 +941,7 @@ class AsyncOntologyObjectSetClient:
         select: typing.List[ontologies_models.SelectedPropertyApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -961,6 +977,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -1006,6 +1024,7 @@ class AsyncOntologyObjectSetClient:
                     "pageSize": page_size,
                     "excludeRid": exclude_rid,
                     "snapshot": snapshot,
+                    "includeComputeUsage": include_compute_usage,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -1017,6 +1036,7 @@ class AsyncOntologyObjectSetClient:
                         "pageSize": typing.Optional[core_models.PageSize],
                         "excludeRid": typing.Optional[bool],
                         "snapshot": typing.Optional[bool],
+                        "includeComputeUsage": typing.Optional[core_models.IncludeComputeUsage],
                     },
                 ),
                 response_type=ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,

@@ -50,6 +50,18 @@ class EnrollmentClient:
         self.with_raw_response = _EnrollmentClientRaw(self)
 
     @cached_property
+    def EnrollmentRoleAssignment(self):
+        from foundry_sdk.v2.admin.enrollment_role_assignment import (
+            EnrollmentRoleAssignmentClient,
+        )  # NOQA
+
+        return EnrollmentRoleAssignmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Host(self):
         from foundry_sdk.v2.admin.host import HostClient
 
@@ -208,6 +220,18 @@ class AsyncEnrollmentClient:
 
         self.with_streaming_response = _AsyncEnrollmentClientStreaming(self)
         self.with_raw_response = _AsyncEnrollmentClientRaw(self)
+
+    @cached_property
+    def EnrollmentRoleAssignment(self):
+        from foundry_sdk.v2.admin.enrollment_role_assignment import (
+            AsyncEnrollmentRoleAssignmentClient,
+        )  # NOQA
+
+        return AsyncEnrollmentRoleAssignmentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @cached_property
     def Host(self):

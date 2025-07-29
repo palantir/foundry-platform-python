@@ -168,6 +168,19 @@ class CreateProjectPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class CreateSpacePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the Space."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateSpacePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateSpacePermissionDenied"]
+    parameters: CreateSpacePermissionDeniedParameters
+    error_instance_id: str
+
+
 class DefaultRolesNotInSpaceRoleSetParameters(typing_extensions.TypedDict):
     """The requested default roles are not in the role set of the space for the project template."""
 
@@ -193,6 +206,36 @@ class DeleteResourcePermissionDeniedParameters(typing_extensions.TypedDict):
 class DeleteResourcePermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["DeleteResourcePermissionDenied"]
     parameters: DeleteResourcePermissionDeniedParameters
+    error_instance_id: str
+
+
+class DeleteSpacePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not delete the Space."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    spaceRid: filesystem_models.SpaceRid
+
+
+@dataclass
+class DeleteSpacePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteSpacePermissionDenied"]
+    parameters: DeleteSpacePermissionDeniedParameters
+    error_instance_id: str
+
+
+class EnrollmentNotFoundParameters(typing_extensions.TypedDict):
+    """An enrollment was not found for the user."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    enrollmentRid: core_models.EnrollmentRid
+
+
+@dataclass
+class EnrollmentNotFound(errors.NotFoundError):
+    name: typing.Literal["EnrollmentNotFound"]
+    parameters: EnrollmentNotFoundParameters
     error_instance_id: str
 
 
@@ -746,6 +789,34 @@ class ReplaceProjectPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceSpacePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Space."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    spaceRid: filesystem_models.SpaceRid
+
+
+@dataclass
+class ReplaceSpacePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceSpacePermissionDenied"]
+    parameters: ReplaceSpacePermissionDeniedParameters
+    error_instance_id: str
+
+
+class ReservedSpaceCannotBeReplacedParameters(typing_extensions.TypedDict):
+    """The spaceRid provided is for a reserved space in Foundry which cannot be replaced."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ReservedSpaceCannotBeReplaced(errors.BadRequestError):
+    name: typing.Literal["ReservedSpaceCannotBeReplaced"]
+    parameters: ReservedSpaceCannotBeReplacedParameters
+    error_instance_id: str
+
+
 class ResourceNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """The provided resource name is already in use by another resource in the same folder."""
 
@@ -822,8 +893,77 @@ class RestoreResourcePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class RoleSetNotFoundParameters(typing_extensions.TypedDict):
+    """The role set provided in the request to create or replace a space could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    roleSetRid: core_models.RoleSetId
+
+
+@dataclass
+class RoleSetNotFound(errors.NotFoundError):
+    name: typing.Literal["RoleSetNotFound"]
+    parameters: RoleSetNotFoundParameters
+    error_instance_id: str
+
+
+class SpaceInternalErrorParameters(typing_extensions.TypedDict):
+    """An internal error occurred when trying to create or replace the space."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class SpaceInternalError(errors.InternalServerError):
+    name: typing.Literal["SpaceInternalError"]
+    parameters: SpaceInternalErrorParameters
+    error_instance_id: str
+
+
+class SpaceInvalidArgumentParameters(typing_extensions.TypedDict):
+    """An invalid argument was provided in the request to create or replace a space."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class SpaceInvalidArgument(errors.BadRequestError):
+    name: typing.Literal["SpaceInvalidArgument"]
+    parameters: SpaceInvalidArgumentParameters
+    error_instance_id: str
+
+
+class SpaceNameInvalidParameters(typing_extensions.TypedDict):
+    """The provided space name is invalid. It may be a reserved name or contain invalid characters."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class SpaceNameInvalid(errors.BadRequestError):
+    name: typing.Literal["SpaceNameInvalid"]
+    parameters: SpaceNameInvalidParameters
+    error_instance_id: str
+
+
+class SpaceNotEmptyParameters(typing_extensions.TypedDict):
+    """The space cannot be deleted because it contains resources."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    spaceRid: filesystem_models.SpaceRid
+
+
+@dataclass
+class SpaceNotEmpty(errors.InternalServerError):
+    name: typing.Literal["SpaceNotEmpty"]
+    parameters: SpaceNotEmptyParameters
+    error_instance_id: str
+
+
 class SpaceNotFoundParameters(typing_extensions.TypedDict):
-    """The referenced space cannot be found."""
+    """The given Space could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -923,8 +1063,11 @@ __all__ = [
     "CreateProjectFromTemplatePermissionDenied",
     "CreateProjectNoOwnerLikeRoleGrant",
     "CreateProjectPermissionDenied",
+    "CreateSpacePermissionDenied",
     "DefaultRolesNotInSpaceRoleSet",
     "DeleteResourcePermissionDenied",
+    "DeleteSpacePermissionDenied",
+    "EnrollmentNotFound",
     "FolderNotFound",
     "ForbiddenOperationOnAutosavedResource",
     "ForbiddenOperationOnHiddenResource",
@@ -961,11 +1104,18 @@ __all__ = [
     "RemoveOrganizationsPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
     "ReplaceProjectPermissionDenied",
+    "ReplaceSpacePermissionDenied",
+    "ReservedSpaceCannotBeReplaced",
     "ResourceNameAlreadyExists",
     "ResourceNotDirectlyTrashed",
     "ResourceNotFound",
     "ResourceNotTrashed",
     "RestoreResourcePermissionDenied",
+    "RoleSetNotFound",
+    "SpaceInternalError",
+    "SpaceInvalidArgument",
+    "SpaceNameInvalid",
+    "SpaceNotEmpty",
     "SpaceNotFound",
     "TemplateGroupNameConflict",
     "TemplateMarkingNameConflict",

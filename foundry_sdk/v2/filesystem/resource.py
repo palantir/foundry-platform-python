@@ -85,6 +85,10 @@ class ResourceClient:
         :rtype: None
 
         :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
+        :raises ForbiddenOperationOnAutosavedResource: Performing this operation on an autosaved resource is not supported.
+        :raises ForbiddenOperationOnHiddenResource: Performing this operation on a hidden resource is not supported.
+        :raises MarkingNotFound: A provided marking ID cannot be found.
+        :raises OrganizationMarkingNotSupported: Adding an organization marking as a regular marking is not supported. Use the organization endpoints on a  project resource instead.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -114,6 +118,10 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                    "ForbiddenOperationOnAutosavedResource": filesystem_errors.ForbiddenOperationOnAutosavedResource,
+                    "ForbiddenOperationOnHiddenResource": filesystem_errors.ForbiddenOperationOnHiddenResource,
+                    "MarkingNotFound": filesystem_errors.MarkingNotFound,
+                    "OrganizationMarkingNotSupported": filesystem_errors.OrganizationMarkingNotSupported,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -146,6 +154,9 @@ class ResourceClient:
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
+        :raises TrashingAutosavedResourcesNotSupported: Auto-saved Resources cannot be trashed.
+        :raises TrashingHiddenResourcesNotSupported: Hidden Resources cannot be trashed.
+        :raises TrashingSpaceNotSupported: Spaces cannot be trashed.
         """
 
         return self._api_client.call_api(
@@ -166,6 +177,9 @@ class ResourceClient:
                 throwable_errors={
                     "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                    "TrashingAutosavedResourcesNotSupported": filesystem_errors.TrashingAutosavedResourcesNotSupported,
+                    "TrashingHiddenResourcesNotSupported": filesystem_errors.TrashingHiddenResourcesNotSupported,
+                    "TrashingSpaceNotSupported": filesystem_errors.TrashingSpaceNotSupported,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -193,6 +207,8 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: filesystem_models.Resource
 
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -214,6 +230,8 @@ class ResourceClient:
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -296,6 +314,10 @@ class ResourceClient:
         :rtype: filesystem_models.Resource
 
         :raises GetByPathPermissionDenied: Could not getByPath the Resource.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
+        :raises InvalidPath: The given path is invalid.   A valid path has all components separated by a single `/`.
+        :raises PathNotFound: The given path could not be found.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -317,6 +339,10 @@ class ResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
+                    "InvalidPath": filesystem_errors.InvalidPath,
+                    "PathNotFound": filesystem_errors.PathNotFound,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -408,6 +434,7 @@ class ResourceClient:
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
+        :raises ResourceNotTrashed: The Resource should be directly trashed before being permanently deleted.
         """
 
         return self._api_client.call_api(
@@ -428,6 +455,7 @@ class ResourceClient:
                 throwable_errors={
                     "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                    "ResourceNotTrashed": filesystem_errors.ResourceNotTrashed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -458,6 +486,10 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises ForbiddenOperationOnAutosavedResource: Performing this operation on an autosaved resource is not supported.
+        :raises ForbiddenOperationOnHiddenResource: Performing this operation on a hidden resource is not supported.
+        :raises MarkingNotFound: A provided marking ID cannot be found.
+        :raises OrganizationMarkingNotSupported: Adding an organization marking as a regular marking is not supported. Use the organization endpoints on a  project resource instead.
         :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -487,6 +519,10 @@ class ResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ForbiddenOperationOnAutosavedResource": filesystem_errors.ForbiddenOperationOnAutosavedResource,
+                    "ForbiddenOperationOnHiddenResource": filesystem_errors.ForbiddenOperationOnHiddenResource,
+                    "MarkingNotFound": filesystem_errors.MarkingNotFound,
+                    "OrganizationMarkingNotSupported": filesystem_errors.OrganizationMarkingNotSupported,
                     "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
@@ -518,6 +554,7 @@ class ResourceClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises ResourceNotDirectlyTrashed: The Resource is not directly trashed.
         :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
@@ -538,6 +575,7 @@ class ResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ResourceNotDirectlyTrashed": filesystem_errors.ResourceNotDirectlyTrashed,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                     "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
                 },
@@ -647,6 +685,10 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddMarkingsPermissionDenied: Could not addMarkings the Resource.
+        :raises ForbiddenOperationOnAutosavedResource: Performing this operation on an autosaved resource is not supported.
+        :raises ForbiddenOperationOnHiddenResource: Performing this operation on a hidden resource is not supported.
+        :raises MarkingNotFound: A provided marking ID cannot be found.
+        :raises OrganizationMarkingNotSupported: Adding an organization marking as a regular marking is not supported. Use the organization endpoints on a  project resource instead.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -676,6 +718,10 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddMarkingsPermissionDenied": filesystem_errors.AddMarkingsPermissionDenied,
+                    "ForbiddenOperationOnAutosavedResource": filesystem_errors.ForbiddenOperationOnAutosavedResource,
+                    "ForbiddenOperationOnHiddenResource": filesystem_errors.ForbiddenOperationOnHiddenResource,
+                    "MarkingNotFound": filesystem_errors.MarkingNotFound,
+                    "OrganizationMarkingNotSupported": filesystem_errors.OrganizationMarkingNotSupported,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -708,6 +754,9 @@ class AsyncResourceClient:
 
         :raises DeleteResourcePermissionDenied: Could not delete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
+        :raises TrashingAutosavedResourcesNotSupported: Auto-saved Resources cannot be trashed.
+        :raises TrashingHiddenResourcesNotSupported: Hidden Resources cannot be trashed.
+        :raises TrashingSpaceNotSupported: Spaces cannot be trashed.
         """
 
         return self._api_client.call_api(
@@ -728,6 +777,9 @@ class AsyncResourceClient:
                 throwable_errors={
                     "DeleteResourcePermissionDenied": filesystem_errors.DeleteResourcePermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                    "TrashingAutosavedResourcesNotSupported": filesystem_errors.TrashingAutosavedResourcesNotSupported,
+                    "TrashingHiddenResourcesNotSupported": filesystem_errors.TrashingHiddenResourcesNotSupported,
+                    "TrashingSpaceNotSupported": filesystem_errors.TrashingSpaceNotSupported,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -755,6 +807,8 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.Resource]
 
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -776,6 +830,8 @@ class AsyncResourceClient:
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -858,6 +914,10 @@ class AsyncResourceClient:
         :rtype: typing.Awaitable[filesystem_models.Resource]
 
         :raises GetByPathPermissionDenied: Could not getByPath the Resource.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
+        :raises InvalidPath: The given path is invalid.   A valid path has all components separated by a single `/`.
+        :raises PathNotFound: The given path could not be found.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -879,6 +939,10 @@ class AsyncResourceClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetByPathPermissionDenied": filesystem_errors.GetByPathPermissionDenied,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
+                    "InvalidPath": filesystem_errors.InvalidPath,
+                    "PathNotFound": filesystem_errors.PathNotFound,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -970,6 +1034,7 @@ class AsyncResourceClient:
 
         :raises PermanentlyDeleteResourcePermissionDenied: Could not permanentlyDelete the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
+        :raises ResourceNotTrashed: The Resource should be directly trashed before being permanently deleted.
         """
 
         return self._api_client.call_api(
@@ -990,6 +1055,7 @@ class AsyncResourceClient:
                 throwable_errors={
                     "PermanentlyDeleteResourcePermissionDenied": filesystem_errors.PermanentlyDeleteResourcePermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
+                    "ResourceNotTrashed": filesystem_errors.ResourceNotTrashed,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1020,6 +1086,10 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises ForbiddenOperationOnAutosavedResource: Performing this operation on an autosaved resource is not supported.
+        :raises ForbiddenOperationOnHiddenResource: Performing this operation on a hidden resource is not supported.
+        :raises MarkingNotFound: A provided marking ID cannot be found.
+        :raises OrganizationMarkingNotSupported: Adding an organization marking as a regular marking is not supported. Use the organization endpoints on a  project resource instead.
         :raises RemoveMarkingsPermissionDenied: Could not removeMarkings the Resource.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -1049,6 +1119,10 @@ class AsyncResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ForbiddenOperationOnAutosavedResource": filesystem_errors.ForbiddenOperationOnAutosavedResource,
+                    "ForbiddenOperationOnHiddenResource": filesystem_errors.ForbiddenOperationOnHiddenResource,
+                    "MarkingNotFound": filesystem_errors.MarkingNotFound,
+                    "OrganizationMarkingNotSupported": filesystem_errors.OrganizationMarkingNotSupported,
                     "RemoveMarkingsPermissionDenied": filesystem_errors.RemoveMarkingsPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
@@ -1080,6 +1154,7 @@ class AsyncResourceClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises ResourceNotDirectlyTrashed: The Resource is not directly trashed.
         :raises ResourceNotFound: The given Resource could not be found.
         :raises RestoreResourcePermissionDenied: Could not restore the Resource.
         """
@@ -1100,6 +1175,7 @@ class AsyncResourceClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ResourceNotDirectlyTrashed": filesystem_errors.ResourceNotDirectlyTrashed,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                     "RestoreResourcePermissionDenied": filesystem_errors.RestoreResourcePermissionDenied,
                 },

@@ -81,6 +81,9 @@ class FolderClient:
         :rtype: core.ResourceIterator[filesystem_models.Resource]
 
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
+        :raises InvalidFolder: The given Resource is not a Folder.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -105,6 +108,9 @@ class FolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
@@ -136,8 +142,13 @@ class FolderClient:
         :return: Returns the result object.
         :rtype: filesystem_models.Folder
 
+        :raises CreateFolderOutsideProjectNotSupported: The given Resource is not a folder.
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -167,8 +178,13 @@ class FolderClient:
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CreateFolderOutsideProjectNotSupported": filesystem_errors.CreateFolderOutsideProjectNotSupported,
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
+                    "MissingDisplayName": filesystem_errors.MissingDisplayName,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -198,6 +214,8 @@ class FolderClient:
         :rtype: filesystem_models.Folder
 
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidFolder: The given Resource is not a Folder.
         """
 
         return self._api_client.call_api(
@@ -219,6 +237,8 @@ class FolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -303,6 +323,9 @@ class AsyncFolderClient:
         :rtype: core.AsyncResourceIterator[filesystem_models.Resource]
 
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises GetSpaceResourceNotSupported: Getting a space as a resource is not supported.
+        :raises InvalidFolder: The given Resource is not a Folder.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -327,6 +350,9 @@ class AsyncFolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "GetSpaceResourceNotSupported": filesystem_errors.GetSpaceResourceNotSupported,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
@@ -358,8 +384,13 @@ class AsyncFolderClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.Folder]
 
+        :raises CreateFolderOutsideProjectNotSupported: The given Resource is not a folder.
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
@@ -389,8 +420,13 @@ class AsyncFolderClient:
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CreateFolderOutsideProjectNotSupported": filesystem_errors.CreateFolderOutsideProjectNotSupported,
                     "CreateFolderPermissionDenied": filesystem_errors.CreateFolderPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
+                    "MissingDisplayName": filesystem_errors.MissingDisplayName,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -420,6 +456,8 @@ class AsyncFolderClient:
         :rtype: typing.Awaitable[filesystem_models.Folder]
 
         :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidFolder: The given Resource is not a Folder.
         """
 
         return self._api_client.call_api(
@@ -441,6 +479,8 @@ class AsyncFolderClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

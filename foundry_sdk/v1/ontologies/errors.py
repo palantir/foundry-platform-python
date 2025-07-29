@@ -328,6 +328,19 @@ class CompositePrimaryKeyNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class DefaultAndNullGroupsNotSupportedParameters(typing_extensions.TypedDict):
+    """Exact match groupBy clause cannot specify a default value and allow null values."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class DefaultAndNullGroupsNotSupported(errors.BadRequestError):
+    name: typing.Literal["DefaultAndNullGroupsNotSupported"]
+    parameters: DefaultAndNullGroupsNotSupportedParameters
+    error_instance_id: str
+
+
 class DerivedPropertyApiNamesNotUniqueParameters(typing_extensions.TypedDict):
     """At least one of the requested derived property API names already exist on the object set."""
 
@@ -513,6 +526,19 @@ class InvalidAggregationOrderingParameters(typing_extensions.TypedDict):
 class InvalidAggregationOrdering(errors.BadRequestError):
     name: typing.Literal["InvalidAggregationOrdering"]
     parameters: InvalidAggregationOrderingParameters
+    error_instance_id: str
+
+
+class InvalidAggregationOrderingWithNullValuesParameters(typing_extensions.TypedDict):
+    """Aggregation ordering cannot be applied for groupBy clauses that allow null values."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidAggregationOrderingWithNullValues(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationOrderingWithNullValues"]
+    parameters: InvalidAggregationOrderingWithNullValuesParameters
     error_instance_id: str
 
 
@@ -2001,6 +2027,22 @@ class UnsupportedObjectSet(errors.BadRequestError):
     error_instance_id: str
 
 
+class ValueTypeNotFoundParameters(typing_extensions.TypedDict):
+    """The value type is not found, or the user does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    valueType: typing_extensions.NotRequired[ontologies_models.ValueTypeApiName]
+    rid: typing_extensions.NotRequired[ontologies_models.ValueTypeRid]
+
+
+@dataclass
+class ValueTypeNotFound(errors.NotFoundError):
+    name: typing.Literal["ValueTypeNotFound"]
+    parameters: ValueTypeNotFoundParameters
+    error_instance_id: str
+
+
 class ViewObjectPermissionDeniedParameters(typing_extensions.TypedDict):
     """
     The provided token does not have permission to view any data sources backing this object type. Ensure the object
@@ -2038,6 +2080,7 @@ __all__ = [
     "AttachmentSizeExceededLimit",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
+    "DefaultAndNullGroupsNotSupported",
     "DerivedPropertyApiNamesNotUnique",
     "DuplicateOrderBy",
     "EditObjectPermissionDenied",
@@ -2050,6 +2093,7 @@ __all__ = [
     "InterfaceTypeNotFound",
     "InterfaceTypesNotFound",
     "InvalidAggregationOrdering",
+    "InvalidAggregationOrderingWithNullValues",
     "InvalidAggregationRange",
     "InvalidAggregationRangePropertyType",
     "InvalidAggregationRangeValue",
@@ -2138,5 +2182,6 @@ __all__ = [
     "UndecryptableValue",
     "UnknownParameter",
     "UnsupportedObjectSet",
+    "ValueTypeNotFound",
     "ViewObjectPermissionDenied",
 ]

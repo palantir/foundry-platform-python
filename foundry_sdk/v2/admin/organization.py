@@ -64,6 +64,91 @@ class OrganizationClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def create(
+        self,
+        *,
+        administrators: typing.List[core_models.PrincipalId],
+        enrollment_rid: core_models.EnrollmentRid,
+        name: admin_models.OrganizationName,
+        description: typing.Optional[str] = None,
+        host: typing.Optional[admin_models.HostName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.Organization:
+        """
+        Creates a new Organization.
+        :param administrators: The initial administrators of the Organization. At least one principal must be provided.
+        :type administrators: List[PrincipalId]
+        :param enrollment_rid: The RID of the Enrollment that this Organization belongs to. This must be provided.
+        :type enrollment_rid: EnrollmentRid
+        :param name:
+        :type name: OrganizationName
+        :param description:
+        :type description: Optional[str]
+        :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
+        :type host: Optional[HostName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.Organization
+
+        :raises CreateOrganizationMissingInitialAdminRole: At least one organization:administrator role grant must be provided when creating a organization.
+        :raises CreateOrganizationPermissionDenied: Could not create the Organization.
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
+        :raises OrganizationNameAlreadyExists: An organization with the same name already exists.
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "administrators": administrators,
+                    "enrollmentRid": enrollment_rid,
+                    "name": name,
+                    "host": host,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "administrators": typing.List[core_models.PrincipalId],
+                        "enrollmentRid": core_models.EnrollmentRid,
+                        "name": admin_models.OrganizationName,
+                        "host": typing.Optional[admin_models.HostName],
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=admin_models.Organization,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateOrganizationMissingInitialAdminRole": admin_errors.CreateOrganizationMissingInitialAdminRole,
+                    "CreateOrganizationPermissionDenied": admin_errors.CreateOrganizationPermissionDenied,
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                    "OrganizationNameAlreadyExists": admin_errors.OrganizationNameAlreadyExists,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         organization_rid: core_models.OrganizationRid,
@@ -194,6 +279,7 @@ class OrganizationClient:
         :rtype: admin_models.Organization
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises OrganizationNameAlreadyExists: An organization with the same name already exists.
         :raises OrganizationNotFound: The given Organization could not be found.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
@@ -229,6 +315,7 @@ class OrganizationClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,
+                    "OrganizationNameAlreadyExists": admin_errors.OrganizationNameAlreadyExists,
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
                     "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
                 },
@@ -239,10 +326,12 @@ class OrganizationClient:
 
 class _OrganizationClientRaw:
     def __init__(self, client: OrganizationClient) -> None:
+        def create(_: admin_models.Organization): ...
         def get(_: admin_models.Organization): ...
         def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
+        self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.list_available_roles = core.with_raw_response(
             list_available_roles, client.list_available_roles
@@ -252,10 +341,12 @@ class _OrganizationClientRaw:
 
 class _OrganizationClientStreaming:
     def __init__(self, client: OrganizationClient) -> None:
+        def create(_: admin_models.Organization): ...
         def get(_: admin_models.Organization): ...
         def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
+        self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.list_available_roles = core.with_streaming_response(
             list_available_roles, client.list_available_roles
@@ -296,6 +387,91 @@ class AsyncOrganizationClient:
             auth=self._auth,
             hostname=self._hostname,
             config=self._config,
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def create(
+        self,
+        *,
+        administrators: typing.List[core_models.PrincipalId],
+        enrollment_rid: core_models.EnrollmentRid,
+        name: admin_models.OrganizationName,
+        description: typing.Optional[str] = None,
+        host: typing.Optional[admin_models.HostName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.Organization]:
+        """
+        Creates a new Organization.
+        :param administrators: The initial administrators of the Organization. At least one principal must be provided.
+        :type administrators: List[PrincipalId]
+        :param enrollment_rid: The RID of the Enrollment that this Organization belongs to. This must be provided.
+        :type enrollment_rid: EnrollmentRid
+        :param name:
+        :type name: OrganizationName
+        :param description:
+        :type description: Optional[str]
+        :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
+        :type host: Optional[HostName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.Organization]
+
+        :raises CreateOrganizationMissingInitialAdminRole: At least one organization:administrator role grant must be provided when creating a organization.
+        :raises CreateOrganizationPermissionDenied: Could not create the Organization.
+        :raises EnrollmentNotFound: The given Enrollment could not be found.
+        :raises OrganizationNameAlreadyExists: An organization with the same name already exists.
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "administrators": administrators,
+                    "enrollmentRid": enrollment_rid,
+                    "name": name,
+                    "host": host,
+                    "description": description,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "administrators": typing.List[core_models.PrincipalId],
+                        "enrollmentRid": core_models.EnrollmentRid,
+                        "name": admin_models.OrganizationName,
+                        "host": typing.Optional[admin_models.HostName],
+                        "description": typing.Optional[str],
+                    },
+                ),
+                response_type=admin_models.Organization,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateOrganizationMissingInitialAdminRole": admin_errors.CreateOrganizationMissingInitialAdminRole,
+                    "CreateOrganizationPermissionDenied": admin_errors.CreateOrganizationPermissionDenied,
+                    "EnrollmentNotFound": admin_errors.EnrollmentNotFound,
+                    "OrganizationNameAlreadyExists": admin_errors.OrganizationNameAlreadyExists,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
         )
 
     @core.maybe_ignore_preview
@@ -431,6 +607,7 @@ class AsyncOrganizationClient:
         :rtype: typing.Awaitable[admin_models.Organization]
 
         :raises InvalidHostName: The provided hostname must be a valid domain name. The only allowed characters are letters, numbers, periods, and hyphens.
+        :raises OrganizationNameAlreadyExists: An organization with the same name already exists.
         :raises OrganizationNotFound: The given Organization could not be found.
         :raises ReplaceOrganizationPermissionDenied: Could not replace the Organization.
         """
@@ -466,6 +643,7 @@ class AsyncOrganizationClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidHostName": admin_errors.InvalidHostName,
+                    "OrganizationNameAlreadyExists": admin_errors.OrganizationNameAlreadyExists,
                     "OrganizationNotFound": admin_errors.OrganizationNotFound,
                     "ReplaceOrganizationPermissionDenied": admin_errors.ReplaceOrganizationPermissionDenied,
                 },
@@ -476,10 +654,12 @@ class AsyncOrganizationClient:
 
 class _AsyncOrganizationClientRaw:
     def __init__(self, client: AsyncOrganizationClient) -> None:
+        def create(_: admin_models.Organization): ...
         def get(_: admin_models.Organization): ...
         def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
+        self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.list_available_roles = core.async_with_raw_response(
             list_available_roles, client.list_available_roles
@@ -489,10 +669,12 @@ class _AsyncOrganizationClientRaw:
 
 class _AsyncOrganizationClientStreaming:
     def __init__(self, client: AsyncOrganizationClient) -> None:
+        def create(_: admin_models.Organization): ...
         def get(_: admin_models.Organization): ...
         def list_available_roles(_: admin_models.ListAvailableOrganizationRolesResponse): ...
         def replace(_: admin_models.Organization): ...
 
+        self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.list_available_roles = core.async_with_streaming_response(
             list_available_roles, client.list_available_roles

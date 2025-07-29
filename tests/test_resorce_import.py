@@ -82,6 +82,14 @@ def test_admin_v2_enrollment_import():
     assert EnrollmentClient is not None
 
 
+def test_admin_v2_enrollment_role_assignment_import():
+    from foundry_sdk.v2.admin.enrollment_role_assignment import (
+        EnrollmentRoleAssignmentClient,
+    )  # NOQA
+
+    assert EnrollmentRoleAssignmentClient is not None
+
+
 def test_admin_v2_group_import():
     from foundry_sdk.v2.admin.group import GroupClient
 
@@ -380,6 +388,12 @@ def test_ontologies_v2_ontology_object_set_import():
     from foundry_sdk.v2.ontologies.ontology_object_set import OntologyObjectSetClient
 
     assert OntologyObjectSetClient is not None
+
+
+def test_ontologies_v2_ontology_value_type_import():
+    from foundry_sdk.v2.ontologies.ontology_value_type import OntologyValueTypeClient
+
+    assert OntologyValueTypeClient is not None
 
 
 def test_ontologies_v2_query_import():

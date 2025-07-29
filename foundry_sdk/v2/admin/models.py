@@ -114,6 +114,19 @@ EnrollmentName = str
 """EnrollmentName"""
 
 
+class EnrollmentRoleAssignment(pydantic.BaseModel):
+    """EnrollmentRoleAssignment"""
+
+    principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
+    role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class GetGroupsBatchRequestElement(pydantic.BaseModel):
     """GetGroupsBatchRequestElement"""
 
@@ -348,6 +361,18 @@ class ListAvailableOrganizationRolesResponse(pydantic.BaseModel):
     """ListAvailableOrganizationRolesResponse"""
 
     data: typing.List[core_models.Role]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ListEnrollmentRoleAssignmentsResponse(pydantic.BaseModel):
+    """ListEnrollmentRoleAssignmentsResponse"""
+
+    data: typing.List[EnrollmentRoleAssignment]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -813,6 +838,7 @@ __all__ = [
     "CertificateUsageType",
     "Enrollment",
     "EnrollmentName",
+    "EnrollmentRoleAssignment",
     "GetGroupsBatchRequestElement",
     "GetGroupsBatchResponse",
     "GetMarkingsBatchRequestElement",
@@ -834,6 +860,7 @@ __all__ = [
     "HostName",
     "ListAuthenticationProvidersResponse",
     "ListAvailableOrganizationRolesResponse",
+    "ListEnrollmentRoleAssignmentsResponse",
     "ListGroupMembersResponse",
     "ListGroupMembershipsResponse",
     "ListGroupsResponse",

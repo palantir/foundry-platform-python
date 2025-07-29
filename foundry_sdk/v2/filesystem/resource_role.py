@@ -74,6 +74,7 @@ class ResourceRoleClient:
         :rtype: None
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -103,6 +104,7 @@ class ResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -196,6 +198,7 @@ class ResourceRoleClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -225,6 +228,7 @@ class ResourceRoleClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
@@ -300,6 +304,7 @@ class AsyncResourceRoleClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -329,6 +334,7 @@ class AsyncResourceRoleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -422,6 +428,7 @@ class AsyncResourceRoleClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -451,6 +458,7 @@ class AsyncResourceRoleClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
