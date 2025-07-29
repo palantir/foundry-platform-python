@@ -403,6 +403,58 @@ def admin_organization():
     pass
 
 
+@admin_organization.command("create")
+@click.option(
+    "--administrators",
+    type=str,
+    required=True,
+    help="""The initial administrators of the Organization. At least one principal must be provided.
+""",
+)
+@click.option(
+    "--enrollment_rid",
+    type=str,
+    required=True,
+    help="""The RID of the Enrollment that this Organization belongs to. This must be provided.
+""",
+)
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--description", type=str, required=False, help="""""")
+@click.option(
+    "--host",
+    type=str,
+    required=False,
+    help="""The primary host name of the Organization. This should be used when constructing URLs for users of this
+Organization.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_create(
+    client: FoundryClient,
+    administrators: str,
+    enrollment_rid: str,
+    name: str,
+    description: typing.Optional[str],
+    host: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new Organization.
+    """
+    result = client.admin.Organization.create(
+        administrators=json.loads(administrators),
+        enrollment_rid=enrollment_rid,
+        name=name,
+        description=description,
+        host=host,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_organization.command("get")
 @click.argument("organization_rid", type=str, required=True)
 @click.option(
@@ -1552,6 +1604,83 @@ def admin_enrollment_host_list(
         enrollment_rid=enrollment_rid,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment.group("enrollment_role_assignment")
+def admin_enrollment_enrollment_role_assignment():
+    pass
+
+
+@admin_enrollment_enrollment_role_assignment.command("add")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_enrollment_enrollment_role_assignment_add(
+    client: FoundryClient,
+    enrollment_rid: str,
+    role_assignments: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Assign roles to principals for the given Enrollment. At most 100 role assignments can be added in a single request.
+
+    """
+    result = client.admin.Enrollment.EnrollmentRoleAssignment.add(
+        enrollment_rid=enrollment_rid,
+        role_assignments=json.loads(role_assignments),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_enrollment_role_assignment.command("list")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_enrollment_enrollment_role_assignment_list(
+    client: FoundryClient,
+    enrollment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    List all principals who are assigned a role for the given Enrollment.
+
+    """
+    result = client.admin.Enrollment.EnrollmentRoleAssignment.list(
+        enrollment_rid=enrollment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_enrollment_enrollment_role_assignment.command("remove")
+@click.argument("enrollment_rid", type=str, required=True)
+@click.option("--role_assignments", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_enrollment_enrollment_role_assignment_remove(
+    client: FoundryClient,
+    enrollment_rid: str,
+    role_assignments: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Remove roles from principals for the given Enrollment. At most 100 role assignments can be removed in a single request.
+
+    """
+    result = client.admin.Enrollment.EnrollmentRoleAssignment.remove(
+        enrollment_rid=enrollment_rid,
+        role_assignments=json.loads(role_assignments),
         preview=preview,
     )
     click.echo(repr(result))
@@ -3760,6 +3889,125 @@ def filesystem_space():
     pass
 
 
+@filesystem_space.command("create")
+@click.option(
+    "--deletion_policy_organizations",
+    type=str,
+    required=True,
+    help="""By default, this Space will use a Last Out deletion policy, meaning that this Space and its projects will be deleted when the last Organization listed here is deleted. Only Organizations in the Space's Enrollment can be included here.
+""",
+)
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--enrollment_rid",
+    type=str,
+    required=True,
+    help="""The RID of the Enrollment that this Space belongs to.
+""",
+)
+@click.option(
+    "--organizations",
+    type=str,
+    required=True,
+    help="""The list of Organizations that are provisioned access to this Space. In order to access this Space, a user must be a member of at least one of these Organizations.
+""",
+)
+@click.option(
+    "--default_role_set_id",
+    type=str,
+    required=False,
+    help="""The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used.
+""",
+)
+@click.option("--description", type=str, required=False, help="""The description of the Space.""")
+@click.option(
+    "--file_system_id",
+    type=str,
+    required=False,
+    help="""The ID of the Filesystem for this Space, which is where the contents of the Space are stored. If not provided, the default Filesystem for this Enrollment will be used.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--usage_account_rid",
+    type=str,
+    required=False,
+    help="""The RID of the Usage Account for this Space. Resource usage for projects in this space will accrue to this Usage Account by default. If not provided, the default Usage Account for this Enrollment will be used.""",
+)
+@click.pass_obj
+def filesystem_space_create(
+    client: FoundryClient,
+    deletion_policy_organizations: str,
+    display_name: str,
+    enrollment_rid: str,
+    organizations: str,
+    default_role_set_id: typing.Optional[str],
+    description: typing.Optional[str],
+    file_system_id: typing.Optional[str],
+    preview: typing.Optional[bool],
+    usage_account_rid: typing.Optional[str],
+):
+    """
+    Creates a new Space.
+    """
+    result = client.filesystem.Space.create(
+        deletion_policy_organizations=json.loads(deletion_policy_organizations),
+        display_name=display_name,
+        enrollment_rid=enrollment_rid,
+        organizations=json.loads(organizations),
+        default_role_set_id=default_role_set_id,
+        description=description,
+        file_system_id=file_system_id,
+        preview=preview,
+        usage_account_rid=usage_account_rid,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_space.command("delete")
+@click.argument("space_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_space_delete(
+    client: FoundryClient,
+    space_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Delete the space. This will only work if the Space is empty, meaning any Projects or Resources have been deleted first.
+
+    """
+    result = client.filesystem.Space.delete(
+        space_rid=space_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_space.command("get")
+@click.argument("space_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_space_get(
+    client: FoundryClient,
+    space_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Space with the specified rid.
+    """
+    result = client.filesystem.Space.get(
+        space_rid=space_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_space.command("list")
 @click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
@@ -3791,6 +4039,50 @@ def filesystem_space_list(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_space.command("replace")
+@click.argument("space_rid", type=str, required=True)
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--default_role_set_id",
+    type=str,
+    required=False,
+    help="""The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used.
+""",
+)
+@click.option("--description", type=str, required=False, help="""The description of the Space.""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--usage_account_rid",
+    type=str,
+    required=False,
+    help="""The RID of the Usage Account for this Space. Resource usage for projects in this space will accrue to this Usage Account by default. If not provided, the default Usage Account for this Enrollment will be used.""",
+)
+@click.pass_obj
+def filesystem_space_replace(
+    client: FoundryClient,
+    space_rid: str,
+    display_name: str,
+    default_role_set_id: typing.Optional[str],
+    description: typing.Optional[str],
+    preview: typing.Optional[bool],
+    usage_account_rid: typing.Optional[str],
+):
+    """
+    Replace the Space with the specified rid.
+    """
+    result = client.filesystem.Space.replace(
+        space_rid=space_rid,
+        display_name=display_name,
+        default_role_set_id=default_role_set_id,
+        description=description,
+        preview=preview,
+        usage_account_rid=usage_account_rid,
     )
     click.echo(repr(result))
 
@@ -4224,21 +4516,16 @@ def filesystem_project_create_from_template(
 
 @filesystem_project.command("get")
 @click.argument("project_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_get(
     client: FoundryClient,
     project_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Project with the specified rid.
     """
     result = client.filesystem.Project.get(
         project_rid=project_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5264,6 +5551,66 @@ def ontologies_query_execute(
     click.echo(repr(result))
 
 
+@ontologies.group("ontology_value_type")
+def ontologies_ontology_value_type():
+    pass
+
+
+@ontologies_ontology_value_type.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("value_type", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_value_type_get(
+    client: FoundryClient,
+    ontology: str,
+    value_type: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a specific value type with the given API name.
+
+    """
+    result = client.ontologies.OntologyValueType.get(
+        ontology=ontology,
+        value_type=value_type,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_value_type.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_value_type_list(
+    client: FoundryClient,
+    ontology: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Lists the latest versions of the value types for the given Ontology.
+
+    """
+    result = client.ontologies.OntologyValueType.list(
+        ontology=ontology,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("ontology_object_set")
 def ontologies_ontology_object_set():
     pass
@@ -5287,6 +5634,7 @@ def ontologies_ontology_object_set():
     help="""The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
 """,
 )
+@click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -5310,6 +5658,7 @@ def ontologies_ontology_object_set_aggregate(
     object_set: str,
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
     branch: typing.Optional[str],
+    include_compute_usage: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -5324,6 +5673,7 @@ def ontologies_ontology_object_set_aggregate(
         object_set=json.loads(object_set),
         accuracy=accuracy,
         branch=branch,
+        include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -5480,6 +5830,7 @@ def ontologies_ontology_object_set_load(
 Setting this to true may improve performance of this endpoint for object types in OSV2.
 """,
 )
+@click.option("--include_compute_usage", type=bool, required=False, help="""""")
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -5522,6 +5873,7 @@ def ontologies_ontology_object_set_load_multiple_object_types(
     select: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
+    include_compute_usage: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
@@ -5552,6 +5904,7 @@ def ontologies_ontology_object_set_load_multiple_object_types(
         select=json.loads(select),
         branch=branch,
         exclude_rid=exclude_rid,
+        include_compute_usage=include_compute_usage,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,

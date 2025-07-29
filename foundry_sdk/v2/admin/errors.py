@@ -24,6 +24,21 @@ from foundry_sdk.v2.admin import models as admin_models
 from foundry_sdk.v2.core import models as core_models
 
 
+class AddEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the EnrollmentRoleAssignment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    enrollmentRid: core_models.EnrollmentRid
+
+
+@dataclass
+class AddEnrollmentRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddEnrollmentRoleAssignmentsPermissionDenied"]
+    parameters: AddEnrollmentRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class AddGroupMembersPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the GroupMember."""
 
@@ -155,6 +170,32 @@ class CreateMarkingPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class CreateOrganizationMissingInitialAdminRoleParameters(typing_extensions.TypedDict):
+    """At least one organization:administrator role grant must be provided when creating a organization."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateOrganizationMissingInitialAdminRole(errors.BadRequestError):
+    name: typing.Literal["CreateOrganizationMissingInitialAdminRole"]
+    parameters: CreateOrganizationMissingInitialAdminRoleParameters
+    error_instance_id: str
+
+
+class CreateOrganizationPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the Organization."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateOrganizationPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateOrganizationPermissionDenied"]
+    parameters: CreateOrganizationPermissionDeniedParameters
+    error_instance_id: str
+
+
 class DeleteGroupPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not delete the Group."""
 
@@ -197,6 +238,19 @@ class EnrollmentNotFoundParameters(typing_extensions.TypedDict):
 class EnrollmentNotFound(errors.NotFoundError):
     name: typing.Literal["EnrollmentNotFound"]
     parameters: EnrollmentNotFoundParameters
+    error_instance_id: str
+
+
+class EnrollmentRoleNotFoundParameters(typing_extensions.TypedDict):
+    """One of the provided role IDs was not found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class EnrollmentRoleNotFound(errors.NotFoundError):
+    name: typing.Literal["EnrollmentRoleNotFound"]
+    parameters: EnrollmentRoleNotFoundParameters
     error_instance_id: str
 
 
@@ -452,6 +506,21 @@ class ListAvailableRolesOrganizationPermissionDenied(errors.PermissionDeniedErro
     error_instance_id: str
 
 
+class ListEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The provided token does not have permission to list assigned roles for this enrollment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    enrollmentRid: core_models.EnrollmentRid
+
+
+@dataclass
+class ListEnrollmentRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListEnrollmentRoleAssignmentsPermissionDenied"]
+    parameters: ListEnrollmentRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ListHostsPermissionDeniedParameters(typing_extensions.TypedDict):
     """You do not have permission to list hosts for this enrollment"""
 
@@ -571,6 +640,21 @@ class MarkingNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class OrganizationNameAlreadyExistsParameters(typing_extensions.TypedDict):
+    """An organization with the same name already exists."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    displayName: str
+
+
+@dataclass
+class OrganizationNameAlreadyExists(errors.BadRequestError):
+    name: typing.Literal["OrganizationNameAlreadyExists"]
+    parameters: OrganizationNameAlreadyExistsParameters
+    error_instance_id: str
+
+
 class OrganizationNotFoundParameters(typing_extensions.TypedDict):
     """The given Organization could not be found."""
 
@@ -645,6 +729,21 @@ class ProfilePictureNotFoundParameters(typing_extensions.TypedDict):
 class ProfilePictureNotFound(errors.NotFoundError):
     name: typing.Literal["ProfilePictureNotFound"]
     parameters: ProfilePictureNotFoundParameters
+    error_instance_id: str
+
+
+class RemoveEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the EnrollmentRoleAssignment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    enrollmentRid: core_models.EnrollmentRid
+
+
+@dataclass
+class RemoveEnrollmentRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveEnrollmentRoleAssignmentsPermissionDenied"]
+    parameters: RemoveEnrollmentRoleAssignmentsPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -888,6 +987,7 @@ class UserProviderInfoNotFound(errors.NotFoundError):
 
 
 __all__ = [
+    "AddEnrollmentRoleAssignmentsPermissionDenied",
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
@@ -897,9 +997,12 @@ __all__ = [
     "CreateGroupPermissionDenied",
     "CreateMarkingMissingInitialAdminRole",
     "CreateMarkingPermissionDenied",
+    "CreateOrganizationMissingInitialAdminRole",
+    "CreateOrganizationPermissionDenied",
     "DeleteGroupPermissionDenied",
     "DeleteUserPermissionDenied",
     "EnrollmentNotFound",
+    "EnrollmentRoleNotFound",
     "GetCurrentEnrollmentPermissionDenied",
     "GetCurrentUserPermissionDenied",
     "GetGroupProviderInfoPermissionDenied",
@@ -917,6 +1020,7 @@ __all__ = [
     "InvalidHostName",
     "InvalidProfilePicture",
     "ListAvailableRolesOrganizationPermissionDenied",
+    "ListEnrollmentRoleAssignmentsPermissionDenied",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
     "ListMarkingRoleAssignmentsPermissionDenied",
@@ -925,11 +1029,13 @@ __all__ = [
     "MarkingNameInCategoryAlreadyExists",
     "MarkingNameIsEmpty",
     "MarkingNotFound",
+    "OrganizationNameAlreadyExists",
     "OrganizationNotFound",
     "PreregisterGroupPermissionDenied",
     "PreregisterUserPermissionDenied",
     "PrincipalNotFound",
     "ProfilePictureNotFound",
+    "RemoveEnrollmentRoleAssignmentsPermissionDenied",
     "RemoveGroupMembersPermissionDenied",
     "RemoveMarkingMembersPermissionDenied",
     "RemoveMarkingRoleAssignmentsPermissionDenied",

@@ -7,7 +7,8 @@ Divides objects into groups according to an exact value.
 | ------------ | ------------- | ------------- | ------------- |
 **field** | PropertyApiName | Yes |  |
 **max_group_count** | Optional[int] | No |  |
-**default_value** | Optional[str] | No |  |
+**default_value** | Optional[str] | No | Includes a group with the specified default value that includes all objects where the specified field's value is null. Cannot be used with includeNullValues.  |
+**include_null_values** | Optional[bool] | No | Includes a group with a null value that includes all objects where the specified field's value is null. Cannot be used with defaultValue or orderBy clauses on the aggregation.  |
 **type** | Literal["exact"] | Yes | None |
 
 

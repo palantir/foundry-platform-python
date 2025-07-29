@@ -5,7 +5,7 @@ AggregateObjectsResponseItemV2
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**group** | Dict[AggregationGroupKeyV2, AggregationGroupValueV2] | Yes |  |
+**group** | Dict[AggregationGroupKeyV2, Optional[AggregationGroupValueV2]] | Yes |  |
 **metrics** | List[AggregationMetricResultV2] | Yes |  |
 
 

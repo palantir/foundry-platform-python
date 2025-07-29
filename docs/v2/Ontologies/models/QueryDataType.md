@@ -29,6 +29,7 @@ NullType | null
 QueryArrayType | array
 OntologyObjectSetType | objectSet
 TwoDimensionalAggregation | twoDimensionalAggregation
+OntologyInterfaceObjectSetType | interfaceObjectSet
 OntologyObjectType | object
 TimestampType | timestamp
 

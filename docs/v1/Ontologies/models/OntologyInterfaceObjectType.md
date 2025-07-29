@@ -6,7 +6,6 @@ OntologyInterfaceObjectType
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **interface_type_api_name** | Optional[InterfaceTypeApiName] | No |  |
-**interface_type_rid** | Optional[InterfaceTypeRid] | No |  |
 **type** | Literal["interfaceObject"] | Yes | None |
 
 

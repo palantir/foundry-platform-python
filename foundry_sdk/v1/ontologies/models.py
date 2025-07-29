@@ -1035,11 +1035,22 @@ OntologyDataType = typing_extensions.Annotated[
 """A union of all the primitive types used by Palantir's Ontology-based products."""
 
 
+class OntologyInterfaceObjectSetType(pydantic.BaseModel):
+    """OntologyInterfaceObjectSetType"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceObjectSet"] = "interfaceObjectSet"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class OntologyInterfaceObjectType(pydantic.BaseModel):
     """OntologyInterfaceObjectType"""
 
     interface_type_api_name: typing.Optional[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypeApiName"), default=None)  # type: ignore[literal-required]
-    interface_type_rid: typing.Optional[InterfaceTypeRid] = pydantic.Field(alias=str("interfaceTypeRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceObject"] = "interfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1468,6 +1479,7 @@ QueryDataType = typing_extensions.Annotated[
         QueryArrayType,
         OntologyObjectSetType,
         "TwoDimensionalAggregation",
+        OntologyInterfaceObjectSetType,
         OntologyObjectType,
         core_models.TimestampType,
     ],
@@ -1901,6 +1913,14 @@ structs.
 """
 
 
+ValueTypeApiName = str
+"""The name of the value type in the API in camelCase format."""
+
+
+ValueTypeRid = core.RID
+"""ValueTypeRid"""
+
+
 ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
@@ -2012,6 +2032,7 @@ __all__ = [
     "OntologyApiName",
     "OntologyArrayType",
     "OntologyDataType",
+    "OntologyInterfaceObjectSetType",
     "OntologyInterfaceObjectType",
     "OntologyMapType",
     "OntologyObject",
@@ -2078,4 +2099,6 @@ __all__ = [
     "ValidateActionResponse",
     "ValidationResult",
     "ValueType",
+    "ValueTypeApiName",
+    "ValueTypeRid",
 ]

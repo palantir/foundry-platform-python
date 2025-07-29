@@ -74,6 +74,8 @@ class ProjectClient:
         :rtype: None
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         """
 
@@ -103,6 +105,8 @@ class ProjectClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -157,11 +161,12 @@ class ProjectClient:
         :raises CreateProjectPermissionDenied: Could not create the Project.
         :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
-        :raises SpaceNotFound: The referenced space cannot be found.
+        :raises SpaceNotFound: The given Space could not be found.
         """
 
         return self._api_client.call_api(
@@ -204,6 +209,7 @@ class ProjectClient:
                     "CreateProjectPermissionDenied": filesystem_errors.CreateProjectPermissionDenied,
                     "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "OrganizationMarkingNotOnSpace": filesystem_errors.OrganizationMarkingNotOnSpace,
                     "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
@@ -256,6 +262,7 @@ class ProjectClient:
         :raises CreateProjectFromTemplatePermissionDenied: Could not createFromTemplate the Project.
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
+        :raises InvalidDefaultRoles: Either the user has not passed default roles for a template with suggested default roles, or has passed default roles for a template with fixed default roles.
         :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
         :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
         :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
@@ -264,6 +271,7 @@ class ProjectClient:
         :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
         :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
         :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
         :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
@@ -312,6 +320,7 @@ class ProjectClient:
                     "CreateProjectFromTemplatePermissionDenied": filesystem_errors.CreateProjectFromTemplatePermissionDenied,
                     "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
                     "DefaultRolesNotInSpaceRoleSet": filesystem_errors.DefaultRolesNotInSpaceRoleSet,
+                    "InvalidDefaultRoles": filesystem_errors.InvalidDefaultRoles,
                     "InvalidDescription": filesystem_errors.InvalidDescription,
                     "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
                     "InvalidOrganizations": filesystem_errors.InvalidOrganizations,
@@ -320,6 +329,7 @@ class ProjectClient:
                     "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
                     "MissingVariableValue": filesystem_errors.MissingVariableValue,
                     "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
                     "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
@@ -336,7 +346,6 @@ class ProjectClient:
         self,
         project_rid: filesystem_models.ProjectRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Project:
@@ -344,8 +353,6 @@ class ProjectClient:
         Get the Project with the specified rid.
         :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -358,9 +365,7 @@ class ProjectClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -462,6 +467,9 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
+        :raises OrganizationCannotBeRemoved: An organization cannot be removed from a project if it would result in a project with no organizations under a space marked with an organization.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
@@ -491,6 +499,9 @@ class ProjectClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "OrganizationCannotBeRemoved": filesystem_errors.OrganizationCannotBeRemoved,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
                 },
@@ -659,6 +670,8 @@ class AsyncProjectClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddOrganizationsPermissionDenied: Could not addOrganizations the Project.
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         """
 
@@ -688,6 +701,8 @@ class AsyncProjectClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddOrganizationsPermissionDenied": filesystem_errors.AddOrganizationsPermissionDenied,
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -742,11 +757,12 @@ class AsyncProjectClient:
         :raises CreateProjectPermissionDenied: Could not create the Project.
         :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectCreationNotSupported: Project creation is not supported in the current user's space.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
-        :raises SpaceNotFound: The referenced space cannot be found.
+        :raises SpaceNotFound: The given Space could not be found.
         """
 
         return self._api_client.call_api(
@@ -789,6 +805,7 @@ class AsyncProjectClient:
                     "CreateProjectPermissionDenied": filesystem_errors.CreateProjectPermissionDenied,
                     "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "OrganizationMarkingNotOnSpace": filesystem_errors.OrganizationMarkingNotOnSpace,
                     "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectCreationNotSupported": filesystem_errors.ProjectCreationNotSupported,
                     "ProjectNameAlreadyExists": filesystem_errors.ProjectNameAlreadyExists,
@@ -841,6 +858,7 @@ class AsyncProjectClient:
         :raises CreateProjectFromTemplatePermissionDenied: Could not createFromTemplate the Project.
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises DefaultRolesNotInSpaceRoleSet: The requested default roles are not in the role set of the space for the project template.
+        :raises InvalidDefaultRoles: Either the user has not passed default roles for a template with suggested default roles, or has passed default roles for a template with fixed default roles.
         :raises InvalidDescription: Either the user has not passed a value for a template with unset project description, or has passed a value for a template with fixed project description.
         :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
         :raises InvalidOrganizations: Either the user has not passed organizations for a template with suggested organizations, or has passed organization for a template with fixed organizations.
@@ -849,6 +867,7 @@ class AsyncProjectClient:
         :raises InvalidVariableEnumOption: The value passed in the request to create project from template for an enum type variable is not a valid option.
         :raises MissingVariableValue: A variable defined on the template requested for project creation does not have a value set in the request.
         :raises NotAuthorizedToApplyOrganization: The user is not authorized to apply at least one of the organization markings required to create the project from template.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ProjectTemplateNotFound: The project template RID referenced cannot be found.
         :raises TemplateGroupNameConflict: Creating the project from template would attempt to create new groups with names conflicting either with other new groups, or existing groups.
@@ -897,6 +916,7 @@ class AsyncProjectClient:
                     "CreateProjectFromTemplatePermissionDenied": filesystem_errors.CreateProjectFromTemplatePermissionDenied,
                     "CreateProjectNoOwnerLikeRoleGrant": filesystem_errors.CreateProjectNoOwnerLikeRoleGrant,
                     "DefaultRolesNotInSpaceRoleSet": filesystem_errors.DefaultRolesNotInSpaceRoleSet,
+                    "InvalidDefaultRoles": filesystem_errors.InvalidDefaultRoles,
                     "InvalidDescription": filesystem_errors.InvalidDescription,
                     "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
                     "InvalidOrganizations": filesystem_errors.InvalidOrganizations,
@@ -905,6 +925,7 @@ class AsyncProjectClient:
                     "InvalidVariableEnumOption": filesystem_errors.InvalidVariableEnumOption,
                     "MissingVariableValue": filesystem_errors.MissingVariableValue,
                     "NotAuthorizedToApplyOrganization": filesystem_errors.NotAuthorizedToApplyOrganization,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "ProjectTemplateNotFound": filesystem_errors.ProjectTemplateNotFound,
                     "TemplateGroupNameConflict": filesystem_errors.TemplateGroupNameConflict,
@@ -921,7 +942,6 @@ class AsyncProjectClient:
         self,
         project_rid: filesystem_models.ProjectRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Project]:
@@ -929,8 +949,6 @@ class AsyncProjectClient:
         Get the Project with the specified rid.
         :param project_rid:
         :type project_rid: ProjectRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -943,9 +961,7 @@ class AsyncProjectClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/projects/{projectRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -1047,6 +1063,9 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises InvalidOrganizationHierarchy: Organizations on a project must also exist on the parent space. This error is thrown if the configuration  of a project's organizations (on creation or subsequently) results in the project being marked with either  no organizations in a marked space, or with an organization that is not present on the parent space.
+        :raises OrganizationCannotBeRemoved: An organization cannot be removed from a project if it would result in a project with no organizations under a space marked with an organization.
+        :raises OrganizationsNotFound: At least one organization RID could not be found.
         :raises ProjectNotFound: The given Project could not be found.
         :raises RemoveOrganizationsPermissionDenied: Could not removeOrganizations the Project.
         """
@@ -1076,6 +1095,9 @@ class AsyncProjectClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidOrganizationHierarchy": filesystem_errors.InvalidOrganizationHierarchy,
+                    "OrganizationCannotBeRemoved": filesystem_errors.OrganizationCannotBeRemoved,
+                    "OrganizationsNotFound": filesystem_errors.OrganizationsNotFound,
                     "ProjectNotFound": filesystem_errors.ProjectNotFound,
                     "RemoveOrganizationsPermissionDenied": filesystem_errors.RemoveOrganizationsPermissionDenied,
                 },

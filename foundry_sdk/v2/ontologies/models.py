@@ -198,7 +198,7 @@ class AddPropertyExpression(pydantic.BaseModel):
 class AggregateObjectsResponseItemV2(pydantic.BaseModel):
     """AggregateObjectsResponseItemV2"""
 
-    group: typing.Dict[AggregationGroupKeyV2, AggregationGroupValueV2]
+    group: typing.Dict[AggregationGroupKeyV2, typing.Optional[AggregationGroupValueV2]]
     metrics: typing.List[AggregationMetricResultV2]
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -213,6 +213,7 @@ class AggregateObjectsResponseV2(pydantic.BaseModel):
     excluded_items: typing.Optional[int] = pydantic.Field(alias=str("excludedItems"), default=None)  # type: ignore[literal-required]
     accuracy: AggregationAccuracy
     data: typing.List[AggregateObjectsResponseItemV2]
+    compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -263,6 +264,17 @@ class AggregationExactGroupingV2(pydantic.BaseModel):
     field: PropertyApiName
     max_group_count: typing.Optional[int] = pydantic.Field(alias=str("maxGroupCount"), default=None)  # type: ignore[literal-required]
     default_value: typing.Optional[str] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
+    """
+    Includes a group with the specified default value that includes all objects where the specified field's value is null.
+    Cannot be used with includeNullValues.
+    """
+
+    include_null_values: typing.Optional[bool] = pydantic.Field(alias=str("includeNullValues"), default=None)  # type: ignore[literal-required]
+    """
+    Includes a group with a null value that includes all objects where the specified field's value is null.
+    Cannot be used with defaultValue or orderBy clauses on the aggregation.
+    """
+
     type: typing.Literal["exact"] = "exact"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -420,6 +432,21 @@ class ApproximatePercentileAggregationV2(pydantic.BaseModel):
     approximate_percentile: float = pydantic.Field(alias=str("approximatePercentile"))  # type: ignore[literal-required]
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["approximatePercentile"] = "approximatePercentile"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ArrayConstraint(pydantic.BaseModel):
+    """ArrayConstraint"""
+
+    minimum_size: typing.Optional[int] = pydantic.Field(alias=str("minimumSize"), default=None)  # type: ignore[literal-required]
+    maximum_size: typing.Optional[int] = pydantic.Field(alias=str("maximumSize"), default=None)  # type: ignore[literal-required]
+    unique_values: bool = pydantic.Field(alias=str("uniqueValues"))  # type: ignore[literal-required]
+    value_constraint: typing.Optional[ValueTypeConstraint] = pydantic.Field(alias=str("valueConstraint"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["array"] = "array"
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -1011,6 +1038,18 @@ class EntrySetType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class EnumConstraint(pydantic.BaseModel):
+    """EnumConstraint"""
+
+    options: typing.List[typing.Any]
+    type: typing.Literal["enum"] = "enum"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class EqualsQueryV2(pydantic.BaseModel):
     """
     Returns objects where the specified field is equal to a value. Allows you to specify a property to query on
@@ -1416,6 +1455,19 @@ class LeastPropertyExpression(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class LengthConstraint(pydantic.BaseModel):
+    """LengthConstraint"""
+
+    minimum_length: typing.Optional[float] = pydantic.Field(alias=str("minimumLength"), default=None)  # type: ignore[literal-required]
+    maximum_length: typing.Optional[float] = pydantic.Field(alias=str("maximumLength"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["length"] = "length"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class LinkSideObject(pydantic.BaseModel):
     """LinkSideObject"""
 
@@ -1579,6 +1631,17 @@ class ListOntologiesV2Response(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ListOntologyValueTypesResponse(pydantic.BaseModel):
+    """ListOntologyValueTypesResponse"""
+
+    data: typing.List[OntologyValueType]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ListOutgoingInterfaceLinkTypesResponse(pydantic.BaseModel):
     """ListOutgoingInterfaceLinkTypesResponse"""
 
@@ -1653,6 +1716,7 @@ class LoadObjectSetV2MultipleObjectTypesResponse(pydantic.BaseModel):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
+    compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -2391,11 +2455,22 @@ OntologyIdentifier = str
 """Either an ontology rid or an ontology api name."""
 
 
+class OntologyInterfaceObjectSetType(pydantic.BaseModel):
+    """OntologyInterfaceObjectSetType"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceObjectSet"] = "interfaceObjectSet"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class OntologyInterfaceObjectType(pydantic.BaseModel):
     """OntologyInterfaceObjectType"""
 
     interface_type_api_name: typing.Optional[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypeApiName"), default=None)  # type: ignore[literal-required]
-    interface_type_rid: typing.Optional[InterfaceTypeRid] = pydantic.Field(alias=str("interfaceTypeRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceObject"] = "interfaceObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -2521,6 +2596,24 @@ class OntologyV2(pydantic.BaseModel):
     display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
     description: str
     rid: OntologyRid
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class OntologyValueType(pydantic.BaseModel):
+    """OntologyValueType"""
+
+    api_name: ValueTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    rid: ValueTypeRid
+    status: typing.Optional[ValueTypeStatus] = None
+    field_type: typing.Optional[ObjectPropertyType] = pydantic.Field(alias=str("fieldType"), default=None)  # type: ignore[literal-required]
+    version: str
+    constraints: typing.List[ValueTypeConstraint]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -2888,6 +2981,7 @@ QueryDataType = typing_extensions.Annotated[
         QueryArrayType,
         OntologyObjectSetType,
         "TwoDimensionalAggregation",
+        OntologyInterfaceObjectSetType,
         OntologyObjectType,
         core_models.TimestampType,
     ],
@@ -3022,6 +3116,32 @@ class RangeConstraint(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class RangesConstraint(pydantic.BaseModel):
+    """RangesConstraint"""
+
+    minimum_value: typing.Optional[typing.Any] = pydantic.Field(alias=str("minimumValue"), default=None)  # type: ignore[literal-required]
+    maximum_value: typing.Optional[typing.Any] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["range"] = "range"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class RegexConstraint(pydantic.BaseModel):
+    """RegexConstraint"""
+
+    pattern: str
+    partial_match: bool = pydantic.Field(alias=str("partialMatch"))  # type: ignore[literal-required]
+    type: typing.Literal["regex"] = "regex"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class RelativeTime(pydantic.BaseModel):
     """A relative time, such as "3 days before" or "2 hours after" the current moment."""
 
@@ -3060,6 +3180,17 @@ RelativeTimeSeriesTimeUnit = typing.Literal[
 
 ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 """ReturnEditsMode"""
+
+
+class RidConstraint(pydantic.BaseModel):
+    """The string must be a valid RID (Resource Identifier)."""
+
+    type: typing.Literal["rid"] = "rid"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 class RollingAggregateWindowPoints(pydantic.BaseModel):
@@ -3457,6 +3588,20 @@ class StringRegexMatchConstraint(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class StructConstraint(pydantic.BaseModel):
+    """StructConstraint"""
+
+    properties: typing.Dict[PropertyApiName, ValueTypeApiName]
+    """A map of the properties of the struct type to the value type applied to that property."""
+
+    type: typing.Literal["struct"] = "struct"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class StructEvaluatedConstraint(pydantic.BaseModel):
     """Represents the validity of a singleton struct parameter."""
 
@@ -3814,6 +3959,17 @@ class UnevaluableConstraint(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class UuidConstraint(pydantic.BaseModel):
+    """The string must be a valid UUID (Universally Unique Identifier)."""
+
+    type: typing.Literal["uuid"] = "uuid"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class ValidateActionResponseV2(pydantic.BaseModel):
     """ValidateActionResponseV2"""
 
@@ -3857,6 +4013,34 @@ structs.
 | Timeseries          | `TimeSeries<T>` where `T` is either `String` for an enum series or `Double` for a numeric series.                 |
 | Timestamp           | `Timestamp`                                                                                                       |
 """
+
+
+ValueTypeApiName = str
+"""The name of the value type in the API in camelCase format."""
+
+
+ValueTypeConstraint = typing_extensions.Annotated[
+    typing.Union[
+        StructConstraint,
+        RegexConstraint,
+        ArrayConstraint,
+        LengthConstraint,
+        RangesConstraint,
+        RidConstraint,
+        UuidConstraint,
+        EnumConstraint,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""ValueTypeConstraint"""
+
+
+ValueTypeRid = core.RID
+"""ValueTypeRid"""
+
+
+ValueTypeStatus = typing.Literal["ACTIVE", "DEPRECATED"]
+"""ValueTypeStatus"""
 
 
 VersionedQueryTypeApiName = str
@@ -3985,6 +4169,7 @@ core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(
 core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbsoluteTimeRange",
@@ -4022,6 +4207,7 @@ __all__ = [
     "ApplyActionRequestOptions",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
+    "ArrayConstraint",
     "ArrayEntryEvaluatedConstraint",
     "ArrayEvaluatedConstraint",
     "ArraySizeConstraint",
@@ -4067,6 +4253,7 @@ __all__ = [
     "DoesNotIntersectPolygonQuery",
     "DoubleVector",
     "EntrySetType",
+    "EnumConstraint",
     "EqualsQueryV2",
     "ExactDistinctAggregationV2",
     "ExamplePropertyTypeStatus",
@@ -4100,6 +4287,7 @@ __all__ = [
     "IntersectsPolygonQuery",
     "IsNullQueryV2",
     "LeastPropertyExpression",
+    "LengthConstraint",
     "LinkSideObject",
     "LinkTypeApiName",
     "LinkTypeId",
@@ -4115,6 +4303,7 @@ __all__ = [
     "ListObjectTypesV2Response",
     "ListObjectsResponseV2",
     "ListOntologiesV2Response",
+    "ListOntologyValueTypesResponse",
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
@@ -4174,6 +4363,7 @@ __all__ = [
     "OntologyDataType",
     "OntologyFullMetadata",
     "OntologyIdentifier",
+    "OntologyInterfaceObjectSetType",
     "OntologyInterfaceObjectType",
     "OntologyMapType",
     "OntologyObjectArrayType",
@@ -4186,6 +4376,7 @@ __all__ = [
     "OntologyStructField",
     "OntologyStructType",
     "OntologyV2",
+    "OntologyValueType",
     "OrQueryV2",
     "OrderBy",
     "OrderByDirection",
@@ -4227,11 +4418,14 @@ __all__ = [
     "QueryTypeV2",
     "QueryUnionType",
     "RangeConstraint",
+    "RangesConstraint",
+    "RegexConstraint",
     "RelativeTime",
     "RelativeTimeRange",
     "RelativeTimeRelation",
     "RelativeTimeSeriesTimeUnit",
     "ReturnEditsMode",
+    "RidConstraint",
     "RollingAggregateWindowPoints",
     "SdkPackageName",
     "SdkPackageRid",
@@ -4261,6 +4455,7 @@ __all__ = [
     "StreamingOutputFormat",
     "StringLengthConstraint",
     "StringRegexMatchConstraint",
+    "StructConstraint",
     "StructEvaluatedConstraint",
     "StructFieldApiName",
     "StructFieldEvaluatedConstraint",
@@ -4288,9 +4483,14 @@ __all__ = [
     "TimeseriesEntry",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
+    "UuidConstraint",
     "ValidateActionResponseV2",
     "ValidationResult",
     "ValueType",
+    "ValueTypeApiName",
+    "ValueTypeConstraint",
+    "ValueTypeRid",
+    "ValueTypeStatus",
     "VersionedQueryTypeApiName",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxQuery",

@@ -23,6 +23,7 @@ Name | Type | Description  | Notes |
 **object_set** | ObjectSet |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used.  | [optional] |
+**include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
@@ -50,6 +51,8 @@ object_set = None
 accuracy = None
 # Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
 branch = None
+# Optional[IncludeComputeUsage]
+include_compute_usage = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -64,6 +67,7 @@ try:
         object_set=object_set,
         accuracy=accuracy,
         branch=branch,
+        include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -317,6 +321,7 @@ Name | Type | Description  | Notes |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
@@ -347,6 +352,8 @@ select = None
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
+# Optional[IncludeComputeUsage]
+include_compute_usage = None
 # Optional[SearchOrderByV2]
 order_by = None
 # Optional[PageSize]
@@ -370,6 +377,7 @@ try:
         select=select,
         branch=branch,
         exclude_rid=exclude_rid,
+        include_compute_usage=include_compute_usage,
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
