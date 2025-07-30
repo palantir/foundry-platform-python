@@ -179,7 +179,10 @@
         },
         "Orchestration": true,
         "Streams": true,
-        "ThirdPartyApplications": true
+        "ThirdPartyApplications": true,
+        "TargetWorkbench": false,
+        "Gaia": false,
+        "MapRendering": false
       },
       "resourceRenames": {
         "OntologyV2": "Ontology",
