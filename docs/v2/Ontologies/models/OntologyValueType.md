@@ -10,7 +10,7 @@ OntologyValueType
 **description** | Optional[str] | No |  |
 **rid** | ValueTypeRid | Yes |  |
 **status** | Optional[ValueTypeStatus] | No |  |
-**field_type** | Optional[ObjectPropertyType] | No |  |
+**field_type** | ValueTypeFieldType | Yes |  |
 **version** | str | Yes |  |
 **constraints** | List[ValueTypeConstraint] | Yes |  |
 

@@ -7999,6 +7999,9 @@ def ontologies_action_apply(
     Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
     Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
 
+    Note that a 200 HTTP status code only indicates that the request was received and processed by the server.
+    See the validation result in the response body to determine if the action was applied successfully.
+
     Note that [parameter default values](https://palantir.com/docs/foundry/action-types/parameters-default-value/) are not currently supported by
     this endpoint.
 

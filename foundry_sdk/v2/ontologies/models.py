@@ -2444,6 +2444,7 @@ class OntologyFullMetadata(pydantic.BaseModel):
     query_types: typing.Dict[VersionedQueryTypeApiName, QueryTypeV2] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
     interface_types: typing.Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
     shared_property_types: typing.Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
+    branch: typing.Optional[core_models.BranchMetadata] = None
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -2611,7 +2612,7 @@ class OntologyValueType(pydantic.BaseModel):
     description: typing.Optional[str] = None
     rid: ValueTypeRid
     status: typing.Optional[ValueTypeStatus] = None
-    field_type: typing.Optional[ObjectPropertyType] = pydantic.Field(alias=str("fieldType"), default=None)  # type: ignore[literal-required]
+    field_type: ValueTypeFieldType = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
     version: str
     constraints: typing.List[ValueTypeConstraint]
     model_config = {"extra": "allow", "populate_by_name": True}
@@ -4019,6 +4020,18 @@ ValueTypeApiName = str
 """The name of the value type in the API in camelCase format."""
 
 
+class ValueTypeArrayType(pydantic.BaseModel):
+    """ValueTypeArrayType"""
+
+    sub_type: typing.Optional[ValueTypeFieldType] = pydantic.Field(alias=str("subType"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["array"] = "array"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
         StructConstraint,
@@ -4035,12 +4048,121 @@ ValueTypeConstraint = typing_extensions.Annotated[
 """ValueTypeConstraint"""
 
 
+class ValueTypeDecimalType(pydantic.BaseModel):
+    """ValueTypeDecimalType"""
+
+    type: typing.Literal["decimal"] = "decimal"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+ValueTypeFieldType = typing_extensions.Annotated[
+    typing.Union[
+        core_models.DateType,
+        "ValueTypeStructType",
+        core_models.StringType,
+        core_models.ByteType,
+        core_models.DoubleType,
+        "ValueTypeOptionalType",
+        core_models.IntegerType,
+        "ValueTypeUnionType",
+        core_models.FloatType,
+        core_models.LongType,
+        "ValueTypeReferenceType",
+        core_models.BooleanType,
+        ValueTypeArrayType,
+        core_models.BinaryType,
+        core_models.ShortType,
+        ValueTypeDecimalType,
+        "ValueTypeMapType",
+        core_models.TimestampType,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""ValueTypeFieldType"""
+
+
+class ValueTypeMapType(pydantic.BaseModel):
+    """ValueTypeMapType"""
+
+    key_type: typing.Optional[ValueTypeFieldType] = pydantic.Field(alias=str("keyType"), default=None)  # type: ignore[literal-required]
+    value_type: typing.Optional[ValueTypeFieldType] = pydantic.Field(alias=str("valueType"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["map"] = "map"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ValueTypeOptionalType(pydantic.BaseModel):
+    """ValueTypeOptionalType"""
+
+    wrapped_type: typing.Optional[ValueTypeFieldType] = pydantic.Field(alias=str("wrappedType"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["optional"] = "optional"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ValueTypeReferenceType(pydantic.BaseModel):
+    """ValueTypeReferenceType"""
+
+    type: typing.Literal["reference"] = "reference"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 ValueTypeRid = core.RID
 """ValueTypeRid"""
 
 
 ValueTypeStatus = typing.Literal["ACTIVE", "DEPRECATED"]
 """ValueTypeStatus"""
+
+
+class ValueTypeStructField(pydantic.BaseModel):
+    """ValueTypeStructField"""
+
+    name: typing.Optional[core_models.StructFieldName] = None
+    field_type: typing.Optional[ValueTypeFieldType] = pydantic.Field(alias=str("fieldType"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ValueTypeStructType(pydantic.BaseModel):
+    """ValueTypeStructType"""
+
+    fields: typing.List[ValueTypeStructField]
+    type: typing.Literal["struct"] = "struct"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ValueTypeUnionType(pydantic.BaseModel):
+    """ValueTypeUnionType"""
+
+    member_types: typing.List[ValueTypeFieldType] = pydantic.Field(alias=str("memberTypes"))  # type: ignore[literal-required]
+    type: typing.Literal["union"] = "union"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 VersionedQueryTypeApiName = str
@@ -4170,6 +4292,7 @@ core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
+core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbsoluteTimeRange",
@@ -4488,9 +4611,18 @@ __all__ = [
     "ValidationResult",
     "ValueType",
     "ValueTypeApiName",
+    "ValueTypeArrayType",
     "ValueTypeConstraint",
+    "ValueTypeDecimalType",
+    "ValueTypeFieldType",
+    "ValueTypeMapType",
+    "ValueTypeOptionalType",
+    "ValueTypeReferenceType",
     "ValueTypeRid",
     "ValueTypeStatus",
+    "ValueTypeStructField",
+    "ValueTypeStructType",
+    "ValueTypeUnionType",
     "VersionedQueryTypeApiName",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxQuery",

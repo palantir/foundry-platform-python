@@ -79,6 +79,17 @@ class BooleanType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class BranchMetadata(pydantic.BaseModel):
+    """Metadata about a Foundry branch."""
+
+    rid: FoundryBranch
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 BuildRid = core.RID
 """The RID of a Build."""
 
@@ -1119,6 +1130,7 @@ __all__ = [
     "AttachmentType",
     "BinaryType",
     "BooleanType",
+    "BranchMetadata",
     "BuildRid",
     "ByteType",
     "ChangeDataCaptureConfiguration",

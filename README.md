@@ -1081,6 +1081,7 @@ Namespace | Name | Import |
 **Core** | [AttachmentType](docs/v2/Core/models/AttachmentType.md) | `from foundry_sdk.v2.core.models import AttachmentType` |
 **Core** | [BinaryType](docs/v2/Core/models/BinaryType.md) | `from foundry_sdk.v2.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v2/Core/models/BooleanType.md) | `from foundry_sdk.v2.core.models import BooleanType` |
+**Core** | [BranchMetadata](docs/v2/Core/models/BranchMetadata.md) | `from foundry_sdk.v2.core.models import BranchMetadata` |
 **Core** | [BuildRid](docs/v2/Core/models/BuildRid.md) | `from foundry_sdk.v2.core.models import BuildRid` |
 **Core** | [ByteType](docs/v2/Core/models/ByteType.md) | `from foundry_sdk.v2.core.models import ByteType` |
 **Core** | [ChangeDataCaptureConfiguration](docs/v2/Core/models/ChangeDataCaptureConfiguration.md) | `from foundry_sdk.v2.core.models import ChangeDataCaptureConfiguration` |
@@ -1639,9 +1640,18 @@ Namespace | Name | Import |
 **Ontologies** | [ValidationResult](docs/v2/Ontologies/models/ValidationResult.md) | `from foundry_sdk.v2.ontologies.models import ValidationResult` |
 **Ontologies** | [ValueType](docs/v2/Ontologies/models/ValueType.md) | `from foundry_sdk.v2.ontologies.models import ValueType` |
 **Ontologies** | [ValueTypeApiName](docs/v2/Ontologies/models/ValueTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeApiName` |
+**Ontologies** | [ValueTypeArrayType](docs/v2/Ontologies/models/ValueTypeArrayType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeArrayType` |
 **Ontologies** | [ValueTypeConstraint](docs/v2/Ontologies/models/ValueTypeConstraint.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeConstraint` |
+**Ontologies** | [ValueTypeDecimalType](docs/v2/Ontologies/models/ValueTypeDecimalType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeDecimalType` |
+**Ontologies** | [ValueTypeFieldType](docs/v2/Ontologies/models/ValueTypeFieldType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeFieldType` |
+**Ontologies** | [ValueTypeMapType](docs/v2/Ontologies/models/ValueTypeMapType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeMapType` |
+**Ontologies** | [ValueTypeOptionalType](docs/v2/Ontologies/models/ValueTypeOptionalType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeOptionalType` |
+**Ontologies** | [ValueTypeReferenceType](docs/v2/Ontologies/models/ValueTypeReferenceType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeReferenceType` |
 **Ontologies** | [ValueTypeRid](docs/v2/Ontologies/models/ValueTypeRid.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeRid` |
 **Ontologies** | [ValueTypeStatus](docs/v2/Ontologies/models/ValueTypeStatus.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStatus` |
+**Ontologies** | [ValueTypeStructField](docs/v2/Ontologies/models/ValueTypeStructField.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStructField` |
+**Ontologies** | [ValueTypeStructType](docs/v2/Ontologies/models/ValueTypeStructType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStructType` |
+**Ontologies** | [ValueTypeUnionType](docs/v2/Ontologies/models/ValueTypeUnionType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeUnionType` |
 **Ontologies** | [VersionedQueryTypeApiName](docs/v2/Ontologies/models/VersionedQueryTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import VersionedQueryTypeApiName` |
 **Ontologies** | [WithinBoundingBoxPoint](docs/v2/Ontologies/models/WithinBoundingBoxPoint.md) | `from foundry_sdk.v2.ontologies.models import WithinBoundingBoxPoint` |
 **Ontologies** | [WithinBoundingBoxQuery](docs/v2/Ontologies/models/WithinBoundingBoxQuery.md) | `from foundry_sdk.v2.ontologies.models import WithinBoundingBoxQuery` |
