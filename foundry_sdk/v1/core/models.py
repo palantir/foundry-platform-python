@@ -179,6 +179,10 @@ FolderRid = core.RID
 """FolderRid"""
 
 
+FoundryBranch = str
+"""The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
+
+
 class IntegerType(pydantic.BaseModel):
     """IntegerType"""
 
@@ -329,6 +333,7 @@ __all__ = [
     "Filename",
     "FloatType",
     "FolderRid",
+    "FoundryBranch",
     "IntegerType",
     "LongType",
     "MarkingType",

@@ -503,6 +503,66 @@ class DatasetClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def transactions(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[datasets_models.Transaction]:
+        """
+        Get the Transaction history for the given Dataset
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param page_size: The page size to use for the endpoint.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[datasets_models.Transaction]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.ListTransactionsOfDatasetResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _DatasetClientRaw:
     def __init__(self, client: DatasetClient) -> None:
@@ -512,6 +572,7 @@ class _DatasetClientRaw:
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
+        def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
@@ -519,6 +580,7 @@ class _DatasetClientRaw:
         self.get_schema = core.with_raw_response(get_schema, client.get_schema)
         self.put_schema = core.with_raw_response(put_schema, client.put_schema)
         self.read_table = core.with_raw_response(read_table, client.read_table)
+        self.transactions = core.with_raw_response(transactions, client.transactions)
 
 
 class _DatasetClientStreaming:
@@ -529,6 +591,7 @@ class _DatasetClientStreaming:
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
+        def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
@@ -536,6 +599,7 @@ class _DatasetClientStreaming:
         self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
         self.put_schema = core.with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.with_streaming_response(read_table, client.read_table)
+        self.transactions = core.with_streaming_response(transactions, client.transactions)
 
 
 class AsyncDatasetClient:
@@ -1012,6 +1076,66 @@ class AsyncDatasetClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def transactions(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
+        """
+        Get the Transaction history for the given Dataset
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param page_size: The page size to use for the endpoint.
+        :type page_size: Optional[PageSize]
+        :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncResourceIterator[datasets_models.Transaction]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/transactions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.ListTransactionsOfDatasetResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _AsyncDatasetClientRaw:
     def __init__(self, client: AsyncDatasetClient) -> None:
@@ -1021,6 +1145,7 @@ class _AsyncDatasetClientRaw:
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
+        def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
@@ -1028,6 +1153,7 @@ class _AsyncDatasetClientRaw:
         self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
         self.put_schema = core.async_with_raw_response(put_schema, client.put_schema)
         self.read_table = core.async_with_raw_response(read_table, client.read_table)
+        self.transactions = core.async_with_raw_response(transactions, client.transactions)
 
 
 class _AsyncDatasetClientStreaming:
@@ -1038,6 +1164,7 @@ class _AsyncDatasetClientStreaming:
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
+        def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
@@ -1045,3 +1172,4 @@ class _AsyncDatasetClientStreaming:
         self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
         self.put_schema = core.async_with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.async_with_streaming_response(read_table, client.read_table)
+        self.transactions = core.async_with_streaming_response(transactions, client.transactions)

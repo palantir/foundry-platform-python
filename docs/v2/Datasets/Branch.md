@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**delete**](#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} | Stable |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} | Stable |
 [**list**](#list) | **GET** /v2/datasets/{datasetRid}/branches | Stable |
+[**transactions**](#transactions) | **GET** /v2/datasets/{datasetRid}/branches/{branchName}/transactions | Public Beta |
 
 # **create**
 Creates a branch on an existing dataset. A branch may optionally point to a (committed) transaction.
@@ -217,6 +218,67 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListBranchesResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **transactions**
+Get the Transaction history for the given Dataset
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | BranchName |  |  |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListTransactionsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# BranchName
+branch_name = None
+# Optional[PageSize]
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    for branch in client.datasets.Dataset.Branch.transactions(
+        dataset_rid, branch_name, page_size=page_size, page_token=page_token, preview=preview
+    ):
+        pprint(branch)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Branch.transactions: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListTransactionsResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

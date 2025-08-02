@@ -651,12 +651,14 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Branch | [**delete**](docs/v2/Datasets/Branch.md#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} |
 **Datasets** | Branch | [**get**](docs/v2/Datasets/Branch.md#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} |
 **Datasets** | Branch | [**list**](docs/v2/Datasets/Branch.md#list) | **GET** /v2/datasets/{datasetRid}/branches |
+**Datasets** | Branch | [**transactions**](docs/v2/Datasets/Branch.md#transactions) | **GET** /v2/datasets/{datasetRid}/branches/{branchName}/transactions |
 **Datasets** | Dataset | [**create**](docs/v2/Datasets/Dataset.md#create) | **POST** /v2/datasets |
 **Datasets** | Dataset | [**get**](docs/v2/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
 **Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
 **Datasets** | Dataset | [**get_schema**](docs/v2/Datasets/Dataset.md#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema |
 **Datasets** | Dataset | [**put_schema**](docs/v2/Datasets/Dataset.md#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema |
 **Datasets** | Dataset | [**read_table**](docs/v2/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
+**Datasets** | Dataset | [**transactions**](docs/v2/Datasets/Dataset.md#transactions) | **GET** /v2/datasets/{datasetRid}/transactions |
 **Datasets** | File | [**content**](docs/v2/Datasets/File.md#content) | **GET** /v2/datasets/{datasetRid}/files/{filePath}/content |
 **Datasets** | File | [**delete**](docs/v2/Datasets/File.md#delete) | **DELETE** /v2/datasets/{datasetRid}/files/{filePath} |
 **Datasets** | File | [**get**](docs/v2/Datasets/File.md#get) | **GET** /v2/datasets/{datasetRid}/files/{filePath} |
@@ -1203,6 +1205,8 @@ Namespace | Name | Import |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
 **Datasets** | [ListSchedulesResponse](docs/v2/Datasets/models/ListSchedulesResponse.md) | `from foundry_sdk.v2.datasets.models import ListSchedulesResponse` |
+**Datasets** | [ListTransactionsOfDatasetResponse](docs/v2/Datasets/models/ListTransactionsOfDatasetResponse.md) | `from foundry_sdk.v2.datasets.models import ListTransactionsOfDatasetResponse` |
+**Datasets** | [ListTransactionsResponse](docs/v2/Datasets/models/ListTransactionsResponse.md) | `from foundry_sdk.v2.datasets.models import ListTransactionsResponse` |
 **Datasets** | [PrimaryKeyLatestWinsResolutionStrategy](docs/v2/Datasets/models/PrimaryKeyLatestWinsResolutionStrategy.md) | `from foundry_sdk.v2.datasets.models import PrimaryKeyLatestWinsResolutionStrategy` |
 **Datasets** | [PrimaryKeyResolutionDuplicate](docs/v2/Datasets/models/PrimaryKeyResolutionDuplicate.md) | `from foundry_sdk.v2.datasets.models import PrimaryKeyResolutionDuplicate` |
 **Datasets** | [PrimaryKeyResolutionStrategy](docs/v2/Datasets/models/PrimaryKeyResolutionStrategy.md) | `from foundry_sdk.v2.datasets.models import PrimaryKeyResolutionStrategy` |
@@ -1784,6 +1788,7 @@ Namespace | Name | Import |
 **Core** | [FilePath](docs/v1/Core/models/FilePath.md) | `from foundry_sdk.v1.core.models import FilePath` |
 **Core** | [FloatType](docs/v1/Core/models/FloatType.md) | `from foundry_sdk.v1.core.models import FloatType` |
 **Core** | [FolderRid](docs/v1/Core/models/FolderRid.md) | `from foundry_sdk.v1.core.models import FolderRid` |
+**Core** | [FoundryBranch](docs/v1/Core/models/FoundryBranch.md) | `from foundry_sdk.v1.core.models import FoundryBranch` |
 **Core** | [IntegerType](docs/v1/Core/models/IntegerType.md) | `from foundry_sdk.v1.core.models import IntegerType` |
 **Core** | [LongType](docs/v1/Core/models/LongType.md) | `from foundry_sdk.v1.core.models import LongType` |
 **Core** | [MarkingType](docs/v1/Core/models/MarkingType.md) | `from foundry_sdk.v1.core.models import MarkingType` |
@@ -2115,6 +2120,7 @@ Namespace | Name | Import |
 **Core** | ApiUsageDenied | `from foundry_sdk.v2.core.errors import ApiUsageDenied` |
 **Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v2.core.errors import BatchRequestSizeExceededLimit` |
 **Core** | FolderNotFound | `from foundry_sdk.v2.core.errors import FolderNotFound` |
+**Core** | FoundryBranchNotFound | `from foundry_sdk.v2.core.errors import FoundryBranchNotFound` |
 **Core** | InvalidAndFilter | `from foundry_sdk.v2.core.errors import InvalidAndFilter` |
 **Core** | InvalidChangeDataCaptureConfiguration | `from foundry_sdk.v2.core.errors import InvalidChangeDataCaptureConfiguration` |
 **Core** | InvalidFieldSchema | `from foundry_sdk.v2.core.errors import InvalidFieldSchema` |
@@ -2152,6 +2158,7 @@ Namespace | Name | Import |
 **Datasets** | FileNotFound | `from foundry_sdk.v2.datasets.errors import FileNotFound` |
 **Datasets** | FileNotFoundOnBranch | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnBranch` |
 **Datasets** | FileNotFoundOnTransactionRange | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnTransactionRange` |
+**Datasets** | GetBranchTransactionHistoryPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetBranchTransactionHistoryPermissionDenied` |
 **Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
 **Datasets** | GetDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchemaPermissionDenied` |
 **Datasets** | GetFileContentPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetFileContentPermissionDenied` |
@@ -2469,6 +2476,7 @@ Namespace | Name | Import |
 **Core** | ApiFeaturePreviewUsageOnly | `from foundry_sdk.v1.core.errors import ApiFeaturePreviewUsageOnly` |
 **Core** | ApiUsageDenied | `from foundry_sdk.v1.core.errors import ApiUsageDenied` |
 **Core** | FolderNotFound | `from foundry_sdk.v1.core.errors import FolderNotFound` |
+**Core** | FoundryBranchNotFound | `from foundry_sdk.v1.core.errors import FoundryBranchNotFound` |
 **Core** | InvalidPageSize | `from foundry_sdk.v1.core.errors import InvalidPageSize` |
 **Core** | InvalidPageToken | `from foundry_sdk.v1.core.errors import InvalidPageToken` |
 **Core** | InvalidParameterCombination | `from foundry_sdk.v1.core.errors import InvalidParameterCombination` |

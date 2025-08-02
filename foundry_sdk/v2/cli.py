@@ -3304,6 +3304,43 @@ def datasets_dataset_read_table(
     click.echo(result)
 
 
+@datasets_dataset.command("transactions")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_transactions(
+    client: FoundryClient,
+    dataset_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Transaction history for the given Dataset
+
+    """
+    result = client.datasets.Dataset.transactions(
+        dataset_rid=dataset_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.group("file")
 def datasets_dataset_file():
     pass
@@ -3875,6 +3912,37 @@ def datasets_dataset_branch_list(
         dataset_rid=dataset_rid,
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@datasets_dataset_branch.command("transactions")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("branch_name", type=str, required=True)
+@click.option("--page_size", type=int, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_branch_transactions(
+    client: FoundryClient,
+    dataset_rid: str,
+    branch_name: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the Transaction history for the given Dataset
+
+    """
+    result = client.datasets.Dataset.Branch.transactions(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -8606,7 +8674,7 @@ def sql_queries_sql_query_cancel(
     "--query",
     type=str,
     required=True,
-    help="""The SQL query to execute. Queries should confirm to the
+    help="""The SQL query to execute. Queries should conform to the
 [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
 queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
 on the supported syntax for referencing datasets in SQL queries.

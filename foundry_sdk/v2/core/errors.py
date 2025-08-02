@@ -87,6 +87,21 @@ class FolderNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class FoundryBranchNotFoundParameters(typing_extensions.TypedDict):
+    """The requested foundry branch could not be found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    branch: core_models.FoundryBranch
+
+
+@dataclass
+class FoundryBranchNotFound(errors.NotFoundError):
+    name: typing.Literal["FoundryBranchNotFound"]
+    parameters: FoundryBranchNotFoundParameters
+    error_instance_id: str
+
+
 class InvalidAndFilterParameters(typing_extensions.TypedDict):
     """The provided AND filter should have at least one sub-filter."""
 
@@ -318,6 +333,7 @@ __all__ = [
     "ApiUsageDenied",
     "BatchRequestSizeExceededLimit",
     "FolderNotFound",
+    "FoundryBranchNotFound",
     "InvalidAndFilter",
     "InvalidChangeDataCaptureConfiguration",
     "InvalidFieldSchema",
