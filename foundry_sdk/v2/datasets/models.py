@@ -132,6 +132,30 @@ class ListSchedulesResponse(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class ListTransactionsOfDatasetResponse(pydantic.BaseModel):
+    """ListTransactionsOfDatasetResponse"""
+
+    data: typing.List[Transaction]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ListTransactionsResponse(pydantic.BaseModel):
+    """ListTransactionsResponse"""
+
+    data: typing.List[Transaction]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class PrimaryKeyLatestWinsResolutionStrategy(pydantic.BaseModel):
     """Picks the row with the highest value of a list of columns, compared in order."""
 
@@ -302,6 +326,8 @@ __all__ = [
     "ListBranchesResponse",
     "ListFilesResponse",
     "ListSchedulesResponse",
+    "ListTransactionsOfDatasetResponse",
+    "ListTransactionsResponse",
     "PrimaryKeyLatestWinsResolutionStrategy",
     "PrimaryKeyResolutionDuplicate",
     "PrimaryKeyResolutionStrategy",

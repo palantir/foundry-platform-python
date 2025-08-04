@@ -284,6 +284,72 @@ class BranchClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def transactions(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[datasets_models.Transaction]:
+        """
+        Get the Transaction history for the given Dataset
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name:
+        :type branch_name: BranchName
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[datasets_models.Transaction]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetBranchTransactionHistoryPermissionDenied: Could not transactions the Branch.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/branches/{branchName}/transactions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchName": branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.ListTransactionsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetBranchTransactionHistoryPermissionDenied": datasets_errors.GetBranchTransactionHistoryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _BranchClientRaw:
     def __init__(self, client: BranchClient) -> None:
@@ -291,11 +357,13 @@ class _BranchClientRaw:
         def delete(_: None): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
+        def transactions(_: datasets_models.ListTransactionsResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
+        self.transactions = core.with_raw_response(transactions, client.transactions)
 
 
 class _BranchClientStreaming:
@@ -303,10 +371,12 @@ class _BranchClientStreaming:
         def create(_: datasets_models.Branch): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
+        def transactions(_: datasets_models.ListTransactionsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
+        self.transactions = core.with_streaming_response(transactions, client.transactions)
 
 
 class AsyncBranchClient:
@@ -567,6 +637,72 @@ class AsyncBranchClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def transactions(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        branch_name: datasets_models.BranchName,
+        *,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
+        """
+        Get the Transaction history for the given Dataset
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name:
+        :type branch_name: BranchName
+        :param page_size:
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncResourceIterator[datasets_models.Transaction]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetBranchTransactionHistoryPermissionDenied: Could not transactions the Branch.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/branches/{branchName}/transactions",
+                query_params={
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "branchName": branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=datasets_models.ListTransactionsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetBranchTransactionHistoryPermissionDenied": datasets_errors.GetBranchTransactionHistoryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _AsyncBranchClientRaw:
     def __init__(self, client: AsyncBranchClient) -> None:
@@ -574,11 +710,13 @@ class _AsyncBranchClientRaw:
         def delete(_: None): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
+        def transactions(_: datasets_models.ListTransactionsResponse): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.delete = core.async_with_raw_response(delete, client.delete)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
+        self.transactions = core.async_with_raw_response(transactions, client.transactions)
 
 
 class _AsyncBranchClientStreaming:
@@ -586,7 +724,9 @@ class _AsyncBranchClientStreaming:
         def create(_: datasets_models.Branch): ...
         def get(_: datasets_models.Branch): ...
         def list(_: datasets_models.ListBranchesResponse): ...
+        def transactions(_: datasets_models.ListTransactionsResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.list = core.async_with_streaming_response(list, client.list)
+        self.transactions = core.async_with_streaming_response(transactions, client.transactions)
