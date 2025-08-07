@@ -61,7 +61,7 @@ def stubbed_auth(should_refresh=True, token_response=RESPONSE):
         response
     )
 
-    when(auth)._refresh_token().thenCallOriginalImplementation()
+    when(auth)._try_refresh_token().thenCallOriginalImplementation()
     when(auth).sign_out().thenCallOriginalImplementation()
 
     yield auth
@@ -175,4 +175,4 @@ def test_public_client_execute_with_token_method_raises_401():
         with pytest.raises(httpx.HTTPStatusError):
             auth.execute_with_token(lambda _: raise_401())
 
-        verify(auth, times=1)._refresh_token()
+        verify(auth, times=1)._try_refresh_token()

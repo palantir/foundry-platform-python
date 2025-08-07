@@ -118,7 +118,7 @@ class AuthorizeRequest(pydantic.BaseModel):
     code_verifier: str
 
 
-class ServerOAuthFlowProvider(pydantic.BaseModel):
+class ServerOAuthFlowProvider(ABC):
     @abstractmethod
     def revoke_token(self, client: HttpClient, access_token: str) -> None:
         pass
