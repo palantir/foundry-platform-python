@@ -73,7 +73,10 @@ class PublicClientAuth(OAuth):
         return self._token
 
     def revoke_token(self) -> None:
-        self._server_oauth_flow_provider.revoke_token(self._get_client(), self._token.access_token)
+        if self._token:
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(), self._token.access_token
+            )
 
     def _try_refresh_token(self) -> bool:
         if self._token and self._token.refresh_token:

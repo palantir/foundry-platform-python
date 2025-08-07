@@ -84,7 +84,10 @@ class ConfidentialClientAuth(OAuth):
         return self._token
 
     def revoke_token(self) -> None:
-        self._server_oauth_flow_provider.revoke_token(self._get_client(), self._token.access_token)
+        if self._token:
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(), self._token.access_token
+            )
 
     @property
     def url(self) -> str:
