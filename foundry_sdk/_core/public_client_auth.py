@@ -56,12 +56,7 @@ class PublicClientAuth(OAuth):
             redirect_url=redirect_url,
             scopes=scopes,
         )
-
-        super().__init__(
-            hostname=hostname,
-            should_refresh=should_refresh,
-            config=config,
-        )
+        super().__init__(hostname=hostname, should_refresh=should_refresh, config=config)
 
     @property
     def scopes(self) -> List[str]:

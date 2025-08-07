@@ -50,8 +50,10 @@ class ConfidentialClientAuth(OAuth):
     ) -> None:
         assert_non_empty_string(client_id, "client_id")
         assert_non_empty_string(client_secret, "client_secret")
+
         if hostname is not None:
             assert_non_empty_string(hostname, "hostname")
+
         if scopes is not None:
             if not isinstance(scopes, list):
                 raise TypeError(f"The scopes must be a list, not {type(scopes)}.")
@@ -63,12 +65,7 @@ class ConfidentialClientAuth(OAuth):
             client_secret,
             scopes=scopes,
         )
-
-        super().__init__(
-            hostname=hostname,
-            should_refresh=should_refresh,
-            config=config,
-        )
+        super().__init__(hostname=hostname, should_refresh=should_refresh, config=config)
 
     @property
     def scopes(self) -> List[str]:
