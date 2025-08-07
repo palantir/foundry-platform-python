@@ -51,14 +51,13 @@ class PublicClientAuth(OAuth):
         self._client_id = client_id
         self._redirect_url = redirect_url
         self._auth_request: Optional[AuthorizeRequest] = None
-
-        server_oauth_flow_provider = PublicClientOAuthFlowProvider(
+        self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
             client_id=client_id,
             redirect_url=redirect_url,
             scopes=scopes,
         )
+
         super().__init__(
-            server_oauth_flow_provider=server_oauth_flow_provider,
             hostname=hostname,
             should_refresh=should_refresh,
             config=config,
@@ -72,6 +71,9 @@ class PublicClientAuth(OAuth):
         if self._token is None:
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
+
+    def revoke_token(self) -> None:
+        self._server_oauth_flow_provider.revoke_token(self._get_client(), self._token.access_token)
 
     def _try_refresh_token(self) -> bool:
         if self._token and self._token.refresh_token:

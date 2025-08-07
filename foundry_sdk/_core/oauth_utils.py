@@ -118,25 +118,17 @@ class AuthorizeRequest(pydantic.BaseModel):
     code_verifier: str
 
 
-class ServerOAuthFlowProvider(ABC):
-    @abstractmethod
-    def revoke_token(self, client: HttpClient, access_token: str) -> None:
-        pass
-
-
 T = TypeVar("T")
 
 
 class OAuth(Auth, ABC):
     def __init__(
         self,
-        server_oauth_flow_provider: ServerOAuthFlowProvider,
         hostname: Optional[str] = None,
         should_refresh: bool = True,
         *,
         config: Optional[Config] = None,
     ) -> None:
-        self._server_oauth_flow_provider = server_oauth_flow_provider
         self._config = config
         self._hostname = hostname
         self._client: Optional[HttpClient] = None
@@ -146,10 +138,7 @@ class OAuth(Auth, ABC):
 
     def sign_out(self) -> SignOutResponse:
         if self._token:
-            self._server_oauth_flow_provider.revoke_token(
-                self._get_client(),
-                self._token.access_token,
-            )
+            self.revoke_token()
         self._token = None
         # Signal the auto-refresh thread to stop
         self._stop_refresh_event.set()
@@ -172,11 +161,15 @@ class OAuth(Auth, ABC):
         self.execute_with_token(func)
 
     @abstractmethod
-    def _try_refresh_token(self) -> bool:
+    def get_token(self) -> OAuthToken:
         pass
 
     @abstractmethod
-    def get_token(self) -> OAuthToken:
+    def revoke_token(self) -> None:
+        pass
+
+    @abstractmethod
+    def _try_refresh_token(self) -> bool:
         pass
 
     def _start_auto_refresh(self) -> None:
@@ -253,7 +246,7 @@ class OAuth(Auth, ABC):
         return self._client
 
 
-class ConfidentialClientOAuthFlowProvider(ServerOAuthFlowProvider):
+class ConfidentialClientOAuthFlowProvider:
     def __init__(
         self,
         client_id: str,
@@ -322,7 +315,7 @@ def generate_code_challenge(input_string: str) -> str:
     return base64url_encoded.decode("utf-8")
 
 
-class PublicClientOAuthFlowProvider(ServerOAuthFlowProvider):
+class PublicClientOAuthFlowProvider:
     def __init__(
         self,
         client_id: str,

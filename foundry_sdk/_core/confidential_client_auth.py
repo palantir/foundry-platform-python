@@ -58,14 +58,13 @@ class ConfidentialClientAuth(OAuth):
 
         self._client_id = client_id
         self._client_secret = client_secret
-
-        server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
+        self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
             client_id,
             client_secret,
             scopes=scopes,
         )
+
         super().__init__(
-            server_oauth_flow_provider=server_oauth_flow_provider,
             hostname=hostname,
             should_refresh=should_refresh,
             config=config,
@@ -83,6 +82,9 @@ class ConfidentialClientAuth(OAuth):
                 self._start_auto_refresh()
 
         return self._token
+
+    def revoke_token(self) -> None:
+        self._server_oauth_flow_provider.revoke_token(self._get_client(), self._token.access_token)
 
     @property
     def url(self) -> str:
