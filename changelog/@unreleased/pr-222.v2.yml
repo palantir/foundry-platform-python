@@ -1,0 +1,7 @@
+type: improvement
+improvement:
+  description: Refactor OAuth authentication classes to centralize token auto-refresh
+    and sign-out logic, improve thread shutdown responsiveness, and introduce a base
+    flow provider abstraction.
+  links:
+  - https://github.com/palantir/foundry-platform-python/pull/222
