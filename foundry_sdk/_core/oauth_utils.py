@@ -17,6 +17,7 @@ import base64
 import hashlib
 import secrets
 import string
+import threading
 import time
 import warnings
 from abc import ABC
@@ -123,19 +124,30 @@ T = TypeVar("T")
 class OAuth(Auth, ABC):
     def __init__(
         self,
+        server_oauth_flow_provider: ServerOAuthFlowProvider,
         hostname: Optional[str] = None,
         should_refresh: bool = True,
         *,
         config: Optional[Config] = None,
     ) -> None:
+        self._server_oauth_flow_provider = server_oauth_flow_provider
         self._config = config
         self._hostname = hostname
         self._client: Optional[HttpClient] = None
         self._should_refresh = should_refresh
+        self._stop_refresh_event = threading.Event()
+        self._token: Optional[OAuthToken] = None
 
-    @abstractmethod
     def sign_out(self) -> SignOutResponse:
-        pass
+        if self._token:
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(),
+                self._token.access_token,
+            )
+        self._token = None
+        # Signal the auto-refresh thread to stop
+        self._stop_refresh_event.set()
+        return SignOutResponse()
 
     def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
         try:
@@ -154,12 +166,24 @@ class OAuth(Auth, ABC):
         self.execute_with_token(func)
 
     @abstractmethod
-    def _refresh_token(self) -> None:
+    def _try_refresh_token(self) -> bool:
         pass
 
     @abstractmethod
     def get_token(self) -> OAuthToken:
         pass
+
+    def _start_auto_refresh(self) -> None:
+        def _auto_refresh_token() -> None:
+            while True:
+                timeout = self._token.expires_in - 60 if self._token else 10
+                if self._stop_refresh_event.wait(timeout):
+                    break
+                if self._token:
+                    self._try_refresh_token()
+
+        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
+        refresh_thread.start()
 
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """
@@ -170,7 +194,8 @@ class OAuth(Auth, ABC):
             return func(self.get_token())
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
-                self._refresh_token()
+                if not self._try_refresh_token():
+                    raise e
                 return func(self.get_token())
             else:
                 raise e
@@ -222,7 +247,13 @@ class OAuth(Auth, ABC):
         return self._client
 
 
-class ConfidentialClientOAuthFlowProvider:
+class ServerOAuthFlowProvider(pydantic.BaseModel):
+    @abstractmethod
+    def revoke_token(self, client: HttpClient, access_token: str) -> None:
+        pass
+
+
+class ConfidentialClientOAuthFlowProvider(ServerOAuthFlowProvider):
     def __init__(
         self,
         client_id: str,
@@ -291,7 +322,7 @@ def generate_code_challenge(input_string: str) -> str:
     return base64url_encoded.decode("utf-8")
 
 
-class PublicClientOAuthFlowProvider:
+class PublicClientOAuthFlowProvider(ServerOAuthFlowProvider):
     def __init__(
         self,
         client_id: str,

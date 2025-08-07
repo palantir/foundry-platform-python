@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import threading
 import time
 from typing import List
 from typing import Optional
@@ -51,25 +50,21 @@ class ConfidentialClientAuth(OAuth):
     ) -> None:
         assert_non_empty_string(client_id, "client_id")
         assert_non_empty_string(client_secret, "client_secret")
-
         if hostname is not None:
             assert_non_empty_string(hostname, "hostname")
-
         if scopes is not None:
             if not isinstance(scopes, list):
                 raise TypeError(f"The scopes must be a list, not {type(scopes)}.")
 
         self._client_id = client_id
         self._client_secret = client_secret
-        self._token: Optional[OAuthToken] = None
-        self._should_refresh = should_refresh
-        self._stop_refresh_event = threading.Event()
-        self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
+
+        server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
             client_id,
             client_secret,
             scopes=scopes,
         )
-        super().__init__(hostname=hostname, should_refresh=should_refresh, config=config)
+        super().__init__(server_oauth_flow_provider=server_oauth_flow_provider, hostname=hostname, should_refresh=should_refresh, config=config)
 
     @property
     def scopes(self) -> List[str]:
@@ -88,32 +83,6 @@ class ConfidentialClientAuth(OAuth):
     def url(self) -> str:
         return self._get_client().base_url.host
 
-    def _refresh_token(self) -> None:
+    def _try_refresh_token(self) -> bool:
         self._token = self._server_oauth_flow_provider.get_token(self._get_client())
-
-    def _start_auto_refresh(self) -> None:
-        def _auto_refresh_token() -> None:
-            while not self._stop_refresh_event.is_set():
-                if self._token:
-                    # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
-                    time.sleep(self._token.expires_in - 60)
-                    self._refresh_token()
-                else:
-                    # Wait 10 seconds and check again if the token is set
-                    time.sleep(10)
-
-        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
-        refresh_thread.start()
-
-    def sign_out(self) -> SignOutResponse:
-        if self._token:
-            self._server_oauth_flow_provider.revoke_token(
-                self._get_client(),
-                self._token.access_token,
-            )
-
-        self._token = None
-
-        # Signal the auto-refresh thread to stop
-        self._stop_refresh_event.set()
-        return SignOutResponse()
+        return True
