@@ -137,8 +137,7 @@ class OAuth(Auth, ABC):
         self._token: Optional[OAuthToken] = None
 
     def sign_out(self) -> SignOutResponse:
-        if self._token:
-            self.revoke_token()
+        self.revoke_token()
         self._token = None
         # Signal the auto-refresh thread to stop
         self._stop_refresh_event.set()
