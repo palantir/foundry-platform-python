@@ -118,6 +118,12 @@ class AuthorizeRequest(pydantic.BaseModel):
     code_verifier: str
 
 
+class ServerOAuthFlowProvider(pydantic.BaseModel):
+    @abstractmethod
+    def revoke_token(self, client: HttpClient, access_token: str) -> None:
+        pass
+
+
 T = TypeVar("T")
 
 
@@ -178,7 +184,7 @@ class OAuth(Auth, ABC):
             while True:
                 timeout = self._token.expires_in - 60 if self._token else 10
                 if self._stop_refresh_event.wait(timeout):
-                    break
+                    return
                 if self._token:
                     self._try_refresh_token()
 
@@ -245,12 +251,6 @@ class OAuth(Auth, ABC):
             self._client = HttpClient(hostname=self._hostname, config=self._config)
 
         return self._client
-
-
-class ServerOAuthFlowProvider(pydantic.BaseModel):
-    @abstractmethod
-    def revoke_token(self, client: HttpClient, access_token: str) -> None:
-        pass
 
 
 class ConfidentialClientOAuthFlowProvider(ServerOAuthFlowProvider):

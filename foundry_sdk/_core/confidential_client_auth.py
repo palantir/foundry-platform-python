@@ -64,7 +64,12 @@ class ConfidentialClientAuth(OAuth):
             client_secret,
             scopes=scopes,
         )
-        super().__init__(server_oauth_flow_provider=server_oauth_flow_provider, hostname=hostname, should_refresh=should_refresh, config=config)
+        super().__init__(
+            server_oauth_flow_provider=server_oauth_flow_provider,
+            hostname=hostname,
+            should_refresh=should_refresh,
+            config=config,
+        )
 
     @property
     def scopes(self) -> List[str]:
