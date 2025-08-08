@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -59,6 +60,8 @@ class QueryClient:
         ],
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -78,6 +81,10 @@ class QueryClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -100,6 +107,8 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -173,6 +182,8 @@ class AsyncQueryClient:
         ],
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -192,6 +203,10 @@ class AsyncQueryClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -214,6 +229,8 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

@@ -3199,6 +3199,12 @@ def datasets_dataset_get_schema(
 )
 @click.option("--branch_name", type=str, required=False, help="""""")
 @click.option(
+    "--dataframe_reader",
+    type=click.Choice(["AVRO", "CSV", "PARQUET", "DATASOURCE"]),
+    required=False,
+    help="""The dataframe reader used for reading the dataset schema. Defaults to PARQUET.""",
+)
+@click.option(
     "--end_transaction_rid",
     type=str,
     required=False,
@@ -3214,6 +3220,7 @@ def datasets_dataset_put_schema(
     dataset_rid: str,
     schema: str,
     branch_name: typing.Optional[str],
+    dataframe_reader: typing.Optional[typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]],
     end_transaction_rid: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
@@ -3225,6 +3232,7 @@ def datasets_dataset_put_schema(
         dataset_rid=dataset_rid,
         schema=json.loads(schema),
         branch_name=branch_name,
+        dataframe_reader=dataframe_reader,
         end_transaction_rid=end_transaction_rid,
         preview=preview,
     )
@@ -4867,6 +4875,8 @@ def functions_query():
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_execute(
@@ -4874,6 +4884,8 @@ def functions_query_execute(
     query_api_name: str,
     parameters: str,
     preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -4886,6 +4898,8 @@ def functions_query_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         version=version,
     )
     click.echo(repr(result))
@@ -5586,6 +5600,20 @@ def ontologies_query():
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--version",
     type=str,
     required=False,
@@ -5600,6 +5628,8 @@ def ontologies_query_execute(
     parameters: str,
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -5614,6 +5644,8 @@ def ontologies_query_execute(
         parameters=json.loads(parameters),
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         version=version,
     )
     click.echo(repr(result))
@@ -5675,6 +5707,34 @@ def ontologies_ontology_value_type_list(
     result = client.ontologies.OntologyValueType.list(
         ontology=ontology,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies.group("ontology_transaction")
+def ontologies_ontology_transaction():
+    pass
+
+
+@ontologies_ontology_transaction.command("post_edits")
+@click.argument("ontology", type=str, required=True)
+@click.argument("transaction_rid", type=str, required=True)
+@click.option("--edits", type=str, required=True, help="""""")
+@click.pass_obj
+def ontologies_ontology_transaction_post_edits(
+    client: FoundryClient,
+    ontology: str,
+    transaction_rid: str,
+    edits: str,
+):
+    """
+    Applies a set of edits to a transaction in order.
+
+    """
+    result = client.ontologies.OntologyTransaction.post_edits(
+        ontology=ontology,
+        transaction_rid=transaction_rid,
+        edits=json.loads(edits),
     )
     click.echo(repr(result))
 

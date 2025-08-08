@@ -11,6 +11,7 @@ Details about some property of an object.
 **rid** | PropertyTypeRid | Yes |  |
 **status** | Optional[PropertyTypeStatus] | No |  |
 **visibility** | Optional[PropertyTypeVisibility] | No |  |
+**value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

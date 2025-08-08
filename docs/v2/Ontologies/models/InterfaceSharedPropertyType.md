@@ -12,6 +12,7 @@ object type that implements the interface, or whether it is optional.
 **display_name** | DisplayName | Yes |  |
 **description** | Optional[str] | No | A short text that describes the SharedPropertyType. |
 **data_type** | ObjectPropertyType | Yes |  |
+**value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 **required** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |
 
 

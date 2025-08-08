@@ -250,6 +250,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid |  |  |
 **schema** | DatasetSchema | The schema that will be added.  |  |
 **branch_name** | Optional[BranchName] |  | [optional] |
+**dataframe_reader** | Optional[DataframeReader] | The dataframe reader used for reading the dataset schema. Defaults to PARQUET. | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -297,6 +298,8 @@ schema = {
 }
 # Optional[BranchName]
 branch_name = "master"
+# Optional[DataframeReader] | The dataframe reader used for reading the dataset schema. Defaults to PARQUET.
+dataframe_reader = "PARQUET"
 # Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
 end_transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -308,6 +311,7 @@ try:
         dataset_rid,
         schema=schema,
         branch_name=branch_name,
+        dataframe_reader=dataframe_reader,
         end_transaction_rid=end_transaction_rid,
         preview=preview,
     )

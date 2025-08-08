@@ -170,11 +170,40 @@ class AddLink(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class AddLinkEdit(pydantic.BaseModel):
+    """AddLinkEdit"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    primary_key: PrimaryKeyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+    link_type: LinkTypeApiName = pydantic.Field(alias=str("linkType"))  # type: ignore[literal-required]
+    linked_object_primary_key: PrimaryKeyValue = pydantic.Field(alias=str("linkedObjectPrimaryKey"))  # type: ignore[literal-required]
+    type: typing.Literal["addLink"] = "addLink"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class AddObject(pydantic.BaseModel):
     """AddObject"""
 
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    type: typing.Literal["addObject"] = "addObject"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class AddObjectEdit(pydantic.BaseModel):
+    """AddObjectEdit"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+    properties: typing.Dict[PropertyApiName, DataValue]
     type: typing.Literal["addObject"] = "addObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -881,6 +910,21 @@ class DeleteLink(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+class DeleteLinkEdit(pydantic.BaseModel):
+    """DeleteLinkEdit"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    primary_key: PrimaryKeyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+    link_type: LinkTypeApiName = pydantic.Field(alias=str("linkType"))  # type: ignore[literal-required]
+    linked_object_primary_key: PrimaryKeyValue = pydantic.Field(alias=str("linkedObjectPrimaryKey"))  # type: ignore[literal-required]
+    type: typing.Literal["removeLink"] = "removeLink"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class DeleteLinkRule(pydantic.BaseModel):
     """DeleteLinkRule"""
 
@@ -901,6 +945,19 @@ class DeleteObject(pydantic.BaseModel):
 
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    type: typing.Literal["deleteObject"] = "deleteObject"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class DeleteObjectEdit(pydantic.BaseModel):
+    """DeleteObjectEdit"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     type: typing.Literal["deleteObject"] = "deleteObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1310,6 +1367,7 @@ class InterfaceSharedPropertyType(pydantic.BaseModel):
     """A short text that describes the SharedPropertyType."""
 
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     required: bool
     """Whether each implementing object type must declare an implementation for this property."""
 
@@ -1850,6 +1908,20 @@ class ModifyObject(pydantic.BaseModel):
 
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    type: typing.Literal["modifyObject"] = "modifyObject"
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+class ModifyObjectEdit(pydantic.BaseModel):
+    """ModifyObjectEdit"""
+
+    object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+    properties: typing.Dict[PropertyApiName, DataValue]
     type: typing.Literal["modifyObject"] = "modifyObject"
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -2445,6 +2517,7 @@ class OntologyFullMetadata(pydantic.BaseModel):
     interface_types: typing.Dict[InterfaceTypeApiName, InterfaceType] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
     shared_property_types: typing.Dict[SharedPropertyTypeApiName, SharedPropertyType] = pydantic.Field(alias=str("sharedPropertyTypes"))  # type: ignore[literal-required]
     branch: typing.Optional[core_models.BranchMetadata] = None
+    value_types: typing.Dict[ValueTypeApiName, OntologyValueType] = pydantic.Field(alias=str("valueTypes"))  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -2590,6 +2663,10 @@ class OntologyStructType(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+OntologyTransactionRid = core.RID
+"""The RID identifying a transaction."""
+
+
 class OntologyV2(pydantic.BaseModel):
     """Metadata about an Ontology."""
 
@@ -2730,6 +2807,16 @@ Plaintext = str
 """Plaintext"""
 
 
+class PostTransactionEditsResponse(pydantic.BaseModel):
+    """PostTransactionEditsResponse"""
+
+    model_config = {"extra": "allow", "populate_by_name": True}
+
+    def to_dict(self) -> typing.Dict[str, typing.Any]:
+        """Return the dictionary representation of the model using the field aliases."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
 class PreciseDuration(pydantic.BaseModel):
     """A measurement of duration."""
 
@@ -2845,6 +2932,7 @@ class PropertyV2(pydantic.BaseModel):
     rid: PropertyTypeRid
     status: typing.Optional[PropertyTypeStatus] = None
     visibility: typing.Optional[PropertyTypeVisibility] = None
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -3500,6 +3588,7 @@ class SharedPropertyType(pydantic.BaseModel):
     """A short text that describes the SharedPropertyType."""
 
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     model_config = {"extra": "allow", "populate_by_name": True}
 
     def to_dict(self) -> typing.Dict[str, typing.Any]:
@@ -3933,6 +4022,13 @@ class TimeseriesEntry(pydantic.BaseModel):
         return self.model_dump(by_alias=True, exclude_none=True)
 
 
+TransactionEdit = typing_extensions.Annotated[
+    typing.Union[ModifyObjectEdit, DeleteObjectEdit, AddObjectEdit, DeleteLinkEdit, AddLinkEdit],
+    pydantic.Field(discriminator="type"),
+]
+"""TransactionEdit"""
+
+
 class TwoDimensionalAggregation(pydantic.BaseModel):
     """TwoDimensionalAggregation"""
 
@@ -4291,6 +4387,7 @@ core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(
 core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
 core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
 
@@ -4307,7 +4404,9 @@ __all__ = [
     "ActionTypeV2",
     "ActivePropertyTypeStatus",
     "AddLink",
+    "AddLinkEdit",
     "AddObject",
+    "AddObjectEdit",
     "AddPropertyExpression",
     "AggregateObjectsResponseItemV2",
     "AggregateObjectsResponseV2",
@@ -4365,8 +4464,10 @@ __all__ = [
     "DecryptionResult",
     "DeleteInterfaceObjectRule",
     "DeleteLink",
+    "DeleteLinkEdit",
     "DeleteLinkRule",
     "DeleteObject",
+    "DeleteObjectEdit",
     "DeleteObjectRule",
     "DeprecatedPropertyTypeStatus",
     "DerivedPropertyApiName",
@@ -4442,6 +4543,7 @@ __all__ = [
     "MinAggregationV2",
     "ModifyInterfaceObjectRule",
     "ModifyObject",
+    "ModifyObjectEdit",
     "ModifyObjectRule",
     "MultiplyPropertyExpression",
     "NearestNeighborsQuery",
@@ -4498,6 +4600,7 @@ __all__ = [
     "OntologySetType",
     "OntologyStructField",
     "OntologyStructType",
+    "OntologyTransactionRid",
     "OntologyV2",
     "OntologyValueType",
     "OrQueryV2",
@@ -4509,6 +4612,7 @@ __all__ = [
     "ParameterOption",
     "Plaintext",
     "PolygonValue",
+    "PostTransactionEditsResponse",
     "PreciseDuration",
     "PreciseTimeUnit",
     "PrimaryKeyValue",
@@ -4604,6 +4708,7 @@ __all__ = [
     "TimeSeriesWindowType",
     "TimeUnit",
     "TimeseriesEntry",
+    "TransactionEdit",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
     "UuidConstraint",
