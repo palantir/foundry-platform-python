@@ -19,6 +19,8 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**trace_parent** | Optional[TraceParent] |  | [optional] |
+**trace_state** | Optional[TraceState] |  | [optional] |
 **version** | Optional[FunctionVersion] |  | [optional] |
 
 ### Return type
@@ -39,13 +41,22 @@ query_api_name = None
 parameters = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[TraceParent]
+trace_parent = None
+# Optional[TraceState]
+trace_state = None
 # Optional[FunctionVersion]
 version = None
 
 
 try:
     api_response = client.functions.Query.execute(
-        query_api_name, parameters=parameters, preview=preview, version=version
+        query_api_name,
+        parameters=parameters,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        version=version,
     )
     print("The execute response:\n")
     pprint(api_response)

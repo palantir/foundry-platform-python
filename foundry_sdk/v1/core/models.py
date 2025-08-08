@@ -303,6 +303,14 @@ TotalCount = core.Long
 """The total number of items across all pages."""
 
 
+TraceParent = str
+"""The W3C Trace Context `traceparent` header value used to propagate distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#traceparent-header for more details. Note the 16 byte trace ID encoded in the header must be derived from a time based uuid to be used within Foundry."""
+
+
+TraceState = str
+"""The W3C Trace Context `tracestate` header value, which is used to propagate vendor specific distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#tracestate-header for more details."""
+
+
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
@@ -350,5 +358,7 @@ __all__ = [
     "StructFieldName",
     "TimestampType",
     "TotalCount",
+    "TraceParent",
+    "TraceState",
     "UnsupportedType",
 ]

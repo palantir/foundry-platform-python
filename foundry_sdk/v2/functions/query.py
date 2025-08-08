@@ -59,6 +59,8 @@ class QueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -74,6 +76,10 @@ class QueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -95,6 +101,8 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -293,6 +301,8 @@ class AsyncQueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -308,6 +318,10 @@ class AsyncQueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -329,6 +343,8 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

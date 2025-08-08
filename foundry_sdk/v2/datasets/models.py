@@ -43,6 +43,10 @@ BranchName = str
 """The name of a Branch."""
 
 
+DataframeReader = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
+"""The dataframe reader used for reading the dataset schema."""
+
+
 class Dataset(pydantic.BaseModel):
     """Dataset"""
 
@@ -317,6 +321,7 @@ core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), lo
 __all__ = [
     "Branch",
     "BranchName",
+    "DataframeReader",
     "Dataset",
     "DatasetName",
     "DatasetRid",

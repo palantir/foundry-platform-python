@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v1.core import models as core_models
 from foundry_sdk.v1.ontologies import models as ontologies_models
 
 
@@ -57,6 +58,8 @@ class QueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ExecuteQueryResponse:
@@ -69,6 +72,10 @@ class QueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -85,6 +92,8 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -156,6 +165,8 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ExecuteQueryResponse]:
@@ -168,6 +179,10 @@ class AsyncQueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -184,6 +199,8 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

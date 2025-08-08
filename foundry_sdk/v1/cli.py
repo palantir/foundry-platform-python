@@ -825,12 +825,28 @@ def ontologies_query():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
 @click.pass_obj
 def ontologies_query_execute(
     client: FoundryClient,
     ontology_rid: str,
     query_api_name: str,
     parameters: str,
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Executes a Query using the given parameters. Optional parameters do not need to be supplied.
@@ -840,6 +856,8 @@ def ontologies_query_execute(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 

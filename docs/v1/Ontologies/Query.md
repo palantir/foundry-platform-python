@@ -15,6 +15,8 @@ Name | Type | Description  | Notes |
 **ontology_rid** | OntologyRid | The unique Resource Identifier (RID) of the Ontology that contains the Query. To look up your Ontology RID, please use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
 **query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -34,11 +36,19 @@ ontology_rid = "ri.ontology.main.ontology.c61d9ab5-2919-4127-a0a1-ac64c0ce6367"
 query_api_name = "getEmployeesInCity"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"city": "New York"}
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 
 
 try:
     api_response = client.ontologies.Query.execute(
-        ontology_rid, query_api_name, parameters=parameters
+        ontology_rid,
+        query_api_name,
+        parameters=parameters,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     print("The execute response:\n")
     pprint(api_response)

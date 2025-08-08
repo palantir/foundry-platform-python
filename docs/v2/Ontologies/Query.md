@@ -19,6 +19,8 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
 
 ### Return type
@@ -43,6 +45,10 @@ parameters = {"city": "New York"}
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[FunctionVersion] | The version of the Query to execute.
 version = None
 
@@ -54,6 +60,8 @@ try:
         parameters=parameters,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         version=version,
     )
     print("The execute response:\n")

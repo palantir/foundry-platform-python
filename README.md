@@ -1185,6 +1185,8 @@ Namespace | Name | Import |
 **Core** | [TimestampType](docs/v2/Core/models/TimestampType.md) | `from foundry_sdk.v2.core.models import TimestampType` |
 **Core** | [TimeUnit](docs/v2/Core/models/TimeUnit.md) | `from foundry_sdk.v2.core.models import TimeUnit` |
 **Core** | [TotalCount](docs/v2/Core/models/TotalCount.md) | `from foundry_sdk.v2.core.models import TotalCount` |
+**Core** | [TraceParent](docs/v2/Core/models/TraceParent.md) | `from foundry_sdk.v2.core.models import TraceParent` |
+**Core** | [TraceState](docs/v2/Core/models/TraceState.md) | `from foundry_sdk.v2.core.models import TraceState` |
 **Core** | [UnsupportedType](docs/v2/Core/models/UnsupportedType.md) | `from foundry_sdk.v2.core.models import UnsupportedType` |
 **Core** | [UpdatedBy](docs/v2/Core/models/UpdatedBy.md) | `from foundry_sdk.v2.core.models import UpdatedBy` |
 **Core** | [UpdatedTime](docs/v2/Core/models/UpdatedTime.md) | `from foundry_sdk.v2.core.models import UpdatedTime` |
@@ -1196,6 +1198,7 @@ Namespace | Name | Import |
 **Core** | [ZoneId](docs/v2/Core/models/ZoneId.md) | `from foundry_sdk.v2.core.models import ZoneId` |
 **Datasets** | [Branch](docs/v2/Datasets/models/Branch.md) | `from foundry_sdk.v2.datasets.models import Branch` |
 **Datasets** | [BranchName](docs/v2/Datasets/models/BranchName.md) | `from foundry_sdk.v2.datasets.models import BranchName` |
+**Datasets** | [DataframeReader](docs/v2/Datasets/models/DataframeReader.md) | `from foundry_sdk.v2.datasets.models import DataframeReader` |
 **Datasets** | [Dataset](docs/v2/Datasets/models/Dataset.md) | `from foundry_sdk.v2.datasets.models import Dataset` |
 **Datasets** | [DatasetName](docs/v2/Datasets/models/DatasetName.md) | `from foundry_sdk.v2.datasets.models import DatasetName` |
 **Datasets** | [DatasetRid](docs/v2/Datasets/models/DatasetRid.md) | `from foundry_sdk.v2.datasets.models import DatasetRid` |
@@ -1340,7 +1343,9 @@ Namespace | Name | Import |
 **Ontologies** | [ActionTypeV2](docs/v2/Ontologies/models/ActionTypeV2.md) | `from foundry_sdk.v2.ontologies.models import ActionTypeV2` |
 **Ontologies** | [ActivePropertyTypeStatus](docs/v2/Ontologies/models/ActivePropertyTypeStatus.md) | `from foundry_sdk.v2.ontologies.models import ActivePropertyTypeStatus` |
 **Ontologies** | [AddLink](docs/v2/Ontologies/models/AddLink.md) | `from foundry_sdk.v2.ontologies.models import AddLink` |
+**Ontologies** | [AddLinkEdit](docs/v2/Ontologies/models/AddLinkEdit.md) | `from foundry_sdk.v2.ontologies.models import AddLinkEdit` |
 **Ontologies** | [AddObject](docs/v2/Ontologies/models/AddObject.md) | `from foundry_sdk.v2.ontologies.models import AddObject` |
+**Ontologies** | [AddObjectEdit](docs/v2/Ontologies/models/AddObjectEdit.md) | `from foundry_sdk.v2.ontologies.models import AddObjectEdit` |
 **Ontologies** | [AddPropertyExpression](docs/v2/Ontologies/models/AddPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import AddPropertyExpression` |
 **Ontologies** | [AggregateObjectsResponseItemV2](docs/v2/Ontologies/models/AggregateObjectsResponseItemV2.md) | `from foundry_sdk.v2.ontologies.models import AggregateObjectsResponseItemV2` |
 **Ontologies** | [AggregateObjectsResponseV2](docs/v2/Ontologies/models/AggregateObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import AggregateObjectsResponseV2` |
@@ -1398,8 +1403,10 @@ Namespace | Name | Import |
 **Ontologies** | [DecryptionResult](docs/v2/Ontologies/models/DecryptionResult.md) | `from foundry_sdk.v2.ontologies.models import DecryptionResult` |
 **Ontologies** | [DeleteInterfaceObjectRule](docs/v2/Ontologies/models/DeleteInterfaceObjectRule.md) | `from foundry_sdk.v2.ontologies.models import DeleteInterfaceObjectRule` |
 **Ontologies** | [DeleteLink](docs/v2/Ontologies/models/DeleteLink.md) | `from foundry_sdk.v2.ontologies.models import DeleteLink` |
+**Ontologies** | [DeleteLinkEdit](docs/v2/Ontologies/models/DeleteLinkEdit.md) | `from foundry_sdk.v2.ontologies.models import DeleteLinkEdit` |
 **Ontologies** | [DeleteLinkRule](docs/v2/Ontologies/models/DeleteLinkRule.md) | `from foundry_sdk.v2.ontologies.models import DeleteLinkRule` |
 **Ontologies** | [DeleteObject](docs/v2/Ontologies/models/DeleteObject.md) | `from foundry_sdk.v2.ontologies.models import DeleteObject` |
+**Ontologies** | [DeleteObjectEdit](docs/v2/Ontologies/models/DeleteObjectEdit.md) | `from foundry_sdk.v2.ontologies.models import DeleteObjectEdit` |
 **Ontologies** | [DeleteObjectRule](docs/v2/Ontologies/models/DeleteObjectRule.md) | `from foundry_sdk.v2.ontologies.models import DeleteObjectRule` |
 **Ontologies** | [DeprecatedPropertyTypeStatus](docs/v2/Ontologies/models/DeprecatedPropertyTypeStatus.md) | `from foundry_sdk.v2.ontologies.models import DeprecatedPropertyTypeStatus` |
 **Ontologies** | [DerivedPropertyApiName](docs/v2/Ontologies/models/DerivedPropertyApiName.md) | `from foundry_sdk.v2.ontologies.models import DerivedPropertyApiName` |
@@ -1475,6 +1482,7 @@ Namespace | Name | Import |
 **Ontologies** | [MinAggregationV2](docs/v2/Ontologies/models/MinAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import MinAggregationV2` |
 **Ontologies** | [ModifyInterfaceObjectRule](docs/v2/Ontologies/models/ModifyInterfaceObjectRule.md) | `from foundry_sdk.v2.ontologies.models import ModifyInterfaceObjectRule` |
 **Ontologies** | [ModifyObject](docs/v2/Ontologies/models/ModifyObject.md) | `from foundry_sdk.v2.ontologies.models import ModifyObject` |
+**Ontologies** | [ModifyObjectEdit](docs/v2/Ontologies/models/ModifyObjectEdit.md) | `from foundry_sdk.v2.ontologies.models import ModifyObjectEdit` |
 **Ontologies** | [ModifyObjectRule](docs/v2/Ontologies/models/ModifyObjectRule.md) | `from foundry_sdk.v2.ontologies.models import ModifyObjectRule` |
 **Ontologies** | [MultiplyPropertyExpression](docs/v2/Ontologies/models/MultiplyPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import MultiplyPropertyExpression` |
 **Ontologies** | [NearestNeighborsQuery](docs/v2/Ontologies/models/NearestNeighborsQuery.md) | `from foundry_sdk.v2.ontologies.models import NearestNeighborsQuery` |
@@ -1531,6 +1539,7 @@ Namespace | Name | Import |
 **Ontologies** | [OntologySetType](docs/v2/Ontologies/models/OntologySetType.md) | `from foundry_sdk.v2.ontologies.models import OntologySetType` |
 **Ontologies** | [OntologyStructField](docs/v2/Ontologies/models/OntologyStructField.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructField` |
 **Ontologies** | [OntologyStructType](docs/v2/Ontologies/models/OntologyStructType.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructType` |
+**Ontologies** | [OntologyTransactionRid](docs/v2/Ontologies/models/OntologyTransactionRid.md) | `from foundry_sdk.v2.ontologies.models import OntologyTransactionRid` |
 **Ontologies** | [OntologyV2](docs/v2/Ontologies/models/OntologyV2.md) | `from foundry_sdk.v2.ontologies.models import OntologyV2` |
 **Ontologies** | [OntologyValueType](docs/v2/Ontologies/models/OntologyValueType.md) | `from foundry_sdk.v2.ontologies.models import OntologyValueType` |
 **Ontologies** | [OrderBy](docs/v2/Ontologies/models/OrderBy.md) | `from foundry_sdk.v2.ontologies.models import OrderBy` |
@@ -1542,6 +1551,7 @@ Namespace | Name | Import |
 **Ontologies** | [ParameterOption](docs/v2/Ontologies/models/ParameterOption.md) | `from foundry_sdk.v2.ontologies.models import ParameterOption` |
 **Ontologies** | [Plaintext](docs/v2/Ontologies/models/Plaintext.md) | `from foundry_sdk.v2.ontologies.models import Plaintext` |
 **Ontologies** | [PolygonValue](docs/v2/Ontologies/models/PolygonValue.md) | `from foundry_sdk.v2.ontologies.models import PolygonValue` |
+**Ontologies** | [PostTransactionEditsResponse](docs/v2/Ontologies/models/PostTransactionEditsResponse.md) | `from foundry_sdk.v2.ontologies.models import PostTransactionEditsResponse` |
 **Ontologies** | [PreciseDuration](docs/v2/Ontologies/models/PreciseDuration.md) | `from foundry_sdk.v2.ontologies.models import PreciseDuration` |
 **Ontologies** | [PreciseTimeUnit](docs/v2/Ontologies/models/PreciseTimeUnit.md) | `from foundry_sdk.v2.ontologies.models import PreciseTimeUnit` |
 **Ontologies** | [PrimaryKeyValue](docs/v2/Ontologies/models/PrimaryKeyValue.md) | `from foundry_sdk.v2.ontologies.models import PrimaryKeyValue` |
@@ -1637,6 +1647,7 @@ Namespace | Name | Import |
 **Ontologies** | [TimeSeriesRollingAggregateWindow](docs/v2/Ontologies/models/TimeSeriesRollingAggregateWindow.md) | `from foundry_sdk.v2.ontologies.models import TimeSeriesRollingAggregateWindow` |
 **Ontologies** | [TimeSeriesWindowType](docs/v2/Ontologies/models/TimeSeriesWindowType.md) | `from foundry_sdk.v2.ontologies.models import TimeSeriesWindowType` |
 **Ontologies** | [TimeUnit](docs/v2/Ontologies/models/TimeUnit.md) | `from foundry_sdk.v2.ontologies.models import TimeUnit` |
+**Ontologies** | [TransactionEdit](docs/v2/Ontologies/models/TransactionEdit.md) | `from foundry_sdk.v2.ontologies.models import TransactionEdit` |
 **Ontologies** | [TwoDimensionalAggregation](docs/v2/Ontologies/models/TwoDimensionalAggregation.md) | `from foundry_sdk.v2.ontologies.models import TwoDimensionalAggregation` |
 **Ontologies** | [UnevaluableConstraint](docs/v2/Ontologies/models/UnevaluableConstraint.md) | `from foundry_sdk.v2.ontologies.models import UnevaluableConstraint` |
 **Ontologies** | [UuidConstraint](docs/v2/Ontologies/models/UuidConstraint.md) | `from foundry_sdk.v2.ontologies.models import UuidConstraint` |
@@ -1805,6 +1816,8 @@ Namespace | Name | Import |
 **Core** | [StructFieldName](docs/v1/Core/models/StructFieldName.md) | `from foundry_sdk.v1.core.models import StructFieldName` |
 **Core** | [TimestampType](docs/v1/Core/models/TimestampType.md) | `from foundry_sdk.v1.core.models import TimestampType` |
 **Core** | [TotalCount](docs/v1/Core/models/TotalCount.md) | `from foundry_sdk.v1.core.models import TotalCount` |
+**Core** | [TraceParent](docs/v1/Core/models/TraceParent.md) | `from foundry_sdk.v1.core.models import TraceParent` |
+**Core** | [TraceState](docs/v1/Core/models/TraceState.md) | `from foundry_sdk.v1.core.models import TraceState` |
 **Core** | [UnsupportedType](docs/v1/Core/models/UnsupportedType.md) | `from foundry_sdk.v1.core.models import UnsupportedType` |
 **Datasets** | [Branch](docs/v1/Datasets/models/Branch.md) | `from foundry_sdk.v1.datasets.models import Branch` |
 **Datasets** | [BranchId](docs/v1/Datasets/models/BranchId.md) | `from foundry_sdk.v1.datasets.models import BranchId` |
