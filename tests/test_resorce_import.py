@@ -390,6 +390,12 @@ def test_ontologies_v2_ontology_object_set_import():
     assert OntologyObjectSetClient is not None
 
 
+def test_ontologies_v2_ontology_transaction_import():
+    from foundry_sdk.v2.ontologies.ontology_transaction import OntologyTransactionClient
+
+    assert OntologyTransactionClient is not None
+
+
 def test_ontologies_v2_ontology_value_type_import():
     from foundry_sdk.v2.ontologies.ontology_value_type import OntologyValueTypeClient
 

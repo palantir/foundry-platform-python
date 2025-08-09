@@ -347,6 +347,7 @@ class DatasetClient:
         *,
         schema: core_models.DatasetSchema,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
+        dataframe_reader: typing.Optional[datasets_models.DataframeReader] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -361,6 +362,8 @@ class DatasetClient:
         :type schema: DatasetSchema
         :param branch_name:
         :type branch_name: Optional[BranchName]
+        :param dataframe_reader: The dataframe reader used for reading the dataset schema. Defaults to PARQUET.
+        :type dataframe_reader: Optional[DataframeReader]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
         :param preview: Enables the use of preview functionality.
@@ -393,6 +396,7 @@ class DatasetClient:
                 },
                 body={
                     "branchName": branch_name,
+                    "dataframeReader": dataframe_reader,
                     "endTransactionRid": end_transaction_rid,
                     "schema": schema,
                 },
@@ -400,6 +404,7 @@ class DatasetClient:
                     "Body",
                     {  # type: ignore
                         "branchName": typing.Optional[datasets_models.BranchName],
+                        "dataframeReader": typing.Optional[datasets_models.DataframeReader],
                         "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
                         "schema": core_models.DatasetSchema,
                     },
@@ -920,6 +925,7 @@ class AsyncDatasetClient:
         *,
         schema: core_models.DatasetSchema,
         branch_name: typing.Optional[datasets_models.BranchName] = None,
+        dataframe_reader: typing.Optional[datasets_models.DataframeReader] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -934,6 +940,8 @@ class AsyncDatasetClient:
         :type schema: DatasetSchema
         :param branch_name:
         :type branch_name: Optional[BranchName]
+        :param dataframe_reader: The dataframe reader used for reading the dataset schema. Defaults to PARQUET.
+        :type dataframe_reader: Optional[DataframeReader]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
         :param preview: Enables the use of preview functionality.
@@ -966,6 +974,7 @@ class AsyncDatasetClient:
                 },
                 body={
                     "branchName": branch_name,
+                    "dataframeReader": dataframe_reader,
                     "endTransactionRid": end_transaction_rid,
                     "schema": schema,
                 },
@@ -973,6 +982,7 @@ class AsyncDatasetClient:
                     "Body",
                     {  # type: ignore
                         "branchName": typing.Optional[datasets_models.BranchName],
+                        "dataframeReader": typing.Optional[datasets_models.DataframeReader],
                         "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
                         "schema": core_models.DatasetSchema,
                     },

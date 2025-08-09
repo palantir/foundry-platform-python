@@ -156,22 +156,22 @@ class DatasetFieldSchema(pydantic.BaseModel):
     """User-supplied custom metadata about the column, such as Foundry web archetypes, descriptions, etc."""
 
     array_subtype: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("arraySubtype"), default=None)  # type: ignore[literal-required]
-    """Only used with {@link FieldDataType#ARRAY}."""
+    """Only used when field type is array."""
 
     precision: typing.Optional[int] = None
-    """Only used with {@link FieldDataType#DECIMAL}."""
+    """Only used when field type is decimal."""
 
     scale: typing.Optional[int] = None
-    """Only used with {@link FieldDataType#DECIMAL}."""
+    """Only used when field type is decimal."""
 
     map_key_type: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("mapKeyType"), default=None)  # type: ignore[literal-required]
-    """Only used with {@link FieldDataType#MAP}."""
+    """Only used when field type is map."""
 
     map_value_type: typing.Optional[DatasetFieldSchema] = pydantic.Field(alias=str("mapValueType"), default=None)  # type: ignore[literal-required]
-    """Only used with {@link FieldDataType#MAP}."""
+    """Only used when field type is map."""
 
     sub_schemas: typing.Optional[typing.List[DatasetFieldSchema]] = pydantic.Field(alias=str("subSchemas"), default=None)  # type: ignore[literal-required]
-    """Only used with {@link FieldDataType#STRUCT}."""
+    """Only used when field type is struct."""
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
@@ -1032,6 +1032,14 @@ TotalCount = core.Long
 """The total number of items across all pages."""
 
 
+TraceParent = str
+"""The W3C Trace Context `traceparent` header value used to propagate distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#traceparent-header for more details. Note the 16 byte trace ID encoded in the header must be derived from a time based uuid to be used within Foundry."""
+
+
+TraceState = str
+"""The W3C Trace Context `tracestate` header value, which is used to propagate vendor specific distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#tracestate-header for more details."""
+
+
 class UnsupportedType(pydantic.BaseModel):
     """UnsupportedType"""
 
@@ -1232,6 +1240,8 @@ __all__ = [
     "TimeseriesType",
     "TimestampType",
     "TotalCount",
+    "TraceParent",
+    "TraceState",
     "UnsupportedType",
     "UpdatedBy",
     "UpdatedTime",
