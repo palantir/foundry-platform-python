@@ -17,6 +17,7 @@ import base64
 import hashlib
 import secrets
 import string
+import threading
 import time
 import warnings
 from abc import ABC
@@ -132,10 +133,15 @@ class OAuth(Auth, ABC):
         self._hostname = hostname
         self._client: Optional[HttpClient] = None
         self._should_refresh = should_refresh
+        self._stop_refresh_event = threading.Event()
+        self._token: Optional[OAuthToken] = None
 
-    @abstractmethod
     def sign_out(self) -> SignOutResponse:
-        pass
+        self.revoke_token()
+        self._token = None
+        # Signal the auto-refresh thread to stop
+        self._stop_refresh_event.set()
+        return SignOutResponse()
 
     def execute_with_token(self, func: Callable[[OAuthToken], T]) -> T:
         try:
@@ -154,12 +160,28 @@ class OAuth(Auth, ABC):
         self.execute_with_token(func)
 
     @abstractmethod
-    def _refresh_token(self) -> None:
+    def get_token(self) -> OAuthToken:
         pass
 
     @abstractmethod
-    def get_token(self) -> OAuthToken:
+    def revoke_token(self) -> None:
         pass
+
+    @abstractmethod
+    def _try_refresh_token(self) -> bool:
+        pass
+
+    def _start_auto_refresh(self) -> None:
+        def _auto_refresh_token() -> None:
+            while True:
+                timeout = self._token.expires_in - 60 if self._token else 10
+                if self._stop_refresh_event.wait(timeout):
+                    return
+                if self._token:
+                    self._try_refresh_token()
+
+        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
+        refresh_thread.start()
 
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """
@@ -170,7 +192,8 @@ class OAuth(Auth, ABC):
             return func(self.get_token())
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
-                self._refresh_token()
+                if not self._try_refresh_token():
+                    raise e
                 return func(self.get_token())
             else:
                 raise e

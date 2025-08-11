@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import threading
 import time
 from typing import List
 from typing import Optional
@@ -51,11 +50,6 @@ class PublicClientAuth(OAuth):
     ) -> None:
         self._client_id = client_id
         self._redirect_url = redirect_url
-
-        self._token: Optional[OAuthToken] = None
-        self._should_refresh = should_refresh
-        self._stop_refresh_event = threading.Event()
-        self._scopes = scopes
         self._auth_request: Optional[AuthorizeRequest] = None
         self._server_oauth_flow_provider = PublicClientOAuthFlowProvider(
             client_id=client_id,
@@ -73,17 +67,21 @@ class PublicClientAuth(OAuth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def _refresh_token(self) -> None:
-        if not self._token:
-            raise RuntimeError("must have token to refresh")
+    def revoke_token(self) -> None:
+        if self._token:
+            self._server_oauth_flow_provider.revoke_token(
+                self._get_client(),
+                self._token.access_token,
+            )
 
-        if not self._token.refresh_token:
-            raise RuntimeError("no refresh token provided")
-
-        self._token = self._server_oauth_flow_provider.refresh_token(
-            self._get_client(),
-            refresh_token=self._token.refresh_token,
-        )
+    def _try_refresh_token(self) -> bool:
+        if self._token and self._token.refresh_token:
+            self._token = self._server_oauth_flow_provider.refresh_token(
+                self._get_client(),
+                refresh_token=self._token.refresh_token,
+            )
+            return True
+        return False
 
     @property
     def url(self) -> str:
@@ -94,23 +92,6 @@ class PublicClientAuth(OAuth):
             self._get_client()
         )
         return self._auth_request.url
-
-    def _start_auto_refresh(self) -> None:
-        def _auto_refresh_token() -> None:
-            while not self._stop_refresh_event.is_set():
-                if self._token and self._token.refresh_token:
-                    # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
-                    time.sleep(self._token.expires_in - 60)
-                    self._token = self._server_oauth_flow_provider.refresh_token(
-                        self._get_client(),
-                        refresh_token=self._token.refresh_token,
-                    )
-                else:
-                    # Wait 10 seconds and check again if the token is set
-                    time.sleep(10)
-
-        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
-        refresh_thread.start()
 
     def set_token(self, code: str, state: str) -> None:
         if not self._auth_request:
@@ -127,17 +108,3 @@ class PublicClientAuth(OAuth):
 
         if self._should_refresh:
             self._start_auto_refresh()
-
-    def sign_out(self) -> SignOutResponse:
-        if self._token:
-            self._server_oauth_flow_provider.revoke_token(
-                self._get_client(),
-                self._token.access_token,
-            )
-
-        self._token = None
-
-        # Signal the auto-refresh thread to stop
-        self._stop_refresh_event.set()
-
-        return SignOutResponse()

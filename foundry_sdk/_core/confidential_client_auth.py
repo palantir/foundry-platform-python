@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import threading
 import time
 from typing import List
 from typing import Optional
@@ -61,9 +60,6 @@ class ConfidentialClientAuth(OAuth):
 
         self._client_id = client_id
         self._client_secret = client_secret
-        self._token: Optional[OAuthToken] = None
-        self._should_refresh = should_refresh
-        self._stop_refresh_event = threading.Event()
         self._server_oauth_flow_provider = ConfidentialClientOAuthFlowProvider(
             client_id,
             client_secret,
@@ -84,36 +80,17 @@ class ConfidentialClientAuth(OAuth):
 
         return self._token
 
-    @property
-    def url(self) -> str:
-        return self._get_client().base_url.host
-
-    def _refresh_token(self) -> None:
-        self._token = self._server_oauth_flow_provider.get_token(self._get_client())
-
-    def _start_auto_refresh(self) -> None:
-        def _auto_refresh_token() -> None:
-            while not self._stop_refresh_event.is_set():
-                if self._token:
-                    # Sleep for (expires_in - 60) seconds to refresh the token 1 minute before it expires
-                    time.sleep(self._token.expires_in - 60)
-                    self._refresh_token()
-                else:
-                    # Wait 10 seconds and check again if the token is set
-                    time.sleep(10)
-
-        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
-        refresh_thread.start()
-
-    def sign_out(self) -> SignOutResponse:
+    def revoke_token(self) -> None:
         if self._token:
             self._server_oauth_flow_provider.revoke_token(
                 self._get_client(),
                 self._token.access_token,
             )
 
-        self._token = None
+    @property
+    def url(self) -> str:
+        return self._get_client().base_url.host
 
-        # Signal the auto-refresh thread to stop
-        self._stop_refresh_event.set()
-        return SignOutResponse()
+    def _try_refresh_token(self) -> bool:
+        self._token = self._server_oauth_flow_provider.get_token(self._get_client())
+        return True
