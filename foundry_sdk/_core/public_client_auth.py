@@ -67,7 +67,7 @@ class PublicClientAuth(OAuth):
             raise NotAuthenticated("Client has not been authenticated.")
         return self._token
 
-    def revoke_token(self) -> None:
+    def _revoke_token(self) -> None:
         if self._token:
             self._server_oauth_flow_provider.revoke_token(
                 self._get_client(),

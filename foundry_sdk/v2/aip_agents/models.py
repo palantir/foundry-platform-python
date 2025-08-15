@@ -26,7 +26,7 @@ from foundry_sdk.v2.functions import models as functions_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
-class Agent(pydantic.BaseModel):
+class Agent(core.ModelBase):
     """Agent"""
 
     rid: AgentRid
@@ -42,18 +42,12 @@ class Agent(pydantic.BaseModel):
     These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 AgentMarkdownResponse = str
 """The final answer for an exchange. Responses are formatted using markdown."""
 
 
-class AgentMetadata(pydantic.BaseModel):
+class AgentMetadata(core.ModelBase):
     """Metadata for an Agent."""
 
     display_name: str = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
@@ -68,30 +62,19 @@ class AgentMetadata(pydantic.BaseModel):
     suggested_prompts: typing.List[str] = pydantic.Field(alias=str("suggestedPrompts"))  # type: ignore[literal-required]
     """Prompts to show to the user as example messages to start a conversation with the Agent."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 AgentRid = core.RID
 """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
-class AgentSessionRagContextResponse(pydantic.BaseModel):
+class AgentSessionRagContextResponse(core.ModelBase):
     """Context retrieved from an Agent's configured context data sources which was relevant to the supplied user message."""
 
     object_contexts: typing.List[ObjectContext] = pydantic.Field(alias=str("objectContexts"))  # type: ignore[literal-required]
     function_retrieved_contexts: typing.List[FunctionRetrievedContext] = pydantic.Field(alias=str("functionRetrievedContexts"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class AgentVersion(pydantic.BaseModel):
+class AgentVersion(core.ModelBase):
     """AgentVersion"""
 
     string: AgentVersionString
@@ -100,14 +83,8 @@ class AgentVersion(pydantic.BaseModel):
     version: AgentVersionDetails
     """Semantic version details of the Agent."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class AgentVersionDetails(pydantic.BaseModel):
+class AgentVersionDetails(core.ModelBase):
     """Semantic version details for an Agent."""
 
     major: int
@@ -116,18 +93,12 @@ class AgentVersionDetails(pydantic.BaseModel):
     minor: int
     """The minor version of the Agent. Incremented every time the Agent is saved."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 AgentVersionString = str
 """The semantic version of the Agent, formatted as "majorVersion.minorVersion"."""
 
 
-class AgentsSessionsPage(pydantic.BaseModel):
+class AgentsSessionsPage(core.ModelBase):
     """
     A page of results for sessions across all accessible Agents for the calling user.
     Sessions are returned in order of most recently updated first.
@@ -140,14 +111,9 @@ class AgentsSessionsPage(pydantic.BaseModel):
     """
 
     data: typing.List[Session]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CancelSessionResponse(pydantic.BaseModel):
+class CancelSessionResponse(core.ModelBase):
     """CancelSessionResponse"""
 
     result: typing.Optional[SessionExchangeResult] = None
@@ -156,14 +122,8 @@ class CancelSessionResponse(pydantic.BaseModel):
     If no `response` was specified in the request, this returns an empty response, as no exchange was added to the session.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class Content(pydantic.BaseModel):
+class Content(core.ModelBase):
     """Content"""
 
     exchanges: typing.List[SessionExchange]
@@ -173,14 +133,8 @@ class Content(pydantic.BaseModel):
     Exchanges are returned in chronological order, starting with the first exchange.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class FailureToolCallOutput(pydantic.BaseModel):
+class FailureToolCallOutput(core.ModelBase):
     """The failed output of a tool call."""
 
     correction_message: str = pydantic.Field(alias=str("correctionMessage"))  # type: ignore[literal-required]
@@ -191,14 +145,9 @@ class FailureToolCallOutput(pydantic.BaseModel):
     """
 
     type: typing.Literal["failure"] = "failure"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FunctionRetrievedContext(pydantic.BaseModel):
+class FunctionRetrievedContext(core.ModelBase):
     """Context retrieved from running a function to include as additional context in the prompt to the Agent."""
 
     function_rid: functions_models.FunctionRid = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
@@ -207,11 +156,6 @@ class FunctionRetrievedContext(pydantic.BaseModel):
     """String content returned from a context retrieval function."""
 
     type: typing.Literal["functionRetrievedContext"] = "functionRetrievedContext"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 InputContext = typing_extensions.Annotated[
@@ -220,28 +164,18 @@ InputContext = typing_extensions.Annotated[
 """Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
-class ListAgentVersionsResponse(pydantic.BaseModel):
+class ListAgentVersionsResponse(core.ModelBase):
     """ListAgentVersionsResponse"""
 
     data: typing.List[AgentVersion]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListSessionsResponse(pydantic.BaseModel):
+class ListSessionsResponse(core.ModelBase):
     """ListSessionsResponse"""
 
     data: typing.List[Session]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MessageId = core.UUID
@@ -251,7 +185,7 @@ This can be used by clients to cancel a streamed exchange.
 """
 
 
-class ObjectContext(pydantic.BaseModel):
+class ObjectContext(core.ModelBase):
     """Details of relevant retrieved object instances for a user's message to include as additional context in the prompt to the Agent."""
 
     object_rids: typing.List[ontologies_models.ObjectRid] = pydantic.Field(alias=str("objectRids"))  # type: ignore[literal-required]
@@ -261,28 +195,18 @@ class ObjectContext(pydantic.BaseModel):
     """The RIDs of the property types for the given objects to include in the prompt."""
 
     type: typing.Literal["objectContext"] = "objectContext"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ObjectSetParameter(pydantic.BaseModel):
+class ObjectSetParameter(core.ModelBase):
     """ObjectSetParameter"""
 
     expected_object_types: typing.List[ontologies_models.ObjectTypeId] = pydantic.Field(alias=str("expectedObjectTypes"))  # type: ignore[literal-required]
     """The types of objects that are expected in ObjectSet values passed for this variable."""
 
     type: typing.Literal["objectSet"] = "objectSet"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ObjectSetParameterValue(pydantic.BaseModel):
+class ObjectSetParameterValue(core.ModelBase):
     """A value passed for `ObjectSetParameter` application variable types."""
 
     object_set: ontologies_models.ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
@@ -293,26 +217,16 @@ class ObjectSetParameterValue(pydantic.BaseModel):
     """
 
     type: typing.Literal["objectSet"] = "objectSet"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ObjectSetParameterValueUpdate(pydantic.BaseModel):
+class ObjectSetParameterValueUpdate(core.ModelBase):
     """ObjectSetParameterValueUpdate"""
 
     value: ontologies_models.ObjectSetRid
     type: typing.Literal["objectSet"] = "objectSet"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Parameter(pydantic.BaseModel):
+class Parameter(core.ModelBase):
     """A variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
     parameter_type: ParameterType = pydantic.Field(alias=str("parameterType"))  # type: ignore[literal-required]
@@ -326,12 +240,6 @@ class Parameter(pydantic.BaseModel):
     A description to explain the use of this variable.
     This description is injected into the Agent's prompt to provide context for when to use the variable.
     """
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ParameterAccessMode = typing.Literal["READ_ONLY", "READ_WRITE"]
@@ -369,31 +277,21 @@ For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the
 """
 
 
-class RidToolInputValue(pydantic.BaseModel):
+class RidToolInputValue(core.ModelBase):
     """A Resource Identifier (RID) that was passed as input to a tool."""
 
     rid: core.RID
     type: typing.Literal["rid"] = "rid"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class RidToolOutputValue(pydantic.BaseModel):
+class RidToolOutputValue(core.ModelBase):
     """A Resource Identifier (RID) value that was returned from a tool."""
 
     rid: core.RID
     type: typing.Literal["rid"] = "rid"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Session(pydantic.BaseModel):
+class Session(core.ModelBase):
     """Session"""
 
     rid: SessionRid
@@ -412,14 +310,8 @@ class Session(pydantic.BaseModel):
     If not specified, defaults to use the latest published version of the Agent at session creation time.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class SessionExchange(pydantic.BaseModel):
+class SessionExchange(core.ModelBase):
     """Represents an individual exchange between a user and an Agent in a conversation session."""
 
     user_input: UserTextInput = pydantic.Field(alias=str("userInput"))  # type: ignore[literal-required]
@@ -435,14 +327,8 @@ class SessionExchange(pydantic.BaseModel):
     result: SessionExchangeResult
     """The final result for the exchange."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class SessionExchangeContexts(pydantic.BaseModel):
+class SessionExchangeContexts(core.ModelBase):
     """Retrieved context which was passed to the Agent as input for the exchange."""
 
     object_contexts: typing.List[ObjectContext] = pydantic.Field(alias=str("objectContexts"))  # type: ignore[literal-required]
@@ -451,14 +337,8 @@ class SessionExchangeContexts(pydantic.BaseModel):
     function_retrieved_contexts: typing.List[FunctionRetrievedContext] = pydantic.Field(alias=str("functionRetrievedContexts"))  # type: ignore[literal-required]
     """Context retrieved from running a function that was included as additional context in the prompt to the Agent."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class SessionExchangeResult(pydantic.BaseModel):
+class SessionExchangeResult(core.ModelBase):
     """The returned result from the Agent for a session exchange."""
 
     agent_markdown_response: AgentMarkdownResponse = pydantic.Field(alias=str("agentMarkdownResponse"))  # type: ignore[literal-required]
@@ -485,14 +365,8 @@ class SessionExchangeResult(pydantic.BaseModel):
     takes to arrive at an answer. For example, a trace may include steps such as context retrieval and tool calls.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class SessionMetadata(pydantic.BaseModel):
+class SessionMetadata(core.ModelBase):
     """Metadata for a conversation session with an Agent."""
 
     title: str
@@ -517,18 +391,12 @@ class SessionMetadata(pydantic.BaseModel):
     The expiry time is automatically extended when new exchanges are added to the session.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 SessionRid = core.RID
 """The Resource Identifier (RID) of the conversation session."""
 
 
-class SessionTrace(pydantic.BaseModel):
+class SessionTrace(core.ModelBase):
     """SessionTrace"""
 
     id: SessionTraceId
@@ -555,12 +423,6 @@ class SessionTrace(pydantic.BaseModel):
     generation. The groups are returned in the same order as they were triggered by the agent.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 SessionTraceId = core.UUID
 """
@@ -573,69 +435,44 @@ SessionTraceStatus = typing.Literal["IN_PROGRESS", "COMPLETE"]
 """SessionTraceStatus"""
 
 
-class StringParameter(pydantic.BaseModel):
+class StringParameter(core.ModelBase):
     """StringParameter"""
 
     default_value: typing.Optional[str] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
     """The default value to use for this variable."""
 
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class StringParameterValue(pydantic.BaseModel):
+class StringParameterValue(core.ModelBase):
     """A value passed for `StringParameter` application variable types."""
 
     value: str
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class StringToolInputValue(pydantic.BaseModel):
+class StringToolInputValue(core.ModelBase):
     """A string value that was passed as input to a tool."""
 
     value: str
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class StringToolOutputValue(pydantic.BaseModel):
+class StringToolOutputValue(core.ModelBase):
     """A string value that was returned from a tool."""
 
     value: str
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SuccessToolCallOutput(pydantic.BaseModel):
+class SuccessToolCallOutput(core.ModelBase):
     """The successful output of a tool call."""
 
     output: ToolOutputValue
     type: typing.Literal["success"] = "success"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ToolCall(pydantic.BaseModel):
+class ToolCall(core.ModelBase):
     """A tool call with its input and output."""
 
     tool_metadata: ToolMetadata = pydantic.Field(alias=str("toolMetadata"))  # type: ignore[literal-required]
@@ -645,36 +482,20 @@ class ToolCall(pydantic.BaseModel):
     output: typing.Optional[ToolCallOutput] = None
     """Empty if the tool call is in progress."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ToolCallGroup(pydantic.BaseModel):
+class ToolCallGroup(core.ModelBase):
     """List of tool calls that were triggered at the same point in the trace for the agent response generation."""
 
     tool_calls: typing.List[ToolCall] = pydantic.Field(alias=str("toolCalls"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ToolCallInput(pydantic.BaseModel):
+class ToolCallInput(core.ModelBase):
     """Input parameters for a tool call."""
 
     thought: typing.Optional[str] = None
     """Any additional message content that the Agent provided for why it chose to call the tool."""
 
     inputs: typing.Dict[ToolInputName, ToolInputValue]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ToolCallOutput = typing_extensions.Annotated[
@@ -693,7 +514,7 @@ ToolInputValue = typing_extensions.Annotated[
 """A tool input value, which can be either a string or a Resource Identifier (RID)."""
 
 
-class ToolMetadata(pydantic.BaseModel):
+class ToolMetadata(core.ModelBase):
     """Details about the used tool."""
 
     name: str
@@ -701,12 +522,6 @@ class ToolMetadata(pydantic.BaseModel):
 
     type: ToolType
     """The type of the tool that was called."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ToolOutputValue = typing_extensions.Annotated[
@@ -726,17 +541,11 @@ ToolType = typing.Literal[
 """ToolType"""
 
 
-class UserTextInput(pydantic.BaseModel):
+class UserTextInput(core.ModelBase):
     """UserTextInput"""
 
     text: str
     """The user message text."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())

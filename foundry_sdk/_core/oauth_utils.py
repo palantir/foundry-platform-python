@@ -137,7 +137,7 @@ class OAuth(Auth, ABC):
         self._token: Optional[OAuthToken] = None
 
     def sign_out(self) -> SignOutResponse:
-        self.revoke_token()
+        self._revoke_token()
         self._token = None
         # Signal the auto-refresh thread to stop
         self._stop_refresh_event.set()
@@ -164,7 +164,7 @@ class OAuth(Auth, ABC):
         pass
 
     @abstractmethod
-    def revoke_token(self) -> None:
+    def _revoke_token(self) -> None:
         pass
 
     @abstractmethod
@@ -193,6 +193,7 @@ class OAuth(Auth, ABC):
         except httpx.HTTPStatusError as e:
             if e.response.status_code == 401:
                 if not self._try_refresh_token():
+                    warnings.warn("OAuth token refresh failed", UserWarning, stacklevel=2)
                     raise e
                 return func(self.get_token())
             else:

@@ -30,6 +30,7 @@ from foundry_sdk._core.binary_stream import BinaryStream
 from foundry_sdk._core.compute_module_pipeline_auth import ComputeModulePipelineAuth
 from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
 from foundry_sdk._core.config import Config
+from foundry_sdk._core.model_base import ModelBase
 from foundry_sdk._core.public_client_auth import PublicClientAuth
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator

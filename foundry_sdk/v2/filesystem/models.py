@@ -24,7 +24,7 @@ from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 
 
-class AccessRequirements(pydantic.BaseModel):
+class AccessRequirements(core.ModelBase):
     """
     Access requirements for a resource are composed of Markings and Organizations. Organizations are disjunctive,
     while Markings are conjunctive.
@@ -32,29 +32,19 @@ class AccessRequirements(pydantic.BaseModel):
 
     organizations: typing.List[Organization]
     markings: typing.List[Marking]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Everyone(pydantic.BaseModel):
+class Everyone(core.ModelBase):
     """A principal representing all users of the platform."""
 
     type: typing.Literal["everyone"] = "everyone"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FileSystemId = str
 """The ID of the filesystem that will be used for all projects in the Space."""
 
 
-class Folder(pydantic.BaseModel):
+class Folder(core.ModelBase):
     """Folder"""
 
     rid: FolderRid
@@ -95,12 +85,6 @@ class Folder(pydantic.BaseModel):
     be the same as the Folder RID.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 FolderRid = core.RID
 """The unique resource identifier (RID) of a Folder."""
@@ -121,67 +105,42 @@ to a parent resource and inherited by the current resource.
 """
 
 
-class ListChildrenOfFolderResponse(pydantic.BaseModel):
+class ListChildrenOfFolderResponse(core.ModelBase):
     """ListChildrenOfFolderResponse"""
 
     data: typing.List[Resource]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListMarkingsOfResourceResponse(pydantic.BaseModel):
+class ListMarkingsOfResourceResponse(core.ModelBase):
     """ListMarkingsOfResourceResponse"""
 
     data: typing.List[core_models.MarkingId]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListOrganizationsOfProjectResponse(pydantic.BaseModel):
+class ListOrganizationsOfProjectResponse(core.ModelBase):
     """ListOrganizationsOfProjectResponse"""
 
     data: typing.List[core_models.OrganizationRid]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListResourceRolesResponse(pydantic.BaseModel):
+class ListResourceRolesResponse(core.ModelBase):
     """ListResourceRolesResponse"""
 
     data: typing.List[ResourceRole]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListSpacesResponse(pydantic.BaseModel):
+class ListSpacesResponse(core.ModelBase):
     """ListSpacesResponse"""
 
     data: typing.List[Space]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Marking(pydantic.BaseModel):
+class Marking(core.ModelBase):
     """
     [Markings](https://palantir.com/docs/foundry/security/markings/) provide an additional level of access control for files,
     folders, and Projects within Foundry. Markings define eligibility criteria that restrict visibility
@@ -191,14 +150,9 @@ class Marking(pydantic.BaseModel):
 
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
     is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Organization(pydantic.BaseModel):
+class Organization(core.ModelBase):
     """
     [Organizations](https://palantir.com/docs/foundry/security/orgs-and-spaces/#organizations) are access requirements applied to
     Projects that enforce strict silos between groups of users and resources. Every user is a member of only
@@ -210,27 +164,17 @@ class Organization(pydantic.BaseModel):
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
     organization_rid: core_models.OrganizationRid = pydantic.Field(alias=str("organizationRid"))  # type: ignore[literal-required]
     is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class PrincipalWithId(pydantic.BaseModel):
+class PrincipalWithId(core.ModelBase):
     """Represents a user principal or group principal with an ID."""
 
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     type: typing.Literal["principalWithId"] = "principalWithId"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Project(pydantic.BaseModel):
+class Project(core.ModelBase):
     """Project"""
 
     rid: ProjectRid
@@ -254,12 +198,6 @@ class Project(pydantic.BaseModel):
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
     """The Space Resource Identifier (RID) that the Project lives in."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 ProjectRid = core.RID
 """The unique resource identifier (RID) of a Project."""
@@ -277,7 +215,7 @@ ProjectTemplateVariableValue = str
 """The value assigned to a variable used in a project template."""
 
 
-class Resource(pydantic.BaseModel):
+class Resource(core.ModelBase):
     """Resource"""
 
     rid: ResourceRid
@@ -329,12 +267,6 @@ class Resource(pydantic.BaseModel):
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
     """The Space Resource Identifier (RID) that the Resource lives in."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 ResourceDisplayName = str
 """The display name of the Resource"""
@@ -348,16 +280,11 @@ ResourceRid = core.RID
 """The unique resource identifier (RID) of a Resource."""
 
 
-class ResourceRole(pydantic.BaseModel):
+class ResourceRole(core.ModelBase):
     """ResourceRole"""
 
     resource_role_principal: ResourceRolePrincipal = pydantic.Field(alias=str("resourceRolePrincipal"))  # type: ignore[literal-required]
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ResourceRolePrincipal = typing_extensions.Annotated[
@@ -449,7 +376,7 @@ ResourceType = typing.Literal[
 """The type of the Resource derived from the Resource Identifier (RID)."""
 
 
-class Space(pydantic.BaseModel):
+class Space(core.ModelBase):
     """Space"""
 
     rid: SpaceRid
@@ -472,12 +399,6 @@ class Space(pydantic.BaseModel):
 
     default_role_set_id: core_models.RoleSetId = pydantic.Field(alias=str("defaultRoleSetId"))  # type: ignore[literal-required]
     """The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SpaceRid = core.RID

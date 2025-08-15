@@ -25,18 +25,12 @@ from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
-class Branch(pydantic.BaseModel):
+class Branch(core.ModelBase):
     """Branch"""
 
     name: BranchName
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BranchName = str
@@ -47,17 +41,12 @@ DataframeReader = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
 """The dataframe reader used for reading the dataset schema."""
 
 
-class Dataset(pydantic.BaseModel):
+class Dataset(core.ModelBase):
     """Dataset"""
 
     rid: DatasetRid
     name: DatasetName
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DatasetName = str
@@ -68,111 +57,71 @@ DatasetRid = core.RID
 """The Resource Identifier (RID) of a Dataset."""
 
 
-class File(pydantic.BaseModel):
+class File(core.ModelBase):
     """File"""
 
     path: core_models.FilePath
     transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
     size_bytes: typing.Optional[core.Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
     updated_time: FileUpdatedTime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FileUpdatedTime = core.AwareDatetime
 """FileUpdatedTime"""
 
 
-class GetDatasetSchemaResponse(pydantic.BaseModel):
+class GetDatasetSchemaResponse(core.ModelBase):
     """GetDatasetSchemaResponse"""
 
     branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     end_transaction_rid: TransactionRid = pydantic.Field(alias=str("endTransactionRid"))  # type: ignore[literal-required]
     schema_: core_models.DatasetSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     version_id: core_models.VersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListBranchesResponse(pydantic.BaseModel):
+class ListBranchesResponse(core.ModelBase):
     """ListBranchesResponse"""
 
     data: typing.List[Branch]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListFilesResponse(pydantic.BaseModel):
+class ListFilesResponse(core.ModelBase):
     """ListFilesResponse"""
 
     data: typing.List[File]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListSchedulesResponse(pydantic.BaseModel):
+class ListSchedulesResponse(core.ModelBase):
     """ListSchedulesResponse"""
 
     data: typing.List[core_models.ScheduleRid]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListTransactionsOfDatasetResponse(pydantic.BaseModel):
+class ListTransactionsOfDatasetResponse(core.ModelBase):
     """ListTransactionsOfDatasetResponse"""
 
     data: typing.List[Transaction]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListTransactionsResponse(pydantic.BaseModel):
+class ListTransactionsResponse(core.ModelBase):
     """ListTransactionsResponse"""
 
     data: typing.List[Transaction]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class PrimaryKeyLatestWinsResolutionStrategy(pydantic.BaseModel):
+class PrimaryKeyLatestWinsResolutionStrategy(core.ModelBase):
     """Picks the row with the highest value of a list of columns, compared in order."""
 
     columns: typing.List[str]
     type: typing.Literal["latestWins"] = "latestWins"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class PrimaryKeyResolutionDuplicate(pydantic.BaseModel):
+class PrimaryKeyResolutionDuplicate(core.ModelBase):
     """Duplicate primary key values may exist within the dataset – resolution required."""
 
     deletion_column: typing.Optional[str] = pydantic.Field(alias=str("deletionColumn"), default=None)  # type: ignore[literal-required]
@@ -184,29 +133,19 @@ class PrimaryKeyResolutionDuplicate(pydantic.BaseModel):
 
     resolution_strategy: PrimaryKeyResolutionStrategy = pydantic.Field(alias=str("resolutionStrategy"))  # type: ignore[literal-required]
     type: typing.Literal["duplicate"] = "duplicate"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class PrimaryKeyResolutionUnique(pydantic.BaseModel):
+class PrimaryKeyResolutionUnique(core.ModelBase):
     """Primary key values are unique within the dataset – no conflicts."""
 
     type: typing.Literal["unique"] = "unique"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TableExportFormat = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
 
-class Transaction(pydantic.BaseModel):
+class Transaction(core.ModelBase):
     """Transaction"""
 
     rid: TransactionRid
@@ -217,12 +156,6 @@ class Transaction(pydantic.BaseModel):
 
     closed_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TransactionCreatedTime = core.AwareDatetime
@@ -241,7 +174,7 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 """The type of a Transaction."""
 
 
-class View(pydantic.BaseModel):
+class View(core.ModelBase):
     """View"""
 
     view_name: DatasetName = pydantic.Field(alias=str("viewName"))  # type: ignore[literal-required]
@@ -254,26 +187,16 @@ class View(pydantic.BaseModel):
 
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
     primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ViewBackingDataset(pydantic.BaseModel):
+class ViewBackingDataset(core.ModelBase):
     """One of the Datasets backing a View."""
 
     branch: BranchName
     dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ViewPrimaryKey(pydantic.BaseModel):
+class ViewPrimaryKey(core.ModelBase):
     """
     The primary key of the dataset. Primary keys are treated as guarantees provided by the creator of the
     dataset.
@@ -297,12 +220,6 @@ class ViewPrimaryKey(pydantic.BaseModel):
     optimizations based on this. Violating the assumptions of the resolution can cause undefined behavior, 
     for example, having duplicate primary keys with the unique resolution.
     """
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ViewPrimaryKeyResolution = typing_extensions.Annotated[

@@ -435,6 +435,35 @@ with open("result.png", "wb") as f:
 
 <a id="static-types"></a>
 ## Static type analysis
+
+### Hashable Models
+
+All model objects in the SDK can be used as dictionary keys or set members. This provides several benefits:
+
+```python
+# Example: Using models as dictionary keys
+from foundry_sdk import FoundryClient
+
+client = FoundryClient(...)
+file1 = client.datasets.Dataset.File.get(dataset_rid="ri.foundry.main.dataset.123", file_path="/data.csv")
+file2 = client.datasets.Dataset.File.get(dataset_rid="ri.foundry.main.dataset.123", file_path="/data.csv")
+
+# Models with the same content are equal and have the same hash
+assert file1 == file2
+assert hash(file1) == hash(file2)
+
+# Use models as dictionary keys
+file_metadata = {}
+file_metadata[file1] = {"last_modified": "2024-08-09"}
+
+# Can look up using any equivalent object
+assert file_metadata[file2] == {"last_modified": "2024-08-09"}
+```
+
+**Note:** Models remain mutable for backward compatibility. If you modify a model after using it as a dictionary key,
+the system will issue a warning and the model's hash value will be reset. Although allowed, mutating models and using
+their hash values is not recommended as it can lead to unexpected behavior when using them in dictionaries or sets.
+
 This library uses [Pydantic](https://docs.pydantic.dev) for creating and validating data models which you will see in the
 method definitions (see [Documentation for Models](#models-link) below for a full list of models).
 All request parameters and responses with nested fields are typed using a Pydantic
@@ -1255,10 +1284,13 @@ Namespace | Name | Import |
 **Filesystem** | [SpaceRid](docs/v2/Filesystem/models/SpaceRid.md) | `from foundry_sdk.v2.filesystem.models import SpaceRid` |
 **Filesystem** | [TrashStatus](docs/v2/Filesystem/models/TrashStatus.md) | `from foundry_sdk.v2.filesystem.models import TrashStatus` |
 **Filesystem** | [UsageAccountRid](docs/v2/Filesystem/models/UsageAccountRid.md) | `from foundry_sdk.v2.filesystem.models import UsageAccountRid` |
+**Functions** | [ArrayConstraint](docs/v2/Functions/models/ArrayConstraint.md) | `from foundry_sdk.v2.functions.models import ArrayConstraint` |
 **Functions** | [DataValue](docs/v2/Functions/models/DataValue.md) | `from foundry_sdk.v2.functions.models import DataValue` |
+**Functions** | [EnumConstraint](docs/v2/Functions/models/EnumConstraint.md) | `from foundry_sdk.v2.functions.models import EnumConstraint` |
 **Functions** | [ExecuteQueryResponse](docs/v2/Functions/models/ExecuteQueryResponse.md) | `from foundry_sdk.v2.functions.models import ExecuteQueryResponse` |
 **Functions** | [FunctionRid](docs/v2/Functions/models/FunctionRid.md) | `from foundry_sdk.v2.functions.models import FunctionRid` |
 **Functions** | [FunctionVersion](docs/v2/Functions/models/FunctionVersion.md) | `from foundry_sdk.v2.functions.models import FunctionVersion` |
+**Functions** | [LengthConstraint](docs/v2/Functions/models/LengthConstraint.md) | `from foundry_sdk.v2.functions.models import LengthConstraint` |
 **Functions** | [Parameter](docs/v2/Functions/models/Parameter.md) | `from foundry_sdk.v2.functions.models import Parameter` |
 **Functions** | [ParameterId](docs/v2/Functions/models/ParameterId.md) | `from foundry_sdk.v2.functions.models import ParameterId` |
 **Functions** | [Query](docs/v2/Functions/models/Query.md) | `from foundry_sdk.v2.functions.models import Query` |
@@ -1274,11 +1306,18 @@ Namespace | Name | Import |
 **Functions** | [QueryStructField](docs/v2/Functions/models/QueryStructField.md) | `from foundry_sdk.v2.functions.models import QueryStructField` |
 **Functions** | [QueryStructType](docs/v2/Functions/models/QueryStructType.md) | `from foundry_sdk.v2.functions.models import QueryStructType` |
 **Functions** | [QueryUnionType](docs/v2/Functions/models/QueryUnionType.md) | `from foundry_sdk.v2.functions.models import QueryUnionType` |
+**Functions** | [RangesConstraint](docs/v2/Functions/models/RangesConstraint.md) | `from foundry_sdk.v2.functions.models import RangesConstraint` |
+**Functions** | [RegexConstraint](docs/v2/Functions/models/RegexConstraint.md) | `from foundry_sdk.v2.functions.models import RegexConstraint` |
+**Functions** | [RidConstraint](docs/v2/Functions/models/RidConstraint.md) | `from foundry_sdk.v2.functions.models import RidConstraint` |
+**Functions** | [StructConstraint](docs/v2/Functions/models/StructConstraint.md) | `from foundry_sdk.v2.functions.models import StructConstraint` |
+**Functions** | [StructFieldApiName](docs/v2/Functions/models/StructFieldApiName.md) | `from foundry_sdk.v2.functions.models import StructFieldApiName` |
 **Functions** | [StructFieldName](docs/v2/Functions/models/StructFieldName.md) | `from foundry_sdk.v2.functions.models import StructFieldName` |
 **Functions** | [ThreeDimensionalAggregation](docs/v2/Functions/models/ThreeDimensionalAggregation.md) | `from foundry_sdk.v2.functions.models import ThreeDimensionalAggregation` |
 **Functions** | [TwoDimensionalAggregation](docs/v2/Functions/models/TwoDimensionalAggregation.md) | `from foundry_sdk.v2.functions.models import TwoDimensionalAggregation` |
+**Functions** | [UuidConstraint](docs/v2/Functions/models/UuidConstraint.md) | `from foundry_sdk.v2.functions.models import UuidConstraint` |
 **Functions** | [ValueType](docs/v2/Functions/models/ValueType.md) | `from foundry_sdk.v2.functions.models import ValueType` |
 **Functions** | [ValueTypeApiName](docs/v2/Functions/models/ValueTypeApiName.md) | `from foundry_sdk.v2.functions.models import ValueTypeApiName` |
+**Functions** | [ValueTypeConstraint](docs/v2/Functions/models/ValueTypeConstraint.md) | `from foundry_sdk.v2.functions.models import ValueTypeConstraint` |
 **Functions** | [ValueTypeDataType](docs/v2/Functions/models/ValueTypeDataType.md) | `from foundry_sdk.v2.functions.models import ValueTypeDataType` |
 **Functions** | [ValueTypeDataTypeArrayType](docs/v2/Functions/models/ValueTypeDataTypeArrayType.md) | `from foundry_sdk.v2.functions.models import ValueTypeDataTypeArrayType` |
 **Functions** | [ValueTypeDataTypeBinaryType](docs/v2/Functions/models/ValueTypeDataTypeBinaryType.md) | `from foundry_sdk.v2.functions.models import ValueTypeDataTypeBinaryType` |
@@ -2389,6 +2428,7 @@ Namespace | Name | Import |
 **Ontologies** | PropertyBaseTypeNotSupported | `from foundry_sdk.v2.ontologies.errors import PropertyBaseTypeNotSupported` |
 **Ontologies** | PropertyFiltersNotSupported | `from foundry_sdk.v2.ontologies.errors import PropertyFiltersNotSupported` |
 **Ontologies** | PropertyNotFound | `from foundry_sdk.v2.ontologies.errors import PropertyNotFound` |
+**Ontologies** | PropertyNotFoundOnObject | `from foundry_sdk.v2.ontologies.errors import PropertyNotFoundOnObject` |
 **Ontologies** | PropertyTypeDoesNotSupportNearestNeighbors | `from foundry_sdk.v2.ontologies.errors import PropertyTypeDoesNotSupportNearestNeighbors` |
 **Ontologies** | PropertyTypeNotFound | `from foundry_sdk.v2.ontologies.errors import PropertyTypeNotFound` |
 **Ontologies** | PropertyTypeRidNotFound | `from foundry_sdk.v2.ontologies.errors import PropertyTypeRidNotFound` |
@@ -2623,6 +2663,7 @@ Namespace | Name | Import |
 **Ontologies** | PropertyBaseTypeNotSupported | `from foundry_sdk.v1.ontologies.errors import PropertyBaseTypeNotSupported` |
 **Ontologies** | PropertyFiltersNotSupported | `from foundry_sdk.v1.ontologies.errors import PropertyFiltersNotSupported` |
 **Ontologies** | PropertyNotFound | `from foundry_sdk.v1.ontologies.errors import PropertyNotFound` |
+**Ontologies** | PropertyNotFoundOnObject | `from foundry_sdk.v1.ontologies.errors import PropertyNotFoundOnObject` |
 **Ontologies** | PropertyTypeDoesNotSupportNearestNeighbors | `from foundry_sdk.v1.ontologies.errors import PropertyTypeDoesNotSupportNearestNeighbors` |
 **Ontologies** | PropertyTypeNotFound | `from foundry_sdk.v1.ontologies.errors import PropertyTypeNotFound` |
 **Ontologies** | PropertyTypeRidNotFound | `from foundry_sdk.v1.ontologies.errors import PropertyTypeRidNotFound` |

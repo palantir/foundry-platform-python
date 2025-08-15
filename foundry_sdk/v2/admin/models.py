@@ -42,7 +42,7 @@ AuthenticationProtocol = typing_extensions.Annotated[
 """AuthenticationProtocol"""
 
 
-class AuthenticationProvider(pydantic.BaseModel):
+class AuthenticationProvider(core.ModelBase):
     """AuthenticationProvider"""
 
     rid: AuthenticationProviderRid
@@ -58,11 +58,6 @@ class AuthenticationProvider(pydantic.BaseModel):
     """Users who enter usernames that match these patterns will be redirected to this authentication provider."""
 
     protocol: AuthenticationProtocol
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 AuthenticationProviderEnabled = bool
@@ -77,7 +72,7 @@ AuthenticationProviderRid = core.RID
 """AuthenticationProviderRid"""
 
 
-class CertificateInfo(pydantic.BaseModel):
+class CertificateInfo(core.ModelBase):
     """CertificateInfo"""
 
     pem_certificate: str = pydantic.Field(alias=str("pemCertificate"))  # type: ignore[literal-required]
@@ -86,114 +81,69 @@ class CertificateInfo(pydantic.BaseModel):
     common_name: typing.Optional[str] = pydantic.Field(alias=str("commonName"), default=None)  # type: ignore[literal-required]
     expiry_date: core.AwareDatetime = pydantic.Field(alias=str("expiryDate"))  # type: ignore[literal-required]
     usage_type: CertificateUsageType = pydantic.Field(alias=str("usageType"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
 """CertificateUsageType"""
 
 
-class Enrollment(pydantic.BaseModel):
+class Enrollment(core.ModelBase):
     """Enrollment"""
 
     rid: core_models.EnrollmentRid
     name: EnrollmentName
     created_time: typing.Optional[core_models.CreatedTime] = pydantic.Field(alias=str("createdTime"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 EnrollmentName = str
 """EnrollmentName"""
 
 
-class EnrollmentRoleAssignment(pydantic.BaseModel):
+class EnrollmentRoleAssignment(core.ModelBase):
     """EnrollmentRoleAssignment"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetGroupsBatchRequestElement(pydantic.BaseModel):
+class GetGroupsBatchRequestElement(core.ModelBase):
     """GetGroupsBatchRequestElement"""
 
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetGroupsBatchResponse(pydantic.BaseModel):
+class GetGroupsBatchResponse(core.ModelBase):
     """GetGroupsBatchResponse"""
 
     data: typing.Dict[core_models.PrincipalId, Group]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetMarkingsBatchRequestElement(pydantic.BaseModel):
+class GetMarkingsBatchRequestElement(core.ModelBase):
     """GetMarkingsBatchRequestElement"""
 
     marking_id: core_models.MarkingId = pydantic.Field(alias=str("markingId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetMarkingsBatchResponse(pydantic.BaseModel):
+class GetMarkingsBatchResponse(core.ModelBase):
     """GetMarkingsBatchResponse"""
 
     data: typing.Dict[core_models.MarkingId, Marking]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetRolesBatchRequestElement(pydantic.BaseModel):
+class GetRolesBatchRequestElement(core.ModelBase):
     """GetRolesBatchRequestElement"""
 
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetRolesBatchResponse(pydantic.BaseModel):
+class GetRolesBatchResponse(core.ModelBase):
     """GetRolesBatchResponse"""
 
     data: typing.Dict[core_models.RoleId, Role]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetUserMarkingsResponse(pydantic.BaseModel):
+class GetUserMarkingsResponse(core.ModelBase):
     """GetUserMarkingsResponse"""
 
     view: typing.List[core_models.MarkingId]
@@ -202,36 +152,20 @@ class GetUserMarkingsResponse(pydantic.BaseModel):
     markings. This includes organization markings for organizations in which the user is a guest member.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class GetUsersBatchRequestElement(pydantic.BaseModel):
+class GetUsersBatchRequestElement(core.ModelBase):
     """GetUsersBatchRequestElement"""
 
     user_id: core_models.PrincipalId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetUsersBatchResponse(pydantic.BaseModel):
+class GetUsersBatchResponse(core.ModelBase):
     """GetUsersBatchResponse"""
 
     data: typing.Dict[core_models.PrincipalId, User]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Group(pydantic.BaseModel):
+class Group(core.ModelBase):
     """Group"""
 
     id: core_models.PrincipalId
@@ -248,41 +182,25 @@ class Group(pydantic.BaseModel):
     attributes: typing.Dict[AttributeName, AttributeValues]
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class GroupMember(pydantic.BaseModel):
+class GroupMember(core.ModelBase):
     """GroupMember"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GroupMembership(pydantic.BaseModel):
+class GroupMembership(core.ModelBase):
     """GroupMembership"""
 
     group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 GroupMembershipExpiration = core.AwareDatetime
 """GroupMembershipExpiration"""
 
 
-class GroupMembershipExpirationPolicy(pydantic.BaseModel):
+class GroupMembershipExpirationPolicy(core.ModelBase):
     """GroupMembershipExpirationPolicy"""
 
     maximum_value: typing.Optional[GroupMembershipExpiration] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
@@ -291,18 +209,12 @@ class GroupMembershipExpirationPolicy(pydantic.BaseModel):
     maximum_duration: typing.Optional[core_models.DurationSeconds] = pydantic.Field(alias=str("maximumDuration"), default=None)  # type: ignore[literal-required]
     """Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 GroupName = str
 """The name of the Group."""
 
 
-class GroupProviderInfo(pydantic.BaseModel):
+class GroupProviderInfo(core.ModelBase):
     """GroupProviderInfo"""
 
     provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
@@ -311,196 +223,115 @@ class GroupProviderInfo(pydantic.BaseModel):
     At most one Group can have a given provider ID in a given Realm.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class GroupSearchFilter(pydantic.BaseModel):
+class GroupSearchFilter(core.ModelBase):
     """GroupSearchFilter"""
 
     type: PrincipalFilterType
     value: str
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Host(pydantic.BaseModel):
+class Host(core.ModelBase):
     """Host"""
 
     host_name: HostName = pydantic.Field(alias=str("hostName"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 HostName = str
 """HostName"""
 
 
-class ListAuthenticationProvidersResponse(pydantic.BaseModel):
+class ListAuthenticationProvidersResponse(core.ModelBase):
     """ListAuthenticationProvidersResponse"""
 
     data: typing.List[AuthenticationProvider]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListAvailableOrganizationRolesResponse(pydantic.BaseModel):
+class ListAvailableOrganizationRolesResponse(core.ModelBase):
     """ListAvailableOrganizationRolesResponse"""
 
     data: typing.List[core_models.Role]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListEnrollmentRoleAssignmentsResponse(pydantic.BaseModel):
+class ListEnrollmentRoleAssignmentsResponse(core.ModelBase):
     """ListEnrollmentRoleAssignmentsResponse"""
 
     data: typing.List[EnrollmentRoleAssignment]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListGroupMembersResponse(pydantic.BaseModel):
+class ListGroupMembersResponse(core.ModelBase):
     """ListGroupMembersResponse"""
 
     data: typing.List[GroupMember]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListGroupMembershipsResponse(pydantic.BaseModel):
+class ListGroupMembershipsResponse(core.ModelBase):
     """ListGroupMembershipsResponse"""
 
     data: typing.List[GroupMembership]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListGroupsResponse(pydantic.BaseModel):
+class ListGroupsResponse(core.ModelBase):
     """ListGroupsResponse"""
 
     data: typing.List[Group]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListHostsResponse(pydantic.BaseModel):
+class ListHostsResponse(core.ModelBase):
     """ListHostsResponse"""
 
     data: typing.List[Host]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListMarkingCategoriesResponse(pydantic.BaseModel):
+class ListMarkingCategoriesResponse(core.ModelBase):
     """ListMarkingCategoriesResponse"""
 
     data: typing.List[MarkingCategory]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListMarkingMembersResponse(pydantic.BaseModel):
+class ListMarkingMembersResponse(core.ModelBase):
     """ListMarkingMembersResponse"""
 
     data: typing.List[MarkingMember]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListMarkingRoleAssignmentsResponse(pydantic.BaseModel):
+class ListMarkingRoleAssignmentsResponse(core.ModelBase):
     """ListMarkingRoleAssignmentsResponse"""
 
     data: typing.List[MarkingRoleAssignment]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListMarkingsResponse(pydantic.BaseModel):
+class ListMarkingsResponse(core.ModelBase):
     """ListMarkingsResponse"""
 
     data: typing.List[Marking]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListOrganizationRoleAssignmentsResponse(pydantic.BaseModel):
+class ListOrganizationRoleAssignmentsResponse(core.ModelBase):
     """ListOrganizationRoleAssignmentsResponse"""
 
     data: typing.List[OrganizationRoleAssignment]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListUsersResponse(pydantic.BaseModel):
+class ListUsersResponse(core.ModelBase):
     """ListUsersResponse"""
 
     data: typing.List[User]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Marking(pydantic.BaseModel):
+class Marking(core.ModelBase):
     """Marking"""
 
     id: core_models.MarkingId
@@ -512,14 +343,9 @@ class Marking(pydantic.BaseModel):
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MarkingCategory(pydantic.BaseModel):
+class MarkingCategory(core.ModelBase):
     """MarkingCategory"""
 
     id: MarkingCategoryId
@@ -530,11 +356,6 @@ class MarkingCategory(pydantic.BaseModel):
     markings: typing.List[core_models.MarkingId]
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingCategoryId = str
@@ -552,16 +373,11 @@ MarkingCategoryType = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
 """MarkingCategoryType"""
 
 
-class MarkingMember(pydantic.BaseModel):
+class MarkingMember(core.ModelBase):
     """MarkingMember"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingName = str
@@ -577,47 +393,32 @@ Represents the operations that a user can perform with regards to a Marking.
 """
 
 
-class MarkingRoleAssignment(pydantic.BaseModel):
+class MarkingRoleAssignment(core.ModelBase):
     """MarkingRoleAssignment"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     role: MarkingRole
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MarkingRoleUpdate(pydantic.BaseModel):
+class MarkingRoleUpdate(core.ModelBase):
     """MarkingRoleUpdate"""
 
     role: MarkingRole
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingType = typing.Literal["MANDATORY", "CBAC"]
 """MarkingType"""
 
 
-class OidcAuthenticationProtocol(pydantic.BaseModel):
+class OidcAuthenticationProtocol(core.ModelBase):
     """OidcAuthenticationProtocol"""
 
     type: typing.Literal["oidc"] = "oidc"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Organization(pydantic.BaseModel):
+class Organization(core.ModelBase):
     """Organization"""
 
     rid: core_models.OrganizationRid
@@ -635,28 +436,17 @@ class Organization(pydantic.BaseModel):
     Organization.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 OrganizationName = str
 """OrganizationName"""
 
 
-class OrganizationRoleAssignment(pydantic.BaseModel):
+class OrganizationRoleAssignment(core.ModelBase):
     """OrganizationRoleAssignment"""
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PrincipalFilterType = typing.Literal["queryString"]
@@ -667,7 +457,7 @@ ProviderId = str
 """A value that uniquely identifies a User or Group in an external authentication provider. This value is determined by the external authentication provider and must be unique per Realm."""
 
 
-class Role(pydantic.BaseModel):
+class Role(core.ModelBase):
     """Role"""
 
     id: core_models.RoleId
@@ -679,12 +469,6 @@ class Role(pydantic.BaseModel):
     can_assigns: typing.List[core_models.RoleId] = pydantic.Field(alias=str("canAssigns"))  # type: ignore[literal-required]
     """A list of roles that this role inherits."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 RoleDescription = str
 """RoleDescription"""
@@ -694,19 +478,14 @@ RoleDisplayName = str
 """RoleDisplayName"""
 
 
-class SamlAuthenticationProtocol(pydantic.BaseModel):
+class SamlAuthenticationProtocol(core.ModelBase):
     """SamlAuthenticationProtocol"""
 
     service_provider_metadata: SamlServiceProviderMetadata = pydantic.Field(alias=str("serviceProviderMetadata"))  # type: ignore[literal-required]
     type: typing.Literal["saml"] = "saml"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SamlServiceProviderMetadata(pydantic.BaseModel):
+class SamlServiceProviderMetadata(core.ModelBase):
     """Information that describes a Foundry Authentication Provider as a SAML service provider. All information listed here is generated by Foundry."""
 
     entity_id: str = pydantic.Field(alias=str("entityId"))  # type: ignore[literal-required]
@@ -725,38 +504,23 @@ class SamlServiceProviderMetadata(pydantic.BaseModel):
     """The URLs for this service provider to which the SAML identity provider sends logout requests."""
 
     certificates: typing.List[CertificateInfo]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchGroupsResponse(pydantic.BaseModel):
+class SearchGroupsResponse(core.ModelBase):
     """SearchGroupsResponse"""
 
     data: typing.List[Group]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchUsersResponse(pydantic.BaseModel):
+class SearchUsersResponse(core.ModelBase):
     """SearchUsersResponse"""
 
     data: typing.List[User]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class User(pydantic.BaseModel):
+class User(core.ModelBase):
     """User"""
 
     id: core_models.PrincipalId
@@ -783,14 +547,8 @@ class User(pydantic.BaseModel):
     Control Panel and populated by the User's SSO provider upon login.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class UserProviderInfo(pydantic.BaseModel):
+class UserProviderInfo(core.ModelBase):
     """UserProviderInfo"""
 
     provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
@@ -799,23 +557,12 @@ class UserProviderInfo(pydantic.BaseModel):
     At most one User can have a given provider ID in a given Realm.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class UserSearchFilter(pydantic.BaseModel):
+class UserSearchFilter(core.ModelBase):
     """UserSearchFilter"""
 
     type: PrincipalFilterType
     value: str
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 UserUsername = str

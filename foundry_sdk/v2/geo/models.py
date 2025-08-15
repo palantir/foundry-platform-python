@@ -39,7 +39,7 @@ Coordinate = float
 """Coordinate"""
 
 
-class Feature(pydantic.BaseModel):
+class Feature(core.ModelBase):
     """GeoJSon 'Feature' object"""
 
     geometry: typing.Optional[Geometry] = None
@@ -60,41 +60,26 @@ class Feature(pydantic.BaseModel):
 
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["Feature"] = "Feature"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FeatureCollection(pydantic.BaseModel):
+class FeatureCollection(core.ModelBase):
     """GeoJSon 'FeatureCollection' object"""
 
     features: typing.List[FeatureCollectionTypes]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["FeatureCollection"] = "FeatureCollection"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FeaturePropertyKey = str
 """FeaturePropertyKey"""
 
 
-class GeoPoint(pydantic.BaseModel):
+class GeoPoint(core.ModelBase):
     """GeoPoint"""
 
     coordinates: Position
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["Point"] = "Point"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Geometry = typing_extensions.Annotated[
@@ -112,7 +97,7 @@ Geometry = typing_extensions.Annotated[
 """Abstract type for all GeoJSon object except Feature and FeatureCollection"""
 
 
-class GeometryCollection(pydantic.BaseModel):
+class GeometryCollection(core.ModelBase):
     """
     GeoJSon geometry collection
 
@@ -125,24 +110,14 @@ class GeometryCollection(pydantic.BaseModel):
     geometries: typing.List[Geometry]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["GeometryCollection"] = "GeometryCollection"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class LineString(pydantic.BaseModel):
+class LineString(core.ModelBase):
     """LineString"""
 
     coordinates: typing.Optional[LineStringCoordinates] = None
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["LineString"] = "LineString"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LineStringCoordinates = typing_extensions.Annotated[
@@ -167,56 +142,36 @@ clockwise.
 """
 
 
-class MultiLineString(pydantic.BaseModel):
+class MultiLineString(core.ModelBase):
     """MultiLineString"""
 
     coordinates: typing.List[LineStringCoordinates]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["MultiLineString"] = "MultiLineString"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MultiPoint(pydantic.BaseModel):
+class MultiPoint(core.ModelBase):
     """MultiPoint"""
 
     coordinates: typing.List[Position]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["MultiPoint"] = "MultiPoint"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MultiPolygon(pydantic.BaseModel):
+class MultiPolygon(core.ModelBase):
     """MultiPolygon"""
 
     coordinates: typing.List[typing.List[LinearRing]]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["MultiPolygon"] = "MultiPolygon"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Polygon(pydantic.BaseModel):
+class Polygon(core.ModelBase):
     """Polygon"""
 
     coordinates: typing.List[LinearRing]
     bbox: typing.Optional[BBox] = None
     type: typing.Literal["Polygon"] = "Polygon"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Position = typing_extensions.Annotated[
