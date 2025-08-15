@@ -23,33 +23,23 @@ from foundry_sdk import _core as core
 from foundry_sdk.v1.core import models as core_models
 
 
-class Branch(pydantic.BaseModel):
+class Branch(core.ModelBase):
     """A Branch of a Dataset."""
 
     branch_id: BranchId = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BranchId = str
 """The identifier (name) of a Branch."""
 
 
-class Dataset(pydantic.BaseModel):
+class Dataset(core.ModelBase):
     """Dataset"""
 
     rid: DatasetRid
     name: DatasetName
     parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DatasetName = str
@@ -60,51 +50,35 @@ DatasetRid = core.RID
 """The Resource Identifier (RID) of a Dataset."""
 
 
-class File(pydantic.BaseModel):
+class File(core.ModelBase):
     """File"""
 
     path: core_models.FilePath
     transaction_rid: TransactionRid = pydantic.Field(alias=str("transactionRid"))  # type: ignore[literal-required]
     size_bytes: typing.Optional[core.Long] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
     updated_time: core.AwareDatetime = pydantic.Field(alias=str("updatedTime"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListBranchesResponse(pydantic.BaseModel):
+class ListBranchesResponse(core.ModelBase):
     """ListBranchesResponse"""
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     data: typing.List[Branch]
     """The list of branches in the current page."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ListFilesResponse(pydantic.BaseModel):
+class ListFilesResponse(core.ModelBase):
     """A page of Files and an optional page token that can be used to retrieve the next page."""
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     data: typing.List[File]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TableExportFormat = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
 
-class Transaction(pydantic.BaseModel):
+class Transaction(core.ModelBase):
     """An operation that modifies the files within a dataset."""
 
     rid: TransactionRid
@@ -115,12 +89,6 @@ class Transaction(pydantic.BaseModel):
 
     closed_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("closedTime"), default=None)  # type: ignore[literal-required]
     """The timestamp when the transaction was closed, in ISO 8601 timestamp format."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TransactionRid = core.RID

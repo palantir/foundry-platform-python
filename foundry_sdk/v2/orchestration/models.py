@@ -32,7 +32,7 @@ build by cancelling all other jobs.
 """
 
 
-class Action(pydantic.BaseModel):
+class Action(core.ModelBase):
     """Action"""
 
     target: BuildTarget
@@ -45,26 +45,16 @@ class Action(pydantic.BaseModel):
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class AndTrigger(pydantic.BaseModel):
+class AndTrigger(core.ModelBase):
     """Trigger after all of the given triggers emit an event."""
 
     triggers: typing.List[Trigger]
     type: typing.Literal["and"] = "and"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Build(pydantic.BaseModel):
+class Build(core.ModelBase):
     """Build"""
 
     rid: core_models.BuildRid
@@ -85,11 +75,6 @@ class Build(pydantic.BaseModel):
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BuildStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
@@ -110,7 +95,7 @@ RID or Restricted View RID.
 """
 
 
-class ConnectingTarget(pydantic.BaseModel):
+class ConnectingTarget(core.ModelBase):
     """
     All datasets between the input datasets (exclusive) and the
     target datasets (inclusive) except for the datasets to ignore.
@@ -126,14 +111,9 @@ class ConnectingTarget(pydantic.BaseModel):
     """The datasets between the input datasets and target datasets to exclude."""
 
     type: typing.Literal["connecting"] = "connecting"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateScheduleRequestAction(pydantic.BaseModel):
+class CreateScheduleRequestAction(core.ModelBase):
     """CreateScheduleRequestAction"""
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
@@ -146,11 +126,6 @@ class CreateScheduleRequestAction(pydantic.BaseModel):
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
     target: CreateScheduleRequestBuildTarget
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
@@ -164,7 +139,7 @@ CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
 """The targets of the build."""
 
 
-class CreateScheduleRequestConnectingTarget(pydantic.BaseModel):
+class CreateScheduleRequestConnectingTarget(core.ModelBase):
     """CreateScheduleRequestConnectingTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
@@ -177,35 +152,20 @@ class CreateScheduleRequestConnectingTarget(pydantic.BaseModel):
     """The upstream input datasets (exclusive)."""
 
     type: typing.Literal["connecting"] = "connecting"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateScheduleRequestManualTarget(pydantic.BaseModel):
+class CreateScheduleRequestManualTarget(core.ModelBase):
     """CreateScheduleRequestManualTarget"""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
     type: typing.Literal["manual"] = "manual"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateScheduleRequestProjectScope(pydantic.BaseModel):
+class CreateScheduleRequestProjectScope(core.ModelBase):
     """CreateScheduleRequestProjectScope"""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
     type: typing.Literal["project"] = "project"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
@@ -215,7 +175,7 @@ CreateScheduleRequestScopeMode = typing_extensions.Annotated[
 """The boundaries for the schedule build."""
 
 
-class CreateScheduleRequestUpstreamTarget(pydantic.BaseModel):
+class CreateScheduleRequestUpstreamTarget(core.ModelBase):
     """CreateScheduleRequestUpstreamTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
@@ -225,22 +185,12 @@ class CreateScheduleRequestUpstreamTarget(pydantic.BaseModel):
     """The target datasets."""
 
     type: typing.Literal["upstream"] = "upstream"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CreateScheduleRequestUserScope(pydantic.BaseModel):
+class CreateScheduleRequestUserScope(core.ModelBase):
     """CreateScheduleRequestUserScope"""
 
     type: typing.Literal["user"] = "user"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 CronExpression = str
@@ -250,20 +200,15 @@ and day of week.
 """
 
 
-class DatasetJobOutput(pydantic.BaseModel):
+class DatasetJobOutput(core.ModelBase):
     """DatasetJobOutput"""
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     output_transaction_rid: typing.Optional[datasets_models.TransactionRid] = pydantic.Field(alias=str("outputTransactionRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["datasetJobOutput"] = "datasetJobOutput"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class DatasetUpdatedTrigger(pydantic.BaseModel):
+class DatasetUpdatedTrigger(core.ModelBase):
     """
     Trigger whenever a new transaction is committed to the
     dataset on the target branch.
@@ -272,11 +217,6 @@ class DatasetUpdatedTrigger(pydantic.BaseModel):
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FallbackBranches = typing.List[datasets_models.BranchName]
@@ -290,77 +230,45 @@ ForceBuild = bool
 """Whether to ignore staleness information when running the build."""
 
 
-class GetBuildsBatchRequestElement(pydantic.BaseModel):
+class GetBuildsBatchRequestElement(core.ModelBase):
     """GetBuildsBatchRequestElement"""
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     """The RID of a Build."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class GetBuildsBatchResponse(pydantic.BaseModel):
+class GetBuildsBatchResponse(core.ModelBase):
     """GetBuildsBatchResponse"""
 
     data: typing.Dict[core_models.BuildRid, Build]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetJobsBatchRequestElement(pydantic.BaseModel):
+class GetJobsBatchRequestElement(core.ModelBase):
     """GetJobsBatchRequestElement"""
 
     job_rid: core_models.JobRid = pydantic.Field(alias=str("jobRid"))  # type: ignore[literal-required]
     """The RID of a Job."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class GetJobsBatchResponse(pydantic.BaseModel):
+class GetJobsBatchResponse(core.ModelBase):
     """GetJobsBatchResponse"""
 
     data: typing.Dict[core_models.JobRid, Job]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetSchedulesBatchRequestElement(pydantic.BaseModel):
+class GetSchedulesBatchRequestElement(core.ModelBase):
     """GetSchedulesBatchRequestElement"""
 
     schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GetSchedulesBatchResponse(pydantic.BaseModel):
+class GetSchedulesBatchResponse(core.ModelBase):
     """GetSchedulesBatchResponse"""
 
     data: typing.Dict[core_models.ScheduleRid, Schedule]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Job(pydantic.BaseModel):
+class Job(core.ModelBase):
     """Job"""
 
     rid: core_models.JobRid
@@ -382,12 +290,6 @@ class Job(pydantic.BaseModel):
     Currently supported types are Dataset and Media Set outputs.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
 
 JobOutput = typing_extensions.Annotated[
     typing.Union[DatasetJobOutput, "TransactionalMediaSetJobOutput"],
@@ -404,7 +306,7 @@ JobStatus = typing.Literal["WAITING", "RUNNING", "SUCCEEDED", "FAILED", "CANCELE
 """The status of the job."""
 
 
-class JobSucceededTrigger(pydantic.BaseModel):
+class JobSucceededTrigger(core.ModelBase):
     """
     Trigger whenever a job succeeds on the dataset and on the target
     branch.
@@ -413,61 +315,36 @@ class JobSucceededTrigger(pydantic.BaseModel):
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["jobSucceeded"] = "jobSucceeded"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListJobsOfBuildResponse(pydantic.BaseModel):
+class ListJobsOfBuildResponse(core.ModelBase):
     """ListJobsOfBuildResponse"""
 
     data: typing.List[Job]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ListRunsOfScheduleResponse(pydantic.BaseModel):
+class ListRunsOfScheduleResponse(core.ModelBase):
     """ListRunsOfScheduleResponse"""
 
     data: typing.List[ScheduleRun]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ManualTarget(pydantic.BaseModel):
+class ManualTarget(core.ModelBase):
     """Manually specify all datasets to build."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
     type: typing.Literal["manual"] = "manual"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ManualTrigger(pydantic.BaseModel):
+class ManualTrigger(core.ModelBase):
     """Only trigger the Schedule manually. If placed in an AND or OR condition, this Trigger will be ignored."""
 
     type: typing.Literal["manual"] = "manual"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MediaSetUpdatedTrigger(pydantic.BaseModel):
+class MediaSetUpdatedTrigger(core.ModelBase):
     """
     Trigger whenever an update is made to a media set on the target
     branch. For transactional media sets, this happens when a transaction
@@ -478,14 +355,9 @@ class MediaSetUpdatedTrigger(pydantic.BaseModel):
     media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["mediaSetUpdated"] = "mediaSetUpdated"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class NewLogicTrigger(pydantic.BaseModel):
+class NewLogicTrigger(core.ModelBase):
     """
     Trigger whenever a new JobSpec is put on the dataset and on
     that branch.
@@ -494,11 +366,6 @@ class NewLogicTrigger(pydantic.BaseModel):
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     type: typing.Literal["newLogic"] = "newLogic"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 NotificationsEnabled = bool
@@ -509,31 +376,21 @@ No notification will be sent if the schedule has `scopeMode` set to `ProjectScop
 """
 
 
-class OrTrigger(pydantic.BaseModel):
+class OrTrigger(core.ModelBase):
     """Trigger whenever any of the given triggers emit an event."""
 
     triggers: typing.List[Trigger]
     type: typing.Literal["or"] = "or"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ProjectScope(pydantic.BaseModel):
+class ProjectScope(core.ModelBase):
     """The schedule will only build resources in the following projects."""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
     type: typing.Literal["project"] = "project"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ReplaceScheduleRequestAction(pydantic.BaseModel):
+class ReplaceScheduleRequestAction(core.ModelBase):
     """ReplaceScheduleRequestAction"""
 
     abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
@@ -546,11 +403,6 @@ class ReplaceScheduleRequestAction(pydantic.BaseModel):
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
     target: ReplaceScheduleRequestBuildTarget
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
@@ -564,7 +416,7 @@ ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
 """The targets of the build."""
 
 
-class ReplaceScheduleRequestConnectingTarget(pydantic.BaseModel):
+class ReplaceScheduleRequestConnectingTarget(core.ModelBase):
     """ReplaceScheduleRequestConnectingTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
@@ -577,35 +429,20 @@ class ReplaceScheduleRequestConnectingTarget(pydantic.BaseModel):
     """The upstream input datasets (exclusive)."""
 
     type: typing.Literal["connecting"] = "connecting"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ReplaceScheduleRequestManualTarget(pydantic.BaseModel):
+class ReplaceScheduleRequestManualTarget(core.ModelBase):
     """ReplaceScheduleRequestManualTarget"""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
     type: typing.Literal["manual"] = "manual"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ReplaceScheduleRequestProjectScope(pydantic.BaseModel):
+class ReplaceScheduleRequestProjectScope(core.ModelBase):
     """ReplaceScheduleRequestProjectScope"""
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
     type: typing.Literal["project"] = "project"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
@@ -615,7 +452,7 @@ ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
 """The boundaries for the schedule build."""
 
 
-class ReplaceScheduleRequestUpstreamTarget(pydantic.BaseModel):
+class ReplaceScheduleRequestUpstreamTarget(core.ModelBase):
     """ReplaceScheduleRequestUpstreamTarget"""
 
     ignored_rids: typing.Optional[typing.List[BuildableRid]] = pydantic.Field(alias=str("ignoredRids"), default=None)  # type: ignore[literal-required]
@@ -625,22 +462,12 @@ class ReplaceScheduleRequestUpstreamTarget(pydantic.BaseModel):
     """The target datasets."""
 
     type: typing.Literal["upstream"] = "upstream"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ReplaceScheduleRequestUserScope(pydantic.BaseModel):
+class ReplaceScheduleRequestUserScope(core.ModelBase):
     """ReplaceScheduleRequestUserScope"""
 
     type: typing.Literal["user"] = "user"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 RetryCount = int
@@ -651,7 +478,7 @@ not all types of failures can be retried.
 """
 
 
-class Schedule(pydantic.BaseModel):
+class Schedule(core.ModelBase):
     """Schedule"""
 
     rid: core_models.ScheduleRid
@@ -673,18 +500,13 @@ class Schedule(pydantic.BaseModel):
 
     action: Action
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SchedulePaused = bool
 """SchedulePaused"""
 
 
-class ScheduleRun(pydantic.BaseModel):
+class ScheduleRun(core.ModelBase):
     """ScheduleRun"""
 
     rid: ScheduleRunRid
@@ -707,24 +529,13 @@ class ScheduleRun(pydantic.BaseModel):
     is still working on triggering the schedule.
     """
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class ScheduleRunError(pydantic.BaseModel):
+class ScheduleRunError(core.ModelBase):
     """An error occurred attempting to run the schedule."""
 
     error_name: ScheduleRunErrorName = pydantic.Field(alias=str("errorName"))  # type: ignore[literal-required]
     description: str
     type: typing.Literal["error"] = "error"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ScheduleRunErrorName = typing.Literal[
@@ -739,15 +550,10 @@ ScheduleRunErrorName = typing.Literal[
 """ScheduleRunErrorName"""
 
 
-class ScheduleRunIgnored(pydantic.BaseModel):
+class ScheduleRunIgnored(core.ModelBase):
     """The schedule is not running as all targets are up-to-date."""
 
     type: typing.Literal["ignored"] = "ignored"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ScheduleRunResult = typing_extensions.Annotated[
@@ -764,19 +570,14 @@ ScheduleRunRid = core.RID
 """The RID of a schedule run"""
 
 
-class ScheduleRunSubmitted(pydantic.BaseModel):
+class ScheduleRunSubmitted(core.ModelBase):
     """The schedule has been successfully triggered."""
 
     build_rid: core_models.BuildRid = pydantic.Field(alias=str("buildRid"))  # type: ignore[literal-required]
     type: typing.Literal["submitted"] = "submitted"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ScheduleSucceededTrigger(pydantic.BaseModel):
+class ScheduleSucceededTrigger(core.ModelBase):
     """
     Trigger whenever the specified schedule completes its action
     successfully.
@@ -784,14 +585,9 @@ class ScheduleSucceededTrigger(pydantic.BaseModel):
 
     schedule_rid: core_models.ScheduleRid = pydantic.Field(alias=str("scheduleRid"))  # type: ignore[literal-required]
     type: typing.Literal["scheduleSucceeded"] = "scheduleSucceeded"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ScheduleVersion(pydantic.BaseModel):
+class ScheduleVersion(core.ModelBase):
     """ScheduleVersion"""
 
     rid: ScheduleVersionRid
@@ -807,11 +603,6 @@ class ScheduleVersion(pydantic.BaseModel):
     trigger: typing.Optional[Trigger] = None
     action: Action
     scope_mode: ScopeMode = pydantic.Field(alias=str("scopeMode"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ScheduleVersionRid = core.RID
@@ -824,29 +615,19 @@ ScopeMode = typing_extensions.Annotated[
 """The boundaries for the schedule build."""
 
 
-class SearchBuildsAndFilter(pydantic.BaseModel):
+class SearchBuildsAndFilter(core.ModelBase):
     """Returns the Builds where every filter is satisfied."""
 
     items: typing.List[SearchBuildsFilter]
     type: typing.Literal["and"] = "and"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchBuildsEqualsFilter(pydantic.BaseModel):
+class SearchBuildsEqualsFilter(core.ModelBase):
     """SearchBuildsEqualsFilter"""
 
     field: SearchBuildsEqualsFilterField
     value: typing.Any
     type: typing.Literal["eq"] = "eq"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SearchBuildsEqualsFilterField = typing.Literal["CREATED_BY", "BRANCH_NAME", "STATUS", "RID"]
@@ -867,127 +648,82 @@ SearchBuildsFilter = typing_extensions.Annotated[
 """SearchBuildsFilter"""
 
 
-class SearchBuildsGteFilter(pydantic.BaseModel):
+class SearchBuildsGteFilter(core.ModelBase):
     """SearchBuildsGteFilter"""
 
     field: SearchBuildsGteFilterField
     value: typing.Any
     type: typing.Literal["gte"] = "gte"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SearchBuildsGteFilterField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsGteFilterField"""
 
 
-class SearchBuildsLtFilter(pydantic.BaseModel):
+class SearchBuildsLtFilter(core.ModelBase):
     """SearchBuildsLtFilter"""
 
     field: SearchBuildsLtFilterField
     value: typing.Any
     type: typing.Literal["lt"] = "lt"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SearchBuildsLtFilterField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsLtFilterField"""
 
 
-class SearchBuildsNotFilter(pydantic.BaseModel):
+class SearchBuildsNotFilter(core.ModelBase):
     """Returns the Builds where the filter is not satisfied."""
 
     value: SearchBuildsFilter
     type: typing.Literal["not"] = "not"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchBuildsOrFilter(pydantic.BaseModel):
+class SearchBuildsOrFilter(core.ModelBase):
     """Returns the Builds where at least one filter is satisfied."""
 
     items: typing.List[SearchBuildsFilter]
     type: typing.Literal["or"] = "or"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchBuildsOrderBy(pydantic.BaseModel):
+class SearchBuildsOrderBy(core.ModelBase):
     """SearchBuildsOrderBy"""
 
     fields: typing.List[SearchBuildsOrderByItem]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SearchBuildsOrderByField = typing.Literal["STARTED_TIME", "FINISHED_TIME"]
 """SearchBuildsOrderByField"""
 
 
-class SearchBuildsOrderByItem(pydantic.BaseModel):
+class SearchBuildsOrderByItem(core.ModelBase):
     """SearchBuildsOrderByItem"""
 
     field: SearchBuildsOrderByField
     direction: core_models.OrderByDirection
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class SearchBuildsResponse(pydantic.BaseModel):
+class SearchBuildsResponse(core.ModelBase):
     """SearchBuildsResponse"""
 
     data: typing.List[Build]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class TimeTrigger(pydantic.BaseModel):
+class TimeTrigger(core.ModelBase):
     """Trigger on a time based schedule."""
 
     cron_expression: CronExpression = pydantic.Field(alias=str("cronExpression"))  # type: ignore[literal-required]
     time_zone: core_models.ZoneId = pydantic.Field(alias=str("timeZone"))  # type: ignore[literal-required]
     type: typing.Literal["time"] = "time"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class TransactionalMediaSetJobOutput(pydantic.BaseModel):
+class TransactionalMediaSetJobOutput(core.ModelBase):
     """TransactionalMediaSetJobOutput"""
 
     media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
     transaction_id: typing.Optional[str] = pydantic.Field(alias=str("transactionId"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Trigger = typing_extensions.Annotated[
@@ -1007,7 +743,7 @@ Trigger = typing_extensions.Annotated[
 """Trigger"""
 
 
-class UpstreamTarget(pydantic.BaseModel):
+class UpstreamTarget(core.ModelBase):
     """Target the specified datasets along with all upstream datasets except the ignored datasets."""
 
     target_rids: typing.List[BuildableRid] = pydantic.Field(alias=str("targetRids"))  # type: ignore[literal-required]
@@ -1017,25 +753,15 @@ class UpstreamTarget(pydantic.BaseModel):
     """The datasets to ignore when calculating the final set of dataset to build."""
 
     type: typing.Literal["upstream"] = "upstream"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class UserScope(pydantic.BaseModel):
+class UserScope(core.ModelBase):
     """
     When triggered, the schedule will build all resources that the
     associated user is permitted to build.
     """
 
     type: typing.Literal["user"] = "user"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 RetryBackoffDuration = core_models.Duration

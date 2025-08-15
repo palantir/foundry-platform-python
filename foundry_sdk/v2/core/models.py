@@ -23,100 +23,60 @@ import typing_extensions
 from foundry_sdk import _core as core
 
 
-class AnyType(pydantic.BaseModel):
+class AnyType(core.ModelBase):
     """AnyType"""
 
     type: typing.Literal["any"] = "any"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class ArrayFieldType(pydantic.BaseModel):
+class ArrayFieldType(core.ModelBase):
     """ArrayFieldType"""
 
     items_schema: FieldSchema = pydantic.Field(alias=str("itemsSchema"))  # type: ignore[literal-required]
     type: typing.Literal["array"] = "array"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class AttachmentType(pydantic.BaseModel):
+class AttachmentType(core.ModelBase):
     """AttachmentType"""
 
     type: typing.Literal["attachment"] = "attachment"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class BinaryType(pydantic.BaseModel):
+class BinaryType(core.ModelBase):
     """BinaryType"""
 
     type: typing.Literal["binary"] = "binary"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class BooleanType(pydantic.BaseModel):
+class BooleanType(core.ModelBase):
     """BooleanType"""
 
     type: typing.Literal["boolean"] = "boolean"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class BranchMetadata(pydantic.BaseModel):
+class BranchMetadata(core.ModelBase):
     """Metadata about a Foundry branch."""
 
     rid: FoundryBranch
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 BuildRid = core.RID
 """The RID of a Build."""
 
 
-class ByteType(pydantic.BaseModel):
+class ByteType(core.ModelBase):
     """ByteType"""
 
     type: typing.Literal["byte"] = "byte"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class CipherTextType(pydantic.BaseModel):
+class CipherTextType(core.ModelBase):
     """CipherTextType"""
 
     default_cipher_channel: typing.Optional[core.RID] = pydantic.Field(alias=str("defaultCipherChannel"), default=None)  # type: ignore[literal-required]
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: typing.Literal["cipherText"] = "cipherText"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ComputeSeconds = float
@@ -139,7 +99,7 @@ CustomMetadata = typing.Dict[str, typing.Any]
 """CustomMetadata"""
 
 
-class DatasetFieldSchema(pydantic.BaseModel):
+class DatasetFieldSchema(core.ModelBase):
     """A field in a Foundry dataset."""
 
     type: str
@@ -173,36 +133,20 @@ class DatasetFieldSchema(pydantic.BaseModel):
     sub_schemas: typing.Optional[typing.List[DatasetFieldSchema]] = pydantic.Field(alias=str("subSchemas"), default=None)  # type: ignore[literal-required]
     """Only used when field type is struct."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class DatasetSchema(pydantic.BaseModel):
+class DatasetSchema(core.ModelBase):
     """The schema for a Foundry dataset. Files uploaded to this dataset must match this schema."""
 
     field_schema_list: typing.List[DatasetFieldSchema] = pydantic.Field(alias=str("fieldSchemaList"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class DateType(pydantic.BaseModel):
+class DateType(core.ModelBase):
     """DateType"""
 
     type: typing.Literal["date"] = "date"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class DecimalType(pydantic.BaseModel):
+class DecimalType(core.ModelBase):
     """DecimalType"""
 
     precision: typing.Optional[int] = None
@@ -212,27 +156,17 @@ class DecimalType(pydantic.BaseModel):
     """The number of digits to the right of the decimal point. The maximum value is 38."""
 
     type: typing.Literal["decimal"] = "decimal"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DisplayName = str
 """The display name of the entity."""
 
 
-class Distance(pydantic.BaseModel):
+class Distance(core.ModelBase):
     """A measurement of distance."""
 
     value: float
     unit: DistanceUnit
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DistanceUnit = typing.Literal[
@@ -249,18 +183,13 @@ DistanceUnit = typing.Literal[
 """DistanceUnit"""
 
 
-class DoubleType(pydantic.BaseModel):
+class DoubleType(core.ModelBase):
     """DoubleType"""
 
     type: typing.Literal["double"] = "double"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Duration(pydantic.BaseModel):
+class Duration(core.ModelBase):
     """A measurement of duration."""
 
     value: int
@@ -268,12 +197,6 @@ class Duration(pydantic.BaseModel):
 
     unit: TimeUnit
     """The unit of duration."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 DurationSeconds = core.Long
@@ -290,7 +213,7 @@ EnrollmentRid = core.RID
 """EnrollmentRid"""
 
 
-class Field(pydantic.BaseModel):
+class Field(core.ModelBase):
     """
     A field in a Foundry schema. For more information on supported data types, see the
     [supported field types](https://palantir.com/docs/foundry/data-integration/datasets/#supported-field-types) user documentation.
@@ -298,11 +221,6 @@ class Field(pydantic.BaseModel):
 
     name: FieldName
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FieldDataType = typing_extensions.Annotated[
@@ -332,17 +250,12 @@ FieldName = str
 """FieldName"""
 
 
-class FieldSchema(pydantic.BaseModel):
+class FieldSchema(core.ModelBase):
     """The specification of the type of a Foundry schema field."""
 
     nullable: bool
     custom_metadata: typing.Optional[CustomMetadata] = pydantic.Field(alias=str("customMetadata"), default=None)  # type: ignore[literal-required]
     data_type: FieldDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FilePath = str
@@ -353,128 +266,73 @@ Filename = str
 """The name of a File within Foundry. Examples: `my-file.txt`, `my-file.jpg`, `dataframe.snappy.parquet`."""
 
 
-class FilterBinaryType(pydantic.BaseModel):
+class FilterBinaryType(core.ModelBase):
     """FilterBinaryType"""
 
     type: typing.Literal["binary"] = "binary"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterBooleanType(pydantic.BaseModel):
+class FilterBooleanType(core.ModelBase):
     """FilterBooleanType"""
 
     type: typing.Literal["boolean"] = "boolean"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterDateTimeType(pydantic.BaseModel):
+class FilterDateTimeType(core.ModelBase):
     """FilterDateTimeType"""
 
     type: typing.Literal["dateTime"] = "dateTime"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterDateType(pydantic.BaseModel):
+class FilterDateType(core.ModelBase):
     """FilterDateType"""
 
     type: typing.Literal["date"] = "date"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterDoubleType(pydantic.BaseModel):
+class FilterDoubleType(core.ModelBase):
     """FilterDoubleType"""
 
     type: typing.Literal["double"] = "double"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterEnumType(pydantic.BaseModel):
+class FilterEnumType(core.ModelBase):
     """FilterEnumType"""
 
     values: typing.List[str]
     """The values allowed by the enum type."""
 
     type: typing.Literal["enum"] = "enum"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterFloatType(pydantic.BaseModel):
+class FilterFloatType(core.ModelBase):
     """FilterFloatType"""
 
     type: typing.Literal["float"] = "float"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterIntegerType(pydantic.BaseModel):
+class FilterIntegerType(core.ModelBase):
     """FilterIntegerType"""
 
     type: typing.Literal["integer"] = "integer"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterLongType(pydantic.BaseModel):
+class FilterLongType(core.ModelBase):
     """FilterLongType"""
 
     type: typing.Literal["long"] = "long"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterRidType(pydantic.BaseModel):
+class FilterRidType(core.ModelBase):
     """FilterRidType"""
 
     type: typing.Literal["rid"] = "rid"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FilterStringType(pydantic.BaseModel):
+class FilterStringType(core.ModelBase):
     """FilterStringType"""
 
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FilterType = typing_extensions.Annotated[
@@ -497,26 +355,16 @@ FilterType = typing_extensions.Annotated[
 """FilterType"""
 
 
-class FilterUuidType(pydantic.BaseModel):
+class FilterUuidType(core.ModelBase):
     """FilterUuidType"""
 
     type: typing.Literal["uuid"] = "uuid"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FloatType(pydantic.BaseModel):
+class FloatType(core.ModelBase):
     """FloatType"""
 
     type: typing.Literal["float"] = "float"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 FolderRid = core.RID
@@ -527,7 +375,7 @@ FoundryBranch = str
 """The Foundry branch identifier, specifically its rid. Different identifier types may be used in the future as values."""
 
 
-class FoundryLiveDeployment(pydantic.BaseModel):
+class FoundryLiveDeployment(core.ModelBase):
     """FoundryLiveDeployment"""
 
     rid: typing.Optional[core.RID] = None
@@ -540,14 +388,9 @@ class FoundryLiveDeployment(pydantic.BaseModel):
     """The name of the output parameter to the model which should contain the computed embedding."""
 
     type: typing.Literal["foundryLiveDeployment"] = "foundryLiveDeployment"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
+class FullRowChangeDataCaptureConfiguration(core.ModelBase):
     """
     Configuration for change data capture which resolves the latest state of the dataset based on new full rows
     being pushed to the stream. For example, if a value for a row is updated, it is only sufficient to publish
@@ -573,55 +416,30 @@ class FullRowChangeDataCaptureConfiguration(pydantic.BaseModel):
     """
 
     type: typing.Literal["fullRow"] = "fullRow"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GeoPointType(pydantic.BaseModel):
+class GeoPointType(core.ModelBase):
     """GeoPointType"""
 
     type: typing.Literal["geopoint"] = "geopoint"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GeoShapeType(pydantic.BaseModel):
+class GeoShapeType(core.ModelBase):
     """GeoShapeType"""
 
     type: typing.Literal["geoshape"] = "geoshape"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GeohashType(pydantic.BaseModel):
+class GeohashType(core.ModelBase):
     """GeohashType"""
 
     type: typing.Literal["geohash"] = "geohash"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class GeotimeSeriesReferenceType(pydantic.BaseModel):
+class GeotimeSeriesReferenceType(core.ModelBase):
     """GeotimeSeriesReferenceType"""
 
     type: typing.Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 GroupName = str
@@ -640,31 +458,21 @@ Note: Enabling this flag may slow down query performance and is not recommended 
 """
 
 
-class IntegerType(pydantic.BaseModel):
+class IntegerType(core.ModelBase):
     """IntegerType"""
 
     type: typing.Literal["integer"] = "integer"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 JobRid = core.RID
 """The RID of a Job."""
 
 
-class LmsEmbeddingModel(pydantic.BaseModel):
+class LmsEmbeddingModel(core.ModelBase):
     """A model provided by Language Model Service."""
 
     value: LmsEmbeddingModelValue
     type: typing.Literal["lms"] = "lms"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 LmsEmbeddingModelValue = typing.Literal[
@@ -677,43 +485,28 @@ LmsEmbeddingModelValue = typing.Literal[
 """LmsEmbeddingModelValue"""
 
 
-class LongType(pydantic.BaseModel):
+class LongType(core.ModelBase):
     """LongType"""
 
     type: typing.Literal["long"] = "long"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MapFieldType(pydantic.BaseModel):
+class MapFieldType(core.ModelBase):
     """MapFieldType"""
 
     key_schema: FieldSchema = pydantic.Field(alias=str("keySchema"))  # type: ignore[literal-required]
     value_schema: FieldSchema = pydantic.Field(alias=str("valueSchema"))  # type: ignore[literal-required]
     type: typing.Literal["map"] = "map"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MarkingId = core.UUID
 """The ID of a security marking."""
 
 
-class MarkingType(pydantic.BaseModel):
+class MarkingType(core.ModelBase):
     """MarkingType"""
 
     type: typing.Literal["marking"] = "marking"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MediaItemPath = str
@@ -733,57 +526,37 @@ MediaItemRid = core.RID
 """The Resource Identifier (RID) of an individual Media Item within a Media Set in Foundry."""
 
 
-class MediaReference(pydantic.BaseModel):
+class MediaReference(core.ModelBase):
     """The representation of a media reference."""
 
     mime_type: MediaType = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
     reference: Reference
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MediaReferenceType(pydantic.BaseModel):
+class MediaReferenceType(core.ModelBase):
     """MediaReferenceType"""
 
     type: typing.Literal["mediaReference"] = "mediaReference"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MediaSetRid = core.RID
 """The Resource Identifier (RID) of a Media Set in Foundry."""
 
 
-class MediaSetViewItem(pydantic.BaseModel):
+class MediaSetViewItem(core.ModelBase):
     """MediaSetViewItem"""
 
     media_set_rid: MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
     media_set_view_rid: MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
     media_item_rid: MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
     token: typing.Optional[MediaItemReadToken] = None
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class MediaSetViewItemWrapper(pydantic.BaseModel):
+class MediaSetViewItemWrapper(core.ModelBase):
     """MediaSetViewItemWrapper"""
 
     media_set_view_item: MediaSetViewItem = pydantic.Field(alias=str("mediaSetViewItem"))  # type: ignore[literal-required]
     type: typing.Literal["mediaSetViewItem"] = "mediaSetViewItem"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 MediaSetViewRid = core.RID
@@ -797,15 +570,10 @@ Examples: `application/json`, `application/pdf`, `application/octet-stream`, `im
 """
 
 
-class NullType(pydantic.BaseModel):
+class NullType(core.ModelBase):
     """NullType"""
 
     type: typing.Literal["null"] = "null"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Operation = str
@@ -862,7 +630,7 @@ ReleaseStatus = typing.Literal["ACTIVE", "ENDORSED", "EXPERIMENTAL", "DEPRECATED
 """The release status of the entity."""
 
 
-class Role(pydantic.BaseModel):
+class Role(core.ModelBase):
     """A set of permissions that can be assigned to a principal for a specific resource type."""
 
     id: RoleId
@@ -878,23 +646,12 @@ class Role(pydantic.BaseModel):
     operations: typing.List[Operation]
     """The operations that a principal can perform with this role on the assigned resource."""
 
-    model_config = {"extra": "allow", "populate_by_name": True}
 
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
-
-
-class RoleAssignmentUpdate(pydantic.BaseModel):
+class RoleAssignmentUpdate(core.ModelBase):
     """RoleAssignmentUpdate"""
 
     role_id: RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
     principal_id: PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 RoleContext = typing.Literal["ORGANIZATION"]
@@ -917,22 +674,17 @@ ScheduleRid = core.RID
 """The RID of a Schedule."""
 
 
-class ShortType(pydantic.BaseModel):
+class ShortType(core.ModelBase):
     """ShortType"""
 
     type: typing.Literal["short"] = "short"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 SizeBytes = core.Long
 """The size of the file or attachment in bytes."""
 
 
-class StreamSchema(pydantic.BaseModel):
+class StreamSchema(core.ModelBase):
     """The schema for a Foundry stream. Records pushed to this stream must match this schema."""
 
     fields: typing.List[Field]
@@ -959,38 +711,23 @@ class StreamSchema(pydantic.BaseModel):
     """
 
     change_data_capture: typing.Optional[ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class StringType(pydantic.BaseModel):
+class StringType(core.ModelBase):
     """StringType"""
 
     type: typing.Literal["string"] = "string"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StructFieldName = str
 """The name of a field in a `Struct`."""
 
 
-class StructFieldType(pydantic.BaseModel):
+class StructFieldType(core.ModelBase):
     """StructFieldType"""
 
     sub_fields: typing.List[Field] = pydantic.Field(alias=str("subFields"))  # type: ignore[literal-required]
     type: typing.Literal["struct"] = "struct"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
@@ -1005,27 +742,17 @@ TimeUnit = typing.Literal[
 """TimeUnit"""
 
 
-class TimeseriesType(pydantic.BaseModel):
+class TimeseriesType(core.ModelBase):
     """TimeseriesType"""
 
     item_type: typing.Optional[TimeSeriesItemType] = pydantic.Field(alias=str("itemType"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["timeseries"] = "timeseries"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class TimestampType(pydantic.BaseModel):
+class TimestampType(core.ModelBase):
     """TimestampType"""
 
     type: typing.Literal["timestamp"] = "timestamp"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 TotalCount = core.Long
@@ -1040,16 +767,11 @@ TraceState = str
 """The W3C Trace Context `tracestate` header value, which is used to propagate vendor specific distributed tracing information for Foundry telemetry. See https://www.w3.org/TR/trace-context/#tracestate-header for more details."""
 
 
-class UnsupportedType(pydantic.BaseModel):
+class UnsupportedType(core.ModelBase):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
     type: typing.Literal["unsupported"] = "unsupported"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 UpdatedTime = core.AwareDatetime
@@ -1060,18 +782,13 @@ UserId = core.UUID
 """A Foundry User ID."""
 
 
-class VectorSimilarityFunction(pydantic.BaseModel):
+class VectorSimilarityFunction(core.ModelBase):
     """
     The vector similarity function to support approximate nearest neighbors search. Will result in an index
     specific for the function.
     """
 
     value: typing.Optional[VectorSimilarityFunctionValue] = None
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 VectorSimilarityFunctionValue = typing.Literal[
@@ -1080,7 +797,7 @@ VectorSimilarityFunctionValue = typing.Literal[
 """VectorSimilarityFunctionValue"""
 
 
-class VectorType(pydantic.BaseModel):
+class VectorType(core.ModelBase):
     """Represents a fixed size vector of floats. These can be used for vector similarity searches."""
 
     dimension: int
@@ -1089,11 +806,6 @@ class VectorType(pydantic.BaseModel):
     supports_search_with: typing.List[VectorSimilarityFunction] = pydantic.Field(alias=str("supportsSearchWith"))  # type: ignore[literal-required]
     embedding_model: typing.Optional[EmbeddingModel] = pydantic.Field(alias=str("embeddingModel"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["vector"] = "vector"
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 VersionId = core.UUID

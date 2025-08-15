@@ -23,57 +23,40 @@ from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 
 
-class ListVersionsResponse(pydantic.BaseModel):
+class ListVersionsResponse(core.ModelBase):
     """ListVersionsResponse"""
 
     data: typing.List[Version]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 Subdomain = str
 """A subdomain from which a website is served."""
 
 
-class ThirdPartyApplication(pydantic.BaseModel):
+class ThirdPartyApplication(core.ModelBase):
     """ThirdPartyApplication"""
 
     rid: ThirdPartyApplicationRid
     """An RID identifying a third-party application created in Developer Console."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 ThirdPartyApplicationRid = core.RID
 """An RID identifying a third-party application created in Developer Console."""
 
 
-class Version(pydantic.BaseModel):
+class Version(core.ModelBase):
     """Version"""
 
     version: VersionVersion
     """The semantic version of the Website."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 VersionVersion = str
 """The semantic version of the Website."""
 
 
-class Website(pydantic.BaseModel):
+class Website(core.ModelBase):
     """Website"""
 
     deployed_version: typing.Optional[VersionVersion] = pydantic.Field(alias=str("deployedVersion"), default=None)  # type: ignore[literal-required]
@@ -81,12 +64,6 @@ class Website(pydantic.BaseModel):
 
     subdomains: typing.List[Subdomain]
     """The subdomains from which the Website is currently served."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 __all__ = [

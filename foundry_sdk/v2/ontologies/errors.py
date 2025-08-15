@@ -1297,6 +1297,9 @@ class ObjectChangedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    primaryKey: typing_extensions.NotRequired[ontologies_models.PropertyValue]
+    objectType: typing_extensions.NotRequired[ontologies_models.ObjectTypeApiName]
+
 
 @dataclass
 class ObjectChanged(errors.ConflictError):
@@ -1733,6 +1736,23 @@ class PropertyNotFound(errors.BadRequestError):
     error_instance_id: str
 
 
+class PropertyNotFoundOnObjectParameters(typing_extensions.TypedDict):
+    """Could not find the given property on the object. The user may not have permissions to see this property or it may be configured incorrectly."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectTypeRid: ontologies_models.ObjectTypeRid
+    objectRid: ontologies_models.ObjectRid
+    objectPropertyRid: ontologies_models.PropertyTypeRid
+
+
+@dataclass
+class PropertyNotFoundOnObject(errors.BadRequestError):
+    name: typing.Literal["PropertyNotFoundOnObject"]
+    parameters: PropertyNotFoundOnObjectParameters
+    error_instance_id: str
+
+
 class PropertyTypeDoesNotSupportNearestNeighborsParameters(typing_extensions.TypedDict):
     """The provided propertyIdentifier is not configured with an embedding model in the ontology."""
 
@@ -2164,6 +2184,7 @@ __all__ = [
     "PropertyBaseTypeNotSupported",
     "PropertyFiltersNotSupported",
     "PropertyNotFound",
+    "PropertyNotFoundOnObject",
     "PropertyTypeDoesNotSupportNearestNeighbors",
     "PropertyTypeNotFound",
     "PropertyTypeRidNotFound",

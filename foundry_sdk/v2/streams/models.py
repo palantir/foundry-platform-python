@@ -33,7 +33,7 @@ network bandwidth symptoms like non-zero lag, lower than expected throughput, or
 """
 
 
-class CreateStreamRequestStreamSchema(pydantic.BaseModel):
+class CreateStreamRequestStreamSchema(core.ModelBase):
     """CreateStreamRequestStreamSchema"""
 
     key_field_names: typing.Optional[typing.List[core_models.FieldName]] = pydantic.Field(alias=str("keyFieldNames"), default=None)  # type: ignore[literal-required]
@@ -60,24 +60,14 @@ class CreateStreamRequestStreamSchema(pydantic.BaseModel):
 
     fields: typing.List[core_models.Field]
     change_data_capture: typing.Optional[core_models.ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
-class Dataset(pydantic.BaseModel):
+class Dataset(core.ModelBase):
     """Dataset"""
 
     rid: datasets_models.DatasetRid
     name: datasets_models.DatasetName
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 PartitionsCount = int
@@ -88,7 +78,7 @@ Record = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
 
 
-class Stream(pydantic.BaseModel):
+class Stream(core.ModelBase):
     """Stream"""
 
     branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
@@ -114,12 +104,6 @@ class Stream(pydantic.BaseModel):
 
     compressed: Compressed
     """Whether or not compression is enabled for the stream. Defaults to false."""
-
-    model_config = {"extra": "allow", "populate_by_name": True}
-
-    def to_dict(self) -> typing.Dict[str, typing.Any]:
-        """Return the dictionary representation of the model using the field aliases."""
-        return self.model_dump(by_alias=True, exclude_none=True)
 
 
 StreamType = typing.Literal["LOW_LATENCY", "HIGH_THROUGHPUT"]
