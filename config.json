@@ -162,10 +162,12 @@
       ],
       "namespaces": {
         "Admin": true,
+        "Audit": true,
         "AipAgents": true,
         "Core": true,
         "Connectivity": true,
         "Datasets": true,
+        "DataHealth": true,
         "Functions": true,
         "Geo": true,
         "Filesystem": true,
@@ -182,7 +184,8 @@
         "ThirdPartyApplications": true,
         "TargetWorkbench": false,
         "Gaia": false,
-        "MapRendering": false
+        "MapRendering": false,
+        "Widgets": true
       },
       "resourceRenames": {
         "OntologyV2": "Ontology",
