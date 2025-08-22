@@ -71,7 +71,7 @@ class LinkedObjectClient:
 
         If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -164,7 +164,7 @@ class LinkedObjectClient:
 
         Note that null value properties will not be returned.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -301,7 +301,7 @@ class AsyncLinkedObjectClient:
 
         If there is no link between the two objects, `LinkedObjectNotFound` is thrown.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -394,7 +394,7 @@ class AsyncLinkedObjectClient:
 
         Note that null value properties will not be returned.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName

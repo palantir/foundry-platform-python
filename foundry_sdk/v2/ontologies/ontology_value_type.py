@@ -62,7 +62,7 @@ class OntologyValueTypeClient:
         """
         Gets a specific value type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param value_type: The API name of the value type. To find the API name, use the **List value types** endpoint or check the **Ontology Manager**.
         :type value_type: ValueTypeApiName
@@ -111,7 +111,7 @@ class OntologyValueTypeClient:
         """
         Lists the latest versions of the value types for the given Ontology.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -200,7 +200,7 @@ class AsyncOntologyValueTypeClient:
         """
         Gets a specific value type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param value_type: The API name of the value type. To find the API name, use the **List value types** endpoint or check the **Ontology Manager**.
         :type value_type: ValueTypeApiName
@@ -249,7 +249,7 @@ class AsyncOntologyValueTypeClient:
         """
         Lists the latest versions of the value types for the given Ontology.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]

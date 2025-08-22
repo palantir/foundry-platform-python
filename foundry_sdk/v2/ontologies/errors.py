@@ -1704,6 +1704,22 @@ class PropertyBaseTypeNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class PropertyExactMatchingNotSupportedParameters(typing_extensions.TypedDict):
+    """A property that does not support exact matching is used in a setting that requires exact matching."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    propertyBaseType: ontologies_models.ValueType
+    propertyTypeRid: typing_extensions.NotRequired[ontologies_models.PropertyTypeRid]
+
+
+@dataclass
+class PropertyExactMatchingNotSupported(errors.BadRequestError):
+    name: typing.Literal["PropertyExactMatchingNotSupported"]
+    parameters: PropertyExactMatchingNotSupportedParameters
+    error_instance_id: str
+
+
 class PropertyFiltersNotSupportedParameters(typing_extensions.TypedDict):
     """
     At least one of the requested property filters are not supported. See the documentation of `PropertyFilter` for
@@ -2182,6 +2198,7 @@ __all__ = [
     "PropertiesNotSortable",
     "PropertyApiNameNotFound",
     "PropertyBaseTypeNotSupported",
+    "PropertyExactMatchingNotSupported",
     "PropertyFiltersNotSupported",
     "PropertyNotFound",
     "PropertyNotFoundOnObject",

@@ -10,11 +10,14 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 StructConstraint | struct
+StructV1Constraint | structV1
 RegexConstraint | regex
+NullableConstraint | nullable
 ArrayConstraint | array
 LengthConstraint | length
 RangesConstraint | range
 RidConstraint | rid
+MapConstraint | map
 UuidConstraint | uuid
 EnumConstraint | enum
 

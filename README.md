@@ -661,9 +661,12 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**streaming_continue**](docs/v2/AipAgents/Session.md#streaming_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/streamingContinue |
 **AipAgents** | Session | [**update_title**](docs/v2/AipAgents/Session.md#update_title) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/updateTitle |
 **AipAgents** | SessionTrace | [**get**](docs/v2/AipAgents/SessionTrace.md#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/sessionTraces/{sessionTraceId} |
+**Audit** | LogFile | [**content**](docs/v2/Audit/LogFile.md#content) | **GET** /v2/audit/organizations/{organizationRid}/logFiles/{logFileId}/content |
+**Audit** | LogFile | [**list**](docs/v2/Audit/LogFile.md#list) | **GET** /v2/audit/organizations/{organizationRid}/logFiles |
 **Connectivity** | Connection | [**get**](docs/v2/Connectivity/Connection.md#get) | **GET** /v2/connectivity/connections/{connectionRid} |
 **Connectivity** | Connection | [**get_configuration**](docs/v2/Connectivity/Connection.md#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration |
 **Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
+**Connectivity** | Connection | [**upload_custom_jdbc_drivers**](docs/v2/Connectivity/Connection.md#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers |
 **Connectivity** | FileImport | [**create**](docs/v2/Connectivity/FileImport.md#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports |
 **Connectivity** | FileImport | [**delete**](docs/v2/Connectivity/FileImport.md#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} |
 **Connectivity** | FileImport | [**execute**](docs/v2/Connectivity/FileImport.md#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute |
@@ -676,6 +679,8 @@ Namespace | Resource | Operation | HTTP request |
 **Connectivity** | TableImport | [**get**](docs/v2/Connectivity/TableImport.md#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
 **Connectivity** | TableImport | [**list**](docs/v2/Connectivity/TableImport.md#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports |
 **Connectivity** | TableImport | [**replace**](docs/v2/Connectivity/TableImport.md#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} |
+**DataHealth** | Check | [**create**](docs/v2/DataHealth/Check.md#create) | **POST** /v2/dataHealth/checks |
+**DataHealth** | Check | [**delete**](docs/v2/DataHealth/Check.md#delete) | **DELETE** /v2/dataHealth/checks/{checkRid} |
 **Datasets** | Branch | [**create**](docs/v2/Datasets/Branch.md#create) | **POST** /v2/datasets/{datasetRid}/branches |
 **Datasets** | Branch | [**delete**](docs/v2/Datasets/Branch.md#delete) | **DELETE** /v2/datasets/{datasetRid}/branches/{branchName} |
 **Datasets** | Branch | [**get**](docs/v2/Datasets/Branch.md#get) | **GET** /v2/datasets/{datasetRid}/branches/{branchName} |
@@ -990,6 +995,9 @@ Namespace | Name | Import |
 **AipAgents** | [ToolOutputValue](docs/v2/AipAgents/models/ToolOutputValue.md) | `from foundry_sdk.v2.aip_agents.models import ToolOutputValue` |
 **AipAgents** | [ToolType](docs/v2/AipAgents/models/ToolType.md) | `from foundry_sdk.v2.aip_agents.models import ToolType` |
 **AipAgents** | [UserTextInput](docs/v2/AipAgents/models/UserTextInput.md) | `from foundry_sdk.v2.aip_agents.models import UserTextInput` |
+**Audit** | [FileId](docs/v2/Audit/models/FileId.md) | `from foundry_sdk.v2.audit.models import FileId` |
+**Audit** | [ListLogFilesResponse](docs/v2/Audit/models/ListLogFilesResponse.md) | `from foundry_sdk.v2.audit.models import ListLogFilesResponse` |
+**Audit** | [LogFile](docs/v2/Audit/models/LogFile.md) | `from foundry_sdk.v2.audit.models import LogFile` |
 **Connectivity** | [ApiKeyAuthentication](docs/v2/Connectivity/models/ApiKeyAuthentication.md) | `from foundry_sdk.v2.connectivity.models import ApiKeyAuthentication` |
 **Connectivity** | [AsPlaintextValue](docs/v2/Connectivity/models/AsPlaintextValue.md) | `from foundry_sdk.v2.connectivity.models import AsPlaintextValue` |
 **Connectivity** | [AsSecretName](docs/v2/Connectivity/models/AsSecretName.md) | `from foundry_sdk.v2.connectivity.models import AsSecretName` |
@@ -1054,6 +1062,7 @@ Namespace | Name | Import |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry_sdk.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import JdbcConnectionConfiguration` |
+**Connectivity** | [JdbcDriverArtifactName](docs/v2/Connectivity/models/JdbcDriverArtifactName.md) | `from foundry_sdk.v2.connectivity.models import JdbcDriverArtifactName` |
 **Connectivity** | [JdbcProperties](docs/v2/Connectivity/models/JdbcProperties.md) | `from foundry_sdk.v2.connectivity.models import JdbcProperties` |
 **Connectivity** | [JdbcTableImportConfig](docs/v2/Connectivity/models/JdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import JdbcTableImportConfig` |
 **Connectivity** | [ListFileImportsResponse](docs/v2/Connectivity/models/ListFileImportsResponse.md) | `from foundry_sdk.v2.connectivity.models import ListFileImportsResponse` |
@@ -1225,6 +1234,36 @@ Namespace | Name | Import |
 **Core** | [VectorType](docs/v2/Core/models/VectorType.md) | `from foundry_sdk.v2.core.models import VectorType` |
 **Core** | [VersionId](docs/v2/Core/models/VersionId.md) | `from foundry_sdk.v2.core.models import VersionId` |
 **Core** | [ZoneId](docs/v2/Core/models/ZoneId.md) | `from foundry_sdk.v2.core.models import ZoneId` |
+**DataHealth** | [BuildDurationCheckConfig](docs/v2/DataHealth/models/BuildDurationCheckConfig.md) | `from foundry_sdk.v2.data_health.models import BuildDurationCheckConfig` |
+**DataHealth** | [BuildStatusCheckConfig](docs/v2/DataHealth/models/BuildStatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import BuildStatusCheckConfig` |
+**DataHealth** | [Check](docs/v2/DataHealth/models/Check.md) | `from foundry_sdk.v2.data_health.models import Check` |
+**DataHealth** | [CheckConfig](docs/v2/DataHealth/models/CheckConfig.md) | `from foundry_sdk.v2.data_health.models import CheckConfig` |
+**DataHealth** | [CheckGroupRid](docs/v2/DataHealth/models/CheckGroupRid.md) | `from foundry_sdk.v2.data_health.models import CheckGroupRid` |
+**DataHealth** | [CheckIntent](docs/v2/DataHealth/models/CheckIntent.md) | `from foundry_sdk.v2.data_health.models import CheckIntent` |
+**DataHealth** | [CheckRid](docs/v2/DataHealth/models/CheckRid.md) | `from foundry_sdk.v2.data_health.models import CheckRid` |
+**DataHealth** | [ColumnCountConfig](docs/v2/DataHealth/models/ColumnCountConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnCountConfig` |
+**DataHealth** | [ColumnInfo](docs/v2/DataHealth/models/ColumnInfo.md) | `from foundry_sdk.v2.data_health.models import ColumnInfo` |
+**DataHealth** | [ColumnName](docs/v2/DataHealth/models/ColumnName.md) | `from foundry_sdk.v2.data_health.models import ColumnName` |
+**DataHealth** | [ColumnType](docs/v2/DataHealth/models/ColumnType.md) | `from foundry_sdk.v2.data_health.models import ColumnType` |
+**DataHealth** | [ColumnTypeCheckConfig](docs/v2/DataHealth/models/ColumnTypeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnTypeCheckConfig` |
+**DataHealth** | [ColumnTypeConfig](docs/v2/DataHealth/models/ColumnTypeConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnTypeConfig` |
+**DataHealth** | [DatasetSubject](docs/v2/DataHealth/models/DatasetSubject.md) | `from foundry_sdk.v2.data_health.models import DatasetSubject` |
+**DataHealth** | [EscalationConfig](docs/v2/DataHealth/models/EscalationConfig.md) | `from foundry_sdk.v2.data_health.models import EscalationConfig` |
+**DataHealth** | [JobDurationCheckConfig](docs/v2/DataHealth/models/JobDurationCheckConfig.md) | `from foundry_sdk.v2.data_health.models import JobDurationCheckConfig` |
+**DataHealth** | [JobStatusCheckConfig](docs/v2/DataHealth/models/JobStatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import JobStatusCheckConfig` |
+**DataHealth** | [MedianDeviation](docs/v2/DataHealth/models/MedianDeviation.md) | `from foundry_sdk.v2.data_health.models import MedianDeviation` |
+**DataHealth** | [MedianDeviationBoundsType](docs/v2/DataHealth/models/MedianDeviationBoundsType.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationBoundsType` |
+**DataHealth** | [MedianDeviationConfig](docs/v2/DataHealth/models/MedianDeviationConfig.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationConfig` |
+**DataHealth** | [SchemaComparisonCheckConfig](docs/v2/DataHealth/models/SchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonCheckConfig` |
+**DataHealth** | [SchemaComparisonConfig](docs/v2/DataHealth/models/SchemaComparisonConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonConfig` |
+**DataHealth** | [SchemaComparisonType](docs/v2/DataHealth/models/SchemaComparisonType.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonType` |
+**DataHealth** | [SchemaInfo](docs/v2/DataHealth/models/SchemaInfo.md) | `from foundry_sdk.v2.data_health.models import SchemaInfo` |
+**DataHealth** | [SeverityLevel](docs/v2/DataHealth/models/SeverityLevel.md) | `from foundry_sdk.v2.data_health.models import SeverityLevel` |
+**DataHealth** | [StatusCheckConfig](docs/v2/DataHealth/models/StatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import StatusCheckConfig` |
+**DataHealth** | [TimeBounds](docs/v2/DataHealth/models/TimeBounds.md) | `from foundry_sdk.v2.data_health.models import TimeBounds` |
+**DataHealth** | [TimeBoundsConfig](docs/v2/DataHealth/models/TimeBoundsConfig.md) | `from foundry_sdk.v2.data_health.models import TimeBoundsConfig` |
+**DataHealth** | [TimeCheckConfig](docs/v2/DataHealth/models/TimeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import TimeCheckConfig` |
+**DataHealth** | [TotalColumnCountCheckConfig](docs/v2/DataHealth/models/TotalColumnCountCheckConfig.md) | `from foundry_sdk.v2.data_health.models import TotalColumnCountCheckConfig` |
 **Datasets** | [Branch](docs/v2/Datasets/models/Branch.md) | `from foundry_sdk.v2.datasets.models import Branch` |
 **Datasets** | [BranchName](docs/v2/Datasets/models/BranchName.md) | `from foundry_sdk.v2.datasets.models import BranchName` |
 **Datasets** | [DataframeReader](docs/v2/Datasets/models/DataframeReader.md) | `from foundry_sdk.v2.datasets.models import DataframeReader` |
@@ -1291,6 +1330,9 @@ Namespace | Name | Import |
 **Functions** | [FunctionRid](docs/v2/Functions/models/FunctionRid.md) | `from foundry_sdk.v2.functions.models import FunctionRid` |
 **Functions** | [FunctionVersion](docs/v2/Functions/models/FunctionVersion.md) | `from foundry_sdk.v2.functions.models import FunctionVersion` |
 **Functions** | [LengthConstraint](docs/v2/Functions/models/LengthConstraint.md) | `from foundry_sdk.v2.functions.models import LengthConstraint` |
+**Functions** | [MapConstraint](docs/v2/Functions/models/MapConstraint.md) | `from foundry_sdk.v2.functions.models import MapConstraint` |
+**Functions** | [NullableConstraint](docs/v2/Functions/models/NullableConstraint.md) | `from foundry_sdk.v2.functions.models import NullableConstraint` |
+**Functions** | [NullableConstraintValue](docs/v2/Functions/models/NullableConstraintValue.md) | `from foundry_sdk.v2.functions.models import NullableConstraintValue` |
 **Functions** | [Parameter](docs/v2/Functions/models/Parameter.md) | `from foundry_sdk.v2.functions.models import Parameter` |
 **Functions** | [ParameterId](docs/v2/Functions/models/ParameterId.md) | `from foundry_sdk.v2.functions.models import ParameterId` |
 **Functions** | [Query](docs/v2/Functions/models/Query.md) | `from foundry_sdk.v2.functions.models import Query` |
@@ -1312,6 +1354,7 @@ Namespace | Name | Import |
 **Functions** | [StructConstraint](docs/v2/Functions/models/StructConstraint.md) | `from foundry_sdk.v2.functions.models import StructConstraint` |
 **Functions** | [StructFieldApiName](docs/v2/Functions/models/StructFieldApiName.md) | `from foundry_sdk.v2.functions.models import StructFieldApiName` |
 **Functions** | [StructFieldName](docs/v2/Functions/models/StructFieldName.md) | `from foundry_sdk.v2.functions.models import StructFieldName` |
+**Functions** | [StructV1Constraint](docs/v2/Functions/models/StructV1Constraint.md) | `from foundry_sdk.v2.functions.models import StructV1Constraint` |
 **Functions** | [ThreeDimensionalAggregation](docs/v2/Functions/models/ThreeDimensionalAggregation.md) | `from foundry_sdk.v2.functions.models import ThreeDimensionalAggregation` |
 **Functions** | [TwoDimensionalAggregation](docs/v2/Functions/models/TwoDimensionalAggregation.md) | `from foundry_sdk.v2.functions.models import TwoDimensionalAggregation` |
 **Functions** | [UuidConstraint](docs/v2/Functions/models/UuidConstraint.md) | `from foundry_sdk.v2.functions.models import UuidConstraint` |
@@ -1815,6 +1858,26 @@ Namespace | Name | Import |
 **ThirdPartyApplications** | [Version](docs/v2/ThirdPartyApplications/models/Version.md) | `from foundry_sdk.v2.third_party_applications.models import Version` |
 **ThirdPartyApplications** | [VersionVersion](docs/v2/ThirdPartyApplications/models/VersionVersion.md) | `from foundry_sdk.v2.third_party_applications.models import VersionVersion` |
 **ThirdPartyApplications** | [Website](docs/v2/ThirdPartyApplications/models/Website.md) | `from foundry_sdk.v2.third_party_applications.models import Website` |
+**Widgets** | [DevModeSettings](docs/v2/Widgets/models/DevModeSettings.md) | `from foundry_sdk.v2.widgets.models import DevModeSettings` |
+**Widgets** | [DevModeStatus](docs/v2/Widgets/models/DevModeStatus.md) | `from foundry_sdk.v2.widgets.models import DevModeStatus` |
+**Widgets** | [FilePath](docs/v2/Widgets/models/FilePath.md) | `from foundry_sdk.v2.widgets.models import FilePath` |
+**Widgets** | [ListReleasesResponse](docs/v2/Widgets/models/ListReleasesResponse.md) | `from foundry_sdk.v2.widgets.models import ListReleasesResponse` |
+**Widgets** | [Release](docs/v2/Widgets/models/Release.md) | `from foundry_sdk.v2.widgets.models import Release` |
+**Widgets** | [ReleaseLocator](docs/v2/Widgets/models/ReleaseLocator.md) | `from foundry_sdk.v2.widgets.models import ReleaseLocator` |
+**Widgets** | [ReleaseVersion](docs/v2/Widgets/models/ReleaseVersion.md) | `from foundry_sdk.v2.widgets.models import ReleaseVersion` |
+**Widgets** | [Repository](docs/v2/Widgets/models/Repository.md) | `from foundry_sdk.v2.widgets.models import Repository` |
+**Widgets** | [RepositoryRid](docs/v2/Widgets/models/RepositoryRid.md) | `from foundry_sdk.v2.widgets.models import RepositoryRid` |
+**Widgets** | [RepositoryVersion](docs/v2/Widgets/models/RepositoryVersion.md) | `from foundry_sdk.v2.widgets.models import RepositoryVersion` |
+**Widgets** | [ScriptEntrypoint](docs/v2/Widgets/models/ScriptEntrypoint.md) | `from foundry_sdk.v2.widgets.models import ScriptEntrypoint` |
+**Widgets** | [ScriptType](docs/v2/Widgets/models/ScriptType.md) | `from foundry_sdk.v2.widgets.models import ScriptType` |
+**Widgets** | [StylesheetEntrypoint](docs/v2/Widgets/models/StylesheetEntrypoint.md) | `from foundry_sdk.v2.widgets.models import StylesheetEntrypoint` |
+**Widgets** | [WidgetDevModeSettings](docs/v2/Widgets/models/WidgetDevModeSettings.md) | `from foundry_sdk.v2.widgets.models import WidgetDevModeSettings` |
+**Widgets** | [WidgetId](docs/v2/Widgets/models/WidgetId.md) | `from foundry_sdk.v2.widgets.models import WidgetId` |
+**Widgets** | [WidgetRid](docs/v2/Widgets/models/WidgetRid.md) | `from foundry_sdk.v2.widgets.models import WidgetRid` |
+**Widgets** | [WidgetSet](docs/v2/Widgets/models/WidgetSet.md) | `from foundry_sdk.v2.widgets.models import WidgetSet` |
+**Widgets** | [WidgetSetDevModeSettings](docs/v2/Widgets/models/WidgetSetDevModeSettings.md) | `from foundry_sdk.v2.widgets.models import WidgetSetDevModeSettings` |
+**Widgets** | [WidgetSetDevModeSettingsById](docs/v2/Widgets/models/WidgetSetDevModeSettingsById.md) | `from foundry_sdk.v2.widgets.models import WidgetSetDevModeSettingsById` |
+**Widgets** | [WidgetSetRid](docs/v2/Widgets/models/WidgetSetRid.md) | `from foundry_sdk.v2.widgets.models import WidgetSetRid` |
 
 <a id="models-v1-link"></a>
 ## Documentation for V1 models
@@ -2133,6 +2196,8 @@ Namespace | Name | Import |
 **AipAgents** | SessionTraceNotFound | `from foundry_sdk.v2.aip_agents.errors import SessionTraceNotFound` |
 **AipAgents** | StreamingContinueSessionPermissionDenied | `from foundry_sdk.v2.aip_agents.errors import StreamingContinueSessionPermissionDenied` |
 **AipAgents** | UpdateSessionTitlePermissionDenied | `from foundry_sdk.v2.aip_agents.errors import UpdateSessionTitlePermissionDenied` |
+**Audit** | GetLogFileContentPermissionDenied | `from foundry_sdk.v2.audit.errors import GetLogFileContentPermissionDenied` |
+**Audit** | ListLogFilesPermissionDenied | `from foundry_sdk.v2.audit.errors import ListLogFilesPermissionDenied` |
 **Connectivity** | AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap | `from foundry_sdk.v2.connectivity.errors import AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap` |
 **Connectivity** | ConnectionDetailsNotDetermined | `from foundry_sdk.v2.connectivity.errors import ConnectionDetailsNotDetermined` |
 **Connectivity** | ConnectionNotFound | `from foundry_sdk.v2.connectivity.errors import ConnectionNotFound` |
@@ -2143,6 +2208,8 @@ Namespace | Name | Import |
 **Connectivity** | DeleteFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import DeleteFileImportPermissionDenied` |
 **Connectivity** | DeleteTableImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import DeleteTableImportPermissionDenied` |
 **Connectivity** | DomainMustUseHttpsWithAuthentication | `from foundry_sdk.v2.connectivity.errors import DomainMustUseHttpsWithAuthentication` |
+**Connectivity** | DriverContentMustBeUploadedAsJar | `from foundry_sdk.v2.connectivity.errors import DriverContentMustBeUploadedAsJar` |
+**Connectivity** | DriverJarAlreadyExists | `from foundry_sdk.v2.connectivity.errors import DriverJarAlreadyExists` |
 **Connectivity** | EncryptedPropertyMustBeSpecifiedAsPlaintextValue | `from foundry_sdk.v2.connectivity.errors import EncryptedPropertyMustBeSpecifiedAsPlaintextValue` |
 **Connectivity** | ExecuteFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import ExecuteFileImportPermissionDenied` |
 **Connectivity** | ExecuteTableImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import ExecuteTableImportPermissionDenied` |
@@ -2168,6 +2235,8 @@ Namespace | Name | Import |
 **Connectivity** | TableImportTypeNotSupported | `from foundry_sdk.v2.connectivity.errors import TableImportTypeNotSupported` |
 **Connectivity** | UpdateExportSettingsForConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UpdateExportSettingsForConnectionPermissionDenied` |
 **Connectivity** | UpdateSecretsForConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UpdateSecretsForConnectionPermissionDenied` |
+**Connectivity** | UploadCustomJdbcDriverNotSupportForConnection | `from foundry_sdk.v2.connectivity.errors import UploadCustomJdbcDriverNotSupportForConnection` |
+**Connectivity** | UploadCustomJdbcDriversConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UploadCustomJdbcDriversConnectionPermissionDenied` |
 **Core** | ApiFeaturePreviewUsageOnly | `from foundry_sdk.v2.core.errors import ApiFeaturePreviewUsageOnly` |
 **Core** | ApiUsageDenied | `from foundry_sdk.v2.core.errors import ApiUsageDenied` |
 **Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v2.core.errors import BatchRequestSizeExceededLimit` |
@@ -2188,6 +2257,11 @@ Namespace | Name | Import |
 **Core** | ResourceNameAlreadyExists | `from foundry_sdk.v2.core.errors import ResourceNameAlreadyExists` |
 **Core** | SchemaIsNotStreamSchema | `from foundry_sdk.v2.core.errors import SchemaIsNotStreamSchema` |
 **Core** | UnknownDistanceUnit | `from foundry_sdk.v2.core.errors import UnknownDistanceUnit` |
+**DataHealth** | CheckAlreadyExists | `from foundry_sdk.v2.data_health.errors import CheckAlreadyExists` |
+**DataHealth** | CheckNotFound | `from foundry_sdk.v2.data_health.errors import CheckNotFound` |
+**DataHealth** | CreateCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import CreateCheckPermissionDenied` |
+**DataHealth** | DeleteCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import DeleteCheckPermissionDenied` |
+**DataHealth** | InvalidTimeCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidTimeCheckConfig` |
 **Datasets** | AbortTransactionPermissionDenied | `from foundry_sdk.v2.datasets.errors import AbortTransactionPermissionDenied` |
 **Datasets** | AddBackingDatasetsPermissionDenied | `from foundry_sdk.v2.datasets.errors import AddBackingDatasetsPermissionDenied` |
 **Datasets** | AddPrimaryKeyPermissionDenied | `from foundry_sdk.v2.datasets.errors import AddPrimaryKeyPermissionDenied` |
@@ -2426,6 +2500,7 @@ Namespace | Name | Import |
 **Ontologies** | PropertiesNotSortable | `from foundry_sdk.v2.ontologies.errors import PropertiesNotSortable` |
 **Ontologies** | PropertyApiNameNotFound | `from foundry_sdk.v2.ontologies.errors import PropertyApiNameNotFound` |
 **Ontologies** | PropertyBaseTypeNotSupported | `from foundry_sdk.v2.ontologies.errors import PropertyBaseTypeNotSupported` |
+**Ontologies** | PropertyExactMatchingNotSupported | `from foundry_sdk.v2.ontologies.errors import PropertyExactMatchingNotSupported` |
 **Ontologies** | PropertyFiltersNotSupported | `from foundry_sdk.v2.ontologies.errors import PropertyFiltersNotSupported` |
 **Ontologies** | PropertyNotFound | `from foundry_sdk.v2.ontologies.errors import PropertyNotFound` |
 **Ontologies** | PropertyNotFoundOnObject | `from foundry_sdk.v2.ontologies.errors import PropertyNotFoundOnObject` |
@@ -2521,6 +2596,30 @@ Namespace | Name | Import |
 **ThirdPartyApplications** | VersionLimitExceeded | `from foundry_sdk.v2.third_party_applications.errors import VersionLimitExceeded` |
 **ThirdPartyApplications** | VersionNotFound | `from foundry_sdk.v2.third_party_applications.errors import VersionNotFound` |
 **ThirdPartyApplications** | WebsiteNotFound | `from foundry_sdk.v2.third_party_applications.errors import WebsiteNotFound` |
+**Widgets** | DeleteReleasePermissionDenied | `from foundry_sdk.v2.widgets.errors import DeleteReleasePermissionDenied` |
+**Widgets** | DevModeSettingsNotFound | `from foundry_sdk.v2.widgets.errors import DevModeSettingsNotFound` |
+**Widgets** | DisableDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import DisableDevModeSettingsPermissionDenied` |
+**Widgets** | EnableDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import EnableDevModeSettingsPermissionDenied` |
+**Widgets** | FileCountLimitExceeded | `from foundry_sdk.v2.widgets.errors import FileCountLimitExceeded` |
+**Widgets** | FileSizeLimitExceeded | `from foundry_sdk.v2.widgets.errors import FileSizeLimitExceeded` |
+**Widgets** | GetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import GetDevModeSettingsPermissionDenied` |
+**Widgets** | InvalidDevModeBaseHref | `from foundry_sdk.v2.widgets.errors import InvalidDevModeBaseHref` |
+**Widgets** | InvalidDevModeFilePath | `from foundry_sdk.v2.widgets.errors import InvalidDevModeFilePath` |
+**Widgets** | InvalidDevModeWidgetSettingsCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeWidgetSettingsCount` |
+**Widgets** | InvalidEntrypointCssCount | `from foundry_sdk.v2.widgets.errors import InvalidEntrypointCssCount` |
+**Widgets** | InvalidEntrypointJsCount | `from foundry_sdk.v2.widgets.errors import InvalidEntrypointJsCount` |
+**Widgets** | InvalidManifest | `from foundry_sdk.v2.widgets.errors import InvalidManifest` |
+**Widgets** | InvalidPublishRepository | `from foundry_sdk.v2.widgets.errors import InvalidPublishRepository` |
+**Widgets** | InvalidVersion | `from foundry_sdk.v2.widgets.errors import InvalidVersion` |
+**Widgets** | PauseDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import PauseDevModeSettingsPermissionDenied` |
+**Widgets** | PublishReleasePermissionDenied | `from foundry_sdk.v2.widgets.errors import PublishReleasePermissionDenied` |
+**Widgets** | ReleaseNotFound | `from foundry_sdk.v2.widgets.errors import ReleaseNotFound` |
+**Widgets** | RepositoryNotFound | `from foundry_sdk.v2.widgets.errors import RepositoryNotFound` |
+**Widgets** | SetWidgetSetDevModeSettingsByIdPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsByIdPermissionDenied` |
+**Widgets** | SetWidgetSetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsPermissionDenied` |
+**Widgets** | VersionAlreadyExists | `from foundry_sdk.v2.widgets.errors import VersionAlreadyExists` |
+**Widgets** | VersionLimitExceeded | `from foundry_sdk.v2.widgets.errors import VersionLimitExceeded` |
+**Widgets** | WidgetSetNotFound | `from foundry_sdk.v2.widgets.errors import WidgetSetNotFound` |
 <a id="errors-v1-link"></a>
 ## Documentation for V1 errors
 
@@ -2661,6 +2760,7 @@ Namespace | Name | Import |
 **Ontologies** | PropertiesNotSortable | `from foundry_sdk.v1.ontologies.errors import PropertiesNotSortable` |
 **Ontologies** | PropertyApiNameNotFound | `from foundry_sdk.v1.ontologies.errors import PropertyApiNameNotFound` |
 **Ontologies** | PropertyBaseTypeNotSupported | `from foundry_sdk.v1.ontologies.errors import PropertyBaseTypeNotSupported` |
+**Ontologies** | PropertyExactMatchingNotSupported | `from foundry_sdk.v1.ontologies.errors import PropertyExactMatchingNotSupported` |
 **Ontologies** | PropertyFiltersNotSupported | `from foundry_sdk.v1.ontologies.errors import PropertyFiltersNotSupported` |
 **Ontologies** | PropertyNotFound | `from foundry_sdk.v1.ontologies.errors import PropertyNotFound` |
 **Ontologies** | PropertyNotFoundOnObject | `from foundry_sdk.v1.ontologies.errors import PropertyNotFoundOnObject` |

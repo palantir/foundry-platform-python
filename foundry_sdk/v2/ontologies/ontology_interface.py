@@ -72,7 +72,7 @@ class OntologyInterfaceClient:
         Perform functions on object fields in the specified ontology and of the specified interface type. Any
         properties specified in the query must be shared property type API names defined on the interface.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
@@ -148,7 +148,7 @@ class OntologyInterfaceClient:
         """
         Gets a specific interface type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
@@ -202,7 +202,7 @@ class OntologyInterfaceClient:
         """
         Get an outgoing interface link type for an interface type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
@@ -260,7 +260,7 @@ class OntologyInterfaceClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -316,7 +316,7 @@ class OntologyInterfaceClient:
         """
         List the outgoing interface link types for an interface type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
@@ -411,7 +411,7 @@ class OntologyInterfaceClient:
         Attempting to use an unsupported query will result in a validation error. Third-party applications using this
         endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
@@ -594,7 +594,7 @@ class AsyncOntologyInterfaceClient:
         Perform functions on object fields in the specified ontology and of the specified interface type. Any
         properties specified in the query must be shared property type API names defined on the interface.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
@@ -670,7 +670,7 @@ class AsyncOntologyInterfaceClient:
         """
         Gets a specific interface type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
@@ -724,7 +724,7 @@ class AsyncOntologyInterfaceClient:
         """
         Get an outgoing interface link type for an interface type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
@@ -782,7 +782,7 @@ class AsyncOntologyInterfaceClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -838,7 +838,7 @@ class AsyncOntologyInterfaceClient:
         """
         List the outgoing interface link types for an interface type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
@@ -933,7 +933,7 @@ class AsyncOntologyInterfaceClient:
         Attempting to use an unsupported query will result in a validation error. Third-party applications using this
         endpoint via OAuth2 must request the following operation scope: `api:ontologies-read`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName

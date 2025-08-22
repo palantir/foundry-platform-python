@@ -69,6 +69,16 @@ class OrchestrationClient:
         )
 
     @cached_property
+    def ScheduleRun(self):
+        from foundry_sdk.v2.orchestration.schedule_run import ScheduleRunClient
+
+        return ScheduleRunClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def ScheduleVersion(self):
         from foundry_sdk.v2.orchestration.schedule_version import ScheduleVersionClient
 
@@ -97,6 +107,7 @@ class AsyncOrchestrationClient:
         from foundry_sdk.v2.orchestration.build import AsyncBuildClient
         from foundry_sdk.v2.orchestration.job import AsyncJobClient
         from foundry_sdk.v2.orchestration.schedule import AsyncScheduleClient
+        from foundry_sdk.v2.orchestration.schedule_run import AsyncScheduleRunClient
         from foundry_sdk.v2.orchestration.schedule_version import AsyncScheduleVersionClient  # NOQA
 
         self.Build = AsyncBuildClient(auth=auth, hostname=hostname, config=config)
@@ -104,6 +115,8 @@ class AsyncOrchestrationClient:
         self.Job = AsyncJobClient(auth=auth, hostname=hostname, config=config)
 
         self.Schedule = AsyncScheduleClient(auth=auth, hostname=hostname, config=config)
+
+        self.ScheduleRun = AsyncScheduleRunClient(auth=auth, hostname=hostname, config=config)
 
         self.ScheduleVersion = AsyncScheduleVersionClient(
             auth=auth, hostname=hostname, config=config

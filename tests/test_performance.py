@@ -123,6 +123,26 @@ def test_aip_agents_v2_models_import_performance():
     assert init_and_access_time < 0.5
 
 
+def test_audit_v2_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').audit",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2', None);import foundry_sdk; import foundry_sdk.v2",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_audit_v2_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v2.audit.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2.audit.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
 def test_connectivity_v2_client_access_performance():
     init_and_access_time = timeit.timeit(
         stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').connectivity",
@@ -137,6 +157,26 @@ def test_connectivity_v2_models_import_performance():
     init_and_access_time = timeit.timeit(
         stmt="import foundry_sdk.v2.connectivity.models",
         setup="import sys; sys.modules.pop('foundry_sdk.v2.connectivity.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_data_health_v2_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').data_health",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2', None);import foundry_sdk; import foundry_sdk.v2",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_data_health_v2_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v2.data_health.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2.data_health.models', None)",
         number=1,
     )
 
@@ -317,6 +357,26 @@ def test_third_party_applications_v2_models_import_performance():
     init_and_access_time = timeit.timeit(
         stmt="import foundry_sdk.v2.third_party_applications.models",
         setup="import sys; sys.modules.pop('foundry_sdk.v2.third_party_applications.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_widgets_v2_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').widgets",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2', None);import foundry_sdk; import foundry_sdk.v2",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_widgets_v2_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v2.widgets.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2.widgets.models', None)",
         number=1,
     )
 

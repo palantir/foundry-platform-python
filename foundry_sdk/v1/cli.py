@@ -71,7 +71,7 @@ def datasets_dataset():
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.pass_obj
-def datasets_dataset_create(
+def datasets_dataset_op_create(
     client: FoundryClient,
     name: str,
     parent_folder_rid: str,
@@ -105,7 +105,7 @@ def datasets_dataset_create(
 """,
 )
 @click.pass_obj
-def datasets_dataset_delete_schema(
+def datasets_dataset_op_delete_schema(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: typing.Optional[str],
@@ -128,7 +128,7 @@ def datasets_dataset_delete_schema(
 @datasets_dataset.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_get(
+def datasets_dataset_op_get(
     client: FoundryClient,
     dataset_rid: str,
 ):
@@ -160,7 +160,7 @@ def datasets_dataset_get(
 """,
 )
 @click.pass_obj
-def datasets_dataset_get_schema(
+def datasets_dataset_op_get_schema(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: typing.Optional[str],
@@ -219,7 +219,7 @@ def datasets_dataset_get_schema(
     help="""The Resource Identifier (RID) of the start Transaction.""",
 )
 @click.pass_obj
-def datasets_dataset_read(
+def datasets_dataset_op_read(
     client: FoundryClient,
     dataset_rid: str,
     format: typing.Literal["ARROW", "CSV"],
@@ -259,7 +259,7 @@ def datasets_dataset_read(
 )
 @click.option("--preview", type=bool, required=False, help="""""")
 @click.pass_obj
-def datasets_dataset_replace_schema(
+def datasets_dataset_op_replace_schema(
     client: FoundryClient,
     dataset_rid: str,
     body: str,
@@ -288,7 +288,7 @@ def datasets_dataset_transaction():
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_transaction_abort(
+def datasets_dataset_transaction_op_abort(
     client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
@@ -309,7 +309,7 @@ def datasets_dataset_transaction_abort(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_transaction_commit(
+def datasets_dataset_transaction_op_commit(
     client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
@@ -342,7 +342,7 @@ def datasets_dataset_transaction_commit(
     help="""""",
 )
 @click.pass_obj
-def datasets_dataset_transaction_create(
+def datasets_dataset_transaction_op_create(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: typing.Optional[str],
@@ -364,7 +364,7 @@ def datasets_dataset_transaction_create(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_transaction_get(
+def datasets_dataset_transaction_op_get(
     client: FoundryClient,
     dataset_rid: str,
     transaction_rid: str,
@@ -401,7 +401,7 @@ def datasets_dataset_file():
     help="""The Resource Identifier (RID) of the open delete Transaction on which to delete the File.""",
 )
 @click.pass_obj
-def datasets_dataset_file_delete(
+def datasets_dataset_file_op_delete(
     client: FoundryClient,
     dataset_rid: str,
     file_path: str,
@@ -456,7 +456,7 @@ def datasets_dataset_file_delete(
     help="""The Resource Identifier (RID) of the start Transaction.""",
 )
 @click.pass_obj
-def datasets_dataset_file_get(
+def datasets_dataset_file_op_get(
     client: FoundryClient,
     dataset_rid: str,
     file_path: str,
@@ -529,7 +529,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
     help="""The Resource Identifier (RID) of the start Transaction.""",
 )
 @click.pass_obj
-def datasets_dataset_file_list(
+def datasets_dataset_file_op_list(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: typing.Optional[str],
@@ -598,7 +598,7 @@ def datasets_dataset_file_list(
     help="""The Resource Identifier (RID) of the start Transaction.""",
 )
 @click.pass_obj
-def datasets_dataset_file_read(
+def datasets_dataset_file_op_read(
     client: FoundryClient,
     dataset_rid: str,
     file_path: str,
@@ -667,7 +667,7 @@ def datasets_dataset_file_read(
     help="""The type of the Transaction to create when using branchId. Defaults to `UPDATE`.""",
 )
 @click.pass_obj
-def datasets_dataset_file_upload(
+def datasets_dataset_file_op_upload(
     client: FoundryClient,
     dataset_rid: str,
     body: io.BufferedReader,
@@ -718,7 +718,7 @@ def datasets_dataset_branch():
 @click.option("--branch_id", type=str, required=True, help="""""")
 @click.option("--transaction_rid", type=str, required=False, help="""""")
 @click.pass_obj
-def datasets_dataset_branch_create(
+def datasets_dataset_branch_op_create(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: str,
@@ -740,7 +740,7 @@ def datasets_dataset_branch_create(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("branch_id", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_branch_delete(
+def datasets_dataset_branch_op_delete(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: str,
@@ -760,7 +760,7 @@ def datasets_dataset_branch_delete(
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("branch_id", type=str, required=True)
 @click.pass_obj
-def datasets_dataset_branch_get(
+def datasets_dataset_branch_op_get(
     client: FoundryClient,
     dataset_rid: str,
     branch_id: str,
@@ -788,7 +788,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def datasets_dataset_branch_list(
+def datasets_dataset_branch_op_list(
     client: FoundryClient,
     dataset_rid: str,
     page_size: typing.Optional[int],
@@ -840,7 +840,7 @@ def ontologies_query():
 """,
 )
 @click.pass_obj
-def ontologies_query_execute(
+def ontologies_query_op_execute(
     client: FoundryClient,
     ontology_rid: str,
     query_api_name: str,
@@ -874,7 +874,7 @@ def ontologies_ontology_object():
 @click.option("--group_by", type=str, required=True, help="""""")
 @click.option("--query", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_object_aggregate(
+def ontologies_ontology_object_op_aggregate(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -909,7 +909,7 @@ the properties.
 """,
 )
 @click.pass_obj
-def ontologies_ontology_object_get(
+def ontologies_ontology_object_op_get(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -944,7 +944,7 @@ the properties.
 """,
 )
 @click.pass_obj
-def ontologies_ontology_object_get_linked_object(
+def ontologies_ontology_object_op_get_linked_object(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -991,7 +991,7 @@ the properties.
 """,
 )
 @click.pass_obj
-def ontologies_ontology_object_list(
+def ontologies_ontology_object_op_list(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1054,7 +1054,7 @@ the properties.
 """,
 )
 @click.pass_obj
-def ontologies_ontology_object_list_linked_objects(
+def ontologies_ontology_object_op_list_linked_objects(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1112,7 +1112,7 @@ def ontologies_ontology_object_list_linked_objects(
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_object_search(
+def ontologies_ontology_object_op_search(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1167,7 +1167,7 @@ def ontologies_ontology():
 @ontologies_ontology.command("get")
 @click.argument("ontology_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_ontology_get(
+def ontologies_ontology_op_get(
     client: FoundryClient,
     ontology_rid: str,
 ):
@@ -1183,7 +1183,7 @@ def ontologies_ontology_get(
 
 @ontologies_ontology.command("list")
 @click.pass_obj
-def ontologies_ontology_list(
+def ontologies_ontology_op_list(
     client: FoundryClient,
 ):
     """
@@ -1203,7 +1203,7 @@ def ontologies_ontology_query_type():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.pass_obj
-def ontologies_ontology_query_type_get(
+def ontologies_ontology_query_type_op_get(
     client: FoundryClient,
     ontology_rid: str,
     query_api_name: str,
@@ -1231,7 +1231,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_query_type_list(
+def ontologies_ontology_query_type_op_list(
     client: FoundryClient,
     ontology_rid: str,
     page_size: typing.Optional[int],
@@ -1261,7 +1261,7 @@ def ontologies_ontology_object_type():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
 @click.pass_obj
-def ontologies_ontology_object_type_get(
+def ontologies_ontology_object_type_op_get(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1282,7 +1282,7 @@ def ontologies_ontology_object_type_get(
 @click.argument("object_type", type=str, required=True)
 @click.argument("link_type", type=str, required=True)
 @click.pass_obj
-def ontologies_ontology_object_type_get_outgoing_link_type(
+def ontologies_ontology_object_type_op_get_outgoing_link_type(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1312,7 +1312,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_object_type_list(
+def ontologies_ontology_object_type_op_list(
     client: FoundryClient,
     ontology_rid: str,
     page_size: typing.Optional[int],
@@ -1342,7 +1342,7 @@ def ontologies_ontology_object_type_list(
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_object_type_list_outgoing_link_types(
+def ontologies_ontology_object_type_op_list_outgoing_link_types(
     client: FoundryClient,
     ontology_rid: str,
     object_type: str,
@@ -1371,7 +1371,7 @@ def ontologies_ontology_action_type():
 @click.argument("ontology_rid", type=str, required=True)
 @click.argument("action_type_api_name", type=str, required=True)
 @click.pass_obj
-def ontologies_ontology_action_type_get(
+def ontologies_ontology_action_type_op_get(
     client: FoundryClient,
     ontology_rid: str,
     action_type_api_name: str,
@@ -1399,7 +1399,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.pass_obj
-def ontologies_ontology_action_type_list(
+def ontologies_ontology_action_type_op_list(
     client: FoundryClient,
     ontology_rid: str,
     page_size: typing.Optional[int],
@@ -1428,7 +1428,7 @@ def ontologies_attachment():
 @ontologies_attachment.command("get")
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_attachment_get(
+def ontologies_attachment_op_get(
     client: FoundryClient,
     attachment_rid: str,
 ):
@@ -1445,7 +1445,7 @@ def ontologies_attachment_get(
 @ontologies_attachment.command("read")
 @click.argument("attachment_rid", type=str, required=True)
 @click.pass_obj
-def ontologies_attachment_read(
+def ontologies_attachment_op_read(
     client: FoundryClient,
     attachment_rid: str,
 ):
@@ -1474,7 +1474,7 @@ def ontologies_attachment_read(
     "--filename", type=str, required=True, help="""The name of the file being uploaded."""
 )
 @click.pass_obj
-def ontologies_attachment_upload(
+def ontologies_attachment_op_upload(
     client: FoundryClient,
     body: io.BufferedReader,
     content_length: int,
@@ -1508,7 +1508,7 @@ def ontologies_action():
 @click.argument("action_type", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.pass_obj
-def ontologies_action_apply(
+def ontologies_action_op_apply(
     client: FoundryClient,
     ontology_rid: str,
     action_type: str,
@@ -1537,7 +1537,7 @@ def ontologies_action_apply(
 @click.argument("action_type", type=str, required=True)
 @click.option("--requests", type=str, required=True, help="""""")
 @click.pass_obj
-def ontologies_action_apply_batch(
+def ontologies_action_op_apply_batch(
     client: FoundryClient,
     ontology_rid: str,
     action_type: str,
@@ -1568,7 +1568,7 @@ def ontologies_action_apply_batch(
 @click.argument("action_type", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.pass_obj
-def ontologies_action_validate(
+def ontologies_action_op_validate(
     client: FoundryClient,
     ontology_rid: str,
     action_type: str,

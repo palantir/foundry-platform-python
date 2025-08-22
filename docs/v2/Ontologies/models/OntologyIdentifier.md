@@ -1,6 +1,8 @@
 # OntologyIdentifier
 
-Either an ontology rid or an ontology api name.
+The API name or RID of the Ontology. To find the API name or RID, use the **List Ontologies** endpoint or
+check the **Ontology Manager**.
+
 
 ## Type
 ```python

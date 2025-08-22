@@ -64,7 +64,7 @@ class TimeSeriesPropertyV2Client:
         """
         Get the first point of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -126,7 +126,7 @@ class TimeSeriesPropertyV2Client:
         """
         Get the last point of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -191,7 +191,7 @@ class TimeSeriesPropertyV2Client:
         """
         Stream all of the points of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -316,7 +316,7 @@ class AsyncTimeSeriesPropertyV2Client:
         """
         Get the first point of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -378,7 +378,7 @@ class AsyncTimeSeriesPropertyV2Client:
         """
         Get the last point of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -443,7 +443,7 @@ class AsyncTimeSeriesPropertyV2Client:
         """
         Stream all of the points of a time series property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName

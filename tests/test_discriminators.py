@@ -22,8 +22,10 @@ from foundry_sdk.v1.geo import models as models_geo_v1
 from foundry_sdk.v1.ontologies import models as models_ontologies_v1
 from foundry_sdk.v2.admin import models as models_admin_v2
 from foundry_sdk.v2.aip_agents import models as models_aip_agents_v2
+from foundry_sdk.v2.audit import models as models_audit_v2
 from foundry_sdk.v2.connectivity import models as models_connectivity_v2
 from foundry_sdk.v2.core import models as models_core_v2
+from foundry_sdk.v2.data_health import models as models_data_health_v2
 from foundry_sdk.v2.datasets import models as models_datasets_v2
 from foundry_sdk.v2.filesystem import models as models_filesystem_v2
 from foundry_sdk.v2.functions import models as models_functions_v2
@@ -36,6 +38,7 @@ from foundry_sdk.v2.streams import models as models_streams_v2
 from foundry_sdk.v2.third_party_applications import (
     models as models_third_party_applications_v2,
 )  # NOQA
+from foundry_sdk.v2.widgets import models as models_widgets_v2
 
 
 def test_can_validate_types():
@@ -51,8 +54,10 @@ def test_can_validate_types():
         *[(models_ontologies_v1, model_name) for model_name in dir(models_ontologies_v1)],
         *[(models_admin_v2, model_name) for model_name in dir(models_admin_v2)],
         *[(models_aip_agents_v2, model_name) for model_name in dir(models_aip_agents_v2)],
+        *[(models_audit_v2, model_name) for model_name in dir(models_audit_v2)],
         *[(models_connectivity_v2, model_name) for model_name in dir(models_connectivity_v2)],
         *[(models_core_v2, model_name) for model_name in dir(models_core_v2)],
+        *[(models_data_health_v2, model_name) for model_name in dir(models_data_health_v2)],
         *[(models_datasets_v2, model_name) for model_name in dir(models_datasets_v2)],
         *[(models_filesystem_v2, model_name) for model_name in dir(models_filesystem_v2)],
         *[(models_functions_v2, model_name) for model_name in dir(models_functions_v2)],
@@ -66,6 +71,7 @@ def test_can_validate_types():
             (models_third_party_applications_v2, model_name)
             for model_name in dir(models_third_party_applications_v2)
         ],
+        *[(models_widgets_v2, model_name) for model_name in dir(models_widgets_v2)],
     ]:
         klass = getattr(models, model_name)
 

@@ -61,7 +61,7 @@ class OntologyTransactionClient:
         """
         Applies a set of edits to a transaction in order.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param transaction_rid: The RID of the transaction to apply edits to.
         :type transaction_rid: OntologyTransactionRid
@@ -155,7 +155,7 @@ class AsyncOntologyTransactionClient:
         """
         Applies a set of edits to a transaction in order.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param transaction_rid: The RID of the transaction to apply edits to.
         :type transaction_rid: OntologyTransactionRid

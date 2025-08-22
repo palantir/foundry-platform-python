@@ -7,6 +7,7 @@ Method | HTTP request | Release Stage |
 [**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
 [**update_export_settings**](#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings | Private Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Stable |
+[**upload_custom_jdbc_drivers**](#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers | Public Beta |
 
 # **create**
 Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
@@ -299,6 +300,66 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **204** | None  |  | None |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **upload_custom_jdbc_drivers**
+Upload custom jdbc drivers to an existing JDBC connection.
+The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**connection_rid** | ConnectionRid |  |  |
+**body** | bytes | Body of the request |  |
+**file_name** | str | The file name of the uploaded JDBC driver. Must end with .jar  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**Connection**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ConnectionRid
+connection_rid = None
+# bytes | Body of the request
+body = None
+# str | The file name of the uploaded JDBC driver. Must end with .jar
+file_name = "cdata.jdbc.oracle.jar"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.connectivity.Connection.upload_custom_jdbc_drivers(
+        connection_rid, body, file_name=file_name, preview=preview
+    )
+    print("The upload_custom_jdbc_drivers response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Connection.upload_custom_jdbc_drivers: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Connection  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

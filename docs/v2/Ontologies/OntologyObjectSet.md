@@ -17,7 +17,7 @@ Aggregates the ontology objects present in the `ObjectSet` from the provided obj
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **aggregation** | List[AggregationV2] |  |  |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **object_set** | ObjectSet |  |  |
@@ -39,7 +39,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # List[AggregationV2]
 aggregation = None
@@ -99,7 +99,7 @@ Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expi
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 
 ### Return type
@@ -114,7 +114,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
@@ -152,7 +152,7 @@ Gets the definition of the `ObjectSet` with the given RID.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_set_rid** | ObjectSetRid | The RID of the object set.  |  |
 
 ### Return type
@@ -167,7 +167,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectSetRid | The RID of the object set.
 object_set_rid = "ri.object-set.main.object-set.c32ccba5-1a55-4cfe-ad71-160c4c77a053"
@@ -210,7 +210,7 @@ Vector properties will not be returned unless included in the `select` parameter
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used.  | [optional] |
@@ -235,7 +235,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
@@ -316,7 +316,7 @@ Vector properties will not be returned unless included in the `select` parameter
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.  | [optional] |
@@ -342,7 +342,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
@@ -428,7 +428,7 @@ Vector properties will not be returned unless included in the `select` parameter
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.  | [optional] |
@@ -453,7 +453,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectSet
 object_set = {"type": "base", "interfaceBase": "Person"}

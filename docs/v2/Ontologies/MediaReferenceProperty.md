@@ -15,7 +15,7 @@ Gets the content of a media item referenced by this property.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the media reference property.  |  |
 **property** | PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
@@ -35,7 +35,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
@@ -89,7 +89,7 @@ Gets metadata about the media item referenced by this property.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the object with the media reference property.  |  |
 **property** | PropertyApiName | The API name of the media reference backed property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
@@ -109,7 +109,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
@@ -164,7 +164,7 @@ The body of the request must contain the binary content of the file and the `Con
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **property** | PropertyApiName | The API name of the media reference property. To find the API name, check the **Ontology Manager** or use the **Get object type** endpoint.  |  |
 **body** | bytes | Body of the request |  |
@@ -183,7 +183,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
@@ -231,7 +231,7 @@ The body of the request must contain the binary content of the file and the `Con
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **action_type** | ActionTypeApiName | The name of the action type in the API.  |  |
 **body** | bytes | Body of the request |  |
 **media_item_path** | Optional[MediaItemPath] | The path to write the media item to. Required if the backing media set requires paths.  | [optional] |
@@ -249,7 +249,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # ActionTypeApiName | The name of the action type in the API.
 action_type = "add-profile-picture"

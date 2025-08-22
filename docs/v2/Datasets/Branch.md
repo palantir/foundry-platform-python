@@ -222,7 +222,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **transactions**
-Get the Transaction history for the given Dataset
+Get the Transaction history for the given Dataset.
 
 
 ### Parameters
@@ -231,7 +231,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **branch_name** | BranchName |  |  |
-**page_size** | Optional[PageSize] |  | [optional] |
+**page_size** | Optional[PageSize] | The default pageSize is 20 transactions and the maximum allowed pageSize is 50 transactions  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -251,7 +251,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 dataset_rid = None
 # BranchName
 branch_name = None
-# Optional[PageSize]
+# Optional[PageSize] | The default pageSize is 20 transactions and the maximum allowed pageSize is 50 transactions
 page_size = None
 # Optional[PageToken]
 page_token = None

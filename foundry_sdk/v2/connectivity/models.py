@@ -887,9 +887,19 @@ class JdbcConnectionConfiguration(core.ModelBase):
     driver_class: str = pydantic.Field(alias=str("driverClass"))  # type: ignore[literal-required]
     """The fully-qualified driver class name that is used to connect to the database."""
 
+    uploaded_jdbc_drivers: typing.List[JdbcDriverArtifactName] = pydantic.Field(alias=str("uploadedJdbcDrivers"))  # type: ignore[literal-required]
+    """
+    The list of uploaded JDBC driver names. 
+    To upload drivers to a JDBC connection, use the uploadCustomJdbcDrivers endpoint
+    """
+
     jdbc_properties: JdbcProperties = pydantic.Field(alias=str("jdbcProperties"))  # type: ignore[literal-required]
     credentials: typing.Optional[BasicCredentials] = None
     type: typing.Literal["jdbc"] = "jdbc"
+
+
+JdbcDriverArtifactName = str
+"""The name of the uploaded JDBC artifact."""
 
 
 JdbcProperties = typing.Dict[str, str]
@@ -1683,6 +1693,7 @@ __all__ = [
     "HeaderApiKey",
     "IntegerColumnInitialIncrementalState",
     "JdbcConnectionConfiguration",
+    "JdbcDriverArtifactName",
     "JdbcProperties",
     "JdbcTableImportConfig",
     "ListFileImportsResponse",

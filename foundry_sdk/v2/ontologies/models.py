@@ -1523,8 +1523,7 @@ ObjectSet = typing_extensions.Annotated[
 class ObjectSetAsBaseObjectTypesType(core.ModelBase):
     """
     Casts the objects in the object set to their base type and thus ensures objects are returned with all of their
-    properties in the resulting object set, not just the properties that implement interface properties. This is
-    currently unsupported and an exception will be thrown if used.
+    properties in the resulting object set, not just the properties that implement interface properties.
     """
 
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
@@ -1535,7 +1534,7 @@ class ObjectSetAsTypeType(core.ModelBase):
     """
     Casts an object set to a specified object type or interface type API name. Any object whose object type does
     not match the object type provided or implement the interface type provided will be dropped from the resulting
-    object set. This is currently unsupported and an exception will be thrown if used.
+    object set.
     """
 
     entity_type: str = pydantic.Field(alias=str("entityType"))  # type: ignore[literal-required]
@@ -1821,7 +1820,10 @@ class OntologyFullMetadata(core.ModelBase):
 
 
 OntologyIdentifier = str
-"""Either an ontology rid or an ontology api name."""
+"""
+The API name or RID of the Ontology. To find the API name or RID, use the **List Ontologies** endpoint or
+check the **Ontology Manager**.
+"""
 
 
 class OntologyInterfaceObjectSetType(core.ModelBase):

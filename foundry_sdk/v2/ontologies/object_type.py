@@ -62,7 +62,7 @@ class ObjectTypeClient:
         """
         Gets a specific object type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -115,7 +115,7 @@ class ObjectTypeClient:
         """
         Gets the full metadata for a specific object type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -175,7 +175,7 @@ class ObjectTypeClient:
         """
         Get an outgoing link for an object type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
@@ -233,7 +233,7 @@ class ObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -288,7 +288,7 @@ class ObjectTypeClient:
         """
         List the outgoing links for an object type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
@@ -408,7 +408,7 @@ class AsyncObjectTypeClient:
         """
         Gets a specific object type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -461,7 +461,7 @@ class AsyncObjectTypeClient:
         """
         Gets the full metadata for a specific object type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -521,7 +521,7 @@ class AsyncObjectTypeClient:
         """
         Get an outgoing link for an object type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
@@ -579,7 +579,7 @@ class AsyncObjectTypeClient:
         more results available, at least one result will be present in the
         response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -634,7 +634,7 @@ class AsyncObjectTypeClient:
         """
         List the outgoing links for an object type.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName

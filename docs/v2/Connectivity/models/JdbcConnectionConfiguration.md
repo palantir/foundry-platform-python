@@ -8,6 +8,7 @@ The configuration needed to connect to an external system using the JDBC protoco
 | ------------ | ------------- | ------------- | ------------- |
 **url** | str | Yes | The URL that the JDBC driver uses to connect to a database. |
 **driver_class** | str | Yes | The fully-qualified driver class name that is used to connect to the database. |
+**uploaded_jdbc_drivers** | List[JdbcDriverArtifactName] | Yes | The list of uploaded JDBC driver names.  To upload drivers to a JDBC connection, use the uploadCustomJdbcDrivers endpoint  |
 **jdbc_properties** | JdbcProperties | Yes |  |
 **credentials** | Optional[BasicCredentials] | No |  |
 **type** | Literal["jdbc"] | Yes | None |
