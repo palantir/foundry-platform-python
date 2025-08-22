@@ -62,7 +62,7 @@ class ActionTypeClient:
         """
         Gets a specific action type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
@@ -112,7 +112,7 @@ class ActionTypeClient:
         """
         Gets a specific action type with the given RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
@@ -166,7 +166,7 @@ class ActionTypeClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -265,7 +265,7 @@ class AsyncActionTypeClient:
         """
         Gets a specific action type with the given API name.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
@@ -315,7 +315,7 @@ class AsyncActionTypeClient:
         """
         Gets a specific action type with the given RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
@@ -369,7 +369,7 @@ class AsyncActionTypeClient:
         Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
         results available, at least one result will be present in the response.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]

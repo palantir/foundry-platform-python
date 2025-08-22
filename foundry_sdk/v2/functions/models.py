@@ -93,6 +93,26 @@ class LengthConstraint(core.ModelBase):
     type: typing.Literal["length"] = "length"
 
 
+class MapConstraint(core.ModelBase):
+    """MapConstraint"""
+
+    key_constraints: typing.List[ValueTypeConstraint] = pydantic.Field(alias=str("keyConstraints"))  # type: ignore[literal-required]
+    value_constraints: typing.List[ValueTypeConstraint] = pydantic.Field(alias=str("valueConstraints"))  # type: ignore[literal-required]
+    unique_values: bool = pydantic.Field(alias=str("uniqueValues"))  # type: ignore[literal-required]
+    type: typing.Literal["map"] = "map"
+
+
+class NullableConstraint(core.ModelBase):
+    """NullableConstraint"""
+
+    value: NullableConstraintValue
+    type: typing.Literal["nullable"] = "nullable"
+
+
+NullableConstraintValue = typing.Literal["NULLABLE", "NOT_NULLABLE"]
+"""NullableConstraintValue"""
+
+
 class Parameter(core.ModelBase):
     """Details about a parameter of a query."""
 
@@ -266,6 +286,13 @@ StructFieldName = str
 """The name of a field in a `Struct`."""
 
 
+class StructV1Constraint(core.ModelBase):
+    """StructV1Constraint"""
+
+    fields: typing.Dict[StructFieldApiName, ValueTypeConstraint]
+    type: typing.Literal["structV1"] = "structV1"
+
+
 class ThreeDimensionalAggregation(core.ModelBase):
     """ThreeDimensionalAggregation"""
 
@@ -308,11 +335,14 @@ ValueTypeApiName = str
 ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
         StructConstraint,
+        StructV1Constraint,
         RegexConstraint,
+        NullableConstraint,
         ArrayConstraint,
         LengthConstraint,
         RangesConstraint,
         RidConstraint,
+        MapConstraint,
         UuidConstraint,
         EnumConstraint,
     ],
@@ -526,6 +556,9 @@ __all__ = [
     "FunctionRid",
     "FunctionVersion",
     "LengthConstraint",
+    "MapConstraint",
+    "NullableConstraint",
+    "NullableConstraintValue",
     "Parameter",
     "ParameterId",
     "Query",
@@ -547,6 +580,7 @@ __all__ = [
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",
+    "StructV1Constraint",
     "ThreeDimensionalAggregation",
     "TwoDimensionalAggregation",
     "UuidConstraint",

@@ -8,14 +8,14 @@ Method | HTTP request | Release Stage |
 [**load_metadata**](#load_metadata) | **POST** /v2/ontologies/{ontology}/metadata | Private Beta |
 
 # **get**
-Gets a specific ontology with the given Ontology RID.
+Gets a specific ontology for a given Ontology API name or RID.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 
 ### Return type
 **OntologyV2**
@@ -29,7 +29,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 
 
@@ -63,7 +63,7 @@ Get the full Ontology metadata. This includes the objects, links, actions, queri
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.  | [optional] |
 
 ### Return type
@@ -78,7 +78,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.
 branch = None
@@ -158,7 +158,7 @@ Load Ontology metadata for the requested object, link, action, query, and interf
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**ontology** | OntologyIdentifier |  |  |
 **action_types** | List[ActionTypeApiName] |  |  |
 **interface_types** | List[InterfaceTypeApiName] |  |  |
 **link_types** | List[LinkTypeApiName] |  |  |
@@ -179,7 +179,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+# OntologyIdentifier
 ontology = "palantir"
 # List[ActionTypeApiName]
 action_types = None

@@ -46,7 +46,9 @@ class FoundryClient:
 
         from foundry_sdk.v2.admin._client import AdminClient
         from foundry_sdk.v2.aip_agents._client import AipAgentsClient
+        from foundry_sdk.v2.audit._client import AuditClient
         from foundry_sdk.v2.connectivity._client import ConnectivityClient
+        from foundry_sdk.v2.data_health._client import DataHealthClient
         from foundry_sdk.v2.datasets._client import DatasetsClient
         from foundry_sdk.v2.filesystem._client import FilesystemClient
         from foundry_sdk.v2.functions._client import FunctionsClient
@@ -58,10 +60,13 @@ class FoundryClient:
         from foundry_sdk.v2.third_party_applications._client import (
             ThirdPartyApplicationsClient,
         )  # NOQA
+        from foundry_sdk.v2.widgets._client import WidgetsClient
 
         self.admin = AdminClient(auth=auth, hostname=hostname, config=config)
         self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname, config=config)
+        self.audit = AuditClient(auth=auth, hostname=hostname, config=config)
         self.connectivity = ConnectivityClient(auth=auth, hostname=hostname, config=config)
+        self.data_health = DataHealthClient(auth=auth, hostname=hostname, config=config)
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
         self.filesystem = FilesystemClient(auth=auth, hostname=hostname, config=config)
         self.functions = FunctionsClient(auth=auth, hostname=hostname, config=config)
@@ -73,6 +78,7 @@ class FoundryClient:
         self.third_party_applications = ThirdPartyApplicationsClient(
             auth=auth, hostname=hostname, config=config
         )
+        self.widgets = WidgetsClient(auth=auth, hostname=hostname, config=config)
 
 
 class AsyncFoundryClient:
@@ -103,7 +109,9 @@ class AsyncFoundryClient:
 
         from foundry_sdk.v2.admin._client import AsyncAdminClient
         from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient
+        from foundry_sdk.v2.audit._client import AsyncAuditClient
         from foundry_sdk.v2.connectivity._client import AsyncConnectivityClient
+        from foundry_sdk.v2.data_health._client import AsyncDataHealthClient
         from foundry_sdk.v2.datasets._client import AsyncDatasetsClient
         from foundry_sdk.v2.filesystem._client import AsyncFilesystemClient
         from foundry_sdk.v2.functions._client import AsyncFunctionsClient
@@ -115,10 +123,13 @@ class AsyncFoundryClient:
         from foundry_sdk.v2.third_party_applications._client import (
             AsyncThirdPartyApplicationsClient,
         )  # NOQA
+        from foundry_sdk.v2.widgets._client import AsyncWidgetsClient
 
         self.admin = AsyncAdminClient(auth=auth, hostname=hostname, config=config)
         self.aip_agents = AsyncAipAgentsClient(auth=auth, hostname=hostname, config=config)
+        self.audit = AsyncAuditClient(auth=auth, hostname=hostname, config=config)
         self.connectivity = AsyncConnectivityClient(auth=auth, hostname=hostname, config=config)
+        self.data_health = AsyncDataHealthClient(auth=auth, hostname=hostname, config=config)
         self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
         self.filesystem = AsyncFilesystemClient(auth=auth, hostname=hostname, config=config)
         self.functions = AsyncFunctionsClient(auth=auth, hostname=hostname, config=config)
@@ -130,3 +141,4 @@ class AsyncFoundryClient:
         self.third_party_applications = AsyncThirdPartyApplicationsClient(
             auth=auth, hostname=hostname, config=config
         )
+        self.widgets = AsyncWidgetsClient(auth=auth, hostname=hostname, config=config)

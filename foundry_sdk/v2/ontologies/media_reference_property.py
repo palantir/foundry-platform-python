@@ -66,7 +66,7 @@ class MediaReferencePropertyClient:
         """
         Gets the content of a media item referenced by this property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -132,7 +132,7 @@ class MediaReferencePropertyClient:
         """
         Gets metadata about the media item referenced by this property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -198,7 +198,7 @@ class MediaReferencePropertyClient:
         Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -261,7 +261,7 @@ class MediaReferencePropertyClient:
 
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
@@ -377,7 +377,7 @@ class AsyncMediaReferencePropertyClient:
         """
         Gets the content of a media item referenced by this property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -443,7 +443,7 @@ class AsyncMediaReferencePropertyClient:
         """
         Gets metadata about the media item referenced by this property.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -509,7 +509,7 @@ class AsyncMediaReferencePropertyClient:
         Uploads a media item to the media set which backs the specified property.  The property must be backed by a single media set and branch, otherwise an error will be thrown.
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
@@ -572,7 +572,7 @@ class AsyncMediaReferencePropertyClient:
 
         The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName

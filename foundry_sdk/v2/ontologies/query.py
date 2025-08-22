@@ -71,7 +71,7 @@ class QueryClient:
 
         Optional parameters do not need to be supplied.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName
@@ -193,7 +193,7 @@ class AsyncQueryClient:
 
         Optional parameters do not need to be supplied.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the Query to execute.
         :type query_api_name: QueryApiName

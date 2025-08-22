@@ -214,6 +214,18 @@ def test_aip_agents_v2_session_trace_import():
     assert SessionTraceClient is not None
 
 
+def test_audit_v2_log_file_import():
+    from foundry_sdk.v2.audit.log_file import LogFileClient
+
+    assert LogFileClient is not None
+
+
+def test_audit_v2_organization_import():
+    from foundry_sdk.v2.audit.organization import OrganizationClient
+
+    assert OrganizationClient is not None
+
+
 def test_connectivity_v2_connection_import():
     from foundry_sdk.v2.connectivity.connection import ConnectionClient
 
@@ -230,6 +242,12 @@ def test_connectivity_v2_table_import_import():
     from foundry_sdk.v2.connectivity.table_import import TableImportClient
 
     assert TableImportClient is not None
+
+
+def test_data_health_v2_check_import():
+    from foundry_sdk.v2.data_health.check import CheckClient
+
+    assert CheckClient is not None
 
 
 def test_datasets_v2_branch_import():
@@ -446,6 +464,12 @@ def test_orchestration_v2_schedule_import():
     assert ScheduleClient is not None
 
 
+def test_orchestration_v2_schedule_run_import():
+    from foundry_sdk.v2.orchestration.schedule_run import ScheduleRunClient
+
+    assert ScheduleRunClient is not None
+
+
 def test_orchestration_v2_schedule_version_import():
     from foundry_sdk.v2.orchestration.schedule_version import ScheduleVersionClient
 
@@ -488,3 +512,27 @@ def test_third_party_applications_v2_website_import():
     from foundry_sdk.v2.third_party_applications.website import WebsiteClient
 
     assert WebsiteClient is not None
+
+
+def test_widgets_v2_dev_mode_settings_import():
+    from foundry_sdk.v2.widgets.dev_mode_settings import DevModeSettingsClient
+
+    assert DevModeSettingsClient is not None
+
+
+def test_widgets_v2_release_import():
+    from foundry_sdk.v2.widgets.release import ReleaseClient
+
+    assert ReleaseClient is not None
+
+
+def test_widgets_v2_repository_import():
+    from foundry_sdk.v2.widgets.repository import RepositoryClient
+
+    assert RepositoryClient is not None
+
+
+def test_widgets_v2_widget_set_import():
+    from foundry_sdk.v2.widgets.widget_set import WidgetSetClient
+
+    assert WidgetSetClient is not None

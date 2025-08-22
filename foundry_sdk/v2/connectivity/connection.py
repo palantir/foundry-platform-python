@@ -391,6 +391,67 @@ class ConnectionClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_custom_jdbc_drivers(
+        self,
+        connection_rid: connectivity_models.ConnectionRid,
+        body: bytes,
+        *,
+        file_name: str,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> connectivity_models.Connection:
+        """
+        Upload custom jdbc drivers to an existing JDBC connection.
+        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+        :param connection_rid:
+        :type connection_rid: ConnectionRid
+        :param body: Body of the request
+        :type body: bytes
+        :param file_name: The file name of the uploaded JDBC driver. Must end with .jar
+        :type file_name: str
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: connectivity_models.Connection
+
+        :raises ConnectionNotFound: The given Connection could not be found.
+        :raises UploadCustomJdbcDriversConnectionPermissionDenied: Could not uploadCustomJdbcDrivers the Connection.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers",
+                query_params={
+                    "fileName": file_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=connectivity_models.Connection,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                    "UploadCustomJdbcDriversConnectionPermissionDenied": connectivity_errors.UploadCustomJdbcDriversConnectionPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _ConnectionClientRaw:
     def __init__(self, client: ConnectionClient) -> None:
@@ -399,6 +460,7 @@ class _ConnectionClientRaw:
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
         def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
+        def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
@@ -407,6 +469,9 @@ class _ConnectionClientRaw:
             update_export_settings, client.update_export_settings
         )
         self.update_secrets = core.with_raw_response(update_secrets, client.update_secrets)
+        self.upload_custom_jdbc_drivers = core.with_raw_response(
+            upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers
+        )
 
 
 class _ConnectionClientStreaming:
@@ -414,11 +479,15 @@ class _ConnectionClientStreaming:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_configuration = core.with_streaming_response(
             get_configuration, client.get_configuration
+        )
+        self.upload_custom_jdbc_drivers = core.with_streaming_response(
+            upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers
         )
 
 
@@ -785,6 +854,67 @@ class AsyncConnectionClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_custom_jdbc_drivers(
+        self,
+        connection_rid: connectivity_models.ConnectionRid,
+        body: bytes,
+        *,
+        file_name: str,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[connectivity_models.Connection]:
+        """
+        Upload custom jdbc drivers to an existing JDBC connection.
+        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+
+        :param connection_rid:
+        :type connection_rid: ConnectionRid
+        :param body: Body of the request
+        :type body: bytes
+        :param file_name: The file name of the uploaded JDBC driver. Must end with .jar
+        :type file_name: str
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[connectivity_models.Connection]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
+        :raises UploadCustomJdbcDriversConnectionPermissionDenied: Could not uploadCustomJdbcDrivers the Connection.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers",
+                query_params={
+                    "fileName": file_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "connectionRid": connection_rid,
+                },
+                header_params={
+                    "Content-Type": "application/octet-stream",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=bytes,
+                response_type=connectivity_models.Connection,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                    "UploadCustomJdbcDriversConnectionPermissionDenied": connectivity_errors.UploadCustomJdbcDriversConnectionPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncConnectionClientRaw:
     def __init__(self, client: AsyncConnectionClient) -> None:
@@ -793,6 +923,7 @@ class _AsyncConnectionClientRaw:
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
         def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
+        def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
@@ -803,6 +934,9 @@ class _AsyncConnectionClientRaw:
             update_export_settings, client.update_export_settings
         )
         self.update_secrets = core.async_with_raw_response(update_secrets, client.update_secrets)
+        self.upload_custom_jdbc_drivers = core.async_with_raw_response(
+            upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers
+        )
 
 
 class _AsyncConnectionClientStreaming:
@@ -810,9 +944,13 @@ class _AsyncConnectionClientStreaming:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_configuration = core.async_with_streaming_response(
             get_configuration, client.get_configuration
+        )
+        self.upload_custom_jdbc_drivers = core.async_with_streaming_response(
+            upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers
         )

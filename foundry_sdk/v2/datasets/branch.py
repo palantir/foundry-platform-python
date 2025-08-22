@@ -299,13 +299,13 @@ class BranchClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
-        :param page_size:
+        :param page_size: The default pageSize is 20 transactions and the maximum allowed pageSize is 50 transactions
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
@@ -652,13 +652,13 @@ class AsyncBranchClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
         :param branch_name:
         :type branch_name: BranchName
-        :param page_size:
+        :param page_size: The default pageSize is 20 transactions and the maximum allowed pageSize is 50 transactions
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]

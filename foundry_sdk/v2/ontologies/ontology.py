@@ -89,9 +89,9 @@ class OntologyClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.OntologyV2:
         """
-        Gets a specific ontology with the given Ontology RID.
+        Gets a specific ontology for a given Ontology API name or RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -133,7 +133,7 @@ class OntologyClient:
         """
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -221,7 +221,7 @@ class OntologyClient:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_types:
         :type action_types: List[ActionTypeApiName]
@@ -375,9 +375,9 @@ class AsyncOntologyClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.OntologyV2]:
         """
-        Gets a specific ontology with the given Ontology RID.
+        Gets a specific ontology for a given Ontology API name or RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -419,7 +419,7 @@ class AsyncOntologyClient:
         """
         Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
         :type branch: Optional[FoundryBranch]
@@ -507,7 +507,7 @@ class AsyncOntologyClient:
         """
         Load Ontology metadata for the requested object, link, action, query, and interface types.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param action_types:
         :type action_types: List[ActionTypeApiName]

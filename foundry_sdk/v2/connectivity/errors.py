@@ -170,6 +170,37 @@ class DomainMustUseHttpsWithAuthentication(errors.BadRequestError):
     error_instance_id: str
 
 
+class DriverContentMustBeUploadedAsJarParameters(typing_extensions.TypedDict):
+    """The driver content must be provided as a jar."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    driverName: str
+
+
+@dataclass
+class DriverContentMustBeUploadedAsJar(errors.BadRequestError):
+    name: typing.Literal["DriverContentMustBeUploadedAsJar"]
+    parameters: DriverContentMustBeUploadedAsJarParameters
+    error_instance_id: str
+
+
+class DriverJarAlreadyExistsParameters(typing_extensions.TypedDict):
+    """Duplicate jar with different versions already exists on connection."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    driverName: str
+    connectionRid: connectivity_models.ConnectionRid
+
+
+@dataclass
+class DriverJarAlreadyExists(errors.ConflictError):
+    name: typing.Literal["DriverJarAlreadyExists"]
+    parameters: DriverJarAlreadyExistsParameters
+    error_instance_id: str
+
+
 class EncryptedPropertyMustBeSpecifiedAsPlaintextValueParameters(typing_extensions.TypedDict):
     """The encrypted property must be specified as a plaintext value."""
 
@@ -563,6 +594,36 @@ class UpdateSecretsForConnectionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class UploadCustomJdbcDriverNotSupportForConnectionParameters(typing_extensions.TypedDict):
+    """Only JDBC connections support uploading custom JDBC drivers."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    connectionType: str
+
+
+@dataclass
+class UploadCustomJdbcDriverNotSupportForConnection(errors.BadRequestError):
+    name: typing.Literal["UploadCustomJdbcDriverNotSupportForConnection"]
+    parameters: UploadCustomJdbcDriverNotSupportForConnectionParameters
+    error_instance_id: str
+
+
+class UploadCustomJdbcDriversConnectionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not uploadCustomJdbcDrivers the Connection."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    connectionRid: connectivity_models.ConnectionRid
+
+
+@dataclass
+class UploadCustomJdbcDriversConnectionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["UploadCustomJdbcDriversConnectionPermissionDenied"]
+    parameters: UploadCustomJdbcDriversConnectionPermissionDeniedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap",
     "ConnectionDetailsNotDetermined",
@@ -574,6 +635,8 @@ __all__ = [
     "DeleteFileImportPermissionDenied",
     "DeleteTableImportPermissionDenied",
     "DomainMustUseHttpsWithAuthentication",
+    "DriverContentMustBeUploadedAsJar",
+    "DriverJarAlreadyExists",
     "EncryptedPropertyMustBeSpecifiedAsPlaintextValue",
     "ExecuteFileImportPermissionDenied",
     "ExecuteTableImportPermissionDenied",
@@ -599,4 +662,6 @@ __all__ = [
     "TableImportTypeNotSupported",
     "UpdateExportSettingsForConnectionPermissionDenied",
     "UpdateSecretsForConnectionPermissionDenied",
+    "UploadCustomJdbcDriverNotSupportForConnection",
+    "UploadCustomJdbcDriversConnectionPermissionDenied",
 ]

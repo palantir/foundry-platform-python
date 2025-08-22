@@ -68,7 +68,7 @@ class OntologyObjectSetClient:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[AggregationV2]
@@ -146,7 +146,7 @@ class OntologyObjectSetClient:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -198,7 +198,7 @@ class OntologyObjectSetClient:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
@@ -260,7 +260,7 @@ class OntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -373,7 +373,7 @@ class OntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -490,7 +490,7 @@ class OntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -662,7 +662,7 @@ class AsyncOntologyObjectSetClient:
         """
         Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param aggregation:
         :type aggregation: List[AggregationV2]
@@ -740,7 +740,7 @@ class AsyncOntologyObjectSetClient:
         """
         Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -792,7 +792,7 @@ class AsyncOntologyObjectSetClient:
         """
         Gets the definition of the `ObjectSet` with the given RID.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set_rid: The RID of the object set.
         :type object_set_rid: ObjectSetRid
@@ -854,7 +854,7 @@ class AsyncOntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -967,7 +967,7 @@ class AsyncOntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
@@ -1084,7 +1084,7 @@ class AsyncOntologyObjectSetClient:
 
         Vector properties will not be returned unless included in the `select` parameter.
 
-        :param ontology: The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+        :param ontology:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
