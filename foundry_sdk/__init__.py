@@ -22,6 +22,7 @@ from foundry_sdk._core import PublicClientAuth
 from foundry_sdk._core import ResourceIterator
 from foundry_sdk._core import StreamedApiResponse
 from foundry_sdk._core import StreamingContextManager
+from foundry_sdk._core import TableResponse
 from foundry_sdk._core import UserTokenAuth
 
 # Context and environment variables

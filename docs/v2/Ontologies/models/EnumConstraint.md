@@ -5,7 +5,7 @@ EnumConstraint
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**options** | List[Any] | Yes |  |
+**options** | List[Optional[PropertyValue]] | Yes |  |
 **type** | Literal["enum"] | Yes | None |
 
 

@@ -110,13 +110,13 @@ class EnrollmentRoleAssignment(core.ModelBase):
 class GetGroupsBatchRequestElement(core.ModelBase):
     """GetGroupsBatchRequestElement"""
 
-    group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
+    group_id: core_models.GroupId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
 
 
 class GetGroupsBatchResponse(core.ModelBase):
     """GetGroupsBatchResponse"""
 
-    data: typing.Dict[core_models.PrincipalId, Group]
+    data: typing.Dict[core_models.GroupId, Group]
 
 
 class GetMarkingsBatchRequestElement(core.ModelBase):
@@ -156,19 +156,19 @@ class GetUserMarkingsResponse(core.ModelBase):
 class GetUsersBatchRequestElement(core.ModelBase):
     """GetUsersBatchRequestElement"""
 
-    user_id: core_models.PrincipalId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
+    user_id: core_models.UserId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
 
 
 class GetUsersBatchResponse(core.ModelBase):
     """GetUsersBatchResponse"""
 
-    data: typing.Dict[core_models.PrincipalId, User]
+    data: typing.Dict[core_models.UserId, User]
 
 
 class Group(core.ModelBase):
     """Group"""
 
-    id: core_models.PrincipalId
+    id: core_models.GroupId
     name: GroupName
     """The name of the Group."""
 
@@ -193,7 +193,7 @@ class GroupMember(core.ModelBase):
 class GroupMembership(core.ModelBase):
     """GroupMembership"""
 
-    group_id: core_models.PrincipalId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
+    group_id: core_models.GroupId = pydantic.Field(alias=str("groupId"))  # type: ignore[literal-required]
 
 
 GroupMembershipExpiration = core.AwareDatetime
@@ -523,7 +523,7 @@ class SearchUsersResponse(core.ModelBase):
 class User(core.ModelBase):
     """User"""
 
-    id: core_models.PrincipalId
+    id: core_models.UserId
     username: UserUsername
     """The Foundry username of the User. This is unique within the realm."""
 

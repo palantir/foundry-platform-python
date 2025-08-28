@@ -442,6 +442,10 @@ class GeotimeSeriesReferenceType(core.ModelBase):
     type: typing.Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
 
 
+GroupId = core.UUID
+"""A Foundry Group ID."""
+
+
 GroupName = str
 """The display name of a multipass group."""
 
@@ -611,7 +615,7 @@ PreviewMode = bool
 """Enables the use of preview functionality."""
 
 
-PrincipalId = str
+PrincipalId = core.UUID
 """The ID of a Foundry Group or User."""
 
 
@@ -901,6 +905,7 @@ __all__ = [
     "GeoShapeType",
     "GeohashType",
     "GeotimeSeriesReferenceType",
+    "GroupId",
     "GroupName",
     "GroupRid",
     "IncludeComputeUsage",

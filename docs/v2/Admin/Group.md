@@ -84,7 +84,7 @@ Delete the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | GroupId |  |  |
 
 ### Return type
 **None**
@@ -98,7 +98,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# GroupId
 group_id = None
 
 
@@ -131,7 +131,7 @@ Get the Group with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | GroupId |  |  |
 
 ### Return type
 **Group**
@@ -145,7 +145,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# GroupId
 group_id = None
 
 
@@ -195,7 +195,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[GetGroupsBatchRequestElement] | Body of the request
-body = [{"groupId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+body = [{"groupId": "0d1fe74e-2b70-4a93-9b1a-80070637788b"}]
 
 
 try:

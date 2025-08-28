@@ -54,7 +54,7 @@ class GroupMembershipClient:
     @errors.handle_unexpected
     def list(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -72,7 +72,7 @@ class GroupMembershipClient:
         in the response, you are on the last page.
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -158,7 +158,7 @@ class AsyncGroupMembershipClient:
     @errors.handle_unexpected
     def list(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -176,7 +176,7 @@ class AsyncGroupMembershipClient:
         in the response, you are on the last page.
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.

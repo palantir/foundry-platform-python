@@ -19,7 +19,7 @@ Delete the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | UserId |  |  |
 
 ### Return type
 **None**
@@ -33,7 +33,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# UserId
 user_id = None
 
 
@@ -66,7 +66,7 @@ Get the User with the specified id.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | UserId |  |  |
 
 ### Return type
 **User**
@@ -80,7 +80,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# UserId
 user_id = None
 
 
@@ -130,7 +130,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[GetUsersBatchRequestElement] | Body of the request
-body = [{"userId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}]
+body = [{"userId": "0d1fe74e-2b70-4a93-9b1a-80070637788b"}]
 
 
 try:
@@ -205,7 +205,7 @@ Retrieve Markings that the user is currently a member of.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | UserId |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -220,7 +220,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# UserId
 user_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -306,7 +306,7 @@ See [README](../../../README.md#authorization)
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | UserId |  |  |
 
 ### Return type
 **Optional[bytes]**
@@ -320,7 +320,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# UserId
 user_id = None
 
 
@@ -357,7 +357,7 @@ The caller must have permission to manage users for the target user's organizati
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**user_id** | PrincipalId |  |  |
+**user_id** | UserId |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -372,7 +372,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# UserId
 user_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None

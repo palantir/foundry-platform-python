@@ -53,7 +53,7 @@ class GroupMembershipExpirationPolicyClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class GroupMembershipExpirationPolicyClient:
         """
         Get the GroupMembershipExpirationPolicy.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -104,7 +104,7 @@ class GroupMembershipExpirationPolicyClient:
     @errors.handle_unexpected
     def replace(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         maximum_duration: typing.Optional[core_models.DurationSeconds] = None,
         maximum_value: typing.Optional[admin_models.GroupMembershipExpiration] = None,
@@ -115,7 +115,7 @@ class GroupMembershipExpirationPolicyClient:
         """
         Replace the GroupMembershipExpirationPolicy.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param maximum_duration: Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.
         :type maximum_duration: Optional[DurationSeconds]
         :param maximum_value: Members in this group must be added with expiration times that occur before this value.
@@ -213,7 +213,7 @@ class AsyncGroupMembershipExpirationPolicyClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -222,7 +222,7 @@ class AsyncGroupMembershipExpirationPolicyClient:
         """
         Get the GroupMembershipExpirationPolicy.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -264,7 +264,7 @@ class AsyncGroupMembershipExpirationPolicyClient:
     @errors.handle_unexpected
     def replace(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         maximum_duration: typing.Optional[core_models.DurationSeconds] = None,
         maximum_value: typing.Optional[admin_models.GroupMembershipExpiration] = None,
@@ -275,7 +275,7 @@ class AsyncGroupMembershipExpirationPolicyClient:
         """
         Replace the GroupMembershipExpirationPolicy.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param maximum_duration: Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.
         :type maximum_duration: Optional[DurationSeconds]
         :param maximum_value: Members in this group must be added with expiration times that occur before this value.

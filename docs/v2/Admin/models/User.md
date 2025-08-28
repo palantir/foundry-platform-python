@@ -5,7 +5,7 @@ User
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**id** | PrincipalId | Yes |  |
+**id** | UserId | Yes |  |
 **username** | UserUsername | Yes | The Foundry username of the User. This is unique within the realm. |
 **given_name** | Optional[str] | No | The given name of the User. |
 **family_name** | Optional[str] | No | The family name (last name) of the User. |

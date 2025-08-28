@@ -433,6 +433,7 @@ with open("result.png", "wb") as f:
 
 ```
 
+
 <a id="static-types"></a>
 ## Static type analysis
 
@@ -1172,6 +1173,7 @@ Namespace | Name | Import |
 **Core** | [GeoPointType](docs/v2/Core/models/GeoPointType.md) | `from foundry_sdk.v2.core.models import GeoPointType` |
 **Core** | [GeoShapeType](docs/v2/Core/models/GeoShapeType.md) | `from foundry_sdk.v2.core.models import GeoShapeType` |
 **Core** | [GeotimeSeriesReferenceType](docs/v2/Core/models/GeotimeSeriesReferenceType.md) | `from foundry_sdk.v2.core.models import GeotimeSeriesReferenceType` |
+**Core** | [GroupId](docs/v2/Core/models/GroupId.md) | `from foundry_sdk.v2.core.models import GroupId` |
 **Core** | [GroupName](docs/v2/Core/models/GroupName.md) | `from foundry_sdk.v2.core.models import GroupName` |
 **Core** | [GroupRid](docs/v2/Core/models/GroupRid.md) | `from foundry_sdk.v2.core.models import GroupRid` |
 **Core** | [IncludeComputeUsage](docs/v2/Core/models/IncludeComputeUsage.md) | `from foundry_sdk.v2.core.models import IncludeComputeUsage` |
@@ -1545,6 +1547,7 @@ Namespace | Name | Import |
 **Ontologies** | [ListAttachmentsResponseV2](docs/v2/Ontologies/models/ListAttachmentsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListAttachmentsResponseV2` |
 **Ontologies** | [ListInterfaceTypesResponse](docs/v2/Ontologies/models/ListInterfaceTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListInterfaceTypesResponse` |
 **Ontologies** | [ListLinkedObjectsResponseV2](docs/v2/Ontologies/models/ListLinkedObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListLinkedObjectsResponseV2` |
+**Ontologies** | [ListObjectsForInterfaceResponse](docs/v2/Ontologies/models/ListObjectsForInterfaceResponse.md) | `from foundry_sdk.v2.ontologies.models import ListObjectsForInterfaceResponse` |
 **Ontologies** | [ListObjectsResponseV2](docs/v2/Ontologies/models/ListObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListObjectsResponseV2` |
 **Ontologies** | [ListObjectTypesV2Response](docs/v2/Ontologies/models/ListObjectTypesV2Response.md) | `from foundry_sdk.v2.ontologies.models import ListObjectTypesV2Response` |
 **Ontologies** | [ListOntologiesV2Response](docs/v2/Ontologies/models/ListOntologiesV2Response.md) | `from foundry_sdk.v2.ontologies.models import ListOntologiesV2Response` |

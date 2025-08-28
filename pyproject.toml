@@ -27,6 +27,10 @@ fastapi = ">=0.115.6"
 
 [tool.poetry.extras]
 cli = ["click"]
+pandas = ["pandas", "pyarrow"]
+polars = ["polars", "pyarrow"]
+pyarrow = ["pyarrow"]
+duckdb = ["duckdb", "pyarrow"]
 
 [tool.black]
 line_length = 100
