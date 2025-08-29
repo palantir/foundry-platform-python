@@ -26,7 +26,6 @@ from foundry_sdk._core.api_client import async_with_streaming_response
 from foundry_sdk._core.api_client import with_raw_response
 from foundry_sdk._core.api_client import with_streaming_response
 from foundry_sdk._core.auth_utils import Auth
-from foundry_sdk._core.binary_stream import BinaryStream
 from foundry_sdk._core.compute_module_pipeline_auth import ComputeModulePipelineAuth
 from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
 from foundry_sdk._core.config import Config
@@ -34,6 +33,7 @@ from foundry_sdk._core.model_base import ModelBase
 from foundry_sdk._core.public_client_auth import PublicClientAuth
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
+from foundry_sdk._core.table import TableResponse
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth
 from foundry_sdk._core.utils import RID
 from foundry_sdk._core.utils import UUID

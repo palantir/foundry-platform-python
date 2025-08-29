@@ -53,7 +53,7 @@ class UserProviderInfoClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class UserProviderInfoClient:
         """
         Get the UserProviderInfo.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -106,7 +106,7 @@ class UserProviderInfoClient:
     @errors.handle_unexpected
     def replace(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         provider_id: admin_models.ProviderId,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -116,7 +116,7 @@ class UserProviderInfoClient:
         """
         Replace the UserProviderInfo.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
         :param preview: Enables the use of preview functionality.
@@ -216,7 +216,7 @@ class AsyncUserProviderInfoClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -225,7 +225,7 @@ class AsyncUserProviderInfoClient:
         """
         Get the UserProviderInfo.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -269,7 +269,7 @@ class AsyncUserProviderInfoClient:
     @errors.handle_unexpected
     def replace(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         provider_id: admin_models.ProviderId,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -279,7 +279,7 @@ class AsyncUserProviderInfoClient:
         """
         Replace the UserProviderInfo.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
         :param preview: Enables the use of preview functionality.

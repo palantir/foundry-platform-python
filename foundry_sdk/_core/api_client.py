@@ -50,12 +50,12 @@ from typing_extensions import TypedDict
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.auth_utils import Token
-from foundry_sdk._core.binary_stream import BinaryStream
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
+from foundry_sdk._core.table import TableResponse
 from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
@@ -174,7 +174,7 @@ def async_with_streaming_response(
     )
 
 
-ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING"]
+ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "TABLE"]
 
 
 # The SdkInternal dictionary is a flexible way to pass additional information to the API client
@@ -289,12 +289,13 @@ class BaseApiResponse(Generic[T]):
     def decode(self) -> T:
         _type = self._request_info.response_type
 
-        if _type is bytes or (
-            get_origin(_type) is Union
-            and bytes in get_args(_type)
-            and type(None) in get_args(_type)
-        ):
-            return cast(T, self._response.content)
+        is_optional = get_origin(_type) is Union and type(None) in get_args(_type)
+
+        if _type is bytes or is_optional:
+            if is_optional and self._response.content == b"":
+                return cast(T, None)
+            else:
+                return cast(T, self._response.content)
         elif _type is None:
             return cast(T, None)
 
@@ -485,7 +486,7 @@ class BaseApiClient:
         """
         if res.status_code == 404 and res.text == "":
             raise ApiNotFoundError(
-                f'The reqeust to "{req.resource_path}" returned a 404 status code '
+                f'The request to "{req.resource_path}" returned a 404 status code '
                 "with no response body. This likely indicates that the API is not yet "
                 "available on your Foundry instance."
             )
@@ -601,6 +602,11 @@ class ApiClient(BaseApiClient):
 
         if response_mode == "STREAMING":
             return StreamingContextManager(request_info, api_response)
+        elif response_mode == "TABLE":
+            if res.content == b"":
+                return None
+            else:
+                return TableResponse(res.content)
         elif response_mode == "RAW":
             return api_response
         else:
@@ -681,6 +687,11 @@ class AsyncApiClient(BaseApiClient):
 
         if response_mode == "RAW" or response_mode == "STREAMING":
             return api_response
+        elif response_mode == "TABLE":
+            if res.content == b"":
+                return None
+            else:
+                return TableResponse(res.content)
         else:
             return api_response.decode()
 

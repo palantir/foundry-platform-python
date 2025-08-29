@@ -12,7 +12,7 @@ Get the GroupMembershipExpirationPolicy.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | GroupId |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -27,7 +27,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# GroupId
 group_id = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
@@ -62,7 +62,7 @@ Replace the GroupMembershipExpirationPolicy.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**group_id** | PrincipalId |  |  |
+**group_id** | GroupId |  |  |
 **maximum_duration** | Optional[DurationSeconds] | Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.  | [optional] |
 **maximum_value** | Optional[GroupMembershipExpiration] | Members in this group must be added with expiration times that occur before this value. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -79,7 +79,7 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# PrincipalId
+# GroupId
 group_id = None
 # Optional[DurationSeconds] | Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added.
 maximum_duration = 30

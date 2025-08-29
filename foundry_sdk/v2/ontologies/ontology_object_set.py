@@ -140,6 +140,8 @@ class OntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.CreateTemporaryObjectSetResponseV2:
@@ -150,6 +152,10 @@ class OntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -160,7 +166,10 @@ class OntologyObjectSetClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
-                query_params={},
+                query_params={
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
                 path_params={
                     "ontology": ontology,
                 },
@@ -734,6 +743,8 @@ class AsyncOntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.CreateTemporaryObjectSetResponseV2]:
@@ -744,6 +755,10 @@ class AsyncOntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -754,7 +769,10 @@ class AsyncOntologyObjectSetClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
-                query_params={},
+                query_params={
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
                 path_params={
                     "ontology": ontology,
                 },

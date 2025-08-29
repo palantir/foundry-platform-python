@@ -53,7 +53,7 @@ class GroupProviderInfoClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -62,7 +62,7 @@ class GroupProviderInfoClient:
         """
         Get the GroupProviderInfo.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -106,7 +106,7 @@ class GroupProviderInfoClient:
     @errors.handle_unexpected
     def replace(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         provider_id: admin_models.ProviderId,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -116,7 +116,7 @@ class GroupProviderInfoClient:
         """
         Replace the GroupProviderInfo.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
         :param preview: Enables the use of preview functionality.
@@ -216,7 +216,7 @@ class AsyncGroupProviderInfoClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -225,7 +225,7 @@ class AsyncGroupProviderInfoClient:
         """
         Get the GroupProviderInfo.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -269,7 +269,7 @@ class AsyncGroupProviderInfoClient:
     @errors.handle_unexpected
     def replace(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         provider_id: admin_models.ProviderId,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -279,7 +279,7 @@ class AsyncGroupProviderInfoClient:
         """
         Replace the GroupProviderInfo.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
         :param preview: Enables the use of preview functionality.

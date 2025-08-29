@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -244,16 +245,71 @@ class FolderClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetFoldersBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.GetFoldersBatchResponse:
+        """
+        Fetches multiple folders in a single request.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetFoldersBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.GetFoldersBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/folders/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=typing_extensions.Annotated[
+                    typing.List[filesystem_models.GetFoldersBatchRequestElement],
+                    annotated_types.Len(min_length=1, max_length=1000),
+                ],
+                response_type=filesystem_models.GetFoldersBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _FolderClientRaw:
     def __init__(self, client: FolderClient) -> None:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
+        def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
 
         self.children = core.with_raw_response(children, client.children)
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.get_batch = core.with_raw_response(get_batch, client.get_batch)
 
 
 class _FolderClientStreaming:
@@ -261,10 +317,12 @@ class _FolderClientStreaming:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
+        def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
 
         self.children = core.with_streaming_response(children, client.children)
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
 
 
 class AsyncFolderClient:
@@ -486,16 +544,71 @@ class AsyncFolderClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetFoldersBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.GetFoldersBatchResponse]:
+        """
+        Fetches multiple folders in a single request.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetFoldersBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.GetFoldersBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/folders/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                body_type=typing_extensions.Annotated[
+                    typing.List[filesystem_models.GetFoldersBatchRequestElement],
+                    annotated_types.Len(min_length=1, max_length=1000),
+                ],
+                response_type=filesystem_models.GetFoldersBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncFolderClientRaw:
     def __init__(self, client: AsyncFolderClient) -> None:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
+        def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
 
         self.children = core.async_with_raw_response(children, client.children)
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
 
 
 class _AsyncFolderClientStreaming:
@@ -503,7 +616,9 @@ class _AsyncFolderClientStreaming:
         def children(_: filesystem_models.ListChildrenOfFolderResponse): ...
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
+        def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
 
         self.children = core.async_with_streaming_response(children, client.children)
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)

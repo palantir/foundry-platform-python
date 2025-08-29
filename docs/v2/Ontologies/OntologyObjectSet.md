@@ -101,6 +101,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -118,11 +120,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectSet
 object_set = {"type": "base", "objectType": "Employee"}
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
 
 
 try:
     api_response = client.ontologies.OntologyObjectSet.create_temporary(
-        ontology, object_set=object_set
+        ontology, object_set=object_set, sdk_package_rid=sdk_package_rid, sdk_version=sdk_version
     )
     print("The create_temporary response:\n")
     pprint(api_response)

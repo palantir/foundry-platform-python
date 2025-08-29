@@ -54,7 +54,7 @@ class GroupMemberClient:
     @errors.handle_unexpected
     def add(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         expiration: typing.Optional[admin_models.GroupMembershipExpiration] = None,
@@ -64,7 +64,7 @@ class GroupMemberClient:
         """
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param expiration:
@@ -121,7 +121,7 @@ class GroupMemberClient:
     @errors.handle_unexpected
     def list(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -139,7 +139,7 @@ class GroupMemberClient:
         in the response, you are on the last page.
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -187,7 +187,7 @@ class GroupMemberClient:
     @errors.handle_unexpected
     def remove(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -196,7 +196,7 @@ class GroupMemberClient:
         """
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -289,7 +289,7 @@ class AsyncGroupMemberClient:
     @errors.handle_unexpected
     def add(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         expiration: typing.Optional[admin_models.GroupMembershipExpiration] = None,
@@ -299,7 +299,7 @@ class AsyncGroupMemberClient:
         """
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param expiration:
@@ -356,7 +356,7 @@ class AsyncGroupMemberClient:
     @errors.handle_unexpected
     def list(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -374,7 +374,7 @@ class AsyncGroupMemberClient:
         in the response, you are on the last page.
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -422,7 +422,7 @@ class AsyncGroupMemberClient:
     @errors.handle_unexpected
     def remove(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -431,7 +431,7 @@ class AsyncGroupMemberClient:
         """
 
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
         :param request_timeout: timeout setting for this request in seconds.

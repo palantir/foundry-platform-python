@@ -1,6 +1,6 @@
-# PrincipalId
+# GroupId
 
-The ID of a Foundry Group or User.
+A Foundry Group ID.
 
 ## Type
 ```python

@@ -12,6 +12,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 JobSucceededTrigger | jobSucceeded
 OrTrigger | or
 NewLogicTrigger | newLogic
+TableUpdatedTrigger | tableUpdated
 AndTrigger | and
 DatasetUpdatedTrigger | datasetUpdated
 ScheduleSucceededTrigger | scheduleSucceeded
