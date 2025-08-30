@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/orchestration/schedules | Public Beta |
 [**delete**](#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} | Stable |
 [**get**](#get) | **GET** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
+[**get_affected_resources**](#get_affected_resources) | **POST** /v2/orchestration/schedules/{scheduleRid}/getAffectedResources | Public Beta |
 [**get_batch**](#get_batch) | **POST** /v2/orchestration/schedules/getBatch | Public Beta |
 [**pause**](#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause | Stable |
 [**replace**](#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} | Public Beta |
@@ -190,6 +191,58 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Schedule  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_affected_resources**
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**schedule_rid** | ScheduleRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**AffectedResourcesResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# ScheduleRid
+schedule_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.orchestration.Schedule.get_affected_resources(
+        schedule_rid, preview=preview
+    )
+    print("The get_affected_resources response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Schedule.get_affected_resources: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | AffectedResourcesResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

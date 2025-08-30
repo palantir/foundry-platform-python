@@ -529,13 +529,22 @@ def test_response_decode_bytes():
     assert response.decode() == b"foo"
 
 
-def test_response_decode_optional_bytes():
+def test_response_decode_present_optional_bytes():
     response = ApiResponse(
         RequestInfo.with_defaults("GET", "/foo/bar", response_type=Optional[bytes]),
         httpx.Response(200, content=b"foo"),
     )
 
     assert response.decode() == b"foo"
+
+
+def test_response_decode_empty_optional_bytes():
+    response = ApiResponse(
+        RequestInfo.with_defaults("GET", "/foo/bar", response_type=Optional[bytes]),
+        httpx.Response(200, content=b""),
+    )
+
+    assert response.decode() is None
 
 
 @pytest.mark.asyncio(scope="session")

@@ -5012,6 +5012,30 @@ def filesystem_folder_op_get(
     click.echo(repr(result))
 
 
+@filesystem_folder.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_folder_op_get_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Fetches multiple folders in a single request.
+
+
+    The maximum batch size for this endpoint is 1000.
+    """
+    result = client.filesystem.Folder.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("functions")
 def functions():
     pass
@@ -6021,11 +6045,27 @@ def ontologies_ontology_object_set_op_aggregate(
 @ontologies_ontology_object_set.command("create_temporary")
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_create_temporary(
     client: FoundryClient,
     ontology: str,
     object_set: str,
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
@@ -6034,6 +6074,8 @@ def ontologies_ontology_object_set_op_create_temporary(
     result = client.ontologies.OntologyObjectSet.create_temporary(
         ontology=ontology,
         object_set=json.loads(object_set),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -6945,6 +6987,95 @@ def ontologies_ontology_interface_op_list(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_interface.command("list_objects_for_interface")
+@click.argument("ontology", type=str, required=True)
+@click.argument("interface_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list objects from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the interface type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_interface_op_list_objects_for_interface(
+    client: FoundryClient,
+    ontology: str,
+    interface_type: str,
+    branch: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    select: typing.Optional[str],
+    snapshot: typing.Optional[bool],
+):
+    """
+    Lists the objects for the given Ontology and interface type.
+
+    Note that this endpoint does not guarantee consistency, unless you use the snapshot flag specified below. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    """
+    result = client.ontologies.OntologyInterface.list_objects_for_interface(
+        ontology=ontology,
+        interface_type=interface_type,
+        branch=branch,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        select=None if select is None else json.loads(select),
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 
@@ -8548,6 +8679,25 @@ def orchestration_schedule_op_get(
     Get the Schedule with the specified rid.
     """
     result = client.orchestration.Schedule.get(
+        schedule_rid=schedule_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@orchestration_schedule.command("get_affected_resources")
+@click.argument("schedule_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def orchestration_schedule_op_get_affected_resources(
+    client: FoundryClient,
+    schedule_rid: str,
+    preview: typing.Optional[bool],
+):
+    """ """
+    result = client.orchestration.Schedule.get_affected_resources(
         schedule_rid=schedule_rid,
         preview=preview,
     )

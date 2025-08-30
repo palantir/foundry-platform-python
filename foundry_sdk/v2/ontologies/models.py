@@ -791,7 +791,7 @@ class EntrySetType(core.ModelBase):
 class EnumConstraint(core.ModelBase):
     """EnumConstraint"""
 
-    options: typing.List[typing.Any]
+    options: typing.List[typing.Optional[PropertyValue]]
     type: typing.Literal["enum"] = "enum"
 
 
@@ -1198,6 +1198,16 @@ class ListObjectTypesV2Response(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     data: typing.List[ObjectTypeV2]
     """The list of object types in the current page."""
+
+
+class ListObjectsForInterfaceResponse(core.ModelBase):
+    """ListObjectsForInterfaceResponse"""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    data: typing.List[OntologyObjectV2]
+    """The list of interface instances in the current page."""
+
+    total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
 
 
 class ListObjectsResponseV2(core.ModelBase):
@@ -2347,8 +2357,8 @@ class RangeConstraint(core.ModelBase):
 class RangesConstraint(core.ModelBase):
     """RangesConstraint"""
 
-    minimum_value: typing.Optional[typing.Any] = pydantic.Field(alias=str("minimumValue"), default=None)  # type: ignore[literal-required]
-    maximum_value: typing.Optional[typing.Any] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
+    minimum_value: typing.Optional[PropertyValue] = pydantic.Field(alias=str("minimumValue"), default=None)  # type: ignore[literal-required]
+    maximum_value: typing.Optional[PropertyValue] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["range"] = "range"
 
 
@@ -3042,6 +3052,7 @@ ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
         StructConstraint,
         RegexConstraint,
+        core_models.UnsupportedType,
         ArrayConstraint,
         LengthConstraint,
         RangesConstraint,
@@ -3385,6 +3396,7 @@ __all__ = [
     "ListInterfaceTypesResponse",
     "ListLinkedObjectsResponseV2",
     "ListObjectTypesV2Response",
+    "ListObjectsForInterfaceResponse",
     "ListObjectsResponseV2",
     "ListOntologiesV2Response",
     "ListOntologyValueTypesResponse",

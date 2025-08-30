@@ -433,6 +433,7 @@ with open("result.png", "wb") as f:
 
 ```
 
+
 <a id="static-types"></a>
 ## Static type analysis
 
@@ -711,6 +712,7 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | Folder | [**children**](docs/v2/Filesystem/Folder.md#children) | **GET** /v2/filesystem/folders/{folderRid}/children |
 **Filesystem** | Folder | [**create**](docs/v2/Filesystem/Folder.md#create) | **POST** /v2/filesystem/folders |
 **Filesystem** | Folder | [**get**](docs/v2/Filesystem/Folder.md#get) | **GET** /v2/filesystem/folders/{folderRid} |
+**Filesystem** | Folder | [**get_batch**](docs/v2/Filesystem/Folder.md#get_batch) | **POST** /v2/filesystem/folders/getBatch |
 **Filesystem** | Project | [**add_organizations**](docs/v2/Filesystem/Project.md#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations |
 **Filesystem** | Project | [**create**](docs/v2/Filesystem/Project.md#create) | **POST** /v2/filesystem/projects/create |
 **Filesystem** | Project | [**get**](docs/v2/Filesystem/Project.md#get) | **GET** /v2/filesystem/projects/{projectRid} |
@@ -791,6 +793,7 @@ Namespace | Resource | Operation | HTTP request |
 **Orchestration** | Schedule | [**create**](docs/v2/Orchestration/Schedule.md#create) | **POST** /v2/orchestration/schedules |
 **Orchestration** | Schedule | [**delete**](docs/v2/Orchestration/Schedule.md#delete) | **DELETE** /v2/orchestration/schedules/{scheduleRid} |
 **Orchestration** | Schedule | [**get**](docs/v2/Orchestration/Schedule.md#get) | **GET** /v2/orchestration/schedules/{scheduleRid} |
+**Orchestration** | Schedule | [**get_affected_resources**](docs/v2/Orchestration/Schedule.md#get_affected_resources) | **POST** /v2/orchestration/schedules/{scheduleRid}/getAffectedResources |
 **Orchestration** | Schedule | [**get_batch**](docs/v2/Orchestration/Schedule.md#get_batch) | **POST** /v2/orchestration/schedules/getBatch |
 **Orchestration** | Schedule | [**pause**](docs/v2/Orchestration/Schedule.md#pause) | **POST** /v2/orchestration/schedules/{scheduleRid}/pause |
 **Orchestration** | Schedule | [**replace**](docs/v2/Orchestration/Schedule.md#replace) | **PUT** /v2/orchestration/schedules/{scheduleRid} |
@@ -1172,6 +1175,7 @@ Namespace | Name | Import |
 **Core** | [GeoPointType](docs/v2/Core/models/GeoPointType.md) | `from foundry_sdk.v2.core.models import GeoPointType` |
 **Core** | [GeoShapeType](docs/v2/Core/models/GeoShapeType.md) | `from foundry_sdk.v2.core.models import GeoShapeType` |
 **Core** | [GeotimeSeriesReferenceType](docs/v2/Core/models/GeotimeSeriesReferenceType.md) | `from foundry_sdk.v2.core.models import GeotimeSeriesReferenceType` |
+**Core** | [GroupId](docs/v2/Core/models/GroupId.md) | `from foundry_sdk.v2.core.models import GroupId` |
 **Core** | [GroupName](docs/v2/Core/models/GroupName.md) | `from foundry_sdk.v2.core.models import GroupName` |
 **Core** | [GroupRid](docs/v2/Core/models/GroupRid.md) | `from foundry_sdk.v2.core.models import GroupRid` |
 **Core** | [IncludeComputeUsage](docs/v2/Core/models/IncludeComputeUsage.md) | `from foundry_sdk.v2.core.models import IncludeComputeUsage` |
@@ -1218,6 +1222,7 @@ Namespace | Name | Import |
 **Core** | [StringType](docs/v2/Core/models/StringType.md) | `from foundry_sdk.v2.core.models import StringType` |
 **Core** | [StructFieldName](docs/v2/Core/models/StructFieldName.md) | `from foundry_sdk.v2.core.models import StructFieldName` |
 **Core** | [StructFieldType](docs/v2/Core/models/StructFieldType.md) | `from foundry_sdk.v2.core.models import StructFieldType` |
+**Core** | [TableRid](docs/v2/Core/models/TableRid.md) | `from foundry_sdk.v2.core.models import TableRid` |
 **Core** | [TimeSeriesItemType](docs/v2/Core/models/TimeSeriesItemType.md) | `from foundry_sdk.v2.core.models import TimeSeriesItemType` |
 **Core** | [TimeseriesType](docs/v2/Core/models/TimeseriesType.md) | `from foundry_sdk.v2.core.models import TimeseriesType` |
 **Core** | [TimestampType](docs/v2/Core/models/TimestampType.md) | `from foundry_sdk.v2.core.models import TimestampType` |
@@ -1298,6 +1303,8 @@ Namespace | Name | Import |
 **Filesystem** | [Folder](docs/v2/Filesystem/models/Folder.md) | `from foundry_sdk.v2.filesystem.models import Folder` |
 **Filesystem** | [FolderRid](docs/v2/Filesystem/models/FolderRid.md) | `from foundry_sdk.v2.filesystem.models import FolderRid` |
 **Filesystem** | [FolderType](docs/v2/Filesystem/models/FolderType.md) | `from foundry_sdk.v2.filesystem.models import FolderType` |
+**Filesystem** | [GetFoldersBatchRequestElement](docs/v2/Filesystem/models/GetFoldersBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchRequestElement` |
+**Filesystem** | [GetFoldersBatchResponse](docs/v2/Filesystem/models/GetFoldersBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchResponse` |
 **Filesystem** | [IsDirectlyApplied](docs/v2/Filesystem/models/IsDirectlyApplied.md) | `from foundry_sdk.v2.filesystem.models import IsDirectlyApplied` |
 **Filesystem** | [ListChildrenOfFolderResponse](docs/v2/Filesystem/models/ListChildrenOfFolderResponse.md) | `from foundry_sdk.v2.filesystem.models import ListChildrenOfFolderResponse` |
 **Filesystem** | [ListMarkingsOfResourceResponse](docs/v2/Filesystem/models/ListMarkingsOfResourceResponse.md) | `from foundry_sdk.v2.filesystem.models import ListMarkingsOfResourceResponse` |
@@ -1545,6 +1552,7 @@ Namespace | Name | Import |
 **Ontologies** | [ListAttachmentsResponseV2](docs/v2/Ontologies/models/ListAttachmentsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListAttachmentsResponseV2` |
 **Ontologies** | [ListInterfaceTypesResponse](docs/v2/Ontologies/models/ListInterfaceTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListInterfaceTypesResponse` |
 **Ontologies** | [ListLinkedObjectsResponseV2](docs/v2/Ontologies/models/ListLinkedObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListLinkedObjectsResponseV2` |
+**Ontologies** | [ListObjectsForInterfaceResponse](docs/v2/Ontologies/models/ListObjectsForInterfaceResponse.md) | `from foundry_sdk.v2.ontologies.models import ListObjectsForInterfaceResponse` |
 **Ontologies** | [ListObjectsResponseV2](docs/v2/Ontologies/models/ListObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListObjectsResponseV2` |
 **Ontologies** | [ListObjectTypesV2Response](docs/v2/Ontologies/models/ListObjectTypesV2Response.md) | `from foundry_sdk.v2.ontologies.models import ListObjectTypesV2Response` |
 **Ontologies** | [ListOntologiesV2Response](docs/v2/Ontologies/models/ListOntologiesV2Response.md) | `from foundry_sdk.v2.ontologies.models import ListOntologiesV2Response` |
@@ -1756,6 +1764,7 @@ Namespace | Name | Import |
 **Ontologies** | [WithinPolygonQuery](docs/v2/Ontologies/models/WithinPolygonQuery.md) | `from foundry_sdk.v2.ontologies.models import WithinPolygonQuery` |
 **Orchestration** | [AbortOnFailure](docs/v2/Orchestration/models/AbortOnFailure.md) | `from foundry_sdk.v2.orchestration.models import AbortOnFailure` |
 **Orchestration** | [Action](docs/v2/Orchestration/models/Action.md) | `from foundry_sdk.v2.orchestration.models import Action` |
+**Orchestration** | [AffectedResourcesResponse](docs/v2/Orchestration/models/AffectedResourcesResponse.md) | `from foundry_sdk.v2.orchestration.models import AffectedResourcesResponse` |
 **Orchestration** | [AndTrigger](docs/v2/Orchestration/models/AndTrigger.md) | `from foundry_sdk.v2.orchestration.models import AndTrigger` |
 **Orchestration** | [Build](docs/v2/Orchestration/models/Build.md) | `from foundry_sdk.v2.orchestration.models import Build` |
 **Orchestration** | [BuildableRid](docs/v2/Orchestration/models/BuildableRid.md) | `from foundry_sdk.v2.orchestration.models import BuildableRid` |
@@ -1832,6 +1841,7 @@ Namespace | Name | Import |
 **Orchestration** | [SearchBuildsOrderByItem](docs/v2/Orchestration/models/SearchBuildsOrderByItem.md) | `from foundry_sdk.v2.orchestration.models import SearchBuildsOrderByItem` |
 **Orchestration** | [SearchBuildsOrFilter](docs/v2/Orchestration/models/SearchBuildsOrFilter.md) | `from foundry_sdk.v2.orchestration.models import SearchBuildsOrFilter` |
 **Orchestration** | [SearchBuildsResponse](docs/v2/Orchestration/models/SearchBuildsResponse.md) | `from foundry_sdk.v2.orchestration.models import SearchBuildsResponse` |
+**Orchestration** | [TableUpdatedTrigger](docs/v2/Orchestration/models/TableUpdatedTrigger.md) | `from foundry_sdk.v2.orchestration.models import TableUpdatedTrigger` |
 **Orchestration** | [TimeTrigger](docs/v2/Orchestration/models/TimeTrigger.md) | `from foundry_sdk.v2.orchestration.models import TimeTrigger` |
 **Orchestration** | [TransactionalMediaSetJobOutput](docs/v2/Orchestration/models/TransactionalMediaSetJobOutput.md) | `from foundry_sdk.v2.orchestration.models import TransactionalMediaSetJobOutput` |
 **Orchestration** | [Trigger](docs/v2/Orchestration/models/Trigger.md) | `from foundry_sdk.v2.orchestration.models import Trigger` |
@@ -2536,6 +2546,7 @@ Namespace | Name | Import |
 **Orchestration** | CreateBuildPermissionDenied | `from foundry_sdk.v2.orchestration.errors import CreateBuildPermissionDenied` |
 **Orchestration** | CreateSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import CreateSchedulePermissionDenied` |
 **Orchestration** | DeleteSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import DeleteSchedulePermissionDenied` |
+**Orchestration** | GetAffectedResourcesSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import GetAffectedResourcesSchedulePermissionDenied` |
 **Orchestration** | InvalidAndTrigger | `from foundry_sdk.v2.orchestration.errors import InvalidAndTrigger` |
 **Orchestration** | InvalidMediaSetTrigger | `from foundry_sdk.v2.orchestration.errors import InvalidMediaSetTrigger` |
 **Orchestration** | InvalidOrTrigger | `from foundry_sdk.v2.orchestration.errors import InvalidOrTrigger` |

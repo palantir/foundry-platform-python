@@ -1,10 +1,10 @@
-# PrincipalId
+# TableRid
 
-The ID of a Foundry Group or User.
+The Resource Identifier (RID) of a Table.
 
 ## Type
 ```python
-UUID
+RID
 ```
 
 

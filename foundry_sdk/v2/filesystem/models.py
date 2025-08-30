@@ -98,6 +98,18 @@ A folder can be a regular Folder, a
 """
 
 
+class GetFoldersBatchRequestElement(core.ModelBase):
+    """GetFoldersBatchRequestElement"""
+
+    folder_rid: FolderRid = pydantic.Field(alias=str("folderRid"))  # type: ignore[literal-required]
+
+
+class GetFoldersBatchResponse(core.ModelBase):
+    """GetFoldersBatchResponse"""
+
+    data: typing.Dict[FolderRid, Folder]
+
+
 IsDirectlyApplied = bool
 """
 Boolean flag to indicate if the marking is directly applied to the resource, or if it's applied
@@ -422,6 +434,8 @@ __all__ = [
     "Folder",
     "FolderRid",
     "FolderType",
+    "GetFoldersBatchRequestElement",
+    "GetFoldersBatchResponse",
     "IsDirectlyApplied",
     "ListChildrenOfFolderResponse",
     "ListMarkingsOfResourceResponse",

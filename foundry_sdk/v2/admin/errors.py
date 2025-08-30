@@ -44,7 +44,7 @@ class AddGroupMembersPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -201,7 +201,7 @@ class DeleteGroupPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -216,7 +216,7 @@ class DeleteUserPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -285,7 +285,7 @@ class GetGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -330,7 +330,7 @@ class GetMarkingsUserPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -345,7 +345,7 @@ class GetProfilePictureOfUserPermissionDeniedParameters(typing_extensions.TypedD
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -360,7 +360,7 @@ class GetUserProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict)
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -375,7 +375,7 @@ class GroupMembershipExpirationPolicyNotFoundParameters(typing_extensions.TypedD
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -405,7 +405,7 @@ class GroupNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -420,7 +420,7 @@ class GroupProviderInfoNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -435,7 +435,7 @@ class InvalidGroupMembershipExpirationParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
     earliestExpiration: core.AwareDatetime
     maximumDuration: typing_extensions.NotRequired[core_models.DurationSeconds]
     maximumValue: typing_extensions.NotRequired[admin_models.GroupMembershipExpiration]
@@ -481,7 +481,7 @@ class InvalidProfilePictureParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -722,7 +722,7 @@ class ProfilePictureNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -752,7 +752,7 @@ class RemoveGroupMembersPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -830,7 +830,7 @@ class ReplaceGroupMembershipExpirationPolicyPermissionDeniedParameters(typing_ex
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -845,7 +845,7 @@ class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.Typed
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    groupId: core_models.PrincipalId
+    groupId: core_models.GroupId
 
 
 @dataclass
@@ -890,7 +890,7 @@ class ReplaceUserProviderInfoPermissionDeniedParameters(typing_extensions.TypedD
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -905,7 +905,7 @@ class RevokeAllTokensUserPermissionDeniedParameters(typing_extensions.TypedDict)
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -961,7 +961,7 @@ class UserNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass
@@ -976,7 +976,7 @@ class UserProviderInfoNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    userId: core_models.PrincipalId
+    userId: core_models.UserId
 
 
 @dataclass

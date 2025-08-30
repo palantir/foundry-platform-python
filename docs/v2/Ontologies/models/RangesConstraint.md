@@ -5,8 +5,8 @@ RangesConstraint
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**minimum_value** | Optional[Any] | No |  |
-**maximum_value** | Optional[Any] | No |  |
+**minimum_value** | Optional[PropertyValue] | No |  |
+**maximum_value** | Optional[PropertyValue] | No |  |
 **type** | Literal["range"] | Yes | None |
 
 

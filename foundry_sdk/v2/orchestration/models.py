@@ -47,6 +47,12 @@ class Action(core.ModelBase):
     notifications_enabled: NotificationsEnabled = pydantic.Field(alias=str("notificationsEnabled"))  # type: ignore[literal-required]
 
 
+class AffectedResourcesResponse(core.ModelBase):
+    """AffectedResourcesResponse"""
+
+    datasets: typing.List[BuildableRid]
+
+
 class AndTrigger(core.ModelBase):
     """Trigger after all of the given triggers emit an event."""
 
@@ -75,6 +81,8 @@ class Build(core.ModelBase):
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
+    schedule_rid: typing.Optional[core_models.ScheduleRid] = pydantic.Field(alias=str("scheduleRid"), default=None)  # type: ignore[literal-required]
+    """Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty."""
 
 
 BuildStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
@@ -710,6 +718,17 @@ class SearchBuildsResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class TableUpdatedTrigger(core.ModelBase):
+    """
+    Trigger whenever a new transaction is committed to the
+    table on the target branch.
+    """
+
+    table_rid: core_models.TableRid = pydantic.Field(alias=str("tableRid"))  # type: ignore[literal-required]
+    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    type: typing.Literal["tableUpdated"] = "tableUpdated"
+
+
 class TimeTrigger(core.ModelBase):
     """Trigger on a time based schedule."""
 
@@ -731,6 +750,7 @@ Trigger = typing_extensions.Annotated[
         JobSucceededTrigger,
         OrTrigger,
         NewLogicTrigger,
+        TableUpdatedTrigger,
         AndTrigger,
         DatasetUpdatedTrigger,
         ScheduleSucceededTrigger,
@@ -791,6 +811,7 @@ core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
 __all__ = [
     "AbortOnFailure",
     "Action",
+    "AffectedResourcesResponse",
     "AndTrigger",
     "Build",
     "BuildStatus",
@@ -867,6 +888,7 @@ __all__ = [
     "SearchBuildsOrderByField",
     "SearchBuildsOrderByItem",
     "SearchBuildsResponse",
+    "TableUpdatedTrigger",
     "TimeTrigger",
     "TransactionalMediaSetJobOutput",
     "Trigger",

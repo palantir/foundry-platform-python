@@ -220,6 +220,55 @@ class ScheduleClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_affected_resources(
+        self,
+        schedule_rid: core_models.ScheduleRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> orchestration_models.AffectedResourcesResponse:
+        """
+
+        :param schedule_rid:
+        :type schedule_rid: ScheduleRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: orchestration_models.AffectedResourcesResponse
+
+        :raises GetAffectedResourcesSchedulePermissionDenied: Could not getAffectedResources the Schedule.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/{scheduleRid}/getAffectedResources",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleRid": schedule_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=orchestration_models.AffectedResourcesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetAffectedResourcesSchedulePermissionDenied": orchestration_errors.GetAffectedResourcesSchedulePermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_batch(
         self,
         body: typing_extensions.Annotated[
@@ -537,6 +586,7 @@ class _ScheduleClientRaw:
         def create(_: orchestration_models.Schedule): ...
         def delete(_: None): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_affected_resources(_: orchestration_models.AffectedResourcesResponse): ...
         def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def pause(_: None): ...
         def replace(_: orchestration_models.Schedule): ...
@@ -547,6 +597,9 @@ class _ScheduleClientRaw:
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
+        self.get_affected_resources = core.with_raw_response(
+            get_affected_resources, client.get_affected_resources
+        )
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.pause = core.with_raw_response(pause, client.pause)
         self.replace = core.with_raw_response(replace, client.replace)
@@ -559,6 +612,7 @@ class _ScheduleClientStreaming:
     def __init__(self, client: ScheduleClient) -> None:
         def create(_: orchestration_models.Schedule): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_affected_resources(_: orchestration_models.AffectedResourcesResponse): ...
         def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
@@ -566,6 +620,9 @@ class _ScheduleClientStreaming:
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_affected_resources = core.with_streaming_response(
+            get_affected_resources, client.get_affected_resources
+        )
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.replace = core.with_streaming_response(replace, client.replace)
         self.run = core.with_streaming_response(run, client.run)
@@ -758,6 +815,55 @@ class AsyncScheduleClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ScheduleNotFound": orchestration_errors.ScheduleNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_affected_resources(
+        self,
+        schedule_rid: core_models.ScheduleRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[orchestration_models.AffectedResourcesResponse]:
+        """
+
+        :param schedule_rid:
+        :type schedule_rid: ScheduleRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[orchestration_models.AffectedResourcesResponse]
+
+        :raises GetAffectedResourcesSchedulePermissionDenied: Could not getAffectedResources the Schedule.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/orchestration/schedules/{scheduleRid}/getAffectedResources",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "scheduleRid": schedule_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=orchestration_models.AffectedResourcesResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetAffectedResourcesSchedulePermissionDenied": orchestration_errors.GetAffectedResourcesSchedulePermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1083,6 +1189,7 @@ class _AsyncScheduleClientRaw:
         def create(_: orchestration_models.Schedule): ...
         def delete(_: None): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_affected_resources(_: orchestration_models.AffectedResourcesResponse): ...
         def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def pause(_: None): ...
         def replace(_: orchestration_models.Schedule): ...
@@ -1093,6 +1200,9 @@ class _AsyncScheduleClientRaw:
         self.create = core.async_with_raw_response(create, client.create)
         self.delete = core.async_with_raw_response(delete, client.delete)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_affected_resources = core.async_with_raw_response(
+            get_affected_resources, client.get_affected_resources
+        )
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.pause = core.async_with_raw_response(pause, client.pause)
         self.replace = core.async_with_raw_response(replace, client.replace)
@@ -1105,6 +1215,7 @@ class _AsyncScheduleClientStreaming:
     def __init__(self, client: AsyncScheduleClient) -> None:
         def create(_: orchestration_models.Schedule): ...
         def get(_: orchestration_models.Schedule): ...
+        def get_affected_resources(_: orchestration_models.AffectedResourcesResponse): ...
         def get_batch(_: orchestration_models.GetSchedulesBatchResponse): ...
         def replace(_: orchestration_models.Schedule): ...
         def run(_: orchestration_models.ScheduleRun): ...
@@ -1112,6 +1223,9 @@ class _AsyncScheduleClientStreaming:
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_affected_resources = core.async_with_streaming_response(
+            get_affected_resources, client.get_affected_resources
+        )
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.replace = core.async_with_streaming_response(replace, client.replace)
         self.run = core.async_with_streaming_response(run, client.run)

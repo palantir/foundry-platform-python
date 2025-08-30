@@ -163,7 +163,7 @@ class GroupClient:
     @errors.handle_unexpected
     def delete(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -171,7 +171,7 @@ class GroupClient:
         """
         Delete the Group with the specified id.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -209,7 +209,7 @@ class GroupClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -217,7 +217,7 @@ class GroupClient:
         """
         Get the Group with the specified id.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -576,7 +576,7 @@ class AsyncGroupClient:
     @errors.handle_unexpected
     def delete(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -584,7 +584,7 @@ class AsyncGroupClient:
         """
         Delete the Group with the specified id.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -622,7 +622,7 @@ class AsyncGroupClient:
     @errors.handle_unexpected
     def get(
         self,
-        group_id: core_models.PrincipalId,
+        group_id: core_models.GroupId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -630,7 +630,7 @@ class AsyncGroupClient:
         """
         Get the Group with the specified id.
         :param group_id:
-        :type group_id: PrincipalId
+        :type group_id: GroupId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.

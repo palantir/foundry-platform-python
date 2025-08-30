@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType} | Public Beta |
 [**get_outgoing_interface_link_type**](#get_outgoing_interface_link_type) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes/{interfaceLinkType} | Private Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/interfaceTypes | Public Beta |
+[**list_objects_for_interface**](#list_objects_for_interface) | **GET** /v2/ontologies/{ontology}/interfaces/{interfaceType} | Private Beta |
 [**list_outgoing_interface_link_types**](#list_outgoing_interface_link_types) | **GET** /v2/ontologies/{ontology}/interfaceTypes/{interfaceType}/outgoingLinkTypes | Private Beta |
 [**search**](#search) | **POST** /v2/ontologies/{ontology}/interfaces/{interfaceType}/search | Private Beta |
 
@@ -281,6 +282,99 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListInterfaceTypesResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list_objects_for_interface**
+Lists the objects for the given Ontology and interface type.
+
+Note that this endpoint does not guarantee consistency, unless you use the snapshot flag specified below. Changes to the data could result in missing or
+repeated objects in the response pages.
+
+For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+Each page may be smaller or larger than the requested page size. However, it
+is guaranteed that if there are more results available, at least one result will be present
+in the response.
+
+Note that null value properties will not be returned.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.  |  |
+**interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[OrderBy] |  | [optional] |
+**page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**select** | Optional[List[SelectedPropertyApiName]] | The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+
+### Return type
+**ListObjectsForInterfaceResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier | The API name of the ontology. To find the API name, use the **List ontologies** endpoint or check the **Ontology Manager**.
+ontology = "palantir"
+# InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
+interface_type = "employee"
+# Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.
+branch = None
+# Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
+exclude_rid = None
+# Optional[OrderBy]
+order_by = None
+# Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[List[SelectedPropertyApiName]] | The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.
+select = None
+# Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
+snapshot = None
+
+
+try:
+    for ontology_interface in client.ontologies.OntologyInterface.list_objects_for_interface(
+        ontology,
+        interface_type,
+        branch=branch,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        select=select,
+        snapshot=snapshot,
+    ):
+        pprint(ontology_interface)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyInterface.list_objects_for_interface: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListObjectsForInterfaceResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -15,6 +15,7 @@ Build
 **retry_backoff_duration** | RetryBackoffDuration | Yes |  |
 **abort_on_failure** | AbortOnFailure | Yes |  |
 **status** | BuildStatus | Yes |  |
+**schedule_rid** | Optional[ScheduleRid] | No | Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty. |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

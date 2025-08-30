@@ -442,6 +442,10 @@ class GeotimeSeriesReferenceType(core.ModelBase):
     type: typing.Literal["geotimeSeriesReference"] = "geotimeSeriesReference"
 
 
+GroupId = core.UUID
+"""A Foundry Group ID."""
+
+
 GroupName = str
 """The display name of a multipass group."""
 
@@ -611,7 +615,7 @@ PreviewMode = bool
 """Enables the use of preview functionality."""
 
 
-PrincipalId = str
+PrincipalId = core.UUID
 """The ID of a Foundry Group or User."""
 
 
@@ -728,6 +732,10 @@ class StructFieldType(core.ModelBase):
 
     sub_fields: typing.List[Field] = pydantic.Field(alias=str("subFields"))  # type: ignore[literal-required]
     type: typing.Literal["struct"] = "struct"
+
+
+TableRid = core.RID
+"""The Resource Identifier (RID) of a Table."""
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
@@ -901,6 +909,7 @@ __all__ = [
     "GeoShapeType",
     "GeohashType",
     "GeotimeSeriesReferenceType",
+    "GroupId",
     "GroupName",
     "GroupRid",
     "IncludeComputeUsage",
@@ -947,6 +956,7 @@ __all__ = [
     "StringType",
     "StructFieldName",
     "StructFieldType",
+    "TableRid",
     "TimeSeriesItemType",
     "TimeUnit",
     "TimeseriesType",

@@ -76,7 +76,7 @@ class UserClient:
     @errors.handle_unexpected
     def delete(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -84,7 +84,7 @@ class UserClient:
         """
         Delete the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -120,7 +120,7 @@ class UserClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -128,7 +128,7 @@ class UserClient:
         """
         Get the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -250,7 +250,7 @@ class UserClient:
     @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -259,7 +259,7 @@ class UserClient:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -351,7 +351,7 @@ class UserClient:
     @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -359,7 +359,7 @@ class UserClient:
         """
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -399,7 +399,7 @@ class UserClient:
     @errors.handle_unexpected
     def revoke_all_tokens(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -412,7 +412,7 @@ class UserClient:
         The caller must have permission to manage users for the target user's organization.
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -601,7 +601,7 @@ class AsyncUserClient:
     @errors.handle_unexpected
     def delete(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -609,7 +609,7 @@ class AsyncUserClient:
         """
         Delete the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -645,7 +645,7 @@ class AsyncUserClient:
     @errors.handle_unexpected
     def get(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -653,7 +653,7 @@ class AsyncUserClient:
         """
         Get the User with the specified id.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -775,7 +775,7 @@ class AsyncUserClient:
     @errors.handle_unexpected
     def get_markings(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -784,7 +784,7 @@ class AsyncUserClient:
         """
         Retrieve Markings that the user is currently a member of.
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -876,7 +876,7 @@ class AsyncUserClient:
     @errors.handle_unexpected
     def profile_picture(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -884,7 +884,7 @@ class AsyncUserClient:
         """
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -924,7 +924,7 @@ class AsyncUserClient:
     @errors.handle_unexpected
     def revoke_all_tokens(
         self,
-        user_id: core_models.PrincipalId,
+        user_id: core_models.UserId,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -937,7 +937,7 @@ class AsyncUserClient:
         The caller must have permission to manage users for the target user's organization.
 
         :param user_id:
-        :type user_id: PrincipalId
+        :type user_id: UserId
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.

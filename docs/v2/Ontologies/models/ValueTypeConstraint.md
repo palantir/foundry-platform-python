@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 StructConstraint | struct
 RegexConstraint | regex
+UnsupportedType | unsupported
 ArrayConstraint | array
 LengthConstraint | length
 RangesConstraint | range

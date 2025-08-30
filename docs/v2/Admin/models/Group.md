@@ -5,7 +5,7 @@ Group
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**id** | PrincipalId | Yes |  |
+**id** | GroupId | Yes |  |
 **name** | GroupName | Yes | The name of the Group. |
 **description** | Optional[str] | No | A description of the Group. |
 **realm** | Realm | Yes |  |

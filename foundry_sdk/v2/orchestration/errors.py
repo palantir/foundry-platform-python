@@ -201,6 +201,21 @@ class DeleteSchedulePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetAffectedResourcesSchedulePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getAffectedResources the Schedule."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    scheduleRid: core_models.ScheduleRid
+
+
+@dataclass
+class GetAffectedResourcesSchedulePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetAffectedResourcesSchedulePermissionDenied"]
+    parameters: GetAffectedResourcesSchedulePermissionDeniedParameters
+    error_instance_id: str
+
+
 class InvalidAndTriggerParameters(typing_extensions.TypedDict):
     """The AND trigger should have at least one value."""
 
@@ -518,6 +533,7 @@ __all__ = [
     "CreateBuildPermissionDenied",
     "CreateSchedulePermissionDenied",
     "DeleteSchedulePermissionDenied",
+    "GetAffectedResourcesSchedulePermissionDenied",
     "InvalidAndTrigger",
     "InvalidMediaSetTrigger",
     "InvalidOrTrigger",
