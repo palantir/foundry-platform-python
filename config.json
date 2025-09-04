@@ -198,7 +198,7 @@
       "skipTests": [],
       "skipValidation": {
         "Filesystem": ["ResourceType"]
-      },
+      }
     }
   }
 }
