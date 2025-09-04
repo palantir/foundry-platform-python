@@ -89,6 +89,14 @@ jobs:
             npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
             npm publish --access=public
 
+  check_api:
+    docker:
+      - image: cimg/python:3.12
+    steps:
+      - checkout
+      - run: poetry install
+      - run: poetry run pyapi analyze
+
   circle-all:
     docker:
       - image: node:lts
@@ -134,6 +142,8 @@ workflows:
               httpx_version: ["0.25", "0.26", "0.27", "0.28"]
       - black:
           <<: *always-run
+      - check_api:
+          <<: *always-run
       - circle-all:
           <<: *always-run
           requires:
@@ -154,6 +164,7 @@ workflows:
             - httpx-0.28
 
             - black
+            - check_api
             - npm-build-18.20
             - npm-build-20.19
             - npm-build-22.14
