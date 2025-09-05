@@ -15,6 +15,8 @@
 
 from __future__ import annotations
 
+import pydantic
+
 from foundry_sdk import _core as core
 
 __all__ = []

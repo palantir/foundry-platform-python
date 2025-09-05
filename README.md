@@ -691,6 +691,7 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Dataset | [**get**](docs/v2/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
 **Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
 **Datasets** | Dataset | [**get_schema**](docs/v2/Datasets/Dataset.md#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema |
+**Datasets** | Dataset | [**jobs**](docs/v2/Datasets/Dataset.md#jobs) | **POST** /v2/datasets/{datasetRid}/jobs |
 **Datasets** | Dataset | [**put_schema**](docs/v2/Datasets/Dataset.md#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema |
 **Datasets** | Dataset | [**read_table**](docs/v2/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
 **Datasets** | Dataset | [**transactions**](docs/v2/Datasets/Dataset.md#transactions) | **GET** /v2/datasets/{datasetRid}/transactions |
@@ -1216,6 +1217,7 @@ Namespace | Name | Import |
 **Core** | [RoleId](docs/v2/Core/models/RoleId.md) | `from foundry_sdk.v2.core.models import RoleId` |
 **Core** | [RoleSetId](docs/v2/Core/models/RoleSetId.md) | `from foundry_sdk.v2.core.models import RoleSetId` |
 **Core** | [ScheduleRid](docs/v2/Core/models/ScheduleRid.md) | `from foundry_sdk.v2.core.models import ScheduleRid` |
+**Core** | [SchemaFieldType](docs/v2/Core/models/SchemaFieldType.md) | `from foundry_sdk.v2.core.models import SchemaFieldType` |
 **Core** | [ShortType](docs/v2/Core/models/ShortType.md) | `from foundry_sdk.v2.core.models import ShortType` |
 **Core** | [SizeBytes](docs/v2/Core/models/SizeBytes.md) | `from foundry_sdk.v2.core.models import SizeBytes` |
 **Core** | [StreamSchema](docs/v2/Core/models/StreamSchema.md) | `from foundry_sdk.v2.core.models import StreamSchema` |
@@ -1249,7 +1251,6 @@ Namespace | Name | Import |
 **DataHealth** | [ColumnCountConfig](docs/v2/DataHealth/models/ColumnCountConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnCountConfig` |
 **DataHealth** | [ColumnInfo](docs/v2/DataHealth/models/ColumnInfo.md) | `from foundry_sdk.v2.data_health.models import ColumnInfo` |
 **DataHealth** | [ColumnName](docs/v2/DataHealth/models/ColumnName.md) | `from foundry_sdk.v2.data_health.models import ColumnName` |
-**DataHealth** | [ColumnType](docs/v2/DataHealth/models/ColumnType.md) | `from foundry_sdk.v2.data_health.models import ColumnType` |
 **DataHealth** | [ColumnTypeCheckConfig](docs/v2/DataHealth/models/ColumnTypeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnTypeCheckConfig` |
 **DataHealth** | [ColumnTypeConfig](docs/v2/DataHealth/models/ColumnTypeConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnTypeConfig` |
 **DataHealth** | [DatasetSubject](docs/v2/DataHealth/models/DatasetSubject.md) | `from foundry_sdk.v2.data_health.models import DatasetSubject` |
@@ -1277,7 +1278,18 @@ Namespace | Name | Import |
 **Datasets** | [DatasetRid](docs/v2/Datasets/models/DatasetRid.md) | `from foundry_sdk.v2.datasets.models import DatasetRid` |
 **Datasets** | [File](docs/v2/Datasets/models/File.md) | `from foundry_sdk.v2.datasets.models import File` |
 **Datasets** | [FileUpdatedTime](docs/v2/Datasets/models/FileUpdatedTime.md) | `from foundry_sdk.v2.datasets.models import FileUpdatedTime` |
+**Datasets** | [GetDatasetJobsAndFilter](docs/v2/Datasets/models/GetDatasetJobsAndFilter.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsAndFilter` |
+**Datasets** | [GetDatasetJobsComparisonType](docs/v2/Datasets/models/GetDatasetJobsComparisonType.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsComparisonType` |
+**Datasets** | [GetDatasetJobsOrFilter](docs/v2/Datasets/models/GetDatasetJobsOrFilter.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsOrFilter` |
+**Datasets** | [GetDatasetJobsQuery](docs/v2/Datasets/models/GetDatasetJobsQuery.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsQuery` |
+**Datasets** | [GetDatasetJobsSort](docs/v2/Datasets/models/GetDatasetJobsSort.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsSort` |
+**Datasets** | [GetDatasetJobsSortDirection](docs/v2/Datasets/models/GetDatasetJobsSortDirection.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsSortDirection` |
+**Datasets** | [GetDatasetJobsSortType](docs/v2/Datasets/models/GetDatasetJobsSortType.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsSortType` |
+**Datasets** | [GetDatasetJobsTimeFilter](docs/v2/Datasets/models/GetDatasetJobsTimeFilter.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsTimeFilter` |
+**Datasets** | [GetDatasetJobsTimeFilterField](docs/v2/Datasets/models/GetDatasetJobsTimeFilterField.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsTimeFilterField` |
 **Datasets** | [GetDatasetSchemaResponse](docs/v2/Datasets/models/GetDatasetSchemaResponse.md) | `from foundry_sdk.v2.datasets.models import GetDatasetSchemaResponse` |
+**Datasets** | [GetJobResponse](docs/v2/Datasets/models/GetJobResponse.md) | `from foundry_sdk.v2.datasets.models import GetJobResponse` |
+**Datasets** | [JobDetails](docs/v2/Datasets/models/JobDetails.md) | `from foundry_sdk.v2.datasets.models import JobDetails` |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
 **Datasets** | [ListSchedulesResponse](docs/v2/Datasets/models/ListSchedulesResponse.md) | `from foundry_sdk.v2.datasets.models import ListSchedulesResponse` |
@@ -1758,6 +1770,7 @@ Namespace | Name | Import |
 **Ontologies** | [ValueTypeStructType](docs/v2/Ontologies/models/ValueTypeStructType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeStructType` |
 **Ontologies** | [ValueTypeUnionType](docs/v2/Ontologies/models/ValueTypeUnionType.md) | `from foundry_sdk.v2.ontologies.models import ValueTypeUnionType` |
 **Ontologies** | [VersionedQueryTypeApiName](docs/v2/Ontologies/models/VersionedQueryTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import VersionedQueryTypeApiName` |
+**Ontologies** | [WildcardQuery](docs/v2/Ontologies/models/WildcardQuery.md) | `from foundry_sdk.v2.ontologies.models import WildcardQuery` |
 **Ontologies** | [WithinBoundingBoxPoint](docs/v2/Ontologies/models/WithinBoundingBoxPoint.md) | `from foundry_sdk.v2.ontologies.models import WithinBoundingBoxPoint` |
 **Ontologies** | [WithinBoundingBoxQuery](docs/v2/Ontologies/models/WithinBoundingBoxQuery.md) | `from foundry_sdk.v2.ontologies.models import WithinBoundingBoxQuery` |
 **Ontologies** | [WithinDistanceOfQuery](docs/v2/Ontologies/models/WithinDistanceOfQuery.md) | `from foundry_sdk.v2.ontologies.models import WithinDistanceOfQuery` |
@@ -2295,6 +2308,7 @@ Namespace | Name | Import |
 **Datasets** | FileNotFoundOnBranch | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnBranch` |
 **Datasets** | FileNotFoundOnTransactionRange | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnTransactionRange` |
 **Datasets** | GetBranchTransactionHistoryPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetBranchTransactionHistoryPermissionDenied` |
+**Datasets** | GetDatasetJobsPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetJobsPermissionDenied` |
 **Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
 **Datasets** | GetDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchemaPermissionDenied` |
 **Datasets** | GetFileContentPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetFileContentPermissionDenied` |

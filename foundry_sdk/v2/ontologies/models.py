@@ -1138,7 +1138,10 @@ LinkTypeSideCardinality = typing.Literal["ONE", "MANY"]
 
 
 class LinkTypeSideV2(core.ModelBase):
-    """LinkTypeSideV2"""
+    """
+    `foreignKeyPropertyApiName` is the API name of the foreign key on this object type. If absent, the link is
+    either a m2m link or the linked object has the foreign key and this object type has the primary key.
+    """
 
     api_name: LinkTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
@@ -1733,6 +1736,7 @@ class ObjectTypeInterfaceImplementation(core.ModelBase):
     """ObjectTypeInterfaceImplementation"""
 
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
+    links: typing.Dict[InterfaceLinkTypeApiName, typing.List[LinkTypeApiName]]
 
 
 ObjectTypeRid = core.RID
@@ -2435,6 +2439,7 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
         EqualsQueryV2,
         ContainsAllTermsQuery,
         GtQueryV2,
+        "WildcardQuery",
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
         ContainsQueryV2,
@@ -3158,6 +3163,18 @@ Examples: 'myGroup:myFunction:latest', 'myGroup:myFunction:1.0.0', 'myFunction',
 """
 
 
+class WildcardQuery(core.ModelBase):
+    """
+    Returns objects where the specified field matches the wildcard pattern provided.
+    Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    value: str
+    type: typing.Literal["wildcard"] = "wildcard"
+
+
 class WithinBoundingBoxQuery(core.ModelBase):
     """
     Returns objects where the specified field contains a point within the bounding box provided. Allows you to
@@ -3601,6 +3618,7 @@ __all__ = [
     "ValueTypeStructType",
     "ValueTypeUnionType",
     "VersionedQueryTypeApiName",
+    "WildcardQuery",
     "WithinBoundingBoxPoint",
     "WithinBoundingBoxQuery",
     "WithinDistanceOfQuery",

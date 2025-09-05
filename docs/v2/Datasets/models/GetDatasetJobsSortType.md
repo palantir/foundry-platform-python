@@ -1,11 +1,11 @@
-# MarkingId
+# GetDatasetJobsSortType
 
-The ID of a security marking.
+GetDatasetJobsSortType
 
-## Type
-```python
-str
-```
+| **Value** |
+| --------- |
+| `"BY_STARTED_TIME"` |
+| `"BY_FINISHED_TIME"` |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

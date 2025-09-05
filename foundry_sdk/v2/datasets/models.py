@@ -70,6 +70,59 @@ FileUpdatedTime = core.AwareDatetime
 """FileUpdatedTime"""
 
 
+class GetDatasetJobsAndFilter(core.ModelBase):
+    """GetDatasetJobsAndFilter"""
+
+    items: typing.List[GetDatasetJobsQuery]
+    type: typing.Literal["and"] = "and"
+
+
+GetDatasetJobsComparisonType = typing.Literal["GTE", "LT"]
+"""GetDatasetJobsComparisonType"""
+
+
+class GetDatasetJobsOrFilter(core.ModelBase):
+    """GetDatasetJobsOrFilter"""
+
+    items: typing.List[GetDatasetJobsQuery]
+    type: typing.Literal["or"] = "or"
+
+
+GetDatasetJobsQuery = typing_extensions.Annotated[
+    typing.Union[GetDatasetJobsOrFilter, GetDatasetJobsAndFilter, "GetDatasetJobsTimeFilter"],
+    pydantic.Field(discriminator="type"),
+]
+"""Query for getting jobs on given dataset."""
+
+
+class GetDatasetJobsSort(core.ModelBase):
+    """GetDatasetJobsSort"""
+
+    sort_type: GetDatasetJobsSortType = pydantic.Field(alias=str("sortType"))  # type: ignore[literal-required]
+    sort_direction: GetDatasetJobsSortDirection = pydantic.Field(alias=str("sortDirection"))  # type: ignore[literal-required]
+
+
+GetDatasetJobsSortDirection = typing.Literal["ASCENDING", "DESCENDING"]
+"""GetDatasetJobsSortDirection"""
+
+
+GetDatasetJobsSortType = typing.Literal["BY_STARTED_TIME", "BY_FINISHED_TIME"]
+"""GetDatasetJobsSortType"""
+
+
+class GetDatasetJobsTimeFilter(core.ModelBase):
+    """GetDatasetJobsTimeFilter"""
+
+    field: GetDatasetJobsTimeFilterField
+    comparison_type: GetDatasetJobsComparisonType = pydantic.Field(alias=str("comparisonType"))  # type: ignore[literal-required]
+    value: core.AwareDatetime
+    type: typing.Literal["timeFilter"] = "timeFilter"
+
+
+GetDatasetJobsTimeFilterField = typing.Literal["SUBMITTED_TIME", "FINISHED_TIME"]
+"""GetDatasetJobsTimeFilterField"""
+
+
 class GetDatasetSchemaResponse(core.ModelBase):
     """GetDatasetSchemaResponse"""
 
@@ -77,6 +130,19 @@ class GetDatasetSchemaResponse(core.ModelBase):
     end_transaction_rid: TransactionRid = pydantic.Field(alias=str("endTransactionRid"))  # type: ignore[literal-required]
     schema_: core_models.DatasetSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     version_id: core_models.VersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+
+
+class GetJobResponse(core.ModelBase):
+    """GetJobResponse"""
+
+    jobs: typing.List[JobDetails]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class JobDetails(core.ModelBase):
+    """JobDetails"""
+
+    job_rid: core_models.JobRid = pydantic.Field(alias=str("jobRid"))  # type: ignore[literal-required]
 
 
 class ListBranchesResponse(core.ModelBase):
@@ -233,6 +299,7 @@ PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
+core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
 core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
 
 __all__ = [
@@ -244,7 +311,18 @@ __all__ = [
     "DatasetRid",
     "File",
     "FileUpdatedTime",
+    "GetDatasetJobsAndFilter",
+    "GetDatasetJobsComparisonType",
+    "GetDatasetJobsOrFilter",
+    "GetDatasetJobsQuery",
+    "GetDatasetJobsSort",
+    "GetDatasetJobsSortDirection",
+    "GetDatasetJobsSortType",
+    "GetDatasetJobsTimeFilter",
+    "GetDatasetJobsTimeFilterField",
     "GetDatasetSchemaResponse",
+    "GetJobResponse",
+    "JobDetails",
     "ListBranchesResponse",
     "ListFilesResponse",
     "ListSchedulesResponse",

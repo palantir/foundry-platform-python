@@ -55,6 +55,8 @@ class QueryTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         query_api_name: ontologies_models.QueryApiName,
         *,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -66,6 +68,10 @@ class QueryTypeClient:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param version: The version of the Query to get.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -79,6 +85,8 @@ class QueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "version": version,
                 },
                 path_params={
@@ -200,6 +208,8 @@ class AsyncQueryTypeClient:
         ontology: ontologies_models.OntologyIdentifier,
         query_api_name: ontologies_models.QueryApiName,
         *,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -211,6 +221,10 @@ class AsyncQueryTypeClient:
         :type ontology: OntologyIdentifier
         :param query_api_name: The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
         :type query_api_name: QueryApiName
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param version: The version of the Query to get.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -224,6 +238,8 @@ class AsyncQueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes/{queryApiName}",
                 query_params={
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                     "version": version,
                 },
                 path_params={

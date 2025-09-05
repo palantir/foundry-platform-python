@@ -6,7 +6,7 @@ A field in a Foundry dataset.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**type** | str | Yes |  |
+**type** | SchemaFieldType | Yes |  |
 **name** | FieldName | Yes | The name of a column. May be absent in nested schema objects.  |
 **nullable** | bool | Yes | Indicates whether values of this field may be null.  |
 **user_defined_type_class** | Optional[str] | No | Canonical classname of the user-defined type for this field. This should be a subclass of Spark's `UserDefinedType`.  |

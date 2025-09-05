@@ -3392,6 +3392,55 @@ def datasets_dataset_op_get_schema(
     click.echo(repr(result))
 
 
+@datasets_dataset.command("jobs")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option("--order_by", type=str, required=True, help="""""")
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""Max number of results to return. A limit of 1000 on if no limit is supplied in the search request
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--where", type=str, required=False, help="""""")
+@click.pass_obj
+def datasets_dataset_op_jobs(
+    client: FoundryClient,
+    dataset_rid: str,
+    order_by: str,
+    branch_name: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+    """
+    result = client.datasets.Dataset.jobs(
+        dataset_rid=dataset_rid,
+        order_by=json.loads(order_by),
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.command("put_schema")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option(
@@ -5954,12 +6003,20 @@ def ontologies_ontology_transaction():
 @click.argument("ontology", type=str, required=True)
 @click.argument("transaction_rid", type=str, required=True)
 @click.option("--edits", type=str, required=True, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_transaction_op_post_edits(
     client: FoundryClient,
     ontology: str,
     transaction_rid: str,
     edits: str,
+    preview: typing.Optional[bool],
 ):
     """
     Applies a set of edits to a transaction in order.
@@ -5969,6 +6026,7 @@ def ontologies_ontology_transaction_op_post_edits(
         ontology=ontology,
         transaction_rid=transaction_rid,
         edits=json.loads(edits),
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -7362,6 +7420,20 @@ def ontologies_ontology_query_type():
 @click.argument("ontology", type=str, required=True)
 @click.argument("query_api_name", type=str, required=True)
 @click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.option(
     "--version",
     type=str,
     required=False,
@@ -7373,6 +7445,8 @@ def ontologies_ontology_query_type_op_get(
     client: FoundryClient,
     ontology: str,
     query_api_name: str,
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -7382,6 +7456,8 @@ def ontologies_ontology_query_type_op_get(
     result = client.ontologies.Ontology.QueryType.get(
         ontology=ontology,
         query_api_name=query_api_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
         version=version,
     )
     click.echo(repr(result))
