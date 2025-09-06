@@ -102,7 +102,7 @@ CustomMetadata = typing.Dict[str, typing.Any]
 class DatasetFieldSchema(core.ModelBase):
     """A field in a Foundry dataset."""
 
-    type: str
+    type: SchemaFieldType
     name: FieldName
     """The name of a column. May be absent in nested schema objects."""
 
@@ -503,7 +503,7 @@ class MapFieldType(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-MarkingId = core.UUID
+MarkingId = str
 """The ID of a security marking."""
 
 
@@ -676,6 +676,26 @@ RoleSetId = str
 
 ScheduleRid = core.RID
 """The RID of a Schedule."""
+
+
+SchemaFieldType = typing.Literal[
+    "ARRAY",
+    "BINARY",
+    "BOOLEAN",
+    "BYTE",
+    "DATE",
+    "DECIMAL",
+    "DOUBLE",
+    "FLOAT",
+    "INTEGER",
+    "LONG",
+    "MAP",
+    "SHORT",
+    "STRING",
+    "STRUCT",
+    "TIMESTAMP",
+]
+"""The data type of a column in a dataset schema."""
 
 
 class ShortType(core.ModelBase):
@@ -950,6 +970,7 @@ __all__ = [
     "RoleId",
     "RoleSetId",
     "ScheduleRid",
+    "SchemaFieldType",
     "ShortType",
     "SizeBytes",
     "StreamSchema",

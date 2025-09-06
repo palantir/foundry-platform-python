@@ -15,6 +15,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **query_api_name** | QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.  |  |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to get.  | [optional] |
 
 ### Return type
@@ -33,13 +35,21 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # QueryApiName | The API name of the query type. To find the API name, use the **List query types** endpoint or check the **Ontology Manager**.
 query_api_name = "getEmployeesInCity"
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 # Optional[FunctionVersion] | The version of the Query to get.
 version = None
 
 
 try:
     api_response = client.ontologies.Ontology.QueryType.get(
-        ontology, query_api_name, version=version
+        ontology,
+        query_api_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+        version=version,
     )
     print("The get response:\n")
     pprint(api_response)

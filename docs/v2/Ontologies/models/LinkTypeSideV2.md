@@ -1,6 +1,8 @@
 # LinkTypeSideV2
 
-LinkTypeSideV2
+`foreignKeyPropertyApiName` is the API name of the foreign key on this object type. If absent, the link is
+either a m2m link or the linked object has the foreign key and this object type has the primary key.
+
 
 ## Properties
 | Name | Type | Required | Description |

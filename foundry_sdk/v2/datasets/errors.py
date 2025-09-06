@@ -395,6 +395,21 @@ class GetBranchTransactionHistoryPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetDatasetJobsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not jobs the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class GetDatasetJobsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetJobsPermissionDenied"]
+    parameters: GetDatasetJobsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetDatasetSchedulesPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getSchedules the Dataset."""
 
@@ -842,6 +857,7 @@ __all__ = [
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
     "GetBranchTransactionHistoryPermissionDenied",
+    "GetDatasetJobsPermissionDenied",
     "GetDatasetSchedulesPermissionDenied",
     "GetDatasetSchemaPermissionDenied",
     "GetFileContentPermissionDenied",
