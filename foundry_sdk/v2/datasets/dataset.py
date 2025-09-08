@@ -341,6 +341,88 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def jobs(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        order_by: typing.List[datasets_models.GetDatasetJobsSort],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[datasets_models.GetDatasetJobsQuery] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetJobResponse:
+        """
+        Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param order_by:
+        :type order_by: List[GetDatasetJobsSort]
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param page_size: Max number of results to return. A limit of 1000 on if no limit is supplied in the search request
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param where:
+        :type where: Optional[GetDatasetJobsQuery]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetJobResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetJobsPermissionDenied: Could not jobs the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/jobs",
+                query_params={
+                    "branchName": branch_name,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "orderBy": order_by,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": typing.Optional[datasets_models.GetDatasetJobsQuery],
+                        "orderBy": typing.List[datasets_models.GetDatasetJobsSort],
+                    },
+                ),
+                response_type=datasets_models.GetJobResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetJobsPermissionDenied": datasets_errors.GetDatasetJobsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def put_schema(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -575,6 +657,7 @@ class _DatasetClientRaw:
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
         def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
@@ -583,6 +666,7 @@ class _DatasetClientRaw:
         self.get = core.with_raw_response(get, client.get)
         self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_raw_response(get_schema, client.get_schema)
+        self.jobs = core.with_raw_response(jobs, client.jobs)
         self.put_schema = core.with_raw_response(put_schema, client.put_schema)
         self.read_table = core.with_raw_response(read_table, client.read_table)
         self.transactions = core.with_raw_response(transactions, client.transactions)
@@ -594,6 +678,7 @@ class _DatasetClientStreaming:
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
         def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
@@ -602,6 +687,7 @@ class _DatasetClientStreaming:
         self.get = core.with_streaming_response(get, client.get)
         self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
+        self.jobs = core.with_streaming_response(jobs, client.jobs)
         self.put_schema = core.with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.with_streaming_response(read_table, client.read_table)
         self.transactions = core.with_streaming_response(transactions, client.transactions)
@@ -919,6 +1005,88 @@ class AsyncDatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def jobs(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        order_by: typing.List[datasets_models.GetDatasetJobsSort],
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        where: typing.Optional[datasets_models.GetDatasetJobsQuery] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetJobResponse]:
+        """
+        Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param order_by:
+        :type order_by: List[GetDatasetJobsSort]
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param page_size: Max number of results to return. A limit of 1000 on if no limit is supplied in the search request
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param where:
+        :type where: Optional[GetDatasetJobsQuery]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetJobResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetJobsPermissionDenied: Could not jobs the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/{datasetRid}/jobs",
+                query_params={
+                    "branchName": branch_name,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body={
+                    "where": where,
+                    "orderBy": order_by,
+                },
+                body_type=typing_extensions.TypedDict(
+                    "Body",
+                    {  # type: ignore
+                        "where": typing.Optional[datasets_models.GetDatasetJobsQuery],
+                        "orderBy": typing.List[datasets_models.GetDatasetJobsSort],
+                    },
+                ),
+                response_type=datasets_models.GetJobResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetJobsPermissionDenied": datasets_errors.GetDatasetJobsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def put_schema(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -1153,6 +1321,7 @@ class _AsyncDatasetClientRaw:
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
         def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
@@ -1161,6 +1330,7 @@ class _AsyncDatasetClientRaw:
         self.get = core.async_with_raw_response(get, client.get)
         self.get_schedules = core.async_with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
+        self.jobs = core.async_with_raw_response(jobs, client.jobs)
         self.put_schema = core.async_with_raw_response(put_schema, client.put_schema)
         self.read_table = core.async_with_raw_response(read_table, client.read_table)
         self.transactions = core.async_with_raw_response(transactions, client.transactions)
@@ -1172,6 +1342,7 @@ class _AsyncDatasetClientStreaming:
         def get(_: datasets_models.Dataset): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
         def transactions(_: datasets_models.ListTransactionsOfDatasetResponse): ...
@@ -1180,6 +1351,7 @@ class _AsyncDatasetClientStreaming:
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_schedules = core.async_with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
+        self.jobs = core.async_with_streaming_response(jobs, client.jobs)
         self.put_schema = core.async_with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.async_with_streaming_response(read_table, client.read_table)
         self.transactions = core.async_with_streaming_response(transactions, client.transactions)

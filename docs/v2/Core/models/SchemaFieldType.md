@@ -1,4 +1,4 @@
-# ColumnType
+# SchemaFieldType
 
 The data type of a column in a dataset schema.
 

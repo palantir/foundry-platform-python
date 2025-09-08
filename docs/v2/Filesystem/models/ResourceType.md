@@ -5,6 +5,9 @@ The type of the Resource derived from the Resource Identifier (RID).
 | **Value** |
 | --------- |
 | `"AIP_PROFILE"` |
+| `"AIP_AGENTS_AGENT"` |
+| `"AIP_AGENTS_SESSION"` |
+| `"AIP_ASSIST_FLOW_CAPTURE"` |
 | `"AIP_ASSIST_WALKTHROUGH"` |
 | `"ARTIFACTS_REPOSITORY"` |
 | `"BELLASO_CIPHER_CHANNEL"` |
@@ -41,6 +44,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"FOUNDRY_ML_OBJECTIVE"` |
 | `"FOUNDRY_TEMPLATES_TEMPLATE"` |
 | `"FUSION_DOCUMENT"` |
+| `"GEOTIME_CATALOG_INTEGRATION"` |
 | `"GPS_VIEW"` |
 | `"HUBBLE_EXPLORATION_LAYOUT"` |
 | `"HYPERAUTO_INTEGRATION"` |
@@ -48,6 +52,7 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"MACHINERY_DOCUMENT"` |
 | `"MAGRITTE_AGENT"` |
 | `"MAGRITTE_DRIVER"` |
+| `"MAGRITTE_EXPORT"` |
 | `"MAGRITTE_SOURCE"` |
 | `"MARKETPLACE_BLOCK_SET_INSTALLATION"` |
 | `"MARKETPLACE_BLOCK_SET_REPO"` |
@@ -70,6 +75,8 @@ The type of the Resource derived from the Resource Identifier (RID).
 | `"QUIVER_ANALYSIS"` |
 | `"QUIVER_ARTIFACT"` |
 | `"QUIVER_DASHBOARD"` |
+| `"QUIVER_FUNCTION"` |
+| `"QUIVER_OBJECT_SET_PATH"` |
 | `"REPORT_REPORT"` |
 | `"SLATE_DOCUMENT"` |
 | `"SOLUTION_DESIGN_DIAGRAM"` |

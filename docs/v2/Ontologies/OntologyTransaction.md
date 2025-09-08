@@ -15,6 +15,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **transaction_rid** | OntologyTransactionRid | The RID of the transaction to apply edits to.  |  |
 **edits** | List[TransactionEdit] |  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **PostTransactionEditsResponse**
@@ -34,11 +35,13 @@ ontology = "palantir"
 transaction_rid = None
 # List[TransactionEdit]
 edits = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.OntologyTransaction.post_edits(
-        ontology, transaction_rid, edits=edits
+        ontology, transaction_rid, edits=edits, preview=preview
     )
     print("The post_edits response:\n")
     pprint(api_response)

@@ -1,12 +1,12 @@
-# ColumnInfo
+# GetJobResponse
 
-Information about a column including its name and type.
+GetJobResponse
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | ColumnName | Yes |  |
-**column_type** | Optional[SchemaFieldType] | No |  |
+**jobs** | List[JobDetails] | Yes |  |
+**next_page_token** | Optional[PageToken] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

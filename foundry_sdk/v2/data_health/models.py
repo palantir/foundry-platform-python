@@ -93,31 +93,11 @@ class ColumnInfo(core.ModelBase):
     """Information about a column including its name and type."""
 
     name: ColumnName
-    column_type: typing.Optional[ColumnType] = pydantic.Field(alias=str("columnType"), default=None)  # type: ignore[literal-required]
+    column_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("columnType"), default=None)  # type: ignore[literal-required]
 
 
 ColumnName = str
 """ColumnName"""
-
-
-ColumnType = typing.Literal[
-    "ARRAY",
-    "BINARY",
-    "BOOLEAN",
-    "BYTE",
-    "DATE",
-    "DECIMAL",
-    "DOUBLE",
-    "FLOAT",
-    "INTEGER",
-    "LONG",
-    "MAP",
-    "SHORT",
-    "STRING",
-    "STRUCT",
-    "TIMESTAMP",
-]
-"""The data type of a column in a dataset schema."""
 
 
 class ColumnTypeCheckConfig(core.ModelBase):
@@ -132,7 +112,7 @@ class ColumnTypeConfig(core.ModelBase):
     """Configuration for column type validation with severity settings."""
 
     column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
-    expected_type: typing.Optional[ColumnType] = pydantic.Field(alias=str("expectedType"), default=None)  # type: ignore[literal-required]
+    expected_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("expectedType"), default=None)  # type: ignore[literal-required]
     severity: SeverityLevel
 
 
@@ -277,7 +257,6 @@ __all__ = [
     "ColumnCountConfig",
     "ColumnInfo",
     "ColumnName",
-    "ColumnType",
     "ColumnTypeCheckConfig",
     "ColumnTypeConfig",
     "DatasetSubject",

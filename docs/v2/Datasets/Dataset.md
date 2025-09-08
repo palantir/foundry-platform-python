@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
 [**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
 [**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
+[**jobs**](#jobs) | **POST** /v2/datasets/{datasetRid}/jobs | Public Beta |
 [**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
 [**transactions**](#transactions) | **GET** /v2/datasets/{datasetRid}/transactions | Public Beta |
@@ -239,6 +240,85 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **jobs**
+Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**order_by** | List[GetDatasetJobsSort] |  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
+**page_size** | Optional[PageSize] | Max number of results to return. A limit of 1000 on if no limit is supplied in the search request  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**where** | Optional[GetDatasetJobsQuery] |  | [optional] |
+
+### Return type
+**GetJobResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# List[GetDatasetJobsSort]
+order_by = [{"sortType": "BY_STARTED_TIME", "sortDirection": "DESCENDING"}]
+# Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+branch_name = None
+# Optional[PageSize] | Max number of results to return. A limit of 1000 on if no limit is supplied in the search request
+page_size = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+# Optional[GetDatasetJobsQuery]
+where = {
+    "type": "timeFilter",
+    "field": "SUBMITTED_TIME",
+    "comparisonType": "GTE",
+    "value": "2020-09-30T14:30:00Z",
+}
+
+
+try:
+    api_response = client.datasets.Dataset.jobs(
+        dataset_rid,
+        order_by=order_by,
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=where,
+    )
+    print("The jobs response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.jobs: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetJobResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **put_schema**
 Adds a schema on an existing dataset using a PUT request.
 
@@ -273,25 +353,25 @@ schema = {
     "fieldSchemaList": [
         {
             "name": "id",
-            "type": "long",
+            "type": "LONG",
             "nullable": False,
             "customMetadata": {"description": "Primary key"},
         },
-        {"name": "event_time", "type": "timestamp", "nullable": False},
-        {"name": "price", "type": "decimal", "precision": 10, "scale": 2, "nullable": True},
+        {"name": "event_time", "type": "TIMESTAMP", "nullable": False},
+        {"name": "price", "type": "DECIMAL", "precision": 10, "scale": 2, "nullable": True},
         {
             "name": "tags",
-            "type": "array",
+            "type": "ARRAY",
             "nullable": True,
-            "arraySubtype": {"type": "string", "nullable": False},
+            "arraySubtype": {"type": "STRING", "nullable": False},
         },
         {
             "name": "metrics",
-            "type": "struct",
+            "type": "STRUCT",
             "nullable": True,
             "subSchemas": [
-                {"name": "temperature", "type": "double", "nullable": True},
-                {"name": "humidity", "type": "double", "nullable": True},
+                {"name": "temperature", "type": "DOUBLE", "nullable": True},
+                {"name": "humidity", "type": "DOUBLE", "nullable": True},
             ],
         },
     ]

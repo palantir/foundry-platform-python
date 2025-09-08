@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
@@ -55,6 +56,7 @@ class OntologyTransactionClient:
         transaction_rid: ontologies_models.OntologyTransactionRid,
         *,
         edits: typing.List[ontologies_models.TransactionEdit],
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.PostTransactionEditsResponse:
@@ -67,6 +69,8 @@ class OntologyTransactionClient:
         :type transaction_rid: OntologyTransactionRid
         :param edits:
         :type edits: List[TransactionEdit]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -77,7 +81,9 @@ class OntologyTransactionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/transactions/{transactionRid}/edits",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "ontology": ontology,
                     "transactionRid": transaction_rid,
@@ -149,6 +155,7 @@ class AsyncOntologyTransactionClient:
         transaction_rid: ontologies_models.OntologyTransactionRid,
         *,
         edits: typing.List[ontologies_models.TransactionEdit],
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.PostTransactionEditsResponse]:
@@ -161,6 +168,8 @@ class AsyncOntologyTransactionClient:
         :type transaction_rid: OntologyTransactionRid
         :param edits:
         :type edits: List[TransactionEdit]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -171,7 +180,9 @@ class AsyncOntologyTransactionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/transactions/{transactionRid}/edits",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "ontology": ontology,
                     "transactionRid": transaction_rid,

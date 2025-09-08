@@ -1,12 +1,12 @@
-# ColumnInfo
+# GetDatasetJobsSort
 
-Information about a column including its name and type.
+GetDatasetJobsSort
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**name** | ColumnName | Yes |  |
-**column_type** | Optional[SchemaFieldType] | No |  |
+**sort_type** | GetDatasetJobsSortType | Yes |  |
+**sort_direction** | GetDatasetJobsSortDirection | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

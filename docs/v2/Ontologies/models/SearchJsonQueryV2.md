@@ -17,6 +17,7 @@ DoesNotIntersectBoundingBoxQuery | doesNotIntersectBoundingBox
 EqualsQueryV2 | eq
 ContainsAllTermsQuery | containsAllTerms
 GtQueryV2 | gt
+WildcardQuery | wildcard
 WithinDistanceOfQuery | withinDistanceOf
 WithinBoundingBoxQuery | withinBoundingBox
 ContainsQueryV2 | contains
