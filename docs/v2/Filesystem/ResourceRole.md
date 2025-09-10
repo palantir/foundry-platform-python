@@ -14,7 +14,7 @@ Method | HTTP request | Release Stage |
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**roles** | List[ResourceRole] |  |  |
+**roles** | List[ResourceRoleIdentifier] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -31,13 +31,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[ResourceRole]
+# List[ResourceRoleIdentifier]
 roles = [
     {
         "resourceRolePrincipal": {
-            "type": "principalWithId",
+            "type": "principalIdOnly",
             "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
-            "principalType": "GROUP",
         },
         "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
     }
@@ -141,7 +140,7 @@ See [README](../../../README.md#authorization)
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**roles** | List[ResourceRole] |  |  |
+**roles** | List[ResourceRoleIdentifier] |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -158,13 +157,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# List[ResourceRole]
+# List[ResourceRoleIdentifier]
 roles = [
     {
         "resourceRolePrincipal": {
-            "type": "principalWithId",
+            "type": "principalIdOnly",
             "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
-            "principalType": "GROUP",
         },
         "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
     }

@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.media_sets import models as media_sets_models
 
 
 class ConflictingMediaSetIdentifiersParameters(typing_extensions.TypedDict):
@@ -50,6 +51,70 @@ class GetMediaItemRidByPathPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InvalidMediaItemSchemaParameters(typing_extensions.TypedDict):
+    """The media item does not match the schema of the media set."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class InvalidMediaItemSchema(errors.BadRequestError):
+    name: typing.Literal["InvalidMediaItemSchema"]
+    parameters: InvalidMediaItemSchemaParameters
+    error_instance_id: str
+
+
+class MediaItemHasUnsupportedSecuritySettingsParameters(typing_extensions.TypedDict):
+    """The file cannot be read because it contains unsupported security settings (for example, public-key security handlers in a PDF)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class MediaItemHasUnsupportedSecuritySettings(errors.BadRequestError):
+    name: typing.Literal["MediaItemHasUnsupportedSecuritySettings"]
+    parameters: MediaItemHasUnsupportedSecuritySettingsParameters
+    error_instance_id: str
+
+
+class MediaItemImageUnparsableParameters(typing_extensions.TypedDict):
+    """The file cannot be parsed as an image."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class MediaItemImageUnparsable(errors.BadRequestError):
+    name: typing.Literal["MediaItemImageUnparsable"]
+    parameters: MediaItemImageUnparsableParameters
+    error_instance_id: str
+
+
+class MediaItemIsPasswordProtectedParameters(typing_extensions.TypedDict):
+    """The file cannot be read because it is password protected."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class MediaItemIsPasswordProtected(errors.BadRequestError):
+    name: typing.Literal["MediaItemIsPasswordProtected"]
+    parameters: MediaItemIsPasswordProtectedParameters
+    error_instance_id: str
+
+
 class MediaItemNotFoundParameters(typing_extensions.TypedDict):
     """The requested media item could not be found, or the client token does not have access to it."""
 
@@ -66,6 +131,23 @@ class MediaItemNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MediaItemXmlUnparsableParameters(typing_extensions.TypedDict):
+    """The document cannot be parsed due to an unrecognized XML structure."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaItemXmlFormat: media_sets_models.MediaItemXmlFormat
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class MediaItemXmlUnparsable(errors.BadRequestError):
+    name: typing.Literal["MediaItemXmlUnparsable"]
+    parameters: MediaItemXmlUnparsableParameters
+    error_instance_id: str
+
+
 class MediaSetNotFoundParameters(typing_extensions.TypedDict):
     """The requested media set could not be found, or the client token does not have access to it."""
 
@@ -78,6 +160,22 @@ class MediaSetNotFoundParameters(typing_extensions.TypedDict):
 class MediaSetNotFound(errors.NotFoundError):
     name: typing.Literal["MediaSetNotFound"]
     parameters: MediaSetNotFoundParameters
+    error_instance_id: str
+
+
+class MissingMediaItemContentParameters(typing_extensions.TypedDict):
+    """The file has no bytes."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    path: typing_extensions.NotRequired[core_models.MediaItemPath]
+
+
+@dataclass
+class MissingMediaItemContent(errors.BadRequestError):
+    name: typing.Literal["MissingMediaItemContent"]
+    parameters: MissingMediaItemContentParameters
     error_instance_id: str
 
 
@@ -99,7 +197,13 @@ class MissingMediaItemPath(errors.BadRequestError):
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
+    "InvalidMediaItemSchema",
+    "MediaItemHasUnsupportedSecuritySettings",
+    "MediaItemImageUnparsable",
+    "MediaItemIsPasswordProtected",
     "MediaItemNotFound",
+    "MediaItemXmlUnparsable",
     "MediaSetNotFound",
+    "MissingMediaItemContent",
     "MissingMediaItemPath",
 ]

@@ -147,6 +147,44 @@ class InvalidDevModeBaseHref(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidDevModeEntrypointCssCountParameters(typing_extensions.TypedDict):
+    """
+    The dev mode settings contains too many CSS entrypoints. You must limit the number
+    of CSS entrypoints to the maximum allowed.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    entrypointCssCount: int
+
+
+@dataclass
+class InvalidDevModeEntrypointCssCount(errors.BadRequestError):
+    name: typing.Literal["InvalidDevModeEntrypointCssCount"]
+    parameters: InvalidDevModeEntrypointCssCountParameters
+    error_instance_id: str
+
+
+class InvalidDevModeEntrypointJsCountParameters(typing_extensions.TypedDict):
+    """
+    The dev mode settings contains too many JavaScript entrypoints. You must limit the number
+    of JavaScript entrypoints to the maximum allowed.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    entrypointJsCount: int
+
+
+@dataclass
+class InvalidDevModeEntrypointJsCount(errors.BadRequestError):
+    name: typing.Literal["InvalidDevModeEntrypointJsCount"]
+    parameters: InvalidDevModeEntrypointJsCountParameters
+    error_instance_id: str
+
+
 class InvalidDevModeFilePathParameters(typing_extensions.TypedDict):
     """
     The dev mode settings contains an invalid entrypoint file path. The file path must be a
@@ -155,6 +193,7 @@ class InvalidDevModeFilePathParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
+    reason: str
     filePath: str
 
 
@@ -186,7 +225,7 @@ class InvalidDevModeWidgetSettingsCount(errors.BadRequestError):
 
 class InvalidEntrypointCssCountParameters(typing_extensions.TypedDict):
     """
-    The dev mode settings contains too many CSS entrypoints. You must limit the number
+    The widget declares too many CSS entrypoints. You must limit the number
     of CSS entrypoints to the maximum allowed.
     """
 
@@ -205,7 +244,7 @@ class InvalidEntrypointCssCount(errors.BadRequestError):
 
 class InvalidEntrypointJsCountParameters(typing_extensions.TypedDict):
     """
-    The dev mode settings contains too many JavaScript entrypoints. You must limit the number
+    The widget declares too many JavaScript entrypoints. You must limit the number
     of JavaScript entrypoints to the maximum allowed.
     """
 
@@ -219,6 +258,86 @@ class InvalidEntrypointJsCountParameters(typing_extensions.TypedDict):
 class InvalidEntrypointJsCount(errors.BadRequestError):
     name: typing.Literal["InvalidEntrypointJsCount"]
     parameters: InvalidEntrypointJsCountParameters
+    error_instance_id: str
+
+
+class InvalidEventCountParameters(typing_extensions.TypedDict):
+    """The widget config contains too many events."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventCount: int
+
+
+@dataclass
+class InvalidEventCount(errors.BadRequestError):
+    name: typing.Literal["InvalidEventCount"]
+    parameters: InvalidEventCountParameters
+    error_instance_id: str
+
+
+class InvalidEventDisplayNameParameters(typing_extensions.TypedDict):
+    """The event display name is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventDisplayName: str
+
+
+@dataclass
+class InvalidEventDisplayName(errors.BadRequestError):
+    name: typing.Literal["InvalidEventDisplayName"]
+    parameters: InvalidEventDisplayNameParameters
+    error_instance_id: str
+
+
+class InvalidEventIdParameters(typing_extensions.TypedDict):
+    """The event id is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventId: str
+
+
+@dataclass
+class InvalidEventId(errors.BadRequestError):
+    name: typing.Literal["InvalidEventId"]
+    parameters: InvalidEventIdParameters
+    error_instance_id: str
+
+
+class InvalidEventParameterUpdateIdParameters(typing_extensions.TypedDict):
+    """The event references an invalid parameter id."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    parameterUpdateId: str
+
+
+@dataclass
+class InvalidEventParameterUpdateId(errors.BadRequestError):
+    name: typing.Literal["InvalidEventParameterUpdateId"]
+    parameters: InvalidEventParameterUpdateIdParameters
+    error_instance_id: str
+
+
+class InvalidFilePathParameters(typing_extensions.TypedDict):
+    """The widget declares an invalid production entrypoint file path."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    filePath: str
+
+
+@dataclass
+class InvalidFilePath(errors.BadRequestError):
+    name: typing.Literal["InvalidFilePath"]
+    parameters: InvalidFilePathParameters
     error_instance_id: str
 
 
@@ -240,6 +359,54 @@ class InvalidManifest(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidParameterCountParameters(typing_extensions.TypedDict):
+    """The widget config contains too many parameters."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    parameterCount: int
+
+
+@dataclass
+class InvalidParameterCount(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterCount"]
+    parameters: InvalidParameterCountParameters
+    error_instance_id: str
+
+
+class InvalidParameterDisplayNameParameters(typing_extensions.TypedDict):
+    """The parameter display name is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    parameterDisplayName: str
+
+
+@dataclass
+class InvalidParameterDisplayName(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterDisplayName"]
+    parameters: InvalidParameterDisplayNameParameters
+    error_instance_id: str
+
+
+class InvalidParameterIdParameters(typing_extensions.TypedDict):
+    """The parameter id is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    parameterId: str
+
+
+@dataclass
+class InvalidParameterId(errors.BadRequestError):
+    name: typing.Literal["InvalidParameterId"]
+    parameters: InvalidParameterIdParameters
+    error_instance_id: str
+
+
 class InvalidPublishRepositoryParameters(typing_extensions.TypedDict):
     """The manifest file targets a widget set that has not linked the repository to publish."""
 
@@ -250,6 +417,38 @@ class InvalidPublishRepositoryParameters(typing_extensions.TypedDict):
 class InvalidPublishRepository(errors.BadRequestError):
     name: typing.Literal["InvalidPublishRepository"]
     parameters: InvalidPublishRepositoryParameters
+    error_instance_id: str
+
+
+class InvalidReleaseDescriptionParameters(typing_extensions.TypedDict):
+    """The release description is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    releaseDescription: str
+
+
+@dataclass
+class InvalidReleaseDescription(errors.BadRequestError):
+    name: typing.Literal["InvalidReleaseDescription"]
+    parameters: InvalidReleaseDescriptionParameters
+    error_instance_id: str
+
+
+class InvalidReleaseWidgetsCountParameters(typing_extensions.TypedDict):
+    """The release contains zero widgets or too many widgets."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    widgetsCount: int
+
+
+@dataclass
+class InvalidReleaseWidgetsCount(errors.BadRequestError):
+    name: typing.Literal["InvalidReleaseWidgetsCount"]
+    parameters: InvalidReleaseWidgetsCountParameters
     error_instance_id: str
 
 
@@ -268,6 +467,70 @@ class InvalidVersionParameters(typing_extensions.TypedDict):
 class InvalidVersion(errors.BadRequestError):
     name: typing.Literal["InvalidVersion"]
     parameters: InvalidVersionParameters
+    error_instance_id: str
+
+
+class InvalidWidgetDescriptionParameters(typing_extensions.TypedDict):
+    """The widget description is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    widgetDescription: str
+
+
+@dataclass
+class InvalidWidgetDescription(errors.BadRequestError):
+    name: typing.Literal["InvalidWidgetDescription"]
+    parameters: InvalidWidgetDescriptionParameters
+    error_instance_id: str
+
+
+class InvalidWidgetIdParameters(typing_extensions.TypedDict):
+    """The widget id is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    widgetId: str
+
+
+@dataclass
+class InvalidWidgetId(errors.BadRequestError):
+    name: typing.Literal["InvalidWidgetId"]
+    parameters: InvalidWidgetIdParameters
+    error_instance_id: str
+
+
+class InvalidWidgetNameParameters(typing_extensions.TypedDict):
+    """The widget name is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    widgetName: str
+
+
+@dataclass
+class InvalidWidgetName(errors.BadRequestError):
+    name: typing.Literal["InvalidWidgetName"]
+    parameters: InvalidWidgetNameParameters
+    error_instance_id: str
+
+
+class OntologySdkNotFoundParameters(typing_extensions.TypedDict):
+    """A referenced Ontology SDK package could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    sdkPackageRid: core.RID
+    sdkVersion: str
+
+
+@dataclass
+class OntologySdkNotFound(errors.NotFoundError):
+    name: typing.Literal["OntologySdkNotFound"]
+    parameters: OntologySdkNotFoundParameters
     error_instance_id: str
 
 
@@ -394,6 +657,24 @@ class VersionLimitExceeded(errors.BadRequestError):
     error_instance_id: str
 
 
+class WidgetLimitExceededParameters(typing_extensions.TypedDict):
+    """
+    The widget set contains too many widgets. You must delete another widget before
+    creating a new one.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    widgetLimit: int
+
+
+@dataclass
+class WidgetLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["WidgetLimitExceeded"]
+    parameters: WidgetLimitExceededParameters
+    error_instance_id: str
+
+
 class WidgetSetNotFoundParameters(typing_extensions.TypedDict):
     """The given WidgetSet could not be found."""
 
@@ -419,13 +700,29 @@ __all__ = [
     "FileSizeLimitExceeded",
     "GetDevModeSettingsPermissionDenied",
     "InvalidDevModeBaseHref",
+    "InvalidDevModeEntrypointCssCount",
+    "InvalidDevModeEntrypointJsCount",
     "InvalidDevModeFilePath",
     "InvalidDevModeWidgetSettingsCount",
     "InvalidEntrypointCssCount",
     "InvalidEntrypointJsCount",
+    "InvalidEventCount",
+    "InvalidEventDisplayName",
+    "InvalidEventId",
+    "InvalidEventParameterUpdateId",
+    "InvalidFilePath",
     "InvalidManifest",
+    "InvalidParameterCount",
+    "InvalidParameterDisplayName",
+    "InvalidParameterId",
     "InvalidPublishRepository",
+    "InvalidReleaseDescription",
+    "InvalidReleaseWidgetsCount",
     "InvalidVersion",
+    "InvalidWidgetDescription",
+    "InvalidWidgetId",
+    "InvalidWidgetName",
+    "OntologySdkNotFound",
     "PauseDevModeSettingsPermissionDenied",
     "PublishReleasePermissionDenied",
     "ReleaseNotFound",
@@ -434,5 +731,6 @@ __all__ = [
     "SetWidgetSetDevModeSettingsPermissionDenied",
     "VersionAlreadyExists",
     "VersionLimitExceeded",
+    "WidgetLimitExceeded",
     "WidgetSetNotFound",
 ]

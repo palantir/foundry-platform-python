@@ -1325,6 +1325,7 @@ Namespace | Name | Import |
 **Filesystem** | [ListSpacesResponse](docs/v2/Filesystem/models/ListSpacesResponse.md) | `from foundry_sdk.v2.filesystem.models import ListSpacesResponse` |
 **Filesystem** | [Marking](docs/v2/Filesystem/models/Marking.md) | `from foundry_sdk.v2.filesystem.models import Marking` |
 **Filesystem** | [Organization](docs/v2/Filesystem/models/Organization.md) | `from foundry_sdk.v2.filesystem.models import Organization` |
+**Filesystem** | [PrincipalIdOnly](docs/v2/Filesystem/models/PrincipalIdOnly.md) | `from foundry_sdk.v2.filesystem.models import PrincipalIdOnly` |
 **Filesystem** | [PrincipalWithId](docs/v2/Filesystem/models/PrincipalWithId.md) | `from foundry_sdk.v2.filesystem.models import PrincipalWithId` |
 **Filesystem** | [Project](docs/v2/Filesystem/models/Project.md) | `from foundry_sdk.v2.filesystem.models import Project` |
 **Filesystem** | [ProjectRid](docs/v2/Filesystem/models/ProjectRid.md) | `from foundry_sdk.v2.filesystem.models import ProjectRid` |
@@ -1336,7 +1337,9 @@ Namespace | Name | Import |
 **Filesystem** | [ResourcePath](docs/v2/Filesystem/models/ResourcePath.md) | `from foundry_sdk.v2.filesystem.models import ResourcePath` |
 **Filesystem** | [ResourceRid](docs/v2/Filesystem/models/ResourceRid.md) | `from foundry_sdk.v2.filesystem.models import ResourceRid` |
 **Filesystem** | [ResourceRole](docs/v2/Filesystem/models/ResourceRole.md) | `from foundry_sdk.v2.filesystem.models import ResourceRole` |
+**Filesystem** | [ResourceRoleIdentifier](docs/v2/Filesystem/models/ResourceRoleIdentifier.md) | `from foundry_sdk.v2.filesystem.models import ResourceRoleIdentifier` |
 **Filesystem** | [ResourceRolePrincipal](docs/v2/Filesystem/models/ResourceRolePrincipal.md) | `from foundry_sdk.v2.filesystem.models import ResourceRolePrincipal` |
+**Filesystem** | [ResourceRolePrincipalIdentifier](docs/v2/Filesystem/models/ResourceRolePrincipalIdentifier.md) | `from foundry_sdk.v2.filesystem.models import ResourceRolePrincipalIdentifier` |
 **Filesystem** | [ResourceType](docs/v2/Filesystem/models/ResourceType.md) | `from foundry_sdk.v2.filesystem.models import ResourceType` |
 **Filesystem** | [Space](docs/v2/Filesystem/models/Space.md) | `from foundry_sdk.v2.filesystem.models import Space` |
 **Filesystem** | [SpaceRid](docs/v2/Filesystem/models/SpaceRid.md) | `from foundry_sdk.v2.filesystem.models import SpaceRid` |
@@ -1430,6 +1433,7 @@ Namespace | Name | Import |
 **MediaSets** | [GetMediaItemRidByPathResponse](docs/v2/MediaSets/models/GetMediaItemRidByPathResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemRidByPathResponse` |
 **MediaSets** | [LogicalTimestamp](docs/v2/MediaSets/models/LogicalTimestamp.md) | `from foundry_sdk.v2.media_sets.models import LogicalTimestamp` |
 **MediaSets** | [MediaAttribution](docs/v2/MediaSets/models/MediaAttribution.md) | `from foundry_sdk.v2.media_sets.models import MediaAttribution` |
+**MediaSets** | [MediaItemXmlFormat](docs/v2/MediaSets/models/MediaItemXmlFormat.md) | `from foundry_sdk.v2.media_sets.models import MediaItemXmlFormat` |
 **MediaSets** | [PutMediaItemResponse](docs/v2/MediaSets/models/PutMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import PutMediaItemResponse` |
 **MediaSets** | [TransactionId](docs/v2/MediaSets/models/TransactionId.md) | `from foundry_sdk.v2.media_sets.models import TransactionId` |
 **Ontologies** | [AbsoluteTimeRange](docs/v2/Ontologies/models/AbsoluteTimeRange.md) | `from foundry_sdk.v2.ontologies.models import AbsoluteTimeRange` |
@@ -2017,6 +2021,8 @@ Namespace | Name | Import |
 **Ontologies** | [InterfaceTypeApiName](docs/v1/Ontologies/models/InterfaceTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeApiName` |
 **Ontologies** | [InterfaceTypeRid](docs/v1/Ontologies/models/InterfaceTypeRid.md) | `from foundry_sdk.v1.ontologies.models import InterfaceTypeRid` |
 **Ontologies** | [IsNullQuery](docs/v1/Ontologies/models/IsNullQuery.md) | `from foundry_sdk.v1.ontologies.models import IsNullQuery` |
+**Ontologies** | [LegacyObjectTypeId](docs/v1/Ontologies/models/LegacyObjectTypeId.md) | `from foundry_sdk.v1.ontologies.models import LegacyObjectTypeId` |
+**Ontologies** | [LegacyPropertyId](docs/v1/Ontologies/models/LegacyPropertyId.md) | `from foundry_sdk.v1.ontologies.models import LegacyPropertyId` |
 **Ontologies** | [LinkTypeApiName](docs/v1/Ontologies/models/LinkTypeApiName.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeApiName` |
 **Ontologies** | [LinkTypeId](docs/v1/Ontologies/models/LinkTypeId.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeId` |
 **Ontologies** | [LinkTypeSide](docs/v1/Ontologies/models/LinkTypeSide.md) | `from foundry_sdk.v1.ontologies.models import LinkTypeSide` |
@@ -2316,7 +2322,10 @@ Namespace | Name | Import |
 **Datasets** | InvalidBranchName | `from foundry_sdk.v2.datasets.errors import InvalidBranchName` |
 **Datasets** | InvalidTransactionType | `from foundry_sdk.v2.datasets.errors import InvalidTransactionType` |
 **Datasets** | InvalidViewBackingDataset | `from foundry_sdk.v2.datasets.errors import InvalidViewBackingDataset` |
+**Datasets** | InvalidViewPrimaryKeyColumnType | `from foundry_sdk.v2.datasets.errors import InvalidViewPrimaryKeyColumnType` |
+**Datasets** | InvalidViewPrimaryKeyDeletionColumn | `from foundry_sdk.v2.datasets.errors import InvalidViewPrimaryKeyDeletionColumn` |
 **Datasets** | JobTransactionPermissionDenied | `from foundry_sdk.v2.datasets.errors import JobTransactionPermissionDenied` |
+**Datasets** | NotAllColumnsInPrimaryKeyArePresent | `from foundry_sdk.v2.datasets.errors import NotAllColumnsInPrimaryKeyArePresent` |
 **Datasets** | OpenTransactionAlreadyExists | `from foundry_sdk.v2.datasets.errors import OpenTransactionAlreadyExists` |
 **Datasets** | PutDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import PutDatasetSchemaPermissionDenied` |
 **Datasets** | PutSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import PutSchemaPermissionDenied` |
@@ -2334,6 +2343,7 @@ Namespace | Name | Import |
 **Datasets** | ViewDatasetCleanupFailed | `from foundry_sdk.v2.datasets.errors import ViewDatasetCleanupFailed` |
 **Datasets** | ViewNotFound | `from foundry_sdk.v2.datasets.errors import ViewNotFound` |
 **Datasets** | ViewPrimaryKeyCannotBeModified | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyCannotBeModified` |
+**Datasets** | ViewPrimaryKeyDeletionColumnNotInDatasetSchema | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyDeletionColumnNotInDatasetSchema` |
 **Datasets** | ViewPrimaryKeyMustContainAtLeastOneColumn | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyMustContainAtLeastOneColumn` |
 **Datasets** | ViewPrimaryKeyRequiresBackingDatasets | `from foundry_sdk.v2.datasets.errors import ViewPrimaryKeyRequiresBackingDatasets` |
 **Filesystem** | AddGroupToParentGroupPermissionDenied | `from foundry_sdk.v2.filesystem.errors import AddGroupToParentGroupPermissionDenied` |
@@ -2421,8 +2431,14 @@ Namespace | Name | Import |
 **Functions** | VersionIdNotFound | `from foundry_sdk.v2.functions.errors import VersionIdNotFound` |
 **MediaSets** | ConflictingMediaSetIdentifiers | `from foundry_sdk.v2.media_sets.errors import ConflictingMediaSetIdentifiers` |
 **MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
+**MediaSets** | InvalidMediaItemSchema | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemSchema` |
+**MediaSets** | MediaItemHasUnsupportedSecuritySettings | `from foundry_sdk.v2.media_sets.errors import MediaItemHasUnsupportedSecuritySettings` |
+**MediaSets** | MediaItemImageUnparsable | `from foundry_sdk.v2.media_sets.errors import MediaItemImageUnparsable` |
+**MediaSets** | MediaItemIsPasswordProtected | `from foundry_sdk.v2.media_sets.errors import MediaItemIsPasswordProtected` |
 **MediaSets** | MediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import MediaItemNotFound` |
+**MediaSets** | MediaItemXmlUnparsable | `from foundry_sdk.v2.media_sets.errors import MediaItemXmlUnparsable` |
 **MediaSets** | MediaSetNotFound | `from foundry_sdk.v2.media_sets.errors import MediaSetNotFound` |
+**MediaSets** | MissingMediaItemContent | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemContent` |
 **MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
@@ -2629,13 +2645,29 @@ Namespace | Name | Import |
 **Widgets** | FileSizeLimitExceeded | `from foundry_sdk.v2.widgets.errors import FileSizeLimitExceeded` |
 **Widgets** | GetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import GetDevModeSettingsPermissionDenied` |
 **Widgets** | InvalidDevModeBaseHref | `from foundry_sdk.v2.widgets.errors import InvalidDevModeBaseHref` |
+**Widgets** | InvalidDevModeEntrypointCssCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeEntrypointCssCount` |
+**Widgets** | InvalidDevModeEntrypointJsCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeEntrypointJsCount` |
 **Widgets** | InvalidDevModeFilePath | `from foundry_sdk.v2.widgets.errors import InvalidDevModeFilePath` |
 **Widgets** | InvalidDevModeWidgetSettingsCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeWidgetSettingsCount` |
 **Widgets** | InvalidEntrypointCssCount | `from foundry_sdk.v2.widgets.errors import InvalidEntrypointCssCount` |
 **Widgets** | InvalidEntrypointJsCount | `from foundry_sdk.v2.widgets.errors import InvalidEntrypointJsCount` |
+**Widgets** | InvalidEventCount | `from foundry_sdk.v2.widgets.errors import InvalidEventCount` |
+**Widgets** | InvalidEventDisplayName | `from foundry_sdk.v2.widgets.errors import InvalidEventDisplayName` |
+**Widgets** | InvalidEventId | `from foundry_sdk.v2.widgets.errors import InvalidEventId` |
+**Widgets** | InvalidEventParameterUpdateId | `from foundry_sdk.v2.widgets.errors import InvalidEventParameterUpdateId` |
+**Widgets** | InvalidFilePath | `from foundry_sdk.v2.widgets.errors import InvalidFilePath` |
 **Widgets** | InvalidManifest | `from foundry_sdk.v2.widgets.errors import InvalidManifest` |
+**Widgets** | InvalidParameterCount | `from foundry_sdk.v2.widgets.errors import InvalidParameterCount` |
+**Widgets** | InvalidParameterDisplayName | `from foundry_sdk.v2.widgets.errors import InvalidParameterDisplayName` |
+**Widgets** | InvalidParameterId | `from foundry_sdk.v2.widgets.errors import InvalidParameterId` |
 **Widgets** | InvalidPublishRepository | `from foundry_sdk.v2.widgets.errors import InvalidPublishRepository` |
+**Widgets** | InvalidReleaseDescription | `from foundry_sdk.v2.widgets.errors import InvalidReleaseDescription` |
+**Widgets** | InvalidReleaseWidgetsCount | `from foundry_sdk.v2.widgets.errors import InvalidReleaseWidgetsCount` |
 **Widgets** | InvalidVersion | `from foundry_sdk.v2.widgets.errors import InvalidVersion` |
+**Widgets** | InvalidWidgetDescription | `from foundry_sdk.v2.widgets.errors import InvalidWidgetDescription` |
+**Widgets** | InvalidWidgetId | `from foundry_sdk.v2.widgets.errors import InvalidWidgetId` |
+**Widgets** | InvalidWidgetName | `from foundry_sdk.v2.widgets.errors import InvalidWidgetName` |
+**Widgets** | OntologySdkNotFound | `from foundry_sdk.v2.widgets.errors import OntologySdkNotFound` |
 **Widgets** | PauseDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import PauseDevModeSettingsPermissionDenied` |
 **Widgets** | PublishReleasePermissionDenied | `from foundry_sdk.v2.widgets.errors import PublishReleasePermissionDenied` |
 **Widgets** | ReleaseNotFound | `from foundry_sdk.v2.widgets.errors import ReleaseNotFound` |
@@ -2644,6 +2676,7 @@ Namespace | Name | Import |
 **Widgets** | SetWidgetSetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsPermissionDenied` |
 **Widgets** | VersionAlreadyExists | `from foundry_sdk.v2.widgets.errors import VersionAlreadyExists` |
 **Widgets** | VersionLimitExceeded | `from foundry_sdk.v2.widgets.errors import VersionLimitExceeded` |
+**Widgets** | WidgetLimitExceeded | `from foundry_sdk.v2.widgets.errors import WidgetLimitExceeded` |
 **Widgets** | WidgetSetNotFound | `from foundry_sdk.v2.widgets.errors import WidgetSetNotFound` |
 <a id="errors-v1-link"></a>
 ## Documentation for V1 errors

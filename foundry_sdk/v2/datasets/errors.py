@@ -517,6 +517,41 @@ class InvalidViewBackingDataset(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidViewPrimaryKeyColumnTypeParameters(typing_extensions.TypedDict):
+    """
+    The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL,
+    INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    primaryKeyColumns: typing.List[str]
+    invalidColumns: typing.List[str]
+
+
+@dataclass
+class InvalidViewPrimaryKeyColumnType(errors.BadRequestError):
+    name: typing.Literal["InvalidViewPrimaryKeyColumnType"]
+    parameters: InvalidViewPrimaryKeyColumnTypeParameters
+    error_instance_id: str
+
+
+class InvalidViewPrimaryKeyDeletionColumnParameters(typing_extensions.TypedDict):
+    """The deletion column must be a boolean."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    deletionColumn: str
+    deletionColumnType: core_models.SchemaFieldType
+
+
+@dataclass
+class InvalidViewPrimaryKeyDeletionColumn(errors.BadRequestError):
+    name: typing.Literal["InvalidViewPrimaryKeyDeletionColumn"]
+    parameters: InvalidViewPrimaryKeyDeletionColumnParameters
+    error_instance_id: str
+
+
 class JobTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not job the Transaction."""
 
@@ -530,6 +565,22 @@ class JobTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 class JobTransactionPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["JobTransactionPermissionDenied"]
     parameters: JobTransactionPermissionDeniedParameters
+    error_instance_id: str
+
+
+class NotAllColumnsInPrimaryKeyArePresentParameters(typing_extensions.TypedDict):
+    """Not all columns in the View's primary key are present in the dataset(s)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    primaryKeyColumns: typing.List[str]
+    missingColumns: typing.List[str]
+
+
+@dataclass
+class NotAllColumnsInPrimaryKeyArePresent(errors.BadRequestError):
+    name: typing.Literal["NotAllColumnsInPrimaryKeyArePresent"]
+    parameters: NotAllColumnsInPrimaryKeyArePresentParameters
     error_instance_id: str
 
 
@@ -807,6 +858,21 @@ class ViewPrimaryKeyCannotBeModified(errors.ConflictError):
     error_instance_id: str
 
 
+class ViewPrimaryKeyDeletionColumnNotInDatasetSchemaParameters(typing_extensions.TypedDict):
+    """The deletion column is not present in the dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    deletionColumn: str
+
+
+@dataclass
+class ViewPrimaryKeyDeletionColumnNotInDatasetSchema(errors.BadRequestError):
+    name: typing.Literal["ViewPrimaryKeyDeletionColumnNotInDatasetSchema"]
+    parameters: ViewPrimaryKeyDeletionColumnNotInDatasetSchemaParameters
+    error_instance_id: str
+
+
 class ViewPrimaryKeyMustContainAtLeastOneColumnParameters(typing_extensions.TypedDict):
     """No columns were provided as part of the primary key"""
 
@@ -865,7 +931,10 @@ __all__ = [
     "InvalidBranchName",
     "InvalidTransactionType",
     "InvalidViewBackingDataset",
+    "InvalidViewPrimaryKeyColumnType",
+    "InvalidViewPrimaryKeyDeletionColumn",
     "JobTransactionPermissionDenied",
+    "NotAllColumnsInPrimaryKeyArePresent",
     "OpenTransactionAlreadyExists",
     "PutDatasetSchemaPermissionDenied",
     "PutSchemaPermissionDenied",
@@ -883,6 +952,7 @@ __all__ = [
     "ViewDatasetCleanupFailed",
     "ViewNotFound",
     "ViewPrimaryKeyCannotBeModified",
+    "ViewPrimaryKeyDeletionColumnNotInDatasetSchema",
     "ViewPrimaryKeyMustContainAtLeastOneColumn",
     "ViewPrimaryKeyRequiresBackingDatasets",
 ]

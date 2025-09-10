@@ -154,8 +154,12 @@ class ViewClient:
         :rtype: datasets_models.View
 
         :raises AddPrimaryKeyPermissionDenied: Could not addPrimaryKey the View.
+        :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
+        :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
+        :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyCannotBeModified: A primary key already exits.
+        :raises ViewPrimaryKeyDeletionColumnNotInDatasetSchema: The deletion column is not present in the dataset.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
         """
@@ -189,8 +193,12 @@ class ViewClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddPrimaryKeyPermissionDenied": datasets_errors.AddPrimaryKeyPermissionDenied,
+                    "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
+                    "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
+                    "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyCannotBeModified": datasets_errors.ViewPrimaryKeyCannotBeModified,
+                    "ViewPrimaryKeyDeletionColumnNotInDatasetSchema": datasets_errors.ViewPrimaryKeyDeletionColumnNotInDatasetSchema,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,
                 },
@@ -237,9 +245,13 @@ class ViewClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
+        :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
+        :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
+        :raises ViewPrimaryKeyDeletionColumnNotInDatasetSchema: The deletion column is not present in the dataset.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
         """
@@ -281,9 +293,13 @@ class ViewClient:
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
+                    "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
+                    "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
+                    "ViewPrimaryKeyDeletionColumnNotInDatasetSchema": datasets_errors.ViewPrimaryKeyDeletionColumnNotInDatasetSchema,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,
                 },
@@ -665,8 +681,12 @@ class AsyncViewClient:
         :rtype: typing.Awaitable[datasets_models.View]
 
         :raises AddPrimaryKeyPermissionDenied: Could not addPrimaryKey the View.
+        :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
+        :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
+        :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
         :raises ViewPrimaryKeyCannotBeModified: A primary key already exits.
+        :raises ViewPrimaryKeyDeletionColumnNotInDatasetSchema: The deletion column is not present in the dataset.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
         """
@@ -700,8 +720,12 @@ class AsyncViewClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "AddPrimaryKeyPermissionDenied": datasets_errors.AddPrimaryKeyPermissionDenied,
+                    "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
+                    "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
+                    "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                     "ViewPrimaryKeyCannotBeModified": datasets_errors.ViewPrimaryKeyCannotBeModified,
+                    "ViewPrimaryKeyDeletionColumnNotInDatasetSchema": datasets_errors.ViewPrimaryKeyDeletionColumnNotInDatasetSchema,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,
                 },
@@ -748,9 +772,13 @@ class AsyncViewClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to  the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
+        :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
+        :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the  client token does not have access to it.
+        :raises ViewPrimaryKeyDeletionColumnNotInDatasetSchema: The deletion column is not present in the dataset.
         :raises ViewPrimaryKeyMustContainAtLeastOneColumn: No columns were provided as part of the primary key
         :raises ViewPrimaryKeyRequiresBackingDatasets: Cannot add a primary key to a View that does not have any backing datasets.
         """
@@ -792,9 +820,13 @@ class AsyncViewClient:
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
+                    "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
+                    "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
+                    "ViewPrimaryKeyDeletionColumnNotInDatasetSchema": datasets_errors.ViewPrimaryKeyDeletionColumnNotInDatasetSchema,
                     "ViewPrimaryKeyMustContainAtLeastOneColumn": datasets_errors.ViewPrimaryKeyMustContainAtLeastOneColumn,
                     "ViewPrimaryKeyRequiresBackingDatasets": datasets_errors.ViewPrimaryKeyRequiresBackingDatasets,
                 },
