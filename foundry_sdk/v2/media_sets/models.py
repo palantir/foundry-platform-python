@@ -66,6 +66,10 @@ class MediaAttribution(core.ModelBase):
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
 
+MediaItemXmlFormat = typing.Literal["DOCX", "XLSX", "PPTX"]
+"""Format of the media item attempted to be decoded based on the XML structure."""
+
+
 class PutMediaItemResponse(core.ModelBase):
     """PutMediaItemResponse"""
 
@@ -83,6 +87,7 @@ __all__ = [
     "GetMediaItemRidByPathResponse",
     "LogicalTimestamp",
     "MediaAttribution",
+    "MediaItemXmlFormat",
     "PutMediaItemResponse",
     "TransactionId",
 ]

@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.admin import errors as admin_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import errors as filesystem_errors
 from foundry_sdk.v2.filesystem import models as filesystem_models
@@ -55,7 +56,7 @@ class ResourceRoleClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[filesystem_models.ResourceRole],
+        roles: typing.List[filesystem_models.ResourceRoleIdentifier],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -65,7 +66,7 @@ class ResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRole]
+        :type roles: List[ResourceRoleIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -75,6 +76,7 @@ class ResourceRoleClient:
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -97,7 +99,7 @@ class ResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRole],
+                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
                     },
                 ),
                 response_type=None,
@@ -105,6 +107,7 @@ class ResourceRoleClient:
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -180,7 +183,7 @@ class ResourceRoleClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[filesystem_models.ResourceRole],
+        roles: typing.List[filesystem_models.ResourceRoleIdentifier],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -190,7 +193,7 @@ class ResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRole]
+        :type roles: List[ResourceRoleIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -199,6 +202,7 @@ class ResourceRoleClient:
         :rtype: None
 
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -222,13 +226,14 @@ class ResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRole],
+                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
@@ -285,7 +290,7 @@ class AsyncResourceRoleClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[filesystem_models.ResourceRole],
+        roles: typing.List[filesystem_models.ResourceRoleIdentifier],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -295,7 +300,7 @@ class AsyncResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRole]
+        :type roles: List[ResourceRoleIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -305,6 +310,7 @@ class AsyncResourceRoleClient:
 
         :raises AddResourceRolesPermissionDenied: Could not add the ResourceRole.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises ResourceNotFound: The given Resource could not be found.
         """
 
@@ -327,7 +333,7 @@ class AsyncResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRole],
+                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
                     },
                 ),
                 response_type=None,
@@ -335,6 +341,7 @@ class AsyncResourceRoleClient:
                 throwable_errors={
                     "AddResourceRolesPermissionDenied": filesystem_errors.AddResourceRolesPermissionDenied,
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -410,7 +417,7 @@ class AsyncResourceRoleClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        roles: typing.List[filesystem_models.ResourceRole],
+        roles: typing.List[filesystem_models.ResourceRoleIdentifier],
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -420,7 +427,7 @@ class AsyncResourceRoleClient:
         :param resource_rid:
         :type resource_rid: ResourceRid
         :param roles:
-        :type roles: List[ResourceRole]
+        :type roles: List[ResourceRoleIdentifier]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -429,6 +436,7 @@ class AsyncResourceRoleClient:
         :rtype: typing.Awaitable[None]
 
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveResourceRolesPermissionDenied: Could not remove the ResourceRole.
         :raises ResourceNotFound: The given Resource could not be found.
         """
@@ -452,13 +460,14 @@ class AsyncResourceRoleClient:
                 body_type=typing_extensions.TypedDict(
                     "Body",
                     {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRole],
+                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
                     },
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidRoleIds": filesystem_errors.InvalidRoleIds,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "RemoveResourceRolesPermissionDenied": filesystem_errors.RemoveResourceRolesPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },

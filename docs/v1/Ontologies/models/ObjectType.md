@@ -6,6 +6,7 @@ Represents an object type in the Ontology.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **api_name** | ObjectTypeApiName | Yes |  |
+**legacy_object_type_id** | Optional[LegacyObjectTypeId] | No |  |
 **display_name** | Optional[DisplayName] | No |  |
 **status** | ReleaseStatus | Yes |  |
 **description** | Optional[str] | No | The description of the object type. |

@@ -178,6 +178,13 @@ class Organization(core.ModelBase):
     is_directly_applied: IsDirectlyApplied = pydantic.Field(alias=str("isDirectlyApplied"))  # type: ignore[literal-required]
 
 
+class PrincipalIdOnly(core.ModelBase):
+    """Represents a principal with just an ID, without the type."""
+
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
+    type: typing.Literal["principalIdOnly"] = "principalIdOnly"
+
+
 class PrincipalWithId(core.ModelBase):
     """Represents a user principal or group principal with an ID."""
 
@@ -299,10 +306,23 @@ class ResourceRole(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
+class ResourceRoleIdentifier(core.ModelBase):
+    """A role grant on a resource for add/remove operations that doesn't require specifying the principal type."""
+
+    resource_role_principal: ResourceRolePrincipalIdentifier = pydantic.Field(alias=str("resourceRolePrincipal"))  # type: ignore[literal-required]
+    role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
+
+
 ResourceRolePrincipal = typing_extensions.Annotated[
     typing.Union[PrincipalWithId, Everyone], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
+
+
+ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
+    typing.Union[PrincipalIdOnly, Everyone], pydantic.Field(discriminator="type")
+]
+"""A principal for resource role operations that doesn't require specifying the principal type."""
 
 
 ResourceType = typing.Literal[
@@ -433,6 +453,9 @@ UsageAccountRid = core.RID
 
 
 core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AccessRequirements",
@@ -451,6 +474,7 @@ __all__ = [
     "ListSpacesResponse",
     "Marking",
     "Organization",
+    "PrincipalIdOnly",
     "PrincipalWithId",
     "Project",
     "ProjectRid",
@@ -462,7 +486,9 @@ __all__ = [
     "ResourcePath",
     "ResourceRid",
     "ResourceRole",
+    "ResourceRoleIdentifier",
     "ResourceRolePrincipal",
+    "ResourceRolePrincipalIdentifier",
     "ResourceType",
     "Space",
     "SpaceRid",

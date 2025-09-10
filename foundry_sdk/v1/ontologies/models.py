@@ -480,6 +480,20 @@ class IsNullQuery(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
+LegacyObjectTypeId = str
+"""
+The unique ID of an object type. This is a legacy identifier and is not recommended for use in new applications.
+To find the ID for your Object Type, check the **Ontology Manager**.
+"""
+
+
+LegacyPropertyId = str
+"""
+The unique ID of a property. This is a legacy identifier and is not recommended for use in new applications.
+To find the ID for your property, check the **Ontology Manager**.
+"""
+
+
 LinkTypeApiName = str
 """
 The name of the link type in the API. To find the API name for your Link Type, check the **Ontology Manager**
@@ -653,6 +667,7 @@ class ObjectType(core.ModelBase):
     """Represents an object type in the Ontology."""
 
     api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    legacy_object_type_id: typing.Optional[LegacyObjectTypeId] = pydantic.Field(alias=str("legacyObjectTypeId"), default=None)  # type: ignore[literal-required]
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     status: core_models.ReleaseStatus
     description: typing.Optional[str] = None
@@ -937,6 +952,7 @@ class Property(core.ModelBase):
     description: typing.Optional[str] = None
     display_name: typing.Optional[core_models.DisplayName] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
     base_type: ValueType = pydantic.Field(alias=str("baseType"))  # type: ignore[literal-required]
+    legacy_property_id: typing.Optional[LegacyPropertyId] = pydantic.Field(alias=str("legacyPropertyId"), default=None)  # type: ignore[literal-required]
 
 
 PropertyApiName = str
@@ -1519,6 +1535,8 @@ __all__ = [
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
     "IsNullQuery",
+    "LegacyObjectTypeId",
+    "LegacyPropertyId",
     "LinkTypeApiName",
     "LinkTypeId",
     "LinkTypeSide",
