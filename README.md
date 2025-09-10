@@ -1,3 +1,7 @@
+<p align="right">
+<a href="https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
+</p>
+
 # Foundry Platform SDK
 
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
