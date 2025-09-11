@@ -194,6 +194,22 @@ class MissingMediaItemPath(errors.BadRequestError):
     error_instance_id: str
 
 
+class TransformedMediaItemNotFoundParameters(typing_extensions.TypedDict):
+    """The requested media item could not be found, or the client token does not have access to it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+    mediaItemRid: core_models.MediaItemRid
+
+
+@dataclass
+class TransformedMediaItemNotFound(errors.NotFoundError):
+    name: typing.Literal["TransformedMediaItemNotFound"]
+    parameters: TransformedMediaItemNotFoundParameters
+    error_instance_id: str
+
+
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
@@ -206,4 +222,5 @@ __all__ = [
     "MediaSetNotFound",
     "MissingMediaItemContent",
     "MissingMediaItemPath",
+    "TransformedMediaItemNotFound",
 ]

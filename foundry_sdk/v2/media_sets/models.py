@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
@@ -76,9 +77,40 @@ class PutMediaItemResponse(core.ModelBase):
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
 
 
+class TrackedTransformationFailedResponse(core.ModelBase):
+    """TrackedTransformationFailedResponse"""
+
+    type: typing.Literal["failed"] = "failed"
+
+
+class TrackedTransformationPendingResponse(core.ModelBase):
+    """TrackedTransformationPendingResponse"""
+
+    type: typing.Literal["pending"] = "pending"
+
+
+TrackedTransformationResponse = typing_extensions.Annotated[
+    typing.Union[
+        TrackedTransformationPendingResponse,
+        TrackedTransformationFailedResponse,
+        "TrackedTransformationSuccessfulResponse",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""TrackedTransformationResponse"""
+
+
+class TrackedTransformationSuccessfulResponse(core.ModelBase):
+    """TrackedTransformationSuccessfulResponse"""
+
+    type: typing.Literal["successful"] = "successful"
+
+
 TransactionId = core.UUID
 """An identifier which represents a transaction on a media set."""
 
+
+core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
 
 __all__ = [
     "BranchName",
@@ -89,5 +121,9 @@ __all__ = [
     "MediaAttribution",
     "MediaItemXmlFormat",
     "PutMediaItemResponse",
+    "TrackedTransformationFailedResponse",
+    "TrackedTransformationPendingResponse",
+    "TrackedTransformationResponse",
+    "TrackedTransformationSuccessfulResponse",
     "TransactionId",
 ]

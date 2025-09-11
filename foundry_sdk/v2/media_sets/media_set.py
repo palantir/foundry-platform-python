@@ -98,6 +98,60 @@ class MediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def calculate(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> media_sets_models.TrackedTransformationResponse:
+        """
+        Starts calculation of a thumbnail for a given image.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: media_sets_models.TrackedTransformationResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/calculate",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=media_sets_models.TrackedTransformationResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def commit(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -474,6 +528,62 @@ class MediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def retrieve(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> bytes:
+        """
+        Retrieves a successfully calculated thumbnail for a given image.
+
+        Thumbnails are 200px wide in the format of `image/webp`
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: bytes
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def upload(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -547,6 +657,7 @@ class MediaSetClient:
 class _MediaSetClientRaw:
     def __init__(self, client: MediaSetClient) -> None:
         def abort(_: None): ...
+        def calculate(_: media_sets_models.TrackedTransformationResponse): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
         def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
@@ -554,9 +665,11 @@ class _MediaSetClientRaw:
         def read(_: bytes): ...
         def read_original(_: bytes): ...
         def reference(_: core_models.MediaReference): ...
+        def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
         self.abort = core.with_raw_response(abort, client.abort)
+        self.calculate = core.with_raw_response(calculate, client.calculate)
         self.commit = core.with_raw_response(commit, client.commit)
         self.create = core.with_raw_response(create, client.create)
         self.get_rid_by_path = core.with_raw_response(get_rid_by_path, client.get_rid_by_path)
@@ -564,25 +677,30 @@ class _MediaSetClientRaw:
         self.read = core.with_raw_response(read, client.read)
         self.read_original = core.with_raw_response(read_original, client.read_original)
         self.reference = core.with_raw_response(reference, client.reference)
+        self.retrieve = core.with_raw_response(retrieve, client.retrieve)
         self.upload = core.with_raw_response(upload, client.upload)
 
 
 class _MediaSetClientStreaming:
     def __init__(self, client: MediaSetClient) -> None:
+        def calculate(_: media_sets_models.TrackedTransformationResponse): ...
         def create(_: media_sets_models.TransactionId): ...
         def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
         def reference(_: core_models.MediaReference): ...
+        def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
+        self.calculate = core.with_streaming_response(calculate, client.calculate)
         self.create = core.with_streaming_response(create, client.create)
         self.get_rid_by_path = core.with_streaming_response(get_rid_by_path, client.get_rid_by_path)
         self.info = core.with_streaming_response(info, client.info)
         self.read = core.with_streaming_response(read, client.read)
         self.read_original = core.with_streaming_response(read_original, client.read_original)
         self.reference = core.with_streaming_response(reference, client.reference)
+        self.retrieve = core.with_streaming_response(retrieve, client.retrieve)
         self.upload = core.with_streaming_response(upload, client.upload)
 
 
@@ -651,6 +769,60 @@ class AsyncMediaSetClient:
                 body=None,
                 body_type=None,
                 response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def calculate(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[media_sets_models.TrackedTransformationResponse]:
+        """
+        Starts calculation of a thumbnail for a given image.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[media_sets_models.TrackedTransformationResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/calculate",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "application/json",
+                },
+                body=None,
+                body_type=None,
+                response_type=media_sets_models.TrackedTransformationResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1036,6 +1208,62 @@ class AsyncMediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def retrieve(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        media_item_rid: core_models.MediaItemRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        read_token: typing.Optional[core_models.MediaItemReadToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[bytes]:
+        """
+        Retrieves a successfully calculated thumbnail for a given image.
+
+        Thumbnails are 200px wide in the format of `image/webp`
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_rid: The RID of the media item.
+        :type media_item_rid: MediaItemRid
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param read_token:
+        :type read_token: Optional[MediaItemReadToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[bytes]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                    "mediaItemRid": media_item_rid,
+                },
+                header_params={
+                    "ReadToken": read_token,
+                    "Accept": "*/*",
+                },
+                body=None,
+                body_type=None,
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def upload(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -1109,6 +1337,7 @@ class AsyncMediaSetClient:
 class _AsyncMediaSetClientRaw:
     def __init__(self, client: AsyncMediaSetClient) -> None:
         def abort(_: None): ...
+        def calculate(_: media_sets_models.TrackedTransformationResponse): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
         def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
@@ -1116,9 +1345,11 @@ class _AsyncMediaSetClientRaw:
         def read(_: bytes): ...
         def read_original(_: bytes): ...
         def reference(_: core_models.MediaReference): ...
+        def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
         self.abort = core.async_with_raw_response(abort, client.abort)
+        self.calculate = core.async_with_raw_response(calculate, client.calculate)
         self.commit = core.async_with_raw_response(commit, client.commit)
         self.create = core.async_with_raw_response(create, client.create)
         self.get_rid_by_path = core.async_with_raw_response(get_rid_by_path, client.get_rid_by_path)
@@ -1126,19 +1357,23 @@ class _AsyncMediaSetClientRaw:
         self.read = core.async_with_raw_response(read, client.read)
         self.read_original = core.async_with_raw_response(read_original, client.read_original)
         self.reference = core.async_with_raw_response(reference, client.reference)
+        self.retrieve = core.async_with_raw_response(retrieve, client.retrieve)
         self.upload = core.async_with_raw_response(upload, client.upload)
 
 
 class _AsyncMediaSetClientStreaming:
     def __init__(self, client: AsyncMediaSetClient) -> None:
+        def calculate(_: media_sets_models.TrackedTransformationResponse): ...
         def create(_: media_sets_models.TransactionId): ...
         def get_rid_by_path(_: media_sets_models.GetMediaItemRidByPathResponse): ...
         def info(_: media_sets_models.GetMediaItemInfoResponse): ...
         def read(_: bytes): ...
         def read_original(_: bytes): ...
         def reference(_: core_models.MediaReference): ...
+        def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
 
+        self.calculate = core.async_with_streaming_response(calculate, client.calculate)
         self.create = core.async_with_streaming_response(create, client.create)
         self.get_rid_by_path = core.async_with_streaming_response(
             get_rid_by_path, client.get_rid_by_path
@@ -1147,4 +1382,5 @@ class _AsyncMediaSetClientStreaming:
         self.read = core.async_with_streaming_response(read, client.read)
         self.read_original = core.async_with_streaming_response(read_original, client.read_original)
         self.reference = core.async_with_streaming_response(reference, client.reference)
+        self.retrieve = core.async_with_streaming_response(retrieve, client.retrieve)
         self.upload = core.async_with_streaming_response(upload, client.upload)

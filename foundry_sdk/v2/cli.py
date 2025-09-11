@@ -5282,6 +5282,38 @@ def media_sets_media_set_op_abort(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("calculate")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
+@click.pass_obj
+def media_sets_media_set_op_calculate(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
+):
+    """
+    Starts calculation of a thumbnail for a given image.
+
+    """
+    result = client.media_sets.MediaSet.calculate(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("commit")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
@@ -5531,6 +5563,40 @@ def media_sets_media_set_op_reference(
         read_token=read_token,
     )
     click.echo(repr(result))
+
+
+@media_sets_media_set.command("retrieve")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
+@click.pass_obj
+def media_sets_media_set_op_retrieve(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
+):
+    """
+    Retrieves a successfully calculated thumbnail for a given image.
+
+    Thumbnails are 200px wide in the format of `image/webp`
+
+    """
+    result = client.media_sets.MediaSet.retrieve(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(result)
 
 
 @media_sets_media_set.command("upload")
@@ -7045,6 +7111,113 @@ def ontologies_ontology_interface_op_list(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_interface.command("list_interface_linked_objects")
+@click.argument("ontology", type=str, required=True)
+@click.argument("interface_type", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("interface_link_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+""",
+)
+@click.option(
+    "--exclude_rid",
+    type=bool,
+    required=False,
+    help="""A flag to exclude the retrieval of the `__rid` property. 
+Setting this to true may improve performance of this endpoint for object types in OSV2.
+""",
+)
+@click.option("--order_by", type=str, required=False, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 1,000.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--select",
+    type=str,
+    required=False,
+    help="""The properties of the object type that should be included in the response. Omit this parameter to get all
+the properties.
+""",
+)
+@click.option(
+    "--snapshot",
+    type=bool,
+    required=False,
+    help="""A flag to use snapshot consistency when paging.
+Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+This defaults to false if not specified, which means you will always get the latest results.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_interface_op_list_interface_linked_objects(
+    client: FoundryClient,
+    ontology: str,
+    interface_type: str,
+    object_type: str,
+    primary_key: str,
+    interface_link_type: str,
+    branch: typing.Optional[str],
+    exclude_rid: typing.Optional[bool],
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    select: typing.Optional[str],
+    snapshot: typing.Optional[bool],
+):
+    """
+    Lists the linked objects for a specific object and the given interface link type.
+
+    Note that this endpoint does not guarantee consistency. Changes to the data could result in missing or
+    repeated objects in the response pages.
+
+    For Object Storage V1 backed objects, this endpoint returns a maximum of 10,000 objects. After 10,000 objects have been returned and if more objects
+    are available, attempting to load another page will result in an `ObjectsExceededLimit` error being returned. There is no limit on Object Storage V2 backed objects.
+
+    Each page may be smaller or larger than the requested page size. However, it
+    is guaranteed that if there are more results available, at least one result will be present
+    in the response.
+
+    Note that null value properties will not be returned.
+
+    """
+    result = client.ontologies.OntologyInterface.list_interface_linked_objects(
+        ontology=ontology,
+        interface_type=interface_type,
+        object_type=object_type,
+        primary_key=primary_key,
+        interface_link_type=interface_link_type,
+        branch=branch,
+        exclude_rid=exclude_rid,
+        order_by=order_by,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        select=None if select is None else json.loads(select),
+        snapshot=snapshot,
     )
     click.echo(repr(result))
 

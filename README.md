@@ -1,7 +1,3 @@
-<p align="right">
-<a href="https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
-</p>
-
 # Foundry Platform SDK
 
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
@@ -1439,6 +1435,10 @@ Namespace | Name | Import |
 **MediaSets** | [MediaAttribution](docs/v2/MediaSets/models/MediaAttribution.md) | `from foundry_sdk.v2.media_sets.models import MediaAttribution` |
 **MediaSets** | [MediaItemXmlFormat](docs/v2/MediaSets/models/MediaItemXmlFormat.md) | `from foundry_sdk.v2.media_sets.models import MediaItemXmlFormat` |
 **MediaSets** | [PutMediaItemResponse](docs/v2/MediaSets/models/PutMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import PutMediaItemResponse` |
+**MediaSets** | [TrackedTransformationFailedResponse](docs/v2/MediaSets/models/TrackedTransformationFailedResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationFailedResponse` |
+**MediaSets** | [TrackedTransformationPendingResponse](docs/v2/MediaSets/models/TrackedTransformationPendingResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationPendingResponse` |
+**MediaSets** | [TrackedTransformationResponse](docs/v2/MediaSets/models/TrackedTransformationResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationResponse` |
+**MediaSets** | [TrackedTransformationSuccessfulResponse](docs/v2/MediaSets/models/TrackedTransformationSuccessfulResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationSuccessfulResponse` |
 **MediaSets** | [TransactionId](docs/v2/MediaSets/models/TransactionId.md) | `from foundry_sdk.v2.media_sets.models import TransactionId` |
 **Ontologies** | [AbsoluteTimeRange](docs/v2/Ontologies/models/AbsoluteTimeRange.md) | `from foundry_sdk.v2.ontologies.models import AbsoluteTimeRange` |
 **Ontologies** | [AbsoluteValuePropertyExpression](docs/v2/Ontologies/models/AbsoluteValuePropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import AbsoluteValuePropertyExpression` |
@@ -1570,6 +1570,7 @@ Namespace | Name | Import |
 **Ontologies** | [LinkTypeSideV2](docs/v2/Ontologies/models/LinkTypeSideV2.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeSideV2` |
 **Ontologies** | [ListActionTypesResponseV2](docs/v2/Ontologies/models/ListActionTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListActionTypesResponseV2` |
 **Ontologies** | [ListAttachmentsResponseV2](docs/v2/Ontologies/models/ListAttachmentsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListAttachmentsResponseV2` |
+**Ontologies** | [ListInterfaceLinkedObjectsResponse](docs/v2/Ontologies/models/ListInterfaceLinkedObjectsResponse.md) | `from foundry_sdk.v2.ontologies.models import ListInterfaceLinkedObjectsResponse` |
 **Ontologies** | [ListInterfaceTypesResponse](docs/v2/Ontologies/models/ListInterfaceTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListInterfaceTypesResponse` |
 **Ontologies** | [ListLinkedObjectsResponseV2](docs/v2/Ontologies/models/ListLinkedObjectsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListLinkedObjectsResponseV2` |
 **Ontologies** | [ListObjectsForInterfaceResponse](docs/v2/Ontologies/models/ListObjectsForInterfaceResponse.md) | `from foundry_sdk.v2.ontologies.models import ListObjectsForInterfaceResponse` |
@@ -2444,6 +2445,7 @@ Namespace | Name | Import |
 **MediaSets** | MediaSetNotFound | `from foundry_sdk.v2.media_sets.errors import MediaSetNotFound` |
 **MediaSets** | MissingMediaItemContent | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemContent` |
 **MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
+**MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
@@ -2680,6 +2682,7 @@ Namespace | Name | Import |
 **Widgets** | SetWidgetSetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsPermissionDenied` |
 **Widgets** | VersionAlreadyExists | `from foundry_sdk.v2.widgets.errors import VersionAlreadyExists` |
 **Widgets** | VersionLimitExceeded | `from foundry_sdk.v2.widgets.errors import VersionLimitExceeded` |
+**Widgets** | WidgetIdNotFound | `from foundry_sdk.v2.widgets.errors import WidgetIdNotFound` |
 **Widgets** | WidgetLimitExceeded | `from foundry_sdk.v2.widgets.errors import WidgetLimitExceeded` |
 **Widgets** | WidgetSetNotFound | `from foundry_sdk.v2.widgets.errors import WidgetSetNotFound` |
 <a id="errors-v1-link"></a>
