@@ -1181,6 +1181,13 @@ class ListAttachmentsResponseV2(core.ModelBase):
     type: typing.Literal["multiple"] = "multiple"
 
 
+class ListInterfaceLinkedObjectsResponse(core.ModelBase):
+    """ListInterfaceLinkedObjectsResponse"""
+
+    data: typing.List[OntologyObjectV2]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
 class ListInterfaceTypesResponse(core.ModelBase):
     """ListInterfaceTypesResponse"""
 
@@ -3410,6 +3417,7 @@ __all__ = [
     "LinkedObjectTypeApiName",
     "ListActionTypesResponseV2",
     "ListAttachmentsResponseV2",
+    "ListInterfaceLinkedObjectsResponse",
     "ListInterfaceTypesResponse",
     "ListLinkedObjectsResponseV2",
     "ListObjectTypesV2Response",

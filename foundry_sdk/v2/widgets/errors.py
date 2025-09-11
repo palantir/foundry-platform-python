@@ -657,6 +657,25 @@ class VersionLimitExceeded(errors.BadRequestError):
     error_instance_id: str
 
 
+class WidgetIdNotFoundParameters(typing_extensions.TypedDict):
+    """
+    A non-existent widget id was provided. If creating a new widget, you must first publish your changes before
+    previewing with developer mode.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    widgetSetRid: widgets_models.WidgetSetRid
+    widgetId: str
+
+
+@dataclass
+class WidgetIdNotFound(errors.NotFoundError):
+    name: typing.Literal["WidgetIdNotFound"]
+    parameters: WidgetIdNotFoundParameters
+    error_instance_id: str
+
+
 class WidgetLimitExceededParameters(typing_extensions.TypedDict):
     """
     The widget set contains too many widgets. You must delete another widget before
@@ -731,6 +750,7 @@ __all__ = [
     "SetWidgetSetDevModeSettingsPermissionDenied",
     "VersionAlreadyExists",
     "VersionLimitExceeded",
+    "WidgetIdNotFound",
     "WidgetLimitExceeded",
     "WidgetSetNotFound",
 ]
