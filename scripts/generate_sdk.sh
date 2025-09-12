@@ -14,6 +14,7 @@ EXCLUDED_PATHS=(
     # Docs examples live here. These will go away eventually.
     "assets"
     "venv"
+    ".github"
 )
 
 TMP_DIR=$(mktemp -d)
