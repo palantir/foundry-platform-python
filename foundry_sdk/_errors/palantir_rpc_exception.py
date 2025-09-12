@@ -66,13 +66,6 @@ class UnprocessableEntityError(PalantirRPCException):
     """
 
 
-class RateLimitError(PalantirRPCException):
-    """
-    The service is experiencing too many requests. Retry your request shortly and reduce your
-    request rate. This error is thrown if a 429 status code is returned.
-    """
-
-
 class ConflictError(PalantirRPCException):
     """
     There was a conflict with another request. This error is thrown if a 409 status code is

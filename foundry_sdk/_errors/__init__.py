@@ -19,13 +19,15 @@ from foundry_sdk._errors.connection_error import ProxyError
 from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry_sdk._errors.not_authenticated import NotAuthenticated
 from foundry_sdk._errors.palantir_exception import PalantirException
+from foundry_sdk._errors.palantir_qos_exception import PalantirQoSException
+from foundry_sdk._errors.palantir_qos_exception import RateLimitError
+from foundry_sdk._errors.palantir_qos_exception import ServiceUnavailable
 from foundry_sdk._errors.palantir_rpc_exception import BadRequestError
 from foundry_sdk._errors.palantir_rpc_exception import ConflictError
 from foundry_sdk._errors.palantir_rpc_exception import InternalServerError
 from foundry_sdk._errors.palantir_rpc_exception import NotFoundError
 from foundry_sdk._errors.palantir_rpc_exception import PalantirRPCException
 from foundry_sdk._errors.palantir_rpc_exception import PermissionDeniedError
-from foundry_sdk._errors.palantir_rpc_exception import RateLimitError
 from foundry_sdk._errors.palantir_rpc_exception import RequestEntityTooLargeError
 from foundry_sdk._errors.palantir_rpc_exception import UnauthorizedError
 from foundry_sdk._errors.palantir_rpc_exception import UnprocessableEntityError

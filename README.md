@@ -269,7 +269,6 @@ catch a generic subclass of `PalantirRPCException` such as `BadRequestError` or 
 | 404         | `NotFoundError`              |
 | 413         | `RequestEntityTooLargeError` |
 | 422         | `UnprocessableEntityError`   |
-| 429         | `RateLimitError`             |
 | >=500,<600  | `InternalServerError`        |
 | Other       | `PalantirRPCException`       |
 
@@ -287,7 +286,7 @@ except PalantirRPCException as e:
 
 ```
 
-All HTTP exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
+All RPC exceptions will have the following properties. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors) for details about the Foundry error information.
 
 | Property          | Type                   | Description                                                                                                                                                       |
 | ----------------- | -----------------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -310,6 +309,8 @@ There are a handful of other exception classes that could be thrown when instant
 | StreamConsumedError        | Yes             | The content of the given stream has already been consumed.                                                                        |
 | RequestEntityTooLargeError | Yes             | The request entity is too large.                                                                                                  |
 | ConflictError              | Yes             | There was a conflict with another request.                                                                                        |
+| RateLimitError             | Yes             | The request was rate limited. Reduce your request rate and retry your request shortly.                                            |
+| ServiceUnavailable         | Yes             | The service is temporarily unavailable. Retry your request shortly.                                                               |
 | SDKInternalError           | Yes             | An unexpected issue occurred and should be reported.                                                                              |
 
 <a id="pagination"></a>
