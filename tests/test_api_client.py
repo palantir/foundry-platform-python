@@ -46,6 +46,7 @@ from foundry_sdk import ProxyError
 from foundry_sdk import RateLimitError
 from foundry_sdk import ReadTimeout
 from foundry_sdk import RequestEntityTooLargeError
+from foundry_sdk import ServiceUnavailable
 from foundry_sdk import StreamConsumedError
 from foundry_sdk import UnauthorizedError
 from foundry_sdk import UnprocessableEntityError
@@ -76,6 +77,8 @@ EXAMPLE_ERROR = json.dumps(
         "parameters": {},
     }
 )
+
+EMPTY_BODY = ""
 
 
 def assert_called_with(client: Union[ApiClient, AsyncApiClient], **kwargs):
@@ -239,6 +242,11 @@ def test_404_error():
         call_api_helper(status_code=404, data=EXAMPLE_ERROR)
 
 
+def test_404_with_no_body():
+    with pytest.raises(ApiNotFoundError):
+        call_api_helper(status_code=404, data=EMPTY_BODY)
+
+
 def test_422_error():
     with pytest.raises(UnprocessableEntityError):
         call_api_helper(status_code=422, data=EXAMPLE_ERROR)
@@ -246,7 +254,12 @@ def test_422_error():
 
 def test_429_error():
     with pytest.raises(RateLimitError):
-        call_api_helper(status_code=429, data=EXAMPLE_ERROR)
+        call_api_helper(status_code=429, data=EMPTY_BODY)
+
+
+def test_503_error():
+    with pytest.raises(ServiceUnavailable):
+        call_api_helper(status_code=503, data=EMPTY_BODY)
 
 
 def test_413_error():
@@ -474,22 +487,6 @@ def test_duplicate_auth_config_warns():
     # Make sure the ApiClient hostname is prioritized
     assert auth._hostname == hostname
     assert auth._config == config
-
-
-def test_empty_404_error():
-    with pytest.raises(ApiNotFoundError):
-        client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
-
-        client._session.send = Mock(
-            return_value=AttrDict(
-                status_code=404,
-                headers={},
-                content=b"",
-                text="",
-            )
-        )
-
-        client.call_api(RequestInfo.with_defaults("POST", "/abc"))
 
 
 def test_create_headers():
