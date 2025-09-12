@@ -192,8 +192,8 @@ class PrimaryKeyResolutionDuplicate(core.ModelBase):
 
     deletion_column: typing.Optional[str] = pydantic.Field(alias=str("deletionColumn"), default=None)  # type: ignore[literal-required]
     """
-    The name of the boolean column that indicates whether a row should be considered deleted. Based on the 
-    `resolutionStrategy`, if the final row selected for a given primary key has `true` in this column, that 
+    The name of the boolean column that indicates whether a row should be considered deleted. Based on the
+    `resolutionStrategy`, if the final row selected for a given primary key has `true` in this column, that
     row will be excluded from the results. Otherwise, it will be included.
     """
 
@@ -280,10 +280,10 @@ class ViewPrimaryKey(core.ModelBase):
 
     resolution: ViewPrimaryKeyResolution
     """
-    The semantics of the primary key within the dataset. For example, the unique resolution means that every 
-    row in the dataset has a distinct primary key. The value of this field represents a contract for writers 
-    of the dataset. Writers are responsible for maintaining any related invariants, and readers may make 
-    optimizations based on this. Violating the assumptions of the resolution can cause undefined behavior, 
+    The semantics of the primary key within the dataset. For example, the unique resolution means that every
+    row in the dataset has a distinct primary key. The value of this field represents a contract for writers
+    of the dataset. Writers are responsible for maintaining any related invariants, and readers may make
+    optimizations based on this. Violating the assumptions of the resolution can cause undefined behavior,
     for example, having duplicate primary keys with the unique resolution.
     """
 
