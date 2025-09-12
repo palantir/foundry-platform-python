@@ -6,6 +6,7 @@
   "platformName": "Foundry",
   "userHeader": "python-foundry-platform-sdk",
   "description": "The official Python library for the Foundry API",
+  "autoreleaseUrl": "https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python",
   "promotedMajorVersion": "v2",
   "documentationBaseUrl": "https://palantir.com",
   "extraDocsDir": "assets/docs_examples",
