@@ -47,6 +47,7 @@ from foundry_sdk._errors import RateLimitError
 from foundry_sdk._errors import ReadTimeout
 from foundry_sdk._errors import RequestEntityTooLargeError
 from foundry_sdk._errors import SDKInternalError
+from foundry_sdk._errors import ServiceUnavailable
 from foundry_sdk._errors import StreamConsumedError
 from foundry_sdk._errors import TimeoutError
 from foundry_sdk._errors import UnauthorizedError
@@ -89,6 +90,7 @@ __all__ = [
     "NotFoundError",
     "UnprocessableEntityError",
     "RateLimitError",
+    "ServiceUnavailable",
     "RequestEntityTooLargeError",
     "ConflictError",
     "InternalServerError",

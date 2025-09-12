@@ -71,6 +71,7 @@ from foundry_sdk._errors import RateLimitError
 from foundry_sdk._errors import ReadTimeout
 from foundry_sdk._errors import RequestEntityTooLargeError
 from foundry_sdk._errors import SDKInternalError
+from foundry_sdk._errors import ServiceUnavailable
 from foundry_sdk._errors import StreamConsumedError
 from foundry_sdk._errors import UnauthorizedError
 from foundry_sdk._errors import UnprocessableEntityError
@@ -484,17 +485,24 @@ class BaseApiClient:
         """Call this method if there is an error in the response. At this point, the response
         should have already been fully received.
         """
-        if res.status_code == 404 and res.text == "":
+        if res.status_code == 404 and not res.text:
             raise ApiNotFoundError(
                 f'The request to "{req.resource_path}" returned a 404 status code '
                 "with no response body. This likely indicates that the API is not yet "
                 "available on your Foundry instance."
             )
 
+        if res.status_code == 429:
+            raise RateLimitError(res.text)
+        elif res.status_code == 503:
+            raise ServiceUnavailable(res.text)
+
         try:
             error_json = res.json()
         except json.JSONDecodeError:
-            raise SDKInternalError("Unable to decode JSON error response: " + res.text)
+            raise SDKInternalError(
+                f"Unexpected error response with status code {res.status_code}: {res.text}"
+            )
 
         if error_instance := deserialize_error(error_json, req.throwable_errors):
             raise error_instance
@@ -512,8 +520,6 @@ class BaseApiClient:
             raise RequestEntityTooLargeError(error_json)
         elif res.status_code == 422:
             raise UnprocessableEntityError(error_json)
-        elif res.status_code == 429:
-            raise RateLimitError(error_json)
         elif 500 <= res.status_code <= 599:
             raise InternalServerError(error_json)
         else:
