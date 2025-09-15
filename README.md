@@ -1,3 +1,7 @@
+<p align="right">
+<a href="https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python"><img src="https://img.shields.io/badge/Perform%20an-Autorelease-success.svg" alt="Autorelease"></a>
+</p>
+
 # Foundry Platform SDK
 
 ![Supported Python Versions](https://img.shields.io/pypi/pyversions/foundry-platform-sdk)
@@ -293,6 +297,8 @@ All RPC exceptions will have the following properties. See the [Foundry API docs
 | name              | str                    | The Palantir error name. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
 | error_instance_id | str                    | The Palantir error instance ID. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
 | parameters        | Dict[str, Any]         | The Palantir error parameters. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).  |
+| error_code        | str                    | The Palantir error code. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors).        |
+| error_description | str                    | The Palantir error description. See the [Foundry API docs](https://www.palantir.com/docs/foundry/api/general/overview/errors). |
 
 ### Other exceptions
 There are a handful of other exception classes that could be thrown when instantiating or using a client.
@@ -1017,13 +1023,16 @@ Namespace | Name | Import |
 **Connectivity** | [ConnectionDisplayName](docs/v2/Connectivity/models/ConnectionDisplayName.md) | `from foundry_sdk.v2.connectivity.models import ConnectionDisplayName` |
 **Connectivity** | [ConnectionExportSettings](docs/v2/Connectivity/models/ConnectionExportSettings.md) | `from foundry_sdk.v2.connectivity.models import ConnectionExportSettings` |
 **Connectivity** | [ConnectionRid](docs/v2/Connectivity/models/ConnectionRid.md) | `from foundry_sdk.v2.connectivity.models import ConnectionRid` |
+**Connectivity** | [ConnectionWorker](docs/v2/Connectivity/models/ConnectionWorker.md) | `from foundry_sdk.v2.connectivity.models import ConnectionWorker` |
 **Connectivity** | [CreateConnectionRequestAsPlaintextValue](docs/v2/Connectivity/models/CreateConnectionRequestAsPlaintextValue.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestAsPlaintextValue` |
 **Connectivity** | [CreateConnectionRequestAsSecretName](docs/v2/Connectivity/models/CreateConnectionRequestAsSecretName.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestAsSecretName` |
 **Connectivity** | [CreateConnectionRequestBasicCredentials](docs/v2/Connectivity/models/CreateConnectionRequestBasicCredentials.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestBasicCredentials` |
 **Connectivity** | [CreateConnectionRequestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestConnectionWorker](docs/v2/Connectivity/models/CreateConnectionRequestConnectionWorker.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestConnectionWorker` |
 **Connectivity** | [CreateConnectionRequestDatabricksAuthenticationMode](docs/v2/Connectivity/models/CreateConnectionRequestDatabricksAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestDatabricksAuthenticationMode` |
 **Connectivity** | [CreateConnectionRequestDatabricksConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestDatabricksConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestDatabricksConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestEncryptedProperty](docs/v2/Connectivity/models/CreateConnectionRequestEncryptedProperty.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestEncryptedProperty` |
+**Connectivity** | [CreateConnectionRequestFoundryWorker](docs/v2/Connectivity/models/CreateConnectionRequestFoundryWorker.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestFoundryWorker` |
 **Connectivity** | [CreateConnectionRequestJdbcConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestJdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestJdbcConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestOauthMachineToMachineAuth](docs/v2/Connectivity/models/CreateConnectionRequestOauthMachineToMachineAuth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestOauthMachineToMachineAuth` |
 **Connectivity** | [CreateConnectionRequestPersonalAccessToken](docs/v2/Connectivity/models/CreateConnectionRequestPersonalAccessToken.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestPersonalAccessToken` |
@@ -1033,6 +1042,7 @@ Namespace | Name | Import |
 **Connectivity** | [CreateConnectionRequestSnowflakeConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestSnowflakeExternalOauth](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeExternalOauth` |
 **Connectivity** | [CreateConnectionRequestSnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeKeyPairAuthentication.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeKeyPairAuthentication` |
+**Connectivity** | [CreateConnectionRequestUnknownWorker](docs/v2/Connectivity/models/CreateConnectionRequestUnknownWorker.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestUnknownWorker` |
 **Connectivity** | [CreateConnectionRequestWorkflowIdentityFederation](docs/v2/Connectivity/models/CreateConnectionRequestWorkflowIdentityFederation.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestWorkflowIdentityFederation` |
 **Connectivity** | [CreateTableImportRequestDatabricksTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestDatabricksTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestDatabricksTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestJdbcTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestJdbcTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestJdbcTableImportConfig` |
@@ -1064,6 +1074,7 @@ Namespace | Name | Import |
 **Connectivity** | [FileProperty](docs/v2/Connectivity/models/FileProperty.md) | `from foundry_sdk.v2.connectivity.models import FileProperty` |
 **Connectivity** | [FilesCountLimitFilter](docs/v2/Connectivity/models/FilesCountLimitFilter.md) | `from foundry_sdk.v2.connectivity.models import FilesCountLimitFilter` |
 **Connectivity** | [FileSizeFilter](docs/v2/Connectivity/models/FileSizeFilter.md) | `from foundry_sdk.v2.connectivity.models import FileSizeFilter` |
+**Connectivity** | [FoundryWorker](docs/v2/Connectivity/models/FoundryWorker.md) | `from foundry_sdk.v2.connectivity.models import FoundryWorker` |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry_sdk.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import JdbcConnectionConfiguration` |
@@ -1075,6 +1086,7 @@ Namespace | Name | Import |
 **Connectivity** | [LongColumnInitialIncrementalState](docs/v2/Connectivity/models/LongColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import LongColumnInitialIncrementalState` |
 **Connectivity** | [MicrosoftAccessTableImportConfig](docs/v2/Connectivity/models/MicrosoftAccessTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftAccessTableImportConfig` |
 **Connectivity** | [MicrosoftSqlServerTableImportConfig](docs/v2/Connectivity/models/MicrosoftSqlServerTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import MicrosoftSqlServerTableImportConfig` |
+**Connectivity** | [NetworkEgressPolicyRid](docs/v2/Connectivity/models/NetworkEgressPolicyRid.md) | `from foundry_sdk.v2.connectivity.models import NetworkEgressPolicyRid` |
 **Connectivity** | [OauthMachineToMachineAuth](docs/v2/Connectivity/models/OauthMachineToMachineAuth.md) | `from foundry_sdk.v2.connectivity.models import OauthMachineToMachineAuth` |
 **Connectivity** | [OracleTableImportConfig](docs/v2/Connectivity/models/OracleTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import OracleTableImportConfig` |
 **Connectivity** | [PersonalAccessToken](docs/v2/Connectivity/models/PersonalAccessToken.md) | `from foundry_sdk.v2.connectivity.models import PersonalAccessToken` |
@@ -1119,6 +1131,7 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportQuery](docs/v2/Connectivity/models/TableImportQuery.md) | `from foundry_sdk.v2.connectivity.models import TableImportQuery` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry_sdk.v2.connectivity.models import TableImportRid` |
 **Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
+**Connectivity** | [UnknownWorker](docs/v2/Connectivity/models/UnknownWorker.md) | `from foundry_sdk.v2.connectivity.models import UnknownWorker` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry_sdk.v2.connectivity.models import UriScheme` |
 **Connectivity** | [WorkflowIdentityFederation](docs/v2/Connectivity/models/WorkflowIdentityFederation.md) | `from foundry_sdk.v2.connectivity.models import WorkflowIdentityFederation` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry_sdk.v2.core.models import AnyType` |
@@ -2268,6 +2281,7 @@ Namespace | Name | Import |
 **Connectivity** | TableImportNotFound | `from foundry_sdk.v2.connectivity.errors import TableImportNotFound` |
 **Connectivity** | TableImportNotSupportedForConnection | `from foundry_sdk.v2.connectivity.errors import TableImportNotSupportedForConnection` |
 **Connectivity** | TableImportTypeNotSupported | `from foundry_sdk.v2.connectivity.errors import TableImportTypeNotSupported` |
+**Connectivity** | UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections | `from foundry_sdk.v2.connectivity.errors import UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections` |
 **Connectivity** | UpdateExportSettingsForConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UpdateExportSettingsForConnectionPermissionDenied` |
 **Connectivity** | UpdateSecretsForConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UpdateSecretsForConnectionPermissionDenied` |
 **Connectivity** | UploadCustomJdbcDriverNotSupportForConnection | `from foundry_sdk.v2.connectivity.errors import UploadCustomJdbcDriverNotSupportForConnection` |

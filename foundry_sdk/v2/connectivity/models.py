@@ -127,6 +127,7 @@ class Connection(core.ModelBase):
     """The display name of the Connection. The display name must not be blank."""
 
     export_settings: ConnectionExportSettings = pydantic.Field(alias=str("exportSettings"))  # type: ignore[literal-required]
+    worker: ConnectionWorker
     configuration: ConnectionConfiguration
 
 
@@ -166,6 +167,15 @@ ConnectionRid = core.RID
 """The Resource Identifier (RID) of a Connection (also known as a source)."""
 
 
+ConnectionWorker = typing_extensions.Annotated[
+    typing.Union["UnknownWorker", "FoundryWorker"], pydantic.Field(discriminator="type")
+]
+"""
+[The worker of a Connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#workers), which defines where
+compute for capabilities are run.
+"""
+
+
 class CreateConnectionRequestAsPlaintextValue(core.ModelBase):
     """CreateConnectionRequestAsPlaintextValue"""
 
@@ -199,6 +209,16 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """CreateConnectionRequestConnectionConfiguration"""
+
+
+CreateConnectionRequestConnectionWorker = typing_extensions.Annotated[
+    typing.Union["CreateConnectionRequestUnknownWorker", "CreateConnectionRequestFoundryWorker"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+[The worker of a Connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#workers), which defines where
+compute for capabilities are run.
+"""
 
 
 CreateConnectionRequestDatabricksAuthenticationMode = typing_extensions.Annotated[
@@ -240,6 +260,13 @@ When writing to an encrypted property:
 - If a secret name is passed as an input, the secret name must match the existing secret name of the property
   and the property will retain its previously encrypted value.
 """
+
+
+class CreateConnectionRequestFoundryWorker(core.ModelBase):
+    """CreateConnectionRequestFoundryWorker"""
+
+    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
+    type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
 class CreateConnectionRequestJdbcConnectionConfiguration(core.ModelBase):
@@ -465,6 +492,12 @@ class CreateConnectionRequestSnowflakeKeyPairAuthentication(core.ModelBase):
     private_key: CreateConnectionRequestEncryptedProperty = pydantic.Field(alias=str("privateKey"))  # type: ignore[literal-required]
     user: str
     type: typing.Literal["keyPair"] = "keyPair"
+
+
+class CreateConnectionRequestUnknownWorker(core.ModelBase):
+    """CreateConnectionRequestUnknownWorker"""
+
+    type: typing.Literal["unknownWorker"] = "unknownWorker"
 
 
 class CreateConnectionRequestWorkflowIdentityFederation(core.ModelBase):
@@ -857,6 +890,18 @@ class FilesCountLimitFilter(core.ModelBase):
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
 
 
+class FoundryWorker(core.ModelBase):
+    """
+    The [Foundry worker](https://palantir.com/docs/foundry/data-connection/core-concepts/#foundry-worker) is used to run capabilities
+    in Foundry.
+    This is the preferred method for connections, as these connections benefit from Foundry's containerized
+    and scalable job execution, improved stability and do not incur the maintenance overhead associated with agents.
+    """
+
+    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
+    type: typing.Literal["foundryWorker"] = "foundryWorker"
+
+
 class HeaderApiKey(core.ModelBase):
     """HeaderApiKey"""
 
@@ -957,6 +1002,10 @@ class MicrosoftSqlServerTableImportConfig(core.ModelBase):
     query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
+
+
+NetworkEgressPolicyRid = core.RID
+"""The Resource Identifier (RID) of a Network Egress Policy."""
 
 
 class OauthMachineToMachineAuth(core.ModelBase):
@@ -1557,6 +1606,17 @@ class TimestampColumnInitialIncrementalState(core.ModelBase):
     )
 
 
+class UnknownWorker(core.ModelBase):
+    """
+    A ConnectionWorker that is not supported in the Platform APIs. This can happen because either the
+    ConnectionWorker configuration is malformed, or because the ConnectionWorker is a legacy one.
+    The ConnectionWorker should be updated to use the [Foundry worker](https://palantir.com/docs/foundry/data-connection/core-concepts/#foundry-worker)
+    with either direct egress policies or agent proxy egress policies.
+    """
+
+    type: typing.Literal["unknownWorker"] = "unknownWorker"
+
+
 UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
@@ -1594,8 +1654,12 @@ class WorkflowIdentityFederation(core.ModelBase):
 
 
 core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
+core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
     CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
@@ -1643,13 +1707,16 @@ __all__ = [
     "ConnectionDisplayName",
     "ConnectionExportSettings",
     "ConnectionRid",
+    "ConnectionWorker",
     "CreateConnectionRequestAsPlaintextValue",
     "CreateConnectionRequestAsSecretName",
     "CreateConnectionRequestBasicCredentials",
     "CreateConnectionRequestConnectionConfiguration",
+    "CreateConnectionRequestConnectionWorker",
     "CreateConnectionRequestDatabricksAuthenticationMode",
     "CreateConnectionRequestDatabricksConnectionConfiguration",
     "CreateConnectionRequestEncryptedProperty",
+    "CreateConnectionRequestFoundryWorker",
     "CreateConnectionRequestJdbcConnectionConfiguration",
     "CreateConnectionRequestOauthMachineToMachineAuth",
     "CreateConnectionRequestPersonalAccessToken",
@@ -1659,6 +1726,7 @@ __all__ = [
     "CreateConnectionRequestSnowflakeConnectionConfiguration",
     "CreateConnectionRequestSnowflakeExternalOauth",
     "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+    "CreateConnectionRequestUnknownWorker",
     "CreateConnectionRequestWorkflowIdentityFederation",
     "CreateTableImportRequestDatabricksTableImportConfig",
     "CreateTableImportRequestJdbcTableImportConfig",
@@ -1690,6 +1758,7 @@ __all__ = [
     "FileProperty",
     "FileSizeFilter",
     "FilesCountLimitFilter",
+    "FoundryWorker",
     "HeaderApiKey",
     "IntegerColumnInitialIncrementalState",
     "JdbcConnectionConfiguration",
@@ -1701,6 +1770,7 @@ __all__ = [
     "LongColumnInitialIncrementalState",
     "MicrosoftAccessTableImportConfig",
     "MicrosoftSqlServerTableImportConfig",
+    "NetworkEgressPolicyRid",
     "OauthMachineToMachineAuth",
     "OracleTableImportConfig",
     "PersonalAccessToken",
@@ -1745,6 +1815,7 @@ __all__ = [
     "TableImportQuery",
     "TableImportRid",
     "TimestampColumnInitialIncrementalState",
+    "UnknownWorker",
     "UriScheme",
     "WorkflowIdentityFederation",
 ]

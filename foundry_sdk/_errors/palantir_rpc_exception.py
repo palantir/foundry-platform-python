@@ -30,6 +30,8 @@ class PalantirRPCException(PalantirException):
         self.name = error_metadata.get("errorName")
         self.parameters = error_metadata.get("parameters")
         self.error_instance_id = error_metadata.get("errorInstanceId")
+        self.error_code = error_metadata.get("errorCode")
+        self.error_description = error_metadata.get("errorDescription")
 
 
 class BadRequestError(PalantirRPCException):

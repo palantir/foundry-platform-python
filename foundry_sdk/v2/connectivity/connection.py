@@ -80,6 +80,7 @@ class ConnectionClient:
         configuration: connectivity_models.CreateConnectionRequestConnectionConfiguration,
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
+        worker: connectivity_models.CreateConnectionRequestConnectionWorker,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -101,6 +102,8 @@ class ConnectionClient:
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
+        :param worker:
+        :type worker: CreateConnectionRequestConnectionWorker
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -113,6 +116,7 @@ class ConnectionClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         :raises PropertyCannotBeBlank: The specified property cannot be blank.
+        :raises UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections: The UnknownWorker cannot be used for creating or updating connections. Please use the Foundry worker instead.
         """
 
         return self._api_client.call_api(
@@ -131,6 +135,7 @@ class ConnectionClient:
                     "parentFolderRid": parent_folder_rid,
                     "configuration": configuration,
                     "displayName": display_name,
+                    "worker": worker,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -138,6 +143,7 @@ class ConnectionClient:
                         "parentFolderRid": filesystem_models.FolderRid,
                         "configuration": connectivity_models.CreateConnectionRequestConnectionConfiguration,
                         "displayName": connectivity_models.ConnectionDisplayName,
+                        "worker": connectivity_models.CreateConnectionRequestConnectionWorker,
                     },
                 ),
                 response_type=connectivity_models.Connection,
@@ -148,6 +154,7 @@ class ConnectionClient:
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
                     "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
+                    "UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections": connectivity_errors.UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -543,6 +550,7 @@ class AsyncConnectionClient:
         configuration: connectivity_models.CreateConnectionRequestConnectionConfiguration,
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
+        worker: connectivity_models.CreateConnectionRequestConnectionWorker,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -564,6 +572,8 @@ class AsyncConnectionClient:
         :type display_name: ConnectionDisplayName
         :param parent_folder_rid:
         :type parent_folder_rid: FolderRid
+        :param worker:
+        :type worker: CreateConnectionRequestConnectionWorker
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -576,6 +586,7 @@ class AsyncConnectionClient:
         :raises FolderNotFound: The given Folder could not be found.
         :raises ParentFolderNotFoundForConnection: The parent folder for the specified connection could not be found.
         :raises PropertyCannotBeBlank: The specified property cannot be blank.
+        :raises UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections: The UnknownWorker cannot be used for creating or updating connections. Please use the Foundry worker instead.
         """
 
         return self._api_client.call_api(
@@ -594,6 +605,7 @@ class AsyncConnectionClient:
                     "parentFolderRid": parent_folder_rid,
                     "configuration": configuration,
                     "displayName": display_name,
+                    "worker": worker,
                 },
                 body_type=typing_extensions.TypedDict(
                     "Body",
@@ -601,6 +613,7 @@ class AsyncConnectionClient:
                         "parentFolderRid": filesystem_models.FolderRid,
                         "configuration": connectivity_models.CreateConnectionRequestConnectionConfiguration,
                         "displayName": connectivity_models.ConnectionDisplayName,
+                        "worker": connectivity_models.CreateConnectionRequestConnectionWorker,
                     },
                 ),
                 response_type=connectivity_models.Connection,
@@ -611,6 +624,7 @@ class AsyncConnectionClient:
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "ParentFolderNotFoundForConnection": connectivity_errors.ParentFolderNotFoundForConnection,
                     "PropertyCannotBeBlank": connectivity_errors.PropertyCannotBeBlank,
+                    "UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections": connectivity_errors.UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

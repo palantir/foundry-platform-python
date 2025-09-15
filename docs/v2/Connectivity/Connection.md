@@ -28,6 +28,7 @@ Name | Type | Description  | Notes |
 **configuration** | CreateConnectionRequestConnectionConfiguration |  |  |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
+**worker** | CreateConnectionRequestConnectionWorker |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
@@ -52,6 +53,8 @@ configuration = {
 display_name = "Connection to my external system"
 # FolderRid
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
+# CreateConnectionRequestConnectionWorker
+worker = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -61,6 +64,7 @@ try:
         configuration=configuration,
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
+        worker=worker,
         preview=preview,
     )
     print("The create response:\n")

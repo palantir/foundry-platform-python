@@ -564,6 +564,21 @@ class TableImportTypeNotSupported(errors.InternalServerError):
     error_instance_id: str
 
 
+class UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnectionsParameters(
+    typing_extensions.TypedDict
+):
+    """The UnknownWorker cannot be used for creating or updating connections. Please use the Foundry worker instead."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections(errors.BadRequestError):
+    name: typing.Literal["UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections"]
+    parameters: UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnectionsParameters
+    error_instance_id: str
+
+
 class UpdateExportSettingsForConnectionPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not updateExportSettings the Connection."""
 
@@ -660,6 +675,7 @@ __all__ = [
     "TableImportNotFound",
     "TableImportNotSupportedForConnection",
     "TableImportTypeNotSupported",
+    "UnknownWorkerCannotBeUsedForCreatingOrUpdatingConnections",
     "UpdateExportSettingsForConnectionPermissionDenied",
     "UpdateSecretsForConnectionPermissionDenied",
     "UploadCustomJdbcDriverNotSupportForConnection",
