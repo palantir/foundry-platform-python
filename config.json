@@ -172,6 +172,7 @@
         "Functions": true,
         "Geo": true,
         "Filesystem": true,
+        "LanguageModels": true,
         "MediaSets": true,
         "SqlQueries": true,
         "Ontologies": {
