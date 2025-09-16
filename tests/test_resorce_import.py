@@ -328,6 +328,12 @@ def test_functions_v2_version_id_import():
     assert VersionIdClient is not None
 
 
+def test_language_models_v2_anthropic_model_import():
+    from foundry_sdk.v2.language_models.anthropic_model import AnthropicModelClient
+
+    assert AnthropicModelClient is not None
+
+
 def test_media_sets_v2_media_set_import():
     from foundry_sdk.v2.media_sets.media_set import MediaSetClient
 
