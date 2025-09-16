@@ -52,6 +52,7 @@ class FoundryClient:
         from foundry_sdk.v2.datasets._client import DatasetsClient
         from foundry_sdk.v2.filesystem._client import FilesystemClient
         from foundry_sdk.v2.functions._client import FunctionsClient
+        from foundry_sdk.v2.language_models._client import LanguageModelsClient
         from foundry_sdk.v2.media_sets._client import MediaSetsClient
         from foundry_sdk.v2.ontologies._client import OntologiesClient
         from foundry_sdk.v2.orchestration._client import OrchestrationClient
@@ -70,6 +71,7 @@ class FoundryClient:
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
         self.filesystem = FilesystemClient(auth=auth, hostname=hostname, config=config)
         self.functions = FunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.language_models = LanguageModelsClient(auth=auth, hostname=hostname, config=config)
         self.media_sets = MediaSetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
         self.orchestration = OrchestrationClient(auth=auth, hostname=hostname, config=config)
@@ -115,6 +117,7 @@ class AsyncFoundryClient:
         from foundry_sdk.v2.datasets._client import AsyncDatasetsClient
         from foundry_sdk.v2.filesystem._client import AsyncFilesystemClient
         from foundry_sdk.v2.functions._client import AsyncFunctionsClient
+        from foundry_sdk.v2.language_models._client import AsyncLanguageModelsClient
         from foundry_sdk.v2.media_sets._client import AsyncMediaSetsClient
         from foundry_sdk.v2.ontologies._client import AsyncOntologiesClient
         from foundry_sdk.v2.orchestration._client import AsyncOrchestrationClient
@@ -133,6 +136,9 @@ class AsyncFoundryClient:
         self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
         self.filesystem = AsyncFilesystemClient(auth=auth, hostname=hostname, config=config)
         self.functions = AsyncFunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.language_models = AsyncLanguageModelsClient(
+            auth=auth, hostname=hostname, config=config
+        )
         self.media_sets = AsyncMediaSetsClient(auth=auth, hostname=hostname, config=config)
         self.ontologies = AsyncOntologiesClient(auth=auth, hostname=hostname, config=config)
         self.orchestration = AsyncOrchestrationClient(auth=auth, hostname=hostname, config=config)

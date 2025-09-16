@@ -5246,6 +5246,118 @@ def geo():
     pass
 
 
+@cli.group("language_models")
+def language_models():
+    pass
+
+
+@language_models.group("anthropic_model")
+def language_models_anthropic_model():
+    pass
+
+
+@language_models_anthropic_model.command("messages")
+@click.argument("anthropic_model_model_id", type=str, required=True)
+@click.option(
+    "--max_tokens",
+    type=int,
+    required=True,
+    help="""The maximum number of tokens to generate before stopping.""",
+)
+@click.option(
+    "--messages",
+    type=str,
+    required=True,
+    help="""Input messages to the model. This can include a single user-role message or multiple messages with
+alternating user and assistant roles.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--stop_sequences",
+    type=str,
+    required=False,
+    help="""Custom text sequences that will cause the model to stop generating.""",
+)
+@click.option(
+    "--system",
+    type=str,
+    required=False,
+    help="""A system prompt is a way of providing context and instructions to Claude, such as specifying a 
+particular goal or role. As of now, sending multiple system prompts is not supported.
+""",
+)
+@click.option(
+    "--temperature",
+    type=float,
+    required=False,
+    help="""Amount of randomness injected into the response. Ranges from 0.0 to 1.0. Note that even with 
+temperature of 0.0, the results will not be fully deterministic. Defaults to 1.0
+""",
+)
+@click.option(
+    "--thinking",
+    type=str,
+    required=False,
+    help="""Configuration for enabling Claude's extended thinking.""",
+)
+@click.option(
+    "--tool_choice",
+    type=str,
+    required=False,
+    help="""How the model should use the provided tools.""",
+)
+@click.option(
+    "--tools", type=str, required=False, help="""Definitions of tools that the model may use."""
+)
+@click.option(
+    "--top_k",
+    type=int,
+    required=False,
+    help="""Only sample from the top K options for each subsequent token.""",
+)
+@click.option(
+    "--top_p",
+    type=float,
+    required=False,
+    help="""Use nucleus sampling. You should either alter temperature or top_p, but not both""",
+)
+@click.pass_obj
+def language_models_anthropic_model_op_messages(
+    client: FoundryClient,
+    anthropic_model_model_id: str,
+    max_tokens: int,
+    messages: str,
+    preview: typing.Optional[bool],
+    stop_sequences: typing.Optional[str],
+    system: typing.Optional[str],
+    temperature: typing.Optional[float],
+    thinking: typing.Optional[str],
+    tool_choice: typing.Optional[str],
+    tools: typing.Optional[str],
+    top_k: typing.Optional[int],
+    top_p: typing.Optional[float],
+):
+    """ """
+    result = client.language_models.AnthropicModel.messages(
+        anthropic_model_model_id=anthropic_model_model_id,
+        max_tokens=max_tokens,
+        messages=json.loads(messages),
+        preview=preview,
+        stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
+        system=None if system is None else json.loads(system),
+        temperature=temperature,
+        thinking=None if thinking is None else json.loads(thinking),
+        tool_choice=None if tool_choice is None else json.loads(tool_choice),
+        tools=None if tools is None else json.loads(tools),
+        top_k=top_k,
+        top_p=top_p,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("media_sets")
 def media_sets():
     pass
