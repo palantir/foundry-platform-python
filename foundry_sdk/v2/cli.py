@@ -2380,6 +2380,7 @@ def connectivity_connection():
     help="""The display name of the Connection. The display name must not be blank.""",
 )
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
+@click.option("--worker", type=str, required=True, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -2389,6 +2390,7 @@ def connectivity_connection_op_create(
     configuration: str,
     display_name: str,
     parent_folder_rid: str,
+    worker: str,
     preview: typing.Optional[bool],
 ):
     """
@@ -2407,6 +2409,7 @@ def connectivity_connection_op_create(
         configuration=json.loads(configuration),
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
+        worker=json.loads(worker),
         preview=preview,
     )
     click.echo(repr(result))
