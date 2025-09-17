@@ -88,7 +88,6 @@ class GroupMembershipExpirationPolicyClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GroupMembershipExpirationPolicy,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -145,16 +144,9 @@ class GroupMembershipExpirationPolicyClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "maximumDuration": maximum_duration,
-                    "maximumValue": maximum_value,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "maximumDuration": typing.Optional[core_models.DurationSeconds],
-                        "maximumValue": typing.Optional[admin_models.GroupMembershipExpiration],
-                    },
+                body=admin_models.ReplaceGroupMembershipExpirationPolicyRequest(
+                    maximum_duration=maximum_duration,
+                    maximum_value=maximum_value,
                 ),
                 response_type=admin_models.GroupMembershipExpirationPolicy,
                 request_timeout=request_timeout,
@@ -248,7 +240,6 @@ class AsyncGroupMembershipExpirationPolicyClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GroupMembershipExpirationPolicy,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -305,16 +296,9 @@ class AsyncGroupMembershipExpirationPolicyClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "maximumDuration": maximum_duration,
-                    "maximumValue": maximum_value,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "maximumDuration": typing.Optional[core_models.DurationSeconds],
-                        "maximumValue": typing.Optional[admin_models.GroupMembershipExpiration],
-                    },
+                body=admin_models.ReplaceGroupMembershipExpirationPolicyRequest(
+                    maximum_duration=maximum_duration,
+                    maximum_value=maximum_value,
                 ),
                 response_type=admin_models.GroupMembershipExpirationPolicy,
                 request_timeout=request_timeout,

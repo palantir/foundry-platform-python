@@ -93,7 +93,6 @@ class SqlQueryClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -158,18 +157,9 @@ class SqlQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "query": query,
-                    "fallbackBranchIds": fallback_branch_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "query": str,
-                        "fallbackBranchIds": typing.Optional[
-                            typing.List[datasets_models.BranchName]
-                        ],
-                    },
+                body=sql_queries_models.ExecuteSqlQueryRequest(
+                    query=query,
+                    fallback_branch_ids=fallback_branch_ids,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
@@ -236,7 +226,6 @@ class SqlQueryClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -298,7 +287,6 @@ class SqlQueryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -406,7 +394,6 @@ class AsyncSqlQueryClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -471,18 +458,9 @@ class AsyncSqlQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "query": query,
-                    "fallbackBranchIds": fallback_branch_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "query": str,
-                        "fallbackBranchIds": typing.Optional[
-                            typing.List[datasets_models.BranchName]
-                        ],
-                    },
+                body=sql_queries_models.ExecuteSqlQueryRequest(
+                    query=query,
+                    fallback_branch_ids=fallback_branch_ids,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
@@ -549,7 +527,6 @@ class AsyncSqlQueryClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -611,7 +588,6 @@ class AsyncSqlQueryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={

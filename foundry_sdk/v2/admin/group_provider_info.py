@@ -89,7 +89,6 @@ class GroupProviderInfoClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -147,14 +146,8 @@ class GroupProviderInfoClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "providerId": provider_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "providerId": admin_models.ProviderId,
-                    },
+                body=admin_models.ReplaceGroupProviderInfoRequest(
+                    provider_id=provider_id,
                 ),
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
@@ -252,7 +245,6 @@ class AsyncGroupProviderInfoClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -310,14 +302,8 @@ class AsyncGroupProviderInfoClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "providerId": provider_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "providerId": admin_models.ProviderId,
-                    },
+                body=admin_models.ReplaceGroupProviderInfoRequest(
+                    provider_id=provider_id,
                 ),
                 response_type=admin_models.GroupProviderInfo,
                 request_timeout=request_timeout,

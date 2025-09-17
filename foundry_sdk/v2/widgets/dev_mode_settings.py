@@ -82,7 +82,6 @@ class DevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -126,7 +125,6 @@ class DevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -170,7 +168,6 @@ class DevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -214,7 +211,6 @@ class DevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -264,16 +260,9 @@ class DevModeSettingsClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "widgetSetRid": widget_set_rid,
-                    "settings": settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "widgetSetRid": widgets_models.WidgetSetRid,
-                        "settings": widgets_models.WidgetSetDevModeSettings,
-                    },
+                body=widgets_models.SetWidgetSetDevModeSettingsRequest(
+                    widget_set_rid=widget_set_rid,
+                    settings=settings,
                 ),
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
@@ -326,16 +315,9 @@ class DevModeSettingsClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "widgetSetRid": widget_set_rid,
-                    "settings": settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "widgetSetRid": widgets_models.WidgetSetRid,
-                        "settings": widgets_models.WidgetSetDevModeSettingsById,
-                    },
+                body=widgets_models.SetWidgetSetDevModeSettingsByIdRequest(
+                    widget_set_rid=widget_set_rid,
+                    settings=settings,
                 ),
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
@@ -442,7 +424,6 @@ class AsyncDevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -486,7 +467,6 @@ class AsyncDevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -530,7 +510,6 @@ class AsyncDevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -574,7 +553,6 @@ class AsyncDevModeSettingsClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -624,16 +602,9 @@ class AsyncDevModeSettingsClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "widgetSetRid": widget_set_rid,
-                    "settings": settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "widgetSetRid": widgets_models.WidgetSetRid,
-                        "settings": widgets_models.WidgetSetDevModeSettings,
-                    },
+                body=widgets_models.SetWidgetSetDevModeSettingsRequest(
+                    widget_set_rid=widget_set_rid,
+                    settings=settings,
                 ),
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,
@@ -686,16 +657,9 @@ class AsyncDevModeSettingsClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "widgetSetRid": widget_set_rid,
-                    "settings": settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "widgetSetRid": widgets_models.WidgetSetRid,
-                        "settings": widgets_models.WidgetSetDevModeSettingsById,
-                    },
+                body=widgets_models.SetWidgetSetDevModeSettingsByIdRequest(
+                    widget_set_rid=widget_set_rid,
+                    settings=settings,
                 ),
                 response_type=widgets_models.DevModeSettings,
                 request_timeout=request_timeout,

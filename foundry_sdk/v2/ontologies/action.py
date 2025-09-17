@@ -114,19 +114,9 @@ class ActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "options": options,
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "options": typing.Optional[ontologies_models.ApplyActionRequestOptions],
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ApplyActionRequestV2(
+                    options=options,
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
@@ -199,18 +189,9 @@ class ActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "options": options,
-                    "requests": requests,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "options": typing.Optional[
-                            ontologies_models.BatchApplyActionRequestOptions
-                        ],
-                        "requests": typing.List[ontologies_models.BatchApplyActionRequestItem],
-                    },
+                body=ontologies_models.BatchApplyActionRequestV2(
+                    options=options,
+                    requests=requests,
                 ),
                 response_type=ontologies_models.BatchApplyActionResponseV2,
                 request_timeout=request_timeout,
@@ -328,19 +309,9 @@ class AsyncActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "options": options,
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "options": typing.Optional[ontologies_models.ApplyActionRequestOptions],
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ApplyActionRequestV2(
+                    options=options,
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.SyncApplyActionResponseV2,
                 request_timeout=request_timeout,
@@ -413,18 +384,9 @@ class AsyncActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "options": options,
-                    "requests": requests,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "options": typing.Optional[
-                            ontologies_models.BatchApplyActionRequestOptions
-                        ],
-                        "requests": typing.List[ontologies_models.BatchApplyActionRequestItem],
-                    },
+                body=ontologies_models.BatchApplyActionRequestV2(
+                    options=options,
+                    requests=requests,
                 ),
                 response_type=ontologies_models.BatchApplyActionResponseV2,
                 request_timeout=request_timeout,

@@ -88,7 +88,6 @@ class VersionClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -136,7 +135,6 @@ class VersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -189,7 +187,6 @@ class VersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.ListVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -240,7 +237,6 @@ class VersionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -302,7 +298,6 @@ class VersionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -400,7 +395,6 @@ class AsyncVersionClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -448,7 +442,6 @@ class AsyncVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -501,7 +494,6 @@ class AsyncVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.ListVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -552,7 +544,6 @@ class AsyncVersionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -614,7 +605,6 @@ class AsyncVersionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=third_party_applications_models.Version,
                 request_timeout=request_timeout,
                 throwable_errors={

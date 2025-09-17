@@ -105,14 +105,8 @@ class ResourceClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "markingIds": marking_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "markingIds": typing.List[core_models.MarkingId],
-                    },
+                body=filesystem_models.AddMarkingsRequest(
+                    marking_ids=marking_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -171,7 +165,6 @@ class ResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -226,7 +219,6 @@ class ResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -280,7 +272,6 @@ class ResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.AccessRequirements,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -334,7 +325,6 @@ class ResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -398,7 +388,6 @@ class ResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -449,7 +438,6 @@ class ResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -507,14 +495,8 @@ class ResourceClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "markingIds": marking_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "markingIds": typing.List[core_models.MarkingId],
-                    },
+                body=filesystem_models.RemoveMarkingsRequest(
+                    marking_ids=marking_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -571,7 +553,6 @@ class ResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -705,14 +686,8 @@ class AsyncResourceClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "markingIds": marking_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "markingIds": typing.List[core_models.MarkingId],
-                    },
+                body=filesystem_models.AddMarkingsRequest(
+                    marking_ids=marking_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -771,7 +746,6 @@ class AsyncResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -826,7 +800,6 @@ class AsyncResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -880,7 +853,6 @@ class AsyncResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.AccessRequirements,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -934,7 +906,6 @@ class AsyncResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Resource,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -998,7 +969,6 @@ class AsyncResourceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListMarkingsOfResourceResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1049,7 +1019,6 @@ class AsyncResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1107,14 +1076,8 @@ class AsyncResourceClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "markingIds": marking_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "markingIds": typing.List[core_models.MarkingId],
-                    },
+                body=filesystem_models.RemoveMarkingsRequest(
+                    marking_ids=marking_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -1171,7 +1134,6 @@ class AsyncResourceClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={

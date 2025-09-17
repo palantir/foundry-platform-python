@@ -104,7 +104,6 @@ class FolderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -147,7 +146,7 @@ class FolderClient:
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidFolder: The given Resource is not a Folder.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
@@ -165,16 +164,9 @@ class FolderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "displayName": display_name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "displayName": filesystem_models.ResourceDisplayName,
-                    },
+                body=filesystem_models.CreateFolderRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    display_name=display_name,
                 ),
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
@@ -233,7 +225,6 @@ class FolderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -287,10 +278,6 @@ class FolderClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[filesystem_models.GetFoldersBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=1000),
-                ],
                 response_type=filesystem_models.GetFoldersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -403,7 +390,6 @@ class AsyncFolderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListChildrenOfFolderResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -446,7 +432,7 @@ class AsyncFolderClient:
         :raises CreateFolderPermissionDenied: Could not create the Folder.
         :raises FolderNotFound: The given Folder could not be found.
         :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidFolder: The given Resource is not a Folder.
         :raises MissingDisplayName: A Display Name must be provided.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
@@ -464,16 +450,9 @@ class AsyncFolderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "displayName": display_name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "displayName": filesystem_models.ResourceDisplayName,
-                    },
+                body=filesystem_models.CreateFolderRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    display_name=display_name,
                 ),
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
@@ -532,7 +511,6 @@ class AsyncFolderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Folder,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -586,10 +564,6 @@ class AsyncFolderClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[filesystem_models.GetFoldersBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=1000),
-                ],
                 response_type=filesystem_models.GetFoldersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},

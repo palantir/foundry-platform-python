@@ -98,7 +98,6 @@ class WidgetSetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.WidgetSet,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -195,7 +194,6 @@ class AsyncWidgetSetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.WidgetSet,
                 request_timeout=request_timeout,
                 throwable_errors={

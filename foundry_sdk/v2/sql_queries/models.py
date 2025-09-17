@@ -21,12 +21,33 @@ import pydantic
 import typing_extensions
 
 from foundry_sdk import _core as core
+from foundry_sdk.v2.datasets import models as datasets_models
 
 
 class CanceledQueryStatus(core.ModelBase):
     """CanceledQueryStatus"""
 
     type: typing.Literal["canceled"] = "canceled"
+
+
+class ExecuteSqlQueryRequest(core.ModelBase):
+    """ExecuteSqlQueryRequest"""
+
+    query: str
+    """
+    The SQL query to execute. Queries should conform to the
+    [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
+    queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
+    on the supported syntax for referencing datasets in SQL queries.
+    """
+
+    fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = pydantic.Field(alias=str("fallbackBranchIds"), default=None)  # type: ignore[literal-required]
+    """
+    The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a
+    is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch
+    provided that exists. If no fallback branches are provided the default branch is used. This is
+    `master` for most enrollments.
+    """
 
 
 class FailedQueryStatus(core.ModelBase):
@@ -69,6 +90,7 @@ core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals(
 
 __all__ = [
     "CanceledQueryStatus",
+    "ExecuteSqlQueryRequest",
     "FailedQueryStatus",
     "QueryStatus",
     "RunningQueryStatus",

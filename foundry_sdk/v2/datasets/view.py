@@ -100,16 +100,9 @@ class ViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.AddBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -178,16 +171,9 @@ class ViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "primaryKey": primary_key,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "primaryKey": datasets_models.ViewPrimaryKey,
-                    },
+                body=datasets_models.AddPrimaryKeyRequest(
+                    branch=branch,
+                    primary_key=primary_key,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -244,6 +230,7 @@ class ViewClient:
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
@@ -268,22 +255,12 @@ class ViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "viewName": view_name,
-                    "backingDatasets": backing_datasets,
-                    "branch": branch,
-                    "primaryKey": primary_key,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "viewName": datasets_models.DatasetName,
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "primaryKey": typing.Optional[datasets_models.ViewPrimaryKey],
-                    },
+                body=datasets_models.CreateViewRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    view_name=view_name,
+                    backing_datasets=backing_datasets,
+                    branch=branch,
+                    primary_key=primary_key,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -292,6 +269,7 @@ class ViewClient:
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
                     "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
@@ -350,7 +328,6 @@ class ViewClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -411,16 +388,9 @@ class ViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.RemoveBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -484,16 +454,9 @@ class ViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.ReplaceBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -627,16 +590,9 @@ class AsyncViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.AddBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -705,16 +661,9 @@ class AsyncViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "primaryKey": primary_key,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "primaryKey": datasets_models.ViewPrimaryKey,
-                    },
+                body=datasets_models.AddPrimaryKeyRequest(
+                    branch=branch,
+                    primary_key=primary_key,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -771,6 +720,7 @@ class AsyncViewClient:
         :raises CreateViewPermissionDenied: Could not create the View.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
@@ -795,22 +745,12 @@ class AsyncViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "viewName": view_name,
-                    "backingDatasets": backing_datasets,
-                    "branch": branch,
-                    "primaryKey": primary_key,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "viewName": datasets_models.DatasetName,
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "primaryKey": typing.Optional[datasets_models.ViewPrimaryKey],
-                    },
+                body=datasets_models.CreateViewRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    view_name=view_name,
+                    backing_datasets=backing_datasets,
+                    branch=branch,
+                    primary_key=primary_key,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -819,6 +759,7 @@ class AsyncViewClient:
                     "CreateViewPermissionDenied": datasets_errors.CreateViewPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
                     "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
                     "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
@@ -877,7 +818,6 @@ class AsyncViewClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -938,16 +878,9 @@ class AsyncViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.RemoveBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,
@@ -1011,16 +944,9 @@ class AsyncViewClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branch": branch,
-                    "backingDatasets": backing_datasets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branch": typing.Optional[datasets_models.BranchName],
-                        "backingDatasets": typing.List[datasets_models.ViewBackingDataset],
-                    },
+                body=datasets_models.ReplaceBackingDatasetsRequest(
+                    branch=branch,
+                    backing_datasets=backing_datasets,
                 ),
                 response_type=datasets_models.View,
                 request_timeout=request_timeout,

@@ -23,6 +23,12 @@ from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 
 
+class DeployWebsiteRequest(core.ModelBase):
+    """DeployWebsiteRequest"""
+
+    version: VersionVersion
+
+
 class ListVersionsResponse(core.ModelBase):
     """ListVersionsResponse"""
 
@@ -67,6 +73,7 @@ class Website(core.ModelBase):
 
 
 __all__ = [
+    "DeployWebsiteRequest",
     "ListVersionsResponse",
     "Subdomain",
     "ThirdPartyApplication",

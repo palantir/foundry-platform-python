@@ -99,7 +99,6 @@ class ValueTypeClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.ValueType,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -197,7 +196,6 @@ class AsyncValueTypeClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.ValueType,
                 request_timeout=request_timeout,
                 throwable_errors={

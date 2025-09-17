@@ -121,6 +121,40 @@ class ConnectingTarget(core.ModelBase):
     type: typing.Literal["connecting"] = "connecting"
 
 
+class CreateBuildRequest(core.ModelBase):
+    """CreateBuildRequest"""
+
+    target: BuildTarget
+    """The targets of the schedule."""
+
+    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    """The target branch the build should run on."""
+
+    fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
+    force_build: typing.Optional[ForceBuild] = pydantic.Field(alias=str("forceBuild"), default=None)  # type: ignore[literal-required]
+    retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
+    """The number of retry attempts for failed jobs."""
+
+    retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
+    abort_on_failure: typing.Optional[AbortOnFailure] = pydantic.Field(alias=str("abortOnFailure"), default=None)  # type: ignore[literal-required]
+    notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
+
+
+class CreateScheduleRequest(core.ModelBase):
+    """CreateScheduleRequest"""
+
+    display_name: typing.Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    action: CreateScheduleRequestAction
+    trigger: typing.Optional[Trigger] = None
+    """
+    The schedule trigger. If the requesting user does not have
+    permission to see the trigger, this will be empty.
+    """
+
+    scope_mode: typing.Optional[CreateScheduleRequestScopeMode] = pydantic.Field(alias=str("scopeMode"), default=None)  # type: ignore[literal-required]
+
+
 class CreateScheduleRequestAction(core.ModelBase):
     """CreateScheduleRequestAction"""
 
@@ -396,6 +430,21 @@ class ProjectScope(core.ModelBase):
 
     project_rids: typing.List[filesystem_models.ProjectRid] = pydantic.Field(alias=str("projectRids"))  # type: ignore[literal-required]
     type: typing.Literal["project"] = "project"
+
+
+class ReplaceScheduleRequest(core.ModelBase):
+    """ReplaceScheduleRequest"""
+
+    display_name: typing.Optional[str] = pydantic.Field(alias=str("displayName"), default=None)  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    action: ReplaceScheduleRequestAction
+    trigger: typing.Optional[Trigger] = None
+    """
+    The schedule trigger. If the requesting user does not have
+    permission to see the trigger, this will be empty.
+    """
+
+    scope_mode: typing.Optional[ReplaceScheduleRequestScopeMode] = pydantic.Field(alias=str("scopeMode"), default=None)  # type: ignore[literal-required]
 
 
 class ReplaceScheduleRequestAction(core.ModelBase):
@@ -711,6 +760,16 @@ class SearchBuildsOrderByItem(core.ModelBase):
     direction: core_models.OrderByDirection
 
 
+class SearchBuildsRequest(core.ModelBase):
+    """SearchBuildsRequest"""
+
+    where: SearchBuildsFilter
+    order_by: typing.Optional[SearchBuildsOrderBy] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    """The page size for the search request. If no value is provided, a default of `100` will be used."""
+
+
 class SearchBuildsResponse(core.ModelBase):
     """SearchBuildsResponse"""
 
@@ -818,6 +877,8 @@ __all__ = [
     "BuildTarget",
     "BuildableRid",
     "ConnectingTarget",
+    "CreateBuildRequest",
+    "CreateScheduleRequest",
     "CreateScheduleRequestAction",
     "CreateScheduleRequestBuildTarget",
     "CreateScheduleRequestConnectingTarget",
@@ -851,6 +912,7 @@ __all__ = [
     "NotificationsEnabled",
     "OrTrigger",
     "ProjectScope",
+    "ReplaceScheduleRequest",
     "ReplaceScheduleRequestAction",
     "ReplaceScheduleRequestBuildTarget",
     "ReplaceScheduleRequestConnectingTarget",
@@ -887,6 +949,7 @@ __all__ = [
     "SearchBuildsOrderBy",
     "SearchBuildsOrderByField",
     "SearchBuildsOrderByItem",
+    "SearchBuildsRequest",
     "SearchBuildsResponse",
     "TableUpdatedTrigger",
     "TimeTrigger",

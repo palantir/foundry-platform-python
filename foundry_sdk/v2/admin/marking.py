@@ -126,22 +126,12 @@ class MarkingClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "initialRoleAssignments": initial_role_assignments,
-                    "initialMembers": initial_members,
-                    "name": name,
-                    "description": description,
-                    "categoryId": category_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "initialRoleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                        "initialMembers": typing.List[core_models.PrincipalId],
-                        "name": admin_models.MarkingName,
-                        "description": typing.Optional[str],
-                        "categoryId": admin_models.MarkingCategoryId,
-                    },
+                body=admin_models.CreateMarkingRequest(
+                    initial_role_assignments=initial_role_assignments,
+                    initial_members=initial_members,
+                    name=name,
+                    description=description,
+                    category_id=category_id,
                 ),
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,
@@ -198,7 +188,6 @@ class MarkingClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -250,10 +239,6 @@ class MarkingClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetMarkingsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -303,7 +288,6 @@ class MarkingClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -363,16 +347,9 @@ class MarkingClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.MarkingName,
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.ReplaceMarkingRequest(
+                    name=name,
+                    description=description,
                 ),
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,
@@ -519,22 +496,12 @@ class AsyncMarkingClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "initialRoleAssignments": initial_role_assignments,
-                    "initialMembers": initial_members,
-                    "name": name,
-                    "description": description,
-                    "categoryId": category_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "initialRoleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                        "initialMembers": typing.List[core_models.PrincipalId],
-                        "name": admin_models.MarkingName,
-                        "description": typing.Optional[str],
-                        "categoryId": admin_models.MarkingCategoryId,
-                    },
+                body=admin_models.CreateMarkingRequest(
+                    initial_role_assignments=initial_role_assignments,
+                    initial_members=initial_members,
+                    name=name,
+                    description=description,
+                    category_id=category_id,
                 ),
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,
@@ -591,7 +558,6 @@ class AsyncMarkingClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -643,10 +609,6 @@ class AsyncMarkingClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetMarkingsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetMarkingsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -696,7 +658,6 @@ class AsyncMarkingClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -756,16 +717,9 @@ class AsyncMarkingClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.MarkingName,
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.ReplaceMarkingRequest(
+                    name=name,
+                    description=description,
                 ),
                 response_type=admin_models.Marking,
                 request_timeout=request_timeout,

@@ -90,7 +90,6 @@ class TransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -146,7 +145,6 @@ class TransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -206,14 +204,8 @@ class TransactionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "transactionType": transaction_type,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "transactionType": typing.Optional[datasets_models.TransactionType],
-                    },
+                body=datasets_models.CreateTransactionRequest(
+                    transaction_type=transaction_type,
                 ),
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
@@ -268,7 +260,6 @@ class TransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -372,7 +363,6 @@ class AsyncTransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -428,7 +418,6 @@ class AsyncTransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -488,14 +477,8 @@ class AsyncTransactionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "transactionType": transaction_type,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "transactionType": typing.Optional[datasets_models.TransactionType],
-                    },
+                body=datasets_models.CreateTransactionRequest(
+                    transaction_type=transaction_type,
                 ),
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
@@ -550,7 +533,6 @@ class AsyncTransactionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Transaction,
                 request_timeout=request_timeout,
                 throwable_errors={

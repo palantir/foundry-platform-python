@@ -124,16 +124,9 @@ class DatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "parentFolderRid": parent_folder_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": datasets_models.DatasetName,
-                        "parentFolderRid": core_models.FolderRid,
-                    },
+                body=datasets_models.CreateDatasetRequest(
+                    name=name,
+                    parent_folder_rid=parent_folder_rid,
                 ),
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
@@ -203,7 +196,6 @@ class DatasetClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -253,7 +245,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -314,7 +305,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -393,7 +383,6 @@ class DatasetClient:
                     "Accept": "*/*",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -465,7 +454,6 @@ class DatasetClient:
                     "Content-Type": "application/json",
                 },
                 body=body,
-                body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -614,16 +602,9 @@ class AsyncDatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "parentFolderRid": parent_folder_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": datasets_models.DatasetName,
-                        "parentFolderRid": core_models.FolderRid,
-                    },
+                body=datasets_models.CreateDatasetRequest(
+                    name=name,
+                    parent_folder_rid=parent_folder_rid,
                 ),
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
@@ -693,7 +674,6 @@ class AsyncDatasetClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -743,7 +723,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -804,7 +783,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[typing.Any],
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -883,7 +861,6 @@ class AsyncDatasetClient:
                     "Accept": "*/*",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -955,7 +932,6 @@ class AsyncDatasetClient:
                     "Content-Type": "application/json",
                 },
                 body=body,
-                body_type=typing.Any,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={

@@ -34,6 +34,26 @@ BranchId = str
 """The identifier (name) of a Branch."""
 
 
+class CreateBranchRequest(core.ModelBase):
+    """CreateBranchRequest"""
+
+    branch_id: BranchId = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
+    transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
+
+
+class CreateDatasetRequest(core.ModelBase):
+    """CreateDatasetRequest"""
+
+    name: DatasetName
+    parent_folder_rid: core_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+
+
+class CreateTransactionRequest(core.ModelBase):
+    """CreateTransactionRequest"""
+
+    transaction_type: typing.Optional[TransactionType] = pydantic.Field(alias=str("transactionType"), default=None)  # type: ignore[literal-required]
+
+
 class Dataset(core.ModelBase):
     """Dataset"""
 
@@ -106,6 +126,9 @@ TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 __all__ = [
     "Branch",
     "BranchId",
+    "CreateBranchRequest",
+    "CreateDatasetRequest",
+    "CreateTransactionRequest",
     "Dataset",
     "DatasetName",
     "DatasetRid",

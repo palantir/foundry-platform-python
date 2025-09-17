@@ -119,6 +119,20 @@ ScriptType = typing.Literal["DEFAULT", "MODULE"]
 """ScriptType"""
 
 
+class SetWidgetSetDevModeSettingsByIdRequest(core.ModelBase):
+    """SetWidgetSetDevModeSettingsByIdRequest"""
+
+    widget_set_rid: WidgetSetRid = pydantic.Field(alias=str("widgetSetRid"))  # type: ignore[literal-required]
+    settings: WidgetSetDevModeSettingsById
+
+
+class SetWidgetSetDevModeSettingsRequest(core.ModelBase):
+    """SetWidgetSetDevModeSettingsRequest"""
+
+    widget_set_rid: WidgetSetRid = pydantic.Field(alias=str("widgetSetRid"))  # type: ignore[literal-required]
+    settings: WidgetSetDevModeSettings
+
+
 class StylesheetEntrypoint(core.ModelBase):
     """A stylesheet entrypoint to be loaded into the runtime environment."""
 
@@ -208,6 +222,8 @@ __all__ = [
     "RepositoryVersion",
     "ScriptEntrypoint",
     "ScriptType",
+    "SetWidgetSetDevModeSettingsByIdRequest",
+    "SetWidgetSetDevModeSettingsRequest",
     "StylesheetEntrypoint",
     "WidgetDevModeSettings",
     "WidgetId",

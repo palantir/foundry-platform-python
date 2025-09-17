@@ -368,8 +368,8 @@ class InvalidDescription(errors.BadRequestError):
 
 class InvalidDisplayNameParameters(typing_extensions.TypedDict):
     """
-    The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be
-    too long.
+    The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be
+    less than or equal to 700 characters.
     """
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore

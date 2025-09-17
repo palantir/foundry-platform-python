@@ -110,22 +110,12 @@ class StreamClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "schema": schema,
-                    "partitionsCount": partitions_count,
-                    "streamType": stream_type,
-                    "branchName": branch_name,
-                    "compressed": compressed,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "schema": streams_models.CreateStreamRequestStreamSchema,
-                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
-                        "streamType": typing.Optional[streams_models.StreamType],
-                        "branchName": datasets_models.BranchName,
-                        "compressed": typing.Optional[streams_models.Compressed],
-                    },
+                body=streams_models.CreateStreamRequest(
+                    schema_=schema,
+                    partitions_count=partitions_count,
+                    stream_type=stream_type,
+                    branch_name=branch_name,
+                    compressed=compressed,
                 ),
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
@@ -188,7 +178,6 @@ class StreamClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -252,7 +241,6 @@ class StreamClient:
                     "Content-Type": "application/octet-stream",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -312,16 +300,9 @@ class StreamClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "record": record,
-                    "viewRid": view_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "record": streams_models.Record,
-                        "viewRid": typing.Optional[streams_models.ViewRid],
-                    },
+                body=streams_models.PublishRecordToStreamRequest(
+                    record=record,
+                    view_rid=view_rid,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -382,16 +363,9 @@ class StreamClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "records": records,
-                    "viewRid": view_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "records": typing.List[streams_models.Record],
-                        "viewRid": typing.Optional[streams_models.ViewRid],
-                    },
+                body=streams_models.PublishRecordsToStreamRequest(
+                    records=records,
+                    view_rid=view_rid,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -469,20 +443,11 @@ class StreamClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "schema": schema,
-                    "partitionsCount": partitions_count,
-                    "streamType": stream_type,
-                    "compressed": compressed,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "schema": typing.Optional[core_models.StreamSchema],
-                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
-                        "streamType": typing.Optional[streams_models.StreamType],
-                        "compressed": typing.Optional[streams_models.Compressed],
-                    },
+                body=streams_models.ResetStreamRequest(
+                    schema_=schema,
+                    partitions_count=partitions_count,
+                    stream_type=stream_type,
+                    compressed=compressed,
                 ),
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
@@ -611,22 +576,12 @@ class AsyncStreamClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "schema": schema,
-                    "partitionsCount": partitions_count,
-                    "streamType": stream_type,
-                    "branchName": branch_name,
-                    "compressed": compressed,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "schema": streams_models.CreateStreamRequestStreamSchema,
-                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
-                        "streamType": typing.Optional[streams_models.StreamType],
-                        "branchName": datasets_models.BranchName,
-                        "compressed": typing.Optional[streams_models.Compressed],
-                    },
+                body=streams_models.CreateStreamRequest(
+                    schema_=schema,
+                    partitions_count=partitions_count,
+                    stream_type=stream_type,
+                    branch_name=branch_name,
+                    compressed=compressed,
                 ),
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
@@ -689,7 +644,6 @@ class AsyncStreamClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -753,7 +707,6 @@ class AsyncStreamClient:
                     "Content-Type": "application/octet-stream",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -813,16 +766,9 @@ class AsyncStreamClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "record": record,
-                    "viewRid": view_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "record": streams_models.Record,
-                        "viewRid": typing.Optional[streams_models.ViewRid],
-                    },
+                body=streams_models.PublishRecordToStreamRequest(
+                    record=record,
+                    view_rid=view_rid,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -883,16 +829,9 @@ class AsyncStreamClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "records": records,
-                    "viewRid": view_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "records": typing.List[streams_models.Record],
-                        "viewRid": typing.Optional[streams_models.ViewRid],
-                    },
+                body=streams_models.PublishRecordsToStreamRequest(
+                    records=records,
+                    view_rid=view_rid,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -970,20 +909,11 @@ class AsyncStreamClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "schema": schema,
-                    "partitionsCount": partitions_count,
-                    "streamType": stream_type,
-                    "compressed": compressed,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "schema": typing.Optional[core_models.StreamSchema],
-                        "partitionsCount": typing.Optional[streams_models.PartitionsCount],
-                        "streamType": typing.Optional[streams_models.StreamType],
-                        "compressed": typing.Optional[streams_models.Compressed],
-                    },
+                body=streams_models.ResetStreamRequest(
+                    schema_=schema,
+                    partitions_count=partitions_count,
+                    stream_type=stream_type,
+                    compressed=compressed,
                 ),
                 response_type=streams_models.Stream,
                 request_timeout=request_timeout,

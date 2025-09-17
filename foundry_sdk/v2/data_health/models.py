@@ -116,6 +116,13 @@ class ColumnTypeConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+class CreateCheckRequest(core.ModelBase):
+    """CreateCheckRequest"""
+
+    config: CheckConfig
+    intent: typing.Optional[CheckIntent] = None
+
+
 class DatasetSubject(core.ModelBase):
     """A dataset resource type."""
 
@@ -259,6 +266,7 @@ __all__ = [
     "ColumnName",
     "ColumnTypeCheckConfig",
     "ColumnTypeConfig",
+    "CreateCheckRequest",
     "DatasetSubject",
     "EscalationConfig",
     "JobDurationCheckConfig",

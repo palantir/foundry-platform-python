@@ -91,7 +91,6 @@ class AuthenticationProviderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.AuthenticationProvider,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -142,7 +141,6 @@ class AuthenticationProviderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -204,16 +202,9 @@ class AuthenticationProviderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "organizations": organizations,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.GroupName,
-                        "organizations": typing.List[core_models.OrganizationRid],
-                    },
+                body=admin_models.PreregisterGroupRequest(
+                    name=name,
+                    organizations=organizations,
                 ),
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
@@ -291,26 +282,13 @@ class AuthenticationProviderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "username": username,
-                    "organization": organization,
-                    "givenName": given_name,
-                    "familyName": family_name,
-                    "email": email,
-                    "attributes": attributes,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "username": admin_models.UserUsername,
-                        "organization": core_models.OrganizationRid,
-                        "givenName": typing.Optional[str],
-                        "familyName": typing.Optional[str],
-                        "email": typing.Optional[str],
-                        "attributes": typing.Optional[
-                            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
-                        ],
-                    },
+                body=admin_models.PreregisterUserRequest(
+                    username=username,
+                    organization=organization,
+                    given_name=given_name,
+                    family_name=family_name,
+                    email=email,
+                    attributes=attributes,
                 ),
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
@@ -419,7 +397,6 @@ class AsyncAuthenticationProviderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.AuthenticationProvider,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -470,7 +447,6 @@ class AsyncAuthenticationProviderClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListAuthenticationProvidersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -532,16 +508,9 @@ class AsyncAuthenticationProviderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "organizations": organizations,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.GroupName,
-                        "organizations": typing.List[core_models.OrganizationRid],
-                    },
+                body=admin_models.PreregisterGroupRequest(
+                    name=name,
+                    organizations=organizations,
                 ),
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,
@@ -619,26 +588,13 @@ class AsyncAuthenticationProviderClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "username": username,
-                    "organization": organization,
-                    "givenName": given_name,
-                    "familyName": family_name,
-                    "email": email,
-                    "attributes": attributes,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "username": admin_models.UserUsername,
-                        "organization": core_models.OrganizationRid,
-                        "givenName": typing.Optional[str],
-                        "familyName": typing.Optional[str],
-                        "email": typing.Optional[str],
-                        "attributes": typing.Optional[
-                            typing.Dict[admin_models.AttributeName, admin_models.AttributeValues]
-                        ],
-                    },
+                body=admin_models.PreregisterUserRequest(
+                    username=username,
+                    organization=organization,
+                    given_name=given_name,
+                    family_name=family_name,
+                    email=email,
+                    attributes=attributes,
                 ),
                 response_type=core_models.PrincipalId,
                 request_timeout=request_timeout,

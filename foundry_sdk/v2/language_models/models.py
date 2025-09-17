@@ -208,6 +208,49 @@ AnthropicMessageRole = typing.Literal["user", "assistant"]
 """AnthropicMessageRole"""
 
 
+class AnthropicMessagesRequest(core.ModelBase):
+    """AnthropicMessagesRequest"""
+
+    messages: typing.List[AnthropicMessage]
+    """
+    Input messages to the model. This can include a single user-role message or multiple messages with
+    alternating user and assistant roles.
+    """
+
+    max_tokens: int = pydantic.Field(alias=str("maxTokens"))  # type: ignore[literal-required]
+    """The maximum number of tokens to generate before stopping."""
+
+    stop_sequences: typing.Optional[typing.List[str]] = pydantic.Field(alias=str("stopSequences"), default=None)  # type: ignore[literal-required]
+    """Custom text sequences that will cause the model to stop generating."""
+
+    system: typing.Optional[typing.List[AnthropicSystemMessage]] = None
+    """
+    A system prompt is a way of providing context and instructions to Claude, such as specifying a 
+    particular goal or role. As of now, sending multiple system prompts is not supported.
+    """
+
+    temperature: typing.Optional[float] = None
+    """
+    Amount of randomness injected into the response. Ranges from 0.0 to 1.0. Note that even with 
+    temperature of 0.0, the results will not be fully deterministic. Defaults to 1.0
+    """
+
+    thinking: typing.Optional[AnthropicThinkingConfig] = None
+    """Configuration for enabling Claude's extended thinking."""
+
+    tool_choice: typing.Optional[AnthropicToolChoice] = pydantic.Field(alias=str("toolChoice"), default=None)  # type: ignore[literal-required]
+    """How the model should use the provided tools."""
+
+    tools: typing.Optional[typing.List[AnthropicTool]] = None
+    """Definitions of tools that the model may use."""
+
+    top_k: typing.Optional[int] = pydantic.Field(alias=str("topK"), default=None)  # type: ignore[literal-required]
+    """Only sample from the top K options for each subsequent token."""
+
+    top_p: typing.Optional[float] = pydantic.Field(alias=str("topP"), default=None)  # type: ignore[literal-required]
+    """Use nucleus sampling. You should either alter temperature or top_p, but not both"""
+
+
 class AnthropicMessagesResponse(core.ModelBase):
     """AnthropicMessagesResponse"""
 
@@ -379,6 +422,7 @@ __all__ = [
     "AnthropicMessage",
     "AnthropicMessageContent",
     "AnthropicMessageRole",
+    "AnthropicMessagesRequest",
     "AnthropicMessagesResponse",
     "AnthropicNoneToolChoice",
     "AnthropicRedactedThinking",

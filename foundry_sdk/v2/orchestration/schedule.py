@@ -98,24 +98,12 @@ class ScheduleClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "action": action,
-                    "trigger": trigger,
-                    "scopeMode": scope_mode,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": typing.Optional[str],
-                        "description": typing.Optional[str],
-                        "action": orchestration_models.CreateScheduleRequestAction,
-                        "trigger": typing.Optional[orchestration_models.Trigger],
-                        "scopeMode": typing.Optional[
-                            orchestration_models.CreateScheduleRequestScopeMode
-                        ],
-                    },
+                body=orchestration_models.CreateScheduleRequest(
+                    display_name=display_name,
+                    description=description,
+                    action=action,
+                    trigger=trigger,
+                    scope_mode=scope_mode,
                 ),
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
@@ -158,7 +146,6 @@ class ScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -207,7 +194,6 @@ class ScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -256,7 +242,6 @@ class ScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.AffectedResourcesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -309,10 +294,6 @@ class ScheduleClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetSchedulesBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=1000),
-                ],
                 response_type=orchestration_models.GetSchedulesBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -352,7 +333,6 @@ class ScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -416,24 +396,12 @@ class ScheduleClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "action": action,
-                    "trigger": trigger,
-                    "scopeMode": scope_mode,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": typing.Optional[str],
-                        "description": typing.Optional[str],
-                        "action": orchestration_models.ReplaceScheduleRequestAction,
-                        "trigger": typing.Optional[orchestration_models.Trigger],
-                        "scopeMode": typing.Optional[
-                            orchestration_models.ReplaceScheduleRequestScopeMode
-                        ],
-                    },
+                body=orchestration_models.ReplaceScheduleRequest(
+                    display_name=display_name,
+                    description=description,
+                    action=action,
+                    trigger=trigger,
+                    scope_mode=scope_mode,
                 ),
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
@@ -478,7 +446,6 @@ class ScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ScheduleRun,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -530,7 +497,6 @@ class ScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -570,7 +536,6 @@ class ScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -701,24 +666,12 @@ class AsyncScheduleClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "action": action,
-                    "trigger": trigger,
-                    "scopeMode": scope_mode,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": typing.Optional[str],
-                        "description": typing.Optional[str],
-                        "action": orchestration_models.CreateScheduleRequestAction,
-                        "trigger": typing.Optional[orchestration_models.Trigger],
-                        "scopeMode": typing.Optional[
-                            orchestration_models.CreateScheduleRequestScopeMode
-                        ],
-                    },
+                body=orchestration_models.CreateScheduleRequest(
+                    display_name=display_name,
+                    description=description,
+                    action=action,
+                    trigger=trigger,
+                    scope_mode=scope_mode,
                 ),
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
@@ -761,7 +714,6 @@ class AsyncScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -810,7 +762,6 @@ class AsyncScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -859,7 +810,6 @@ class AsyncScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.AffectedResourcesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -912,10 +862,6 @@ class AsyncScheduleClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetSchedulesBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=1000),
-                ],
                 response_type=orchestration_models.GetSchedulesBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -955,7 +901,6 @@ class AsyncScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1019,24 +964,12 @@ class AsyncScheduleClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "action": action,
-                    "trigger": trigger,
-                    "scopeMode": scope_mode,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": typing.Optional[str],
-                        "description": typing.Optional[str],
-                        "action": orchestration_models.ReplaceScheduleRequestAction,
-                        "trigger": typing.Optional[orchestration_models.Trigger],
-                        "scopeMode": typing.Optional[
-                            orchestration_models.ReplaceScheduleRequestScopeMode
-                        ],
-                    },
+                body=orchestration_models.ReplaceScheduleRequest(
+                    display_name=display_name,
+                    description=description,
+                    action=action,
+                    trigger=trigger,
+                    scope_mode=scope_mode,
                 ),
                 response_type=orchestration_models.Schedule,
                 request_timeout=request_timeout,
@@ -1081,7 +1014,6 @@ class AsyncScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ScheduleRun,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1133,7 +1065,6 @@ class AsyncScheduleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ListRunsOfScheduleResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -1173,7 +1104,6 @@ class AsyncScheduleClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={

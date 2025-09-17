@@ -89,7 +89,6 @@ class ReleaseClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -142,7 +141,6 @@ class ReleaseClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.Release,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -199,7 +197,6 @@ class ReleaseClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.ListReleasesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -292,7 +289,6 @@ class AsyncReleaseClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -345,7 +341,6 @@ class AsyncReleaseClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.Release,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -402,7 +397,6 @@ class AsyncReleaseClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.ListReleasesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},

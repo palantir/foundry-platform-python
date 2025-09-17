@@ -99,14 +99,8 @@ class WebsiteClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "version": third_party_applications_models.VersionVersion,
-                    },
+                body=third_party_applications_models.DeployWebsiteRequest(
+                    version=version,
                 ),
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
@@ -151,7 +145,6 @@ class WebsiteClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -195,7 +188,6 @@ class WebsiteClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -298,14 +290,8 @@ class AsyncWebsiteClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "version": third_party_applications_models.VersionVersion,
-                    },
+                body=third_party_applications_models.DeployWebsiteRequest(
+                    version=version,
                 ),
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
@@ -350,7 +336,6 @@ class AsyncWebsiteClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -394,7 +379,6 @@ class AsyncWebsiteClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.Website,
                 request_timeout=request_timeout,
                 throwable_errors={

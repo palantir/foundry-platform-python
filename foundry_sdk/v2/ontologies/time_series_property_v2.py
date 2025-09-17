@@ -100,7 +100,6 @@ class TimeSeriesPropertyV2Client:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -162,7 +161,6 @@ class TimeSeriesPropertyV2Client:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -234,16 +232,9 @@ class TimeSeriesPropertyV2Client:
                     "Content-Type": "application/json",
                     "Accept": "*/*",
                 },
-                body={
-                    "range": range,
-                    "aggregate": aggregate,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "range": typing.Optional[ontologies_models.TimeRange],
-                        "aggregate": typing.Optional[ontologies_models.AggregateTimeSeries],
-                    },
+                body=ontologies_models.StreamTimeSeriesPointsRequest(
+                    range=range,
+                    aggregate=aggregate,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -352,7 +343,6 @@ class AsyncTimeSeriesPropertyV2Client:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -414,7 +404,6 @@ class AsyncTimeSeriesPropertyV2Client:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeSeriesPoint],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -486,16 +475,9 @@ class AsyncTimeSeriesPropertyV2Client:
                     "Content-Type": "application/json",
                     "Accept": "*/*",
                 },
-                body={
-                    "range": range,
-                    "aggregate": aggregate,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "range": typing.Optional[ontologies_models.TimeRange],
-                        "aggregate": typing.Optional[ontologies_models.AggregateTimeSeries],
-                    },
+                body=ontologies_models.StreamTimeSeriesPointsRequest(
+                    range=range,
+                    aggregate=aggregate,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,

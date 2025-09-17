@@ -100,7 +100,6 @@ class TimeSeriesValueBankPropertyClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeseriesEntry],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -165,14 +164,8 @@ class TimeSeriesValueBankPropertyClient:
                     "Content-Type": "application/json",
                     "Accept": "*/*",
                 },
-                body={
-                    "range": range,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "range": typing.Optional[ontologies_models.TimeRange],
-                    },
+                body=ontologies_models.StreamTimeSeriesValuesRequest(
+                    range=range,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -279,7 +272,6 @@ class AsyncTimeSeriesValueBankPropertyClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[ontologies_models.TimeseriesEntry],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -344,14 +336,8 @@ class AsyncTimeSeriesValueBankPropertyClient:
                     "Content-Type": "application/json",
                     "Accept": "*/*",
                 },
-                body={
-                    "range": range,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "range": typing.Optional[ontologies_models.TimeRange],
-                    },
+                body=ontologies_models.StreamTimeSeriesValuesRequest(
+                    range=range,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,

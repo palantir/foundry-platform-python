@@ -93,14 +93,8 @@ class EnrollmentRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.AddEnrollmentRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -155,7 +149,6 @@ class EnrollmentRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListEnrollmentRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -211,14 +204,8 @@ class EnrollmentRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.RemoveEnrollmentRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -319,14 +306,8 @@ class AsyncEnrollmentRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.AddEnrollmentRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -381,7 +362,6 @@ class AsyncEnrollmentRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListEnrollmentRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -437,14 +417,8 @@ class AsyncEnrollmentRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.RemoveEnrollmentRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

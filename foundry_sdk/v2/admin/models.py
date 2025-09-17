@@ -23,6 +23,38 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 
+
+class AddEnrollmentRoleAssignmentsRequest(core.ModelBase):
+    """AddEnrollmentRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[core_models.RoleAssignmentUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
+class AddGroupMembersRequest(core.ModelBase):
+    """AddGroupMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+    expiration: typing.Optional[GroupMembershipExpiration] = None
+
+
+class AddMarkingMembersRequest(core.ModelBase):
+    """AddMarkingMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+
+
+class AddMarkingRoleAssignmentsRequest(core.ModelBase):
+    """AddMarkingRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
+class AddOrganizationRoleAssignmentsRequest(core.ModelBase):
+    """AddOrganizationRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[core_models.RoleAssignmentUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
 AttributeName = str
 """AttributeName"""
 
@@ -85,6 +117,61 @@ class CertificateInfo(core.ModelBase):
 
 CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
 """CertificateUsageType"""
+
+
+class CreateGroupRequest(core.ModelBase):
+    """CreateGroupRequest"""
+
+    name: GroupName
+    """The name of the Group."""
+
+    organizations: typing.List[core_models.OrganizationRid]
+    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
+
+    description: typing.Optional[str] = None
+    """A description of the Group."""
+
+    attributes: typing.Dict[AttributeName, AttributeValues]
+    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
+
+
+class CreateMarkingRequest(core.ModelBase):
+    """CreateMarkingRequest"""
+
+    initial_role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("initialRoleAssignments"))  # type: ignore[literal-required]
+    """
+    The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be
+    provided. This can be changed later through the MarkingRoleAssignment operations.
+
+    WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of,
+    you will create a Marking that you cannot administer.
+    """
+
+    initial_members: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("initialMembers"))  # type: ignore[literal-required]
+    """Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations."""
+
+    name: MarkingName
+    description: typing.Optional[str] = None
+    category_id: MarkingCategoryId = pydantic.Field(alias=str("categoryId"))  # type: ignore[literal-required]
+
+
+class CreateOrganizationRequest(core.ModelBase):
+    """CreateOrganizationRequest"""
+
+    administrators: typing.List[core_models.PrincipalId]
+    """The initial administrators of the Organization. At least one principal must be provided."""
+
+    enrollment_rid: core_models.EnrollmentRid = pydantic.Field(alias=str("enrollmentRid"))  # type: ignore[literal-required]
+    """The RID of the Enrollment that this Organization belongs to. This must be provided."""
+
+    name: OrganizationName
+    host: typing.Optional[HostName] = None
+    """
+    The primary host name of the Organization. This should be used when constructing URLs for users of this
+    Organization.
+    """
+
+    description: typing.Optional[str] = None
 
 
 class Enrollment(core.ModelBase):
@@ -449,12 +536,118 @@ class OrganizationRoleAssignment(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
+class PreregisterGroupRequest(core.ModelBase):
+    """PreregisterGroupRequest"""
+
+    name: GroupName
+    organizations: typing.List[core_models.OrganizationRid]
+    """The RIDs of the Organizations that can view this group."""
+
+
+class PreregisterUserRequest(core.ModelBase):
+    """PreregisterUserRequest"""
+
+    username: UserUsername
+    """The new user's username. This must match one of the provider's supported username patterns."""
+
+    organization: core_models.OrganizationRid
+    """
+    The RID of the user's primary Organization. This may be changed when the user logs in for the first
+    time depending on any configured Organization assignment rules.
+    """
+
+    given_name: typing.Optional[str] = pydantic.Field(alias=str("givenName"), default=None)  # type: ignore[literal-required]
+    family_name: typing.Optional[str] = pydantic.Field(alias=str("familyName"), default=None)  # type: ignore[literal-required]
+    email: typing.Optional[str] = None
+    attributes: typing.Optional[typing.Dict[AttributeName, AttributeValues]] = None
+
+
 PrincipalFilterType = typing.Literal["queryString"]
 """PrincipalFilterType"""
 
 
 ProviderId = str
 """A value that uniquely identifies a User or Group in an external authentication provider. This value is determined by the external authentication provider and must be unique per Realm."""
+
+
+class RemoveEnrollmentRoleAssignmentsRequest(core.ModelBase):
+    """RemoveEnrollmentRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[core_models.RoleAssignmentUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
+class RemoveGroupMembersRequest(core.ModelBase):
+    """RemoveGroupMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+
+
+class RemoveMarkingMembersRequest(core.ModelBase):
+    """RemoveMarkingMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+
+
+class RemoveMarkingRoleAssignmentsRequest(core.ModelBase):
+    """RemoveMarkingRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
+class RemoveOrganizationRoleAssignmentsRequest(core.ModelBase):
+    """RemoveOrganizationRoleAssignmentsRequest"""
+
+    role_assignments: typing.List[core_models.RoleAssignmentUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
+
+
+class ReplaceGroupMembershipExpirationPolicyRequest(core.ModelBase):
+    """ReplaceGroupMembershipExpirationPolicyRequest"""
+
+    maximum_duration: typing.Optional[core_models.DurationSeconds] = pydantic.Field(alias=str("maximumDuration"), default=None)  # type: ignore[literal-required]
+    """Members in this group must be added with expirations that are less than this duration in seconds into the future from the time they are added."""
+
+    maximum_value: typing.Optional[GroupMembershipExpiration] = pydantic.Field(alias=str("maximumValue"), default=None)  # type: ignore[literal-required]
+    """Members in this group must be added with expiration times that occur before this value."""
+
+
+class ReplaceGroupProviderInfoRequest(core.ModelBase):
+    """ReplaceGroupProviderInfoRequest"""
+
+    provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
+    """
+    The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
+    At most one Group can have a given provider ID in a given Realm.
+    """
+
+
+class ReplaceMarkingRequest(core.ModelBase):
+    """ReplaceMarkingRequest"""
+
+    name: MarkingName
+    description: typing.Optional[str] = None
+
+
+class ReplaceOrganizationRequest(core.ModelBase):
+    """ReplaceOrganizationRequest"""
+
+    name: OrganizationName
+    host: typing.Optional[HostName] = None
+    """
+    The primary host name of the Organization. This should be used when constructing URLs for users of this
+    Organization.
+    """
+
+    description: typing.Optional[str] = None
+
+
+class ReplaceUserProviderInfoRequest(core.ModelBase):
+    """ReplaceUserProviderInfoRequest"""
+
+    provider_id: ProviderId = pydantic.Field(alias=str("providerId"))  # type: ignore[literal-required]
+    """
+    The ID of the User in the external authentication provider. This value is determined by the authentication provider.
+    At most one User can have a given provider ID in a given Realm.
+    """
 
 
 class Role(core.ModelBase):
@@ -506,11 +699,27 @@ class SamlServiceProviderMetadata(core.ModelBase):
     certificates: typing.List[CertificateInfo]
 
 
+class SearchGroupsRequest(core.ModelBase):
+    """SearchGroupsRequest"""
+
+    where: GroupSearchFilter
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+
+
 class SearchGroupsResponse(core.ModelBase):
     """SearchGroupsResponse"""
 
     data: typing.List[Group]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class SearchUsersRequest(core.ModelBase):
+    """SearchUsersRequest"""
+
+    where: UserSearchFilter
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
 
 
 class SearchUsersResponse(core.ModelBase):
@@ -573,6 +782,11 @@ core.resolve_forward_references(AttributeValues, globalns=globals(), localns=loc
 core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
 
 __all__ = [
+    "AddEnrollmentRoleAssignmentsRequest",
+    "AddGroupMembersRequest",
+    "AddMarkingMembersRequest",
+    "AddMarkingRoleAssignmentsRequest",
+    "AddOrganizationRoleAssignmentsRequest",
     "AttributeName",
     "AttributeValue",
     "AttributeValues",
@@ -583,6 +797,9 @@ __all__ = [
     "AuthenticationProviderRid",
     "CertificateInfo",
     "CertificateUsageType",
+    "CreateGroupRequest",
+    "CreateMarkingRequest",
+    "CreateOrganizationRequest",
     "Enrollment",
     "EnrollmentName",
     "EnrollmentRoleAssignment",
@@ -633,14 +850,28 @@ __all__ = [
     "Organization",
     "OrganizationName",
     "OrganizationRoleAssignment",
+    "PreregisterGroupRequest",
+    "PreregisterUserRequest",
     "PrincipalFilterType",
     "ProviderId",
+    "RemoveEnrollmentRoleAssignmentsRequest",
+    "RemoveGroupMembersRequest",
+    "RemoveMarkingMembersRequest",
+    "RemoveMarkingRoleAssignmentsRequest",
+    "RemoveOrganizationRoleAssignmentsRequest",
+    "ReplaceGroupMembershipExpirationPolicyRequest",
+    "ReplaceGroupProviderInfoRequest",
+    "ReplaceMarkingRequest",
+    "ReplaceOrganizationRequest",
+    "ReplaceUserProviderInfoRequest",
     "Role",
     "RoleDescription",
     "RoleDisplayName",
     "SamlAuthenticationProtocol",
     "SamlServiceProviderMetadata",
+    "SearchGroupsRequest",
     "SearchGroupsResponse",
+    "SearchUsersRequest",
     "SearchUsersResponse",
     "User",
     "UserProviderInfo",

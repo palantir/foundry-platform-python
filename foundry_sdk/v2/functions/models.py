@@ -68,6 +68,13 @@ class EnumConstraint(core.ModelBase):
     type: typing.Literal["enum"] = "enum"
 
 
+class ExecuteQueryRequest(core.ModelBase):
+    """ExecuteQueryRequest"""
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    version: typing.Optional[FunctionVersion] = None
+
+
 class ExecuteQueryResponse(core.ModelBase):
     """ExecuteQueryResponse"""
 
@@ -83,6 +90,13 @@ FunctionVersion = str
 The version of the given Function, written `<major>.<minor>.<patch>-<tag>`, where `-<tag>` is optional.
 Examples: `1.2.3`, `1.2.3-rc1`.
 """
+
+
+class GetByRidQueriesRequest(core.ModelBase):
+    """GetByRidQueriesRequest"""
+
+    rid: FunctionRid
+    version: typing.Optional[FunctionVersion] = None
 
 
 class LengthConstraint(core.ModelBase):
@@ -552,9 +566,11 @@ __all__ = [
     "ArrayConstraint",
     "DataValue",
     "EnumConstraint",
+    "ExecuteQueryRequest",
     "ExecuteQueryResponse",
     "FunctionRid",
     "FunctionVersion",
+    "GetByRidQueriesRequest",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",

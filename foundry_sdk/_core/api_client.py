@@ -82,24 +82,6 @@ from foundry_sdk._versions import __version__
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 
 
-@functools.cache
-def _get_type_adapter(_type: Any) -> pydantic.TypeAdapter:
-    """Create a type adapter that can be used to serialize the given data to JSON. For example,
-    if the user provided a BaseModel class instance, call the "model_dump_json" method. Otherwise,
-    if the user provided a non-BaseModel type (e.g. a TypedDict) create a TypeAdapter from the
-    the type and serialize the data to JSON using dump_json().
-    """
-
-    if isclass(_type) and issubclass(_type, pydantic.BaseModel):
-        # Return a "TypeAdapter" shim for a BaseModel since the API is not the same for dumping
-        # to JSON
-        return _BaseModelTypeAdapter(_type)  # type: ignore
-    else:
-        # Create an instance of a type adapter. This has a non-trivial overhead according
-        # to the documentation so we do this once the first time we encounter this type
-        return pydantic.TypeAdapter(_type)
-
-
 @contextlib.contextmanager
 def error_handling():
     try:
@@ -183,17 +165,18 @@ ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "TABLE"]
 # be extended without having to add additional parameters to the method signature.
 SdkInternal = TypedDict("SdkInternal", {"response_mode": NotRequired[ResponseMode]})
 
+ValueType = Union[Any, Type[bytes], Type[pydantic.BaseModel], None]
+
 
 @dataclass(frozen=True)
 class RequestInfo:
     method: str
     resource_path: str
-    response_type: Any
+    response_type: ValueType
     query_params: QueryParameters
     path_params: Dict[str, Any]
     header_params: Dict[str, Any]
     body: Any
-    body_type: Any
     request_timeout: Optional[int]
     throwable_errors: Dict[str, Type[PalantirRPCException]]
     response_mode: Optional[ResponseMode] = None
@@ -212,7 +195,6 @@ class RequestInfo:
             path_params=self.path_params,
             header_params={**self.header_params, **(header_params or {})},
             body=self.body,
-            body_type=self.body_type,
             request_timeout=self.request_timeout,
             throwable_errors=self.throwable_errors,
             response_mode=response_mode if response_mode is not None else self.response_mode,
@@ -223,12 +205,11 @@ class RequestInfo:
         cls,
         method: str,
         resource_path: str,
-        response_type: Any = None,
+        response_type: ValueType = None,
         query_params: QueryParameters = {},
         path_params: Dict[str, Any] = {},
         header_params: Dict[str, Any] = {},
         body: Any = None,
-        body_type: Any = None,
         request_timeout: Optional[int] = None,
         throwable_errors: Dict[str, Type[PalantirRPCException]] = {},
         response_mode: Optional[ResponseMode] = None,
@@ -241,23 +222,10 @@ class RequestInfo:
             path_params=path_params,
             header_params=header_params,
             body=body,
-            body_type=body_type,
             request_timeout=request_timeout,
             throwable_errors=throwable_errors,
             response_mode=response_mode,
         )
-
-
-class _BaseModelTypeAdapter:
-    def __init__(self, _type: Type[pydantic.BaseModel]) -> None:
-        self._type = _type
-
-    def validate_python(self, data: Any):
-        return self._type.model_validate(data)
-
-    def dump_json(self, data: Any, **kwargs: Dict[str, Any]):
-        # .encode() to match the behaviour of pydantic.TypeAdapter.dump_json which returns bytes.
-        return self._type.model_dump_json(data, **kwargs).encode()  # type: ignore
 
 
 T = TypeVar("T")
@@ -305,8 +273,12 @@ class BaseApiResponse(Generic[T]):
         if _type is Any:
             return data
 
-        type_adapter = _get_type_adapter(_type)
-        return type_adapter.validate_python(data)
+        if isclass(_type) and issubclass(_type, pydantic.BaseModel):
+            return cast(T, _type.model_validate(data))
+
+        raise TypeError(
+            f"Expected _type to be a Any, bytes, None or a BaseModel, got {type(_type)}"
+        )
 
 
 class ApiResponse(Generic[T], BaseApiResponse[T]):
@@ -525,26 +497,24 @@ class BaseApiClient:
         else:
             raise PalantirRPCException(error_json)
 
-    def _serialize(self, value: Any, value_type: Any) -> Optional[bytes]:
+    def _serialize(self, value: Union[bytes, None, pydantic.BaseModel, Any]) -> Optional[bytes]:
         """
         Serialize the data passed in to JSON bytes.
         """
-        if value_type is bytes:
+        if isinstance(value, bytes):
             return value
-        elif value_type is None:
+        elif value is None:
             return None
-
-        json_bytes: bytes
-        if value_type is Any:
-            json_bytes = json.dumps(value).encode()
-        else:
-            type_adapter = _get_type_adapter(value_type)
-
+        elif isinstance(value, pydantic.BaseModel):
             # Use "exclude_none" to remove optional inputs that weren't explicitely set
             # Use "by_alias" to use the expected field name rather than the class property name
-            json_bytes = type_adapter.dump_json(value, exclude_none=True, by_alias=True)
-
-        return json_bytes
+            return (
+                cast(pydantic.BaseModel, value)
+                .model_dump_json(exclude_none=True, by_alias=True)
+                .encode()
+            )
+        else:
+            return json.dumps(value).encode()
 
     def _get_response_mode(self, request_info: RequestInfo) -> ResponseMode:
         return request_info.response_mode if request_info.response_mode is not None else "DECODED"
@@ -591,7 +561,7 @@ class ApiClient(BaseApiClient):
                     method=request_info.method,
                     url=self._create_url(request_info),
                     params=self._process_query_parameters(request_info.query_params),
-                    content=self._serialize(request_info.body, request_info.body_type),
+                    content=self._serialize(request_info.body),
                     headers=self._create_headers(request_info, token),
                     timeout=self._get_timeout(request_info),
                 )
@@ -679,7 +649,7 @@ class AsyncApiClient(BaseApiClient):
                     method=request_info.method,
                     url=self._create_url(request_info),
                     params=self._process_query_parameters(request_info.query_params),
-                    content=self._serialize(request_info.body, request_info.body_type),
+                    content=self._serialize(request_info.body),
                     headers=self._create_headers(request_info, token),
                     timeout=self._get_timeout(request_info),
                 )

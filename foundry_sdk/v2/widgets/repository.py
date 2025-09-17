@@ -87,7 +87,6 @@ class RepositoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.Repository,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -144,7 +143,6 @@ class RepositoryClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=widgets_models.Release,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -235,7 +233,6 @@ class AsyncRepositoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=widgets_models.Repository,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -292,7 +289,6 @@ class AsyncRepositoryClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=widgets_models.Release,
                 request_timeout=request_timeout,
                 throwable_errors={

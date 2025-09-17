@@ -34,6 +34,83 @@ class AccessRequirements(core.ModelBase):
     markings: typing.List[Marking]
 
 
+class AddMarkingsRequest(core.ModelBase):
+    """AddMarkingsRequest"""
+
+    marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("markingIds"))  # type: ignore[literal-required]
+
+
+class AddOrganizationsRequest(core.ModelBase):
+    """AddOrganizationsRequest"""
+
+    organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+
+
+class AddResourceRolesRequest(core.ModelBase):
+    """AddResourceRolesRequest"""
+
+    roles: typing.List[ResourceRoleIdentifier]
+
+
+class CreateFolderRequest(core.ModelBase):
+    """CreateFolderRequest"""
+
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    """
+    The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+    this value will be the root folder (`ri.compass.main.folder.0`).
+    """
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+
+
+class CreateProjectFromTemplateRequest(core.ModelBase):
+    """CreateProjectFromTemplateRequest"""
+
+    template_rid: ProjectTemplateRid = pydantic.Field(alias=str("templateRid"))  # type: ignore[literal-required]
+    variable_values: typing.Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] = pydantic.Field(alias=str("variableValues"))  # type: ignore[literal-required]
+    default_roles: typing.Optional[typing.List[core_models.RoleId]] = pydantic.Field(alias=str("defaultRoles"), default=None)  # type: ignore[literal-required]
+    organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = pydantic.Field(alias=str("organizationRids"), default=None)  # type: ignore[literal-required]
+    project_description: typing.Optional[str] = pydantic.Field(alias=str("projectDescription"), default=None)  # type: ignore[literal-required]
+
+
+class CreateProjectRequest(core.ModelBase):
+    """CreateProjectRequest"""
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
+    role_grants: typing.Dict[core_models.RoleId, typing.List[PrincipalWithId]] = pydantic.Field(alias=str("roleGrants"))  # type: ignore[literal-required]
+    default_roles: typing.List[core_models.RoleId] = pydantic.Field(alias=str("defaultRoles"))  # type: ignore[literal-required]
+    organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+
+
+class CreateSpaceRequest(core.ModelBase):
+    """CreateSpaceRequest"""
+
+    enrollment_rid: core_models.EnrollmentRid = pydantic.Field(alias=str("enrollmentRid"))  # type: ignore[literal-required]
+    """The RID of the Enrollment that this Space belongs to."""
+
+    usage_account_rid: typing.Optional[UsageAccountRid] = pydantic.Field(alias=str("usageAccountRid"), default=None)  # type: ignore[literal-required]
+    """The RID of the Usage Account for this Space. Resource usage for projects in this space will accrue to this Usage Account by default. If not provided, the default Usage Account for this Enrollment will be used."""
+
+    file_system_id: typing.Optional[FileSystemId] = pydantic.Field(alias=str("fileSystemId"), default=None)  # type: ignore[literal-required]
+    """The ID of the Filesystem for this Space, which is where the contents of the Space are stored. If not provided, the default Filesystem for this Enrollment will be used."""
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    organizations: typing.List[core_models.OrganizationRid]
+    """The list of Organizations that are provisioned access to this Space. In order to access this Space, a user must be a member of at least one of these Organizations."""
+
+    description: typing.Optional[str] = None
+    """The description of the Space."""
+
+    deletion_policy_organizations: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("deletionPolicyOrganizations"))  # type: ignore[literal-required]
+    """By default, this Space will use a Last Out deletion policy, meaning that this Space and its projects will be deleted when the last Organization listed here is deleted. Only Organizations in the Space's Enrollment can be included here."""
+
+    default_role_set_id: typing.Optional[core_models.RoleSetId] = pydantic.Field(alias=str("defaultRoleSetId"), default=None)  # type: ignore[literal-required]
+    """The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used."""
+
+
 class Everyone(core.ModelBase):
     """A principal representing all users of the platform."""
 
@@ -232,6 +309,48 @@ ProjectTemplateVariableId = str
 
 ProjectTemplateVariableValue = str
 """The value assigned to a variable used in a project template."""
+
+
+class RemoveMarkingsRequest(core.ModelBase):
+    """RemoveMarkingsRequest"""
+
+    marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("markingIds"))  # type: ignore[literal-required]
+
+
+class RemoveOrganizationsRequest(core.ModelBase):
+    """RemoveOrganizationsRequest"""
+
+    organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+
+
+class RemoveResourceRolesRequest(core.ModelBase):
+    """RemoveResourceRolesRequest"""
+
+    roles: typing.List[ResourceRoleIdentifier]
+
+
+class ReplaceProjectRequest(core.ModelBase):
+    """ReplaceProjectRequest"""
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    """The display name of the Project. Must be unique and cannot contain a /"""
+
+    description: typing.Optional[str] = None
+    """The description associated with the Project."""
+
+
+class ReplaceSpaceRequest(core.ModelBase):
+    """ReplaceSpaceRequest"""
+
+    usage_account_rid: typing.Optional[UsageAccountRid] = pydantic.Field(alias=str("usageAccountRid"), default=None)  # type: ignore[literal-required]
+    """The RID of the Usage Account for this Space. Resource usage for projects in this space will accrue to this Usage Account by default. If not provided, the default Usage Account for this Enrollment will be used."""
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    """The description of the Space."""
+
+    default_role_set_id: typing.Optional[core_models.RoleSetId] = pydantic.Field(alias=str("defaultRoleSetId"), default=None)  # type: ignore[literal-required]
+    """The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used."""
 
 
 class Resource(core.ModelBase):
@@ -459,6 +578,13 @@ core.resolve_forward_references(
 
 __all__ = [
     "AccessRequirements",
+    "AddMarkingsRequest",
+    "AddOrganizationsRequest",
+    "AddResourceRolesRequest",
+    "CreateFolderRequest",
+    "CreateProjectFromTemplateRequest",
+    "CreateProjectRequest",
+    "CreateSpaceRequest",
     "Everyone",
     "FileSystemId",
     "Folder",
@@ -481,6 +607,11 @@ __all__ = [
     "ProjectTemplateRid",
     "ProjectTemplateVariableId",
     "ProjectTemplateVariableValue",
+    "RemoveMarkingsRequest",
+    "RemoveOrganizationsRequest",
+    "RemoveResourceRolesRequest",
+    "ReplaceProjectRequest",
+    "ReplaceSpaceRequest",
     "Resource",
     "ResourceDisplayName",
     "ResourcePath",

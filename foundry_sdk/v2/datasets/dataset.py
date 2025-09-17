@@ -111,6 +111,7 @@ class DatasetClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises TransactionNotCommitted: The given transaction has not been committed.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -126,16 +127,9 @@ class DatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "name": datasets_models.DatasetName,
-                    },
+                body=datasets_models.CreateDatasetRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    name=name,
                 ),
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
@@ -146,6 +140,7 @@ class DatasetClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -189,7 +184,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -254,7 +248,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListSchedulesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -323,7 +316,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.GetDatasetSchemaResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -398,16 +390,9 @@ class DatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "orderBy": order_by,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": typing.Optional[datasets_models.GetDatasetJobsQuery],
-                        "orderBy": typing.List[datasets_models.GetDatasetJobsSort],
-                    },
+                body=datasets_models.GetDatasetJobsRequest(
+                    where=where,
+                    order_by=order_by,
                 ),
                 response_type=datasets_models.GetJobResponse,
                 request_timeout=request_timeout,
@@ -476,20 +461,11 @@ class DatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branchName": branch_name,
-                    "dataframeReader": dataframe_reader,
-                    "endTransactionRid": end_transaction_rid,
-                    "schema": schema,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "dataframeReader": typing.Optional[datasets_models.DataframeReader],
-                        "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "schema": core_models.DatasetSchema,
-                    },
+                body=datasets_models.PutDatasetSchemaRequest(
+                    branch_name=branch_name,
+                    dataframe_reader=dataframe_reader,
+                    end_transaction_rid=end_transaction_rid,
+                    schema_=schema,
                 ),
                 response_type=datasets_models.GetDatasetSchemaResponse,
                 request_timeout=request_timeout,
@@ -573,7 +549,6 @@ class DatasetClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -639,7 +614,6 @@ class DatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListTransactionsOfDatasetResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -775,6 +749,7 @@ class AsyncDatasetClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FolderNotFound: The given Folder could not be found.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises TransactionNotCommitted: The given transaction has not been committed.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -790,16 +765,9 @@ class AsyncDatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "name": datasets_models.DatasetName,
-                    },
+                body=datasets_models.CreateDatasetRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    name=name,
                 ),
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
@@ -810,6 +778,7 @@ class AsyncDatasetClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "TransactionNotCommitted": datasets_errors.TransactionNotCommitted,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -853,7 +822,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Dataset,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -918,7 +886,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListSchedulesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -987,7 +954,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.GetDatasetSchemaResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1062,16 +1028,9 @@ class AsyncDatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "orderBy": order_by,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": typing.Optional[datasets_models.GetDatasetJobsQuery],
-                        "orderBy": typing.List[datasets_models.GetDatasetJobsSort],
-                    },
+                body=datasets_models.GetDatasetJobsRequest(
+                    where=where,
+                    order_by=order_by,
                 ),
                 response_type=datasets_models.GetJobResponse,
                 request_timeout=request_timeout,
@@ -1140,20 +1099,11 @@ class AsyncDatasetClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branchName": branch_name,
-                    "dataframeReader": dataframe_reader,
-                    "endTransactionRid": end_transaction_rid,
-                    "schema": schema,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "dataframeReader": typing.Optional[datasets_models.DataframeReader],
-                        "endTransactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "schema": core_models.DatasetSchema,
-                    },
+                body=datasets_models.PutDatasetSchemaRequest(
+                    branch_name=branch_name,
+                    dataframe_reader=dataframe_reader,
+                    end_transaction_rid=end_transaction_rid,
+                    schema_=schema,
                 ),
                 response_type=datasets_models.GetDatasetSchemaResponse,
                 request_timeout=request_timeout,
@@ -1237,7 +1187,6 @@ class AsyncDatasetClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1303,7 +1252,6 @@ class AsyncDatasetClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListTransactionsOfDatasetResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

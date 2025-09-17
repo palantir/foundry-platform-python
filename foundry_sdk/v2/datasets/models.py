@@ -25,6 +25,20 @@ from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
+class AddBackingDatasetsRequest(core.ModelBase):
+    """AddBackingDatasetsRequest"""
+
+    branch: typing.Optional[BranchName] = None
+    backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
+
+
+class AddPrimaryKeyRequest(core.ModelBase):
+    """AddPrimaryKeyRequest"""
+
+    branch: typing.Optional[BranchName] = None
+    primary_key: ViewPrimaryKey = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+
+
 class Branch(core.ModelBase):
     """Branch"""
 
@@ -35,6 +49,40 @@ class Branch(core.ModelBase):
 
 BranchName = str
 """The name of a Branch."""
+
+
+class CreateBranchRequest(core.ModelBase):
+    """CreateBranchRequest"""
+
+    transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
+    """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
+
+    name: BranchName
+
+
+class CreateDatasetRequest(core.ModelBase):
+    """CreateDatasetRequest"""
+
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    name: DatasetName
+
+
+class CreateTransactionRequest(core.ModelBase):
+    """CreateTransactionRequest"""
+
+    transaction_type: TransactionType = pydantic.Field(alias=str("transactionType"))  # type: ignore[literal-required]
+
+
+class CreateViewRequest(core.ModelBase):
+    """CreateViewRequest"""
+
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    view_name: DatasetName = pydantic.Field(alias=str("viewName"))  # type: ignore[literal-required]
+    backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
+    branch: typing.Optional[BranchName] = None
+    """The branch name of the View. If not specified, defaults to `master` for most enrollments."""
+
+    primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
 
 
 DataframeReader = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
@@ -93,6 +141,13 @@ GetDatasetJobsQuery = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """Query for getting jobs on given dataset."""
+
+
+class GetDatasetJobsRequest(core.ModelBase):
+    """GetDatasetJobsRequest"""
+
+    where: typing.Optional[GetDatasetJobsQuery] = None
+    order_by: typing.List[GetDatasetJobsSort] = pydantic.Field(alias=str("orderBy"))  # type: ignore[literal-required]
 
 
 class GetDatasetJobsSort(core.ModelBase):
@@ -207,6 +262,34 @@ class PrimaryKeyResolutionUnique(core.ModelBase):
     type: typing.Literal["unique"] = "unique"
 
 
+class PutDatasetSchemaRequest(core.ModelBase):
+    """PutDatasetSchemaRequest"""
+
+    branch_name: typing.Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    dataframe_reader: typing.Optional[DataframeReader] = pydantic.Field(alias=str("dataframeReader"), default=None)  # type: ignore[literal-required]
+    """The dataframe reader used for reading the dataset schema. Defaults to PARQUET."""
+
+    end_transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("endTransactionRid"), default=None)  # type: ignore[literal-required]
+    """The Resource Identifier (RID) of the end Transaction."""
+
+    schema_: core_models.DatasetSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The schema that will be added."""
+
+
+class RemoveBackingDatasetsRequest(core.ModelBase):
+    """RemoveBackingDatasetsRequest"""
+
+    branch: typing.Optional[BranchName] = None
+    backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
+
+
+class ReplaceBackingDatasetsRequest(core.ModelBase):
+    """ReplaceBackingDatasetsRequest"""
+
+    branch: typing.Optional[BranchName] = None
+    backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
+
+
 TableExportFormat = typing.Literal["ARROW", "CSV"]
 """Format for tabular dataset export."""
 
@@ -303,8 +386,14 @@ core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns
 core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
 
 __all__ = [
+    "AddBackingDatasetsRequest",
+    "AddPrimaryKeyRequest",
     "Branch",
     "BranchName",
+    "CreateBranchRequest",
+    "CreateDatasetRequest",
+    "CreateTransactionRequest",
+    "CreateViewRequest",
     "DataframeReader",
     "Dataset",
     "DatasetName",
@@ -315,6 +404,7 @@ __all__ = [
     "GetDatasetJobsComparisonType",
     "GetDatasetJobsOrFilter",
     "GetDatasetJobsQuery",
+    "GetDatasetJobsRequest",
     "GetDatasetJobsSort",
     "GetDatasetJobsSortDirection",
     "GetDatasetJobsSortType",
@@ -332,6 +422,9 @@ __all__ = [
     "PrimaryKeyResolutionDuplicate",
     "PrimaryKeyResolutionStrategy",
     "PrimaryKeyResolutionUnique",
+    "PutDatasetSchemaRequest",
+    "RemoveBackingDatasetsRequest",
+    "ReplaceBackingDatasetsRequest",
     "TableExportFormat",
     "Transaction",
     "TransactionCreatedTime",
