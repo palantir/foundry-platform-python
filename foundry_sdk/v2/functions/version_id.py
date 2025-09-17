@@ -92,7 +92,6 @@ class VersionIdClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.VersionId,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -184,7 +183,6 @@ class AsyncVersionIdClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.VersionId,
                 request_timeout=request_timeout,
                 throwable_errors={

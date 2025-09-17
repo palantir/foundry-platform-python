@@ -87,7 +87,6 @@ class ScheduleVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ScheduleVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -134,7 +133,6 @@ class ScheduleVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[orchestration_models.Schedule],
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -223,7 +221,6 @@ class AsyncScheduleVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ScheduleVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -270,7 +267,6 @@ class AsyncScheduleVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[orchestration_models.Schedule],
                 request_timeout=request_timeout,
                 throwable_errors={},

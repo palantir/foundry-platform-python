@@ -94,7 +94,6 @@ class AgentVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -156,7 +155,6 @@ class AgentVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -254,7 +252,6 @@ class AsyncAgentVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.AgentVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -316,7 +313,6 @@ class AsyncAgentVersionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.ListAgentVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

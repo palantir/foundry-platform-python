@@ -93,14 +93,8 @@ class MarkingMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.AddMarkingMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -170,7 +164,6 @@ class MarkingMemberClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -227,14 +220,8 @@ class MarkingMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.RemoveMarkingMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -336,14 +323,8 @@ class AsyncMarkingMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.AddMarkingMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -413,7 +394,6 @@ class AsyncMarkingMemberClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -470,14 +450,8 @@ class AsyncMarkingMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.RemoveMarkingMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

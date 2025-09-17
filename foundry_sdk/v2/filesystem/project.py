@@ -92,14 +92,8 @@ class ProjectClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.AddOrganizationsRequest(
+                    organization_rids=organization_rids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -159,7 +153,7 @@ class ProjectClient:
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
@@ -181,26 +175,13 @@ class ProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "spaceRid": space_rid,
-                    "roleGrants": role_grants,
-                    "defaultRoles": default_roles,
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": filesystem_models.ResourceDisplayName,
-                        "description": typing.Optional[str],
-                        "spaceRid": filesystem_models.SpaceRid,
-                        "roleGrants": typing.Dict[
-                            core_models.RoleId, typing.List[filesystem_models.PrincipalWithId]
-                        ],
-                        "defaultRoles": typing.List[core_models.RoleId],
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.CreateProjectRequest(
+                    display_name=display_name,
+                    description=description,
+                    space_rid=space_rid,
+                    role_grants=role_grants,
+                    default_roles=default_roles,
+                    organization_rids=organization_rids,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -290,27 +271,12 @@ class ProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "templateRid": template_rid,
-                    "variableValues": variable_values,
-                    "defaultRoles": default_roles,
-                    "organizationRids": organization_rids,
-                    "projectDescription": project_description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "templateRid": filesystem_models.ProjectTemplateRid,
-                        "variableValues": typing.Dict[
-                            filesystem_models.ProjectTemplateVariableId,
-                            filesystem_models.ProjectTemplateVariableValue,
-                        ],
-                        "defaultRoles": typing.Optional[typing.List[core_models.RoleId]],
-                        "organizationRids": typing.Optional[
-                            typing.List[core_models.OrganizationRid]
-                        ],
-                        "projectDescription": typing.Optional[str],
-                    },
+                body=filesystem_models.CreateProjectFromTemplateRequest(
+                    template_rid=template_rid,
+                    variable_values=variable_values,
+                    default_roles=default_roles,
+                    organization_rids=organization_rids,
+                    project_description=project_description,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -373,7 +339,6 @@ class ProjectClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -432,7 +397,6 @@ class ProjectClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -487,14 +451,8 @@ class ProjectClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.RemoveOrganizationsRequest(
+                    organization_rids=organization_rids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -537,7 +495,7 @@ class ProjectClient:
         :return: Returns the result object.
         :rtype: filesystem_models.Project
 
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.
@@ -557,16 +515,9 @@ class ProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": filesystem_models.ResourceDisplayName,
-                        "description": typing.Optional[str],
-                    },
+                body=filesystem_models.ReplaceProjectRequest(
+                    display_name=display_name,
+                    description=description,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -688,14 +639,8 @@ class AsyncProjectClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.AddOrganizationsRequest(
+                    organization_rids=organization_rids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -755,7 +700,7 @@ class AsyncProjectClient:
 
         :raises CreateProjectNoOwnerLikeRoleGrant: The create project request would create a project with no principal being granted an owner-like role. As a result, there would be no user with administrative privileges over the project. A role is defined to be owner-like if it has the `compass:edit-project` operation. In the common case of the default role-set, this is just the `compass:manage` role.
         :raises CreateProjectPermissionDenied: Could not create the Project.
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises InvalidRoleIds: A roleId referenced in either default roles or role grants does not exist in the project role set for the space.
         :raises OrganizationMarkingNotOnSpace: At least one of the organization markings associated with a passed organization is not applied on the requested space.
         :raises OrganizationsNotFound: At least one organization RID could not be found.
@@ -777,26 +722,13 @@ class AsyncProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                    "spaceRid": space_rid,
-                    "roleGrants": role_grants,
-                    "defaultRoles": default_roles,
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": filesystem_models.ResourceDisplayName,
-                        "description": typing.Optional[str],
-                        "spaceRid": filesystem_models.SpaceRid,
-                        "roleGrants": typing.Dict[
-                            core_models.RoleId, typing.List[filesystem_models.PrincipalWithId]
-                        ],
-                        "defaultRoles": typing.List[core_models.RoleId],
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.CreateProjectRequest(
+                    display_name=display_name,
+                    description=description,
+                    space_rid=space_rid,
+                    role_grants=role_grants,
+                    default_roles=default_roles,
+                    organization_rids=organization_rids,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -886,27 +818,12 @@ class AsyncProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "templateRid": template_rid,
-                    "variableValues": variable_values,
-                    "defaultRoles": default_roles,
-                    "organizationRids": organization_rids,
-                    "projectDescription": project_description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "templateRid": filesystem_models.ProjectTemplateRid,
-                        "variableValues": typing.Dict[
-                            filesystem_models.ProjectTemplateVariableId,
-                            filesystem_models.ProjectTemplateVariableValue,
-                        ],
-                        "defaultRoles": typing.Optional[typing.List[core_models.RoleId]],
-                        "organizationRids": typing.Optional[
-                            typing.List[core_models.OrganizationRid]
-                        ],
-                        "projectDescription": typing.Optional[str],
-                    },
+                body=filesystem_models.CreateProjectFromTemplateRequest(
+                    template_rid=template_rid,
+                    variable_values=variable_values,
+                    default_roles=default_roles,
+                    organization_rids=organization_rids,
+                    project_description=project_description,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -969,7 +886,6 @@ class AsyncProjectClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1028,7 +944,6 @@ class AsyncProjectClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListOrganizationsOfProjectResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1083,14 +998,8 @@ class AsyncProjectClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "organizationRids": organization_rids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "organizationRids": typing.List[core_models.OrganizationRid],
-                    },
+                body=filesystem_models.RemoveOrganizationsRequest(
+                    organization_rids=organization_rids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -1133,7 +1042,7 @@ class AsyncProjectClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[filesystem_models.Project]
 
-        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` or be too long.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
         :raises ProjectNameAlreadyExists: The requested display name for the created project is already being used in the space.
         :raises ProjectNotFound: The given Project could not be found.
         :raises ReplaceProjectPermissionDenied: Could not replace the Project.
@@ -1153,16 +1062,9 @@ class AsyncProjectClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "displayName": display_name,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "displayName": filesystem_models.ResourceDisplayName,
-                        "description": typing.Optional[str],
-                    },
+                body=filesystem_models.ReplaceProjectRequest(
+                    display_name=display_name,
+                    description=description,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,

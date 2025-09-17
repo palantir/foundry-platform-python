@@ -169,6 +169,25 @@ class AddPropertyExpression(core.ModelBase):
     type: typing.Literal["add"] = "add"
 
 
+class AggregateObjectSetRequestV2(core.ModelBase):
+    """AggregateObjectSetRequestV2"""
+
+    aggregation: typing.List[AggregationV2]
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    group_by: typing.List[AggregationGroupByV2] = pydantic.Field(alias=str("groupBy"))  # type: ignore[literal-required]
+    accuracy: typing.Optional[AggregationAccuracyRequest] = None
+    include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+
+
+class AggregateObjectsRequestV2(core.ModelBase):
+    """AggregateObjectsRequestV2"""
+
+    aggregation: typing.List[AggregationV2]
+    where: typing.Optional[SearchJsonQueryV2] = None
+    group_by: typing.List[AggregationGroupByV2] = pydantic.Field(alias=str("groupBy"))  # type: ignore[literal-required]
+    accuracy: typing.Optional[AggregationAccuracyRequest] = None
+
+
 class AggregateObjectsResponseItemV2(core.ModelBase):
     """AggregateObjectsResponseItemV2"""
 
@@ -327,6 +346,13 @@ class ApplyActionRequestOptions(core.ModelBase):
     return_edits: typing.Optional[ReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
 
 
+class ApplyActionRequestV2(core.ModelBase):
+    """ApplyActionRequestV2"""
+
+    options: typing.Optional[ApplyActionRequestOptions] = None
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+
+
 class ApproximateDistinctAggregationV2(core.ModelBase):
     """Computes an approximate number of distinct values for the provided field."""
 
@@ -448,6 +474,13 @@ class BatchApplyActionRequestOptions(core.ModelBase):
     """BatchApplyActionRequestOptions"""
 
     return_edits: typing.Optional[BatchReturnEditsMode] = pydantic.Field(alias=str("returnEdits"), default=None)  # type: ignore[literal-required]
+
+
+class BatchApplyActionRequestV2(core.ModelBase):
+    """BatchApplyActionRequestV2"""
+
+    options: typing.Optional[BatchApplyActionRequestOptions] = None
+    requests: typing.List[BatchApplyActionRequestItem]
 
 
 class BatchApplyActionResponseV2(core.ModelBase):
@@ -594,6 +627,12 @@ class CreateObjectRule(core.ModelBase):
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createObject"] = "createObject"
+
+
+class CreateTemporaryObjectSetRequestV2(core.ModelBase):
+    """CreateTemporaryObjectSetRequestV2"""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
 
 
 class CreateTemporaryObjectSetResponseV2(core.ModelBase):
@@ -823,6 +862,12 @@ class ExamplePropertyTypeStatus(core.ModelBase):
     """
 
     type: typing.Literal["example"] = "example"
+
+
+class ExecuteQueryRequest(core.ModelBase):
+    """ExecuteQueryRequest"""
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
 
 
 class ExecuteQueryResponse(core.ModelBase):
@@ -1266,6 +1311,31 @@ class ListQueryTypesResponseV2(core.ModelBase):
     data: typing.List[QueryTypeV2]
 
 
+class LoadObjectSetRequestV2(core.ModelBase):
+    """Represents the API POST body when loading an `ObjectSet`."""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    select: typing.List[SelectedPropertyApiName]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to exclude the retrieval of the `__rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    snapshot: typing.Optional[bool] = None
+    """
+    A flag to use snapshot consistency when paging.
+    Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+    Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+    This defaults to false if not specified, which means you will always get the latest results.
+    """
+
+    include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+
+
 class LoadObjectSetResponseV2(core.ModelBase):
     """Represents the API response when loading an `ObjectSet`."""
 
@@ -1275,6 +1345,31 @@ class LoadObjectSetResponseV2(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
+
+
+class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
+    """Represents the API POST body when loading an `ObjectSet`. Used on the `/loadObjectsMultipleObjectTypes` endpoint only."""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    select: typing.List[SelectedPropertyApiName]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to exclude the retrieval of the `$rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    snapshot: typing.Optional[bool] = None
+    """
+    A flag to use snapshot consistency when paging.
+    Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+    Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+    This defaults to false if not specified, which means you will always get the latest results.
+    """
+
+    include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
@@ -1298,6 +1393,29 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
 
 
+class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
+    """Represents the API POST body when loading an `ObjectSet`. Used on the `/loadObjectsOrInterfaces` endpoint only."""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    select: typing.List[SelectedPropertyApiName]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to exclude the retrieval of the `$rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    snapshot: typing.Optional[bool] = None
+    """
+    A flag to use snapshot consistency when paging.
+    Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+    Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+    This defaults to false if not specified, which means you will always get the latest results.
+    """
+
+
 class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
     """
     Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties
@@ -1309,6 +1427,16 @@ class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+
+
+class LoadOntologyMetadataRequest(core.ModelBase):
+    """The Ontology metadata (i.e., object, link, action, query, and interface types) to load."""
+
+    object_types: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
+    link_types: typing.List[LinkTypeApiName] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    action_types: typing.List[ActionTypeApiName] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
+    query_types: typing.List[VersionedQueryTypeApiName] = pydantic.Field(alias=str("queryTypes"))  # type: ignore[literal-required]
+    interface_types: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("interfaceTypes"))  # type: ignore[literal-required]
 
 
 LogicRule = typing_extensions.Annotated[
@@ -2048,6 +2176,12 @@ Plaintext = str
 """Plaintext"""
 
 
+class PostTransactionEditsRequest(core.ModelBase):
+    """The request payload for staging edits to a transaction."""
+
+    edits: typing.List[TransactionEdit]
+
+
 class PostTransactionEditsResponse(core.ModelBase):
     """PostTransactionEditsResponse"""
 
@@ -2468,6 +2602,73 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
 """SearchJsonQueryV2"""
 
 
+class SearchObjectsForInterfaceRequest(core.ModelBase):
+    """SearchObjectsForInterfaceRequest"""
+
+    where: typing.Optional[SearchJsonQueryV2] = None
+    order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    augmented_properties: typing.Dict[ObjectTypeApiName, typing.List[PropertyApiName]] = pydantic.Field(alias=str("augmentedProperties"))  # type: ignore[literal-required]
+    """
+    A map from object type API name to a list of property type API names. For each returned object, if the 
+    object’s object type is a key in the map, then we augment the response for that object type with the list 
+    of properties specified in the value.
+    """
+
+    augmented_shared_property_types: typing.Dict[InterfaceTypeApiName, typing.List[SharedPropertyTypeApiName]] = pydantic.Field(alias=str("augmentedSharedPropertyTypes"))  # type: ignore[literal-required]
+    """
+    A map from interface type API name to a list of shared property type API names. For each returned object, if
+    the object implements an interface that is a key in the map, then we augment the response for that object 
+    type with the list of properties specified in the value.
+    """
+
+    selected_shared_property_types: typing.List[SharedPropertyTypeApiName] = pydantic.Field(alias=str("selectedSharedPropertyTypes"))  # type: ignore[literal-required]
+    """
+    A list of shared property type API names of the interface type that should be included in the response. 
+    Omit this parameter to include all properties of the interface type in the response.
+    """
+
+    selected_object_types: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("selectedObjectTypes"))  # type: ignore[literal-required]
+    """
+    A list of object type API names that should be included in the response. If non-empty, object types that are
+    not mentioned will not be included in the response even if they implement the specified interface. Omit the 
+    parameter to include all object types.
+    """
+
+    other_interface_types: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("otherInterfaceTypes"))  # type: ignore[literal-required]
+    """
+    A list of interface type API names. Object types must implement all the mentioned interfaces in order to be 
+    included in the response.
+    """
+
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+
+
+class SearchObjectsRequestV2(core.ModelBase):
+    """SearchObjectsRequestV2"""
+
+    where: typing.Optional[SearchJsonQueryV2] = None
+    order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    select: typing.List[PropertyApiName]
+    """The API names of the object type properties to include in the response."""
+
+    exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to exclude the retrieval of the `__rid` property.
+    Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    snapshot: typing.Optional[bool] = None
+    """
+    A flag to use snapshot consistency when paging.
+    Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items.
+    Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items.
+    This defaults to false if not specified, which means you will always get the latest results.
+    """
+
+
 class SearchObjectsResponseV2(core.ModelBase):
     """SearchObjectsResponseV2"""
 
@@ -2673,6 +2874,19 @@ class StartsWithQuery(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: str
     type: typing.Literal["startsWith"] = "startsWith"
+
+
+class StreamTimeSeriesPointsRequest(core.ModelBase):
+    """StreamTimeSeriesPointsRequest"""
+
+    range: typing.Optional[TimeRange] = None
+    aggregate: typing.Optional[AggregateTimeSeries] = None
+
+
+class StreamTimeSeriesValuesRequest(core.ModelBase):
+    """StreamTimeSeriesValuesRequest"""
+
+    range: typing.Optional[TimeRange] = None
 
 
 StreamingOutputFormat = typing.Literal["JSON", "ARROW"]
@@ -3303,6 +3517,8 @@ __all__ = [
     "AddObject",
     "AddObjectEdit",
     "AddPropertyExpression",
+    "AggregateObjectSetRequestV2",
+    "AggregateObjectsRequestV2",
     "AggregateObjectsResponseItemV2",
     "AggregateObjectsResponseV2",
     "AggregateTimeSeries",
@@ -3322,6 +3538,7 @@ __all__ = [
     "AndQueryV2",
     "ApplyActionMode",
     "ApplyActionRequestOptions",
+    "ApplyActionRequestV2",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
     "ArrayConstraint",
@@ -3338,6 +3555,7 @@ __all__ = [
     "BatchActionResults",
     "BatchApplyActionRequestItem",
     "BatchApplyActionRequestOptions",
+    "BatchApplyActionRequestV2",
     "BatchApplyActionResponseV2",
     "BatchReturnEditsMode",
     "BlueprintIcon",
@@ -3354,6 +3572,7 @@ __all__ = [
     "CreateInterfaceObjectRule",
     "CreateLinkRule",
     "CreateObjectRule",
+    "CreateTemporaryObjectSetRequestV2",
     "CreateTemporaryObjectSetResponseV2",
     "DataValue",
     "DecryptionResult",
@@ -3376,6 +3595,7 @@ __all__ = [
     "EqualsQueryV2",
     "ExactDistinctAggregationV2",
     "ExamplePropertyTypeStatus",
+    "ExecuteQueryRequest",
     "ExecuteQueryResponse",
     "ExperimentalPropertyTypeStatus",
     "ExtractDatePart",
@@ -3428,9 +3648,13 @@ __all__ = [
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
+    "LoadObjectSetRequestV2",
     "LoadObjectSetResponseV2",
+    "LoadObjectSetV2MultipleObjectTypesRequest",
     "LoadObjectSetV2MultipleObjectTypesResponse",
+    "LoadObjectSetV2ObjectsOrInterfacesRequest",
     "LoadObjectSetV2ObjectsOrInterfacesResponse",
+    "LoadOntologyMetadataRequest",
     "LogicRule",
     "LtQueryV2",
     "LteQueryV2",
@@ -3509,6 +3733,7 @@ __all__ = [
     "ParameterOption",
     "Plaintext",
     "PolygonValue",
+    "PostTransactionEditsRequest",
     "PostTransactionEditsResponse",
     "PreciseDuration",
     "PreciseTimeUnit",
@@ -3555,6 +3780,8 @@ __all__ = [
     "SdkPackageRid",
     "SdkVersion",
     "SearchJsonQueryV2",
+    "SearchObjectsForInterfaceRequest",
+    "SearchObjectsRequestV2",
     "SearchObjectsResponseV2",
     "SearchOrderByType",
     "SearchOrderByV2",
@@ -3576,6 +3803,8 @@ __all__ = [
     "SharedPropertyTypeApiName",
     "SharedPropertyTypeRid",
     "StartsWithQuery",
+    "StreamTimeSeriesPointsRequest",
+    "StreamTimeSeriesValuesRequest",
     "StreamingOutputFormat",
     "StringLengthConstraint",
     "StringRegexMatchConstraint",

@@ -102,7 +102,6 @@ class ThirdPartyApplicationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.ThirdPartyApplication,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -199,7 +198,6 @@ class AsyncThirdPartyApplicationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=third_party_applications_models.ThirdPartyApplication,
                 request_timeout=request_timeout,
                 throwable_errors={

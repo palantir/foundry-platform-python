@@ -92,16 +92,9 @@ class GroupMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                    "expiration": expiration,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                        "expiration": typing.Optional[admin_models.GroupMembershipExpiration],
-                    },
+                body=admin_models.AddGroupMembersRequest(
+                    principal_ids=principal_ids,
+                    expiration=expiration,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -171,7 +164,6 @@ class GroupMemberClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -221,14 +213,8 @@ class GroupMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.RemoveGroupMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -327,16 +313,9 @@ class AsyncGroupMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                    "expiration": expiration,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                        "expiration": typing.Optional[admin_models.GroupMembershipExpiration],
-                    },
+                body=admin_models.AddGroupMembersRequest(
+                    principal_ids=principal_ids,
+                    expiration=expiration,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -406,7 +385,6 @@ class AsyncGroupMemberClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -456,14 +434,8 @@ class AsyncGroupMemberClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "principalIds": principal_ids,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "principalIds": typing.List[core_models.PrincipalId],
-                    },
+                body=admin_models.RemoveGroupMembersRequest(
+                    principal_ids=principal_ids,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

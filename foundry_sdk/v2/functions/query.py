@@ -106,19 +106,9 @@ class QueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            functions_models.ParameterId,
-                            typing.Optional[functions_models.DataValue],
-                        ],
-                        "version": typing.Optional[functions_models.FunctionVersion],
-                    },
+                body=functions_models.ExecuteQueryRequest(
+                    parameters=parameters,
+                    version=version,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -173,7 +163,6 @@ class QueryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -224,16 +213,9 @@ class QueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "rid": rid,
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "rid": functions_models.FunctionRid,
-                        "version": typing.Optional[functions_models.FunctionVersion],
-                    },
+                body=functions_models.GetByRidQueriesRequest(
+                    rid=rid,
+                    version=version,
                 ),
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,
@@ -348,19 +330,9 @@ class AsyncQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            functions_models.ParameterId,
-                            typing.Optional[functions_models.DataValue],
-                        ],
-                        "version": typing.Optional[functions_models.FunctionVersion],
-                    },
+                body=functions_models.ExecuteQueryRequest(
+                    parameters=parameters,
+                    version=version,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -415,7 +387,6 @@ class AsyncQueryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -466,16 +437,9 @@ class AsyncQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "rid": rid,
-                    "version": version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "rid": functions_models.FunctionRid,
-                        "version": typing.Optional[functions_models.FunctionVersion],
-                    },
+                body=functions_models.GetByRidQueriesRequest(
+                    rid=rid,
+                    version=version,
                 ),
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,

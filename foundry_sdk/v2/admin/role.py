@@ -89,7 +89,6 @@ class RoleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Role,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -141,10 +140,6 @@ class RoleClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetRolesBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetRolesBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -234,7 +229,6 @@ class AsyncRoleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Role,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -286,10 +280,6 @@ class AsyncRoleClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetRolesBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetRolesBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},

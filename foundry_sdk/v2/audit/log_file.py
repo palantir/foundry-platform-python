@@ -92,7 +92,6 @@ class LogFileClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -160,7 +159,6 @@ class LogFileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=audit_models.ListLogFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -256,7 +254,6 @@ class AsyncLogFileClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -324,7 +321,6 @@ class AsyncLogFileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=audit_models.ListLogFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

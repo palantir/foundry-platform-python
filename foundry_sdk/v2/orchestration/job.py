@@ -88,7 +88,6 @@ class JobClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -139,10 +138,6 @@ class JobClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetJobsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=orchestration_models.GetJobsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -231,7 +226,6 @@ class AsyncJobClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Job,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -282,10 +276,6 @@ class AsyncJobClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetJobsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=orchestration_models.GetJobsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},

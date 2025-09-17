@@ -83,7 +83,6 @@ class BuildClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -146,32 +145,15 @@ class BuildClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "target": target,
-                    "branchName": branch_name,
-                    "fallbackBranches": fallback_branches,
-                    "forceBuild": force_build,
-                    "retryCount": retry_count,
-                    "retryBackoffDuration": retry_backoff_duration,
-                    "abortOnFailure": abort_on_failure,
-                    "notificationsEnabled": notifications_enabled,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "target": orchestration_models.BuildTarget,
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "fallbackBranches": orchestration_models.FallbackBranches,
-                        "forceBuild": typing.Optional[orchestration_models.ForceBuild],
-                        "retryCount": typing.Optional[orchestration_models.RetryCount],
-                        "retryBackoffDuration": typing.Optional[
-                            orchestration_models.RetryBackoffDuration
-                        ],
-                        "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
-                        "notificationsEnabled": typing.Optional[
-                            orchestration_models.NotificationsEnabled
-                        ],
-                    },
+                body=orchestration_models.CreateBuildRequest(
+                    target=target,
+                    branch_name=branch_name,
+                    fallback_branches=fallback_branches,
+                    force_build=force_build,
+                    retry_count=retry_count,
+                    retry_backoff_duration=retry_backoff_duration,
+                    abort_on_failure=abort_on_failure,
+                    notifications_enabled=notifications_enabled,
                 ),
                 response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
@@ -216,7 +198,6 @@ class BuildClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -262,10 +243,6 @@ class BuildClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetBuildsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=100),
-                ],
                 response_type=orchestration_models.GetBuildsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -314,7 +291,6 @@ class BuildClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ListJobsOfBuildResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -368,20 +344,11 @@ class BuildClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "orderBy": order_by,
-                    "pageToken": page_token,
-                    "pageSize": page_size,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": orchestration_models.SearchBuildsFilter,
-                        "orderBy": typing.Optional[orchestration_models.SearchBuildsOrderBy],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                        "pageSize": typing.Optional[core_models.PageSize],
-                    },
+                body=orchestration_models.SearchBuildsRequest(
+                    where=where,
+                    order_by=order_by,
+                    page_token=page_token,
+                    page_size=page_size,
                 ),
                 response_type=orchestration_models.SearchBuildsResponse,
                 request_timeout=request_timeout,
@@ -481,7 +448,6 @@ class AsyncBuildClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -544,32 +510,15 @@ class AsyncBuildClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "target": target,
-                    "branchName": branch_name,
-                    "fallbackBranches": fallback_branches,
-                    "forceBuild": force_build,
-                    "retryCount": retry_count,
-                    "retryBackoffDuration": retry_backoff_duration,
-                    "abortOnFailure": abort_on_failure,
-                    "notificationsEnabled": notifications_enabled,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "target": orchestration_models.BuildTarget,
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "fallbackBranches": orchestration_models.FallbackBranches,
-                        "forceBuild": typing.Optional[orchestration_models.ForceBuild],
-                        "retryCount": typing.Optional[orchestration_models.RetryCount],
-                        "retryBackoffDuration": typing.Optional[
-                            orchestration_models.RetryBackoffDuration
-                        ],
-                        "abortOnFailure": typing.Optional[orchestration_models.AbortOnFailure],
-                        "notificationsEnabled": typing.Optional[
-                            orchestration_models.NotificationsEnabled
-                        ],
-                    },
+                body=orchestration_models.CreateBuildRequest(
+                    target=target,
+                    branch_name=branch_name,
+                    fallback_branches=fallback_branches,
+                    force_build=force_build,
+                    retry_count=retry_count,
+                    retry_backoff_duration=retry_backoff_duration,
+                    abort_on_failure=abort_on_failure,
+                    notifications_enabled=notifications_enabled,
                 ),
                 response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
@@ -614,7 +563,6 @@ class AsyncBuildClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.Build,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -660,10 +608,6 @@ class AsyncBuildClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[orchestration_models.GetBuildsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=100),
-                ],
                 response_type=orchestration_models.GetBuildsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -712,7 +656,6 @@ class AsyncBuildClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=orchestration_models.ListJobsOfBuildResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -766,20 +709,11 @@ class AsyncBuildClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "orderBy": order_by,
-                    "pageToken": page_token,
-                    "pageSize": page_size,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": orchestration_models.SearchBuildsFilter,
-                        "orderBy": typing.Optional[orchestration_models.SearchBuildsOrderBy],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                        "pageSize": typing.Optional[core_models.PageSize],
-                    },
+                body=orchestration_models.SearchBuildsRequest(
+                    where=where,
+                    order_by=order_by,
+                    page_token=page_token,
+                    page_size=page_size,
                 ),
                 response_type=orchestration_models.SearchBuildsResponse,
                 request_timeout=request_timeout,

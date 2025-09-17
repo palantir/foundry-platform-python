@@ -124,7 +124,6 @@ class FileClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -210,7 +209,6 @@ class FileClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -308,7 +306,6 @@ class FileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -403,7 +400,6 @@ class FileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -497,7 +493,6 @@ class FileClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -645,7 +640,6 @@ class AsyncFileClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -731,7 +725,6 @@ class AsyncFileClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -829,7 +822,6 @@ class AsyncFileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -924,7 +916,6 @@ class AsyncFileClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListFilesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1018,7 +1009,6 @@ class AsyncFileClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=datasets_models.File,
                 request_timeout=request_timeout,
                 throwable_errors={

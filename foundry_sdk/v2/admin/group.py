@@ -128,22 +128,11 @@ class GroupClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "organizations": organizations,
-                    "description": description,
-                    "attributes": attributes,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.GroupName,
-                        "organizations": typing.List[core_models.OrganizationRid],
-                        "description": typing.Optional[str],
-                        "attributes": typing.Dict[
-                            admin_models.AttributeName, admin_models.AttributeValues
-                        ],
-                    },
+                body=admin_models.CreateGroupRequest(
+                    name=name,
+                    organizations=organizations,
+                    description=description,
+                    attributes=attributes,
                 ),
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
@@ -192,7 +181,6 @@ class GroupClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -238,7 +226,6 @@ class GroupClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -284,10 +271,6 @@ class GroupClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetGroupsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetGroupsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -335,7 +318,6 @@ class GroupClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -385,18 +367,10 @@ class GroupClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": admin_models.GroupSearchFilter,
-                        "pageSize": typing.Optional[core_models.PageSize],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                    },
+                body=admin_models.SearchGroupsRequest(
+                    where=where,
+                    page_size=page_size,
+                    page_token=page_token,
                 ),
                 response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,
@@ -541,22 +515,11 @@ class AsyncGroupClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "organizations": organizations,
-                    "description": description,
-                    "attributes": attributes,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.GroupName,
-                        "organizations": typing.List[core_models.OrganizationRid],
-                        "description": typing.Optional[str],
-                        "attributes": typing.Dict[
-                            admin_models.AttributeName, admin_models.AttributeValues
-                        ],
-                    },
+                body=admin_models.CreateGroupRequest(
+                    name=name,
+                    organizations=organizations,
+                    description=description,
+                    attributes=attributes,
                 ),
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
@@ -605,7 +568,6 @@ class AsyncGroupClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -651,7 +613,6 @@ class AsyncGroupClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -697,10 +658,6 @@ class AsyncGroupClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetGroupsBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetGroupsBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -748,7 +705,6 @@ class AsyncGroupClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -798,18 +754,10 @@ class AsyncGroupClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": admin_models.GroupSearchFilter,
-                        "pageSize": typing.Optional[core_models.PageSize],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                    },
+                body=admin_models.SearchGroupsRequest(
+                    where=where,
+                    page_size=page_size,
+                    page_token=page_token,
                 ),
                 response_type=admin_models.SearchGroupsResponse,
                 request_timeout=request_timeout,

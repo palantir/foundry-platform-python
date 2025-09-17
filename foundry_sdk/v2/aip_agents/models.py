@@ -113,6 +113,46 @@ class AgentsSessionsPage(core.ModelBase):
     data: typing.List[Session]
 
 
+class BlockingContinueSessionRequest(core.ModelBase):
+    """BlockingContinueSessionRequest"""
+
+    user_input: UserTextInput = pydantic.Field(alias=str("userInput"))  # type: ignore[literal-required]
+    """The user message for the Agent to respond to."""
+
+    parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
+    """Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange."""
+
+    contexts_override: typing.Optional[typing.List[InputContext]] = pydantic.Field(alias=str("contextsOverride"), default=None)  # type: ignore[literal-required]
+    """
+    If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+    If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+    """
+
+    session_trace_id: typing.Optional[SessionTraceId] = pydantic.Field(alias=str("sessionTraceId"), default=None)  # type: ignore[literal-required]
+    """
+    The unique identifier to use for this continue session trace. By generating and passing this ID to the
+    `blockingContinue` endpoint, clients can use this trace ID to separately load details of the trace used
+    to generate a result, while the result is in progress. If omitted, it will be generated automatically.
+    Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`.
+    """
+
+
+class CancelSessionRequest(core.ModelBase):
+    """CancelSessionRequest"""
+
+    message_id: MessageId = pydantic.Field(alias=str("messageId"))  # type: ignore[literal-required]
+    """
+    The identifier for the in-progress exchange to cancel.
+    This should match the `messageId` which was provided when initiating the exchange with `streamingContinue`.
+    """
+
+    response: typing.Optional[AgentMarkdownResponse] = None
+    """
+    When specified, the exchange is added to the session with the client-provided response as the result.
+    When omitted, the exchange is not added to the session.
+    """
+
+
 class CancelSessionResponse(core.ModelBase):
     """CancelSessionResponse"""
 
@@ -131,6 +171,17 @@ class Content(core.ModelBase):
     The conversation history for the session, represented as a list of exchanges.
     Each exchange represents an initiating message from the user and the Agent's response.
     Exchanges are returned in chronological order, starting with the first exchange.
+    """
+
+
+class CreateSessionRequest(core.ModelBase):
+    """CreateSessionRequest"""
+
+    agent_version: typing.Optional[AgentVersionString] = pydantic.Field(alias=str("agentVersion"), default=None)  # type: ignore[literal-required]
+    """
+    The version of the Agent associated with the session.
+    This can be set by clients on session creation.
+    If not specified, defaults to use the latest published version of the Agent at session creation time.
     """
 
 
@@ -156,6 +207,16 @@ class FunctionRetrievedContext(core.ModelBase):
     """String content returned from a context retrieval function."""
 
     type: typing.Literal["functionRetrievedContext"] = "functionRetrievedContext"
+
+
+class GetRagContextForSessionRequest(core.ModelBase):
+    """GetRagContextForSessionRequest"""
+
+    user_input: UserTextInput = pydantic.Field(alias=str("userInput"))  # type: ignore[literal-required]
+    """The user message to retrieve relevant context for from the configured Agent data sources."""
+
+    parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
+    """Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval."""
 
 
 InputContext = typing_extensions.Annotated[
@@ -435,6 +496,34 @@ SessionTraceStatus = typing.Literal["IN_PROGRESS", "COMPLETE"]
 """SessionTraceStatus"""
 
 
+class StreamingContinueSessionRequest(core.ModelBase):
+    """StreamingContinueSessionRequest"""
+
+    user_input: UserTextInput = pydantic.Field(alias=str("userInput"))  # type: ignore[literal-required]
+    """The user message for the Agent to respond to."""
+
+    parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
+    """Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange."""
+
+    contexts_override: typing.Optional[typing.List[InputContext]] = pydantic.Field(alias=str("contextsOverride"), default=None)  # type: ignore[literal-required]
+    """
+    If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+    If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+    """
+
+    message_id: typing.Optional[MessageId] = pydantic.Field(alias=str("messageId"), default=None)  # type: ignore[literal-required]
+    """A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete."""
+
+    session_trace_id: typing.Optional[SessionTraceId] = pydantic.Field(alias=str("sessionTraceId"), default=None)  # type: ignore[literal-required]
+    """
+    The unique identifier to use for this continue session trace. By generating and passing this ID to the
+    `streamingContinue` endpoint, clients can use this trace ID to separately load details of the trace used
+    to generate a result, while the result is in progress. If omitted, it will be generated automatically.
+    Clients can check the generated ID by inspecting the `sessionTraceId` in the `SessionExchangeResult`,
+    which can be loaded via the `getContent` endpoint.
+    """
+
+
 class StringParameter(core.ModelBase):
     """StringParameter"""
 
@@ -541,6 +630,16 @@ ToolType = typing.Literal[
 """ToolType"""
 
 
+class UpdateSessionTitleRequest(core.ModelBase):
+    """UpdateSessionTitleRequest"""
+
+    title: str
+    """
+    The new title for the session.
+    The maximum title length is 200 characters. Titles are truncated if they exceed this length.
+    """
+
+
 class UserTextInput(core.ModelBase):
     """UserTextInput"""
 
@@ -566,10 +665,14 @@ __all__ = [
     "AgentVersionDetails",
     "AgentVersionString",
     "AgentsSessionsPage",
+    "BlockingContinueSessionRequest",
+    "CancelSessionRequest",
     "CancelSessionResponse",
     "Content",
+    "CreateSessionRequest",
     "FailureToolCallOutput",
     "FunctionRetrievedContext",
+    "GetRagContextForSessionRequest",
     "InputContext",
     "ListAgentVersionsResponse",
     "ListSessionsResponse",
@@ -595,6 +698,7 @@ __all__ = [
     "SessionTrace",
     "SessionTraceId",
     "SessionTraceStatus",
+    "StreamingContinueSessionRequest",
     "StringParameter",
     "StringParameterValue",
     "StringToolInputValue",
@@ -609,5 +713,6 @@ __all__ = [
     "ToolMetadata",
     "ToolOutputValue",
     "ToolType",
+    "UpdateSessionTitleRequest",
     "UserTextInput",
 ]

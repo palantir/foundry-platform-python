@@ -94,16 +94,9 @@ class BranchClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branchId": branch_id,
-                    "transactionRid": transaction_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branchId": datasets_models.BranchId,
-                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                    },
+                body=datasets_models.CreateBranchRequest(
+                    branch_id=branch_id,
+                    transaction_rid=transaction_rid,
                 ),
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
@@ -159,7 +152,6 @@ class BranchClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -212,7 +204,6 @@ class BranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -267,7 +258,6 @@ class BranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -371,16 +361,9 @@ class AsyncBranchClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "branchId": branch_id,
-                    "transactionRid": transaction_rid,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "branchId": datasets_models.BranchId,
-                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                    },
+                body=datasets_models.CreateBranchRequest(
+                    branch_id=branch_id,
+                    transaction_rid=transaction_rid,
                 ),
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
@@ -436,7 +419,6 @@ class AsyncBranchClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -489,7 +471,6 @@ class AsyncBranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -544,7 +525,6 @@ class AsyncBranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

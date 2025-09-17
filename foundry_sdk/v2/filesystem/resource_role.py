@@ -93,14 +93,8 @@ class ResourceRoleClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roles": roles,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
-                    },
+                body=filesystem_models.AddResourceRolesRequest(
+                    roles=roles,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -166,7 +160,6 @@ class ResourceRoleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -220,14 +213,8 @@ class ResourceRoleClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roles": roles,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
-                    },
+                body=filesystem_models.RemoveResourceRolesRequest(
+                    roles=roles,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -327,14 +314,8 @@ class AsyncResourceRoleClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roles": roles,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
-                    },
+                body=filesystem_models.AddResourceRolesRequest(
+                    roles=roles,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -400,7 +381,6 @@ class AsyncResourceRoleClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=filesystem_models.ListResourceRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -454,14 +434,8 @@ class AsyncResourceRoleClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roles": roles,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roles": typing.List[filesystem_models.ResourceRoleIdentifier],
-                    },
+                body=filesystem_models.RemoveResourceRolesRequest(
+                    roles=roles,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

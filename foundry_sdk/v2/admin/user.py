@@ -104,7 +104,6 @@ class UserClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -149,7 +148,6 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -195,10 +193,6 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetUsersBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetUsersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -235,7 +229,6 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -285,7 +278,6 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GetUserMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -336,7 +328,6 @@ class UserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -382,7 +373,6 @@ class UserClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -436,7 +426,6 @@ class UserClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -487,18 +476,10 @@ class UserClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": admin_models.UserSearchFilter,
-                        "pageSize": typing.Optional[core_models.PageSize],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                    },
+                body=admin_models.SearchUsersRequest(
+                    where=where,
+                    page_size=page_size,
+                    page_token=page_token,
                 ),
                 response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,
@@ -629,7 +610,6 @@ class AsyncUserClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -674,7 +654,6 @@ class AsyncUserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -720,10 +699,6 @@ class AsyncUserClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=typing_extensions.Annotated[
-                    typing.List[admin_models.GetUsersBatchRequestElement],
-                    annotated_types.Len(min_length=1, max_length=500),
-                ],
                 response_type=admin_models.GetUsersBatchResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
@@ -760,7 +735,6 @@ class AsyncUserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -810,7 +784,6 @@ class AsyncUserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.GetUserMarkingsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -861,7 +834,6 @@ class AsyncUserClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListUsersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -907,7 +879,6 @@ class AsyncUserClient:
                     "Accept": "application/octet-stream",
                 },
                 body=None,
-                body_type=None,
                 response_type=typing.Optional[bytes],
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -961,7 +932,6 @@ class AsyncUserClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1012,18 +982,10 @@ class AsyncUserClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "where": where,
-                    "pageSize": page_size,
-                    "pageToken": page_token,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "where": admin_models.UserSearchFilter,
-                        "pageSize": typing.Optional[core_models.PageSize],
-                        "pageToken": typing.Optional[core_models.PageToken],
-                    },
+                body=admin_models.SearchUsersRequest(
+                    where=where,
+                    page_size=page_size,
+                    page_token=page_token,
                 ),
                 response_type=admin_models.SearchUsersResponse,
                 request_timeout=request_timeout,

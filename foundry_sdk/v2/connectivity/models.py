@@ -176,6 +176,17 @@ compute for capabilities are run.
 """
 
 
+class CreateConnectionRequest(core.ModelBase):
+    """CreateConnectionRequest"""
+
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    configuration: CreateConnectionRequestConnectionConfiguration
+    display_name: ConnectionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    """The display name of the Connection. The display name must not be blank."""
+
+    worker: CreateConnectionRequestConnectionWorker
+
+
 class CreateConnectionRequestAsPlaintextValue(core.ModelBase):
     """CreateConnectionRequestAsPlaintextValue"""
 
@@ -518,6 +529,41 @@ class CreateConnectionRequestWorkflowIdentityFederation(core.ModelBase):
     """
 
     type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
+
+
+class CreateFileImportRequest(core.ModelBase):
+    """CreateFileImportRequest"""
+
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the output dataset. Can not be modified after the file import is created."""
+
+    import_mode: FileImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
+    display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created."""
+
+    subfolder: typing.Optional[str] = None
+    """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
+
+    file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
+    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
+
+
+class CreateTableImportRequest(core.ModelBase):
+    """CreateTableImportRequest"""
+
+    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the output dataset. Can not be modified after the table import is created."""
+
+    import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
+    display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    allow_schema_changes: typing.Optional[TableImportAllowSchemaChanges] = pydantic.Field(alias=str("allowSchemaChanges"), default=None)  # type: ignore[literal-required]
+    """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
+
+    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created."""
+
+    config: CreateTableImportRequestTableImportConfig
 
 
 class CreateTableImportRequestDatabricksTableImportConfig(core.ModelBase):
@@ -1071,6 +1117,29 @@ Region = str
 """The region of the external system."""
 
 
+class ReplaceFileImportRequest(core.ModelBase):
+    """ReplaceFileImportRequest"""
+
+    import_mode: FileImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
+    display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    subfolder: typing.Optional[str] = None
+    """A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system."""
+
+    file_import_filters: typing.List[FileImportFilter] = pydantic.Field(alias=str("fileImportFilters"))  # type: ignore[literal-required]
+    """Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs)"""
+
+
+class ReplaceTableImportRequest(core.ModelBase):
+    """ReplaceTableImportRequest"""
+
+    import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
+    display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    allow_schema_changes: typing.Optional[TableImportAllowSchemaChanges] = pydantic.Field(alias=str("allowSchemaChanges"), default=None)  # type: ignore[literal-required]
+    """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
+
+    config: ReplaceTableImportRequestTableImportConfig
+
+
 class ReplaceTableImportRequestDatabricksTableImportConfig(core.ModelBase):
     """ReplaceTableImportRequestDatabricksTableImportConfig"""
 
@@ -1617,6 +1686,19 @@ class UnknownWorker(core.ModelBase):
     type: typing.Literal["unknownWorker"] = "unknownWorker"
 
 
+class UpdateExportSettingsForConnectionRequest(core.ModelBase):
+    """UpdateExportSettingsForConnectionRequest"""
+
+    export_settings: ConnectionExportSettings = pydantic.Field(alias=str("exportSettings"))  # type: ignore[literal-required]
+
+
+class UpdateSecretsForConnectionRequest(core.ModelBase):
+    """UpdateSecretsForConnectionRequest"""
+
+    secrets: typing.Dict[SecretName, PlaintextValue]
+    """The secrets to be updated. The specified secret names must already be configured on the connection."""
+
+
 UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
 
@@ -1708,6 +1790,7 @@ __all__ = [
     "ConnectionExportSettings",
     "ConnectionRid",
     "ConnectionWorker",
+    "CreateConnectionRequest",
     "CreateConnectionRequestAsPlaintextValue",
     "CreateConnectionRequestAsSecretName",
     "CreateConnectionRequestBasicCredentials",
@@ -1728,6 +1811,8 @@ __all__ = [
     "CreateConnectionRequestSnowflakeKeyPairAuthentication",
     "CreateConnectionRequestUnknownWorker",
     "CreateConnectionRequestWorkflowIdentityFederation",
+    "CreateFileImportRequest",
+    "CreateTableImportRequest",
     "CreateTableImportRequestDatabricksTableImportConfig",
     "CreateTableImportRequestJdbcTableImportConfig",
     "CreateTableImportRequestMicrosoftAccessTableImportConfig",
@@ -1779,6 +1864,8 @@ __all__ = [
     "Protocol",
     "QueryParameterApiKey",
     "Region",
+    "ReplaceFileImportRequest",
+    "ReplaceTableImportRequest",
     "ReplaceTableImportRequestDatabricksTableImportConfig",
     "ReplaceTableImportRequestJdbcTableImportConfig",
     "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
@@ -1816,6 +1903,8 @@ __all__ = [
     "TableImportRid",
     "TimestampColumnInitialIncrementalState",
     "UnknownWorker",
+    "UpdateExportSettingsForConnectionRequest",
+    "UpdateSecretsForConnectionRequest",
     "UriScheme",
     "WorkflowIdentityFederation",
 ]

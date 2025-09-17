@@ -100,7 +100,6 @@ class HostClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -201,7 +200,6 @@ class AsyncHostClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListHostsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

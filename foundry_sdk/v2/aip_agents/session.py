@@ -145,24 +145,11 @@ class SessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                    "contextsOverride": contexts_override,
-                    "sessionTraceId": session_trace_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                        "contextsOverride": typing.Optional[
-                            typing.List[aip_agents_models.InputContext]
-                        ],
-                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
-                    },
+                body=aip_agents_models.BlockingContinueSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
+                    contexts_override=contexts_override,
+                    session_trace_id=session_trace_id,
                 ),
                 response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
@@ -241,16 +228,9 @@ class SessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "messageId": message_id,
-                    "response": response,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "messageId": aip_agents_models.MessageId,
-                        "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
-                    },
+                body=aip_agents_models.CancelSessionRequest(
+                    message_id=message_id,
+                    response=response,
                 ),
                 response_type=aip_agents_models.CancelSessionResponse,
                 request_timeout=request_timeout,
@@ -317,14 +297,8 @@ class SessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "agentVersion": agent_version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "agentVersion": typing.Optional[aip_agents_models.AgentVersionString],
-                    },
+                body=aip_agents_models.CreateSessionRequest(
+                    agent_version=agent_version,
                 ),
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
@@ -388,7 +362,6 @@ class SessionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -450,7 +423,6 @@ class SessionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -519,18 +491,9 @@ class SessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                    },
+                body=aip_agents_models.GetRagContextForSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
                 ),
                 response_type=aip_agents_models.AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
@@ -623,26 +586,12 @@ class SessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/octet-stream",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                    "contextsOverride": contexts_override,
-                    "messageId": message_id,
-                    "sessionTraceId": session_trace_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                        "contextsOverride": typing.Optional[
-                            typing.List[aip_agents_models.InputContext]
-                        ],
-                        "messageId": typing.Optional[aip_agents_models.MessageId],
-                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
-                    },
+                body=aip_agents_models.StreamingContinueSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
+                    contexts_override=contexts_override,
+                    message_id=message_id,
+                    session_trace_id=session_trace_id,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -711,14 +660,8 @@ class SessionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "title": title,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "title": str,
-                    },
+                body=aip_agents_models.UpdateSessionTitleRequest(
+                    title=title,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -897,24 +840,11 @@ class AsyncSessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                    "contextsOverride": contexts_override,
-                    "sessionTraceId": session_trace_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                        "contextsOverride": typing.Optional[
-                            typing.List[aip_agents_models.InputContext]
-                        ],
-                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
-                    },
+                body=aip_agents_models.BlockingContinueSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
+                    contexts_override=contexts_override,
+                    session_trace_id=session_trace_id,
                 ),
                 response_type=aip_agents_models.SessionExchangeResult,
                 request_timeout=request_timeout,
@@ -993,16 +923,9 @@ class AsyncSessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "messageId": message_id,
-                    "response": response,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "messageId": aip_agents_models.MessageId,
-                        "response": typing.Optional[aip_agents_models.AgentMarkdownResponse],
-                    },
+                body=aip_agents_models.CancelSessionRequest(
+                    message_id=message_id,
+                    response=response,
                 ),
                 response_type=aip_agents_models.CancelSessionResponse,
                 request_timeout=request_timeout,
@@ -1069,14 +992,8 @@ class AsyncSessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "agentVersion": agent_version,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "agentVersion": typing.Optional[aip_agents_models.AgentVersionString],
-                    },
+                body=aip_agents_models.CreateSessionRequest(
+                    agent_version=agent_version,
                 ),
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
@@ -1140,7 +1057,6 @@ class AsyncSessionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.Session,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1202,7 +1118,6 @@ class AsyncSessionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.ListSessionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -1271,18 +1186,9 @@ class AsyncSessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                    },
+                body=aip_agents_models.GetRagContextForSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
                 ),
                 response_type=aip_agents_models.AgentSessionRagContextResponse,
                 request_timeout=request_timeout,
@@ -1375,26 +1281,12 @@ class AsyncSessionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/octet-stream",
                 },
-                body={
-                    "userInput": user_input,
-                    "parameterInputs": parameter_inputs,
-                    "contextsOverride": contexts_override,
-                    "messageId": message_id,
-                    "sessionTraceId": session_trace_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "userInput": aip_agents_models.UserTextInput,
-                        "parameterInputs": typing.Dict[
-                            aip_agents_models.ParameterId, aip_agents_models.ParameterValue
-                        ],
-                        "contextsOverride": typing.Optional[
-                            typing.List[aip_agents_models.InputContext]
-                        ],
-                        "messageId": typing.Optional[aip_agents_models.MessageId],
-                        "sessionTraceId": typing.Optional[aip_agents_models.SessionTraceId],
-                    },
+                body=aip_agents_models.StreamingContinueSessionRequest(
+                    user_input=user_input,
+                    parameter_inputs=parameter_inputs,
+                    contexts_override=contexts_override,
+                    message_id=message_id,
+                    session_trace_id=session_trace_id,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -1463,14 +1355,8 @@ class AsyncSessionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "title": title,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "title": str,
-                    },
+                body=aip_agents_models.UpdateSessionTitleRequest(
+                    title=title,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

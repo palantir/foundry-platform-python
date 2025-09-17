@@ -50,6 +50,14 @@ ActionTypeRid = core.RID
 """The unique resource identifier of an action type, useful for interacting with other Foundry APIs."""
 
 
+class AggregateObjectsRequest(core.ModelBase):
+    """AggregateObjectsRequest"""
+
+    aggregation: typing.List[Aggregation]
+    query: typing.Optional[SearchJsonQuery] = None
+    group_by: typing.List[AggregationGroupBy] = pydantic.Field(alias=str("groupBy"))  # type: ignore[literal-required]
+
+
 class AggregateObjectsResponse(core.ModelBase):
     """AggregateObjectsResponse"""
 
@@ -272,6 +280,12 @@ class AvgAggregation(core.ModelBase):
     type: typing.Literal["avg"] = "avg"
 
 
+class BatchApplyActionRequest(core.ModelBase):
+    """BatchApplyActionRequest"""
+
+    requests: typing.List[ApplyActionRequest]
+
+
 class BatchApplyActionResponse(core.ModelBase):
     """BatchApplyActionResponse"""
 
@@ -394,6 +408,12 @@ class EqualsQuery(core.ModelBase):
     field: FieldNameV1
     value: PropertyValue
     type: typing.Literal["eq"] = "eq"
+
+
+class ExecuteQueryRequest(core.ModelBase):
+    """ExecuteQueryRequest"""
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
 
 
 class ExecuteQueryResponse(core.ModelBase):
@@ -1220,6 +1240,17 @@ SearchJsonQuery = typing_extensions.Annotated[
 """SearchJsonQuery"""
 
 
+class SearchObjectsRequest(core.ModelBase):
+    """SearchObjectsRequest"""
+
+    query: SearchJsonQuery
+    order_by: typing.Optional[SearchOrderBy] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    fields: typing.List[PropertyApiName]
+    """The API names of the object type properties to include in the response."""
+
+
 class SearchObjectsResponse(core.ModelBase):
     """SearchObjectsResponse"""
 
@@ -1408,6 +1439,12 @@ class UnevaluableConstraint(core.ModelBase):
     type: typing.Literal["unevaluable"] = "unevaluable"
 
 
+class ValidateActionRequest(core.ModelBase):
+    """ValidateActionRequest"""
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+
+
 class ValidateActionResponse(core.ModelBase):
     """ValidateActionResponse"""
 
@@ -1479,6 +1516,7 @@ __all__ = [
     "ActionType",
     "ActionTypeApiName",
     "ActionTypeRid",
+    "AggregateObjectsRequest",
     "AggregateObjectsResponse",
     "AggregateObjectsResponseItem",
     "Aggregation",
@@ -1507,6 +1545,7 @@ __all__ = [
     "Attachment",
     "AttachmentRid",
     "AvgAggregation",
+    "BatchApplyActionRequest",
     "BatchApplyActionResponse",
     "ContainsQuery",
     "CountAggregation",
@@ -1521,6 +1560,7 @@ __all__ = [
     "Duration",
     "EntrySetType",
     "EqualsQuery",
+    "ExecuteQueryRequest",
     "ExecuteQueryResponse",
     "FieldNameV1",
     "FilterValue",
@@ -1615,6 +1655,7 @@ __all__ = [
     "SdkPackageRid",
     "SdkVersion",
     "SearchJsonQuery",
+    "SearchObjectsRequest",
     "SearchObjectsResponse",
     "SearchOrderBy",
     "SearchOrderByType",
@@ -1633,6 +1674,7 @@ __all__ = [
     "ThreeDimensionalAggregation",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
+    "ValidateActionRequest",
     "ValidateActionResponse",
     "ValidationResult",
     "ValueType",

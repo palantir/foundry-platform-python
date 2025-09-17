@@ -94,17 +94,8 @@ class ActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ApplyActionRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ApplyActionResponse,
                 request_timeout=request_timeout,
@@ -161,14 +152,8 @@ class ActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "requests": requests,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "requests": typing.List[ontologies_models.ApplyActionRequest],
-                    },
+                body=ontologies_models.BatchApplyActionRequest(
+                    requests=requests,
                 ),
                 response_type=ontologies_models.BatchApplyActionResponse,
                 request_timeout=request_timeout,
@@ -225,17 +210,8 @@ class ActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ValidateActionRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ValidateActionResponse,
                 request_timeout=request_timeout,
@@ -338,17 +314,8 @@ class AsyncActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ApplyActionRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ApplyActionResponse,
                 request_timeout=request_timeout,
@@ -405,14 +372,8 @@ class AsyncActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "requests": requests,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "requests": typing.List[ontologies_models.ApplyActionRequest],
-                    },
+                body=ontologies_models.BatchApplyActionRequest(
+                    requests=requests,
                 ),
                 response_type=ontologies_models.BatchApplyActionResponse,
                 request_timeout=request_timeout,
@@ -469,17 +430,8 @@ class AsyncActionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ValidateActionRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ValidateActionResponse,
                 request_timeout=request_timeout,

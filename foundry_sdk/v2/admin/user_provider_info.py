@@ -89,7 +89,6 @@ class UserProviderInfoClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -147,14 +146,8 @@ class UserProviderInfoClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "providerId": provider_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "providerId": admin_models.ProviderId,
-                    },
+                body=admin_models.ReplaceUserProviderInfoRequest(
+                    provider_id=provider_id,
                 ),
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,
@@ -252,7 +245,6 @@ class AsyncUserProviderInfoClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -310,14 +302,8 @@ class AsyncUserProviderInfoClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "providerId": provider_id,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "providerId": admin_models.ProviderId,
-                    },
+                body=admin_models.ReplaceUserProviderInfoRequest(
+                    provider_id=provider_id,
                 ),
                 response_type=admin_models.UserProviderInfo,
                 request_timeout=request_timeout,

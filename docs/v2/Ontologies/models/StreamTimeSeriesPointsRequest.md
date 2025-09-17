@@ -1,0 +1,12 @@
+# StreamTimeSeriesPointsRequest
+
+StreamTimeSeriesPointsRequest
+
+## Properties
+| Name | Type | Required | Description |
+| ------------ | ------------- | ------------- | ------------- |
+**range** | Optional[TimeRange] | No |  |
+**aggregate** | Optional[AggregateTimeSeries] | No |  |
+
+
+[[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -131,20 +131,11 @@ class ConnectionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "configuration": configuration,
-                    "displayName": display_name,
-                    "worker": worker,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "configuration": connectivity_models.CreateConnectionRequestConnectionConfiguration,
-                        "displayName": connectivity_models.ConnectionDisplayName,
-                        "worker": connectivity_models.CreateConnectionRequestConnectionWorker,
-                    },
+                body=connectivity_models.CreateConnectionRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    configuration=configuration,
+                    display_name=display_name,
+                    worker=worker,
                 ),
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
@@ -201,7 +192,6 @@ class ConnectionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -255,7 +245,6 @@ class ConnectionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -309,14 +298,8 @@ class ConnectionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "exportSettings": export_settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "exportSettings": connectivity_models.ConnectionExportSettings,
-                    },
+                body=connectivity_models.UpdateExportSettingsForConnectionRequest(
+                    export_settings=export_settings,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -376,16 +359,8 @@ class ConnectionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "secrets": secrets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "secrets": typing.Dict[
-                            connectivity_models.SecretName, connectivity_models.PlaintextValue
-                        ],
-                    },
+                body=connectivity_models.UpdateSecretsForConnectionRequest(
+                    secrets=secrets,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -448,7 +423,6 @@ class ConnectionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -601,20 +575,11 @@ class AsyncConnectionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parentFolderRid": parent_folder_rid,
-                    "configuration": configuration,
-                    "displayName": display_name,
-                    "worker": worker,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parentFolderRid": filesystem_models.FolderRid,
-                        "configuration": connectivity_models.CreateConnectionRequestConnectionConfiguration,
-                        "displayName": connectivity_models.ConnectionDisplayName,
-                        "worker": connectivity_models.CreateConnectionRequestConnectionWorker,
-                    },
+                body=connectivity_models.CreateConnectionRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    configuration=configuration,
+                    display_name=display_name,
+                    worker=worker,
                 ),
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
@@ -671,7 +636,6 @@ class AsyncConnectionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -725,7 +689,6 @@ class AsyncConnectionClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -779,14 +742,8 @@ class AsyncConnectionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "exportSettings": export_settings,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "exportSettings": connectivity_models.ConnectionExportSettings,
-                    },
+                body=connectivity_models.UpdateExportSettingsForConnectionRequest(
+                    export_settings=export_settings,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -846,16 +803,8 @@ class AsyncConnectionClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "secrets": secrets,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "secrets": typing.Dict[
-                            connectivity_models.SecretName, connectivity_models.PlaintextValue
-                        ],
-                    },
+                body=connectivity_models.UpdateSecretsForConnectionRequest(
+                    secrets=secrets,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -918,7 +867,6 @@ class AsyncConnectionClient:
                     "Accept": "application/json",
                 },
                 body=body,
-                body_type=bytes,
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={

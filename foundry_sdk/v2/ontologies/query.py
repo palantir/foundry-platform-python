@@ -112,17 +112,8 @@ class QueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ExecuteQueryRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -234,17 +225,8 @@ class AsyncQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "parameters": parameters,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "parameters": typing.Dict[
-                            ontologies_models.ParameterId,
-                            typing.Optional[ontologies_models.DataValue],
-                        ],
-                    },
+                body=ontologies_models.ExecuteQueryRequest(
+                    parameters=parameters,
                 ),
                 response_type=ontologies_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,

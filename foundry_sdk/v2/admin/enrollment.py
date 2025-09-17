@@ -122,7 +122,6 @@ class EnrollmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -168,7 +167,6 @@ class EnrollmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -294,7 +292,6 @@ class AsyncEnrollmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -340,7 +337,6 @@ class AsyncEnrollmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Enrollment,
                 request_timeout=request_timeout,
                 throwable_errors={

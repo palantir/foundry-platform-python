@@ -91,16 +91,9 @@ class CheckClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "config": config,
-                    "intent": intent,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "config": data_health_models.CheckConfig,
-                        "intent": typing.Optional[data_health_models.CheckIntent],
-                    },
+                body=data_health_models.CreateCheckRequest(
+                    config=config,
+                    intent=intent,
                 ),
                 response_type=data_health_models.Check,
                 request_timeout=request_timeout,
@@ -153,7 +146,6 @@ class CheckClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -205,7 +197,6 @@ class CheckClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=data_health_models.Check,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -303,16 +294,9 @@ class AsyncCheckClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "config": config,
-                    "intent": intent,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "config": data_health_models.CheckConfig,
-                        "intent": typing.Optional[data_health_models.CheckIntent],
-                    },
+                body=data_health_models.CreateCheckRequest(
+                    config=config,
+                    intent=intent,
                 ),
                 response_type=data_health_models.Check,
                 request_timeout=request_timeout,
@@ -365,7 +349,6 @@ class AsyncCheckClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -417,7 +400,6 @@ class AsyncCheckClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=data_health_models.Check,
                 request_timeout=request_timeout,
                 throwable_errors={

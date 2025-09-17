@@ -114,26 +114,13 @@ class TableImportClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "datasetRid": dataset_rid,
-                    "importMode": import_mode,
-                    "displayName": display_name,
-                    "allowSchemaChanges": allow_schema_changes,
-                    "branchName": branch_name,
-                    "config": config,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
-                        "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
-                        "allowSchemaChanges": typing.Optional[
-                            connectivity_models.TableImportAllowSchemaChanges
-                        ],
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "config": connectivity_models.CreateTableImportRequestTableImportConfig,
-                    },
+                body=connectivity_models.CreateTableImportRequest(
+                    dataset_rid=dataset_rid,
+                    import_mode=import_mode,
+                    display_name=display_name,
+                    allow_schema_changes=allow_schema_changes,
+                    branch_name=branch_name,
+                    config=config,
                 ),
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
@@ -193,7 +180,6 @@ class TableImportClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -248,7 +234,6 @@ class TableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -302,7 +287,6 @@ class TableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -362,7 +346,6 @@ class TableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -433,22 +416,11 @@ class TableImportClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "importMode": import_mode,
-                    "displayName": display_name,
-                    "allowSchemaChanges": allow_schema_changes,
-                    "config": config,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
-                        "allowSchemaChanges": typing.Optional[
-                            connectivity_models.TableImportAllowSchemaChanges
-                        ],
-                        "config": connectivity_models.ReplaceTableImportRequestTableImportConfig,
-                    },
+                body=connectivity_models.ReplaceTableImportRequest(
+                    import_mode=import_mode,
+                    display_name=display_name,
+                    allow_schema_changes=allow_schema_changes,
+                    config=config,
                 ),
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
@@ -583,26 +555,13 @@ class AsyncTableImportClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "datasetRid": dataset_rid,
-                    "importMode": import_mode,
-                    "displayName": display_name,
-                    "allowSchemaChanges": allow_schema_changes,
-                    "branchName": branch_name,
-                    "config": config,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "datasetRid": datasets_models.DatasetRid,
-                        "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
-                        "allowSchemaChanges": typing.Optional[
-                            connectivity_models.TableImportAllowSchemaChanges
-                        ],
-                        "branchName": typing.Optional[datasets_models.BranchName],
-                        "config": connectivity_models.CreateTableImportRequestTableImportConfig,
-                    },
+                body=connectivity_models.CreateTableImportRequest(
+                    dataset_rid=dataset_rid,
+                    import_mode=import_mode,
+                    display_name=display_name,
+                    allow_schema_changes=allow_schema_changes,
+                    branch_name=branch_name,
+                    config=config,
                 ),
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
@@ -662,7 +621,6 @@ class AsyncTableImportClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -717,7 +675,6 @@ class AsyncTableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=core_models.BuildRid,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -771,7 +728,6 @@ class AsyncTableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -831,7 +787,6 @@ class AsyncTableImportClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=connectivity_models.ListTableImportsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -902,22 +857,11 @@ class AsyncTableImportClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "importMode": import_mode,
-                    "displayName": display_name,
-                    "allowSchemaChanges": allow_schema_changes,
-                    "config": config,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "importMode": connectivity_models.TableImportMode,
-                        "displayName": connectivity_models.TableImportDisplayName,
-                        "allowSchemaChanges": typing.Optional[
-                            connectivity_models.TableImportAllowSchemaChanges
-                        ],
-                        "config": connectivity_models.ReplaceTableImportRequestTableImportConfig,
-                    },
+                body=connectivity_models.ReplaceTableImportRequest(
+                    import_mode=import_mode,
+                    display_name=display_name,
+                    allow_schema_changes=allow_schema_changes,
+                    config=config,
                 ),
                 response_type=connectivity_models.TableImport,
                 request_timeout=request_timeout,

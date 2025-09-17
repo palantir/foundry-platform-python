@@ -89,7 +89,6 @@ class MarkingCategoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.MarkingCategory,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -142,7 +141,6 @@ class MarkingCategoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -234,7 +232,6 @@ class AsyncMarkingCategoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.MarkingCategory,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -287,7 +284,6 @@ class AsyncMarkingCategoryClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingCategoriesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

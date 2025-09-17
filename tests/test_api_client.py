@@ -316,7 +316,7 @@ def test_read_timeout():
 def test_write_timeout():
     client = create_client(config=Config(timeout=1e-6))
     data = b"*" * 1024 * 1024 * 100
-    request_info = RequestInfo.with_defaults("GET", "/foo/timeout", body=data, body_type=bytes)
+    request_info = RequestInfo.with_defaults("GET", "/foo/timeout", body=data)
 
     with pytest.raises(WriteTimeout):
         client.call_api(request_info)

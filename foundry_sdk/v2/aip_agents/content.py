@@ -93,7 +93,6 @@ class ContentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -188,7 +187,6 @@ class AsyncContentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.Content,
                 request_timeout=request_timeout,
                 throwable_errors={

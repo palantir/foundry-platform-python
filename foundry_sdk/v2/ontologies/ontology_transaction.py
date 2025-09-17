@@ -92,14 +92,8 @@ class OntologyTransactionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "edits": edits,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "edits": typing.List[ontologies_models.TransactionEdit],
-                    },
+                body=ontologies_models.PostTransactionEditsRequest(
+                    edits=edits,
                 ),
                 response_type=ontologies_models.PostTransactionEditsResponse,
                 request_timeout=request_timeout,
@@ -191,14 +185,8 @@ class AsyncOntologyTransactionClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "edits": edits,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "edits": typing.List[ontologies_models.TransactionEdit],
-                    },
+                body=ontologies_models.PostTransactionEditsRequest(
+                    edits=edits,
                 ),
                 response_type=ontologies_models.PostTransactionEditsResponse,
                 request_timeout=request_timeout,

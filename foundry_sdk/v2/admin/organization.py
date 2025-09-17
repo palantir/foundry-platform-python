@@ -115,22 +115,12 @@ class OrganizationClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "administrators": administrators,
-                    "enrollmentRid": enrollment_rid,
-                    "name": name,
-                    "host": host,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "administrators": typing.List[core_models.PrincipalId],
-                        "enrollmentRid": core_models.EnrollmentRid,
-                        "name": admin_models.OrganizationName,
-                        "host": typing.Optional[admin_models.HostName],
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.CreateOrganizationRequest(
+                    administrators=administrators,
+                    enrollment_rid=enrollment_rid,
+                    name=name,
+                    host=host,
+                    description=description,
                 ),
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
@@ -185,7 +175,6 @@ class OrganizationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -236,7 +225,6 @@ class OrganizationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListAvailableOrganizationRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -298,18 +286,10 @@ class OrganizationClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "host": host,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.OrganizationName,
-                        "host": typing.Optional[admin_models.HostName],
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.ReplaceOrganizationRequest(
+                    name=name,
+                    host=host,
+                    description=description,
                 ),
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
@@ -443,22 +423,12 @@ class AsyncOrganizationClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "administrators": administrators,
-                    "enrollmentRid": enrollment_rid,
-                    "name": name,
-                    "host": host,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "administrators": typing.List[core_models.PrincipalId],
-                        "enrollmentRid": core_models.EnrollmentRid,
-                        "name": admin_models.OrganizationName,
-                        "host": typing.Optional[admin_models.HostName],
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.CreateOrganizationRequest(
+                    administrators=administrators,
+                    enrollment_rid=enrollment_rid,
+                    name=name,
+                    host=host,
+                    description=description,
                 ),
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
@@ -513,7 +483,6 @@ class AsyncOrganizationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -564,7 +533,6 @@ class AsyncOrganizationClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListAvailableOrganizationRolesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -626,18 +594,10 @@ class AsyncOrganizationClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "name": name,
-                    "host": host,
-                    "description": description,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "name": admin_models.OrganizationName,
-                        "host": typing.Optional[admin_models.HostName],
-                        "description": typing.Optional[str],
-                    },
+                body=admin_models.ReplaceOrganizationRequest(
+                    name=name,
+                    host=host,
+                    description=description,
                 ),
                 response_type=admin_models.Organization,
                 request_timeout=request_timeout,

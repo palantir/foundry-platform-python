@@ -93,14 +93,8 @@ class MarkingRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                    },
+                body=admin_models.AddMarkingRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -164,7 +158,6 @@ class MarkingRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -222,14 +215,8 @@ class MarkingRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                    },
+                body=admin_models.RemoveMarkingRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -333,14 +320,8 @@ class AsyncMarkingRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                    },
+                body=admin_models.AddMarkingRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -404,7 +385,6 @@ class AsyncMarkingRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListMarkingRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -462,14 +442,8 @@ class AsyncMarkingRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[admin_models.MarkingRoleUpdate],
-                    },
+                body=admin_models.RemoveMarkingRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

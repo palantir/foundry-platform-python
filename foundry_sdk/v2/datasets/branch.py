@@ -96,16 +96,9 @@ class BranchClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "transactionRid": transaction_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "name": datasets_models.BranchName,
-                    },
+                body=datasets_models.CreateBranchRequest(
+                    transaction_rid=transaction_rid,
+                    name=name,
                 ),
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
@@ -162,7 +155,6 @@ class BranchClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -215,7 +207,6 @@ class BranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -272,7 +263,6 @@ class BranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -338,7 +328,6 @@ class BranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListTransactionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -449,16 +438,9 @@ class AsyncBranchClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body={
-                    "transactionRid": transaction_rid,
-                    "name": name,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "transactionRid": typing.Optional[datasets_models.TransactionRid],
-                        "name": datasets_models.BranchName,
-                    },
+                body=datasets_models.CreateBranchRequest(
+                    transaction_rid=transaction_rid,
+                    name=name,
                 ),
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
@@ -515,7 +497,6 @@ class AsyncBranchClient:
                 },
                 header_params={},
                 body=None,
-                body_type=None,
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -568,7 +549,6 @@ class AsyncBranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.Branch,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -625,7 +605,6 @@ class AsyncBranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListBranchesResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -691,7 +670,6 @@ class AsyncBranchClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=datasets_models.ListTransactionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

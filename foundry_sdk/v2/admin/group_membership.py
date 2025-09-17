@@ -104,7 +104,6 @@ class GroupMembershipClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -208,7 +207,6 @@ class AsyncGroupMembershipClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListGroupMembershipsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={

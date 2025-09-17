@@ -100,7 +100,6 @@ class SessionTraceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.SessionTrace,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -202,7 +201,6 @@ class AsyncSessionTraceClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=aip_agents_models.SessionTrace,
                 request_timeout=request_timeout,
                 throwable_errors={

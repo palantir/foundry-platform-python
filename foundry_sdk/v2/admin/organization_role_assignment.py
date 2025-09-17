@@ -92,14 +92,8 @@ class OrganizationRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.AddOrganizationRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -153,7 +147,6 @@ class OrganizationRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListOrganizationRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -208,14 +201,8 @@ class OrganizationRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.RemoveOrganizationRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -314,14 +301,8 @@ class AsyncOrganizationRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.AddOrganizationRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,
@@ -375,7 +356,6 @@ class AsyncOrganizationRoleAssignmentClient:
                     "Accept": "application/json",
                 },
                 body=None,
-                body_type=None,
                 response_type=admin_models.ListOrganizationRoleAssignmentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
@@ -430,14 +410,8 @@ class AsyncOrganizationRoleAssignmentClient:
                 header_params={
                     "Content-Type": "application/json",
                 },
-                body={
-                    "roleAssignments": role_assignments,
-                },
-                body_type=typing_extensions.TypedDict(
-                    "Body",
-                    {  # type: ignore
-                        "roleAssignments": typing.List[core_models.RoleAssignmentUpdate],
-                    },
+                body=admin_models.RemoveOrganizationRoleAssignmentsRequest(
+                    role_assignments=role_assignments,
                 ),
                 response_type=None,
                 request_timeout=request_timeout,

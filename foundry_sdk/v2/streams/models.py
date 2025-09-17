@@ -33,6 +33,31 @@ network bandwidth symptoms like non-zero lag, lower than expected throughput, or
 """
 
 
+class CreateStreamRequest(core.ModelBase):
+    """CreateStreamRequest"""
+
+    schema_: CreateStreamRequestStreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The Foundry schema for this stream."""
+
+    partitions_count: typing.Optional[PartitionsCount] = pydantic.Field(alias=str("partitionsCount"), default=None)  # type: ignore[literal-required]
+    """
+    The number of partitions for the Foundry stream. Defaults to 1.
+
+    Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+    are recommended.
+    """
+
+    stream_type: typing.Optional[StreamType] = pydantic.Field(alias=str("streamType"), default=None)  # type: ignore[literal-required]
+    """
+    A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+    LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+    """
+
+    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    compressed: typing.Optional[Compressed] = None
+    """Whether or not compression is enabled for the stream. Defaults to false."""
+
+
 class CreateStreamRequestStreamSchema(core.ModelBase):
     """CreateStreamRequestStreamSchema"""
 
@@ -62,6 +87,42 @@ class CreateStreamRequestStreamSchema(core.ModelBase):
     change_data_capture: typing.Optional[core_models.ChangeDataCaptureConfiguration] = pydantic.Field(alias=str("changeDataCapture"), default=None)  # type: ignore[literal-required]
 
 
+class CreateStreamingDatasetRequest(core.ModelBase):
+    """CreateStreamingDatasetRequest"""
+
+    name: datasets_models.DatasetName
+    parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    schema_: core_models.StreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The Foundry schema to apply to the new stream."""
+
+    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    """
+    The branch to create the initial stream on. If not specified, the default branch will be used
+    ('master' for most enrollments).
+    """
+
+    partitions_count: typing.Optional[PartitionsCount] = pydantic.Field(alias=str("partitionsCount"), default=None)  # type: ignore[literal-required]
+    """
+    The number of partitions for the Foundry stream.
+
+    Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+    are recommended.
+
+    If not specified, 1 partition is used.
+
+    This value cannot be changed later.
+    """
+
+    stream_type: typing.Optional[StreamType] = pydantic.Field(alias=str("streamType"), default=None)  # type: ignore[literal-required]
+    """
+    A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+    LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+    """
+
+    compressed: typing.Optional[Compressed] = None
+    """Whether or not compression is enabled for the stream. Defaults to false."""
+
+
 class Dataset(core.ModelBase):
     """Dataset"""
 
@@ -74,8 +135,75 @@ PartitionsCount = int
 """The number of partitions for a Foundry stream."""
 
 
+class PublishRecordToStreamRequest(core.ModelBase):
+    """PublishRecordToStreamRequest"""
+
+    record: Record
+    """The record to publish to the stream"""
+
+    view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
+    """
+    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    not provided, this endpoint will write the latest stream on the branch.
+
+    Providing this value is an advanced configuration, to be used when additional control over the
+    underlying streaming data structures is needed.
+    """
+
+
+class PublishRecordsToStreamRequest(core.ModelBase):
+    """PublishRecordsToStreamRequest"""
+
+    records: typing.List[Record]
+    """The records to publish to the stream"""
+
+    view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
+    """
+    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    not provided, this endpoint will write to the latest stream on the branch.
+
+    Providing this value is an advanced configuration, to be used when additional control over the
+    underlying streaming data structures is needed.
+    """
+
+
 Record = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
+
+
+class ResetStreamRequest(core.ModelBase):
+    """ResetStreamRequest"""
+
+    schema_: typing.Optional[core_models.StreamSchema] = pydantic.Field(alias=str("schema"), default=None)  # type: ignore[literal-required]
+    """
+    The Foundry schema to apply to the new stream. 
+
+    If omitted, the schema of the existing stream on the branch will be used.
+    """
+
+    partitions_count: typing.Optional[PartitionsCount] = pydantic.Field(alias=str("partitionsCount"), default=None)  # type: ignore[literal-required]
+    """
+    The number of partitions for the Foundry stream.
+    Generally, each partition can handle about 5 mb/s of data, so for higher volume streams, more partitions
+    are recommended.
+
+    If omitted, the partitions count of the existing stream on the branch will be used.
+    """
+
+    stream_type: typing.Optional[StreamType] = pydantic.Field(alias=str("streamType"), default=None)  # type: ignore[literal-required]
+    """
+    A conceptual representation of the expected shape of the data for a stream. HIGH_THROUGHPUT and
+    LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
+
+    If omitted, the stream type of the existing stream on the branch will be used.
+    """
+
+    compressed: typing.Optional[Compressed] = None
+    """
+    Whether or not compression is enabled for the stream.
+
+    If omitted, the compression setting of the existing stream on the branch will be used.
+    """
 
 
 class Stream(core.ModelBase):
@@ -130,10 +258,15 @@ core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "Compressed",
+    "CreateStreamRequest",
     "CreateStreamRequestStreamSchema",
+    "CreateStreamingDatasetRequest",
     "Dataset",
     "PartitionsCount",
+    "PublishRecordToStreamRequest",
+    "PublishRecordsToStreamRequest",
     "Record",
+    "ResetStreamRequest",
     "Stream",
     "StreamType",
     "ViewRid",
