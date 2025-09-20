@@ -103,7 +103,7 @@ class DatasetFieldSchema(core.ModelBase):
     """A field in a Foundry dataset."""
 
     type: SchemaFieldType
-    name: FieldName
+    name: typing.Optional[FieldName] = None
     """The name of a column. May be absent in nested schema objects."""
 
     nullable: bool

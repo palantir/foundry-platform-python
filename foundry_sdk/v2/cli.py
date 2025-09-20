@@ -9465,8 +9465,9 @@ def sql_queries_sql_query_op_cancel(
     required=True,
     help="""The SQL query to execute. Queries should conform to the
 [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
-queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
-on the supported syntax for referencing datasets in SQL queries.
+queries only. Datasets can be referenced in SQL queries by path or by RID. See the 
+[documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
+for more details.
 """,
 )
 @click.option(

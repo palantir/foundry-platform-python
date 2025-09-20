@@ -785,6 +785,8 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | OntologyObjectSet | [**load**](docs/v2/Ontologies/OntologyObjectSet.md#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects |
 **Ontologies** | OntologyObjectSet | [**load_multiple_object_types**](docs/v2/Ontologies/OntologyObjectSet.md#load_multiple_object_types) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes |
 **Ontologies** | OntologyObjectSet | [**load_objects_or_interfaces**](docs/v2/Ontologies/OntologyObjectSet.md#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces |
+**Ontologies** | OntologyValueType | [**get**](docs/v2/Ontologies/OntologyValueType.md#get) | **GET** /v2/ontologies/{ontology}/valueTypes/{valueType} |
+**Ontologies** | OntologyValueType | [**list**](docs/v2/Ontologies/OntologyValueType.md#list) | **GET** /v2/ontologies/{ontology}/valueTypes |
 **Ontologies** | Query | [**execute**](docs/v2/Ontologies/Query.md#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute |
 **Ontologies** | QueryType | [**get**](docs/v2/Ontologies/QueryType.md#get) | **GET** /v2/ontologies/{ontology}/queryTypes/{queryApiName} |
 **Ontologies** | QueryType | [**list**](docs/v2/Ontologies/QueryType.md#list) | **GET** /v2/ontologies/{ontology}/queryTypes |
@@ -1312,6 +1314,8 @@ Namespace | Name | Import |
 **DataHealth** | [MedianDeviation](docs/v2/DataHealth/models/MedianDeviation.md) | `from foundry_sdk.v2.data_health.models import MedianDeviation` |
 **DataHealth** | [MedianDeviationBoundsType](docs/v2/DataHealth/models/MedianDeviationBoundsType.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationBoundsType` |
 **DataHealth** | [MedianDeviationConfig](docs/v2/DataHealth/models/MedianDeviationConfig.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationConfig` |
+**DataHealth** | [PrimaryKeyCheckConfig](docs/v2/DataHealth/models/PrimaryKeyCheckConfig.md) | `from foundry_sdk.v2.data_health.models import PrimaryKeyCheckConfig` |
+**DataHealth** | [PrimaryKeyConfig](docs/v2/DataHealth/models/PrimaryKeyConfig.md) | `from foundry_sdk.v2.data_health.models import PrimaryKeyConfig` |
 **DataHealth** | [SchemaComparisonCheckConfig](docs/v2/DataHealth/models/SchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonCheckConfig` |
 **DataHealth** | [SchemaComparisonConfig](docs/v2/DataHealth/models/SchemaComparisonConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonConfig` |
 **DataHealth** | [SchemaComparisonType](docs/v2/DataHealth/models/SchemaComparisonType.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonType` |
@@ -1828,6 +1832,7 @@ Namespace | Name | Import |
 **Ontologies** | [RangeConstraint](docs/v2/Ontologies/models/RangeConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangeConstraint` |
 **Ontologies** | [RangesConstraint](docs/v2/Ontologies/models/RangesConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangesConstraint` |
 **Ontologies** | [RegexConstraint](docs/v2/Ontologies/models/RegexConstraint.md) | `from foundry_sdk.v2.ontologies.models import RegexConstraint` |
+**Ontologies** | [RegexQuery](docs/v2/Ontologies/models/RegexQuery.md) | `from foundry_sdk.v2.ontologies.models import RegexQuery` |
 **Ontologies** | [RelativeTime](docs/v2/Ontologies/models/RelativeTime.md) | `from foundry_sdk.v2.ontologies.models import RelativeTime` |
 **Ontologies** | [RelativeTimeRange](docs/v2/Ontologies/models/RelativeTimeRange.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeRange` |
 **Ontologies** | [RelativeTimeRelation](docs/v2/Ontologies/models/RelativeTimeRelation.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeRelation` |

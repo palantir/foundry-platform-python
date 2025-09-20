@@ -9,29 +9,30 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-OrQueryV2 | or
-InQuery | in
-DoesNotIntersectPolygonQuery | doesNotIntersectPolygon
 LtQueryV2 | lt
 DoesNotIntersectBoundingBoxQuery | doesNotIntersectBoundingBox
-EqualsQueryV2 | eq
-ContainsAllTermsQuery | containsAllTerms
-GtQueryV2 | gt
 WildcardQuery | wildcard
 WithinDistanceOfQuery | withinDistanceOf
 WithinBoundingBoxQuery | withinBoundingBox
-ContainsQueryV2 | contains
 NotQueryV2 | not
 IntersectsBoundingBoxQuery | intersectsBoundingBox
 AndQueryV2 | and
-IsNullQueryV2 | isNull
 ContainsAllTermsInOrderPrefixLastTerm | containsAllTermsInOrderPrefixLastTerm
-ContainsAnyTermQuery | containsAnyTerm
 GteQueryV2 | gte
 ContainsAllTermsInOrderQuery | containsAllTermsInOrder
 WithinPolygonQuery | withinPolygon
 IntersectsPolygonQuery | intersectsPolygon
 LteQueryV2 | lte
+OrQueryV2 | or
+InQuery | in
+DoesNotIntersectPolygonQuery | doesNotIntersectPolygon
+EqualsQueryV2 | eq
+ContainsAllTermsQuery | containsAllTerms
+GtQueryV2 | gt
+ContainsQueryV2 | contains
+RegexQuery | regex
+IsNullQueryV2 | isNull
+ContainsAnyTermQuery | containsAnyTerm
 StartsWithQuery | startsWith
 
 

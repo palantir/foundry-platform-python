@@ -178,7 +178,7 @@ class AnthropicImageBase64Source(core.ModelBase):
     type: typing.Literal["base64"] = "base64"
 
 
-AnthropicMediaType = typing.Literal["image_jpeg", "image_png", "image_gif", "image_webp"]
+AnthropicMediaType = typing.Literal["IMAGE_JPEG", "IMAGE_PNG", "IMAGE_GIF", "IMAGE_WEBP"]
 """AnthropicMediaType"""
 
 
@@ -204,7 +204,7 @@ AnthropicMessageContent = typing_extensions.Annotated[
 """AnthropicMessageContent"""
 
 
-AnthropicMessageRole = typing.Literal["user", "assistant"]
+AnthropicMessageRole = typing.Literal["USER", "ASSISTANT"]
 """AnthropicMessageRole"""
 
 

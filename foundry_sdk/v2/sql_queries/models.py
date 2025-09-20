@@ -37,8 +37,9 @@ class ExecuteSqlQueryRequest(core.ModelBase):
     """
     The SQL query to execute. Queries should conform to the
     [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT
-    queries only. Refer the following [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
-    on the supported syntax for referencing datasets in SQL queries.
+    queries only. Datasets can be referenced in SQL queries by path or by RID. See the 
+    [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets)
+    for more details.
     """
 
     fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = pydantic.Field(alias=str("fallbackBranchIds"), default=None)  # type: ignore[literal-required]
