@@ -2515,6 +2515,19 @@ class RegexConstraint(core.ModelBase):
     type: typing.Literal["regex"] = "regex"
 
 
+class RegexQuery(core.ModelBase):
+    """
+    Returns objects where the specified field matches the regex pattern provided. This applies to the non-analyzed
+    form of text fields and supports standard regex syntax of * and ?.
+    Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    value: str
+    type: typing.Literal["regex"] = "regex"
+
+
 class RelativeTime(core.ModelBase):
     """A relative time, such as "3 days before" or "2 hours after" the current moment."""
 
@@ -2572,29 +2585,30 @@ SdkVersion = str
 
 SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
-        OrQueryV2,
-        InQuery,
-        DoesNotIntersectPolygonQuery,
         LtQueryV2,
         DoesNotIntersectBoundingBoxQuery,
-        EqualsQueryV2,
-        ContainsAllTermsQuery,
-        GtQueryV2,
         "WildcardQuery",
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
-        ContainsQueryV2,
         NotQueryV2,
         IntersectsBoundingBoxQuery,
         AndQueryV2,
-        IsNullQueryV2,
         ContainsAllTermsInOrderPrefixLastTerm,
-        ContainsAnyTermQuery,
         GteQueryV2,
         ContainsAllTermsInOrderQuery,
         "WithinPolygonQuery",
         IntersectsPolygonQuery,
         LteQueryV2,
+        OrQueryV2,
+        InQuery,
+        DoesNotIntersectPolygonQuery,
+        EqualsQueryV2,
+        ContainsAllTermsQuery,
+        GtQueryV2,
+        ContainsQueryV2,
+        RegexQuery,
+        IsNullQueryV2,
+        ContainsAnyTermQuery,
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -3769,6 +3783,7 @@ __all__ = [
     "RangeConstraint",
     "RangesConstraint",
     "RegexConstraint",
+    "RegexQuery",
     "RelativeTime",
     "RelativeTimeRange",
     "RelativeTimeRelation",

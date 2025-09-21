@@ -41,7 +41,7 @@ anthropic_model_model_id = None
 # int | The maximum number of tokens to generate before stopping.
 max_tokens = None
 # List[AnthropicMessage] | Input messages to the model. This can include a single user-role message or multiple messages with alternating user and assistant roles.
-messages = [{"role": "user"}]
+messages = [{"role": "USER"}]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[List[str]] | Custom text sequences that will cause the model to stop generating.

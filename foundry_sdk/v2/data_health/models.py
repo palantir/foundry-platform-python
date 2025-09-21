@@ -64,6 +64,7 @@ CheckConfig = typing_extensions.Annotated[
         BuildDurationCheckConfig,
         "SchemaComparisonCheckConfig",
         BuildStatusCheckConfig,
+        "PrimaryKeyCheckConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -172,6 +173,21 @@ class MedianDeviationConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+class PrimaryKeyCheckConfig(core.ModelBase):
+    """Checks the uniqueness and non-null values of one or more columns (primary key constraint)."""
+
+    subject: DatasetSubject
+    primary_key_config: PrimaryKeyConfig = pydantic.Field(alias=str("primaryKeyConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["primaryKey"] = "primaryKey"
+
+
+class PrimaryKeyConfig(core.ModelBase):
+    """Configuration for primary key validation with severity settings."""
+
+    column_names: typing.List[ColumnName] = pydantic.Field(alias=str("columnNames"))  # type: ignore[literal-required]
+    severity: SeverityLevel
+
+
 class SchemaComparisonCheckConfig(core.ModelBase):
     """Checks the dataset schema against an expected schema."""
 
@@ -274,6 +290,8 @@ __all__ = [
     "MedianDeviation",
     "MedianDeviationBoundsType",
     "MedianDeviationConfig",
+    "PrimaryKeyCheckConfig",
+    "PrimaryKeyConfig",
     "SchemaComparisonCheckConfig",
     "SchemaComparisonConfig",
     "SchemaComparisonType",

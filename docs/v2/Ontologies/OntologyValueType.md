@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/ontologies/{ontology}/valueTypes/{valueType} | Private Beta |
-[**list**](#list) | **GET** /v2/ontologies/{ontology}/valueTypes | Private Beta |
+[**get**](#get) | **GET** /v2/ontologies/{ontology}/valueTypes/{valueType} | Public Beta |
+[**list**](#list) | **GET** /v2/ontologies/{ontology}/valueTypes | Public Beta |
 
 # **get**
 Gets a specific value type with the given API name.

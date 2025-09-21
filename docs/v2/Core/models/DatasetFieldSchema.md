@@ -7,7 +7,7 @@ A field in a Foundry dataset.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **type** | SchemaFieldType | Yes |  |
-**name** | FieldName | Yes | The name of a column. May be absent in nested schema objects.  |
+**name** | Optional[FieldName] | No | The name of a column. May be absent in nested schema objects.  |
 **nullable** | bool | Yes | Indicates whether values of this field may be null.  |
 **user_defined_type_class** | Optional[str] | No | Canonical classname of the user-defined type for this field. This should be a subclass of Spark's `UserDefinedType`.  |
 **custom_metadata** | Optional[CustomMetadata] | No | User-supplied custom metadata about the column, such as Foundry web archetypes, descriptions, etc.  |
