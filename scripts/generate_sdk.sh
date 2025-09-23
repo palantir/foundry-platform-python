@@ -8,6 +8,7 @@ EXCLUDED_PATHS=(
     "scripts/parse_version.py"
     "config.json"
     ".policy.yml"
+    ".excavator.yml"
     "changelog"
     ".git"
     "tmp"
