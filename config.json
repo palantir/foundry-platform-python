@@ -197,7 +197,10 @@
         "LinkedObjectV2": "LinkedObject",
         "AttachmentPropertyV2": "AttachmentProperty"
       },
-      "skipTests": []
+      "skipTests": [],
+      "skipValidation": {
+        "Filesystem": ["ResourceType"]
+      }
     }
   }
 }
