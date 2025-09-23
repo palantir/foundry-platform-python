@@ -83,7 +83,7 @@ class ActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
@@ -158,7 +158,7 @@ class ActionClient:
         :type action: ActionTypeApiName
         :param requests:
         :type requests: List[BatchApplyActionRequestItem]
-        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]
@@ -278,7 +278,7 @@ class AsyncActionClient:
         :type action: ActionTypeApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
@@ -353,7 +353,7 @@ class AsyncActionClient:
         :type action: ActionTypeApiName
         :param requests:
         :type requests: List[BatchApplyActionRequestItem]
-        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used.
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[BatchApplyActionRequestOptions]

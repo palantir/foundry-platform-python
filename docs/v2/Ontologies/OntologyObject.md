@@ -21,7 +21,7 @@ Name | Type | Description  | Notes |
 **aggregation** | List[AggregationV2] |  |  |
 **group_by** | List[AggregationGroupByV2] |  |  |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
-**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **where** | Optional[SearchJsonQueryV2] |  | [optional] |
@@ -58,7 +58,7 @@ group_by = [
 ]
 # Optional[AggregationAccuracyRequest]
 accuracy = None
-# Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+# Optional[FoundryBranch] | The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
@@ -110,7 +110,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 
@@ -130,7 +130,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used.
+# Optional[FoundryBranch] | The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
@@ -177,7 +177,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **primary_key** | PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -201,7 +201,7 @@ ontology = "palantir"
 object_type = "employee"
 # PropertyValueEscapedString | The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
 primary_key = 50030
-# Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used.
+# Optional[FoundryBranch] | The Foundry branch to get the object from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[OrderBy] |  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
@@ -292,7 +292,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
 object_type = "employee"
-# Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used.
+# Optional[FoundryBranch] | The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
@@ -406,7 +406,7 @@ ontology = "palantir"
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 select = None
-# Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used.
+# Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
 exclude_rid = None

@@ -134,7 +134,7 @@ class OntologyClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -230,7 +230,7 @@ class OntologyClient:
         :type object_types: List[ObjectTypeApiName]
         :param query_types:
         :type query_types: List[VersionedQueryTypeApiName]
-        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -407,7 +407,7 @@ class AsyncOntologyClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -503,7 +503,7 @@ class AsyncOntologyClient:
         :type object_types: List[ObjectTypeApiName]
         :param query_types:
         :type query_types: List[VersionedQueryTypeApiName]
-        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]

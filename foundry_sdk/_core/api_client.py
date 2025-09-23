@@ -44,6 +44,7 @@ from urllib.parse import quote
 
 import httpx
 import pydantic
+from typing_extensions import Annotated
 from typing_extensions import NotRequired
 from typing_extensions import ParamSpec
 from typing_extensions import TypedDict
@@ -165,7 +166,33 @@ ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "TABLE"]
 # be extended without having to add additional parameters to the method signature.
 SdkInternal = TypedDict("SdkInternal", {"response_mode": NotRequired[ResponseMode]})
 
-ValueType = Union[Any, Type[bytes], Type[pydantic.BaseModel], None]
+
+BaseValueType = Union[Any, Type[bytes], Type[pydantic.BaseModel], None]
+ValueType = Union[BaseValueType, Annotated[Any, Any]]
+
+
+def _get_annotated_origin(_type: ValueType) -> ValueType:
+    """Get the underlying type from an Annotated type"""
+    if get_origin(_type) is Annotated:
+        args = get_args(_type)
+        if args:
+            return _get_annotated_origin(args[0])
+    return _type
+
+
+def _get_is_optional(_type: ValueType) -> Tuple[bool, ValueType]:
+    """Get the underlying type from an Annotated type"""
+    if get_origin(_type) is Union:
+        args = get_args(_type)
+        if len(args) == 2 and type(None) in args:
+            return True, _get_annotated_origin(args[0] if args[1] is type(None) else args[1])
+    return False, _type
+
+
+@functools.lru_cache(maxsize=64)
+def _get_type_adapter(_type: ValueType) -> pydantic.TypeAdapter:
+    """Get a cached TypeAdapter for the given type"""
+    return pydantic.TypeAdapter(_type)
 
 
 @dataclass(frozen=True)
@@ -257,28 +284,29 @@ class BaseApiResponse(Generic[T]):
 
     def decode(self) -> T:
         _type = self._request_info.response_type
+        is_optional, _type = _get_is_optional(_type)
+        origin_type = _get_annotated_origin(_type)
 
-        is_optional = get_origin(_type) is Union and type(None) in get_args(_type)
-
-        if _type is bytes or is_optional:
-            if is_optional and self._response.content == b"":
-                return cast(T, None)
-            else:
-                return cast(T, self._response.content)
-        elif _type is None:
+        if _type is None:
             return cast(T, None)
+
+        if is_optional and self._response.content == b"":
+            return cast(T, None)
+
+        if origin_type is bytes:
+            return cast(T, self._response.content)
 
         data = self.json()
 
-        if _type is Any:
+        if origin_type is Any:
             return data
 
-        if isclass(_type) and issubclass(_type, pydantic.BaseModel):
-            return cast(T, _type.model_validate(data))
+        # Check if the type is a BaseModel class
+        if isclass(origin_type) and issubclass(origin_type, pydantic.BaseModel):
+            return cast(T, origin_type.model_validate(data))
 
-        raise TypeError(
-            f"Expected _type to be a Any, bytes, None or a BaseModel, got {type(_type)}"
-        )
+        adapter = _get_type_adapter(_type)
+        return cast(T, adapter.validate_python(data))
 
 
 class ApiResponse(Generic[T], BaseApiResponse[T]):

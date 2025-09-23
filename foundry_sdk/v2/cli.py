@@ -6233,6 +6233,7 @@ def ontologies_ontology_object_set():
     type=str,
     required=False,
     help="""The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
@@ -6348,6 +6349,7 @@ def ontologies_ontology_object_set_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to load the object set from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6439,6 +6441,7 @@ def ontologies_ontology_object_set_op_load(
     type=str,
     required=False,
     help="""The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6544,6 +6547,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     type=str,
     required=False,
     help="""The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6660,6 +6664,7 @@ def ontologies_ontology_object():
     type=str,
     required=False,
     help="""The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6716,6 +6721,7 @@ def ontologies_ontology_object_op_aggregate(
     type=str,
     required=False,
     help="""The Foundry branch to count the objects from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6764,6 +6770,7 @@ def ontologies_ontology_object_op_count(
     type=str,
     required=False,
     help="""The Foundry branch to get the object from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6833,6 +6840,7 @@ def ontologies_ontology_object_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to list objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -6947,6 +6955,7 @@ def ontologies_ontology_object_op_list(
     type=str,
     required=False,
     help="""The Foundry branch to search objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7065,6 +7074,7 @@ def ontologies_ontology_interface():
     type=str,
     required=False,
     help="""The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7117,6 +7127,7 @@ def ontologies_ontology_interface_op_aggregate(
     type=str,
     required=False,
     help="""The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7156,6 +7167,7 @@ def ontologies_ontology_interface_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -7186,6 +7198,7 @@ def ontologies_ontology_interface_op_get_outgoing_interface_link_type(
     type=str,
     required=False,
     help="""The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7241,6 +7254,7 @@ def ontologies_ontology_interface_op_list(
     type=str,
     required=False,
     help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7345,6 +7359,7 @@ def ontologies_ontology_interface_op_list_interface_linked_objects(
     type=str,
     required=False,
     help="""The Foundry branch to list objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7434,6 +7449,7 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
     type=str,
     required=False,
     help="""The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -7506,6 +7522,7 @@ Omit this parameter to include all properties of the interface type in the respo
     type=str,
     required=False,
     help="""The Foundry branch to search objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option("--order_by", type=str, required=False, help="""""")
@@ -7617,6 +7634,7 @@ def ontologies_ontology_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to load metadata from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -7661,6 +7679,7 @@ def ontologies_ontology_op_list(
     type=str,
     required=False,
     help="""The Foundry branch to load metadata from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7797,6 +7816,7 @@ def ontologies_ontology_object_type():
     type=str,
     required=False,
     help="""The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -7826,6 +7846,7 @@ def ontologies_ontology_object_type_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7883,6 +7904,7 @@ def ontologies_ontology_object_type_op_get_full_metadata(
     type=str,
     required=False,
     help="""The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -7913,6 +7935,7 @@ def ontologies_ontology_object_type_op_get_outgoing_link_type(
     type=str,
     required=False,
     help="""The Foundry branch to list the object types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7957,6 +7980,7 @@ def ontologies_ontology_object_type_op_list(
     type=str,
     required=False,
     help="""The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -7999,6 +8023,7 @@ def ontologies_ontology_action_type():
     type=str,
     required=False,
     help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -8028,6 +8053,7 @@ def ontologies_ontology_action_type_op_get(
     type=str,
     required=False,
     help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.pass_obj
@@ -8056,6 +8082,7 @@ def ontologies_ontology_action_type_op_get_by_rid(
     type=str,
     required=False,
     help="""The Foundry branch to list the action types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -8306,6 +8333,7 @@ def ontologies_linked_object():
     type=str,
     required=False,
     help="""The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -8383,6 +8411,7 @@ def ontologies_linked_object_op_get_linked_object(
     type=str,
     required=False,
     help="""The Foundry branch to list linked objects from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
@@ -8798,6 +8827,7 @@ def ontologies_action():
     type=str,
     required=False,
     help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option("--options", type=str, required=False, help="""""")
@@ -8860,6 +8890,7 @@ def ontologies_action_op_apply(
     type=str,
     required=False,
     help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option("--options", type=str, required=False, help="""""")

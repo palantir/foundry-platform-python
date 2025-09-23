@@ -66,7 +66,7 @@ class ActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -115,7 +115,7 @@ class ActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -166,7 +166,7 @@ class ActionTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -266,7 +266,7 @@ class AsyncActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type: The name of the action type in the API.
         :type action_type: ActionTypeApiName
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -315,7 +315,7 @@ class AsyncActionTypeClient:
         :type ontology: OntologyIdentifier
         :param action_type_rid: The RID of the action type.
         :type action_type_rid: ActionTypeRid
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -366,7 +366,7 @@ class AsyncActionTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]

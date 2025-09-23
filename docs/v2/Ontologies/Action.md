@@ -25,7 +25,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -48,7 +48,7 @@ ontology = "palantir"
 action = "rename-employee"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
-# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
+# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[ApplyActionRequestOptions]
 options = None
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
 **requests** | List[BatchApplyActionRequestItem] |  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **options** | Optional[BatchApplyActionRequestOptions] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
@@ -133,7 +133,7 @@ requests = [
     {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}},
     {"parameters": {"id": 80061, "newName": "Joe Bloggs"}},
 ]
-# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used.
+# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[BatchApplyActionRequestOptions]
 options = None
