@@ -16,5 +16,6 @@
 from foundry_sdk.v2.ontologies._client import OntologiesClient
 
 __all__ = [
+    "AsyncOntologiesClient",
     "OntologiesClient",
 ]
