@@ -64,7 +64,7 @@ Get the full Ontology metadata. This includes the objects, links, actions, queri
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 
 ### Return type
 **OntologyFullMetadata**
@@ -80,7 +80,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier
 ontology = "palantir"
-# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.
+# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes |
 **link_types** | List[LinkTypeApiName] |  |  |
 **object_types** | List[ObjectTypeApiName] |  |  |
 **query_types** | List[VersionedQueryTypeApiName] |  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -191,7 +191,7 @@ link_types = None
 object_types = None
 # List[VersionedQueryTypeApiName]
 query_types = None
-# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used.
+# Optional[FoundryBranch] | The Foundry branch to load metadata from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None

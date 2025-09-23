@@ -78,7 +78,7 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
@@ -258,7 +258,7 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -358,7 +358,7 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -462,7 +462,7 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -626,7 +626,7 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
@@ -806,7 +806,7 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -906,7 +906,7 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -1010,7 +1010,7 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]

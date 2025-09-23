@@ -78,7 +78,7 @@ class OntologyObjectClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
@@ -143,7 +143,7 @@ class OntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
@@ -205,7 +205,7 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -287,7 +287,7 @@ class OntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -393,7 +393,7 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -535,7 +535,7 @@ class AsyncOntologyObjectClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
@@ -600,7 +600,7 @@ class AsyncOntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to count the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
@@ -662,7 +662,7 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param primary_key: The primary key of the requested object. To look up the expected primary key for your object type, use the `Get object type` endpoint or the **Ontology Manager**.
         :type primary_key: PropertyValueEscapedString
-        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used.
+        :param branch: The Foundry branch to get the object from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -744,7 +744,7 @@ class AsyncOntologyObjectClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -850,7 +850,7 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]

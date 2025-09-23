@@ -66,7 +66,7 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -118,7 +118,7 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -179,7 +179,7 @@ class ObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -232,7 +232,7 @@ class ObjectTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -288,7 +288,7 @@ class ObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]
@@ -407,7 +407,7 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the object type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -459,7 +459,7 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the action type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -520,7 +520,7 @@ class AsyncObjectTypeClient:
         :type object_type: ObjectTypeApiName
         :param link_type: The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.
         :type link_type: LinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -573,7 +573,7 @@ class AsyncObjectTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -629,7 +629,7 @@ class AsyncObjectTypeClient:
         :type ontology: OntologyIdentifier
         :param object_type: The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.
         :type object_type: ObjectTypeApiName
-        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the outgoing link types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned.
         :type page_size: Optional[PageSize]

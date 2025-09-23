@@ -117,14 +117,14 @@ def get_mock_awaitable(return_value):
 def create_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
     client = ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
     client._session.build_request = Mock(wraps=client._session.build_request)
-    client._session.send = Mock(return_value=AttrDict(status_code=200, headers={}))
+    client._session.send = Mock(return_value=AttrDict(status_code=200, content=b"", headers={}))
     return client
 
 
 def create_async_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
     client = AsyncApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
     client._client.build_request = Mock(wraps=client._client.build_request)
-    client._client.send = get_mock_awaitable(AttrDict(status_code=200, headers={}))
+    client._client.send = get_mock_awaitable(AttrDict(status_code=200, content=b"", headers={}))
     return client
 
 

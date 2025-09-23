@@ -82,7 +82,7 @@ class OntologyInterfaceClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -143,7 +143,7 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -198,7 +198,7 @@ class OntologyInterfaceClient:
         :type interface_type: InterfaceTypeApiName
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -251,7 +251,7 @@ class OntologyInterfaceClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -336,7 +336,7 @@ class OntologyInterfaceClient:
         :type primary_key: PropertyValueEscapedString
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -427,7 +427,7 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -494,7 +494,7 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -598,7 +598,7 @@ class OntologyInterfaceClient:
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
         :type selected_shared_property_types: List[SharedPropertyTypeApiName]
-        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
@@ -775,7 +775,7 @@ class AsyncOntologyInterfaceClient:
         :type group_by: List[AggregationGroupByV2]
         :param accuracy:
         :type accuracy: Optional[AggregationAccuracyRequest]
-        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to aggregate objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -836,7 +836,7 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to load the interface type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
@@ -891,7 +891,7 @@ class AsyncOntologyInterfaceClient:
         :type interface_type: InterfaceTypeApiName
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -944,7 +944,7 @@ class AsyncOntologyInterfaceClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list the interface types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
@@ -1029,7 +1029,7 @@ class AsyncOntologyInterfaceClient:
         :type primary_key: PropertyValueEscapedString
         :param interface_link_type: The API name of the outgoing interface link. To find the API name for your interface link type, check the **Ontology Manager** page for the  parent interface.
         :type interface_link_type: InterfaceLinkTypeApiName
-        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -1120,7 +1120,7 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to list objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property.  Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
@@ -1187,7 +1187,7 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager** application.
         :type interface_type: InterfaceTypeApiName
-        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to get the outgoing link type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1291,7 +1291,7 @@ class AsyncOntologyInterfaceClient:
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
         :type selected_shared_property_types: List[SharedPropertyTypeApiName]
-        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used.
+        :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
