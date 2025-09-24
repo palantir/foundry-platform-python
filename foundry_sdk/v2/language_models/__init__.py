@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
+from foundry_sdk.v2.language_models._client import AsyncLanguageModelsClient
 from foundry_sdk.v2.language_models._client import LanguageModelsClient
 
 __all__ = [
     "LanguageModelsClient",
+    "AsyncLanguageModelsClient",
 ]

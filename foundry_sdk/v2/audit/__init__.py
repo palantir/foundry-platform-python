@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
+from foundry_sdk.v2.audit._client import AsyncAuditClient
 from foundry_sdk.v2.audit._client import AuditClient
 
 __all__ = [
     "AuditClient",
+    "AsyncAuditClient",
 ]

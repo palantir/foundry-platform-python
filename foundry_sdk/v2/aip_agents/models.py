@@ -626,6 +626,8 @@ ToolType = typing.Literal[
     "OBJECT_QUERY",
     "UPDATE_APPLICATION_VARIABLE",
     "REQUEST_CLARIFICATION",
+    "OBJECT_QUERY_WITH_SQL",
+    "CODE_EXECUTION",
 ]
 """ToolType"""
 

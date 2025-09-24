@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
+from foundry_sdk.v2.data_health._client import AsyncDataHealthClient
 from foundry_sdk.v2.data_health._client import DataHealthClient
 
 __all__ = [
     "DataHealthClient",
+    "AsyncDataHealthClient",
 ]

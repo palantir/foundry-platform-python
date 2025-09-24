@@ -13,8 +13,10 @@
 #  limitations under the License.
 
 
+from foundry_sdk.v2.orchestration._client import AsyncOrchestrationClient
 from foundry_sdk.v2.orchestration._client import OrchestrationClient
 
 __all__ = [
     "OrchestrationClient",
+    "AsyncOrchestrationClient",
 ]

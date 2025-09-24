@@ -495,7 +495,7 @@ class DatasetClient:
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> bytes:
+    ) -> core.TableResponse:
         """
         Gets the content of a dataset as a table in the specified format.
 
@@ -518,7 +518,8 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: bytes
+        :rtype: core.TableResponse
+
 
         :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
         :raises DatasetReadNotSupported: The dataset does not support being read.
@@ -561,7 +562,7 @@ class DatasetClient:
                     "ReadTableTimeout": datasets_errors.ReadTableTimeout,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "TABLE"),
             ),
         )
 
@@ -1133,39 +1134,40 @@ class AsyncDatasetClient:
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[bytes]:
+    ) -> typing.Awaitable[core.TableResponse]:
         """
-        Gets the content of a dataset as a table in the specified format.
+                Gets the content of a dataset as a table in the specified format.
 
-        This endpoint currently does not support views (virtual datasets composed of other datasets).
+                This endpoint currently does not support views (virtual datasets composed of other datasets).
 
-        :param dataset_rid:
-        :type dataset_rid: DatasetRid
-        :param format: The export format. Must be `ARROW` or `CSV`.
-        :type format: TableExportFormat
-        :param branch_name: The name of the Branch.
-        :type branch_name: Optional[BranchName]
-        :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
-        :type columns: Optional[List[str]]
-        :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
-        :type end_transaction_rid: Optional[TransactionRid]
-        :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
-        :type row_limit: Optional[int]
-        :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
-        :type start_transaction_rid: Optional[TransactionRid]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[bytes]
+                :param dataset_rid:
+                :type dataset_rid: DatasetRid
+                :param format: The export format. Must be `ARROW` or `CSV`.
+                :type format: TableExportFormat
+                :param branch_name: The name of the Branch.
+                :type branch_name: Optional[BranchName]
+                :param columns: A subset of the dataset columns to include in the result. Defaults to all columns.
+                :type columns: Optional[List[str]]
+                :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
+                :type end_transaction_rid: Optional[TransactionRid]
+                :param row_limit: A limit on the number of rows to return. Note that row ordering is non-deterministic.
+                :type row_limit: Optional[int]
+                :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
+                :type start_transaction_rid: Optional[TransactionRid]
+                :param request_timeout: timeout setting for this request in seconds.
+                :type request_timeout: Optional[int]
+                :return: Returns the result object.
+                :rtype: typing.Awaitable[core.TableResponse
+        ]
 
-        :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
-        :raises DatasetReadNotSupported: The dataset does not support being read.
-        :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
-        :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
-        :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
-        :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
-        :raises ReadTableTimeout: The request to read the table timed out.
-        :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
+                :raises ColumnTypesNotSupported: The dataset contains column types that are not supported.
+                :raises DatasetReadNotSupported: The dataset does not support being read.
+                :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
+                :raises ReadTableDatasetPermissionDenied: The provided token does not have permission to read the given dataset as a table.
+                :raises ReadTableError: An error occurred while reading the table. Refer to the message for more details.
+                :raises ReadTableRowLimitExceeded: The request to read the table generates a result that exceeds the allowed number of rows. For datasets not stored as Parquet there is a limit of 1 million rows. For datasets stored as Parquet there is no limit.
+                :raises ReadTableTimeout: The request to read the table timed out.
+                :raises SchemaNotFound: A schema could not be found for the given dataset and branch, or the client token does not have access to it.
         """
 
         return self._api_client.call_api(
@@ -1199,7 +1201,7 @@ class AsyncDatasetClient:
                     "ReadTableTimeout": datasets_errors.ReadTableTimeout,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "TABLE"),
             ),
         )
 

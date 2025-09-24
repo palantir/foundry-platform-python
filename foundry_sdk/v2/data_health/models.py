@@ -60,6 +60,7 @@ CheckConfig = typing_extensions.Annotated[
         "ColumnTypeCheckConfig",
         "JobStatusCheckConfig",
         "JobDurationCheckConfig",
+        "NullPercentageCheckConfig",
         "TotalColumnCountCheckConfig",
         BuildDurationCheckConfig,
         "SchemaComparisonCheckConfig",
@@ -171,6 +172,46 @@ class MedianDeviationConfig(core.ModelBase):
 
     median_deviation: MedianDeviation = pydantic.Field(alias=str("medianDeviation"))  # type: ignore[literal-required]
     severity: SeverityLevel
+
+
+class NullPercentageCheckConfig(core.ModelBase):
+    """Checks the percentage of null values in a specific column."""
+
+    subject: DatasetSubject
+    percentage_check_config: PercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["nullPercentage"] = "nullPercentage"
+
+
+class PercentageBounds(core.ModelBase):
+    """The configuration for the range of percentage values between which the health check is expected to succeed."""
+
+    lower_bound_percentage: typing.Optional[PercentageValue] = pydantic.Field(alias=str("lowerBoundPercentage"), default=None)  # type: ignore[literal-required]
+    upper_bound_percentage: typing.Optional[PercentageValue] = pydantic.Field(alias=str("upperBoundPercentage"), default=None)  # type: ignore[literal-required]
+
+
+class PercentageBoundsConfig(core.ModelBase):
+    """Configuration for percentage bounds check with severity settings."""
+
+    percentage_bounds: PercentageBounds = pydantic.Field(alias=str("percentageBounds"))  # type: ignore[literal-required]
+    severity: SeverityLevel
+
+
+class PercentageCheckConfig(core.ModelBase):
+    """Configuration for percentage-based checks (such as null percentage)."""
+
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    percentage_bounds: typing.Optional[PercentageBoundsConfig] = pydantic.Field(alias=str("percentageBounds"), default=None)  # type: ignore[literal-required]
+    median_deviation: typing.Optional[MedianDeviationConfig] = pydantic.Field(alias=str("medianDeviation"), default=None)  # type: ignore[literal-required]
+
+
+PercentageValue = float
+"""
+A percentage value in the range 0.0 to 100.0.
+
+Validation rules:
+ * must be greater than or equal to 0.0
+ * must be less than or equal to 100.0
+"""
 
 
 class PrimaryKeyCheckConfig(core.ModelBase):
@@ -290,6 +331,11 @@ __all__ = [
     "MedianDeviation",
     "MedianDeviationBoundsType",
     "MedianDeviationConfig",
+    "NullPercentageCheckConfig",
+    "PercentageBounds",
+    "PercentageBoundsConfig",
+    "PercentageCheckConfig",
+    "PercentageValue",
     "PrimaryKeyCheckConfig",
     "PrimaryKeyConfig",
     "SchemaComparisonCheckConfig",

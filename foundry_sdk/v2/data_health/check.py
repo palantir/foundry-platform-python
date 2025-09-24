@@ -76,6 +76,7 @@ class CheckClient:
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
         :raises CreateCheckPermissionDenied: Could not create the Check.
         :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
         """
 
@@ -101,6 +102,7 @@ class CheckClient:
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -279,6 +281,7 @@ class AsyncCheckClient:
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
         :raises CreateCheckPermissionDenied: Could not create the Check.
         :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
         """
 
@@ -304,6 +307,7 @@ class AsyncCheckClient:
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
