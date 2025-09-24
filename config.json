@@ -200,7 +200,11 @@
       "skipTests": [],
       "skipValidation": {
         "Filesystem": ["ResourceType"]
-      }
+      },
+      "tableOperations": [
+        "readTableDataset",
+        "getResultsSqlQuery"
+      ]
     }
   }
 }
