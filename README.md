@@ -192,6 +192,7 @@ Want to learn more about this Foundry SDK library? Review the following sections
 ↳ [Error handling](#errors): Learn more about HTTP & data validation error handling  
 ↳ [Pagination](#pagination): Learn how to work with paginated endpoints in the SDK  
 ↳ [Streaming](#binary-streaming): Learn how to stream binary data from Foundry  
+↳ [Data Frames](#data-frames): Learn how to work with tabular data using data frame libraries  
 ↳ [Static type analysis](#static-types): Learn about the static type analysis capabilities of this library  
 ↳ [HTTP Session Configuration](#session-config): Learn how to configure the HTTP session.  
 
@@ -440,6 +441,59 @@ with open("result.png", "wb") as f:
 
 ```
 
+<a id="data-frames"></a>
+## Data Frames
+
+This SDK supports working with tabular data using popular Python data frame libraries. When an API endpoint returns data in Arrow IPC format, the response is wrapped in an `TableResponse` class that provides methods to convert to various data frame formats:
+
+- `to_pyarrow()`: Converts to a PyArrow Table
+- `to_pandas()`: Converts to a Pandas DataFrame
+- `to_polars()`: Converts to a Polars DataFrame
+- `to_duckdb()`: Converts to a DuckDB relation
+
+This allows you to seamlessly work with Foundry tabular data using your preferred data analysis library.
+
+### Example: Working with Data Frames
+
+```python
+# Read tabular data in Arrow format
+table_data = client.datasets.Dataset.read_table(dataset_rid, format=format, branch_name=branch_name, columns=columns, end_transaction_rid=end_transaction_rid, row_limit=row_limit, start_transaction_rid=start_transaction_rid)
+
+# Convert to pandas DataFrame for data analysis
+pandas_df = table_data.to_pandas()
+
+# Perform data analysis operations
+summary = pandas_df.describe()
+filtered_data = pandas_df[pandas_df["value"] > 100]
+
+# Or use Polars for high-performance data operations
+import polars as pl
+polars_df = table_data.to_polars()
+result = polars_df.filter(pl.col("value") > 100).group_by("category").agg(pl.sum("amount"))
+
+# Or use DuckDB for SQL-based analysis
+import duckdb
+duckdb_relation = table_data.to_duckdb()
+result = duckdb_relation.query("SELECT category, SUM(amount) FROM duckdb_relation WHERE value > 100 GROUP BY category")
+```
+
+You can inclue the extra dependencies using:
+
+```bash
+# For pyarrow support
+pip install foundry-platform-sdk[pyarrow]
+
+# For pandas support
+pip install foundry-platform-sdk[pandas]
+
+# For polars support
+pip install foundry-platform-sdk[polars]
+
+# For duckdb support
+pip install foundry-platform-sdk[duckdb]
+```
+
+If you attempt to use a conversion method without the required dependency installed, the SDK will provide a helpful error message with installation instructions.
 
 <a id="static-types"></a>
 ## Static type analysis
@@ -1314,6 +1368,11 @@ Namespace | Name | Import |
 **DataHealth** | [MedianDeviation](docs/v2/DataHealth/models/MedianDeviation.md) | `from foundry_sdk.v2.data_health.models import MedianDeviation` |
 **DataHealth** | [MedianDeviationBoundsType](docs/v2/DataHealth/models/MedianDeviationBoundsType.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationBoundsType` |
 **DataHealth** | [MedianDeviationConfig](docs/v2/DataHealth/models/MedianDeviationConfig.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationConfig` |
+**DataHealth** | [NullPercentageCheckConfig](docs/v2/DataHealth/models/NullPercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NullPercentageCheckConfig` |
+**DataHealth** | [PercentageBounds](docs/v2/DataHealth/models/PercentageBounds.md) | `from foundry_sdk.v2.data_health.models import PercentageBounds` |
+**DataHealth** | [PercentageBoundsConfig](docs/v2/DataHealth/models/PercentageBoundsConfig.md) | `from foundry_sdk.v2.data_health.models import PercentageBoundsConfig` |
+**DataHealth** | [PercentageCheckConfig](docs/v2/DataHealth/models/PercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import PercentageCheckConfig` |
+**DataHealth** | [PercentageValue](docs/v2/DataHealth/models/PercentageValue.md) | `from foundry_sdk.v2.data_health.models import PercentageValue` |
 **DataHealth** | [PrimaryKeyCheckConfig](docs/v2/DataHealth/models/PrimaryKeyCheckConfig.md) | `from foundry_sdk.v2.data_health.models import PrimaryKeyCheckConfig` |
 **DataHealth** | [PrimaryKeyConfig](docs/v2/DataHealth/models/PrimaryKeyConfig.md) | `from foundry_sdk.v2.data_health.models import PrimaryKeyConfig` |
 **DataHealth** | [SchemaComparisonCheckConfig](docs/v2/DataHealth/models/SchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonCheckConfig` |
@@ -2457,7 +2516,10 @@ Namespace | Name | Import |
 **DataHealth** | CheckNotFound | `from foundry_sdk.v2.data_health.errors import CheckNotFound` |
 **DataHealth** | CreateCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import CreateCheckPermissionDenied` |
 **DataHealth** | DeleteCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import DeleteCheckPermissionDenied` |
+**DataHealth** | InvalidPercentageCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidPercentageCheckConfig` |
 **DataHealth** | InvalidTimeCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidTimeCheckConfig` |
+**DataHealth** | PercentageValueAboveMaximum | `from foundry_sdk.v2.data_health.errors import PercentageValueAboveMaximum` |
+**DataHealth** | PercentageValueBelowMinimum | `from foundry_sdk.v2.data_health.errors import PercentageValueBelowMinimum` |
 **Datasets** | AbortTransactionPermissionDenied | `from foundry_sdk.v2.datasets.errors import AbortTransactionPermissionDenied` |
 **Datasets** | AddBackingDatasetsPermissionDenied | `from foundry_sdk.v2.datasets.errors import AddBackingDatasetsPermissionDenied` |
 **Datasets** | AddPrimaryKeyPermissionDenied | `from foundry_sdk.v2.datasets.errors import AddPrimaryKeyPermissionDenied` |

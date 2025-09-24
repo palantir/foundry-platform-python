@@ -83,6 +83,19 @@ class DeleteCheckPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InvalidPercentageCheckConfigParameters(typing_extensions.TypedDict):
+    """The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidPercentageCheckConfig(errors.BadRequestError):
+    name: typing.Literal["InvalidPercentageCheckConfig"]
+    parameters: InvalidPercentageCheckConfigParameters
+    error_instance_id: str
+
+
 class InvalidTimeCheckConfigParameters(typing_extensions.TypedDict):
     """The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation."""
 
@@ -96,10 +109,51 @@ class InvalidTimeCheckConfig(errors.BadRequestError):
     error_instance_id: str
 
 
+class PercentageValueAboveMaximumParameters(typing_extensions.TypedDict):
+    """PercentageValue must be less than or equal to 100.0"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: float
+    """The value that was provided."""
+
+    maxInclusive: float
+    """The maximum value allowed."""
+
+
+@dataclass
+class PercentageValueAboveMaximum(errors.BadRequestError):
+    name: typing.Literal["PercentageValueAboveMaximum"]
+    parameters: PercentageValueAboveMaximumParameters
+    error_instance_id: str
+
+
+class PercentageValueBelowMinimumParameters(typing_extensions.TypedDict):
+    """PercentageValue must be greater than or equal to 0.0"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: float
+    """The value that was provided."""
+
+    minInclusive: float
+    """The minimum value allowed."""
+
+
+@dataclass
+class PercentageValueBelowMinimum(errors.BadRequestError):
+    name: typing.Literal["PercentageValueBelowMinimum"]
+    parameters: PercentageValueBelowMinimumParameters
+    error_instance_id: str
+
+
 __all__ = [
     "CheckAlreadyExists",
     "CheckNotFound",
     "CreateCheckPermissionDenied",
     "DeleteCheckPermissionDenied",
+    "InvalidPercentageCheckConfig",
     "InvalidTimeCheckConfig",
+    "PercentageValueAboveMaximum",
+    "PercentageValueBelowMinimum",
 ]

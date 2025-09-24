@@ -13,6 +13,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 ColumnTypeCheckConfig | columnType
 JobStatusCheckConfig | jobStatus
 JobDurationCheckConfig | jobDuration
+NullPercentageCheckConfig | nullPercentage
 TotalColumnCountCheckConfig | totalColumnCount
 BuildDurationCheckConfig | buildDuration
 SchemaComparisonCheckConfig | schemaComparison

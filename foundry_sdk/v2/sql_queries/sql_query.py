@@ -186,7 +186,7 @@ class SqlQueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> bytes:
+    ) -> core.TableResponse:
         """
         Gets the results of a query. The results of the query are returned in the
         [Apache Arrow](https://arrow.apache.org/) format.
@@ -201,7 +201,8 @@ class SqlQueryClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: bytes
+        :rtype: core.TableResponse
+
 
         :raises GetResultsSqlQueryPermissionDenied: Could not getResults the SqlQuery.
         :raises QueryCanceled: The query was canceled.
@@ -237,7 +238,7 @@ class SqlQueryClient:
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "TABLE"),
             ),
         )
 
@@ -487,30 +488,31 @@ class AsyncSqlQueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[bytes]:
+    ) -> typing.Awaitable[core.TableResponse]:
         """
-        Gets the results of a query. The results of the query are returned in the
-        [Apache Arrow](https://arrow.apache.org/) format.
+                Gets the results of a query. The results of the query are returned in the
+                [Apache Arrow](https://arrow.apache.org/) format.
 
-        This endpoint implements long polling and requests will time out after one minute. They can be safely
-        retried while the query is still running.
+                This endpoint implements long polling and requests will time out after one minute. They can be safely
+                retried while the query is still running.
 
-        :param sql_query_id: The id of a query.
-        :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[bytes]
+                :param sql_query_id: The id of a query.
+                :type sql_query_id: SqlQueryId
+                :param preview: Enables the use of preview functionality.
+                :type preview: Optional[PreviewMode]
+                :param request_timeout: timeout setting for this request in seconds.
+                :type request_timeout: Optional[int]
+                :return: Returns the result object.
+                :rtype: typing.Awaitable[core.TableResponse
+        ]
 
-        :raises GetResultsSqlQueryPermissionDenied: Could not getResults the SqlQuery.
-        :raises QueryCanceled: The query was canceled.
-        :raises QueryFailed: The query failed.
-        :raises QueryParseError: The query cannot be parsed.
-        :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
-        :raises QueryRunning: The query is running.
-        :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
+                :raises GetResultsSqlQueryPermissionDenied: Could not getResults the SqlQuery.
+                :raises QueryCanceled: The query was canceled.
+                :raises QueryFailed: The query failed.
+                :raises QueryParseError: The query cannot be parsed.
+                :raises QueryPermissionDenied: The provided token does not have permission to access the given query.
+                :raises QueryRunning: The query is running.
+                :raises ReadQueryInputsPermissionDenied: The provided token does not have permission to access the inputs to the query.
         """
 
         return self._api_client.call_api(
@@ -538,7 +540,7 @@ class AsyncSqlQueryClient:
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "TABLE"),
             ),
         )
 

@@ -436,6 +436,28 @@ Name | Type | Description  | Notes |
 ### Return type
 **bytes**
 
+> [!TIP]
+> This operation returns tabular data that can be converted to data frame formats:
+>
+> ```python
+> # Get data in Arrow format
+> table_data = client.datasets.Dataset.read_table(dataset_rid, format=format, branch_name=branch_name, columns=columns, end_transaction_rid=end_transaction_rid, row_limit=row_limit, start_transaction_rid=start_transaction_rid)
+>
+> # Convert to a PyArrow Table
+> arrow_table = table_data.to_pyarrow()
+>
+> # Convert to a Pandas DataFrame
+> pandas_df = table_data.to_pandas()
+>
+> # Convert to a Polars DataFrame
+> polars_df = table_data.to_polars()
+>
+> # Convert to a DuckDB relation
+> duckdb_relation = table_data.to_duckdb()
+> ```
+>
+> For more details, see the [Data Frames section](../../../README.md#data-frames) in the README.
+
 ### Example
 
 ```python
