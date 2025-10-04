@@ -40,6 +40,27 @@ class AbsoluteValuePropertyExpression(core.ModelBase):
     type: typing.Literal["absoluteValue"] = "absoluteValue"
 
 
+ActionLogicRule = typing_extensions.Annotated[
+    typing.Union[
+        "ModifyInterfaceLogicRule",
+        "CreateOrModifyObjectLogicRule",
+        "ModifyObjectLogicRule",
+        "DeleteLinkLogicRule",
+        "CreateObjectLogicRule",
+        "CreateLinkLogicRule",
+        "BatchedFunctionLogicRule",
+        "CreateOrModifyObjectLogicRuleV2",
+        "DeleteInterfaceLinkLogicRule",
+        "DeleteObjectLogicRule",
+        "FunctionLogicRule",
+        "CreateInterfaceLinkLogicRule",
+        "CreateInterfaceLogicRule",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""A detailed operation for an Action"""
+
+
 class ActionParameterArrayType(core.ModelBase):
     """ActionParameterArrayType"""
 
@@ -98,6 +119,13 @@ ActionTypeApiName = str
 The name of the action type in the API. To find the API name for your Action Type, use the `List action types`
 endpoint or check the **Ontology Manager**.
 """
+
+
+class ActionTypeFullMetadata(core.ModelBase):
+    """Returns the full metadata for an Action type in the Ontology."""
+
+    action_type: ActionTypeV2 = pydantic.Field(alias=str("actionType"))  # type: ignore[literal-required]
+    full_logic_rule: ActionLogicRule = pydantic.Field(alias=str("fullLogicRule"))  # type: ignore[literal-required]
 
 
 ActionTypeRid = core.RID
@@ -167,6 +195,13 @@ class AddPropertyExpression(core.ModelBase):
 
     properties: typing.List[DerivedPropertyDefinition]
     type: typing.Literal["add"] = "add"
+
+
+class Affix(core.ModelBase):
+    """Affix"""
+
+    prefix: typing.Optional[PropertyTypeReferenceOrStringConstant] = None
+    postfix: typing.Optional[PropertyTypeReferenceOrStringConstant] = None
 
 
 class AggregateObjectSetRequestV2(core.ModelBase):
@@ -493,6 +528,14 @@ BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
 """BatchReturnEditsMode"""
 
 
+class BatchedFunctionLogicRule(core.ModelBase):
+    """BatchedFunctionLogicRule"""
+
+    object_set_rid_input_name: FunctionParameterName = pydantic.Field(alias=str("objectSetRidInputName"))  # type: ignore[literal-required]
+    function_rule: FunctionLogicRule = pydantic.Field(alias=str("functionRule"))  # type: ignore[literal-required]
+    type: typing.Literal["batchedFunction"] = "batchedFunction"
+
+
 class BlueprintIcon(core.ModelBase):
     """BlueprintIcon"""
 
@@ -605,11 +648,40 @@ class CountObjectsResponseV2(core.ModelBase):
     count: typing.Optional[int] = None
 
 
+class CreateInterfaceLinkLogicRule(core.ModelBase):
+    """CreateInterfaceLinkLogicRule"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    interface_link_type_api_name: InterfaceLinkTypeApiName = pydantic.Field(alias=str("interfaceLinkTypeApiName"))  # type: ignore[literal-required]
+    source_object: ParameterId = pydantic.Field(alias=str("sourceObject"))  # type: ignore[literal-required]
+    target_object: ParameterId = pydantic.Field(alias=str("targetObject"))  # type: ignore[literal-required]
+    type: typing.Literal["createInterfaceLink"] = "createInterfaceLink"
+
+
+class CreateInterfaceLogicRule(core.ModelBase):
+    """CreateInterfaceLogicRule"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    object_type: ParameterId = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
+    shared_property_arguments: typing.Dict[SharedPropertyTypeApiName, LogicRuleArgument] = pydantic.Field(alias=str("sharedPropertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[SharedPropertyTypeApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
+    type: typing.Literal["createInterface"] = "createInterface"
+
+
 class CreateInterfaceObjectRule(core.ModelBase):
     """CreateInterfaceObjectRule"""
 
     interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createInterfaceObject"] = "createInterfaceObject"
+
+
+class CreateLinkLogicRule(core.ModelBase):
+    """CreateLinkLogicRule"""
+
+    link_type_api_name: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiName"))  # type: ignore[literal-required]
+    source_object: ParameterId = pydantic.Field(alias=str("sourceObject"))  # type: ignore[literal-required]
+    target_object: ParameterId = pydantic.Field(alias=str("targetObject"))  # type: ignore[literal-required]
+    type: typing.Literal["createLink"] = "createLink"
 
 
 class CreateLinkRule(core.ModelBase):
@@ -622,11 +694,38 @@ class CreateLinkRule(core.ModelBase):
     type: typing.Literal["createLink"] = "createLink"
 
 
+class CreateObjectLogicRule(core.ModelBase):
+    """CreateObjectLogicRule"""
+
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    property_arguments: typing.Dict[PropertyApiName, LogicRuleArgument] = pydantic.Field(alias=str("propertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[PropertyApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
+    type: typing.Literal["createObject"] = "createObject"
+
+
 class CreateObjectRule(core.ModelBase):
     """CreateObjectRule"""
 
     object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
     type: typing.Literal["createObject"] = "createObject"
+
+
+class CreateOrModifyObjectLogicRule(core.ModelBase):
+    """CreateOrModifyObjectLogicRule"""
+
+    object_type_api_name: ObjectTypeApiName = pydantic.Field(alias=str("objectTypeApiName"))  # type: ignore[literal-required]
+    property_arguments: typing.Dict[PropertyApiName, LogicRuleArgument] = pydantic.Field(alias=str("propertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[PropertyApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
+    type: typing.Literal["createOrModifyObject"] = "createOrModifyObject"
+
+
+class CreateOrModifyObjectLogicRuleV2(core.ModelBase):
+    """CreateOrModifyObjectLogicRuleV2"""
+
+    object_to_modify: ParameterId = pydantic.Field(alias=str("objectToModify"))  # type: ignore[literal-required]
+    property_arguments: typing.Dict[PropertyApiName, LogicRuleArgument] = pydantic.Field(alias=str("propertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[PropertyApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
+    type: typing.Literal["createOrModifyObjectV2"] = "createOrModifyObjectV2"
 
 
 class CreateTemporaryObjectSetRequestV2(core.ModelBase):
@@ -639,6 +738,18 @@ class CreateTemporaryObjectSetResponseV2(core.ModelBase):
     """CreateTemporaryObjectSetResponseV2"""
 
     object_set_rid: ObjectSetRid = pydantic.Field(alias=str("objectSetRid"))  # type: ignore[literal-required]
+
+
+class CurrentTimeArgument(core.ModelBase):
+    """Represents the current time argument in a logic rule."""
+
+    type: typing.Literal["currentTime"] = "currentTime"
+
+
+class CurrentUserArgument(core.ModelBase):
+    """Represents the current user argument in a logic rule."""
+
+    type: typing.Literal["currentUser"] = "currentUser"
 
 
 DataValue = typing.Any
@@ -674,10 +785,75 @@ Represents the value of data in the following format. Note that these values can
 """
 
 
+DatetimeFormat = typing_extensions.Annotated[
+    typing.Union["DatetimeStringFormat", "DatetimeLocalizedFormat"],
+    pydantic.Field(discriminator="type"),
+]
+"""DatetimeFormat"""
+
+
+class DatetimeLocalizedFormat(core.ModelBase):
+    """Predefined localized formatting options."""
+
+    format: DatetimeLocalizedFormatType
+    type: typing.Literal["localizedFormat"] = "localizedFormat"
+
+
+DatetimeLocalizedFormatType = typing.Literal[
+    "DATE_FORMAT_RELATIVE_TO_NOW",
+    "DATE_FORMAT_DATE",
+    "DATE_FORMAT_YEAR_AND_MONTH",
+    "DATE_FORMAT_DATE_TIME",
+    "DATE_FORMAT_DATE_TIME_SHORT",
+    "DATE_FORMAT_TIME",
+    "DATE_FORMAT_ISO_INSTANT",
+]
+"""Localized date/time format types."""
+
+
+class DatetimeStringFormat(core.ModelBase):
+    """A strictly specified date format pattern."""
+
+    pattern: str
+    """A valid format string composed of date/time patterns."""
+
+    type: typing.Literal["stringFormat"] = "stringFormat"
+
+
+DatetimeTimezone = typing_extensions.Annotated[
+    typing.Union["DatetimeTimezoneStatic", "DatetimeTimezoneUser"],
+    pydantic.Field(discriminator="type"),
+]
+"""DatetimeTimezone"""
+
+
+class DatetimeTimezoneStatic(core.ModelBase):
+    """DatetimeTimezoneStatic"""
+
+    zone_id: PropertyTypeReferenceOrStringConstant = pydantic.Field(alias=str("zoneId"))  # type: ignore[literal-required]
+    type: typing.Literal["static"] = "static"
+
+
+class DatetimeTimezoneUser(core.ModelBase):
+    """The user's local timezone."""
+
+    type: typing.Literal["user"] = "user"
+
+
 class DecryptionResult(core.ModelBase):
     """The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown."""
 
     plaintext: typing.Optional[Plaintext] = None
+
+
+class DeleteInterfaceLinkLogicRule(core.ModelBase):
+    """DeleteInterfaceLinkLogicRule"""
+
+    interface_type_api_name: InterfaceTypeApiName = pydantic.Field(alias=str("interfaceTypeApiName"))  # type: ignore[literal-required]
+    interface_link_type_api_name: InterfaceLinkTypeApiName = pydantic.Field(alias=str("interfaceLinkTypeApiName"))  # type: ignore[literal-required]
+    source_object: ParameterId = pydantic.Field(alias=str("sourceObject"))  # type: ignore[literal-required]
+    target_object: ParameterId = pydantic.Field(alias=str("targetObject"))  # type: ignore[literal-required]
+    type: typing.Literal["deleteInterfaceLink"] = "deleteInterfaceLink"
 
 
 class DeleteInterfaceObjectRule(core.ModelBase):
@@ -707,6 +883,15 @@ class DeleteLinkEdit(core.ModelBase):
     type: typing.Literal["removeLink"] = "removeLink"
 
 
+class DeleteLinkLogicRule(core.ModelBase):
+    """DeleteLinkLogicRule"""
+
+    link_type_api_name: LinkTypeApiName = pydantic.Field(alias=str("linkTypeApiName"))  # type: ignore[literal-required]
+    source_object: ParameterId = pydantic.Field(alias=str("sourceObject"))  # type: ignore[literal-required]
+    target_object: ParameterId = pydantic.Field(alias=str("targetObject"))  # type: ignore[literal-required]
+    type: typing.Literal["deleteLink"] = "deleteLink"
+
+
 class DeleteLinkRule(core.ModelBase):
     """DeleteLinkRule"""
 
@@ -730,6 +915,13 @@ class DeleteObjectEdit(core.ModelBase):
 
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
+    type: typing.Literal["deleteObject"] = "deleteObject"
+
+
+class DeleteObjectLogicRule(core.ModelBase):
+    """DeleteObjectLogicRule"""
+
+    object_to_delete: ParameterId = pydantic.Field(alias=str("objectToDelete"))  # type: ignore[literal-required]
     type: typing.Literal["deleteObject"] = "deleteObject"
 
 
@@ -819,6 +1011,20 @@ class DoubleVector(core.ModelBase):
     type: typing.Literal["vector"] = "vector"
 
 
+DurationBaseValue = typing.Literal["SECONDS", "MILLISECONDS"]
+"""Specifies the unit of the input duration value."""
+
+
+DurationFormatStyle = typing_extensions.Annotated[
+    typing.Union["HumanReadableFormat", "TimeCodeFormat"], pydantic.Field(discriminator="type")
+]
+"""DurationFormatStyle"""
+
+
+DurationPrecision = typing.Literal["DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"]
+"""Specifies the maximum precision to apply when formatting a duration."""
+
+
 class EntrySetType(core.ModelBase):
     """EntrySetType"""
 
@@ -901,6 +1107,23 @@ Represents the value of a property filter. For instance, false is the FilterValu
 """
 
 
+FixedValuesMapKey = int
+"""Integer key for fixed value mapping."""
+
+
+class FunctionLogicRule(core.ModelBase):
+    """FunctionLogicRule"""
+
+    function_rid: FunctionRid = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
+    function_version: FunctionVersion = pydantic.Field(alias=str("functionVersion"))  # type: ignore[literal-required]
+    function_input_values: typing.Dict[FunctionParameterName, LogicRuleArgument] = pydantic.Field(alias=str("functionInputValues"))  # type: ignore[literal-required]
+    type: typing.Literal["function"] = "function"
+
+
+FunctionParameterName = str
+"""The name of an input to a function."""
+
+
 FunctionRid = core.RID
 """The unique resource identifier of a Function, useful for interacting with other Foundry APIs."""
 
@@ -965,6 +1188,15 @@ class GteQueryV2(core.ModelBase):
     type: typing.Literal["gte"] = "gte"
 
 
+class HumanReadableFormat(core.ModelBase):
+    """Formats the duration as a human-readable written string."""
+
+    show_full_units: typing.Optional[bool] = pydantic.Field(alias=str("showFullUnits"), default=None)  # type: ignore[literal-required]
+    """Whether to show full or abbreviated time units."""
+
+    type: typing.Literal["humanReadable"] = "humanReadable"
+
+
 class InQuery(core.ModelBase):
     """
     Returns objects where the specified field equals any of the provided values. Allows you to
@@ -1019,6 +1251,14 @@ InterfaceLinkTypeLinkedEntityApiName = typing_extensions.Annotated[
 
 InterfaceLinkTypeRid = core.RID
 """The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
+
+
+class InterfaceParameterPropertyArgument(core.ModelBase):
+    """Represents an interface parameter property argument in a logic rule."""
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    shared_property_type_rid: core.RID = pydantic.Field(alias=str("sharedPropertyTypeRid"))  # type: ignore[literal-required]
+    type: typing.Literal["interfaceParameterPropertyValue"] = "interfaceParameterPropertyValue"
 
 
 class InterfaceSharedPropertyType(core.ModelBase):
@@ -1139,6 +1379,15 @@ class IsNullQueryV2(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: bool
     type: typing.Literal["isNull"] = "isNull"
+
+
+KnownType = typing.Literal["userOrGroupRid", "resourceRid", "artifactGid"]
+"""
+Known Foundry types for specialized formatting:
+- userOrGroupRid: Format as user or group RID (both are structurally RIDs)
+- resourceRid: Format as resource RID
+- artifactGid: Format as artifact GID
+"""
 
 
 class LeastPropertyExpression(core.ModelBase):
@@ -1455,6 +1704,22 @@ LogicRule = typing_extensions.Annotated[
 """LogicRule"""
 
 
+LogicRuleArgument = typing_extensions.Annotated[
+    typing.Union[
+        CurrentTimeArgument,
+        "StaticArgument",
+        CurrentUserArgument,
+        "ParameterIdArgument",
+        InterfaceParameterPropertyArgument,
+        "SynchronousWebhookOutputArgument",
+        "ObjectParameterPropertyArgument",
+        "UniqueIdentifierArgument",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""Represents an argument for a logic rule operation. An argument can be passed in via the action parameters, as a static value, or as some other value."""
+
+
 class LtQueryV2(core.ModelBase):
     """
     Returns objects where the specified field is less than a value. Allows you to specify a property to query on
@@ -1505,6 +1770,15 @@ class MinAggregationV2(core.ModelBase):
     type: typing.Literal["min"] = "min"
 
 
+class ModifyInterfaceLogicRule(core.ModelBase):
+    """ModifyInterfaceLogicRule"""
+
+    interface_object_to_modify: ParameterId = pydantic.Field(alias=str("interfaceObjectToModify"))  # type: ignore[literal-required]
+    shared_property_arguments: typing.Dict[SharedPropertyTypeApiName, LogicRuleArgument] = pydantic.Field(alias=str("sharedPropertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[SharedPropertyTypeApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
+    type: typing.Literal["modifyInterface"] = "modifyInterface"
+
+
 class ModifyInterfaceObjectRule(core.ModelBase):
     """ModifyInterfaceObjectRule"""
 
@@ -1526,6 +1800,15 @@ class ModifyObjectEdit(core.ModelBase):
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     properties: typing.Dict[PropertyApiName, DataValue]
+    type: typing.Literal["modifyObject"] = "modifyObject"
+
+
+class ModifyObjectLogicRule(core.ModelBase):
+    """ModifyObjectLogicRule"""
+
+    object_to_modify: ParameterId = pydantic.Field(alias=str("objectToModify"))  # type: ignore[literal-required]
+    property_arguments: typing.Dict[PropertyApiName, LogicRuleArgument] = pydantic.Field(alias=str("propertyArguments"))  # type: ignore[literal-required]
+    struct_property_arguments: typing.Dict[PropertyApiName, typing.Dict[StructFieldApiName, StructFieldArgument]] = pydantic.Field(alias=str("structPropertyArguments"))  # type: ignore[literal-required]
     type: typing.Literal["modifyObject"] = "modifyObject"
 
 
@@ -1580,6 +1863,183 @@ class NotQueryV2(core.ModelBase):
     type: typing.Literal["not"] = "not"
 
 
+class NumberFormatAffix(core.ModelBase):
+    """
+    Attach arbitrary text before and/or after the formatted number.
+    Example: prefix "USD " and postfix " total" displays as "USD 1,234.56 total"
+    """
+
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    affix: Affix
+    type: typing.Literal["affix"] = "affix"
+
+
+class NumberFormatCurrency(core.ModelBase):
+    """
+    Format numbers as currency values with proper symbols and styling.
+    Example: 1234.56 with currency "USD" displays as "USD 1,234.56" (standard) or "USD 1.2K" (compact)
+    """
+
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    style: NumberFormatCurrencyStyle
+    currency_code: PropertyTypeReferenceOrStringConstant = pydantic.Field(alias=str("currencyCode"))  # type: ignore[literal-required]
+    type: typing.Literal["currency"] = "currency"
+
+
+NumberFormatCurrencyStyle = typing.Literal["STANDARD", "COMPACT"]
+"""
+Currency rendering style options:
+- STANDARD: Full currency formatting (e.g., "USD 1,234.56")
+- COMPACT: Abbreviated currency formatting (e.g., "USD 1.2K")
+"""
+
+
+class NumberFormatCustomUnit(core.ModelBase):
+    """
+    Format numbers with custom units not supported by standard formatting.
+    Use this for domain-specific units like "requests/sec", "widgets", etc.
+    Example: 1500 with unit "widgets" displays as "1,500 widgets"
+    """
+
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    unit: PropertyTypeReferenceOrStringConstant
+    type: typing.Literal["customUnit"] = "customUnit"
+
+
+class NumberFormatDuration(core.ModelBase):
+    """
+    Format numeric values representing time durations.
+    - Human readable: 3661 seconds displays as "1h 1m 1s"
+    - Timecode: 3661 seconds displays as "01:01:01"
+    """
+
+    format_style: DurationFormatStyle = pydantic.Field(alias=str("formatStyle"))  # type: ignore[literal-required]
+    precision: typing.Optional[DurationPrecision] = None
+    base_value: DurationBaseValue = pydantic.Field(alias=str("baseValue"))  # type: ignore[literal-required]
+    type: typing.Literal["duration"] = "duration"
+
+
+class NumberFormatFixedValues(core.ModelBase):
+    """
+    Map integer values to custom human-readable strings.
+    Example: {1: "First", 2: "Second", 3: "Third"} would display 2 as "Second".
+    """
+
+    values: typing.Dict[FixedValuesMapKey, str]
+    type: typing.Literal["fixedValues"] = "fixedValues"
+
+
+NumberFormatNotation = typing.Literal["STANDARD", "SCIENTIFIC", "ENGINEERING", "COMPACT"]
+"""
+Number notation style options:
+- STANDARD: Regular number display ("1,234")
+- SCIENTIFIC: Scientific notation ("1.234E3")
+- ENGINEERING: Engineering notation ("1.234E3")
+- COMPACT: Compact notation ("1.2K")
+"""
+
+
+class NumberFormatOptions(core.ModelBase):
+    """
+    Base number formatting options that can be applied to all number formatters.
+    Controls precision, grouping, rounding, and notation. Consistent with JavaScript's Intl.NumberFormat.
+
+    Examples:
+    - useGrouping: true makes 1234567 display as "1,234,567"
+    - maximumFractionDigits: 2 makes 3.14159 display as "3.14"
+    - notation: SCIENTIFIC makes 1234 display as "1.234E3"
+    """
+
+    use_grouping: typing.Optional[bool] = pydantic.Field(alias=str("useGrouping"), default=None)  # type: ignore[literal-required]
+    """If true, show a locale-appropriate number grouping (e.g. thousands for en)."""
+
+    convert_negative_to_parenthesis: typing.Optional[bool] = pydantic.Field(alias=str("convertNegativeToParenthesis"), default=None)  # type: ignore[literal-required]
+    """If true, wrap negative numbers in parentheses instead of a minus sign."""
+
+    minimum_integer_digits: typing.Optional[int] = pydantic.Field(alias=str("minimumIntegerDigits"), default=None)  # type: ignore[literal-required]
+    minimum_fraction_digits: typing.Optional[int] = pydantic.Field(alias=str("minimumFractionDigits"), default=None)  # type: ignore[literal-required]
+    maximum_fraction_digits: typing.Optional[int] = pydantic.Field(alias=str("maximumFractionDigits"), default=None)  # type: ignore[literal-required]
+    minimum_significant_digits: typing.Optional[int] = pydantic.Field(alias=str("minimumSignificantDigits"), default=None)  # type: ignore[literal-required]
+    maximum_significant_digits: typing.Optional[int] = pydantic.Field(alias=str("maximumSignificantDigits"), default=None)  # type: ignore[literal-required]
+    notation: typing.Optional[NumberFormatNotation] = None
+    rounding_mode: typing.Optional[NumberRoundingMode] = pydantic.Field(alias=str("roundingMode"), default=None)  # type: ignore[literal-required]
+
+
+class NumberFormatRatio(core.ModelBase):
+    """
+    Display the value as a ratio with different scaling factors and suffixes:
+    - PERCENTAGE: Multiply by 100 and add "%" suffix (0.15 → "15%")
+    - PER_MILLE: Multiply by 1000 and add "‰" suffix (0.015 → "15‰")
+    - BASIS_POINTS: Multiply by 10000 and add "bps" suffix (0.0015 → "15bps")
+    """
+
+    ratio_type: NumberRatioType = pydantic.Field(alias=str("ratioType"))  # type: ignore[literal-required]
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    type: typing.Literal["ratio"] = "ratio"
+
+
+class NumberFormatScale(core.ModelBase):
+    """
+    Scale the numeric value by dividing by the specified factor and append an appropriate suffix.
+    - THOUSANDS: 1500 displays as "1.5K"
+    - MILLIONS: 2500000 displays as "2.5M"
+    - BILLIONS: 3200000000 displays as "3.2B"
+    """
+
+    scale_type: NumberScaleType = pydantic.Field(alias=str("scaleType"))  # type: ignore[literal-required]
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    type: typing.Literal["scale"] = "scale"
+
+
+class NumberFormatStandard(core.ModelBase):
+    """
+    Standard number formatting with configurable options.
+    This provides basic number formatting without any special units, scaling, or transformations.
+    """
+
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    type: typing.Literal["standard"] = "standard"
+
+
+class NumberFormatStandardUnit(core.ModelBase):
+    """
+    Format numbers with standard units supported by Intl.NumberFormat.
+    Examples: "meter", "kilogram", "celsius", "percent"
+    Input: 25 with unit "celsius" displays as "25 degrees C"
+    """
+
+    base_format_options: NumberFormatOptions = pydantic.Field(alias=str("baseFormatOptions"))  # type: ignore[literal-required]
+    unit: PropertyTypeReferenceOrStringConstant
+    type: typing.Literal["standardUnit"] = "standardUnit"
+
+
+NumberRatioType = typing.Literal["PERCENTAGE", "PER_MILLE", "BASIS_POINTS"]
+"""
+Ratio format options for displaying proportional values:
+- PERCENTAGE: Multiply by 100 and add "%" suffix
+- PER_MILLE: Multiply by 1000 and add "‰" suffix
+- BASIS_POINTS: Multiply by 10000 and add "bps" suffix
+"""
+
+
+NumberRoundingMode = typing.Literal["CEIL", "FLOOR", "ROUND_CLOSEST"]
+"""
+Number rounding behavior:
+- CEIL: Always round up (3.1 becomes 4)
+- FLOOR: Always round down (3.9 becomes 3)
+- ROUND_CLOSEST: Round to nearest (3.4 becomes 3, 3.6 becomes 4)
+"""
+
+
+NumberScaleType = typing.Literal["THOUSANDS", "MILLIONS", "BILLIONS"]
+"""
+Scale factor options for large numbers:
+- THOUSANDS: Divide by 1,000 and add "K" suffix
+- MILLIONS: Divide by 1,000,000 and add "M" suffix
+- BILLIONS: Divide by 1,000,000,000 and add "B" suffix
+"""
+
+
 ObjectEdit = typing_extensions.Annotated[
     typing.Union[ModifyObject, DeleteObject, AddObject, DeleteLink, AddLink],
     pydantic.Field(discriminator="type"),
@@ -1597,6 +2057,14 @@ class ObjectEdits(core.ModelBase):
     added_links_count: int = pydantic.Field(alias=str("addedLinksCount"))  # type: ignore[literal-required]
     deleted_links_count: int = pydantic.Field(alias=str("deletedLinksCount"))  # type: ignore[literal-required]
     type: typing.Literal["edits"] = "edits"
+
+
+class ObjectParameterPropertyArgument(core.ModelBase):
+    """Represents an object parameter property argument in a logic rule."""
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    property_type_api_name: PropertyTypeApiName = pydantic.Field(alias=str("propertyTypeApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["objectParameterPropertyValue"] = "objectParameterPropertyValue"
 
 
 ObjectPropertyType = typing_extensions.Annotated[
@@ -1771,6 +2239,12 @@ class ObjectSetNearestNeighborsType(core.ModelBase):
     """
     The number of objects to return. If the number of documents in the objectType is less than the provided
     value, all objects will be returned. This value is limited to 1 &lt;= numNeighbors &lt;= 500.
+    """
+
+    similarity_threshold: typing.Optional[float] = pydantic.Field(alias=str("similarityThreshold"), default=None)  # type: ignore[literal-required]
+    """
+    The similarity threshold results must be above to be included in the returned in the object set.
+    0 &lt;= Threshold &lt;= 1. Where 1 is identical and 0 is least similar.
     """
 
     query: NearestNeighborsQuery
@@ -2164,6 +2638,13 @@ Parameters can be viewed and managed in the **Ontology Manager**.
 """
 
 
+class ParameterIdArgument(core.ModelBase):
+    """Represents a parameter ID argument in a logic rule."""
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    type: typing.Literal["parameterId"] = "parameterId"
+
+
 class ParameterOption(core.ModelBase):
     """A possible value for the parameter. This is defined in the **Ontology Manager** by Actions admins."""
 
@@ -2218,6 +2699,25 @@ class PropertyApiNameSelector(core.ModelBase):
     type: typing.Literal["property"] = "property"
 
 
+class PropertyBooleanFormattingRule(core.ModelBase):
+    """Formatting configuration for boolean property values."""
+
+    value_if_true: str = pydantic.Field(alias=str("valueIfTrue"))  # type: ignore[literal-required]
+    """Value to display if this boolean is true"""
+
+    value_if_false: str = pydantic.Field(alias=str("valueIfFalse"))  # type: ignore[literal-required]
+    """Value to display if this boolean is false"""
+
+    type: typing.Literal["boolean"] = "boolean"
+
+
+class PropertyDateFormattingRule(core.ModelBase):
+    """Formatting configuration for date property values."""
+
+    format: DatetimeFormat
+    type: typing.Literal["date"] = "date"
+
+
 PropertyFilter = str
 """
 Represents a filter used on properties.
@@ -2262,6 +2762,64 @@ PropertyIdentifier = typing_extensions.Annotated[
 """An identifier used to select properties or struct fields."""
 
 
+class PropertyKnownTypeFormattingRule(core.ModelBase):
+    """Formatting configuration for known Foundry types."""
+
+    known_type: KnownType = pydantic.Field(alias=str("knownType"))  # type: ignore[literal-required]
+    type: typing.Literal["knownType"] = "knownType"
+
+
+class PropertyNumberFormattingRule(core.ModelBase):
+    """Wrapper for numeric formatting options."""
+
+    number_type: PropertyNumberFormattingRuleType = pydantic.Field(alias=str("numberType"))  # type: ignore[literal-required]
+    type: typing.Literal["number"] = "number"
+
+
+PropertyNumberFormattingRuleType = typing_extensions.Annotated[
+    typing.Union[
+        NumberFormatStandard,
+        NumberFormatDuration,
+        NumberFormatFixedValues,
+        NumberFormatAffix,
+        NumberFormatScale,
+        NumberFormatCurrency,
+        NumberFormatStandardUnit,
+        NumberFormatCustomUnit,
+        NumberFormatRatio,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""PropertyNumberFormattingRuleType"""
+
+
+class PropertyTimestampFormattingRule(core.ModelBase):
+    """Formatting configuration for timestamp property values."""
+
+    format: DatetimeFormat
+    display_timezone: DatetimeTimezone = pydantic.Field(alias=str("displayTimezone"))  # type: ignore[literal-required]
+    type: typing.Literal["timestamp"] = "timestamp"
+
+
+PropertyTypeApiName = str
+"""PropertyTypeApiName"""
+
+
+class PropertyTypeReference(core.ModelBase):
+    """PropertyTypeReference"""
+
+    property_api_name: str = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    """The API name of the PropertyType"""
+
+    type: typing.Literal["propertyType"] = "propertyType"
+
+
+PropertyTypeReferenceOrStringConstant = typing_extensions.Annotated[
+    typing.Union["StringConstant", PropertyTypeReference], pydantic.Field(discriminator="type")
+]
+"""PropertyTypeReferenceOrStringConstant"""
+
+
 PropertyTypeRid = core.RID
 """PropertyTypeRid"""
 
@@ -2292,6 +2850,7 @@ class PropertyV2(core.ModelBase):
     status: typing.Optional[PropertyTypeStatus] = None
     visibility: typing.Optional[PropertyTypeVisibility] = None
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
 
 
 PropertyValue = typing.Any
@@ -2327,6 +2886,29 @@ Note that for backwards compatibility, the Boolean, Byte, Double, Float, Integer
 
 PropertyValueEscapedString = str
 """Represents the value of a property in string format. This is used in URL parameters."""
+
+
+PropertyValueFormattingRule = typing_extensions.Annotated[
+    typing.Union[
+        PropertyDateFormattingRule,
+        PropertyNumberFormattingRule,
+        PropertyBooleanFormattingRule,
+        PropertyKnownTypeFormattingRule,
+        PropertyTimestampFormattingRule,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+This feature is experimental and may change in a future release.
+Comprehensive formatting configuration for displaying property values in user interfaces. 
+Supports different value types including numbers, dates, timestamps, booleans, and known Foundry types.
+
+Each formatter type provides specific options tailored to that data type:
+- Numbers: Support for percentages, currencies, units, scaling, and custom formatting
+- Dates/Timestamps: Localized and custom formatting patterns
+- Booleans: Custom true/false display text
+- Known types: Special formatting for Foundry-specific identifiers
+"""
 
 
 class QueryAggregation(core.ModelBase):
@@ -2518,7 +3100,7 @@ class RegexConstraint(core.ModelBase):
 class RegexQuery(core.ModelBase):
     """
     Returns objects where the specified field matches the regex pattern provided. This applies to the non-analyzed
-    form of text fields and supports standard regex syntax of * and ?.
+    form of text fields and supports standard regex syntax of dot (.), star(*) and question mark(?).
     Either `field` or `propertyIdentifier` can be supplied, but not both.
     """
 
@@ -2864,6 +3446,7 @@ class SharedPropertyType(core.ModelBase):
 
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
 
 
 SharedPropertyTypeApiName = str
@@ -2890,6 +3473,13 @@ class StartsWithQuery(core.ModelBase):
     type: typing.Literal["startsWith"] = "startsWith"
 
 
+class StaticArgument(core.ModelBase):
+    """Represents a static argument in a logic rule."""
+
+    value: DataValue
+    type: typing.Literal["staticValue"] = "staticValue"
+
+
 class StreamTimeSeriesPointsRequest(core.ModelBase):
     """StreamTimeSeriesPointsRequest"""
 
@@ -2908,6 +3498,13 @@ StreamingOutputFormat = typing.Literal["JSON", "ARROW"]
 Which format to serialize the binary stream in.
 ARROW is more efficient for streaming a large sized response.
 """
+
+
+class StringConstant(core.ModelBase):
+    """StringConstant"""
+
+    value: str
+    type: typing.Literal["constant"] = "constant"
 
 
 class StringLengthConstraint(core.ModelBase):
@@ -2966,6 +3563,13 @@ StructFieldApiName = str
 """The name of a struct field in the Ontology."""
 
 
+StructFieldArgument = typing_extensions.Annotated[
+    typing.Union["StructListParameterFieldArgument", "StructParameterFieldArgument"],
+    pydantic.Field(discriminator="type"),
+]
+"""Represents an argument used for an individual struct field."""
+
+
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
@@ -3022,8 +3626,24 @@ StructFieldTypeRid = core.RID
 """The unique resource identifier of a struct field, useful for interacting with other Foundry APIs."""
 
 
+class StructListParameterFieldArgument(core.ModelBase):
+    """Represents a struct list parameter field argument in a logic rule."""
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    struct_parameter_field_api_name: StructParameterFieldApiName = pydantic.Field(alias=str("structParameterFieldApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["structListParameterFieldValue"] = "structListParameterFieldValue"
+
+
 StructParameterFieldApiName = str
 """The unique identifier of the struct parameter field."""
+
+
+class StructParameterFieldArgument(core.ModelBase):
+    """Represents a struct parameter field argument in a logic rule."""
+
+    parameter_id: ParameterId = pydantic.Field(alias=str("parameterId"))  # type: ignore[literal-required]
+    struct_parameter_field_api_name: StructParameterFieldApiName = pydantic.Field(alias=str("structParameterFieldApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["structParameterFieldValue"] = "structParameterFieldValue"
 
 
 class StructType(core.ModelBase):
@@ -3073,12 +3693,27 @@ class SyncApplyActionResponseV2(core.ModelBase):
     edits: typing.Optional[ActionResults] = None
 
 
+class SynchronousWebhookOutputArgument(core.ModelBase):
+    """Represents a synchronous webhook output argument in a logic rule."""
+
+    webhook_output_param_name: str = pydantic.Field(alias=str("webhookOutputParamName"))  # type: ignore[literal-required]
+    """The name of the webhook output parameter."""
+
+    type: typing.Literal["synchronousWebhookOutput"] = "synchronousWebhookOutput"
+
+
 class ThreeDimensionalAggregation(core.ModelBase):
     """ThreeDimensionalAggregation"""
 
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
     value_type: TwoDimensionalAggregation = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
+
+
+class TimeCodeFormat(core.ModelBase):
+    """Formats the duration in a timecode format."""
+
+    type: typing.Literal["timecode"] = "timecode"
 
 
 TimeRange = typing_extensions.Annotated[
@@ -3229,6 +3864,18 @@ class UnevaluableConstraint(core.ModelBase):
     """
 
     type: typing.Literal["unevaluable"] = "unevaluable"
+
+
+class UniqueIdentifierArgument(core.ModelBase):
+    """Represents a unique identifier argument in a logic rule."""
+
+    link_id: typing.Optional[core.UUID] = pydantic.Field(alias=str("linkId"), default=None)  # type: ignore[literal-required]
+    """
+    By default all UniqueIdentifier Logic Rule arguments will generate different UUID. 
+    If the linkId is present all Logic Rules with the same linkId will all have the same uuid generated as the value.
+    """
+
+    type: typing.Literal["uniqueIdentifier"] = "uniqueIdentifier"
 
 
 class UuidConstraint(core.ModelBase):
@@ -3473,6 +4120,7 @@ WithinBoundingBoxPoint = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
+core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
 core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
@@ -3480,13 +4128,17 @@ core.resolve_forward_references(AggregationV2, globalns=globals(), localns=local
 core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
 core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
+core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
 core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
+core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
 core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
 core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
@@ -3495,13 +4147,21 @@ core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=lo
 core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
 core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
+core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
 core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
@@ -3517,12 +4177,14 @@ core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=
 __all__ = [
     "AbsoluteTimeRange",
     "AbsoluteValuePropertyExpression",
+    "ActionLogicRule",
     "ActionParameterArrayType",
     "ActionParameterType",
     "ActionParameterV2",
     "ActionResults",
     "ActionRid",
     "ActionTypeApiName",
+    "ActionTypeFullMetadata",
     "ActionTypeRid",
     "ActionTypeV2",
     "ActivePropertyTypeStatus",
@@ -3531,6 +4193,7 @@ __all__ = [
     "AddObject",
     "AddObjectEdit",
     "AddPropertyExpression",
+    "Affix",
     "AggregateObjectSetRequestV2",
     "AggregateObjectsRequestV2",
     "AggregateObjectsResponseItemV2",
@@ -3572,6 +4235,7 @@ __all__ = [
     "BatchApplyActionRequestV2",
     "BatchApplyActionResponseV2",
     "BatchReturnEditsMode",
+    "BatchedFunctionLogicRule",
     "BlueprintIcon",
     "BoundingBoxValue",
     "CenterPoint",
@@ -3583,19 +4247,37 @@ __all__ = [
     "ContainsQueryV2",
     "CountAggregationV2",
     "CountObjectsResponseV2",
+    "CreateInterfaceLinkLogicRule",
+    "CreateInterfaceLogicRule",
     "CreateInterfaceObjectRule",
+    "CreateLinkLogicRule",
     "CreateLinkRule",
+    "CreateObjectLogicRule",
     "CreateObjectRule",
+    "CreateOrModifyObjectLogicRule",
+    "CreateOrModifyObjectLogicRuleV2",
     "CreateTemporaryObjectSetRequestV2",
     "CreateTemporaryObjectSetResponseV2",
+    "CurrentTimeArgument",
+    "CurrentUserArgument",
     "DataValue",
+    "DatetimeFormat",
+    "DatetimeLocalizedFormat",
+    "DatetimeLocalizedFormatType",
+    "DatetimeStringFormat",
+    "DatetimeTimezone",
+    "DatetimeTimezoneStatic",
+    "DatetimeTimezoneUser",
     "DecryptionResult",
+    "DeleteInterfaceLinkLogicRule",
     "DeleteInterfaceObjectRule",
     "DeleteLink",
     "DeleteLinkEdit",
+    "DeleteLinkLogicRule",
     "DeleteLinkRule",
     "DeleteObject",
     "DeleteObjectEdit",
+    "DeleteObjectLogicRule",
     "DeleteObjectRule",
     "DeprecatedPropertyTypeStatus",
     "DerivedPropertyApiName",
@@ -3604,6 +4286,9 @@ __all__ = [
     "DoesNotIntersectBoundingBoxQuery",
     "DoesNotIntersectPolygonQuery",
     "DoubleVector",
+    "DurationBaseValue",
+    "DurationFormatStyle",
+    "DurationPrecision",
     "EntrySetType",
     "EnumConstraint",
     "EqualsQueryV2",
@@ -3615,6 +4300,9 @@ __all__ = [
     "ExtractDatePart",
     "ExtractPropertyExpression",
     "FilterValue",
+    "FixedValuesMapKey",
+    "FunctionLogicRule",
+    "FunctionParameterName",
     "FunctionRid",
     "FunctionVersion",
     "FuzzyV2",
@@ -3623,6 +4311,7 @@ __all__ = [
     "GroupMemberConstraint",
     "GtQueryV2",
     "GteQueryV2",
+    "HumanReadableFormat",
     "Icon",
     "InQuery",
     "InterfaceLinkType",
@@ -3630,6 +4319,7 @@ __all__ = [
     "InterfaceLinkTypeCardinality",
     "InterfaceLinkTypeLinkedEntityApiName",
     "InterfaceLinkTypeRid",
+    "InterfaceParameterPropertyArgument",
     "InterfaceSharedPropertyType",
     "InterfaceToObjectTypeMapping",
     "InterfaceToObjectTypeMappings",
@@ -3639,6 +4329,7 @@ __all__ = [
     "IntersectsBoundingBoxQuery",
     "IntersectsPolygonQuery",
     "IsNullQueryV2",
+    "KnownType",
     "LeastPropertyExpression",
     "LengthConstraint",
     "LinkSideObject",
@@ -3670,15 +4361,18 @@ __all__ = [
     "LoadObjectSetV2ObjectsOrInterfacesResponse",
     "LoadOntologyMetadataRequest",
     "LogicRule",
+    "LogicRuleArgument",
     "LtQueryV2",
     "LteQueryV2",
     "MaxAggregationV2",
     "MediaMetadata",
     "MethodObjectSet",
     "MinAggregationV2",
+    "ModifyInterfaceLogicRule",
     "ModifyInterfaceObjectRule",
     "ModifyObject",
     "ModifyObjectEdit",
+    "ModifyObjectLogicRule",
     "ModifyObjectRule",
     "MultiplyPropertyExpression",
     "NearestNeighborsQuery",
@@ -3686,8 +4380,24 @@ __all__ = [
     "NegatePropertyExpression",
     "NestedQueryAggregation",
     "NotQueryV2",
+    "NumberFormatAffix",
+    "NumberFormatCurrency",
+    "NumberFormatCurrencyStyle",
+    "NumberFormatCustomUnit",
+    "NumberFormatDuration",
+    "NumberFormatFixedValues",
+    "NumberFormatNotation",
+    "NumberFormatOptions",
+    "NumberFormatRatio",
+    "NumberFormatScale",
+    "NumberFormatStandard",
+    "NumberFormatStandardUnit",
+    "NumberRatioType",
+    "NumberRoundingMode",
+    "NumberScaleType",
     "ObjectEdit",
     "ObjectEdits",
+    "ObjectParameterPropertyArgument",
     "ObjectPropertyType",
     "ObjectPropertyValueConstraint",
     "ObjectQueryResultConstraint",
@@ -3744,6 +4454,7 @@ __all__ = [
     "ParameterEvaluatedConstraint",
     "ParameterEvaluationResult",
     "ParameterId",
+    "ParameterIdArgument",
     "ParameterOption",
     "Plaintext",
     "PolygonValue",
@@ -3754,15 +4465,25 @@ __all__ = [
     "PrimaryKeyValue",
     "PropertyApiName",
     "PropertyApiNameSelector",
+    "PropertyBooleanFormattingRule",
+    "PropertyDateFormattingRule",
     "PropertyFilter",
     "PropertyId",
     "PropertyIdentifier",
+    "PropertyKnownTypeFormattingRule",
+    "PropertyNumberFormattingRule",
+    "PropertyNumberFormattingRuleType",
+    "PropertyTimestampFormattingRule",
+    "PropertyTypeApiName",
+    "PropertyTypeReference",
+    "PropertyTypeReferenceOrStringConstant",
     "PropertyTypeRid",
     "PropertyTypeStatus",
     "PropertyTypeVisibility",
     "PropertyV2",
     "PropertyValue",
     "PropertyValueEscapedString",
+    "PropertyValueFormattingRule",
     "QueryAggregation",
     "QueryAggregationKeyType",
     "QueryAggregationRangeSubType",
@@ -3818,26 +4539,33 @@ __all__ = [
     "SharedPropertyTypeApiName",
     "SharedPropertyTypeRid",
     "StartsWithQuery",
+    "StaticArgument",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesValuesRequest",
     "StreamingOutputFormat",
+    "StringConstant",
     "StringLengthConstraint",
     "StringRegexMatchConstraint",
     "StructConstraint",
     "StructEvaluatedConstraint",
     "StructFieldApiName",
+    "StructFieldArgument",
     "StructFieldEvaluatedConstraint",
     "StructFieldEvaluationResult",
     "StructFieldSelector",
     "StructFieldType",
     "StructFieldTypeRid",
+    "StructListParameterFieldArgument",
     "StructParameterFieldApiName",
+    "StructParameterFieldArgument",
     "StructType",
     "SubmissionCriteriaEvaluation",
     "SubtractPropertyExpression",
     "SumAggregationV2",
     "SyncApplyActionResponseV2",
+    "SynchronousWebhookOutputArgument",
     "ThreeDimensionalAggregation",
+    "TimeCodeFormat",
     "TimeRange",
     "TimeSeriesAggregationMethod",
     "TimeSeriesAggregationStrategy",
@@ -3852,6 +4580,7 @@ __all__ = [
     "TransactionEdit",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
+    "UniqueIdentifierArgument",
     "UuidConstraint",
     "ValidateActionResponseV2",
     "ValidationResult",

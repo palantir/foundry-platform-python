@@ -163,6 +163,21 @@ class MediaSetNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class MediaSetOpenTransactionAlreadyExistsParameters(typing_extensions.TypedDict):
+    """A transaction is already open on this media set and branch. A branch of a media set can only have one open transaction at a time."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    mediaSetRid: core_models.MediaSetRid
+
+
+@dataclass
+class MediaSetOpenTransactionAlreadyExists(errors.ConflictError):
+    name: typing.Literal["MediaSetOpenTransactionAlreadyExists"]
+    parameters: MediaSetOpenTransactionAlreadyExistsParameters
+    error_instance_id: str
+
+
 class MissingMediaItemContentParameters(typing_extensions.TypedDict):
     """The file has no bytes."""
 
@@ -220,6 +235,7 @@ __all__ = [
     "MediaItemNotFound",
     "MediaItemXmlUnparsable",
     "MediaSetNotFound",
+    "MediaSetOpenTransactionAlreadyExists",
     "MissingMediaItemContent",
     "MissingMediaItemPath",
     "TransformedMediaItemNotFound",

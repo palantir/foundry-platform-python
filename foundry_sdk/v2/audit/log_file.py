@@ -74,7 +74,6 @@ class LogFileClient:
         :rtype: bytes
 
         :raises GetLogFileContentPermissionDenied: Could not content the LogFile.
-        :raises GetLogFileContentPermissionDenied: Could not content the LogFile.
         """
 
         return self._api_client.call_api(
@@ -95,7 +94,6 @@ class LogFileClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "GetLogFileContentPermissionDenied": audit_errors.GetLogFileContentPermissionDenied,
                     "GetLogFileContentPermissionDenied": audit_errors.GetLogFileContentPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -236,7 +234,6 @@ class AsyncLogFileClient:
         :rtype: typing.Awaitable[bytes]
 
         :raises GetLogFileContentPermissionDenied: Could not content the LogFile.
-        :raises GetLogFileContentPermissionDenied: Could not content the LogFile.
         """
 
         return self._api_client.call_api(
@@ -257,7 +254,6 @@ class AsyncLogFileClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "GetLogFileContentPermissionDenied": audit_errors.GetLogFileContentPermissionDenied,
                     "GetLogFileContentPermissionDenied": audit_errors.GetLogFileContentPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

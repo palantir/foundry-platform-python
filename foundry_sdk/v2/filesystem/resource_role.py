@@ -57,7 +57,6 @@ class ResourceRoleClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         roles: typing.List[filesystem_models.ResourceRoleIdentifier],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -67,8 +66,6 @@ class ResourceRoleClient:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[ResourceRoleIdentifier]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -84,9 +81,7 @@ class ResourceRoleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -118,7 +113,6 @@ class ResourceRoleClient:
         include_inherited: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[filesystem_models.ResourceRole]:
@@ -133,8 +127,6 @@ class ResourceRoleClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -151,7 +143,6 @@ class ResourceRoleClient:
                     "includeInherited": include_inherited,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "resourceRid": resource_rid,
@@ -177,7 +168,6 @@ class ResourceRoleClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         roles: typing.List[filesystem_models.ResourceRoleIdentifier],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -187,8 +177,6 @@ class ResourceRoleClient:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[ResourceRoleIdentifier]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -204,9 +192,7 @@ class ResourceRoleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -278,7 +264,6 @@ class AsyncResourceRoleClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         roles: typing.List[filesystem_models.ResourceRoleIdentifier],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -288,8 +273,6 @@ class AsyncResourceRoleClient:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[ResourceRoleIdentifier]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -305,9 +288,7 @@ class AsyncResourceRoleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -339,7 +320,6 @@ class AsyncResourceRoleClient:
         include_inherited: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[filesystem_models.ResourceRole]:
@@ -354,8 +334,6 @@ class AsyncResourceRoleClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -372,7 +350,6 @@ class AsyncResourceRoleClient:
                     "includeInherited": include_inherited,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "resourceRid": resource_rid,
@@ -398,7 +375,6 @@ class AsyncResourceRoleClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         roles: typing.List[filesystem_models.ResourceRoleIdentifier],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -408,8 +384,6 @@ class AsyncResourceRoleClient:
         :type resource_rid: ResourceRid
         :param roles:
         :type roles: List[ResourceRoleIdentifier]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -425,9 +399,7 @@ class AsyncResourceRoleClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/roles/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },

@@ -213,7 +213,6 @@ class SpaceClient:
         :rtype: filesystem_models.Space
 
         :raises SpaceNotFound: The given Space could not be found.
-        :raises SpaceNotFound: The given Space could not be found.
         """
 
         return self._api_client.call_api(
@@ -233,7 +232,6 @@ class SpaceClient:
                 response_type=filesystem_models.Space,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "SpaceNotFound": filesystem_errors.SpaceNotFound,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -582,7 +580,6 @@ class AsyncSpaceClient:
         :rtype: typing.Awaitable[filesystem_models.Space]
 
         :raises SpaceNotFound: The given Space could not be found.
-        :raises SpaceNotFound: The given Space could not be found.
         """
 
         return self._api_client.call_api(
@@ -602,7 +599,6 @@ class AsyncSpaceClient:
                 response_type=filesystem_models.Space,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "SpaceNotFound": filesystem_errors.SpaceNotFound,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

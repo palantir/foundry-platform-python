@@ -290,7 +290,7 @@ where = {
 
 
 try:
-    api_response = client.datasets.Dataset.jobs(
+    for dataset in client.datasets.Dataset.jobs(
         dataset_rid,
         order_by=order_by,
         branch_name=branch_name,
@@ -298,9 +298,8 @@ try:
         page_token=page_token,
         preview=preview,
         where=where,
-    )
-    print("The jobs response:\n")
-    pprint(api_response)
+    ):
+        pprint(dataset)
 except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Dataset.jobs: %s\n" % e)
 

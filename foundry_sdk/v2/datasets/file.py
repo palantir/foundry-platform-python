@@ -468,6 +468,7 @@ class FileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidFilePath: The provided file path is invalid.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -503,6 +504,7 @@ class FileClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FileAlreadyExists": datasets_errors.FileAlreadyExists,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidFilePath": core_errors.InvalidFilePath,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -984,6 +986,7 @@ class AsyncFileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidFilePath: The provided file path is invalid.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -1019,6 +1022,7 @@ class AsyncFileClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FileAlreadyExists": datasets_errors.FileAlreadyExists,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidFilePath": core_errors.InvalidFilePath,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,

@@ -352,6 +352,14 @@ def test_ontologies_v2_action_type_import():
     assert ActionTypeClient is not None
 
 
+def test_ontologies_v2_action_type_full_metadata_import():
+    from foundry_sdk.v2.ontologies.action_type_full_metadata import (
+        ActionTypeFullMetadataClient,
+    )  # NOQA
+
+    assert ActionTypeFullMetadataClient is not None
+
+
 def test_ontologies_v2_attachment_import():
     from foundry_sdk.v2.ontologies.attachment import AttachmentClient
 

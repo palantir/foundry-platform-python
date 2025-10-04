@@ -144,6 +144,21 @@ class InvalidFieldSchema(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidFilePathParameters(typing_extensions.TypedDict):
+    """The provided file path is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    filePath: core_models.FilePath
+
+
+@dataclass
+class InvalidFilePath(errors.BadRequestError):
+    name: typing.Literal["InvalidFilePath"]
+    parameters: InvalidFilePathParameters
+    error_instance_id: str
+
+
 class InvalidFilterValueParameters(typing_extensions.TypedDict):
     """The provided filter value is invalid."""
 
@@ -337,6 +352,7 @@ __all__ = [
     "InvalidAndFilter",
     "InvalidChangeDataCaptureConfiguration",
     "InvalidFieldSchema",
+    "InvalidFilePath",
     "InvalidFilterValue",
     "InvalidOrFilter",
     "InvalidPageSize",

@@ -4,7 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Public Beta |
 [**create**](#create) | **POST** /v2/filesystem/projects/create | Public Beta |
-[**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Private Beta |
+[**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Public Beta |
 [**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Stable |
 [**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
 [**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |

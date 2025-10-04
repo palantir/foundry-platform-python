@@ -72,7 +72,6 @@ class RoleClient:
         :rtype: admin_models.Role
 
         :raises RoleNotFound: The given Role could not be found.
-        :raises RoleNotFound: The given Role could not be found.
         """
 
         return self._api_client.call_api(
@@ -92,7 +91,6 @@ class RoleClient:
                 response_type=admin_models.Role,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "RoleNotFound": admin_errors.RoleNotFound,
                     "RoleNotFound": admin_errors.RoleNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -212,7 +210,6 @@ class AsyncRoleClient:
         :rtype: typing.Awaitable[admin_models.Role]
 
         :raises RoleNotFound: The given Role could not be found.
-        :raises RoleNotFound: The given Role could not be found.
         """
 
         return self._api_client.call_api(
@@ -232,7 +229,6 @@ class AsyncRoleClient:
                 response_type=admin_models.Role,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "RoleNotFound": admin_errors.RoleNotFound,
                     "RoleNotFound": admin_errors.RoleNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

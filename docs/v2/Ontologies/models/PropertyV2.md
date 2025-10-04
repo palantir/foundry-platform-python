@@ -12,6 +12,7 @@ Details about some property of an object.
 **status** | Optional[PropertyTypeStatus] | No |  |
 **visibility** | Optional[PropertyTypeVisibility] | No |  |
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
+**value_formatting** | Optional[PropertyValueFormattingRule] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

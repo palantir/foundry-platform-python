@@ -4,7 +4,8 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/dataHealth/checks | Public Beta |
 [**delete**](#delete) | **DELETE** /v2/dataHealth/checks/{checkRid} | Public Beta |
-[**get**](#get) | **GET** /v2/dataHealth/checks/{checkRid} | Private Beta |
+[**get**](#get) | **GET** /v2/dataHealth/checks/{checkRid} | Public Beta |
+[**replace**](#replace) | **PUT** /v2/dataHealth/checks/{checkRid} | Public Beta |
 
 # **create**
 Creates a new Check.
@@ -156,6 +157,64 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Check  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**check_rid** | CheckRid |  |  |
+**config** | ReplaceCheckConfig |  |  |
+**intent** | Optional[CheckIntent] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**Check**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# CheckRid
+check_rid = "ri.data-health.main.check.8e27b13a-e21b-4232-ae1b-76ccf5ff42b3"
+# ReplaceCheckConfig
+config = None
+# Optional[CheckIntent]
+intent = "Check to ensure builds are passing."
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.data_health.Check.replace(
+        check_rid, config=config, intent=intent, preview=preview
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Check.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Check  | The replaced Check | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

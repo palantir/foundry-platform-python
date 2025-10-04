@@ -229,6 +229,93 @@ class PrimaryKeyConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+class ReplaceBuildDurationCheckConfig(core.ModelBase):
+    """ReplaceBuildDurationCheckConfig"""
+
+    time_check_config: TimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["buildDuration"] = "buildDuration"
+
+
+class ReplaceBuildStatusCheckConfig(core.ModelBase):
+    """ReplaceBuildStatusCheckConfig"""
+
+    status_check_config: StatusCheckConfig = pydantic.Field(alias=str("statusCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["buildStatus"] = "buildStatus"
+
+
+ReplaceCheckConfig = typing_extensions.Annotated[
+    typing.Union[
+        "ReplaceColumnTypeCheckConfig",
+        "ReplaceJobStatusCheckConfig",
+        "ReplaceJobDurationCheckConfig",
+        "ReplaceNullPercentageCheckConfig",
+        "ReplaceTotalColumnCountCheckConfig",
+        ReplaceBuildDurationCheckConfig,
+        "ReplaceSchemaComparisonCheckConfig",
+        ReplaceBuildStatusCheckConfig,
+        "ReplacePrimaryKeyCheckConfig",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""Configuration of a check."""
+
+
+class ReplaceCheckRequest(core.ModelBase):
+    """ReplaceCheckRequest"""
+
+    config: ReplaceCheckConfig
+    intent: typing.Optional[CheckIntent] = None
+
+
+class ReplaceColumnTypeCheckConfig(core.ModelBase):
+    """ReplaceColumnTypeCheckConfig"""
+
+    column_type_config: ColumnTypeConfig = pydantic.Field(alias=str("columnTypeConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["columnType"] = "columnType"
+
+
+class ReplaceJobDurationCheckConfig(core.ModelBase):
+    """ReplaceJobDurationCheckConfig"""
+
+    time_check_config: TimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["jobDuration"] = "jobDuration"
+
+
+class ReplaceJobStatusCheckConfig(core.ModelBase):
+    """ReplaceJobStatusCheckConfig"""
+
+    status_check_config: StatusCheckConfig = pydantic.Field(alias=str("statusCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["jobStatus"] = "jobStatus"
+
+
+class ReplaceNullPercentageCheckConfig(core.ModelBase):
+    """ReplaceNullPercentageCheckConfig"""
+
+    percentage_check_config: PercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["nullPercentage"] = "nullPercentage"
+
+
+class ReplacePrimaryKeyCheckConfig(core.ModelBase):
+    """ReplacePrimaryKeyCheckConfig"""
+
+    primary_key_config: PrimaryKeyConfig = pydantic.Field(alias=str("primaryKeyConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["primaryKey"] = "primaryKey"
+
+
+class ReplaceSchemaComparisonCheckConfig(core.ModelBase):
+    """ReplaceSchemaComparisonCheckConfig"""
+
+    schema_comparison_config: SchemaComparisonConfig = pydantic.Field(alias=str("schemaComparisonConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["schemaComparison"] = "schemaComparison"
+
+
+class ReplaceTotalColumnCountCheckConfig(core.ModelBase):
+    """ReplaceTotalColumnCountCheckConfig"""
+
+    column_count_config: ColumnCountConfig = pydantic.Field(alias=str("columnCountConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["totalColumnCount"] = "totalColumnCount"
+
+
 class SchemaComparisonCheckConfig(core.ModelBase):
     """Checks the dataset schema against an expected schema."""
 
@@ -309,6 +396,7 @@ class TotalColumnCountCheckConfig(core.ModelBase):
 
 
 core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
 
 __all__ = [
     "BuildDurationCheckConfig",
@@ -338,6 +426,17 @@ __all__ = [
     "PercentageValue",
     "PrimaryKeyCheckConfig",
     "PrimaryKeyConfig",
+    "ReplaceBuildDurationCheckConfig",
+    "ReplaceBuildStatusCheckConfig",
+    "ReplaceCheckConfig",
+    "ReplaceCheckRequest",
+    "ReplaceColumnTypeCheckConfig",
+    "ReplaceJobDurationCheckConfig",
+    "ReplaceJobStatusCheckConfig",
+    "ReplaceNullPercentageCheckConfig",
+    "ReplacePrimaryKeyCheckConfig",
+    "ReplaceSchemaComparisonCheckConfig",
+    "ReplaceTotalColumnCountCheckConfig",
     "SchemaComparisonCheckConfig",
     "SchemaComparisonConfig",
     "SchemaComparisonType",

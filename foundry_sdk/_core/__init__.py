@@ -31,7 +31,9 @@ from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.model_base import ModelBase
 from foundry_sdk._core.public_client_auth import PublicClientAuth
+from foundry_sdk._core.resource_iterator import AsyncPageIterator
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
+from foundry_sdk._core.resource_iterator import PageIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
 from foundry_sdk._core.table import TableResponse
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth

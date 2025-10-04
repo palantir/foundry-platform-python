@@ -75,7 +75,6 @@ class GroupMemberClient:
         :rtype: None
 
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
-        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidGroupMembershipExpiration: The member expiration you provided does not conform to the Group's requirements for member expirations.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
@@ -99,7 +98,6 @@ class GroupMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidGroupMembershipExpiration": admin_errors.InvalidGroupMembershipExpiration,
@@ -199,7 +197,6 @@ class GroupMemberClient:
         :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
-        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
@@ -221,7 +218,6 @@ class GroupMemberClient:
                 throwable_errors={
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
-                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                     "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -296,7 +292,6 @@ class AsyncGroupMemberClient:
         :rtype: typing.Awaitable[None]
 
         :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
-        :raises AddGroupMembersPermissionDenied: Could not add the GroupMember.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidGroupMembershipExpiration: The member expiration you provided does not conform to the Group's requirements for member expirations.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
@@ -320,7 +315,6 @@ class AsyncGroupMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "AddGroupMembersPermissionDenied": admin_errors.AddGroupMembersPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidGroupMembershipExpiration": admin_errors.InvalidGroupMembershipExpiration,
@@ -420,7 +414,6 @@ class AsyncGroupMemberClient:
         :raises GroupNotFound: The given Group could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
-        :raises RemoveGroupMembersPermissionDenied: Could not remove the GroupMember.
         """
 
         return self._api_client.call_api(
@@ -442,7 +435,6 @@ class AsyncGroupMemberClient:
                 throwable_errors={
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
-                    "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                     "RemoveGroupMembersPermissionDenied": admin_errors.RemoveGroupMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

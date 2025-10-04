@@ -55,6 +55,21 @@ class CheckNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class CheckTypeNotSupportedParameters(typing_extensions.TypedDict):
+    """The type of the requested check is not yet supported in the Platform API."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    checkType: str
+
+
+@dataclass
+class CheckTypeNotSupported(errors.BadRequestError):
+    name: typing.Literal["CheckTypeNotSupported"]
+    parameters: CheckTypeNotSupportedParameters
+    error_instance_id: str
+
+
 class CreateCheckPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Check."""
 
@@ -109,6 +124,22 @@ class InvalidTimeCheckConfig(errors.BadRequestError):
     error_instance_id: str
 
 
+class ModifyingCheckTypeNotSupportedParameters(typing_extensions.TypedDict):
+    """Changing the type of a check after it has been created is not supported."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    originalCheckType: str
+    newCheckType: str
+
+
+@dataclass
+class ModifyingCheckTypeNotSupported(errors.BadRequestError):
+    name: typing.Literal["ModifyingCheckTypeNotSupported"]
+    parameters: ModifyingCheckTypeNotSupportedParameters
+    error_instance_id: str
+
+
 class PercentageValueAboveMaximumParameters(typing_extensions.TypedDict):
     """PercentageValue must be less than or equal to 100.0"""
 
@@ -147,13 +178,31 @@ class PercentageValueBelowMinimum(errors.BadRequestError):
     error_instance_id: str
 
 
+class ReplaceCheckPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Check."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    checkRid: data_health_models.CheckRid
+
+
+@dataclass
+class ReplaceCheckPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceCheckPermissionDenied"]
+    parameters: ReplaceCheckPermissionDeniedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "CheckAlreadyExists",
     "CheckNotFound",
+    "CheckTypeNotSupported",
     "CreateCheckPermissionDenied",
     "DeleteCheckPermissionDenied",
     "InvalidPercentageCheckConfig",
     "InvalidTimeCheckConfig",
+    "ModifyingCheckTypeNotSupported",
     "PercentageValueAboveMaximum",
     "PercentageValueBelowMinimum",
+    "ReplaceCheckPermissionDenied",
 ]
