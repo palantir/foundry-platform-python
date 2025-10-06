@@ -1,7 +1,7 @@
 # RegexQuery
 
 Returns objects where the specified field matches the regex pattern provided. This applies to the non-analyzed
-form of text fields and supports standard regex syntax of * and ?.
+form of text fields and supports standard regex syntax of dot (.), star(*) and question mark(?).
 Either `field` or `propertyIdentifier` can be supplied, but not both.
 
 

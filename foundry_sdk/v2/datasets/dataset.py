@@ -345,7 +345,7 @@ class DatasetClient:
         where: typing.Optional[datasets_models.GetDatasetJobsQuery] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> datasets_models.GetJobResponse:
+    ) -> core.ResourceIterator[datasets_models.JobDetails]:
         """
         Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
 
@@ -366,7 +366,7 @@ class DatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: datasets_models.GetJobResponse
+        :rtype: core.ResourceIterator[datasets_models.JobDetails]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -401,7 +401,7 @@ class DatasetClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "GetDatasetJobsPermissionDenied": datasets_errors.GetDatasetJobsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
 
@@ -984,7 +984,7 @@ class AsyncDatasetClient:
         where: typing.Optional[datasets_models.GetDatasetJobsQuery] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[datasets_models.GetJobResponse]:
+    ) -> core.AsyncResourceIterator[datasets_models.JobDetails]:
         """
         Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
 
@@ -1005,7 +1005,7 @@ class AsyncDatasetClient:
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
-        :rtype: typing.Awaitable[datasets_models.GetJobResponse]
+        :rtype: core.AsyncResourceIterator[datasets_models.JobDetails]
 
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
@@ -1040,7 +1040,7 @@ class AsyncDatasetClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "GetDatasetJobsPermissionDenied": datasets_errors.GetDatasetJobsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode"),
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
 

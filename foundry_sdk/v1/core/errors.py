@@ -83,6 +83,21 @@ class FoundryBranchNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class InvalidFilePathParameters(typing_extensions.TypedDict):
+    """The provided file path is not valid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    filePath: core_models.FilePath
+
+
+@dataclass
+class InvalidFilePath(errors.BadRequestError):
+    name: typing.Literal["InvalidFilePath"]
+    parameters: InvalidFilePathParameters
+    error_instance_id: str
+
+
 class InvalidPageSizeParameters(typing_extensions.TypedDict):
     """The provided page size was zero or negative. Page sizes must be greater than zero."""
 
@@ -179,6 +194,7 @@ __all__ = [
     "ApiUsageDenied",
     "FolderNotFound",
     "FoundryBranchNotFound",
+    "InvalidFilePath",
     "InvalidPageSize",
     "InvalidPageToken",
     "InvalidParameterCombination",

@@ -49,6 +49,18 @@ class OntologiesClient:
         )
 
     @cached_property
+    def ActionTypeFullMetadata(self):
+        from foundry_sdk.v2.ontologies.action_type_full_metadata import (
+            ActionTypeFullMetadataClient,
+        )  # NOQA
+
+        return ActionTypeFullMetadataClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Attachment(self):
         from foundry_sdk.v2.ontologies.attachment import AttachmentClient
 
@@ -211,6 +223,9 @@ class AsyncOntologiesClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.ontologies.action import AsyncActionClient
+        from foundry_sdk.v2.ontologies.action_type_full_metadata import (
+            AsyncActionTypeFullMetadataClient,
+        )  # NOQA
         from foundry_sdk.v2.ontologies.attachment import AsyncAttachmentClient
         from foundry_sdk.v2.ontologies.attachment_property import (
             AsyncAttachmentPropertyClient,
@@ -245,6 +260,10 @@ class AsyncOntologiesClient:
         )  # NOQA
 
         self.Action = AsyncActionClient(auth=auth, hostname=hostname, config=config)
+
+        self.ActionTypeFullMetadata = AsyncActionTypeFullMetadataClient(
+            auth=auth, hostname=hostname, config=config
+        )
 
         self.Attachment = AsyncAttachmentClient(auth=auth, hostname=hostname, config=config)
 

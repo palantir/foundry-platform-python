@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add**](#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add | Public Beta |
-[**list**](#list) | **GET** /v2/admin/markings/{markingId}/markingMembers | Public Beta |
-[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/markingMembers/remove | Public Beta |
+[**add**](#add) | **POST** /v2/admin/markings/{markingId}/markingMembers/add | Stable |
+[**list**](#list) | **GET** /v2/admin/markings/{markingId}/markingMembers | Stable |
+[**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/markingMembers/remove | Stable |
 
 # **add**
 
@@ -15,7 +15,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId |  |  |
 **principal_ids** | List[PrincipalId] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -33,14 +32,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 marking_id = None
 # List[PrincipalId]
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Marking.MarkingMember.add(
-        marking_id, principal_ids=principal_ids, preview=preview
-    )
+    api_response = client.admin.Marking.MarkingMember.add(marking_id, principal_ids=principal_ids)
     print("The add response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -73,7 +68,6 @@ Name | Type | Description  | Notes |
 **marking_id** | MarkingId |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **transitive** | Optional[bool] | When true, includes the transitive members of groups contained within groups that are members of this  Marking. For example, say the Marking has member Group A, and Group A has member User B. If  `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B  will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.  | [optional] |
 
 ### Return type
@@ -94,19 +88,13 @@ marking_id = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[bool] | When true, includes the transitive members of groups contained within groups that are members of this  Marking. For example, say the Marking has member Group A, and Group A has member User B. If  `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B  will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
 transitive = None
 
 
 try:
     for marking_member in client.admin.Marking.MarkingMember.list(
-        marking_id,
-        page_size=page_size,
-        page_token=page_token,
-        preview=preview,
-        transitive=transitive,
+        marking_id, page_size=page_size, page_token=page_token, transitive=transitive
     ):
         pprint(marking_member)
 except foundry_sdk.PalantirRPCException as e:
@@ -136,7 +124,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId |  |  |
 **principal_ids** | List[PrincipalId] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -154,13 +141,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 marking_id = None
 # List[PrincipalId]
 principal_ids = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.admin.Marking.MarkingMember.remove(
-        marking_id, principal_ids=principal_ids, preview=preview
+        marking_id, principal_ids=principal_ids
     )
     print("The remove response:\n")
     pprint(api_response)

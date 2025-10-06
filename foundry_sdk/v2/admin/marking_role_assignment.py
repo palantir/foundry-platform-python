@@ -56,7 +56,6 @@ class MarkingRoleAssignmentClient:
         marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[admin_models.MarkingRoleUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -66,14 +65,11 @@ class MarkingRoleAssignmentClient:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[MarkingRoleUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
 
-        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
@@ -84,9 +80,7 @@ class MarkingRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/roleAssignments/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -99,7 +93,6 @@ class MarkingRoleAssignmentClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
@@ -118,7 +111,6 @@ class MarkingRoleAssignmentClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[admin_models.MarkingRoleAssignment]:
@@ -131,8 +123,6 @@ class MarkingRoleAssignmentClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -149,7 +139,6 @@ class MarkingRoleAssignmentClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "markingId": marking_id,
@@ -176,7 +165,6 @@ class MarkingRoleAssignmentClient:
         marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[admin_models.MarkingRoleUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -186,8 +174,6 @@ class MarkingRoleAssignmentClient:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[MarkingRoleUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -206,9 +192,7 @@ class MarkingRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/roleAssignments/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -283,7 +267,6 @@ class AsyncMarkingRoleAssignmentClient:
         marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[admin_models.MarkingRoleUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -293,14 +276,11 @@ class AsyncMarkingRoleAssignmentClient:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[MarkingRoleUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
@@ -311,9 +291,7 @@ class AsyncMarkingRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/roleAssignments/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -326,7 +304,6 @@ class AsyncMarkingRoleAssignmentClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
@@ -345,7 +322,6 @@ class AsyncMarkingRoleAssignmentClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[admin_models.MarkingRoleAssignment]:
@@ -358,8 +334,6 @@ class AsyncMarkingRoleAssignmentClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -376,7 +350,6 @@ class AsyncMarkingRoleAssignmentClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "markingId": marking_id,
@@ -403,7 +376,6 @@ class AsyncMarkingRoleAssignmentClient:
         marking_id: core_models.MarkingId,
         *,
         role_assignments: typing.List[admin_models.MarkingRoleUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -413,8 +385,6 @@ class AsyncMarkingRoleAssignmentClient:
         :type marking_id: MarkingId
         :param role_assignments:
         :type role_assignments: List[MarkingRoleUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -433,9 +403,7 @@ class AsyncMarkingRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/roleAssignments/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },

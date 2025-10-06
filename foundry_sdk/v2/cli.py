@@ -837,21 +837,16 @@ def admin_marking_marking_role_assignment():
 @admin_marking_marking_role_assignment.command("add")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_marking_role_assignment_op_add(
     client: FoundryClient,
     marking_id: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingRoleAssignment.add(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -869,16 +864,12 @@ def admin_marking_marking_role_assignment_op_add(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_marking_role_assignment_op_list(
     client: FoundryClient,
     marking_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     List all principals who are assigned a role for the given Marking. Ignores the `pageSize` parameter.
@@ -888,7 +879,6 @@ def admin_marking_marking_role_assignment_op_list(
         marking_id=marking_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -896,21 +886,16 @@ def admin_marking_marking_role_assignment_op_list(
 @admin_marking_marking_role_assignment.command("remove")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_marking_role_assignment_op_remove(
     client: FoundryClient,
     marking_id: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingRoleAssignment.remove(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -923,21 +908,16 @@ def admin_marking_marking_member():
 @admin_marking_marking_member.command("add")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_marking_member_op_add(
     client: FoundryClient,
     marking_id: str,
     principal_ids: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingMember.add(
         marking_id=marking_id,
         principal_ids=json.loads(principal_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -954,9 +934,6 @@ def admin_marking_marking_member_op_add(
     help="""The page token indicates where to start paging. This should be omitted from the first page's request.
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
     "--transitive",
@@ -976,7 +953,6 @@ def admin_marking_marking_member_op_list(
     marking_id: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
     transitive: typing.Optional[bool],
 ):
     """
@@ -988,7 +964,6 @@ def admin_marking_marking_member_op_list(
         marking_id=marking_id,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         transitive=transitive,
     )
     click.echo(repr(result))
@@ -997,21 +972,16 @@ def admin_marking_marking_member_op_list(
 @admin_marking_marking_member.command("remove")
 @click.argument("marking_id", type=str, required=True)
 @click.option("--principal_ids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_marking_member_op_remove(
     client: FoundryClient,
     marking_id: str,
     principal_ids: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.admin.Marking.MarkingMember.remove(
         marking_id=marking_id,
         principal_ids=json.loads(principal_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3085,6 +3055,33 @@ def data_health_check_op_get(
     click.echo(repr(result))
 
 
+@data_health_check.command("replace")
+@click.argument("check_rid", type=str, required=True)
+@click.option("--config", type=str, required=True, help="""""")
+@click.option("--intent", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def data_health_check_op_replace(
+    client: FoundryClient,
+    check_rid: str,
+    config: str,
+    intent: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+    """
+    result = client.data_health.Check.replace(
+        check_rid=check_rid,
+        config=json.loads(config),
+        intent=intent,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("datasets")
 def datasets():
     pass
@@ -4663,21 +4660,16 @@ def filesystem_resource_resource_role():
 @filesystem_resource_resource_role.command("add")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--roles", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_resource_role_op_add(
     client: FoundryClient,
     resource_rid: str,
     roles: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.filesystem.Resource.Role.add(
         resource_rid=resource_rid,
         roles=json.loads(roles),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4701,9 +4693,6 @@ def filesystem_resource_resource_role_op_add(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_resource_role_op_list(
     client: FoundryClient,
@@ -4711,7 +4700,6 @@ def filesystem_resource_resource_role_op_list(
     include_inherited: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     List the roles on a resource.
@@ -4722,7 +4710,6 @@ def filesystem_resource_resource_role_op_list(
         include_inherited=include_inherited,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4730,21 +4717,16 @@ def filesystem_resource_resource_role_op_list(
 @filesystem_resource_resource_role.command("remove")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--roles", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_resource_role_op_remove(
     client: FoundryClient,
     resource_rid: str,
     roles: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.filesystem.Resource.Role.remove(
         resource_rid=resource_rid,
         roles=json.loads(roles),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -7645,6 +7627,8 @@ def ontologies_ontology_op_get_full_metadata(
 ):
     """
     Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+    This endpoint is designed to return as much metadata as possible in a single request to support OSDK workflows.
+    It may omit certain entities rather than fail the request.
 
     """
     result = client.ontologies.Ontology.get_full_metadata(
@@ -8809,6 +8793,40 @@ def ontologies_attachment_op_upload(
         content_length=content_length,
         content_type=content_type,
         filename=filename,
+    )
+    click.echo(repr(result))
+
+
+@ontologies.group("action_type_full_metadata")
+def ontologies_action_type_full_metadata():
+    pass
+
+
+@ontologies_action_type_full_metadata.command("get")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action_type", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definition from. If not specified, the default branch will be used.
+""",
+)
+@click.pass_obj
+def ontologies_action_type_full_metadata_op_get(
+    client: FoundryClient,
+    ontology: str,
+    action_type: str,
+    branch: typing.Optional[str],
+):
+    """
+    Gets the full metadata associated with an action type.
+
+    """
+    result = client.ontologies.ActionTypeFullMetadata.get(
+        ontology=ontology,
+        action_type=action_type,
+        branch=branch,
     )
     click.echo(repr(result))
 

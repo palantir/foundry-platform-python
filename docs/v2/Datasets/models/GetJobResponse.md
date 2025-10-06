@@ -5,7 +5,7 @@ GetJobResponse
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**jobs** | List[JobDetails] | Yes |  |
+**data** | List[JobDetails] | Yes |  |
 **next_page_token** | Optional[PageToken] | No |  |
 
 

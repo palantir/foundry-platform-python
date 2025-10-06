@@ -1982,6 +1982,21 @@ class SharedPropertyTypeNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class SimilarityThresholdOutOfRangeParameters(typing_extensions.TypedDict):
+    """The value of the similarity threshold must be in the range 0 &lt;= threshold &lt;= 1."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    providedThreshold: float
+
+
+@dataclass
+class SimilarityThresholdOutOfRange(errors.BadRequestError):
+    name: typing.Literal["SimilarityThresholdOutOfRange"]
+    parameters: SimilarityThresholdOutOfRangeParameters
+    error_instance_id: str
+
+
 class TooManyNearestNeighborsRequestedParameters(typing_extensions.TypedDict):
     """The value of numNeighbors must be in the range 1 &lt;= numNeighbors &lt;= 500."""
 
@@ -2215,6 +2230,7 @@ __all__ = [
     "RateLimitReached",
     "SharedPropertiesNotFound",
     "SharedPropertyTypeNotFound",
+    "SimilarityThresholdOutOfRange",
     "TooManyNearestNeighborsRequested",
     "UnauthorizedCipherOperation",
     "UndecryptableValue",

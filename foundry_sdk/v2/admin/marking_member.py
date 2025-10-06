@@ -56,7 +56,6 @@ class MarkingMemberClient:
         marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -66,14 +65,11 @@ class MarkingMemberClient:
         :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: None
 
-        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
@@ -84,9 +80,7 @@ class MarkingMemberClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -99,7 +93,6 @@ class MarkingMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
                     "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
@@ -118,7 +111,6 @@ class MarkingMemberClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         transitive: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -133,8 +125,6 @@ class MarkingMemberClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param transitive: When true, includes the transitive members of groups contained within groups that are members of this  Marking. For example, say the Marking has member Group A, and Group A has member User B. If  `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B  will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -154,7 +144,6 @@ class MarkingMemberClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={
@@ -183,7 +172,6 @@ class MarkingMemberClient:
         marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -193,8 +181,6 @@ class MarkingMemberClient:
         :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -204,16 +190,13 @@ class MarkingMemberClient:
         :raises MarkingNotFound: The given Marking could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
-        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -229,7 +212,6 @@ class MarkingMemberClient:
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
-                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -286,7 +268,6 @@ class AsyncMarkingMemberClient:
         marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -296,14 +277,11 @@ class AsyncMarkingMemberClient:
         :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
-        :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises AddMarkingMembersPermissionDenied: Could not add the MarkingMember.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
@@ -314,9 +292,7 @@ class AsyncMarkingMemberClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -329,7 +305,6 @@ class AsyncMarkingMemberClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
                     "AddMarkingMembersPermissionDenied": admin_errors.AddMarkingMembersPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
@@ -348,7 +323,6 @@ class AsyncMarkingMemberClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         transitive: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -363,8 +337,6 @@ class AsyncMarkingMemberClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param transitive: When true, includes the transitive members of groups contained within groups that are members of this  Marking. For example, say the Marking has member Group A, and Group A has member User B. If  `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B  will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -384,7 +356,6 @@ class AsyncMarkingMemberClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "transitive": transitive,
                 },
                 path_params={
@@ -413,7 +384,6 @@ class AsyncMarkingMemberClient:
         marking_id: core_models.MarkingId,
         *,
         principal_ids: typing.List[core_models.PrincipalId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -423,8 +393,6 @@ class AsyncMarkingMemberClient:
         :type marking_id: MarkingId
         :param principal_ids:
         :type principal_ids: List[PrincipalId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -434,16 +402,13 @@ class AsyncMarkingMemberClient:
         :raises MarkingNotFound: The given Marking could not be found.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
-        :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/{markingId}/markingMembers/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -459,7 +424,6 @@ class AsyncMarkingMemberClient:
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
-                    "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

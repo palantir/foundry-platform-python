@@ -74,7 +74,7 @@ class CheckClient:
         :rtype: data_health_models.Check
 
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
-        :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         :raises CreateCheckPermissionDenied: Could not create the Check.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
@@ -100,7 +100,7 @@ class CheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
-                    "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
@@ -133,7 +133,6 @@ class CheckClient:
 
         :raises CheckNotFound: The given Check could not be found.
         :raises DeleteCheckPermissionDenied: Could not delete the Check.
-        :raises DeleteCheckPermissionDenied: Could not delete the Check.
         """
 
         return self._api_client.call_api(
@@ -152,7 +151,6 @@ class CheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
-                    "DeleteCheckPermissionDenied": data_health_errors.DeleteCheckPermissionDenied,
                     "DeleteCheckPermissionDenied": data_health_errors.DeleteCheckPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -182,7 +180,7 @@ class CheckClient:
         :rtype: data_health_models.Check
 
         :raises CheckNotFound: The given Check could not be found.
-        :raises CheckNotFound: The given Check could not be found.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -203,7 +201,75 @@ class CheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        check_rid: data_health_models.CheckRid,
+        *,
+        config: data_health_models.ReplaceCheckConfig,
+        intent: typing.Optional[data_health_models.CheckIntent] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> data_health_models.Check:
+        """
+        Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+        :param check_rid:
+        :type check_rid: CheckRid
+        :param config:
+        :type config: ReplaceCheckConfig
+        :param intent:
+        :type intent: Optional[CheckIntent]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: data_health_models.Check
+
+        :raises CheckNotFound: The given Check could not be found.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
+        :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises ModifyingCheckTypeNotSupported: Changing the type of a check after it has been created is not supported.
+        :raises ReplaceCheckPermissionDenied: Could not replace the Check.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/dataHealth/checks/{checkRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "checkRid": check_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=data_health_models.ReplaceCheckRequest(
+                    config=config,
+                    intent=intent,
+                ),
+                response_type=data_health_models.Check,
+                request_timeout=request_timeout,
+                throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
+                    "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "ModifyingCheckTypeNotSupported": data_health_errors.ModifyingCheckTypeNotSupported,
+                    "ReplaceCheckPermissionDenied": data_health_errors.ReplaceCheckPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -215,19 +281,23 @@ class _CheckClientRaw:
         def create(_: data_health_models.Check): ...
         def delete(_: None): ...
         def get(_: data_health_models.Check): ...
+        def replace(_: data_health_models.Check): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
+        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _CheckClientStreaming:
     def __init__(self, client: CheckClient) -> None:
         def create(_: data_health_models.Check): ...
         def get(_: data_health_models.Check): ...
+        def replace(_: data_health_models.Check): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncCheckClient:
@@ -279,7 +349,7 @@ class AsyncCheckClient:
         :rtype: typing.Awaitable[data_health_models.Check]
 
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
-        :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         :raises CreateCheckPermissionDenied: Could not create the Check.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
@@ -305,7 +375,7 @@ class AsyncCheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
-                    "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
@@ -338,7 +408,6 @@ class AsyncCheckClient:
 
         :raises CheckNotFound: The given Check could not be found.
         :raises DeleteCheckPermissionDenied: Could not delete the Check.
-        :raises DeleteCheckPermissionDenied: Could not delete the Check.
         """
 
         return self._api_client.call_api(
@@ -357,7 +426,6 @@ class AsyncCheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
-                    "DeleteCheckPermissionDenied": data_health_errors.DeleteCheckPermissionDenied,
                     "DeleteCheckPermissionDenied": data_health_errors.DeleteCheckPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -387,7 +455,7 @@ class AsyncCheckClient:
         :rtype: typing.Awaitable[data_health_models.Check]
 
         :raises CheckNotFound: The given Check could not be found.
-        :raises CheckNotFound: The given Check could not be found.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         """
 
         return self._api_client.call_api(
@@ -408,7 +476,75 @@ class AsyncCheckClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        check_rid: data_health_models.CheckRid,
+        *,
+        config: data_health_models.ReplaceCheckConfig,
+        intent: typing.Optional[data_health_models.CheckIntent] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[data_health_models.Check]:
+        """
+        Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+        :param check_rid:
+        :type check_rid: CheckRid
+        :param config:
+        :type config: ReplaceCheckConfig
+        :param intent:
+        :type intent: Optional[CheckIntent]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[data_health_models.Check]
+
+        :raises CheckNotFound: The given Check could not be found.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
+        :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises ModifyingCheckTypeNotSupported: Changing the type of a check after it has been created is not supported.
+        :raises ReplaceCheckPermissionDenied: Could not replace the Check.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/dataHealth/checks/{checkRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "checkRid": check_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=data_health_models.ReplaceCheckRequest(
+                    config=config,
+                    intent=intent,
+                ),
+                response_type=data_health_models.Check,
+                request_timeout=request_timeout,
+                throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
+                    "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "ModifyingCheckTypeNotSupported": data_health_errors.ModifyingCheckTypeNotSupported,
+                    "ReplaceCheckPermissionDenied": data_health_errors.ReplaceCheckPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -420,16 +556,20 @@ class _AsyncCheckClientRaw:
         def create(_: data_health_models.Check): ...
         def delete(_: None): ...
         def get(_: data_health_models.Check): ...
+        def replace(_: data_health_models.Check): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.delete = core.async_with_raw_response(delete, client.delete)
         self.get = core.async_with_raw_response(get, client.get)
+        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncCheckClientStreaming:
     def __init__(self, client: AsyncCheckClient) -> None:
         def create(_: data_health_models.Check): ...
         def get(_: data_health_models.Check): ...
+        def replace(_: data_health_models.Check): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

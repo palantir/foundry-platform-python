@@ -112,7 +112,6 @@ class GroupClient:
         :rtype: admin_models.Group
 
         :raises CreateGroupPermissionDenied: Could not create the Group.
-        :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
         :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
         :raises OrganizationNotFound: The given Organization could not be found.
@@ -137,7 +136,6 @@ class GroupClient:
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
                     "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
@@ -167,7 +165,6 @@ class GroupClient:
         :rtype: None
 
         :raises DeleteGroupPermissionDenied: Could not delete the Group.
-        :raises DeleteGroupPermissionDenied: Could not delete the Group.
         :raises GroupNotFound: The given Group could not be found.
         """
 
@@ -184,7 +181,6 @@ class GroupClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
                     "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
                 },
@@ -499,7 +495,6 @@ class AsyncGroupClient:
         :rtype: typing.Awaitable[admin_models.Group]
 
         :raises CreateGroupPermissionDenied: Could not create the Group.
-        :raises CreateGroupPermissionDenied: Could not create the Group.
         :raises GroupNameAlreadyExists: A group with this name already exists
         :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
         :raises OrganizationNotFound: The given Organization could not be found.
@@ -524,7 +519,6 @@ class AsyncGroupClient:
                 response_type=admin_models.Group,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "CreateGroupPermissionDenied": admin_errors.CreateGroupPermissionDenied,
                     "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
                     "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
@@ -554,7 +548,6 @@ class AsyncGroupClient:
         :rtype: typing.Awaitable[None]
 
         :raises DeleteGroupPermissionDenied: Could not delete the Group.
-        :raises DeleteGroupPermissionDenied: Could not delete the Group.
         :raises GroupNotFound: The given Group could not be found.
         """
 
@@ -571,7 +564,6 @@ class AsyncGroupClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
-                    "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
                     "DeleteGroupPermissionDenied": admin_errors.DeleteGroupPermissionDenied,
                     "GroupNotFound": admin_errors.GroupNotFound,
                 },

@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add**](#add) | **POST** /v2/filesystem/resources/{resourceRid}/roles/add | Public Beta |
-[**list**](#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Public Beta |
-[**remove**](#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove | Public Beta |
+[**add**](#add) | **POST** /v2/filesystem/resources/{resourceRid}/roles/add | Stable |
+[**list**](#list) | **GET** /v2/filesystem/resources/{resourceRid}/roles | Stable |
+[**remove**](#remove) | **POST** /v2/filesystem/resources/{resourceRid}/roles/remove | Stable |
 
 # **add**
 
@@ -15,7 +15,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
 **roles** | List[ResourceRoleIdentifier] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -41,12 +40,10 @@ roles = [
         "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
     }
 ]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.Role.add(resource_rid, roles=roles, preview=preview)
+    api_response = client.filesystem.Resource.Role.add(resource_rid, roles=roles)
     print("The add response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -79,7 +76,6 @@ Name | Type | Description  | Notes |
 **include_inherited** | Optional[bool] | Whether to include inherited roles on the resource. | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListResourceRolesResponse**
@@ -101,8 +97,6 @@ include_inherited = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
@@ -111,7 +105,6 @@ try:
         include_inherited=include_inherited,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     ):
         pprint(resource_role)
 except foundry_sdk.PalantirRPCException as e:
@@ -141,7 +134,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
 **roles** | List[ResourceRoleIdentifier] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -167,14 +159,10 @@ roles = [
         "roleId": "8bf49052-dc37-4528-8bf0-b551cfb71268",
     }
 ]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.Role.remove(
-        resource_rid, roles=roles, preview=preview
-    )
+    api_response = client.filesystem.Resource.Role.remove(resource_rid, roles=roles)
     print("The remove response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

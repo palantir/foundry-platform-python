@@ -15,9 +15,12 @@
 
 from foundry_sdk._core import ApiResponse
 from foundry_sdk._core import AsyncApiResponse
+from foundry_sdk._core import AsyncPageIterator
+from foundry_sdk._core import AsyncResourceIterator
 from foundry_sdk._core import Auth
 from foundry_sdk._core import ConfidentialClientAuth
 from foundry_sdk._core import Config
+from foundry_sdk._core import PageIterator
 from foundry_sdk._core import PublicClientAuth
 from foundry_sdk._core import ResourceIterator
 from foundry_sdk._core import StreamedApiResponse
@@ -103,4 +106,8 @@ __all__ = [
     "ApiNotFoundError",
     "FoundryClient",
     "AsyncFoundryClient",
+    "ResourceIterator",
+    "AsyncResourceIterator",
+    "PageIterator",
+    "AsyncPageIterator",
 ]

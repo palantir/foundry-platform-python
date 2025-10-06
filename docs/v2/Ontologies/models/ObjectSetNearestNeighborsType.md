@@ -17,6 +17,7 @@ A non-zero score for each resulting object is returned when the `orderType` in t
 **object_set** | ObjectSet | Yes |  |
 **property_identifier** | PropertyIdentifier | Yes |  |
 **num_neighbors** | int | Yes | The number of objects to return. If the number of documents in the objectType is less than the provided value, all objects will be returned. This value is limited to 1 &lt;= numNeighbors &lt;= 500.  |
+**similarity_threshold** | Optional[float] | No | The similarity threshold results must be above to be included in the returned in the object set. 0 &lt;= Threshold &lt;= 1. Where 1 is identical and 0 is least similar.  |
 **query** | NearestNeighborsQuery | Yes |  |
 **type** | Literal["nearestNeighbors"] | Yes | None |
 

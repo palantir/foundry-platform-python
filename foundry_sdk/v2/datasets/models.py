@@ -190,7 +190,7 @@ class GetDatasetSchemaResponse(core.ModelBase):
 class GetJobResponse(core.ModelBase):
     """GetJobResponse"""
 
-    jobs: typing.List[JobDetails]
+    data: typing.List[JobDetails]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 

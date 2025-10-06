@@ -57,6 +57,8 @@ See [README](../../../README.md#authorization)
 
 # **get_full_metadata**
 Get the full Ontology metadata. This includes the objects, links, actions, queries, and interfaces.
+This endpoint is designed to return as much metadata as possible in a single request to support OSDK workflows.
+It may omit certain entities rather than fail the request.
 
 
 ### Parameters
