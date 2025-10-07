@@ -67,8 +67,24 @@ class MultipleToolResultContentsNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class OpenAiEmbeddingsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not embeddings the OpenAiModel."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    openAiModelModelId: language_models_models.LanguageModelApiName
+
+
+@dataclass
+class OpenAiEmbeddingsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["OpenAiEmbeddingsPermissionDenied"]
+    parameters: OpenAiEmbeddingsPermissionDeniedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "AnthropicMessagesPermissionDenied",
     "MultipleSystemPromptsNotSupported",
     "MultipleToolResultContentsNotSupported",
+    "OpenAiEmbeddingsPermissionDenied",
 ]

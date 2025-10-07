@@ -334,6 +334,12 @@ def test_language_models_v2_anthropic_model_import():
     assert AnthropicModelClient is not None
 
 
+def test_language_models_v2_open_ai_model_import():
+    from foundry_sdk.v2.language_models.open_ai_model import OpenAiModelClient
+
+    assert OpenAiModelClient is not None
+
+
 def test_media_sets_v2_media_set_import():
     from foundry_sdk.v2.media_sets.media_set import MediaSetClient
 
