@@ -48,6 +48,16 @@ class LanguageModelsClient:
             config=self._config,
         )
 
+    @cached_property
+    def OpenAiModel(self):
+        from foundry_sdk.v2.language_models.open_ai_model import OpenAiModelClient
+
+        return OpenAiModelClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
 
 class AsyncLanguageModelsClient:
     """
@@ -65,5 +75,8 @@ class AsyncLanguageModelsClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.language_models.anthropic_model import AsyncAnthropicModelClient  # NOQA
+        from foundry_sdk.v2.language_models.open_ai_model import AsyncOpenAiModelClient
 
         self.AnthropicModel = AsyncAnthropicModelClient(auth=auth, hostname=hostname, config=config)
+
+        self.OpenAiModel = AsyncOpenAiModelClient(auth=auth, hostname=hostname, config=config)
