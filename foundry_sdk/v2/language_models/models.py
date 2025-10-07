@@ -364,6 +364,53 @@ LanguageModelApiName = str
 """The name of the LanguageModel in the API."""
 
 
+OpenAiEmbeddingInput = typing.List[str]
+"""OpenAiEmbeddingInput"""
+
+
+class OpenAiEmbeddingsRequest(core.ModelBase):
+    """OpenAiEmbeddingsRequest"""
+
+    input: OpenAiEmbeddingInput
+    """
+    Input text to embed, encoded as an array of strings. Each input must not exceed the max input 
+    tokens for the model (8192 tokens for all embedding models).
+    """
+
+    dimensions: typing.Optional[int] = None
+    """
+    The number of dimensions the resulting output embeddings should have. 
+    Only supported in text-embedding-3 and later models.
+    """
+
+    encoding_format: typing.Optional[OpenAiEncodingFormat] = pydantic.Field(alias=str("encodingFormat"), default=None)  # type: ignore[literal-required]
+    """The format to return the embeddings in. Can be either float or base64."""
+
+
+class OpenAiEmbeddingsResponse(core.ModelBase):
+    """OpenAiEmbeddingsResponse"""
+
+    data: typing.List[typing.List[float]]
+    """List of embedding vectors"""
+
+    model: str
+    """The ID of the model used"""
+
+    usage: OpenAiTokenUsage
+    """Usage statistics for the request"""
+
+
+OpenAiEncodingFormat = typing.Literal["FLOAT", "BASE64"]
+"""OpenAiEncodingFormat"""
+
+
+class OpenAiTokenUsage(core.ModelBase):
+    """OpenAiTokenUsage"""
+
+    prompt_tokens: int = pydantic.Field(alias=str("promptTokens"))  # type: ignore[literal-required]
+    """Number of tokens in the prompt"""
+
+
 AnthropicCacheControl = AnthropicEphemeralCacheControl
 """AnthropicCacheControl"""
 
@@ -394,6 +441,7 @@ core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), loc
 core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
 core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
 core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
+core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnthropicAnyToolChoice",
@@ -440,4 +488,9 @@ __all__ = [
     "AnthropicToolUse",
     "JsonSchema",
     "LanguageModelApiName",
+    "OpenAiEmbeddingInput",
+    "OpenAiEmbeddingsRequest",
+    "OpenAiEmbeddingsResponse",
+    "OpenAiEncodingFormat",
+    "OpenAiTokenUsage",
 ]

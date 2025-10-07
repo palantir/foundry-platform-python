@@ -5233,6 +5233,58 @@ def language_models():
     pass
 
 
+@language_models.group("open_ai_model")
+def language_models_open_ai_model():
+    pass
+
+
+@language_models_open_ai_model.command("embeddings")
+@click.argument("open_ai_model_model_id", type=str, required=True)
+@click.option(
+    "--input",
+    type=str,
+    required=True,
+    help="""Input text to embed, encoded as an array of strings. Each input must not exceed the max input 
+tokens for the model (8192 tokens for all embedding models).
+""",
+)
+@click.option(
+    "--dimensions",
+    type=int,
+    required=False,
+    help="""The number of dimensions the resulting output embeddings should have. 
+Only supported in text-embedding-3 and later models.
+""",
+)
+@click.option(
+    "--encoding_format",
+    type=click.Choice(["FLOAT", "BASE64"]),
+    required=False,
+    help="""The format to return the embeddings in. Can be either float or base64.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def language_models_open_ai_model_op_embeddings(
+    client: FoundryClient,
+    open_ai_model_model_id: str,
+    input: str,
+    dimensions: typing.Optional[int],
+    encoding_format: typing.Optional[typing.Literal["FLOAT", "BASE64"]],
+    preview: typing.Optional[bool],
+):
+    """ """
+    result = client.language_models.OpenAiModel.embeddings(
+        open_ai_model_model_id=open_ai_model_model_id,
+        input=json.loads(input),
+        dimensions=dimensions,
+        encoding_format=encoding_format,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @language_models.group("anthropic_model")
 def language_models_anthropic_model():
     pass

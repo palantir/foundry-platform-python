@@ -1624,6 +1624,11 @@ Namespace | Name | Import |
 **LanguageModels** | [AnthropicToolUse](docs/v2/LanguageModels/models/AnthropicToolUse.md) | `from foundry_sdk.v2.language_models.models import AnthropicToolUse` |
 **LanguageModels** | [JsonSchema](docs/v2/LanguageModels/models/JsonSchema.md) | `from foundry_sdk.v2.language_models.models import JsonSchema` |
 **LanguageModels** | [LanguageModelApiName](docs/v2/LanguageModels/models/LanguageModelApiName.md) | `from foundry_sdk.v2.language_models.models import LanguageModelApiName` |
+**LanguageModels** | [OpenAiEmbeddingInput](docs/v2/LanguageModels/models/OpenAiEmbeddingInput.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingInput` |
+**LanguageModels** | [OpenAiEmbeddingsRequest](docs/v2/LanguageModels/models/OpenAiEmbeddingsRequest.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingsRequest` |
+**LanguageModels** | [OpenAiEmbeddingsResponse](docs/v2/LanguageModels/models/OpenAiEmbeddingsResponse.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingsResponse` |
+**LanguageModels** | [OpenAiEncodingFormat](docs/v2/LanguageModels/models/OpenAiEncodingFormat.md) | `from foundry_sdk.v2.language_models.models import OpenAiEncodingFormat` |
+**LanguageModels** | [OpenAiTokenUsage](docs/v2/LanguageModels/models/OpenAiTokenUsage.md) | `from foundry_sdk.v2.language_models.models import OpenAiTokenUsage` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry_sdk.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry_sdk.v2.media_sets.models import BranchRid` |
 **MediaSets** | [GetMediaItemInfoResponse](docs/v2/MediaSets/models/GetMediaItemInfoResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemInfoResponse` |
@@ -2748,6 +2753,7 @@ Namespace | Name | Import |
 **LanguageModels** | AnthropicMessagesPermissionDenied | `from foundry_sdk.v2.language_models.errors import AnthropicMessagesPermissionDenied` |
 **LanguageModels** | MultipleSystemPromptsNotSupported | `from foundry_sdk.v2.language_models.errors import MultipleSystemPromptsNotSupported` |
 **LanguageModels** | MultipleToolResultContentsNotSupported | `from foundry_sdk.v2.language_models.errors import MultipleToolResultContentsNotSupported` |
+**LanguageModels** | OpenAiEmbeddingsPermissionDenied | `from foundry_sdk.v2.language_models.errors import OpenAiEmbeddingsPermissionDenied` |
 **MediaSets** | ConflictingMediaSetIdentifiers | `from foundry_sdk.v2.media_sets.errors import ConflictingMediaSetIdentifiers` |
 **MediaSets** | GetMediaItemRidByPathPermissionDenied | `from foundry_sdk.v2.media_sets.errors import GetMediaItemRidByPathPermissionDenied` |
 **MediaSets** | InvalidMediaItemSchema | `from foundry_sdk.v2.media_sets.errors import InvalidMediaItemSchema` |
