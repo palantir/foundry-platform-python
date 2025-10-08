@@ -481,6 +481,7 @@ class LmsEmbeddingModel(core.ModelBase):
 
 LmsEmbeddingModelValue = typing.Literal[
     "OPENAI_TEXT_EMBEDDING_ADA_002",
+    "TEXT_EMBEDDING_3_LARGE",
     "TEXT_EMBEDDING_3_SMALL",
     "SNOWFLAKE_ARCTIC_EMBED_M",
     "INSTRUCTOR_LARGE",
