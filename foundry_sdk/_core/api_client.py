@@ -525,24 +525,38 @@ class BaseApiClient:
         else:
             raise PalantirRPCException(error_json)
 
-    def _serialize(self, value: Union[bytes, None, pydantic.BaseModel, Any]) -> Optional[bytes]:
+    class _BaseModelJSONEncoder(json.JSONEncoder):
+        """Custom JSON encoder for handling Pydantic BaseModel objects and collections."""
+
+        def default(self, o):
+            if isinstance(o, pydantic.BaseModel):
+                return o.model_dump(exclude_none=True, by_alias=True)
+            elif isinstance(o, datetime):
+                # Convert datetime to ISO 8601 format string with UTC timezone
+                if o.tzinfo is None:
+                    o = o.replace(tzinfo=timezone.utc)
+                return o.astimezone(timezone.utc).isoformat()
+            return super().default(o)
+
+    def _serialize(self, value: Any) -> Optional[bytes]:
         """
         Serialize the data passed in to JSON bytes.
+
+        This method properly handles:
+        - bytes (returned as-is)
+        - None (returned as None)
+        - Pydantic BaseModel objects (serialized with exclude_none and by_alias)
+        - Lists/dictionaries containing BaseModel objects at any nesting level
+        - datetime objects (serialized to ISO 8601 format strings)
+        - Any other JSON serializable value
         """
         if isinstance(value, bytes):
             return value
         elif value is None:
             return None
-        elif isinstance(value, pydantic.BaseModel):
-            # Use "exclude_none" to remove optional inputs that weren't explicitely set
-            # Use "by_alias" to use the expected field name rather than the class property name
-            return (
-                cast(pydantic.BaseModel, value)
-                .model_dump_json(exclude_none=True, by_alias=True)
-                .encode()
-            )
         else:
-            return json.dumps(value).encode()
+            # Use custom encoder to handle BaseModel objects at any level of nesting
+            return json.dumps(value, cls=self._BaseModelJSONEncoder).encode()
 
     def _get_response_mode(self, request_info: RequestInfo) -> ResponseMode:
         return request_info.response_mode if request_info.response_mode is not None else "DECODED"
