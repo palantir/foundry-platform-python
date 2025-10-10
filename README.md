@@ -1233,6 +1233,7 @@ Namespace | Name | Import |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry_sdk.v2.core.models import AnyType` |
 **Core** | [ArrayFieldType](docs/v2/Core/models/ArrayFieldType.md) | `from foundry_sdk.v2.core.models import ArrayFieldType` |
 **Core** | [AttachmentType](docs/v2/Core/models/AttachmentType.md) | `from foundry_sdk.v2.core.models import AttachmentType` |
+**Core** | [Attribution](docs/v2/Core/models/Attribution.md) | `from foundry_sdk.v2.core.models import Attribution` |
 **Core** | [BinaryType](docs/v2/Core/models/BinaryType.md) | `from foundry_sdk.v2.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v2/Core/models/BooleanType.md) | `from foundry_sdk.v2.core.models import BooleanType` |
 **Core** | [BranchMetadata](docs/v2/Core/models/BranchMetadata.md) | `from foundry_sdk.v2.core.models import BranchMetadata` |
@@ -2218,6 +2219,7 @@ Namespace | Name | Import |
 --------- | ---- | ------ |
 **Core** | [AnyType](docs/v1/Core/models/AnyType.md) | `from foundry_sdk.v1.core.models import AnyType` |
 **Core** | [AttachmentType](docs/v1/Core/models/AttachmentType.md) | `from foundry_sdk.v1.core.models import AttachmentType` |
+**Core** | [Attribution](docs/v1/Core/models/Attribution.md) | `from foundry_sdk.v1.core.models import Attribution` |
 **Core** | [BinaryType](docs/v1/Core/models/BinaryType.md) | `from foundry_sdk.v1.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v1/Core/models/BooleanType.md) | `from foundry_sdk.v1.core.models import BooleanType` |
 **Core** | [ByteType](docs/v1/Core/models/ByteType.md) | `from foundry_sdk.v1.core.models import ByteType` |
@@ -2586,6 +2588,7 @@ Namespace | Name | Import |
 **Core** | FolderNotFound | `from foundry_sdk.v2.core.errors import FolderNotFound` |
 **Core** | FoundryBranchNotFound | `from foundry_sdk.v2.core.errors import FoundryBranchNotFound` |
 **Core** | InvalidAndFilter | `from foundry_sdk.v2.core.errors import InvalidAndFilter` |
+**Core** | InvalidAttributionHeader | `from foundry_sdk.v2.core.errors import InvalidAttributionHeader` |
 **Core** | InvalidChangeDataCaptureConfiguration | `from foundry_sdk.v2.core.errors import InvalidChangeDataCaptureConfiguration` |
 **Core** | InvalidFieldSchema | `from foundry_sdk.v2.core.errors import InvalidFieldSchema` |
 **Core** | InvalidFilePath | `from foundry_sdk.v2.core.errors import InvalidFilePath` |
