@@ -125,7 +125,7 @@ class ActionTypeFullMetadata(core.ModelBase):
     """Returns the full metadata for an Action type in the Ontology."""
 
     action_type: ActionTypeV2 = pydantic.Field(alias=str("actionType"))  # type: ignore[literal-required]
-    full_logic_rule: ActionLogicRule = pydantic.Field(alias=str("fullLogicRule"))  # type: ignore[literal-required]
+    full_logic_rules: typing.List[ActionLogicRule] = pydantic.Field(alias=str("fullLogicRules"))  # type: ignore[literal-required]
 
 
 ActionTypeRid = core.RID
@@ -1381,12 +1381,12 @@ class IsNullQueryV2(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
-KnownType = typing.Literal["userOrGroupRid", "resourceRid", "artifactGid"]
+KnownType = typing.Literal["USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"]
 """
 Known Foundry types for specialized formatting:
-- userOrGroupRid: Format as user or group RID (both are structurally RIDs)
-- resourceRid: Format as resource RID
-- artifactGid: Format as artifact GID
+- userOrGroupRid: Format as user or group
+- resourceRid: Format as resource 
+- artifactGid: Format as artifact
 """
 
 

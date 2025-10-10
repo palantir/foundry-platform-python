@@ -5140,6 +5140,7 @@ def functions_query():
 @functions_query.command("execute")
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5151,6 +5152,7 @@ def functions_query_op_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5165,6 +5167,7 @@ def functions_query_op_execute(
     result = client.functions.Query.execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5248,6 +5251,7 @@ def language_models_open_ai_model():
 tokens for the model (8192 tokens for all embedding models).
 """,
 )
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--dimensions",
     type=int,
@@ -5270,6 +5274,7 @@ def language_models_open_ai_model_op_embeddings(
     client: FoundryClient,
     open_ai_model_model_id: str,
     input: str,
+    attribution: typing.Optional[str],
     dimensions: typing.Optional[int],
     encoding_format: typing.Optional[typing.Literal["FLOAT", "BASE64"]],
     preview: typing.Optional[bool],
@@ -5278,6 +5283,7 @@ def language_models_open_ai_model_op_embeddings(
     result = client.language_models.OpenAiModel.embeddings(
         open_ai_model_model_id=open_ai_model_model_id,
         input=json.loads(input),
+        attribution=attribution,
         dimensions=dimensions,
         encoding_format=encoding_format,
         preview=preview,
@@ -5306,6 +5312,7 @@ def language_models_anthropic_model():
 alternating user and assistant roles.
 """,
 )
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5364,6 +5371,7 @@ def language_models_anthropic_model_op_messages(
     anthropic_model_model_id: str,
     max_tokens: int,
     messages: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     stop_sequences: typing.Optional[str],
     system: typing.Optional[str],
@@ -5379,6 +5387,7 @@ def language_models_anthropic_model_op_messages(
         anthropic_model_model_id=anthropic_model_model_id,
         max_tokens=max_tokens,
         messages=json.loads(messages),
+        attribution=attribution,
         preview=preview,
         stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
         system=None if system is None else json.loads(system),
@@ -6084,6 +6093,13 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""The Attribution to be used when executing this request.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -6124,6 +6140,7 @@ def ontologies_query_op_execute(
     ontology: str,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -6140,6 +6157,7 @@ def ontologies_query_op_execute(
         ontology=ontology,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,

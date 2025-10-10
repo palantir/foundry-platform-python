@@ -17,6 +17,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
+**attribution** | Optional[Attribution] | The Attribution to be used when executing this request.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
@@ -41,6 +42,8 @@ ontology = "palantir"
 query_api_name = "getEmployeesInCity"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"city": "New York"}
+# Optional[Attribution] | The Attribution to be used when executing this request.
+attribution = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -58,6 +61,7 @@ try:
         ontology,
         query_api_name,
         parameters=parameters,
+        attribution=attribution,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
