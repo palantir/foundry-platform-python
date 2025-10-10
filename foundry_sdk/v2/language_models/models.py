@@ -368,6 +368,13 @@ OpenAiEmbeddingInput = typing.List[str]
 """OpenAiEmbeddingInput"""
 
 
+class OpenAiEmbeddingTokenUsage(core.ModelBase):
+    """OpenAiEmbeddingTokenUsage"""
+
+    prompt_tokens: int = pydantic.Field(alias=str("promptTokens"))  # type: ignore[literal-required]
+    """Number of tokens in the prompt"""
+
+
 class OpenAiEmbeddingsRequest(core.ModelBase):
     """OpenAiEmbeddingsRequest"""
 
@@ -396,19 +403,12 @@ class OpenAiEmbeddingsResponse(core.ModelBase):
     model: str
     """The ID of the model used"""
 
-    usage: OpenAiTokenUsage
+    usage: OpenAiEmbeddingTokenUsage
     """Usage statistics for the request"""
 
 
 OpenAiEncodingFormat = typing.Literal["FLOAT", "BASE64"]
 """OpenAiEncodingFormat"""
-
-
-class OpenAiTokenUsage(core.ModelBase):
-    """OpenAiTokenUsage"""
-
-    prompt_tokens: int = pydantic.Field(alias=str("promptTokens"))  # type: ignore[literal-required]
-    """Number of tokens in the prompt"""
 
 
 AnthropicCacheControl = AnthropicEphemeralCacheControl
@@ -489,8 +489,8 @@ __all__ = [
     "JsonSchema",
     "LanguageModelApiName",
     "OpenAiEmbeddingInput",
+    "OpenAiEmbeddingTokenUsage",
     "OpenAiEmbeddingsRequest",
     "OpenAiEmbeddingsResponse",
     "OpenAiEncodingFormat",
-    "OpenAiTokenUsage",
 ]

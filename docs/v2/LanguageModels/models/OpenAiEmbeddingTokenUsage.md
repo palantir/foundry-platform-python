@@ -1,6 +1,6 @@
-# OpenAiTokenUsage
+# OpenAiEmbeddingTokenUsage
 
-OpenAiTokenUsage
+OpenAiEmbeddingTokenUsage
 
 ## Properties
 | Name | Type | Required | Description |
