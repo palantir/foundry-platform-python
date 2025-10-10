@@ -1628,8 +1628,8 @@ Namespace | Name | Import |
 **LanguageModels** | [OpenAiEmbeddingInput](docs/v2/LanguageModels/models/OpenAiEmbeddingInput.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingInput` |
 **LanguageModels** | [OpenAiEmbeddingsRequest](docs/v2/LanguageModels/models/OpenAiEmbeddingsRequest.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingsRequest` |
 **LanguageModels** | [OpenAiEmbeddingsResponse](docs/v2/LanguageModels/models/OpenAiEmbeddingsResponse.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingsResponse` |
+**LanguageModels** | [OpenAiEmbeddingTokenUsage](docs/v2/LanguageModels/models/OpenAiEmbeddingTokenUsage.md) | `from foundry_sdk.v2.language_models.models import OpenAiEmbeddingTokenUsage` |
 **LanguageModels** | [OpenAiEncodingFormat](docs/v2/LanguageModels/models/OpenAiEncodingFormat.md) | `from foundry_sdk.v2.language_models.models import OpenAiEncodingFormat` |
-**LanguageModels** | [OpenAiTokenUsage](docs/v2/LanguageModels/models/OpenAiTokenUsage.md) | `from foundry_sdk.v2.language_models.models import OpenAiTokenUsage` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry_sdk.v2.media_sets.models import BranchName` |
 **MediaSets** | [BranchRid](docs/v2/MediaSets/models/BranchRid.md) | `from foundry_sdk.v2.media_sets.models import BranchRid` |
 **MediaSets** | [GetMediaItemInfoResponse](docs/v2/MediaSets/models/GetMediaItemInfoResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemInfoResponse` |
