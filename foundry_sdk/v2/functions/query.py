@@ -58,6 +58,7 @@ class QueryClient:
         parameters: typing.Dict[
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -74,6 +75,8 @@ class QueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -101,6 +104,7 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
@@ -282,6 +286,7 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -298,6 +303,8 @@ class AsyncQueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -325,6 +332,7 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",

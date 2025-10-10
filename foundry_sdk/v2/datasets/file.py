@@ -190,7 +190,6 @@ class FileClient:
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
-        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         :raises TransactionNotOpen: The given transaction is not open.
         """
@@ -223,7 +222,6 @@ class FileClient:
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "InvalidTransactionType": datasets_errors.InvalidTransactionType,
-                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
                     "TransactionNotOpen": datasets_errors.TransactionNotOpen,
@@ -708,7 +706,6 @@ class AsyncFileClient:
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
-        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         :raises TransactionNotOpen: The given transaction is not open.
         """
@@ -741,7 +738,6 @@ class AsyncFileClient:
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "InvalidTransactionType": datasets_errors.InvalidTransactionType,
-                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
                     "TransactionNotOpen": datasets_errors.TransactionNotOpen,

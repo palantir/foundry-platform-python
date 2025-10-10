@@ -826,6 +826,13 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""The Attribution to be used when executing this request.
+""",
+)
+@click.option(
     "--trace_parent",
     type=str,
     required=False,
@@ -845,6 +852,7 @@ def ontologies_query_op_execute(
     ontology_rid: str,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
 ):
@@ -856,6 +864,7 @@ def ontologies_query_op_execute(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         trace_parent=trace_parent,
         trace_state=trace_state,
     )

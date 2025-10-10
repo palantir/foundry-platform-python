@@ -56,6 +56,7 @@ class OpenAiModelClient:
         open_ai_model_model_id: language_models_models.LanguageModelApiName,
         *,
         input: language_models_models.OpenAiEmbeddingInput,
+        attribution: typing.Optional[core_models.Attribution] = None,
         dimensions: typing.Optional[int] = None,
         encoding_format: typing.Optional[language_models_models.OpenAiEncodingFormat] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -68,6 +69,8 @@ class OpenAiModelClient:
         :type open_ai_model_model_id: LanguageModelApiName
         :param input: Input text to embed, encoded as an array of strings. Each input must not exceed the max input  tokens for the model (8192 tokens for all embedding models).
         :type input: OpenAiEmbeddingInput
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param dimensions: The number of dimensions the resulting output embeddings should have.  Only supported in text-embedding-3 and later models.
         :type dimensions: Optional[int]
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
@@ -93,6 +96,7 @@ class OpenAiModelClient:
                     "openAiModelModelId": open_ai_model_model_id,
                 },
                 header_params={
+                    "attribution": attribution,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -156,6 +160,7 @@ class AsyncOpenAiModelClient:
         open_ai_model_model_id: language_models_models.LanguageModelApiName,
         *,
         input: language_models_models.OpenAiEmbeddingInput,
+        attribution: typing.Optional[core_models.Attribution] = None,
         dimensions: typing.Optional[int] = None,
         encoding_format: typing.Optional[language_models_models.OpenAiEncodingFormat] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -168,6 +173,8 @@ class AsyncOpenAiModelClient:
         :type open_ai_model_model_id: LanguageModelApiName
         :param input: Input text to embed, encoded as an array of strings. Each input must not exceed the max input  tokens for the model (8192 tokens for all embedding models).
         :type input: OpenAiEmbeddingInput
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param dimensions: The number of dimensions the resulting output embeddings should have.  Only supported in text-embedding-3 and later models.
         :type dimensions: Optional[int]
         :param encoding_format: The format to return the embeddings in. Can be either float or base64.
@@ -193,6 +200,7 @@ class AsyncOpenAiModelClient:
                     "openAiModelModelId": open_ai_model_model_id,
                 },
                 header_params={
+                    "attribution": attribution,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
