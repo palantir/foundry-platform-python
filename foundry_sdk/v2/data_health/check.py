@@ -114,7 +114,7 @@ class CheckClient:
     @errors.handle_unexpected
     def delete(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -162,7 +162,7 @@ class CheckClient:
     @errors.handle_unexpected
     def get(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -212,7 +212,7 @@ class CheckClient:
     @errors.handle_unexpected
     def replace(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         config: data_health_models.ReplaceCheckConfig,
         intent: typing.Optional[data_health_models.CheckIntent] = None,
@@ -389,7 +389,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def delete(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -437,7 +437,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def get(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -487,7 +487,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def replace(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         config: data_health_models.ReplaceCheckConfig,
         intent: typing.Optional[data_health_models.CheckIntent] = None,

@@ -34,10 +34,6 @@ class AttachmentType(core.ModelBase):
     type: typing.Literal["attachment"] = "attachment"
 
 
-Attribution = str
-"""Attribution for a request"""
-
-
 class BinaryType(core.ModelBase):
     """BinaryType"""
 
@@ -240,7 +236,6 @@ class UnsupportedType(core.ModelBase):
 __all__ = [
     "AnyType",
     "AttachmentType",
-    "Attribution",
     "BinaryType",
     "BooleanType",
     "ByteType",

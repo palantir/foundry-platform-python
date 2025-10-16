@@ -18,7 +18,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**attribution** | Optional[Attribution] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
@@ -40,8 +39,6 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 query_api_name = None
 # Dict[ParameterId, Optional[DataValue]]
 parameters = None
-# Optional[Attribution]
-attribution = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[TraceParent]
@@ -56,7 +53,6 @@ try:
     api_response = client.functions.Query.execute(
         query_api_name,
         parameters=parameters,
-        attribution=attribution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,

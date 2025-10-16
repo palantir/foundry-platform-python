@@ -47,3 +47,20 @@ class Config:
 
     scheme: Literal["http", "https"] = "https"
     """URL scheme to use ('http' or 'https'). Defaults to 'https'."""
+
+    max_retries: Optional[int] = None
+    """
+    The maximum number of times a failed request is retried.
+    If no value is provided, it defaults to 4.
+    """
+
+    propagate_qos: Optional[Literal["AUTOMATIC_RETRY", "PROPAGATE_429_AND_503_TO_CALLER"]] = None
+    """Indicates whether 429 and 503 status codes should be propagated as exceptions or retried."""
+
+    backoff_slot_size_ms: Optional[int] = None
+    """
+    The size of one backoff time slot in milliseconds for call retries. For example,
+    an exponential backoff retry algorithm may choose a backoff time in [0, backoffSlotSize * 2^c] 
+    for the c-th retry.
+    If no value is provided, it defaults to 250 milliseconds.
+    """

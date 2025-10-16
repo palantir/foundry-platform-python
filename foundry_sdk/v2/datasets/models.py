@@ -214,6 +214,12 @@ class ListFilesResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class ListHealthChecksResponse(core.ModelBase):
+    """ListHealthChecksResponse"""
+
+    data: typing.List[core_models.CheckRid]
+
+
 class ListSchedulesResponse(core.ModelBase):
     """ListSchedulesResponse"""
 
@@ -415,6 +421,7 @@ __all__ = [
     "JobDetails",
     "ListBranchesResponse",
     "ListFilesResponse",
+    "ListHealthChecksResponse",
     "ListSchedulesResponse",
     "ListTransactionsOfDatasetResponse",
     "ListTransactionsResponse",

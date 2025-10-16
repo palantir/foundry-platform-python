@@ -956,6 +956,36 @@ class SearchUsersPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class UserDeletedParameters(typing_extensions.TypedDict):
+    """The user is deleted."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    principalId: core_models.UserId
+
+
+@dataclass
+class UserDeleted(errors.BadRequestError):
+    name: typing.Literal["UserDeleted"]
+    parameters: UserDeletedParameters
+    error_instance_id: str
+
+
+class UserIsActiveParameters(typing_extensions.TypedDict):
+    """The user is an active user."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    principalId: core_models.UserId
+
+
+@dataclass
+class UserIsActive(errors.BadRequestError):
+    name: typing.Literal["UserIsActive"]
+    parameters: UserIsActiveParameters
+    error_instance_id: str
+
+
 class UserNotFoundParameters(typing_extensions.TypedDict):
     """The given User could not be found."""
 
@@ -1050,6 +1080,8 @@ __all__ = [
     "RoleNotFound",
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
+    "UserDeleted",
+    "UserIsActive",
     "UserNotFound",
     "UserProviderInfoNotFound",
 ]

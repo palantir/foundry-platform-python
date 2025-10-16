@@ -197,6 +197,63 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_health_checks(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.ListHealthChecksResponse:
+        """
+        Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.ListHealthChecksResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthChecksPermissionDenied: Could not getHealthChecks the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthChecks",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.ListHealthChecksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthChecksPermissionDenied": datasets_errors.GetDatasetHealthChecksPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_schedules(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -630,6 +687,7 @@ class _DatasetClientRaw:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
@@ -639,6 +697,7 @@ class _DatasetClientRaw:
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.get_health_checks = core.with_raw_response(get_health_checks, client.get_health_checks)
         self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_raw_response(get_schema, client.get_schema)
         self.jobs = core.with_raw_response(jobs, client.jobs)
@@ -651,6 +710,7 @@ class _DatasetClientStreaming:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
@@ -660,6 +720,9 @@ class _DatasetClientStreaming:
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_health_checks = core.with_streaming_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
         self.jobs = core.with_streaming_response(jobs, client.jobs)
@@ -828,6 +891,63 @@ class AsyncDatasetClient:
                 throwable_errors={
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_health_checks(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.ListHealthChecksResponse]:
+        """
+        Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.ListHealthChecksResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthChecksPermissionDenied: Could not getHealthChecks the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthChecks",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.ListHealthChecksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthChecksPermissionDenied": datasets_errors.GetDatasetHealthChecksPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -1269,6 +1389,7 @@ class _AsyncDatasetClientRaw:
     def __init__(self, client: AsyncDatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
@@ -1278,6 +1399,9 @@ class _AsyncDatasetClientRaw:
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_health_checks = core.async_with_raw_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.async_with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
         self.jobs = core.async_with_raw_response(jobs, client.jobs)
@@ -1290,6 +1414,7 @@ class _AsyncDatasetClientStreaming:
     def __init__(self, client: AsyncDatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
@@ -1299,6 +1424,9 @@ class _AsyncDatasetClientStreaming:
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_health_checks = core.async_with_streaming_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.async_with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
         self.jobs = core.async_with_streaming_response(jobs, client.jobs)

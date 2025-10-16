@@ -44,7 +44,7 @@ class BuildStatusCheckConfig(core.ModelBase):
 class Check(core.ModelBase):
     """Check"""
 
-    rid: CheckRid
+    rid: core_models.CheckRid
     groups: typing.List[CheckGroupRid]
     config: CheckConfig
     intent: typing.Optional[CheckIntent] = None
@@ -78,10 +78,6 @@ CheckGroupRid = core.RID
 
 CheckIntent = str
 """A note about why the Check was set up."""
-
-
-CheckRid = core.RID
-"""The unique resource identifier (RID) of a Check."""
 
 
 class ColumnCountConfig(core.ModelBase):
@@ -405,7 +401,6 @@ __all__ = [
     "CheckConfig",
     "CheckGroupRid",
     "CheckIntent",
-    "CheckRid",
     "ColumnCountConfig",
     "ColumnInfo",
     "ColumnName",

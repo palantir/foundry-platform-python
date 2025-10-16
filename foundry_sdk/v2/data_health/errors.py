@@ -19,6 +19,7 @@ from dataclasses import dataclass
 import typing_extensions
 
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.data_health import models as data_health_models
 
 
@@ -45,7 +46,7 @@ class CheckNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    checkRid: data_health_models.CheckRid
+    checkRid: core_models.CheckRid
 
 
 @dataclass
@@ -88,7 +89,7 @@ class DeleteCheckPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    checkRid: data_health_models.CheckRid
+    checkRid: core_models.CheckRid
 
 
 @dataclass
@@ -183,7 +184,7 @@ class ReplaceCheckPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    checkRid: data_health_models.CheckRid
+    checkRid: core_models.CheckRid
 
 
 @dataclass

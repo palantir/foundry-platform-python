@@ -187,6 +187,18 @@ class GetFoldersBatchResponse(core.ModelBase):
     data: typing.Dict[FolderRid, Folder]
 
 
+class GetResourcesBatchRequestElement(core.ModelBase):
+    """GetResourcesBatchRequestElement"""
+
+    resource_rid: ResourceRid = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+
+
+class GetResourcesBatchResponse(core.ModelBase):
+    """GetResourcesBatchResponse"""
+
+    data: typing.Dict[ResourceRid, Resource]
+
+
 IsDirectlyApplied = bool
 """
 Boolean flag to indicate if the marking is directly applied to the resource, or if it's applied
@@ -595,6 +607,8 @@ __all__ = [
     "FolderType",
     "GetFoldersBatchRequestElement",
     "GetFoldersBatchResponse",
+    "GetResourcesBatchRequestElement",
+    "GetResourcesBatchResponse",
     "IsDirectlyApplied",
     "ListChildrenOfFolderResponse",
     "ListMarkingsOfResourceResponse",

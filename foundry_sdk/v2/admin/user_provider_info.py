@@ -71,6 +71,7 @@ class UserProviderInfoClient:
         :rtype: admin_models.UserProviderInfo
 
         :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
@@ -93,6 +94,7 @@ class UserProviderInfoClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                     "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },
@@ -128,6 +130,7 @@ class UserProviderInfoClient:
         :raises CannotReplaceProviderInfoForPrincipalInProtectedRealm: Provider information for Principals in this Realm cannot be replaced.
         :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
         :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
@@ -155,6 +158,7 @@ class UserProviderInfoClient:
                     "CannotReplaceProviderInfoForPrincipalInProtectedRealm": admin_errors.CannotReplaceProviderInfoForPrincipalInProtectedRealm,
                     "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
                     "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                     "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },
@@ -227,6 +231,7 @@ class AsyncUserProviderInfoClient:
         :rtype: typing.Awaitable[admin_models.UserProviderInfo]
 
         :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
@@ -249,6 +254,7 @@ class AsyncUserProviderInfoClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                     "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },
@@ -284,6 +290,7 @@ class AsyncUserProviderInfoClient:
         :raises CannotReplaceProviderInfoForPrincipalInProtectedRealm: Provider information for Principals in this Realm cannot be replaced.
         :raises GetUserProviderInfoPermissionDenied: The provided token does not have permission to view the provider information for the given user.
         :raises ReplaceUserProviderInfoPermissionDenied: Could not replace the UserProviderInfo.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         :raises UserProviderInfoNotFound: The given UserProviderInfo could not be found.
         """
@@ -311,6 +318,7 @@ class AsyncUserProviderInfoClient:
                     "CannotReplaceProviderInfoForPrincipalInProtectedRealm": admin_errors.CannotReplaceProviderInfoForPrincipalInProtectedRealm,
                     "GetUserProviderInfoPermissionDenied": admin_errors.GetUserProviderInfoPermissionDenied,
                     "ReplaceUserProviderInfoPermissionDenied": admin_errors.ReplaceUserProviderInfoPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                     "UserProviderInfoNotFound": admin_errors.UserProviderInfoNotFound,
                 },

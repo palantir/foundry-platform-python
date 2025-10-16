@@ -1,12 +1,11 @@
-# GetUsersBatchRequestElement
+# GetResourcesBatchResponse
 
-GetUsersBatchRequestElement
+GetResourcesBatchResponse
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**user_id** | UserId | Yes |  |
-**status** | Optional[UserStatus] | No |  |
+**data** | Dict[ResourceRid, Resource] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

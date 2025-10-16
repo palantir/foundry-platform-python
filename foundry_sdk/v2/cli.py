@@ -80,16 +80,19 @@ def admin_user_op_delete(
 
 @admin_user.command("get")
 @click.argument("user_id", type=str, required=True)
+@click.option("--status", type=click.Choice(["ACTIVE", "DELETED"]), required=False, help="""""")
 @click.pass_obj
 def admin_user_op_get(
     client: FoundryClient,
     user_id: str,
+    status: typing.Optional[typing.Literal["ACTIVE", "DELETED"]],
 ):
     """
     Get the User with the specified id.
     """
     result = client.admin.User.get(
         user_id=user_id,
+        status=status,
     )
     click.echo(repr(result))
 
@@ -144,6 +147,7 @@ def admin_user_op_get_markings(
 
 
 @admin_user.command("list")
+@click.option("--include", type=click.Choice(["ACTIVE", "DELETED"]), required=False, help="""""")
 @click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
@@ -158,6 +162,7 @@ and use it to populate the `pageToken` field of the next request.""",
 @click.pass_obj
 def admin_user_op_list(
     client: FoundryClient,
+    include: typing.Optional[typing.Literal["ACTIVE", "DELETED"]],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -167,6 +172,7 @@ def admin_user_op_list(
     This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
     """
     result = client.admin.User.list(
+        include=include,
         page_size=page_size,
         page_token=page_token,
     )
@@ -3312,6 +3318,37 @@ def datasets_dataset_op_get(
     click.echo(repr(result))
 
 
+@datasets_dataset.command("get_health_checks")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_op_get_health_checks(
+    client: FoundryClient,
+    dataset_rid: str,
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+    """
+    result = client.datasets.Dataset.get_health_checks(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.command("get_schedules")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option(
@@ -4518,6 +4555,32 @@ def filesystem_resource_op_get_access_requirements(
     click.echo(repr(result))
 
 
+@filesystem_resource.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_op_get_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Fetches multiple resources in a single request.
+    Returns a map from RID to the corresponding resource. If a resource does not exist, or if it is a root folder or space, its RID will not be included in the map.
+    At most 1,000 resources should be requested at once.
+
+
+    The maximum batch size for this endpoint is 1000.
+    """
+    result = client.filesystem.Resource.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem_resource.command("get_by_path")
 @click.option(
     "--path",
@@ -5140,7 +5203,6 @@ def functions_query():
 @functions_query.command("execute")
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
-@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5152,7 +5214,6 @@ def functions_query_op_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
-    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5167,7 +5228,6 @@ def functions_query_op_execute(
     result = client.functions.Query.execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
-        attribution=attribution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5251,7 +5311,6 @@ def language_models_open_ai_model():
 tokens for the model (8192 tokens for all embedding models).
 """,
 )
-@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--dimensions",
     type=int,
@@ -5274,7 +5333,6 @@ def language_models_open_ai_model_op_embeddings(
     client: FoundryClient,
     open_ai_model_model_id: str,
     input: str,
-    attribution: typing.Optional[str],
     dimensions: typing.Optional[int],
     encoding_format: typing.Optional[typing.Literal["FLOAT", "BASE64"]],
     preview: typing.Optional[bool],
@@ -5283,7 +5341,6 @@ def language_models_open_ai_model_op_embeddings(
     result = client.language_models.OpenAiModel.embeddings(
         open_ai_model_model_id=open_ai_model_model_id,
         input=json.loads(input),
-        attribution=attribution,
         dimensions=dimensions,
         encoding_format=encoding_format,
         preview=preview,
@@ -5312,7 +5369,6 @@ def language_models_anthropic_model():
 alternating user and assistant roles.
 """,
 )
-@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5371,7 +5427,6 @@ def language_models_anthropic_model_op_messages(
     anthropic_model_model_id: str,
     max_tokens: int,
     messages: str,
-    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     stop_sequences: typing.Optional[str],
     system: typing.Optional[str],
@@ -5387,7 +5442,6 @@ def language_models_anthropic_model_op_messages(
         anthropic_model_model_id=anthropic_model_model_id,
         max_tokens=max_tokens,
         messages=json.loads(messages),
-        attribution=attribution,
         preview=preview,
         stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
         system=None if system is None else json.loads(system),
@@ -6093,13 +6147,6 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
-    "--attribution",
-    type=str,
-    required=False,
-    help="""The Attribution to be used when executing this request.
-""",
-)
-@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -6140,7 +6187,6 @@ def ontologies_query_op_execute(
     ontology: str,
     query_api_name: str,
     parameters: str,
-    attribution: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -6157,7 +6203,6 @@ def ontologies_query_op_execute(
         ontology=ontology,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
-        attribution=attribution,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,

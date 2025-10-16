@@ -1,6 +1,6 @@
 # CheckRid
 
-The unique resource identifier (RID) of a Check.
+The unique resource identifier (RID) of a Data Health Check.
 
 ## Type
 ```python

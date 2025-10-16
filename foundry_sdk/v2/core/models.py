@@ -42,10 +42,6 @@ class AttachmentType(core.ModelBase):
     type: typing.Literal["attachment"] = "attachment"
 
 
-Attribution = str
-"""Attribution for a request"""
-
-
 class BinaryType(core.ModelBase):
     """BinaryType"""
 
@@ -72,6 +68,10 @@ class ByteType(core.ModelBase):
     """ByteType"""
 
     type: typing.Literal["byte"] = "byte"
+
+
+CheckRid = core.RID
+"""The unique resource identifier (RID) of a Data Health Check."""
 
 
 class CipherTextType(core.ModelBase):
@@ -815,6 +815,10 @@ UserId = core.UUID
 """A Foundry User ID."""
 
 
+UserStatus = typing.Literal["ACTIVE", "DELETED"]
+"""Present status of user."""
+
+
 class VectorSimilarityFunction(core.ModelBase):
     """
     The vector similarity function to support approximate nearest neighbors search. Will result in an index
@@ -881,13 +885,13 @@ __all__ = [
     "AnyType",
     "ArrayFieldType",
     "AttachmentType",
-    "Attribution",
     "BinaryType",
     "BooleanType",
     "BranchMetadata",
     "BuildRid",
     "ByteType",
     "ChangeDataCaptureConfiguration",
+    "CheckRid",
     "CipherTextType",
     "ComputeSeconds",
     "ContentLength",
@@ -995,6 +999,7 @@ __all__ = [
     "UpdatedBy",
     "UpdatedTime",
     "UserId",
+    "UserStatus",
     "VectorSimilarityFunction",
     "VectorSimilarityFunctionValue",
     "VectorType",

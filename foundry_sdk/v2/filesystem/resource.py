@@ -16,6 +16,7 @@
 import typing
 from functools import cached_property
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -278,6 +279,57 @@ class ResourceClient:
                     "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetResourcesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.GetResourcesBatchResponse:
+        """
+        Fetches multiple resources in a single request.
+        Returns a map from RID to the corresponding resource. If a resource does not exist, or if it is a root folder or space, its RID will not be included in the map.
+        At most 1,000 resources should be requested at once.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetResourcesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.GetResourcesBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=filesystem_models.GetResourcesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -571,6 +623,7 @@ class _ResourceClientRaw:
         def delete(_: None): ...
         def get(_: filesystem_models.Resource): ...
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
+        def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
@@ -583,6 +636,7 @@ class _ResourceClientRaw:
         self.get_access_requirements = core.with_raw_response(
             get_access_requirements, client.get_access_requirements
         )
+        self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.get_by_path = core.with_raw_response(get_by_path, client.get_by_path)
         self.markings = core.with_raw_response(markings, client.markings)
         self.permanently_delete = core.with_raw_response(
@@ -596,6 +650,7 @@ class _ResourceClientStreaming:
     def __init__(self, client: ResourceClient) -> None:
         def get(_: filesystem_models.Resource): ...
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
+        def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
@@ -603,6 +658,7 @@ class _ResourceClientStreaming:
         self.get_access_requirements = core.with_streaming_response(
             get_access_requirements, client.get_access_requirements
         )
+        self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.get_by_path = core.with_streaming_response(get_by_path, client.get_by_path)
         self.markings = core.with_streaming_response(markings, client.markings)
 
@@ -859,6 +915,57 @@ class AsyncResourceClient:
                     "GetAccessRequirementsPermissionDenied": filesystem_errors.GetAccessRequirementsPermissionDenied,
                     "ResourceNotFound": filesystem_errors.ResourceNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetResourcesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.GetResourcesBatchResponse]:
+        """
+        Fetches multiple resources in a single request.
+        Returns a map from RID to the corresponding resource. If a resource does not exist, or if it is a root folder or space, its RID will not be included in the map.
+        At most 1,000 resources should be requested at once.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetResourcesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.GetResourcesBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/getBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=filesystem_models.GetResourcesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -1152,6 +1259,7 @@ class _AsyncResourceClientRaw:
         def delete(_: None): ...
         def get(_: filesystem_models.Resource): ...
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
+        def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
@@ -1164,6 +1272,7 @@ class _AsyncResourceClientRaw:
         self.get_access_requirements = core.async_with_raw_response(
             get_access_requirements, client.get_access_requirements
         )
+        self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.get_by_path = core.async_with_raw_response(get_by_path, client.get_by_path)
         self.markings = core.async_with_raw_response(markings, client.markings)
         self.permanently_delete = core.async_with_raw_response(
@@ -1177,6 +1286,7 @@ class _AsyncResourceClientStreaming:
     def __init__(self, client: AsyncResourceClient) -> None:
         def get(_: filesystem_models.Resource): ...
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
+        def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
@@ -1184,5 +1294,6 @@ class _AsyncResourceClientStreaming:
         self.get_access_requirements = core.async_with_streaming_response(
             get_access_requirements, client.get_access_requirements
         )
+        self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.get_by_path = core.async_with_streaming_response(get_by_path, client.get_by_path)
         self.markings = core.async_with_streaming_response(markings, client.markings)
