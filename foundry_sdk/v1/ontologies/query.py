@@ -58,7 +58,6 @@ class QueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        attribution: typing.Optional[core_models.Attribution] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -73,8 +72,6 @@ class QueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param attribution: The Attribution to be used when executing this request.
-        :type attribution: Optional[Attribution]
         :param trace_parent: The W3C trace parent header included in the request.
         :type trace_parent: Optional[TraceParent]
         :param trace_state: The W3C trace state header included in the request.
@@ -95,7 +92,6 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
-                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
@@ -160,7 +156,6 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        attribution: typing.Optional[core_models.Attribution] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -175,8 +170,6 @@ class AsyncQueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param attribution: The Attribution to be used when executing this request.
-        :type attribution: Optional[Attribution]
         :param trace_parent: The W3C trace parent header included in the request.
         :type trace_parent: Optional[TraceParent]
         :param trace_state: The W3C trace state header included in the request.
@@ -197,7 +190,6 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
-                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",

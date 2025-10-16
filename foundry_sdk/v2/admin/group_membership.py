@@ -85,6 +85,7 @@ class GroupMembershipClient:
         :rtype: core.ResourceIterator[admin_models.GroupMembership]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -108,6 +109,7 @@ class GroupMembershipClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
@@ -188,6 +190,7 @@ class AsyncGroupMembershipClient:
         :rtype: core.AsyncResourceIterator[admin_models.GroupMembership]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -211,6 +214,7 @@ class AsyncGroupMembershipClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),

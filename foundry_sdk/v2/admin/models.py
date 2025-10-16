@@ -244,6 +244,7 @@ class GetUsersBatchRequestElement(core.ModelBase):
     """GetUsersBatchRequestElement"""
 
     user_id: core_models.UserId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
+    status: typing.Optional[core_models.UserStatus] = None
 
 
 class GetUsersBatchResponse(core.ModelBase):
@@ -748,6 +749,9 @@ class User(core.ModelBase):
     realm: core_models.Realm
     organization: typing.Optional[core_models.OrganizationRid] = None
     """The RID of the user's primary Organization. This will be blank for third-party application service users."""
+
+    status: core_models.UserStatus
+    """The current status of the user."""
 
     attributes: typing.Dict[AttributeName, AttributeValues]
     """

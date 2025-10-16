@@ -67,6 +67,7 @@ Get the User with the specified id.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | UserId |  |  |
+**status** | Optional[UserStatus] |  | [optional] |
 
 ### Return type
 **User**
@@ -82,10 +83,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # UserId
 user_id = None
+# Optional[UserStatus]
+status = None
 
 
 try:
-    api_response = client.admin.User.get(user_id)
+    api_response = client.admin.User.get(user_id, status=status)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -130,7 +133,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[GetUsersBatchRequestElement] | Body of the request
-body = [{"userId": "0d1fe74e-2b70-4a93-9b1a-80070637788b"}]
+body = [{"userId": "0d1fe74e-2b70-4a93-9b1a-80070637788b", "status": "ACTIVE"}]
 
 
 try:
@@ -257,6 +260,7 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
+**include** | Optional[UserStatus] |  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 
@@ -272,6 +276,8 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
+# Optional[UserStatus]
+include = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -279,7 +285,7 @@ page_token = None
 
 
 try:
-    for user in client.admin.User.list(page_size=page_size, page_token=page_token):
+    for user in client.admin.User.list(include=include, page_size=page_size, page_token=page_token):
         pprint(user)
 except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling User.list: %s\n" % e)

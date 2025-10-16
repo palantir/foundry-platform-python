@@ -58,7 +58,6 @@ class QueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        attribution: typing.Optional[core_models.Attribution] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -78,8 +77,6 @@ class QueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param attribution: The Attribution to be used when executing this request.
-        :type attribution: Optional[Attribution]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -110,7 +107,6 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
-                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
@@ -175,7 +171,6 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
-        attribution: typing.Optional[core_models.Attribution] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -195,8 +190,6 @@ class AsyncQueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
-        :param attribution: The Attribution to be used when executing this request.
-        :type attribution: Optional[Attribution]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -227,7 +220,6 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
-                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",

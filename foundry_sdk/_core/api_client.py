@@ -19,10 +19,14 @@ import contextlib
 import functools
 import json
 import re
+from abc import ABC
+from abc import abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 from datetime import timezone
 from inspect import isclass
+from random import Random
+from random import SystemRandom
 from typing import Any
 from typing import AsyncIterator
 from typing import Awaitable
@@ -44,6 +48,7 @@ from urllib.parse import quote
 
 import httpx
 import pydantic
+from retrying import retry  # type: ignore
 from typing_extensions import Annotated
 from typing_extensions import NotRequired
 from typing_extensions import ParamSpec
@@ -562,6 +567,83 @@ class BaseApiClient:
         return request_info.response_mode if request_info.response_mode is not None else "DECODED"
 
 
+class ApiMiddleware(ABC):
+    @abstractmethod
+    def call_api(
+        self,
+        request_info: RequestInfo,
+        next_call: Callable[[RequestInfo], Any],
+    ) -> Any: ...
+
+
+def apply_middleware(
+    middleware: List[ApiMiddleware],
+    next_call: Callable[[RequestInfo], Any],
+) -> Callable[[RequestInfo], Any]:
+    return functools.reduce(
+        lambda next_fn, mw: lambda req: mw.call_api(req, next_fn),
+        reversed(middleware),
+        lambda req: next_call(req),
+    )
+
+
+class RetryingMiddleware(ApiMiddleware):
+    """Middleware that implements automatic retry logic with exponential backoff."""
+
+    def __init__(
+        self,
+        max_retries: Optional[int] = None,
+        propagate_qos: Optional[
+            Literal["AUTOMATIC_RETRY", "PROPAGATE_429_AND_503_TO_CALLER"]
+        ] = None,
+        backoff_slot_size_ms: Optional[int] = None,
+        random: Optional[Random] = None,
+    ):
+        self._max_retries = max_retries or 4
+        self._propagate_qos = propagate_qos or "AUTOMATIC_RETRY"
+        self._backoff_slot_size_ms = backoff_slot_size_ms or 250
+        self._random = random or SystemRandom()
+
+    def call_api(
+        self,
+        request_info: RequestInfo,
+        next_call: Callable[[RequestInfo], Any],
+    ) -> Any:
+        @retry(
+            stop_max_attempt_number=self._max_retries,
+            retry_on_exception=self._is_retryable,
+            wait_func=self._get_backoff_ms,
+        )
+        def call_api_retrying() -> Any:
+            return next_call(request_info)
+
+        return call_api_retrying()
+
+    def _is_retryable(self, exception: Exception) -> bool:
+        """
+        Determine if an exception should trigger a retry.
+
+        Retry behavior matches dialogue client:
+        https://github.com/palantir/dialogue/blob/ae875833ad3b6e7a1d6786b77a853a114f73ffee/dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java#L383
+        """
+        if self._propagate_qos == "AUTOMATIC_RETRY":
+            return isinstance(exception, (RateLimitError, ServiceUnavailable))
+        return False
+
+    def _get_backoff_ms(
+        self, previous_attempt_number: int, _delay_since_first_attempt_ms: int
+    ) -> int:
+        """
+        Calculate backoff delay in milliseconds using exponential backoff with jitter.
+
+        Formula matches dialogue client behavior:
+        https://github.com/palantir/dialogue/blob/ae875833ad3b6e7a1d6786b77a853a114f73ffee/dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java#L380
+        """
+        return self._backoff_slot_size_ms * round(
+            (2**previous_attempt_number) * self._random.random()
+        )
+
+
 class ApiClient(BaseApiClient):
     def __init__(
         self,
@@ -571,9 +653,20 @@ class ApiClient(BaseApiClient):
     ):
         super().__init__(auth, hostname, config)
         self._session = HttpClient(hostname, config)
+        self._middleware: List[ApiMiddleware] = [
+            RetryingMiddleware(
+                max_retries=config.max_retries if config else None,
+                propagate_qos=config.propagate_qos if config else None,
+                backoff_slot_size_ms=config.backoff_slot_size_ms if config else None,
+            ),
+        ]
 
     def call_api(self, request_info: RequestInfo) -> Any:
         """Makes the HTTP request (synchronous)"""
+        # Wrap the actual call in the middleware chain
+        return apply_middleware(self._middleware, self._call_api)(request_info)
+
+    def _call_api(self, request_info: RequestInfo) -> Any:
         response_mode = self._get_response_mode(request_info)
 
         if response_mode == "ITERATOR":
@@ -653,9 +746,20 @@ class AsyncApiClient(BaseApiClient):
     ):
         super().__init__(auth, hostname, config)
         self._client = AsyncHttpClient(hostname, config)
+        self._middleware: List[ApiMiddleware] = [
+            RetryingMiddleware(
+                max_retries=config.max_retries if config else None,
+                propagate_qos=config.propagate_qos if config else None,
+                backoff_slot_size_ms=config.backoff_slot_size_ms if config else None,
+            ),
+        ]
 
     def call_api(self, request_info: RequestInfo) -> Any:
         """Makes the HTTP request (asynchronous)"""
+        # Wrap the actual call in the middleware chain
+        return apply_middleware(self._middleware, self._call_api)(request_info)
+
+    def _call_api(self, request_info: RequestInfo) -> Any:
         response_mode = self._get_response_mode(request_info)
 
         if response_mode == "ITERATOR":
@@ -664,7 +768,7 @@ class AsyncApiClient(BaseApiClient):
                 page_size: Optional[int],
                 next_page_token: Optional[str],
             ) -> Tuple[Optional[str], List[Any]]:
-                response = await self._call_api(
+                response = await self._async_call_api(
                     request_info.update(
                         # pageSize will already be present in the query params dictionary
                         query_params={"pageToken": next_page_token},
@@ -678,12 +782,12 @@ class AsyncApiClient(BaseApiClient):
 
         if response_mode == "STREAMING":
             return AsyncStreamingContextManager(
-                request_info, self._call_api(request_info, response_mode="STREAMING")
+                request_info, self._async_call_api(request_info, response_mode="STREAMING")
             )
         else:
-            return self._call_api(request_info, response_mode)
+            return self._async_call_api(request_info, response_mode)
 
-    async def _call_api(self, request_info: RequestInfo, response_mode: ResponseMode) -> Any:
+    async def _async_call_api(self, request_info: RequestInfo, response_mode: ResponseMode) -> Any:
         with error_handling():
 
             async def make_request(token: Token):

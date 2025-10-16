@@ -754,6 +754,7 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Branch | [**transactions**](docs/v2/Datasets/Branch.md#transactions) | **GET** /v2/datasets/{datasetRid}/branches/{branchName}/transactions |
 **Datasets** | Dataset | [**create**](docs/v2/Datasets/Dataset.md#create) | **POST** /v2/datasets |
 **Datasets** | Dataset | [**get**](docs/v2/Datasets/Dataset.md#get) | **GET** /v2/datasets/{datasetRid} |
+**Datasets** | Dataset | [**get_health_checks**](docs/v2/Datasets/Dataset.md#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks |
 **Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
 **Datasets** | Dataset | [**get_schema**](docs/v2/Datasets/Dataset.md#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema |
 **Datasets** | Dataset | [**jobs**](docs/v2/Datasets/Dataset.md#jobs) | **POST** /v2/datasets/{datasetRid}/jobs |
@@ -789,6 +790,7 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | Resource | [**delete**](docs/v2/Filesystem/Resource.md#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} |
 **Filesystem** | Resource | [**get**](docs/v2/Filesystem/Resource.md#get) | **GET** /v2/filesystem/resources/{resourceRid} |
 **Filesystem** | Resource | [**get_access_requirements**](docs/v2/Filesystem/Resource.md#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements |
+**Filesystem** | Resource | [**get_batch**](docs/v2/Filesystem/Resource.md#get_batch) | **POST** /v2/filesystem/resources/getBatch |
 **Filesystem** | Resource | [**get_by_path**](docs/v2/Filesystem/Resource.md#get_by_path) | **GET** /v2/filesystem/resources/getByPath |
 **Filesystem** | Resource | [**markings**](docs/v2/Filesystem/Resource.md#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings |
 **Filesystem** | Resource | [**permanently_delete**](docs/v2/Filesystem/Resource.md#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete |
@@ -1233,13 +1235,13 @@ Namespace | Name | Import |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry_sdk.v2.core.models import AnyType` |
 **Core** | [ArrayFieldType](docs/v2/Core/models/ArrayFieldType.md) | `from foundry_sdk.v2.core.models import ArrayFieldType` |
 **Core** | [AttachmentType](docs/v2/Core/models/AttachmentType.md) | `from foundry_sdk.v2.core.models import AttachmentType` |
-**Core** | [Attribution](docs/v2/Core/models/Attribution.md) | `from foundry_sdk.v2.core.models import Attribution` |
 **Core** | [BinaryType](docs/v2/Core/models/BinaryType.md) | `from foundry_sdk.v2.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v2/Core/models/BooleanType.md) | `from foundry_sdk.v2.core.models import BooleanType` |
 **Core** | [BranchMetadata](docs/v2/Core/models/BranchMetadata.md) | `from foundry_sdk.v2.core.models import BranchMetadata` |
 **Core** | [BuildRid](docs/v2/Core/models/BuildRid.md) | `from foundry_sdk.v2.core.models import BuildRid` |
 **Core** | [ByteType](docs/v2/Core/models/ByteType.md) | `from foundry_sdk.v2.core.models import ByteType` |
 **Core** | [ChangeDataCaptureConfiguration](docs/v2/Core/models/ChangeDataCaptureConfiguration.md) | `from foundry_sdk.v2.core.models import ChangeDataCaptureConfiguration` |
+**Core** | [CheckRid](docs/v2/Core/models/CheckRid.md) | `from foundry_sdk.v2.core.models import CheckRid` |
 **Core** | [CipherTextType](docs/v2/Core/models/CipherTextType.md) | `from foundry_sdk.v2.core.models import CipherTextType` |
 **Core** | [ComputeSeconds](docs/v2/Core/models/ComputeSeconds.md) | `from foundry_sdk.v2.core.models import ComputeSeconds` |
 **Core** | [ContentLength](docs/v2/Core/models/ContentLength.md) | `from foundry_sdk.v2.core.models import ContentLength` |
@@ -1347,6 +1349,7 @@ Namespace | Name | Import |
 **Core** | [UpdatedBy](docs/v2/Core/models/UpdatedBy.md) | `from foundry_sdk.v2.core.models import UpdatedBy` |
 **Core** | [UpdatedTime](docs/v2/Core/models/UpdatedTime.md) | `from foundry_sdk.v2.core.models import UpdatedTime` |
 **Core** | [UserId](docs/v2/Core/models/UserId.md) | `from foundry_sdk.v2.core.models import UserId` |
+**Core** | [UserStatus](docs/v2/Core/models/UserStatus.md) | `from foundry_sdk.v2.core.models import UserStatus` |
 **Core** | [VectorSimilarityFunction](docs/v2/Core/models/VectorSimilarityFunction.md) | `from foundry_sdk.v2.core.models import VectorSimilarityFunction` |
 **Core** | [VectorSimilarityFunctionValue](docs/v2/Core/models/VectorSimilarityFunctionValue.md) | `from foundry_sdk.v2.core.models import VectorSimilarityFunctionValue` |
 **Core** | [VectorType](docs/v2/Core/models/VectorType.md) | `from foundry_sdk.v2.core.models import VectorType` |
@@ -1358,7 +1361,6 @@ Namespace | Name | Import |
 **DataHealth** | [CheckConfig](docs/v2/DataHealth/models/CheckConfig.md) | `from foundry_sdk.v2.data_health.models import CheckConfig` |
 **DataHealth** | [CheckGroupRid](docs/v2/DataHealth/models/CheckGroupRid.md) | `from foundry_sdk.v2.data_health.models import CheckGroupRid` |
 **DataHealth** | [CheckIntent](docs/v2/DataHealth/models/CheckIntent.md) | `from foundry_sdk.v2.data_health.models import CheckIntent` |
-**DataHealth** | [CheckRid](docs/v2/DataHealth/models/CheckRid.md) | `from foundry_sdk.v2.data_health.models import CheckRid` |
 **DataHealth** | [ColumnCountConfig](docs/v2/DataHealth/models/ColumnCountConfig.md) | `from foundry_sdk.v2.data_health.models import ColumnCountConfig` |
 **DataHealth** | [ColumnInfo](docs/v2/DataHealth/models/ColumnInfo.md) | `from foundry_sdk.v2.data_health.models import ColumnInfo` |
 **DataHealth** | [ColumnName](docs/v2/DataHealth/models/ColumnName.md) | `from foundry_sdk.v2.data_health.models import ColumnName` |
@@ -1429,6 +1431,7 @@ Namespace | Name | Import |
 **Datasets** | [JobDetails](docs/v2/Datasets/models/JobDetails.md) | `from foundry_sdk.v2.datasets.models import JobDetails` |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
+**Datasets** | [ListHealthChecksResponse](docs/v2/Datasets/models/ListHealthChecksResponse.md) | `from foundry_sdk.v2.datasets.models import ListHealthChecksResponse` |
 **Datasets** | [ListSchedulesResponse](docs/v2/Datasets/models/ListSchedulesResponse.md) | `from foundry_sdk.v2.datasets.models import ListSchedulesResponse` |
 **Datasets** | [ListTransactionsOfDatasetResponse](docs/v2/Datasets/models/ListTransactionsOfDatasetResponse.md) | `from foundry_sdk.v2.datasets.models import ListTransactionsOfDatasetResponse` |
 **Datasets** | [ListTransactionsResponse](docs/v2/Datasets/models/ListTransactionsResponse.md) | `from foundry_sdk.v2.datasets.models import ListTransactionsResponse` |
@@ -1464,6 +1467,8 @@ Namespace | Name | Import |
 **Filesystem** | [FolderType](docs/v2/Filesystem/models/FolderType.md) | `from foundry_sdk.v2.filesystem.models import FolderType` |
 **Filesystem** | [GetFoldersBatchRequestElement](docs/v2/Filesystem/models/GetFoldersBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchRequestElement` |
 **Filesystem** | [GetFoldersBatchResponse](docs/v2/Filesystem/models/GetFoldersBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchResponse` |
+**Filesystem** | [GetResourcesBatchRequestElement](docs/v2/Filesystem/models/GetResourcesBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetResourcesBatchRequestElement` |
+**Filesystem** | [GetResourcesBatchResponse](docs/v2/Filesystem/models/GetResourcesBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetResourcesBatchResponse` |
 **Filesystem** | [IsDirectlyApplied](docs/v2/Filesystem/models/IsDirectlyApplied.md) | `from foundry_sdk.v2.filesystem.models import IsDirectlyApplied` |
 **Filesystem** | [ListChildrenOfFolderResponse](docs/v2/Filesystem/models/ListChildrenOfFolderResponse.md) | `from foundry_sdk.v2.filesystem.models import ListChildrenOfFolderResponse` |
 **Filesystem** | [ListMarkingsOfResourceResponse](docs/v2/Filesystem/models/ListMarkingsOfResourceResponse.md) | `from foundry_sdk.v2.filesystem.models import ListMarkingsOfResourceResponse` |
@@ -2219,7 +2224,6 @@ Namespace | Name | Import |
 --------- | ---- | ------ |
 **Core** | [AnyType](docs/v1/Core/models/AnyType.md) | `from foundry_sdk.v1.core.models import AnyType` |
 **Core** | [AttachmentType](docs/v1/Core/models/AttachmentType.md) | `from foundry_sdk.v1.core.models import AttachmentType` |
-**Core** | [Attribution](docs/v1/Core/models/Attribution.md) | `from foundry_sdk.v1.core.models import Attribution` |
 **Core** | [BinaryType](docs/v1/Core/models/BinaryType.md) | `from foundry_sdk.v1.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v1/Core/models/BooleanType.md) | `from foundry_sdk.v1.core.models import BooleanType` |
 **Core** | [ByteType](docs/v1/Core/models/ByteType.md) | `from foundry_sdk.v1.core.models import ByteType` |
@@ -2511,6 +2515,8 @@ Namespace | Name | Import |
 **Admin** | RoleNotFound | `from foundry_sdk.v2.admin.errors import RoleNotFound` |
 **Admin** | SearchGroupsPermissionDenied | `from foundry_sdk.v2.admin.errors import SearchGroupsPermissionDenied` |
 **Admin** | SearchUsersPermissionDenied | `from foundry_sdk.v2.admin.errors import SearchUsersPermissionDenied` |
+**Admin** | UserDeleted | `from foundry_sdk.v2.admin.errors import UserDeleted` |
+**Admin** | UserIsActive | `from foundry_sdk.v2.admin.errors import UserIsActive` |
 **Admin** | UserNotFound | `from foundry_sdk.v2.admin.errors import UserNotFound` |
 **Admin** | UserProviderInfoNotFound | `from foundry_sdk.v2.admin.errors import UserProviderInfoNotFound` |
 **AipAgents** | AgentIterationsExceededLimit | `from foundry_sdk.v2.aip_agents.errors import AgentIterationsExceededLimit` |
@@ -2588,7 +2594,6 @@ Namespace | Name | Import |
 **Core** | FolderNotFound | `from foundry_sdk.v2.core.errors import FolderNotFound` |
 **Core** | FoundryBranchNotFound | `from foundry_sdk.v2.core.errors import FoundryBranchNotFound` |
 **Core** | InvalidAndFilter | `from foundry_sdk.v2.core.errors import InvalidAndFilter` |
-**Core** | InvalidAttributionHeader | `from foundry_sdk.v2.core.errors import InvalidAttributionHeader` |
 **Core** | InvalidChangeDataCaptureConfiguration | `from foundry_sdk.v2.core.errors import InvalidChangeDataCaptureConfiguration` |
 **Core** | InvalidFieldSchema | `from foundry_sdk.v2.core.errors import InvalidFieldSchema` |
 **Core** | InvalidFilePath | `from foundry_sdk.v2.core.errors import InvalidFilePath` |
@@ -2638,6 +2643,7 @@ Namespace | Name | Import |
 **Datasets** | FileNotFoundOnBranch | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnBranch` |
 **Datasets** | FileNotFoundOnTransactionRange | `from foundry_sdk.v2.datasets.errors import FileNotFoundOnTransactionRange` |
 **Datasets** | GetBranchTransactionHistoryPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetBranchTransactionHistoryPermissionDenied` |
+**Datasets** | GetDatasetHealthChecksPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetHealthChecksPermissionDenied` |
 **Datasets** | GetDatasetJobsPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetJobsPermissionDenied` |
 **Datasets** | GetDatasetSchedulesPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchedulesPermissionDenied` |
 **Datasets** | GetDatasetSchemaPermissionDenied | `from foundry_sdk.v2.datasets.errors import GetDatasetSchemaPermissionDenied` |

@@ -13,7 +13,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **open_ai_model_model_id** | LanguageModelApiName |  |  |
 **input** | OpenAiEmbeddingInput | Input text to embed, encoded as an array of strings. Each input must not exceed the max input  tokens for the model (8192 tokens for all embedding models).  |  |
-**attribution** | Optional[Attribution] |  | [optional] |
 **dimensions** | Optional[int] | The number of dimensions the resulting output embeddings should have.  Only supported in text-embedding-3 and later models.  | [optional] |
 **encoding_format** | Optional[OpenAiEncodingFormat] | The format to return the embeddings in. Can be either float or base64. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -34,8 +33,6 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 open_ai_model_model_id = None
 # OpenAiEmbeddingInput | Input text to embed, encoded as an array of strings. Each input must not exceed the max input  tokens for the model (8192 tokens for all embedding models).
 input = None
-# Optional[Attribution]
-attribution = None
 # Optional[int] | The number of dimensions the resulting output embeddings should have.  Only supported in text-embedding-3 and later models.
 dimensions = None
 # Optional[OpenAiEncodingFormat] | The format to return the embeddings in. Can be either float or base64.
@@ -48,7 +45,6 @@ try:
     api_response = client.language_models.OpenAiModel.embeddings(
         open_ai_model_model_id,
         input=input,
-        attribution=attribution,
         dimensions=dimensions,
         encoding_format=encoding_format,
         preview=preview,
