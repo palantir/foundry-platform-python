@@ -209,6 +209,36 @@ class MissingMediaItemPath(errors.BadRequestError):
     error_instance_id: str
 
 
+class TemporaryMediaUploadInsufficientPermissionsParameters(typing_extensions.TypedDict):
+    """
+    Insufficient permissions to use this endpoint. This may be because that you are using a custom client instead of
+    an official Palantir client library. If so, please try again using OSDK, Python Functions, or TypeScript
+    Functions V2.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TemporaryMediaUploadInsufficientPermissions(errors.PermissionDeniedError):
+    name: typing.Literal["TemporaryMediaUploadInsufficientPermissions"]
+    parameters: TemporaryMediaUploadInsufficientPermissionsParameters
+    error_instance_id: str
+
+
+class TemporaryMediaUploadUnknownFailureParameters(typing_extensions.TypedDict):
+    """An unknown error occurred, please try again, and if this continues please contact your Palantir representative."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TemporaryMediaUploadUnknownFailure(errors.InternalServerError):
+    name: typing.Literal["TemporaryMediaUploadUnknownFailure"]
+    parameters: TemporaryMediaUploadUnknownFailureParameters
+    error_instance_id: str
+
+
 class TransformedMediaItemNotFoundParameters(typing_extensions.TypedDict):
     """The requested media item could not be found, or the client token does not have access to it."""
 
@@ -238,5 +268,7 @@ __all__ = [
     "MediaSetOpenTransactionAlreadyExists",
     "MissingMediaItemContent",
     "MissingMediaItemPath",
+    "TemporaryMediaUploadInsufficientPermissions",
+    "TemporaryMediaUploadUnknownFailure",
     "TransformedMediaItemNotFound",
 ]

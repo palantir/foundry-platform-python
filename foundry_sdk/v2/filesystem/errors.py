@@ -1052,6 +1052,19 @@ class TrashingSpaceNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class UsageAccountServiceIsNotPresentParameters(typing_extensions.TypedDict):
+    """The Usage Accounts service is unexpectedly not present."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UsageAccountServiceIsNotPresent(errors.InternalServerError):
+    name: typing.Literal["UsageAccountServiceIsNotPresent"]
+    parameters: UsageAccountServiceIsNotPresentParameters
+    error_instance_id: str
+
+
 __all__ = [
     "AddGroupToParentGroupPermissionDenied",
     "AddMarkingsPermissionDenied",
@@ -1122,4 +1135,5 @@ __all__ = [
     "TrashingAutosavedResourcesNotSupported",
     "TrashingHiddenResourcesNotSupported",
     "TrashingSpaceNotSupported",
+    "UsageAccountServiceIsNotPresent",
 ]

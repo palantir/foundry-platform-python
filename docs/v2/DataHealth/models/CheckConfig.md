@@ -11,10 +11,13 @@ This discriminator class uses the `type` field to differentiate between classes.
 | Class | Value
 | ------------ | -------------
 ColumnTypeCheckConfig | columnType
+NumericColumnRangeCheckConfig | numericColumnRange
 JobStatusCheckConfig | jobStatus
+NumericColumnMeanCheckConfig | numericColumnMean
 JobDurationCheckConfig | jobDuration
 NullPercentageCheckConfig | nullPercentage
 TotalColumnCountCheckConfig | totalColumnCount
+NumericColumnMedianCheckConfig | numericColumnMedian
 BuildDurationCheckConfig | buildDuration
 SchemaComparisonCheckConfig | schemaComparison
 BuildStatusCheckConfig | buildStatus

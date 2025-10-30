@@ -194,6 +194,25 @@ class GetJobResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class GetSchemaDatasetsBatchRequestElement(core.ModelBase):
+    """GetSchemaDatasetsBatchRequestElement"""
+
+    end_transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("endTransactionRid"), default=None)  # type: ignore[literal-required]
+    """The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used."""
+
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    version_id: typing.Optional[core_models.VersionId] = pydantic.Field(alias=str("versionId"), default=None)  # type: ignore[literal-required]
+    """The schema version that should be used. If none is provided, the latest version will be used."""
+
+    branch_name: typing.Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+
+
+class GetSchemaDatasetsBatchResponse(core.ModelBase):
+    """GetSchemaDatasetsBatchResponse"""
+
+    data: typing.Dict[DatasetRid, GetDatasetSchemaResponse]
+
+
 class JobDetails(core.ModelBase):
     """JobDetails"""
 
@@ -418,6 +437,8 @@ __all__ = [
     "GetDatasetJobsTimeFilterField",
     "GetDatasetSchemaResponse",
     "GetJobResponse",
+    "GetSchemaDatasetsBatchRequestElement",
+    "GetSchemaDatasetsBatchResponse",
     "JobDetails",
     "ListBranchesResponse",
     "ListFilesResponse",

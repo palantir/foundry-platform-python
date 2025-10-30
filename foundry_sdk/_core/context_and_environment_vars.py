@@ -21,6 +21,7 @@ They are used as an option to initialize the FoundryClient.
 import os
 from contextvars import ContextVar
 from typing import Optional
+from typing import TypeVar
 
 # Token and hostname variables
 TOKEN_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_TOKEN", default=None)
@@ -33,6 +34,12 @@ HOSTNAME_ENV_VAR: str = "FOUNDRY_HOSTNAME"
 TOKEN_ENV_VARS: list[str] = [TOKEN_ENV_VAR]
 HOSTNAME_ENV_VARS: list[str] = [HOSTNAME_ENV_VAR]
 
+# Attribution variables
+ATTRIBUTION_VAR: ContextVar[Optional[list[str]]] = ContextVar("ATTRIBUTION_RESOURCES", default=None)
+ATTRIBUTION_CONTEXT_VARS: list[ContextVar[Optional[list[str]]]] = [ATTRIBUTION_VAR]
+
+T = TypeVar("T")
+
 
 def _maybe_get_environment_var(env_vars: list[str]) -> Optional[str]:
     for env_var in env_vars:
@@ -42,9 +49,9 @@ def _maybe_get_environment_var(env_vars: list[str]) -> Optional[str]:
     return None
 
 
-def _maybe_get_context_var(
-    context_vars: list[ContextVar[Optional[str]]],
-) -> Optional[str]:
+def maybe_get_context_var(
+    context_vars: list[ContextVar[Optional[T]]],
+) -> Optional[T]:
     for context_var in context_vars:
         value = context_var.get()
         if value is not None:
@@ -55,4 +62,4 @@ def _maybe_get_context_var(
 def maybe_get_value_from_context_or_environment_vars(
     context_vars: list[ContextVar[Optional[str]]], env_vars: list[str]
 ) -> Optional[str]:
-    return _maybe_get_context_var(context_vars) or _maybe_get_environment_var(env_vars)
+    return maybe_get_context_var(context_vars) or _maybe_get_environment_var(env_vars)

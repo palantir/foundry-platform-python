@@ -546,6 +546,7 @@ def test_create_headers():
                 "float_header": 123.123,
                 "int_header": 123,
                 "str_header": "string",
+                "optional_header": None,
             },
         ),
         token=UserTokenAuth(token="bar").get_token(),

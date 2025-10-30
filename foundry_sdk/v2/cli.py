@@ -20,6 +20,7 @@ import io
 import json
 import os
 import typing
+from datetime import date as Date
 from datetime import datetime
 
 import click
@@ -2262,21 +2263,16 @@ def audit_organization_log_file():
 @audit_organization_log_file.command("content")
 @click.argument("organization_rid", type=str, required=True)
 @click.argument("log_file_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def audit_organization_log_file_op_content(
     client: FoundryClient,
     organization_rid: str,
     log_file_id: str,
-    preview: typing.Optional[bool],
 ):
     """ """
     result = client.audit.Organization.LogFile.content(
         organization_rid=organization_rid,
         log_file_id=log_file_id,
-        preview=preview,
     )
     click.echo(result)
 
@@ -2285,7 +2281,7 @@ def audit_organization_log_file_op_content(
 @click.argument("organization_rid", type=str, required=True)
 @click.option(
     "--end_date",
-    type=click.DateTime(),
+    type=str,
     required=False,
     help="""List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
 """,
@@ -2302,24 +2298,20 @@ To fetch the next page, clients should take the value from the `nextPageToken` f
 and use it to populate the `pageToken` field of the next request.""",
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--start_date",
-    type=click.DateTime(),
+    type=str,
     required=False,
-    help="""List log files for audit events starting from this date. If absent, defaults to the current date.
+    help="""List log files for audit events starting from this date. This parameter is required for the initial request (when `pageToken` is not provided).
 """,
 )
 @click.pass_obj
 def audit_organization_log_file_op_list(
     client: FoundryClient,
     organization_rid: str,
-    end_date: typing.Optional[datetime],
+    end_date: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
-    start_date: typing.Optional[datetime],
+    start_date: typing.Optional[str],
 ):
     """
     Lists all LogFiles.
@@ -2328,11 +2320,10 @@ def audit_organization_log_file_op_list(
     """
     result = client.audit.Organization.LogFile.list(
         organization_rid=organization_rid,
-        end_date=end_date,
+        end_date=None if end_date is None else Date.fromisoformat(end_date),
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
-        start_date=start_date,
+        start_date=None if start_date is None else Date.fromisoformat(start_date),
     )
     click.echo(repr(result))
 
@@ -2527,6 +2518,46 @@ def connectivity_connection_op_upload_custom_jdbc_drivers(
         connection_rid=connection_rid,
         body=body.read(),
         file_name=file_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.group("virtual_table")
+def connectivity_connection_virtual_table():
+    pass
+
+
+@connectivity_connection_virtual_table.command("create")
+@click.argument("connection_rid", type=str, required=True)
+@click.option("--config", type=str, required=True, help="""""")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--parent_rid", type=str, required=True, help="""""")
+@click.option("--markings", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def connectivity_connection_virtual_table_op_create(
+    client: FoundryClient,
+    connection_rid: str,
+    config: str,
+    name: str,
+    parent_rid: str,
+    markings: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new VirtualTable from an upstream table. The VirtualTable will be created
+    in the specified parent folder and can be queried through Foundry's data access APIs.
+
+    """
+    result = client.connectivity.Connection.VirtualTable.create(
+        connection_rid=connection_rid,
+        config=json.loads(config),
+        name=name,
+        parent_rid=parent_rid,
+        markings=None if markings is None else json.loads(markings),
         preview=preview,
     )
     click.echo(repr(result))
@@ -3077,7 +3108,7 @@ def data_health_check_op_replace(
     preview: typing.Optional[bool],
 ):
     """
-    Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+    Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
     """
     result = client.data_health.Check.replace(
         check_rid=check_rid,
@@ -3429,6 +3460,31 @@ def datasets_dataset_op_get_schema(
     click.echo(repr(result))
 
 
+@datasets_dataset.command("get_schema_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_op_get_schema_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Fetch schemas for multiple datasets in a single request. Datasets not found
+    or inaccessible to the user will be omitted from the response.
+
+
+    The maximum batch size for this endpoint is 1000.
+    """
+    result = client.datasets.Dataset.get_schema_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @datasets_dataset.command("jobs")
 @click.argument("dataset_rid", type=str, required=True)
 @click.option("--order_by", type=str, required=True, help="""""")
@@ -3627,7 +3683,7 @@ def datasets_dataset_op_transactions(
     preview: typing.Optional[bool],
 ):
     """
-    Get the Transaction history for the given Dataset
+    Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
     """
     result = client.datasets.Dataset.transactions(
@@ -4238,7 +4294,7 @@ def datasets_dataset_branch_op_transactions(
     preview: typing.Optional[bool],
 ):
     """
-    Get the Transaction history for the given Dataset.
+    Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
     """
     result = client.datasets.Dataset.Branch.transactions(
@@ -4602,6 +4658,33 @@ def filesystem_resource_op_get_by_path(
     """
     result = client.filesystem.Resource.get_by_path(
         path=path,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_resource.command("get_by_path_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_resource_op_get_by_path_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets multiple Resources by their absolute paths.
+    Returns a list of resources. If a path does not exist, is inaccessible, or refers to
+    a root folder or space, it will not be included in the response.
+    At most 1,000 paths should be requested at once.
+
+
+    The maximum batch size for this endpoint is 1000.
+    """
+    result = client.filesystem.Resource.get_by_path_batch(
+        body=json.loads(body),
         preview=preview,
     )
     click.echo(repr(result))
@@ -5203,6 +5286,7 @@ def functions_query():
 @functions_query.command("execute")
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5214,6 +5298,7 @@ def functions_query_op_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5228,6 +5313,7 @@ def functions_query_op_execute(
     result = client.functions.Query.execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5311,6 +5397,7 @@ def language_models_open_ai_model():
 tokens for the model (8192 tokens for all embedding models).
 """,
 )
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--dimensions",
     type=int,
@@ -5333,6 +5420,7 @@ def language_models_open_ai_model_op_embeddings(
     client: FoundryClient,
     open_ai_model_model_id: str,
     input: str,
+    attribution: typing.Optional[str],
     dimensions: typing.Optional[int],
     encoding_format: typing.Optional[typing.Literal["FLOAT", "BASE64"]],
     preview: typing.Optional[bool],
@@ -5341,6 +5429,7 @@ def language_models_open_ai_model_op_embeddings(
     result = client.language_models.OpenAiModel.embeddings(
         open_ai_model_model_id=open_ai_model_model_id,
         input=json.loads(input),
+        attribution=attribution,
         dimensions=dimensions,
         encoding_format=encoding_format,
         preview=preview,
@@ -5369,6 +5458,7 @@ def language_models_anthropic_model():
 alternating user and assistant roles.
 """,
 )
+@click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
@@ -5427,6 +5517,7 @@ def language_models_anthropic_model_op_messages(
     anthropic_model_model_id: str,
     max_tokens: int,
     messages: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     stop_sequences: typing.Optional[str],
     system: typing.Optional[str],
@@ -5442,6 +5533,7 @@ def language_models_anthropic_model_op_messages(
         anthropic_model_model_id=anthropic_model_model_id,
         max_tokens=max_tokens,
         messages=json.loads(messages),
+        attribution=attribution,
         preview=preview,
         stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
         system=None if system is None else json.loads(system),
@@ -5883,6 +5975,49 @@ def media_sets_media_set_op_upload(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("upload_media")
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option(
+    "--filename",
+    type=str,
+    required=True,
+    help="""The path to write the media item to. Required if the backing media set requires paths.
+""",
+)
+@click.option(
+    "--attribution", type=str, required=False, help="""used for passing through usage attribution"""
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def media_sets_media_set_op_upload_media(
+    client: FoundryClient,
+    body: io.BufferedReader,
+    filename: str,
+    attribution: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    "Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
+
+    The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`."
+
+    """
+    result = client.media_sets.MediaSet.upload_media(
+        body=body.read(),
+        filename=filename,
+        attribution=attribution,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("ontologies")
 def ontologies():
     pass
@@ -6147,6 +6282,13 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""The Attribution to be used when executing this request.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -6187,6 +6329,7 @@ def ontologies_query_op_execute(
     ontology: str,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -6194,7 +6337,7 @@ def ontologies_query_op_execute(
     version: typing.Optional[str],
 ):
     """
-    Executes a Query using the given parameters.
+    Executes a Query using the given parameters. By default, the latest version of the Query is executed.
 
     Optional parameters do not need to be supplied.
 
@@ -6203,6 +6346,7 @@ def ontologies_query_op_execute(
         ontology=ontology,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -8373,49 +8517,6 @@ def ontologies_media_reference_property_op_upload(
     click.echo(repr(result))
 
 
-@ontologies_media_reference_property.command("upload_media")
-@click.argument("ontology", type=str, required=True)
-@click.argument("action_type", type=str, required=True)
-@click.argument("body", type=click.File("rb"), required=True)
-@click.option(
-    "--media_item_path",
-    type=str,
-    required=False,
-    help="""The path to write the media item to. Required if the backing media set requires paths.
-""",
-)
-@click.option(
-    "--preview",
-    type=bool,
-    required=False,
-    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
-""",
-)
-@click.pass_obj
-def ontologies_media_reference_property_op_upload_media(
-    client: FoundryClient,
-    ontology: str,
-    action_type: str,
-    body: io.BufferedReader,
-    media_item_path: typing.Optional[str],
-    preview: typing.Optional[bool],
-):
-    """
-    Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted.
-
-    The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-    """
-    result = client.ontologies.MediaReferenceProperty.upload_media(
-        ontology=ontology,
-        action_type=action_type,
-        body=body.read(),
-        media_item_path=media_item_path,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @ontologies.group("linked_object")
 def ontologies_linked_object():
     pass
@@ -8942,6 +9043,49 @@ def ontologies_action_type_full_metadata_op_get(
         ontology=ontology,
         action_type=action_type,
         branch=branch,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action_type_full_metadata.command("list")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list the action types from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The desired size of the page to be returned. Defaults to 500.
+See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_action_type_full_metadata_op_list(
+    client: FoundryClient,
+    ontology: str,
+    branch: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+):
+    """
+    Lists the action types (with full metadata) for the given Ontology.
+
+    Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+    results available, at least one result will be present in the response.
+
+    """
+    result = client.ontologies.ActionTypeFullMetadata.list(
+        ontology=ontology,
+        branch=branch,
+        page_size=page_size,
+        page_token=page_token,
     )
     click.echo(repr(result))
 

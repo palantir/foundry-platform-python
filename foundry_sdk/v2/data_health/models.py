@@ -58,10 +58,13 @@ class Check(core.ModelBase):
 CheckConfig = typing_extensions.Annotated[
     typing.Union[
         "ColumnTypeCheckConfig",
+        "NumericColumnRangeCheckConfig",
         "JobStatusCheckConfig",
+        "NumericColumnMeanCheckConfig",
         "JobDurationCheckConfig",
         "NullPercentageCheckConfig",
         "TotalColumnCountCheckConfig",
+        "NumericColumnMedianCheckConfig",
         BuildDurationCheckConfig,
         "SchemaComparisonCheckConfig",
         BuildStatusCheckConfig,
@@ -109,7 +112,7 @@ class ColumnTypeCheckConfig(core.ModelBase):
 class ColumnTypeConfig(core.ModelBase):
     """Configuration for column type validation with severity settings."""
 
-    column_name: str = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
     expected_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("expectedType"), default=None)  # type: ignore[literal-required]
     severity: SeverityLevel
 
@@ -178,6 +181,53 @@ class NullPercentageCheckConfig(core.ModelBase):
     type: typing.Literal["nullPercentage"] = "nullPercentage"
 
 
+class NumericBounds(core.ModelBase):
+    """The range of numeric values a check is expected to be within."""
+
+    lower_bound: typing.Optional[float] = pydantic.Field(alias=str("lowerBound"), default=None)  # type: ignore[literal-required]
+    upper_bound: typing.Optional[float] = pydantic.Field(alias=str("upperBound"), default=None)  # type: ignore[literal-required]
+
+
+class NumericBoundsConfig(core.ModelBase):
+    """Configuration for numeric bounds check with severity settings."""
+
+    numeric_bounds: NumericBounds = pydantic.Field(alias=str("numericBounds"))  # type: ignore[literal-required]
+    severity: SeverityLevel
+
+
+class NumericColumnCheckConfig(core.ModelBase):
+    """Configuration for numeric column-based checks (such as mean or median). At least one of numericBounds or trend must be specified. Both may be provided to validate both the absolute value range and the trend behavior over time."""
+
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    numeric_bounds: typing.Optional[NumericBoundsConfig] = pydantic.Field(alias=str("numericBounds"), default=None)  # type: ignore[literal-required]
+    trend: typing.Optional[TrendConfig] = None
+
+
+class NumericColumnMeanCheckConfig(core.ModelBase):
+    """Checks the mean value of a numeric column."""
+
+    subject: DatasetSubject
+    numeric_column_check_config: NumericColumnCheckConfig = pydantic.Field(alias=str("numericColumnCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnMean"] = "numericColumnMean"
+
+
+class NumericColumnMedianCheckConfig(core.ModelBase):
+    """Checks the median value of a numeric column."""
+
+    subject: DatasetSubject
+    numeric_column_check_config: NumericColumnCheckConfig = pydantic.Field(alias=str("numericColumnCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnMedian"] = "numericColumnMedian"
+
+
+class NumericColumnRangeCheckConfig(core.ModelBase):
+    """Checks that values in a numeric column fall within a specified range."""
+
+    subject: DatasetSubject
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    numeric_bounds_config: NumericBoundsConfig = pydantic.Field(alias=str("numericBoundsConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnRange"] = "numericColumnRange"
+
+
 class PercentageBounds(core.ModelBase):
     """The configuration for the range of percentage values between which the health check is expected to succeed."""
 
@@ -242,10 +292,13 @@ class ReplaceBuildStatusCheckConfig(core.ModelBase):
 ReplaceCheckConfig = typing_extensions.Annotated[
     typing.Union[
         "ReplaceColumnTypeCheckConfig",
+        "ReplaceNumericColumnRangeCheckConfig",
         "ReplaceJobStatusCheckConfig",
+        "ReplaceNumericColumnMeanCheckConfig",
         "ReplaceJobDurationCheckConfig",
         "ReplaceNullPercentageCheckConfig",
         "ReplaceTotalColumnCountCheckConfig",
+        "ReplaceNumericColumnMedianCheckConfig",
         ReplaceBuildDurationCheckConfig,
         "ReplaceSchemaComparisonCheckConfig",
         ReplaceBuildStatusCheckConfig,
@@ -266,8 +319,15 @@ class ReplaceCheckRequest(core.ModelBase):
 class ReplaceColumnTypeCheckConfig(core.ModelBase):
     """ReplaceColumnTypeCheckConfig"""
 
-    column_type_config: ColumnTypeConfig = pydantic.Field(alias=str("columnTypeConfig"))  # type: ignore[literal-required]
+    column_type_config: ReplaceColumnTypeConfig = pydantic.Field(alias=str("columnTypeConfig"))  # type: ignore[literal-required]
     type: typing.Literal["columnType"] = "columnType"
+
+
+class ReplaceColumnTypeConfig(core.ModelBase):
+    """ReplaceColumnTypeConfig"""
+
+    severity: SeverityLevel
+    expected_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("expectedType"), default=None)  # type: ignore[literal-required]
 
 
 class ReplaceJobDurationCheckConfig(core.ModelBase):
@@ -287,15 +347,56 @@ class ReplaceJobStatusCheckConfig(core.ModelBase):
 class ReplaceNullPercentageCheckConfig(core.ModelBase):
     """ReplaceNullPercentageCheckConfig"""
 
-    percentage_check_config: PercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
+    percentage_check_config: ReplacePercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
     type: typing.Literal["nullPercentage"] = "nullPercentage"
+
+
+class ReplaceNumericColumnCheckConfig(core.ModelBase):
+    """ReplaceNumericColumnCheckConfig"""
+
+    numeric_bounds: typing.Optional[NumericBoundsConfig] = pydantic.Field(alias=str("numericBounds"), default=None)  # type: ignore[literal-required]
+    trend: typing.Optional[TrendConfig] = None
+
+
+class ReplaceNumericColumnMeanCheckConfig(core.ModelBase):
+    """ReplaceNumericColumnMeanCheckConfig"""
+
+    numeric_column_check_config: ReplaceNumericColumnCheckConfig = pydantic.Field(alias=str("numericColumnCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnMean"] = "numericColumnMean"
+
+
+class ReplaceNumericColumnMedianCheckConfig(core.ModelBase):
+    """ReplaceNumericColumnMedianCheckConfig"""
+
+    numeric_column_check_config: ReplaceNumericColumnCheckConfig = pydantic.Field(alias=str("numericColumnCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnMedian"] = "numericColumnMedian"
+
+
+class ReplaceNumericColumnRangeCheckConfig(core.ModelBase):
+    """ReplaceNumericColumnRangeCheckConfig"""
+
+    numeric_bounds_config: NumericBoundsConfig = pydantic.Field(alias=str("numericBoundsConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["numericColumnRange"] = "numericColumnRange"
+
+
+class ReplacePercentageCheckConfig(core.ModelBase):
+    """ReplacePercentageCheckConfig"""
+
+    median_deviation: typing.Optional[MedianDeviationConfig] = pydantic.Field(alias=str("medianDeviation"), default=None)  # type: ignore[literal-required]
+    percentage_bounds: typing.Optional[PercentageBoundsConfig] = pydantic.Field(alias=str("percentageBounds"), default=None)  # type: ignore[literal-required]
 
 
 class ReplacePrimaryKeyCheckConfig(core.ModelBase):
     """ReplacePrimaryKeyCheckConfig"""
 
-    primary_key_config: PrimaryKeyConfig = pydantic.Field(alias=str("primaryKeyConfig"))  # type: ignore[literal-required]
+    primary_key_config: ReplacePrimaryKeyConfig = pydantic.Field(alias=str("primaryKeyConfig"))  # type: ignore[literal-required]
     type: typing.Literal["primaryKey"] = "primaryKey"
+
+
+class ReplacePrimaryKeyConfig(core.ModelBase):
+    """ReplacePrimaryKeyConfig"""
+
+    severity: SeverityLevel
 
 
 class ReplaceSchemaComparisonCheckConfig(core.ModelBase):
@@ -351,8 +452,8 @@ class SchemaInfo(core.ModelBase):
     columns: typing.List[ColumnInfo]
 
 
-SeverityLevel = typing.Literal["LOW", "MODERATE", "CRITICAL"]
-"""The severity level of the check. Possible values are LOW, MODERATE, or CRITICAL."""
+SeverityLevel = typing.Literal["MODERATE", "CRITICAL"]
+"""The severity level of the check. Possible values are MODERATE or CRITICAL."""
 
 
 class StatusCheckConfig(core.ModelBase):
@@ -391,6 +492,27 @@ class TotalColumnCountCheckConfig(core.ModelBase):
     type: typing.Literal["totalColumnCount"] = "totalColumnCount"
 
 
+class TrendConfig(core.ModelBase):
+    """Configuration for trend-based validation with severity settings. At least one of trendType or differenceBounds must be specified. Both may be provided to validate both the trend pattern and the magnitude of change."""
+
+    trend_type: typing.Optional[TrendType] = pydantic.Field(alias=str("trendType"), default=None)  # type: ignore[literal-required]
+    difference_bounds: typing.Optional[NumericBounds] = pydantic.Field(alias=str("differenceBounds"), default=None)  # type: ignore[literal-required]
+    severity: SeverityLevel
+
+
+TrendType = typing.Literal[
+    "NON_INCREASING", "NON_DECREASING", "STRICTLY_INCREASING", "STRICTLY_DECREASING", "CONSTANT"
+]
+"""
+The type of trend to validate:
+- NON_INCREASING: Values should not increase over time
+- NON_DECREASING: Values should not decrease over time
+- STRICTLY_INCREASING: Values should strictly increase over time
+- STRICTLY_DECREASING: Values should strictly decrease over time
+- CONSTANT: Values should remain constant over time
+"""
+
+
 core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
 core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
 
@@ -415,6 +537,12 @@ __all__ = [
     "MedianDeviationBoundsType",
     "MedianDeviationConfig",
     "NullPercentageCheckConfig",
+    "NumericBounds",
+    "NumericBoundsConfig",
+    "NumericColumnCheckConfig",
+    "NumericColumnMeanCheckConfig",
+    "NumericColumnMedianCheckConfig",
+    "NumericColumnRangeCheckConfig",
     "PercentageBounds",
     "PercentageBoundsConfig",
     "PercentageCheckConfig",
@@ -426,10 +554,17 @@ __all__ = [
     "ReplaceCheckConfig",
     "ReplaceCheckRequest",
     "ReplaceColumnTypeCheckConfig",
+    "ReplaceColumnTypeConfig",
     "ReplaceJobDurationCheckConfig",
     "ReplaceJobStatusCheckConfig",
     "ReplaceNullPercentageCheckConfig",
+    "ReplaceNumericColumnCheckConfig",
+    "ReplaceNumericColumnMeanCheckConfig",
+    "ReplaceNumericColumnMedianCheckConfig",
+    "ReplaceNumericColumnRangeCheckConfig",
+    "ReplacePercentageCheckConfig",
     "ReplacePrimaryKeyCheckConfig",
+    "ReplacePrimaryKeyConfig",
     "ReplaceSchemaComparisonCheckConfig",
     "ReplaceTotalColumnCountCheckConfig",
     "SchemaComparisonCheckConfig",
@@ -442,4 +577,6 @@ __all__ = [
     "TimeBoundsConfig",
     "TimeCheckConfig",
     "TotalColumnCountCheckConfig",
+    "TrendConfig",
+    "TrendType",
 ]

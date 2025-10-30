@@ -21,6 +21,7 @@ import typing_extensions
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
 class AdditionalSecretsMustBeSpecifiedAsPlaintextValueMapParameters(typing_extensions.TypedDict):
@@ -122,6 +123,21 @@ class CreateTableImportPermissionDeniedParameters(typing_extensions.TypedDict):
 class CreateTableImportPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["CreateTableImportPermissionDenied"]
     parameters: CreateTableImportPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CreateVirtualTablePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the VirtualTable."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    connectionRid: connectivity_models.ConnectionRid
+
+
+@dataclass
+class CreateVirtualTablePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateVirtualTablePermissionDenied"]
+    parameters: CreateVirtualTablePermissionDeniedParameters
     error_instance_id: str
 
 
@@ -424,6 +440,22 @@ class HostNameCannotHaveProtocolOrPort(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidVirtualTableConnectionParameters(typing_extensions.TypedDict):
+    """The specified connection is invalid or inaccessible."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    connection: connectivity_models.ConnectionRid
+    reason: connectivity_models.InvalidConnectionReason
+
+
+@dataclass
+class InvalidVirtualTableConnection(errors.BadRequestError):
+    name: typing.Literal["InvalidVirtualTableConnection"]
+    parameters: InvalidVirtualTableConnectionParameters
+    error_instance_id: str
+
+
 class ParentFolderNotFoundForConnectionParameters(typing_extensions.TypedDict):
     """The parent folder for the specified connection could not be found."""
 
@@ -639,6 +671,35 @@ class UploadCustomJdbcDriversConnectionPermissionDenied(errors.PermissionDeniedE
     error_instance_id: str
 
 
+class VirtualTableAlreadyExistsParameters(typing_extensions.TypedDict):
+    """A VirtualTable with the same name already exists in the parent folder."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    parentRid: filesystem_models.FolderRid
+    name: connectivity_models.TableName
+
+
+@dataclass
+class VirtualTableAlreadyExists(errors.ConflictError):
+    name: typing.Literal["VirtualTableAlreadyExists"]
+    parameters: VirtualTableAlreadyExistsParameters
+    error_instance_id: str
+
+
+class VirtualTableRegisterFromSourcePermissionDeniedParameters(typing_extensions.TypedDict):
+    """User lacks permission to use the specified connection for virtual table registration."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class VirtualTableRegisterFromSourcePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["VirtualTableRegisterFromSourcePermissionDenied"]
+    parameters: VirtualTableRegisterFromSourcePermissionDeniedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap",
     "ConnectionDetailsNotDetermined",
@@ -647,6 +708,7 @@ __all__ = [
     "CreateConnectionPermissionDenied",
     "CreateFileImportPermissionDenied",
     "CreateTableImportPermissionDenied",
+    "CreateVirtualTablePermissionDenied",
     "DeleteFileImportPermissionDenied",
     "DeleteTableImportPermissionDenied",
     "DomainMustUseHttpsWithAuthentication",
@@ -666,6 +728,7 @@ __all__ = [
     "FilesCountLimitFilterInvalidLimit",
     "GetConfigurationPermissionDenied",
     "HostNameCannotHaveProtocolOrPort",
+    "InvalidVirtualTableConnection",
     "ParentFolderNotFoundForConnection",
     "PropertyCannotBeBlank",
     "PropertyCannotBeEmpty",
@@ -680,4 +743,6 @@ __all__ = [
     "UpdateSecretsForConnectionPermissionDenied",
     "UploadCustomJdbcDriverNotSupportForConnection",
     "UploadCustomJdbcDriversConnectionPermissionDenied",
+    "VirtualTableAlreadyExists",
+    "VirtualTableRegisterFromSourcePermissionDenied",
 ]

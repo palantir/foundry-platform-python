@@ -394,6 +394,58 @@ class ResourceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_path_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetByPathResourcesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.GetByPathResourcesBatchResponse:
+        """
+        Gets multiple Resources by their absolute paths.
+        Returns a list of resources. If a path does not exist, is inaccessible, or refers to
+        a root folder or space, it will not be included in the response.
+        At most 1,000 paths should be requested at once.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetByPathResourcesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.GetByPathResourcesBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/getByPathBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=filesystem_models.GetByPathResourcesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def markings(
         self,
         resource_rid: filesystem_models.ResourceRid,
@@ -625,6 +677,7 @@ class _ResourceClientRaw:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
+        def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
         def remove_markings(_: None): ...
@@ -638,6 +691,7 @@ class _ResourceClientRaw:
         )
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.get_by_path = core.with_raw_response(get_by_path, client.get_by_path)
+        self.get_by_path_batch = core.with_raw_response(get_by_path_batch, client.get_by_path_batch)
         self.markings = core.with_raw_response(markings, client.markings)
         self.permanently_delete = core.with_raw_response(
             permanently_delete, client.permanently_delete
@@ -652,6 +706,7 @@ class _ResourceClientStreaming:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
+        def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
@@ -660,6 +715,9 @@ class _ResourceClientStreaming:
         )
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.get_by_path = core.with_streaming_response(get_by_path, client.get_by_path)
+        self.get_by_path_batch = core.with_streaming_response(
+            get_by_path_batch, client.get_by_path_batch
+        )
         self.markings = core.with_streaming_response(markings, client.markings)
 
 
@@ -1030,6 +1088,58 @@ class AsyncResourceClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_path_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[filesystem_models.GetByPathResourcesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.GetByPathResourcesBatchResponse]:
+        """
+        Gets multiple Resources by their absolute paths.
+        Returns a list of resources. If a path does not exist, is inaccessible, or refers to
+        a root folder or space, it will not be included in the response.
+        At most 1,000 paths should be requested at once.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetByPathResourcesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.GetByPathResourcesBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/filesystem/resources/getByPathBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=filesystem_models.GetByPathResourcesBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def markings(
         self,
         resource_rid: filesystem_models.ResourceRid,
@@ -1261,6 +1371,7 @@ class _AsyncResourceClientRaw:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
+        def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
         def permanently_delete(_: None): ...
         def remove_markings(_: None): ...
@@ -1274,6 +1385,9 @@ class _AsyncResourceClientRaw:
         )
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.get_by_path = core.async_with_raw_response(get_by_path, client.get_by_path)
+        self.get_by_path_batch = core.async_with_raw_response(
+            get_by_path_batch, client.get_by_path_batch
+        )
         self.markings = core.async_with_raw_response(markings, client.markings)
         self.permanently_delete = core.async_with_raw_response(
             permanently_delete, client.permanently_delete
@@ -1288,6 +1402,7 @@ class _AsyncResourceClientStreaming:
         def get_access_requirements(_: filesystem_models.AccessRequirements): ...
         def get_batch(_: filesystem_models.GetResourcesBatchResponse): ...
         def get_by_path(_: filesystem_models.Resource): ...
+        def get_by_path_batch(_: filesystem_models.GetByPathResourcesBatchResponse): ...
         def markings(_: filesystem_models.ListMarkingsOfResourceResponse): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
@@ -1296,4 +1411,7 @@ class _AsyncResourceClientStreaming:
         )
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.get_by_path = core.async_with_streaming_response(get_by_path, client.get_by_path)
+        self.get_by_path_batch = core.async_with_streaming_response(
+            get_by_path_batch, client.get_by_path_batch
+        )
         self.markings = core.async_with_streaming_response(markings, client.markings)

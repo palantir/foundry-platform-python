@@ -71,6 +71,16 @@ class ConnectionClient:
             config=self._config,
         )
 
+    @cached_property
+    def VirtualTable(self):
+        from foundry_sdk.v2.connectivity.virtual_table import VirtualTableClient
+
+        return VirtualTableClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -111,6 +121,7 @@ class ConnectionClient:
         :return: Returns the result object.
         :rtype: connectivity_models.Connection
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
         :raises FolderNotFound: The given Folder could not be found.
@@ -140,6 +151,7 @@ class ConnectionClient:
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
@@ -227,6 +239,7 @@ class ConnectionClient:
         :return: Returns the result object.
         :rtype: connectivity_models.ConnectionConfiguration
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
         """
@@ -248,6 +261,7 @@ class ConnectionClient:
                 response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "GetConfigurationPermissionDenied": connectivity_errors.GetConfigurationPermissionDenied,
                 },
@@ -282,6 +296,7 @@ class ConnectionClient:
         :return: Returns the result object.
         :rtype: None
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises UpdateExportSettingsForConnectionPermissionDenied: Could not updateExportSettings the Connection.
         """
 
@@ -304,6 +319,7 @@ class ConnectionClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "UpdateExportSettingsForConnectionPermissionDenied": connectivity_errors.UpdateExportSettingsForConnectionPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -515,6 +531,16 @@ class AsyncConnectionClient:
             config=self._config,
         )
 
+    @cached_property
+    def VirtualTable(self):
+        from foundry_sdk.v2.connectivity.virtual_table import AsyncVirtualTableClient
+
+        return AsyncVirtualTableClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -555,6 +581,7 @@ class AsyncConnectionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[connectivity_models.Connection]
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises CreateConnectionPermissionDenied: Could not create the Connection.
         :raises FolderNotFound: The given Folder could not be found.
@@ -584,6 +611,7 @@ class AsyncConnectionClient:
                 response_type=connectivity_models.Connection,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "CreateConnectionPermissionDenied": connectivity_errors.CreateConnectionPermissionDenied,
                     "FolderNotFound": filesystem_errors.FolderNotFound,
@@ -671,6 +699,7 @@ class AsyncConnectionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[connectivity_models.ConnectionConfiguration]
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ConnectionTypeNotSupported: The specified connection is not yet supported in the Platform API.
         :raises GetConfigurationPermissionDenied: Could not getConfiguration the Connection.
         """
@@ -692,6 +721,7 @@ class AsyncConnectionClient:
                 response_type=connectivity_models.ConnectionConfiguration,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ConnectionTypeNotSupported": connectivity_errors.ConnectionTypeNotSupported,
                     "GetConfigurationPermissionDenied": connectivity_errors.GetConfigurationPermissionDenied,
                 },
@@ -726,6 +756,7 @@ class AsyncConnectionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[None]
 
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises UpdateExportSettingsForConnectionPermissionDenied: Could not updateExportSettings the Connection.
         """
 
@@ -748,6 +779,7 @@ class AsyncConnectionClient:
                 response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "UpdateExportSettingsForConnectionPermissionDenied": connectivity_errors.UpdateExportSettingsForConnectionPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

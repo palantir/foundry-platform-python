@@ -96,19 +96,79 @@ class ActionTypeFullMetadataClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.ResourceIterator[ontologies_models.ActionTypeFullMetadata]:
+        """
+        Lists the action types (with full metadata) for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.ResourceIterator[ontologies_models.ActionTypeFullMetadata]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/actionTypesFullMetadata",
+                query_params={
+                    "branch": branch,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=ontologies_models.ListActionTypesFullMetadataResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _ActionTypeFullMetadataClientRaw:
     def __init__(self, client: ActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.list = core.with_raw_response(list, client.list)
 
 
 class _ActionTypeFullMetadataClientStreaming:
     def __init__(self, client: ActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.list = core.with_streaming_response(list, client.list)
 
 
 class AsyncActionTypeFullMetadataClient:
@@ -183,16 +243,76 @@ class AsyncActionTypeFullMetadataClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def list(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        page_size: typing.Optional[core_models.PageSize] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core.AsyncResourceIterator[ontologies_models.ActionTypeFullMetadata]:
+        """
+        Lists the action types (with full metadata) for the given Ontology.
+
+        Each page may be smaller than the requested page size. However, it is guaranteed that if there are more
+        results available, at least one result will be present in the response.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
+        :type page_size: Optional[PageSize]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core.AsyncResourceIterator[ontologies_models.ActionTypeFullMetadata]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/ontologies/{ontology}/actionTypesFullMetadata",
+                query_params={
+                    "branch": branch,
+                    "pageSize": page_size,
+                    "pageToken": page_token,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=ontologies_models.ListActionTypesFullMetadataResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
+            ),
+        )
+
 
 class _AsyncActionTypeFullMetadataClientRaw:
     def __init__(self, client: AsyncActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_raw_response(get, client.get)
+        self.list = core.async_with_raw_response(list, client.list)
 
 
 class _AsyncActionTypeFullMetadataClientStreaming:
     def __init__(self, client: AsyncActionTypeFullMetadataClient) -> None:
         def get(_: ontologies_models.ActionTypeFullMetadata): ...
+        def list(_: ontologies_models.ListActionTypesFullMetadataResponse): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
+        self.list = core.async_with_streaming_response(list, client.list)

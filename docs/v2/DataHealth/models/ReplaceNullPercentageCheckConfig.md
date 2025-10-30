@@ -5,7 +5,7 @@ ReplaceNullPercentageCheckConfig
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**percentage_check_config** | PercentageCheckConfig | Yes |  |
+**percentage_check_config** | ReplacePercentageCheckConfig | Yes |  |
 **type** | Literal["nullPercentage"] | Yes | None |
 
 

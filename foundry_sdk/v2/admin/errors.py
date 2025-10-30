@@ -732,6 +732,19 @@ class ProfilePictureNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class ProfileServiceNotPresentParameters(typing_extensions.TypedDict):
+    """The Profile service is unexpectedly not present."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ProfileServiceNotPresent(errors.InternalServerError):
+    name: typing.Literal["ProfileServiceNotPresent"]
+    parameters: ProfileServiceNotPresentParameters
+    error_instance_id: str
+
+
 class RemoveEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not remove the EnrollmentRoleAssignment."""
 
@@ -1065,6 +1078,7 @@ __all__ = [
     "PreregisterUserPermissionDenied",
     "PrincipalNotFound",
     "ProfilePictureNotFound",
+    "ProfileServiceNotPresent",
     "RemoveEnrollmentRoleAssignmentsPermissionDenied",
     "RemoveGroupMembersPermissionDenied",
     "RemoveMarkingMembersPermissionDenied",

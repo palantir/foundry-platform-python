@@ -115,6 +115,24 @@ class InvalidAndFilter(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidAttributionHeaderParameters(typing_extensions.TypedDict):
+    """
+    The attribution provided in the header could not be parsed to a valid RID, or to a comma separated list of
+    valid RIDs.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    header: str
+
+
+@dataclass
+class InvalidAttributionHeader(errors.BadRequestError):
+    name: typing.Literal["InvalidAttributionHeader"]
+    parameters: InvalidAttributionHeaderParameters
+    error_instance_id: str
+
+
 class InvalidChangeDataCaptureConfigurationParameters(typing_extensions.TypedDict):
     """The change data capture configuration is invalid."""
 
@@ -350,6 +368,7 @@ __all__ = [
     "FolderNotFound",
     "FoundryBranchNotFound",
     "InvalidAndFilter",
+    "InvalidAttributionHeader",
     "InvalidChangeDataCaptureConfiguration",
     "InvalidFieldSchema",
     "InvalidFilePath",

@@ -266,6 +266,50 @@ def test_async_scheme():
     assert str(client.base_url) == "http://localhost:8123"
 
 
+def test_attribution_header_present():
+    """Test that attribution header is added when context var is set."""
+    from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_VAR
+
+    # Save the original value to restore after test
+    original_value = ATTRIBUTION_VAR.get()
+
+    try:
+        # Set attribution value
+        ATTRIBUTION_VAR.set(["test-attribution-source"])
+
+        # Create client and check headers
+        client = create_client()
+        assert "attribution" in client.headers
+        assert client.headers["attribution"] == "test-attribution-source"
+
+        # Test with multiple attribution values
+        ATTRIBUTION_VAR.set(["source1", "source2"])
+        client = create_client()
+        assert client.headers["attribution"] == "source1, source2"
+    finally:
+        # Restore original value
+        ATTRIBUTION_VAR.set(original_value)
+
+
+def test_attribution_header_not_present():
+    """Test that attribution header is not added when context var is None."""
+    from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_VAR
+
+    # Save the original value to restore after test
+    original_value = ATTRIBUTION_VAR.get()
+
+    try:
+        # Set attribution value to None
+        ATTRIBUTION_VAR.set(None)
+
+        # Create client and check headers
+        client = create_client()
+        assert "attribution" not in client.headers
+    finally:
+        # Restore original value
+        ATTRIBUTION_VAR.set(original_value)
+
+
 def test_async_proxies():
     client = create_async_client(
         Config(proxies={"https": "https://foo.bar", "http": "http://foo.bar"})

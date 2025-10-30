@@ -5,7 +5,7 @@ ReplaceColumnTypeCheckConfig
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**column_type_config** | ColumnTypeConfig | Yes |  |
+**column_type_config** | ReplaceColumnTypeConfig | Yes |  |
 **type** | Literal["columnType"] | Yes | None |
 
 

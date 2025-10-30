@@ -99,6 +99,7 @@ class SpaceClient:
         :raises SpaceInvalidArgument: An invalid argument was provided in the request to create or replace a space.
         :raises SpaceNameInvalid: The provided space name is invalid. It may be a reserved name or contain invalid characters.
         :raises SpaceNotFound: The given Space could not be found.
+        :raises UsageAccountServiceIsNotPresent: The Usage Accounts service is unexpectedly not present.
         """
 
         return self._api_client.call_api(
@@ -134,6 +135,7 @@ class SpaceClient:
                     "SpaceInvalidArgument": filesystem_errors.SpaceInvalidArgument,
                     "SpaceNameInvalid": filesystem_errors.SpaceNameInvalid,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
+                    "UsageAccountServiceIsNotPresent": filesystem_errors.UsageAccountServiceIsNotPresent,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -466,6 +468,7 @@ class AsyncSpaceClient:
         :raises SpaceInvalidArgument: An invalid argument was provided in the request to create or replace a space.
         :raises SpaceNameInvalid: The provided space name is invalid. It may be a reserved name or contain invalid characters.
         :raises SpaceNotFound: The given Space could not be found.
+        :raises UsageAccountServiceIsNotPresent: The Usage Accounts service is unexpectedly not present.
         """
 
         return self._api_client.call_api(
@@ -501,6 +504,7 @@ class AsyncSpaceClient:
                     "SpaceInvalidArgument": filesystem_errors.SpaceInvalidArgument,
                     "SpaceNameInvalid": filesystem_errors.SpaceNameInvalid,
                     "SpaceNotFound": filesystem_errors.SpaceNotFound,
+                    "UsageAccountServiceIsNotPresent": filesystem_errors.UsageAccountServiceIsNotPresent,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

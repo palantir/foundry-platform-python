@@ -16,6 +16,7 @@
 import typing
 from functools import cached_property
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -390,6 +391,56 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_schema_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[datasets_models.GetSchemaDatasetsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetSchemaDatasetsBatchResponse:
+        """
+        Fetch schemas for multiple datasets in a single request. Datasets not found
+        or inaccessible to the user will be omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchemaDatasetsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetSchemaDatasetsBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/getSchemaBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=datasets_models.GetSchemaDatasetsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def jobs(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -637,7 +688,7 @@ class DatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -690,6 +741,7 @@ class _DatasetClientRaw:
         def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -700,6 +752,7 @@ class _DatasetClientRaw:
         self.get_health_checks = core.with_raw_response(get_health_checks, client.get_health_checks)
         self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_raw_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.with_raw_response(get_schema_batch, client.get_schema_batch)
         self.jobs = core.with_raw_response(jobs, client.jobs)
         self.put_schema = core.with_raw_response(put_schema, client.put_schema)
         self.read_table = core.with_raw_response(read_table, client.read_table)
@@ -713,6 +766,7 @@ class _DatasetClientStreaming:
         def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -725,6 +779,9 @@ class _DatasetClientStreaming:
         )
         self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.with_streaming_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.with_streaming_response(jobs, client.jobs)
         self.put_schema = core.with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.with_streaming_response(read_table, client.read_table)
@@ -1092,6 +1149,56 @@ class AsyncDatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_schema_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[datasets_models.GetSchemaDatasetsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetSchemaDatasetsBatchResponse]:
+        """
+        Fetch schemas for multiple datasets in a single request. Datasets not found
+        or inaccessible to the user will be omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchemaDatasetsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetSchemaDatasetsBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/getSchemaBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=datasets_models.GetSchemaDatasetsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def jobs(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -1339,7 +1446,7 @@ class AsyncDatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1392,6 +1499,7 @@ class _AsyncDatasetClientRaw:
         def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -1404,6 +1512,9 @@ class _AsyncDatasetClientRaw:
         )
         self.get_schedules = core.async_with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.async_with_raw_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.async_with_raw_response(jobs, client.jobs)
         self.put_schema = core.async_with_raw_response(put_schema, client.put_schema)
         self.read_table = core.async_with_raw_response(read_table, client.read_table)
@@ -1417,6 +1528,7 @@ class _AsyncDatasetClientStreaming:
         def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -1429,6 +1541,9 @@ class _AsyncDatasetClientStreaming:
         )
         self.get_schedules = core.async_with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.async_with_streaming_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.async_with_streaming_response(jobs, client.jobs)
         self.put_schema = core.async_with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.async_with_streaming_response(read_table, client.read_table)
