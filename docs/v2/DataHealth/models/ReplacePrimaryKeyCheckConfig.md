@@ -5,7 +5,7 @@ ReplacePrimaryKeyCheckConfig
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**primary_key_config** | PrimaryKeyConfig | Yes |  |
+**primary_key_config** | ReplacePrimaryKeyConfig | Yes |  |
 **type** | Literal["primaryKey"] | Yes | None |
 
 

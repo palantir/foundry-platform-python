@@ -7,6 +7,7 @@ Method | HTTP request | Release Stage |
 [**get_health_checks**](#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks | Public Beta |
 [**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
 [**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
+[**get_schema_batch**](#get_schema_batch) | **POST** /v2/datasets/getSchemaBatch | Public Beta |
 [**jobs**](#jobs) | **POST** /v2/datasets/{datasetRid}/jobs | Public Beta |
 [**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
@@ -297,6 +298,67 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_schema_batch**
+Fetch schemas for multiple datasets in a single request. Datasets not found 
+or inaccessible to the user will be omitted from the response.
+
+
+The maximum batch size for this endpoint is 1000.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetSchemaDatasetsBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetSchemaDatasetsBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetSchemaDatasetsBatchRequestElement] | Body of the request
+body = [
+    {
+        "endTransactionRid": "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4",
+        "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "versionId": "0000000d-2acf-537c-a228-3a9fe3cdc523",
+        "branchName": "master",
+    }
+]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_schema_batch(body, preview=preview)
+    print("The get_schema_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_schema_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetSchemaDatasetsBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **jobs**
 Get the RIDs of the Jobs for the given dataset. By default, returned Jobs are sorted in descending order by the Job start time.
 
@@ -570,7 +632,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **transactions**
-Get the Transaction history for the given Dataset
+Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
 
 ### Parameters

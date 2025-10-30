@@ -25,6 +25,8 @@ import httpcore
 import httpx
 
 from foundry_sdk._core.config import Config
+from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_VARS
+from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
 from foundry_sdk._core.utils import AnyCallableT
 from foundry_sdk._core.utils import remove_prefixes
 from foundry_sdk._versions import __version__
@@ -110,10 +112,20 @@ def _prepare_client_data(
             or True
         )
 
+    attribution = maybe_get_context_var(
+        context_vars=ATTRIBUTION_CONTEXT_VARS,
+    )
+    # When sending multiple values in a header, should be sent as a comma separated list per
+    # https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
+    attribution_header = ", ".join(attribution) if attribution is not None else None
+
     headers = {
         "User-Agent": f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}",
         **(config.default_headers or {}),
     }
+
+    if attribution_header is not None:
+        headers["attribution"] = attribution_header
 
     return config, hostname, verify, headers
 

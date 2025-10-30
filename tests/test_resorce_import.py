@@ -244,6 +244,12 @@ def test_connectivity_v2_table_import_import():
     assert TableImportClient is not None
 
 
+def test_connectivity_v2_virtual_table_import():
+    from foundry_sdk.v2.connectivity.virtual_table import VirtualTableClient
+
+    assert VirtualTableClient is not None
+
+
 def test_data_health_v2_check_import():
     from foundry_sdk.v2.data_health.check import CheckClient
 

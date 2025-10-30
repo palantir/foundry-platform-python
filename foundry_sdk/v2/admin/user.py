@@ -377,6 +377,7 @@ class UserClient:
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
+        :raises ProfileServiceNotPresent: The Profile service is unexpectedly not present.
         :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
@@ -398,6 +399,7 @@ class UserClient:
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
                     "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                    "ProfileServiceNotPresent": admin_errors.ProfileServiceNotPresent,
                     "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
@@ -906,6 +908,7 @@ class AsyncUserClient:
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
+        :raises ProfileServiceNotPresent: The Profile service is unexpectedly not present.
         :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
@@ -927,6 +930,7 @@ class AsyncUserClient:
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
                     "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                    "ProfileServiceNotPresent": admin_errors.ProfileServiceNotPresent,
                     "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },

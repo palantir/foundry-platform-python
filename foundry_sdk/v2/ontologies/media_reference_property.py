@@ -239,79 +239,18 @@ class MediaReferencePropertyClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def upload_media(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action_type: ontologies_models.ActionTypeApiName,
-        body: bytes,
-        *,
-        media_item_path: typing.Optional[core_models.MediaItemPath] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> core_models.MediaReference:
-        """
-        Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted.
-
-        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param action_type: The name of the action type in the API.
-        :type action_type: ActionTypeApiName
-        :param body: Body of the request
-        :type body: bytes
-        :param media_item_path: The path to write the media item to. Required if the backing media set requires paths.
-        :type media_item_path: Optional[MediaItemPath]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: core_models.MediaReference
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/actions/{actionType}/media/upload",
-                query_params={
-                    "mediaItemPath": media_item_path,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "actionType": action_type,
-                },
-                header_params={
-                    "Content-Type": "*/*",
-                    "Accept": "application/json",
-                },
-                body=body,
-                response_type=core_models.MediaReference,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _MediaReferencePropertyClientRaw:
     def __init__(self, client: MediaReferencePropertyClient) -> None:
         def get_media_content(_: bytes): ...
         def get_media_metadata(_: ontologies_models.MediaMetadata): ...
         def upload(_: core_models.MediaReference): ...
-        def upload_media(_: core_models.MediaReference): ...
 
         self.get_media_content = core.with_raw_response(get_media_content, client.get_media_content)
         self.get_media_metadata = core.with_raw_response(
             get_media_metadata, client.get_media_metadata
         )
         self.upload = core.with_raw_response(upload, client.upload)
-        self.upload_media = core.with_raw_response(upload_media, client.upload_media)
 
 
 class _MediaReferencePropertyClientStreaming:
@@ -319,7 +258,6 @@ class _MediaReferencePropertyClientStreaming:
         def get_media_content(_: bytes): ...
         def get_media_metadata(_: ontologies_models.MediaMetadata): ...
         def upload(_: core_models.MediaReference): ...
-        def upload_media(_: core_models.MediaReference): ...
 
         self.get_media_content = core.with_streaming_response(
             get_media_content, client.get_media_content
@@ -328,7 +266,6 @@ class _MediaReferencePropertyClientStreaming:
             get_media_metadata, client.get_media_metadata
         )
         self.upload = core.with_streaming_response(upload, client.upload)
-        self.upload_media = core.with_streaming_response(upload_media, client.upload_media)
 
 
 class AsyncMediaReferencePropertyClient:
@@ -546,72 +483,12 @@ class AsyncMediaReferencePropertyClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def upload_media(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        action_type: ontologies_models.ActionTypeApiName,
-        body: bytes,
-        *,
-        media_item_path: typing.Optional[core_models.MediaItemPath] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[core_models.MediaReference]:
-        """
-        Uploads a media item for use by the specified action. If the media item isn't persisted by the associated action within 1 hour, the item will be deleted.
-
-        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param action_type: The name of the action type in the API.
-        :type action_type: ActionTypeApiName
-        :param body: Body of the request
-        :type body: bytes
-        :param media_item_path: The path to write the media item to. Required if the backing media set requires paths.
-        :type media_item_path: Optional[MediaItemPath]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[core_models.MediaReference]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/actions/{actionType}/media/upload",
-                query_params={
-                    "mediaItemPath": media_item_path,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                    "actionType": action_type,
-                },
-                header_params={
-                    "Content-Type": "*/*",
-                    "Accept": "application/json",
-                },
-                body=body,
-                response_type=core_models.MediaReference,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _AsyncMediaReferencePropertyClientRaw:
     def __init__(self, client: AsyncMediaReferencePropertyClient) -> None:
         def get_media_content(_: bytes): ...
         def get_media_metadata(_: ontologies_models.MediaMetadata): ...
         def upload(_: core_models.MediaReference): ...
-        def upload_media(_: core_models.MediaReference): ...
 
         self.get_media_content = core.async_with_raw_response(
             get_media_content, client.get_media_content
@@ -620,7 +497,6 @@ class _AsyncMediaReferencePropertyClientRaw:
             get_media_metadata, client.get_media_metadata
         )
         self.upload = core.async_with_raw_response(upload, client.upload)
-        self.upload_media = core.async_with_raw_response(upload_media, client.upload_media)
 
 
 class _AsyncMediaReferencePropertyClientStreaming:
@@ -628,7 +504,6 @@ class _AsyncMediaReferencePropertyClientStreaming:
         def get_media_content(_: bytes): ...
         def get_media_metadata(_: ontologies_models.MediaMetadata): ...
         def upload(_: core_models.MediaReference): ...
-        def upload_media(_: core_models.MediaReference): ...
 
         self.get_media_content = core.async_with_streaming_response(
             get_media_content, client.get_media_content
@@ -637,4 +512,3 @@ class _AsyncMediaReferencePropertyClientStreaming:
             get_media_metadata, client.get_media_metadata
         )
         self.upload = core.async_with_streaming_response(upload, client.upload)
-        self.upload_media = core.async_with_streaming_response(upload_media, client.upload_media)

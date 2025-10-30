@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**content**](#content) | **GET** /v2/audit/organizations/{organizationRid}/logFiles/{logFileId}/content | Public Beta |
-[**list**](#list) | **GET** /v2/audit/organizations/{organizationRid}/logFiles | Public Beta |
+[**content**](#content) | **GET** /v2/audit/organizations/{organizationRid}/logFiles/{logFileId}/content | Stable |
+[**list**](#list) | **GET** /v2/audit/organizations/{organizationRid}/logFiles | Stable |
 
 # **content**
 
@@ -14,7 +14,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
 **log_file_id** | FileId |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **bytes**
@@ -32,14 +31,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 organization_rid = None
 # FileId
 log_file_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.audit.Organization.LogFile.content(
-        organization_rid, log_file_id, preview=preview
-    )
+    api_response = client.audit.Organization.LogFile.content(organization_rid, log_file_id)
     print("The content response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -70,11 +65,10 @@ This is a paged endpoint. Each page may be smaller or larger than the requested 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
-**end_date** | Optional[datetime] | List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.  | [optional] |
+**end_date** | Optional[date] | List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**start_date** | Optional[datetime] | List log files for audit events starting from this date. If absent, defaults to the current date.  | [optional] |
+**start_date** | Optional[date] | List log files for audit events starting from this date. This parameter is required for the initial request (when `pageToken` is not provided).  | [optional] |
 
 ### Return type
 **ListLogFilesResponse**
@@ -90,15 +84,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OrganizationRid
 organization_rid = None
-# Optional[datetime] | List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
+# Optional[date] | List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
 end_date = "2025-01-01"
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-# Optional[datetime] | List log files for audit events starting from this date. If absent, defaults to the current date.
+# Optional[date] | List log files for audit events starting from this date. This parameter is required for the initial request (when `pageToken` is not provided).
 start_date = "2024-01-01"
 
 
@@ -108,7 +100,6 @@ try:
         end_date=end_date,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         start_date=start_date,
     ):
         pprint(log_file)

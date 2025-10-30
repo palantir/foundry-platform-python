@@ -104,6 +104,21 @@ class BearerToken(core.ModelBase):
     type: typing.Literal["bearerToken"] = "bearerToken"
 
 
+class BigQueryVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in BigQuery. Uses the BigQuery table identifier of project, dataset and table."""
+
+    project: str
+    """The BigQuery project name."""
+
+    dataset: str
+    """The BigQuery dataset name."""
+
+    table: str
+    """The BigQuery table name."""
+
+    type: typing.Literal["bigquery"] = "bigquery"
+
+
 class CloudIdentity(core.ModelBase):
     """
     [Cloud identities](https://palantir.com/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
@@ -637,6 +652,15 @@ CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
+class CreateVirtualTableRequest(core.ModelBase):
+    """CreateVirtualTableRequest"""
+
+    markings: typing.Optional[typing.List[core_models.MarkingId]] = None
+    parent_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentRid"))  # type: ignore[literal-required]
+    name: TableName
+    config: VirtualTableConfig
+
+
 DatabricksAuthenticationMode = typing_extensions.Annotated[
     typing.Union[
         "WorkflowIdentityFederation",
@@ -697,6 +721,15 @@ class DecimalColumnInitialIncrementalState(core.ModelBase):
     type: typing.Literal["decimalColumnInitialIncrementalState"] = (
         "decimalColumnInitialIncrementalState"
     )
+
+
+class DeltaVirtualTableConfig(core.ModelBase):
+    """Pointer to the Delta table in cloud object storage (e.g., Azure Data Lake Storage, Google Cloud Storage, S3)."""
+
+    path: str
+    """The path of the Delta table in object storage."""
+
+    type: typing.Literal["delta"] = "delta"
 
 
 class Domain(core.ModelBase):
@@ -772,6 +805,10 @@ class FileChangedSinceLastUploadFilter(core.ModelBase):
     """
 
     type: typing.Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
+
+
+FileFormat = typing.Literal["AVRO", "CSV", "PARQUET"]
+"""The format of files in the upstream source."""
 
 
 class FileImport(core.ModelBase):
@@ -936,6 +973,20 @@ class FilesCountLimitFilter(core.ModelBase):
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
 
 
+class FilesVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in cloud object storage (e.g., Azure Data Lake Storage, Google Cloud Storage, S3)."""
+
+    format: FileFormat
+    path: str
+    """
+    Storage path for the data in the underlying file system, i.e. paths like `/foo/bar`. The scheme is not 
+    included. May be either a folder or file. A non-partitioned table will have a single location. A 
+    partitioned table can have multiple locations, one for each partition.
+    """
+
+    type: typing.Literal["files"] = "files"
+
+
 class FoundryWorker(core.ModelBase):
     """
     The [Foundry worker](https://palantir.com/docs/foundry/data-connection/core-concepts/#foundry-worker) is used to run capabilities
@@ -948,6 +999,18 @@ class FoundryWorker(core.ModelBase):
     type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
+class GlueVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in AWS Glue."""
+
+    database: str
+    """The database name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["glue"] = "glue"
+
+
 class HeaderApiKey(core.ModelBase):
     """HeaderApiKey"""
 
@@ -955,6 +1018,21 @@ class HeaderApiKey(core.ModelBase):
     """The name of the header that the API key is passed in."""
 
     type: typing.Literal["header"] = "header"
+
+
+class IcebergVirtualTableConfig(core.ModelBase):
+    """Pointer to the Iceberg table."""
+
+    table_identifier: str = pydantic.Field(alias=str("tableIdentifier"))  # type: ignore[literal-required]
+    """The identifier of the Iceberg table."""
+
+    warehouse_path: typing.Optional[str] = pydantic.Field(alias=str("warehousePath"), default=None)  # type: ignore[literal-required]
+    """
+    The path to the folder in the file system containing the Iceberg table. Can be omitted when the
+    connection is configured with a catalog that does not rely on warehouse path.
+    """
+
+    type: typing.Literal["iceberg"] = "iceberg"
 
 
 class IntegerColumnInitialIncrementalState(core.ModelBase):
@@ -967,6 +1045,72 @@ class IntegerColumnInitialIncrementalState(core.ModelBase):
     type: typing.Literal["integerColumnInitialIncrementalState"] = (
         "integerColumnInitialIncrementalState"
     )
+
+
+InvalidConnectionReason = typing.Literal[
+    "CONNECTION_NOT_FOUND",
+    "INVALID_CREDENTIALS",
+    "NETWORK_POLICY_VIOLATION",
+    "CONNECTION_UNAVAILABLE",
+    "CANNOT_DESERIALIZE",
+    "CANNOT_SUBSTITUTE_SECRETS",
+    "CANNOT_USE_USER_HOME_FOLDER",
+    "INVALID_SOURCE_RUNTIME",
+    "INVALID_SOURCE_TYPE",
+    "MISSING_CREDENTIALS",
+    "MISSING_PROXY_SETTINGS",
+    "NOT_CLOUD_RUNTIME",
+    "NO_AGENTS_ASSIGNED",
+    "SERVICE_UNAVAILABLE",
+    "TOO_MANY_REQUESTS",
+    "AZURE_CONTAINER_DOES_NOT_EXIST",
+    "AZURE_MANAGED_IDENTITY_AUTH_NOT_SUPPORTED",
+    "AZURE_REFRESH_TOKEN_AUTH_NOT_SUPPORTED",
+    "AZURE_SHARED_ACCESS_SIGNATURE_AUTH_NOT_SUPPORTED",
+    "AZURE_SHARED_KEY_AUTH_NOT_SUPPORTED",
+    "AZURE_TENANT_NOT_FOUND",
+    "INVALID_ABFS_ROOT_DIRECTORY",
+    "INVALID_CLIENT_ENDPOINT",
+    "DATABRICKS_AUTH_UNSUPPORTED",
+    "DATABRICKS_BASIC_AUTH_NOT_SUPPORTED",
+    "DATABRICKS_INVALID_CLIENT_CREDENTIALS",
+    "DATABRICKS_INVALID_HOST",
+    "DATABRICKS_INVALID_HTTP_PATH",
+    "DATABRICKS_INVALID_OIDC_CREDENTIALS",
+    "DATABRICKS_INVALID_TOKEN_URL",
+    "GCP_INSTANCE_AUTH_NOT_SUPPORTED",
+    "GCP_INVALID_OIDC_CREDENTIALS",
+    "INVALID_GCS_CONFIG",
+    "INVALID_GCS_URL",
+    "GCS_INVALID_PREFIX_PATH",
+    "MISSING_GLUE_CATALOG",
+    "INVALID_HIVE_URL",
+    "INVALID_KERBEROS_URL",
+    "MISSING_HIVE_CONFIGURATION",
+    "ICEBERG_CATALOG_UNSUPPORTED",
+    "INVALID_ICEBERG_CATALOG_URL",
+    "INVALID_ICEBERG_TOKEN_URL",
+    "CONNECTION_FAILED",
+    "INVALID_JDBC_DRIVER",
+    "INVALID_JDBC_URL",
+    "AWS_BUCKET_DOES_NOT_EXIST",
+    "AWS_SESSION_TOKEN_NOT_SUPPORTED",
+    "INVALID_S3_ENDPOINT",
+    "INVALID_S3_URL",
+    "INVALID_STS_ENDPOINT",
+    "MISSING_STS_ROLE",
+    "STS_ASSUME_ROLE_DENIED",
+    "INVALID_SNOWFLAKE_URL",
+    "SNOWFLAKE_IAM_AUTH_NOT_SUPPORTED",
+    "SNOWFLAKE_RSA_AUTH_NOT_SUPPORTED",
+    "INVALID_UNITY_CATALOG_TOKEN_URL",
+    "INVALID_UNITY_CATALOG_URL",
+    "MISSING_UNITY_CATALOG",
+    "UNITY_CATALOG_EXTERNAL_ACCESS_NOT_ENABLED",
+    "UNITY_CATALOG_INSUFFICIENT_PERMISSIONS",
+    "UNITY_CATALOG_TEMPORARY_CREDENTIALS_FAILED",
+]
+"""Reasons why a connection configuration is invalid."""
 
 
 class JdbcConnectionConfiguration(core.ModelBase):
@@ -1528,6 +1672,21 @@ class SnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
+class SnowflakeVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in Snowflake. Uses the Snowflake table identifier of database, schema and table."""
+
+    database: str
+    """The database name."""
+
+    schema_: str = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The schema name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["snowflake"] = "snowflake"
+
+
 class StringColumnInitialIncrementalState(core.ModelBase):
     """The state for an incremental table import using a column with a string data type."""
 
@@ -1663,6 +1822,14 @@ TableImportRid = core.RID
 """The Resource Identifier (RID) of a TableImport (also known as a batch sync)."""
 
 
+TableName = str
+"""The name of a VirtualTable."""
+
+
+TableRid = core.RID
+"""The Resource Identifier (RID) of a registered VirtualTable."""
+
+
 class TimestampColumnInitialIncrementalState(core.ModelBase):
     """TimestampColumnInitialIncrementalState"""
 
@@ -1673,6 +1840,21 @@ class TimestampColumnInitialIncrementalState(core.ModelBase):
     type: typing.Literal["timestampColumnInitialIncrementalState"] = (
         "timestampColumnInitialIncrementalState"
     )
+
+
+class UnityVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in Unity Catalog. Uses the Databricks table identifier of catalog, schema and table."""
+
+    catalog: str
+    """The catalog name."""
+
+    schema_: str = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The schema name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["unity"] = "unity"
 
 
 class UnknownWorker(core.ModelBase):
@@ -1701,6 +1883,31 @@ class UpdateSecretsForConnectionRequest(core.ModelBase):
 
 UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
+
+
+class VirtualTable(core.ModelBase):
+    """VirtualTable"""
+
+    rid: TableRid
+    name: TableName
+    parent_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentRid"))  # type: ignore[literal-required]
+    config: VirtualTableConfig
+    markings: typing.Optional[typing.List[core_models.MarkingId]] = None
+
+
+VirtualTableConfig = typing_extensions.Annotated[
+    typing.Union[
+        SnowflakeVirtualTableConfig,
+        UnityVirtualTableConfig,
+        GlueVirtualTableConfig,
+        DeltaVirtualTableConfig,
+        IcebergVirtualTableConfig,
+        FilesVirtualTableConfig,
+        BigQueryVirtualTableConfig,
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""VirtualTableConfig"""
 
 
 class WorkflowIdentityFederation(core.ModelBase):
@@ -1773,6 +1980,7 @@ core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=l
 core.resolve_forward_references(
     TableImportInitialIncrementalState, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(VirtualTableConfig, globalns=globals(), localns=locals())
 
 __all__ = [
     "ApiKeyAuthentication",
@@ -1782,6 +1990,7 @@ __all__ = [
     "AwsOidcAuthentication",
     "BasicCredentials",
     "BearerToken",
+    "BigQueryVirtualTableConfig",
     "CloudIdentity",
     "CloudIdentityRid",
     "Connection",
@@ -1821,16 +2030,19 @@ __all__ = [
     "CreateTableImportRequestPostgreSqlTableImportConfig",
     "CreateTableImportRequestSnowflakeTableImportConfig",
     "CreateTableImportRequestTableImportConfig",
+    "CreateVirtualTableRequest",
     "DatabricksAuthenticationMode",
     "DatabricksConnectionConfiguration",
     "DatabricksTableImportConfig",
     "DateColumnInitialIncrementalState",
     "DecimalColumnInitialIncrementalState",
+    "DeltaVirtualTableConfig",
     "Domain",
     "EncryptedProperty",
     "FileAnyPathMatchesFilter",
     "FileAtLeastCountFilter",
     "FileChangedSinceLastUploadFilter",
+    "FileFormat",
     "FileImport",
     "FileImportCustomFilter",
     "FileImportDisplayName",
@@ -1843,9 +2055,13 @@ __all__ = [
     "FileProperty",
     "FileSizeFilter",
     "FilesCountLimitFilter",
+    "FilesVirtualTableConfig",
     "FoundryWorker",
+    "GlueVirtualTableConfig",
     "HeaderApiKey",
+    "IcebergVirtualTableConfig",
     "IntegerColumnInitialIncrementalState",
+    "InvalidConnectionReason",
     "JdbcConnectionConfiguration",
     "JdbcDriverArtifactName",
     "JdbcProperties",
@@ -1891,6 +2107,7 @@ __all__ = [
     "SnowflakeExternalOauth",
     "SnowflakeKeyPairAuthentication",
     "SnowflakeTableImportConfig",
+    "SnowflakeVirtualTableConfig",
     "StringColumnInitialIncrementalState",
     "StsRoleConfiguration",
     "TableImport",
@@ -1901,10 +2118,15 @@ __all__ = [
     "TableImportMode",
     "TableImportQuery",
     "TableImportRid",
+    "TableName",
+    "TableRid",
     "TimestampColumnInitialIncrementalState",
+    "UnityVirtualTableConfig",
     "UnknownWorker",
     "UpdateExportSettingsForConnectionRequest",
     "UpdateSecretsForConnectionRequest",
     "UriScheme",
+    "VirtualTable",
+    "VirtualTableConfig",
     "WorkflowIdentityFederation",
 ]

@@ -483,6 +483,7 @@ class BaseApiClient:
                     else value if isinstance(value, (bytes, str)) else json.dumps(value)
                 )
                 for key, value in request_info.header_params.items()
+                if value is not None
             },
         }
 

@@ -1460,6 +1460,13 @@ class LinkedObjectTypeApiName(core.ModelBase):
     type: typing.Literal["objectTypeApiName"] = "objectTypeApiName"
 
 
+class ListActionTypesFullMetadataResponse(core.ModelBase):
+    """ListActionTypesFullMetadataResponse"""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    data: typing.List[ActionTypeFullMetadata]
+
+
 class ListActionTypesResponseV2(core.ModelBase):
     """ListActionTypesResponseV2"""
 
@@ -4340,6 +4347,7 @@ __all__ = [
     "LinkTypeSideV2",
     "LinkedInterfaceTypeApiName",
     "LinkedObjectTypeApiName",
+    "ListActionTypesFullMetadataResponse",
     "ListActionTypesResponseV2",
     "ListAttachmentsResponseV2",
     "ListInterfaceLinkedObjectsResponse",

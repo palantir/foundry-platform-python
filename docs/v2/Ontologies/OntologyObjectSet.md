@@ -42,11 +42,21 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # OntologyIdentifier
 ontology = "palantir"
 # List[AggregationV2]
-aggregation = None
+aggregation = [
+    {"field": "properties.tenure", "name": "min_tenure", "type": "min"},
+    {"field": "properties.tenure", "name": "avg_tenure", "type": "avg"},
+]
 # List[AggregationGroupByV2]
-group_by = None
+group_by = [
+    {
+        "field": "startDate",
+        "ranges": [{"endValue": "2020-06-01", "startValue": "2020-01-01"}],
+        "type": "range",
+    },
+    {"field": "city", "type": "exact"},
+]
 # ObjectSet
-object_set = None
+object_set = {"objectType": "Employee", "type": "base"}
 # Optional[AggregationAccuracyRequest]
 accuracy = None
 # Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.

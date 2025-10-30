@@ -14,6 +14,7 @@
 
 
 import typing
+from datetime import date
 
 import pydantic
 import typing_extensions
@@ -56,7 +57,6 @@ class LogFileClient:
         organization_rid: core_models.OrganizationRid,
         log_file_id: audit_models.FileId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> bytes:
@@ -66,8 +66,6 @@ class LogFileClient:
         :type organization_rid: OrganizationRid
         :param log_file_id:
         :type log_file_id: FileId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -80,9 +78,7 @@ class LogFileClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/audit/organizations/{organizationRid}/logFiles/{logFileId}/content",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                     "logFileId": log_file_id,
@@ -107,11 +103,10 @@ class LogFileClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        end_date: typing.Optional[core.AwareDatetime] = None,
+        end_date: typing.Optional[date] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        start_date: typing.Optional[core.AwareDatetime] = None,
+        start_date: typing.Optional[date] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[audit_models.LogFile]:
@@ -122,21 +117,20 @@ class LogFileClient:
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param end_date: List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
-        :type end_date: Optional[datetime]
+        :type end_date: Optional[date]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param start_date: List log files for audit events starting from this date. If absent, defaults to the current date.
-        :type start_date: Optional[datetime]
+        :param start_date: List log files for audit events starting from this date. This parameter is required for the initial request (when `pageToken` is not provided).
+        :type start_date: Optional[date]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[audit_models.LogFile]
 
         :raises ListLogFilesPermissionDenied: The provided token does not have permission to list audit log files.
+        :raises MissingStartDate: Start date is required to list audit log files.
         """
 
         return self._api_client.call_api(
@@ -147,7 +141,6 @@ class LogFileClient:
                     "endDate": end_date,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "startDate": start_date,
                 },
                 path_params={
@@ -161,6 +154,7 @@ class LogFileClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListLogFilesPermissionDenied": audit_errors.ListLogFilesPermissionDenied,
+                    "MissingStartDate": audit_errors.MissingStartDate,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -216,7 +210,6 @@ class AsyncLogFileClient:
         organization_rid: core_models.OrganizationRid,
         log_file_id: audit_models.FileId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[bytes]:
@@ -226,8 +219,6 @@ class AsyncLogFileClient:
         :type organization_rid: OrganizationRid
         :param log_file_id:
         :type log_file_id: FileId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -240,9 +231,7 @@ class AsyncLogFileClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/audit/organizations/{organizationRid}/logFiles/{logFileId}/content",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                     "logFileId": log_file_id,
@@ -267,11 +256,10 @@ class AsyncLogFileClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        end_date: typing.Optional[core.AwareDatetime] = None,
+        end_date: typing.Optional[date] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        start_date: typing.Optional[core.AwareDatetime] = None,
+        start_date: typing.Optional[date] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[audit_models.LogFile]:
@@ -282,21 +270,20 @@ class AsyncLogFileClient:
         :param organization_rid:
         :type organization_rid: OrganizationRid
         :param end_date: List log files for audit events up until this date (inclusive). If absent, defaults to no end date. Use the returned `nextPageToken` to continually poll the  `listLogFiles` endpoint to list the latest available logs.
-        :type end_date: Optional[datetime]
+        :type end_date: Optional[date]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param start_date: List log files for audit events starting from this date. If absent, defaults to the current date.
-        :type start_date: Optional[datetime]
+        :param start_date: List log files for audit events starting from this date. This parameter is required for the initial request (when `pageToken` is not provided).
+        :type start_date: Optional[date]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[audit_models.LogFile]
 
         :raises ListLogFilesPermissionDenied: The provided token does not have permission to list audit log files.
+        :raises MissingStartDate: Start date is required to list audit log files.
         """
 
         return self._api_client.call_api(
@@ -307,7 +294,6 @@ class AsyncLogFileClient:
                     "endDate": end_date,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "startDate": start_date,
                 },
                 path_params={
@@ -321,6 +307,7 @@ class AsyncLogFileClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ListLogFilesPermissionDenied": audit_errors.ListLogFilesPermissionDenied,
+                    "MissingStartDate": audit_errors.MissingStartDate,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),

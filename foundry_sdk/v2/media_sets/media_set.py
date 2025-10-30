@@ -642,6 +642,61 @@ class MediaSetClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_media(
+        self,
+        body: bytes,
+        *,
+        filename: core_models.MediaItemPath,
+        attribution: typing.Optional[core_models.Attribution] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> core_models.MediaReference:
+        """
+        "Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
+
+        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`."
+
+        :param body: Body of the request
+        :type body: bytes
+        :param filename: The path to write the media item to. Required if the backing media set requires paths.
+        :type filename: MediaItemPath
+        :param attribution: used for passing through usage attribution
+        :type attribution: Optional[Attribution]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: core_models.MediaReference
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/mediasets/media/upload",
+                query_params={
+                    "filename": filename,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "attribution": attribution,
+                    "Content-Type": "*/*",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=core_models.MediaReference,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _MediaSetClientRaw:
     def __init__(self, client: MediaSetClient) -> None:
@@ -656,6 +711,7 @@ class _MediaSetClientRaw:
         def reference(_: core_models.MediaReference): ...
         def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
+        def upload_media(_: core_models.MediaReference): ...
 
         self.abort = core.with_raw_response(abort, client.abort)
         self.calculate = core.with_raw_response(calculate, client.calculate)
@@ -668,6 +724,7 @@ class _MediaSetClientRaw:
         self.reference = core.with_raw_response(reference, client.reference)
         self.retrieve = core.with_raw_response(retrieve, client.retrieve)
         self.upload = core.with_raw_response(upload, client.upload)
+        self.upload_media = core.with_raw_response(upload_media, client.upload_media)
 
 
 class _MediaSetClientStreaming:
@@ -681,6 +738,7 @@ class _MediaSetClientStreaming:
         def reference(_: core_models.MediaReference): ...
         def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
+        def upload_media(_: core_models.MediaReference): ...
 
         self.calculate = core.with_streaming_response(calculate, client.calculate)
         self.create = core.with_streaming_response(create, client.create)
@@ -691,6 +749,7 @@ class _MediaSetClientStreaming:
         self.reference = core.with_streaming_response(reference, client.reference)
         self.retrieve = core.with_streaming_response(retrieve, client.retrieve)
         self.upload = core.with_streaming_response(upload, client.upload)
+        self.upload_media = core.with_streaming_response(upload_media, client.upload_media)
 
 
 class AsyncMediaSetClient:
@@ -1311,6 +1370,61 @@ class AsyncMediaSetClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_media(
+        self,
+        body: bytes,
+        *,
+        filename: core_models.MediaItemPath,
+        attribution: typing.Optional[core_models.Attribution] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[core_models.MediaReference]:
+        """
+        "Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
+
+        The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+        Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`."
+
+        :param body: Body of the request
+        :type body: bytes
+        :param filename: The path to write the media item to. Required if the backing media set requires paths.
+        :type filename: MediaItemPath
+        :param attribution: used for passing through usage attribution
+        :type attribution: Optional[Attribution]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[core_models.MediaReference]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/mediasets/media/upload",
+                query_params={
+                    "filename": filename,
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "attribution": attribution,
+                    "Content-Type": "*/*",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=core_models.MediaReference,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncMediaSetClientRaw:
     def __init__(self, client: AsyncMediaSetClient) -> None:
@@ -1325,6 +1439,7 @@ class _AsyncMediaSetClientRaw:
         def reference(_: core_models.MediaReference): ...
         def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
+        def upload_media(_: core_models.MediaReference): ...
 
         self.abort = core.async_with_raw_response(abort, client.abort)
         self.calculate = core.async_with_raw_response(calculate, client.calculate)
@@ -1337,6 +1452,7 @@ class _AsyncMediaSetClientRaw:
         self.reference = core.async_with_raw_response(reference, client.reference)
         self.retrieve = core.async_with_raw_response(retrieve, client.retrieve)
         self.upload = core.async_with_raw_response(upload, client.upload)
+        self.upload_media = core.async_with_raw_response(upload_media, client.upload_media)
 
 
 class _AsyncMediaSetClientStreaming:
@@ -1350,6 +1466,7 @@ class _AsyncMediaSetClientStreaming:
         def reference(_: core_models.MediaReference): ...
         def retrieve(_: bytes): ...
         def upload(_: media_sets_models.PutMediaItemResponse): ...
+        def upload_media(_: core_models.MediaReference): ...
 
         self.calculate = core.async_with_streaming_response(calculate, client.calculate)
         self.create = core.async_with_streaming_response(create, client.create)
@@ -1362,3 +1479,4 @@ class _AsyncMediaSetClientStreaming:
         self.reference = core.async_with_streaming_response(reference, client.reference)
         self.retrieve = core.async_with_streaming_response(retrieve, client.retrieve)
         self.upload = core.async_with_streaming_response(upload, client.upload)
+        self.upload_media = core.async_with_streaming_response(upload_media, client.upload_media)

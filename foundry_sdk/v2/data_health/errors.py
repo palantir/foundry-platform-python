@@ -99,6 +99,19 @@ class DeleteCheckPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class InvalidNumericColumnCheckConfigParameters(typing_extensions.TypedDict):
+    """The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidNumericColumnCheckConfig(errors.BadRequestError):
+    name: typing.Literal["InvalidNumericColumnCheckConfig"]
+    parameters: InvalidNumericColumnCheckConfigParameters
+    error_instance_id: str
+
+
 class InvalidPercentageCheckConfigParameters(typing_extensions.TypedDict):
     """The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation."""
 
@@ -122,6 +135,19 @@ class InvalidTimeCheckConfigParameters(typing_extensions.TypedDict):
 class InvalidTimeCheckConfig(errors.BadRequestError):
     name: typing.Literal["InvalidTimeCheckConfig"]
     parameters: InvalidTimeCheckConfigParameters
+    error_instance_id: str
+
+
+class InvalidTrendConfigParameters(typing_extensions.TypedDict):
+    """The TrendConfig is invalid. It must contain at least one of trendType or differenceBounds."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidTrendConfig(errors.BadRequestError):
+    name: typing.Literal["InvalidTrendConfig"]
+    parameters: InvalidTrendConfigParameters
     error_instance_id: str
 
 
@@ -200,8 +226,10 @@ __all__ = [
     "CheckTypeNotSupported",
     "CreateCheckPermissionDenied",
     "DeleteCheckPermissionDenied",
+    "InvalidNumericColumnCheckConfig",
     "InvalidPercentageCheckConfig",
     "InvalidTimeCheckConfig",
+    "InvalidTrendConfig",
     "ModifyingCheckTypeNotSupported",
     "PercentageValueAboveMaximum",
     "PercentageValueBelowMinimum",

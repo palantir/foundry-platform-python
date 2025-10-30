@@ -20,6 +20,7 @@ import io
 import json
 import os
 import typing
+from datetime import date as Date
 from datetime import datetime
 
 import click
@@ -232,7 +233,7 @@ def datasets_dataset_op_read(
     """
     Gets the content of a dataset as a table in the specified format.
 
-    This endpoint currently does not support views (Virtual datasets composed of other datasets).
+    This endpoint currently does not support views (virtual datasets composed of other datasets). For more information, refer to the [views documentation](https://palantir.com/docs/foundry/data-integration/views).
 
     """
     result = client.datasets.Dataset.read(
@@ -542,6 +543,8 @@ def datasets_dataset_file_op_list(
     Lists Files contained in a Dataset. By default files are listed on the latest view of the default
     branch - `master` for most enrollments.
 
+    This endpoint currently does not support views (virtual datasets composed of other datasets). For more information, refer to the [views documentation](https://palantir.com/docs/foundry/data-integration/views).
+
     #### Advanced Usage
 
     See [Datasets Core Concepts](https://palantir.com/docs/foundry/data-integration/datasets/) for details on using branches and transactions.
@@ -609,6 +612,8 @@ def datasets_dataset_file_op_read(
     """
     Gets the content of a File contained in a Dataset. By default this retrieves the file's content from the latest
     view of the default branch - `master` for most enrollments.
+
+    This endpoint currently does not support views (virtual datasets composed of other datasets). For more information, refer to the [views documentation](https://palantir.com/docs/foundry/data-integration/views).
 
     #### Advanced Usage
 
@@ -826,6 +831,13 @@ def ontologies_query():
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""The Attribution to be used when executing this request.
+""",
+)
+@click.option(
     "--trace_parent",
     type=str,
     required=False,
@@ -845,6 +857,7 @@ def ontologies_query_op_execute(
     ontology_rid: str,
     query_api_name: str,
     parameters: str,
+    attribution: typing.Optional[str],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
 ):
@@ -856,6 +869,7 @@ def ontologies_query_op_execute(
         ontology_rid=ontology_rid,
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
+        attribution=attribution,
         trace_parent=trace_parent,
         trace_state=trace_state,
     )

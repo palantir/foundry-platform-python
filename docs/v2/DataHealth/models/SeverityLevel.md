@@ -1,10 +1,9 @@
 # SeverityLevel
 
-The severity level of the check. Possible values are LOW, MODERATE, or CRITICAL.
+The severity level of the check. Possible values are MODERATE or CRITICAL.
 
 | **Value** |
 | --------- |
-| `"LOW"` |
 | `"MODERATE"` |
 | `"CRITICAL"` |
 

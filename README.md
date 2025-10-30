@@ -757,6 +757,7 @@ Namespace | Resource | Operation | HTTP request |
 **Datasets** | Dataset | [**get_health_checks**](docs/v2/Datasets/Dataset.md#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks |
 **Datasets** | Dataset | [**get_schedules**](docs/v2/Datasets/Dataset.md#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules |
 **Datasets** | Dataset | [**get_schema**](docs/v2/Datasets/Dataset.md#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema |
+**Datasets** | Dataset | [**get_schema_batch**](docs/v2/Datasets/Dataset.md#get_schema_batch) | **POST** /v2/datasets/getSchemaBatch |
 **Datasets** | Dataset | [**jobs**](docs/v2/Datasets/Dataset.md#jobs) | **POST** /v2/datasets/{datasetRid}/jobs |
 **Datasets** | Dataset | [**put_schema**](docs/v2/Datasets/Dataset.md#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema |
 **Datasets** | Dataset | [**read_table**](docs/v2/Datasets/Dataset.md#read_table) | **GET** /v2/datasets/{datasetRid}/readTable |
@@ -792,6 +793,7 @@ Namespace | Resource | Operation | HTTP request |
 **Filesystem** | Resource | [**get_access_requirements**](docs/v2/Filesystem/Resource.md#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements |
 **Filesystem** | Resource | [**get_batch**](docs/v2/Filesystem/Resource.md#get_batch) | **POST** /v2/filesystem/resources/getBatch |
 **Filesystem** | Resource | [**get_by_path**](docs/v2/Filesystem/Resource.md#get_by_path) | **GET** /v2/filesystem/resources/getByPath |
+**Filesystem** | Resource | [**get_by_path_batch**](docs/v2/Filesystem/Resource.md#get_by_path_batch) | **POST** /v2/filesystem/resources/getByPathBatch |
 **Filesystem** | Resource | [**markings**](docs/v2/Filesystem/Resource.md#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings |
 **Filesystem** | Resource | [**permanently_delete**](docs/v2/Filesystem/Resource.md#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete |
 **Filesystem** | Resource | [**remove_markings**](docs/v2/Filesystem/Resource.md#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings |
@@ -1107,6 +1109,7 @@ Namespace | Name | Import |
 **Connectivity** | [AwsOidcAuthentication](docs/v2/Connectivity/models/AwsOidcAuthentication.md) | `from foundry_sdk.v2.connectivity.models import AwsOidcAuthentication` |
 **Connectivity** | [BasicCredentials](docs/v2/Connectivity/models/BasicCredentials.md) | `from foundry_sdk.v2.connectivity.models import BasicCredentials` |
 **Connectivity** | [BearerToken](docs/v2/Connectivity/models/BearerToken.md) | `from foundry_sdk.v2.connectivity.models import BearerToken` |
+**Connectivity** | [BigQueryVirtualTableConfig](docs/v2/Connectivity/models/BigQueryVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import BigQueryVirtualTableConfig` |
 **Connectivity** | [CloudIdentity](docs/v2/Connectivity/models/CloudIdentity.md) | `from foundry_sdk.v2.connectivity.models import CloudIdentity` |
 **Connectivity** | [CloudIdentityRid](docs/v2/Connectivity/models/CloudIdentityRid.md) | `from foundry_sdk.v2.connectivity.models import CloudIdentityRid` |
 **Connectivity** | [Connection](docs/v2/Connectivity/models/Connection.md) | `from foundry_sdk.v2.connectivity.models import Connection` |
@@ -1146,16 +1149,19 @@ Namespace | Name | Import |
 **Connectivity** | [CreateTableImportRequestPostgreSqlTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestPostgreSqlTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestPostgreSqlTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestSnowflakeTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestSnowflakeTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestSnowflakeTableImportConfig` |
 **Connectivity** | [CreateTableImportRequestTableImportConfig](docs/v2/Connectivity/models/CreateTableImportRequestTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import CreateTableImportRequestTableImportConfig` |
+**Connectivity** | [CreateVirtualTableRequest](docs/v2/Connectivity/models/CreateVirtualTableRequest.md) | `from foundry_sdk.v2.connectivity.models import CreateVirtualTableRequest` |
 **Connectivity** | [DatabricksAuthenticationMode](docs/v2/Connectivity/models/DatabricksAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import DatabricksAuthenticationMode` |
 **Connectivity** | [DatabricksConnectionConfiguration](docs/v2/Connectivity/models/DatabricksConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import DatabricksConnectionConfiguration` |
 **Connectivity** | [DatabricksTableImportConfig](docs/v2/Connectivity/models/DatabricksTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import DatabricksTableImportConfig` |
 **Connectivity** | [DateColumnInitialIncrementalState](docs/v2/Connectivity/models/DateColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import DateColumnInitialIncrementalState` |
 **Connectivity** | [DecimalColumnInitialIncrementalState](docs/v2/Connectivity/models/DecimalColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import DecimalColumnInitialIncrementalState` |
+**Connectivity** | [DeltaVirtualTableConfig](docs/v2/Connectivity/models/DeltaVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import DeltaVirtualTableConfig` |
 **Connectivity** | [Domain](docs/v2/Connectivity/models/Domain.md) | `from foundry_sdk.v2.connectivity.models import Domain` |
 **Connectivity** | [EncryptedProperty](docs/v2/Connectivity/models/EncryptedProperty.md) | `from foundry_sdk.v2.connectivity.models import EncryptedProperty` |
 **Connectivity** | [FileAnyPathMatchesFilter](docs/v2/Connectivity/models/FileAnyPathMatchesFilter.md) | `from foundry_sdk.v2.connectivity.models import FileAnyPathMatchesFilter` |
 **Connectivity** | [FileAtLeastCountFilter](docs/v2/Connectivity/models/FileAtLeastCountFilter.md) | `from foundry_sdk.v2.connectivity.models import FileAtLeastCountFilter` |
 **Connectivity** | [FileChangedSinceLastUploadFilter](docs/v2/Connectivity/models/FileChangedSinceLastUploadFilter.md) | `from foundry_sdk.v2.connectivity.models import FileChangedSinceLastUploadFilter` |
+**Connectivity** | [FileFormat](docs/v2/Connectivity/models/FileFormat.md) | `from foundry_sdk.v2.connectivity.models import FileFormat` |
 **Connectivity** | [FileImport](docs/v2/Connectivity/models/FileImport.md) | `from foundry_sdk.v2.connectivity.models import FileImport` |
 **Connectivity** | [FileImportCustomFilter](docs/v2/Connectivity/models/FileImportCustomFilter.md) | `from foundry_sdk.v2.connectivity.models import FileImportCustomFilter` |
 **Connectivity** | [FileImportDisplayName](docs/v2/Connectivity/models/FileImportDisplayName.md) | `from foundry_sdk.v2.connectivity.models import FileImportDisplayName` |
@@ -1168,9 +1174,13 @@ Namespace | Name | Import |
 **Connectivity** | [FileProperty](docs/v2/Connectivity/models/FileProperty.md) | `from foundry_sdk.v2.connectivity.models import FileProperty` |
 **Connectivity** | [FilesCountLimitFilter](docs/v2/Connectivity/models/FilesCountLimitFilter.md) | `from foundry_sdk.v2.connectivity.models import FilesCountLimitFilter` |
 **Connectivity** | [FileSizeFilter](docs/v2/Connectivity/models/FileSizeFilter.md) | `from foundry_sdk.v2.connectivity.models import FileSizeFilter` |
+**Connectivity** | [FilesVirtualTableConfig](docs/v2/Connectivity/models/FilesVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import FilesVirtualTableConfig` |
 **Connectivity** | [FoundryWorker](docs/v2/Connectivity/models/FoundryWorker.md) | `from foundry_sdk.v2.connectivity.models import FoundryWorker` |
+**Connectivity** | [GlueVirtualTableConfig](docs/v2/Connectivity/models/GlueVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import GlueVirtualTableConfig` |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry_sdk.v2.connectivity.models import HeaderApiKey` |
+**Connectivity** | [IcebergVirtualTableConfig](docs/v2/Connectivity/models/IcebergVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import IcebergVirtualTableConfig` |
 **Connectivity** | [IntegerColumnInitialIncrementalState](docs/v2/Connectivity/models/IntegerColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import IntegerColumnInitialIncrementalState` |
+**Connectivity** | [InvalidConnectionReason](docs/v2/Connectivity/models/InvalidConnectionReason.md) | `from foundry_sdk.v2.connectivity.models import InvalidConnectionReason` |
 **Connectivity** | [JdbcConnectionConfiguration](docs/v2/Connectivity/models/JdbcConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import JdbcConnectionConfiguration` |
 **Connectivity** | [JdbcDriverArtifactName](docs/v2/Connectivity/models/JdbcDriverArtifactName.md) | `from foundry_sdk.v2.connectivity.models import JdbcDriverArtifactName` |
 **Connectivity** | [JdbcProperties](docs/v2/Connectivity/models/JdbcProperties.md) | `from foundry_sdk.v2.connectivity.models import JdbcProperties` |
@@ -1216,6 +1226,7 @@ Namespace | Name | Import |
 **Connectivity** | [SnowflakeExternalOauth](docs/v2/Connectivity/models/SnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeExternalOauth` |
 **Connectivity** | [SnowflakeKeyPairAuthentication](docs/v2/Connectivity/models/SnowflakeKeyPairAuthentication.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeKeyPairAuthentication` |
 **Connectivity** | [SnowflakeTableImportConfig](docs/v2/Connectivity/models/SnowflakeTableImportConfig.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeTableImportConfig` |
+**Connectivity** | [SnowflakeVirtualTableConfig](docs/v2/Connectivity/models/SnowflakeVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeVirtualTableConfig` |
 **Connectivity** | [StringColumnInitialIncrementalState](docs/v2/Connectivity/models/StringColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import StringColumnInitialIncrementalState` |
 **Connectivity** | [StsRoleConfiguration](docs/v2/Connectivity/models/StsRoleConfiguration.md) | `from foundry_sdk.v2.connectivity.models import StsRoleConfiguration` |
 **Connectivity** | [TableImport](docs/v2/Connectivity/models/TableImport.md) | `from foundry_sdk.v2.connectivity.models import TableImport` |
@@ -1226,15 +1237,21 @@ Namespace | Name | Import |
 **Connectivity** | [TableImportMode](docs/v2/Connectivity/models/TableImportMode.md) | `from foundry_sdk.v2.connectivity.models import TableImportMode` |
 **Connectivity** | [TableImportQuery](docs/v2/Connectivity/models/TableImportQuery.md) | `from foundry_sdk.v2.connectivity.models import TableImportQuery` |
 **Connectivity** | [TableImportRid](docs/v2/Connectivity/models/TableImportRid.md) | `from foundry_sdk.v2.connectivity.models import TableImportRid` |
+**Connectivity** | [TableName](docs/v2/Connectivity/models/TableName.md) | `from foundry_sdk.v2.connectivity.models import TableName` |
+**Connectivity** | [TableRid](docs/v2/Connectivity/models/TableRid.md) | `from foundry_sdk.v2.connectivity.models import TableRid` |
 **Connectivity** | [TimestampColumnInitialIncrementalState](docs/v2/Connectivity/models/TimestampColumnInitialIncrementalState.md) | `from foundry_sdk.v2.connectivity.models import TimestampColumnInitialIncrementalState` |
+**Connectivity** | [UnityVirtualTableConfig](docs/v2/Connectivity/models/UnityVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import UnityVirtualTableConfig` |
 **Connectivity** | [UnknownWorker](docs/v2/Connectivity/models/UnknownWorker.md) | `from foundry_sdk.v2.connectivity.models import UnknownWorker` |
 **Connectivity** | [UpdateExportSettingsForConnectionRequest](docs/v2/Connectivity/models/UpdateExportSettingsForConnectionRequest.md) | `from foundry_sdk.v2.connectivity.models import UpdateExportSettingsForConnectionRequest` |
 **Connectivity** | [UpdateSecretsForConnectionRequest](docs/v2/Connectivity/models/UpdateSecretsForConnectionRequest.md) | `from foundry_sdk.v2.connectivity.models import UpdateSecretsForConnectionRequest` |
 **Connectivity** | [UriScheme](docs/v2/Connectivity/models/UriScheme.md) | `from foundry_sdk.v2.connectivity.models import UriScheme` |
+**Connectivity** | [VirtualTable](docs/v2/Connectivity/models/VirtualTable.md) | `from foundry_sdk.v2.connectivity.models import VirtualTable` |
+**Connectivity** | [VirtualTableConfig](docs/v2/Connectivity/models/VirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import VirtualTableConfig` |
 **Connectivity** | [WorkflowIdentityFederation](docs/v2/Connectivity/models/WorkflowIdentityFederation.md) | `from foundry_sdk.v2.connectivity.models import WorkflowIdentityFederation` |
 **Core** | [AnyType](docs/v2/Core/models/AnyType.md) | `from foundry_sdk.v2.core.models import AnyType` |
 **Core** | [ArrayFieldType](docs/v2/Core/models/ArrayFieldType.md) | `from foundry_sdk.v2.core.models import ArrayFieldType` |
 **Core** | [AttachmentType](docs/v2/Core/models/AttachmentType.md) | `from foundry_sdk.v2.core.models import AttachmentType` |
+**Core** | [Attribution](docs/v2/Core/models/Attribution.md) | `from foundry_sdk.v2.core.models import Attribution` |
 **Core** | [BinaryType](docs/v2/Core/models/BinaryType.md) | `from foundry_sdk.v2.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v2/Core/models/BooleanType.md) | `from foundry_sdk.v2.core.models import BooleanType` |
 **Core** | [BranchMetadata](docs/v2/Core/models/BranchMetadata.md) | `from foundry_sdk.v2.core.models import BranchMetadata` |
@@ -1375,6 +1392,12 @@ Namespace | Name | Import |
 **DataHealth** | [MedianDeviationBoundsType](docs/v2/DataHealth/models/MedianDeviationBoundsType.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationBoundsType` |
 **DataHealth** | [MedianDeviationConfig](docs/v2/DataHealth/models/MedianDeviationConfig.md) | `from foundry_sdk.v2.data_health.models import MedianDeviationConfig` |
 **DataHealth** | [NullPercentageCheckConfig](docs/v2/DataHealth/models/NullPercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NullPercentageCheckConfig` |
+**DataHealth** | [NumericBounds](docs/v2/DataHealth/models/NumericBounds.md) | `from foundry_sdk.v2.data_health.models import NumericBounds` |
+**DataHealth** | [NumericBoundsConfig](docs/v2/DataHealth/models/NumericBoundsConfig.md) | `from foundry_sdk.v2.data_health.models import NumericBoundsConfig` |
+**DataHealth** | [NumericColumnCheckConfig](docs/v2/DataHealth/models/NumericColumnCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NumericColumnCheckConfig` |
+**DataHealth** | [NumericColumnMeanCheckConfig](docs/v2/DataHealth/models/NumericColumnMeanCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NumericColumnMeanCheckConfig` |
+**DataHealth** | [NumericColumnMedianCheckConfig](docs/v2/DataHealth/models/NumericColumnMedianCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NumericColumnMedianCheckConfig` |
+**DataHealth** | [NumericColumnRangeCheckConfig](docs/v2/DataHealth/models/NumericColumnRangeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import NumericColumnRangeCheckConfig` |
 **DataHealth** | [PercentageBounds](docs/v2/DataHealth/models/PercentageBounds.md) | `from foundry_sdk.v2.data_health.models import PercentageBounds` |
 **DataHealth** | [PercentageBoundsConfig](docs/v2/DataHealth/models/PercentageBoundsConfig.md) | `from foundry_sdk.v2.data_health.models import PercentageBoundsConfig` |
 **DataHealth** | [PercentageCheckConfig](docs/v2/DataHealth/models/PercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import PercentageCheckConfig` |
@@ -1386,10 +1409,17 @@ Namespace | Name | Import |
 **DataHealth** | [ReplaceCheckConfig](docs/v2/DataHealth/models/ReplaceCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceCheckConfig` |
 **DataHealth** | [ReplaceCheckRequest](docs/v2/DataHealth/models/ReplaceCheckRequest.md) | `from foundry_sdk.v2.data_health.models import ReplaceCheckRequest` |
 **DataHealth** | [ReplaceColumnTypeCheckConfig](docs/v2/DataHealth/models/ReplaceColumnTypeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceColumnTypeCheckConfig` |
+**DataHealth** | [ReplaceColumnTypeConfig](docs/v2/DataHealth/models/ReplaceColumnTypeConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceColumnTypeConfig` |
 **DataHealth** | [ReplaceJobDurationCheckConfig](docs/v2/DataHealth/models/ReplaceJobDurationCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceJobDurationCheckConfig` |
 **DataHealth** | [ReplaceJobStatusCheckConfig](docs/v2/DataHealth/models/ReplaceJobStatusCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceJobStatusCheckConfig` |
 **DataHealth** | [ReplaceNullPercentageCheckConfig](docs/v2/DataHealth/models/ReplaceNullPercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceNullPercentageCheckConfig` |
+**DataHealth** | [ReplaceNumericColumnCheckConfig](docs/v2/DataHealth/models/ReplaceNumericColumnCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceNumericColumnCheckConfig` |
+**DataHealth** | [ReplaceNumericColumnMeanCheckConfig](docs/v2/DataHealth/models/ReplaceNumericColumnMeanCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceNumericColumnMeanCheckConfig` |
+**DataHealth** | [ReplaceNumericColumnMedianCheckConfig](docs/v2/DataHealth/models/ReplaceNumericColumnMedianCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceNumericColumnMedianCheckConfig` |
+**DataHealth** | [ReplaceNumericColumnRangeCheckConfig](docs/v2/DataHealth/models/ReplaceNumericColumnRangeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceNumericColumnRangeCheckConfig` |
+**DataHealth** | [ReplacePercentageCheckConfig](docs/v2/DataHealth/models/ReplacePercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePercentageCheckConfig` |
 **DataHealth** | [ReplacePrimaryKeyCheckConfig](docs/v2/DataHealth/models/ReplacePrimaryKeyCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePrimaryKeyCheckConfig` |
+**DataHealth** | [ReplacePrimaryKeyConfig](docs/v2/DataHealth/models/ReplacePrimaryKeyConfig.md) | `from foundry_sdk.v2.data_health.models import ReplacePrimaryKeyConfig` |
 **DataHealth** | [ReplaceSchemaComparisonCheckConfig](docs/v2/DataHealth/models/ReplaceSchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceSchemaComparisonCheckConfig` |
 **DataHealth** | [ReplaceTotalColumnCountCheckConfig](docs/v2/DataHealth/models/ReplaceTotalColumnCountCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ReplaceTotalColumnCountCheckConfig` |
 **DataHealth** | [SchemaComparisonCheckConfig](docs/v2/DataHealth/models/SchemaComparisonCheckConfig.md) | `from foundry_sdk.v2.data_health.models import SchemaComparisonCheckConfig` |
@@ -1402,6 +1432,8 @@ Namespace | Name | Import |
 **DataHealth** | [TimeBoundsConfig](docs/v2/DataHealth/models/TimeBoundsConfig.md) | `from foundry_sdk.v2.data_health.models import TimeBoundsConfig` |
 **DataHealth** | [TimeCheckConfig](docs/v2/DataHealth/models/TimeCheckConfig.md) | `from foundry_sdk.v2.data_health.models import TimeCheckConfig` |
 **DataHealth** | [TotalColumnCountCheckConfig](docs/v2/DataHealth/models/TotalColumnCountCheckConfig.md) | `from foundry_sdk.v2.data_health.models import TotalColumnCountCheckConfig` |
+**DataHealth** | [TrendConfig](docs/v2/DataHealth/models/TrendConfig.md) | `from foundry_sdk.v2.data_health.models import TrendConfig` |
+**DataHealth** | [TrendType](docs/v2/DataHealth/models/TrendType.md) | `from foundry_sdk.v2.data_health.models import TrendType` |
 **Datasets** | [AddBackingDatasetsRequest](docs/v2/Datasets/models/AddBackingDatasetsRequest.md) | `from foundry_sdk.v2.datasets.models import AddBackingDatasetsRequest` |
 **Datasets** | [AddPrimaryKeyRequest](docs/v2/Datasets/models/AddPrimaryKeyRequest.md) | `from foundry_sdk.v2.datasets.models import AddPrimaryKeyRequest` |
 **Datasets** | [Branch](docs/v2/Datasets/models/Branch.md) | `from foundry_sdk.v2.datasets.models import Branch` |
@@ -1428,6 +1460,8 @@ Namespace | Name | Import |
 **Datasets** | [GetDatasetJobsTimeFilterField](docs/v2/Datasets/models/GetDatasetJobsTimeFilterField.md) | `from foundry_sdk.v2.datasets.models import GetDatasetJobsTimeFilterField` |
 **Datasets** | [GetDatasetSchemaResponse](docs/v2/Datasets/models/GetDatasetSchemaResponse.md) | `from foundry_sdk.v2.datasets.models import GetDatasetSchemaResponse` |
 **Datasets** | [GetJobResponse](docs/v2/Datasets/models/GetJobResponse.md) | `from foundry_sdk.v2.datasets.models import GetJobResponse` |
+**Datasets** | [GetSchemaDatasetsBatchRequestElement](docs/v2/Datasets/models/GetSchemaDatasetsBatchRequestElement.md) | `from foundry_sdk.v2.datasets.models import GetSchemaDatasetsBatchRequestElement` |
+**Datasets** | [GetSchemaDatasetsBatchResponse](docs/v2/Datasets/models/GetSchemaDatasetsBatchResponse.md) | `from foundry_sdk.v2.datasets.models import GetSchemaDatasetsBatchResponse` |
 **Datasets** | [JobDetails](docs/v2/Datasets/models/JobDetails.md) | `from foundry_sdk.v2.datasets.models import JobDetails` |
 **Datasets** | [ListBranchesResponse](docs/v2/Datasets/models/ListBranchesResponse.md) | `from foundry_sdk.v2.datasets.models import ListBranchesResponse` |
 **Datasets** | [ListFilesResponse](docs/v2/Datasets/models/ListFilesResponse.md) | `from foundry_sdk.v2.datasets.models import ListFilesResponse` |
@@ -1465,6 +1499,8 @@ Namespace | Name | Import |
 **Filesystem** | [Folder](docs/v2/Filesystem/models/Folder.md) | `from foundry_sdk.v2.filesystem.models import Folder` |
 **Filesystem** | [FolderRid](docs/v2/Filesystem/models/FolderRid.md) | `from foundry_sdk.v2.filesystem.models import FolderRid` |
 **Filesystem** | [FolderType](docs/v2/Filesystem/models/FolderType.md) | `from foundry_sdk.v2.filesystem.models import FolderType` |
+**Filesystem** | [GetByPathResourcesBatchRequestElement](docs/v2/Filesystem/models/GetByPathResourcesBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetByPathResourcesBatchRequestElement` |
+**Filesystem** | [GetByPathResourcesBatchResponse](docs/v2/Filesystem/models/GetByPathResourcesBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetByPathResourcesBatchResponse` |
 **Filesystem** | [GetFoldersBatchRequestElement](docs/v2/Filesystem/models/GetFoldersBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchRequestElement` |
 **Filesystem** | [GetFoldersBatchResponse](docs/v2/Filesystem/models/GetFoldersBatchResponse.md) | `from foundry_sdk.v2.filesystem.models import GetFoldersBatchResponse` |
 **Filesystem** | [GetResourcesBatchRequestElement](docs/v2/Filesystem/models/GetResourcesBatchRequestElement.md) | `from foundry_sdk.v2.filesystem.models import GetResourcesBatchRequestElement` |
@@ -1499,6 +1535,7 @@ Namespace | Name | Import |
 **Filesystem** | [ResourceRolePrincipalIdentifier](docs/v2/Filesystem/models/ResourceRolePrincipalIdentifier.md) | `from foundry_sdk.v2.filesystem.models import ResourceRolePrincipalIdentifier` |
 **Filesystem** | [ResourceType](docs/v2/Filesystem/models/ResourceType.md) | `from foundry_sdk.v2.filesystem.models import ResourceType` |
 **Filesystem** | [Space](docs/v2/Filesystem/models/Space.md) | `from foundry_sdk.v2.filesystem.models import Space` |
+**Filesystem** | [SpaceMavenIdentifier](docs/v2/Filesystem/models/SpaceMavenIdentifier.md) | `from foundry_sdk.v2.filesystem.models import SpaceMavenIdentifier` |
 **Filesystem** | [SpaceRid](docs/v2/Filesystem/models/SpaceRid.md) | `from foundry_sdk.v2.filesystem.models import SpaceRid` |
 **Filesystem** | [TrashStatus](docs/v2/Filesystem/models/TrashStatus.md) | `from foundry_sdk.v2.filesystem.models import TrashStatus` |
 **Filesystem** | [UsageAccountRid](docs/v2/Filesystem/models/UsageAccountRid.md) | `from foundry_sdk.v2.filesystem.models import UsageAccountRid` |
@@ -1813,6 +1850,7 @@ Namespace | Name | Import |
 **Ontologies** | [LinkTypeRid](docs/v2/Ontologies/models/LinkTypeRid.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeRid` |
 **Ontologies** | [LinkTypeSideCardinality](docs/v2/Ontologies/models/LinkTypeSideCardinality.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeSideCardinality` |
 **Ontologies** | [LinkTypeSideV2](docs/v2/Ontologies/models/LinkTypeSideV2.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeSideV2` |
+**Ontologies** | [ListActionTypesFullMetadataResponse](docs/v2/Ontologies/models/ListActionTypesFullMetadataResponse.md) | `from foundry_sdk.v2.ontologies.models import ListActionTypesFullMetadataResponse` |
 **Ontologies** | [ListActionTypesResponseV2](docs/v2/Ontologies/models/ListActionTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListActionTypesResponseV2` |
 **Ontologies** | [ListAttachmentsResponseV2](docs/v2/Ontologies/models/ListAttachmentsResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListAttachmentsResponseV2` |
 **Ontologies** | [ListInterfaceLinkedObjectsResponse](docs/v2/Ontologies/models/ListInterfaceLinkedObjectsResponse.md) | `from foundry_sdk.v2.ontologies.models import ListInterfaceLinkedObjectsResponse` |
@@ -2224,6 +2262,7 @@ Namespace | Name | Import |
 --------- | ---- | ------ |
 **Core** | [AnyType](docs/v1/Core/models/AnyType.md) | `from foundry_sdk.v1.core.models import AnyType` |
 **Core** | [AttachmentType](docs/v1/Core/models/AttachmentType.md) | `from foundry_sdk.v1.core.models import AttachmentType` |
+**Core** | [Attribution](docs/v1/Core/models/Attribution.md) | `from foundry_sdk.v1.core.models import Attribution` |
 **Core** | [BinaryType](docs/v1/Core/models/BinaryType.md) | `from foundry_sdk.v1.core.models import BinaryType` |
 **Core** | [BooleanType](docs/v1/Core/models/BooleanType.md) | `from foundry_sdk.v1.core.models import BooleanType` |
 **Core** | [ByteType](docs/v1/Core/models/ByteType.md) | `from foundry_sdk.v1.core.models import ByteType` |
@@ -2500,6 +2539,7 @@ Namespace | Name | Import |
 **Admin** | PreregisterUserPermissionDenied | `from foundry_sdk.v2.admin.errors import PreregisterUserPermissionDenied` |
 **Admin** | PrincipalNotFound | `from foundry_sdk.v2.admin.errors import PrincipalNotFound` |
 **Admin** | ProfilePictureNotFound | `from foundry_sdk.v2.admin.errors import ProfilePictureNotFound` |
+**Admin** | ProfileServiceNotPresent | `from foundry_sdk.v2.admin.errors import ProfileServiceNotPresent` |
 **Admin** | RemoveEnrollmentRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveEnrollmentRoleAssignmentsPermissionDenied` |
 **Admin** | RemoveGroupMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveGroupMembersPermissionDenied` |
 **Admin** | RemoveMarkingMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveMarkingMembersPermissionDenied` |
@@ -2548,6 +2588,7 @@ Namespace | Name | Import |
 **AipAgents** | UpdateSessionTitlePermissionDenied | `from foundry_sdk.v2.aip_agents.errors import UpdateSessionTitlePermissionDenied` |
 **Audit** | GetLogFileContentPermissionDenied | `from foundry_sdk.v2.audit.errors import GetLogFileContentPermissionDenied` |
 **Audit** | ListLogFilesPermissionDenied | `from foundry_sdk.v2.audit.errors import ListLogFilesPermissionDenied` |
+**Audit** | MissingStartDate | `from foundry_sdk.v2.audit.errors import MissingStartDate` |
 **Connectivity** | AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap | `from foundry_sdk.v2.connectivity.errors import AdditionalSecretsMustBeSpecifiedAsPlaintextValueMap` |
 **Connectivity** | ConnectionDetailsNotDetermined | `from foundry_sdk.v2.connectivity.errors import ConnectionDetailsNotDetermined` |
 **Connectivity** | ConnectionNotFound | `from foundry_sdk.v2.connectivity.errors import ConnectionNotFound` |
@@ -2555,6 +2596,7 @@ Namespace | Name | Import |
 **Connectivity** | CreateConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import CreateConnectionPermissionDenied` |
 **Connectivity** | CreateFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import CreateFileImportPermissionDenied` |
 **Connectivity** | CreateTableImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import CreateTableImportPermissionDenied` |
+**Connectivity** | CreateVirtualTablePermissionDenied | `from foundry_sdk.v2.connectivity.errors import CreateVirtualTablePermissionDenied` |
 **Connectivity** | DeleteFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import DeleteFileImportPermissionDenied` |
 **Connectivity** | DeleteTableImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import DeleteTableImportPermissionDenied` |
 **Connectivity** | DomainMustUseHttpsWithAuthentication | `from foundry_sdk.v2.connectivity.errors import DomainMustUseHttpsWithAuthentication` |
@@ -2574,6 +2616,7 @@ Namespace | Name | Import |
 **Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry_sdk.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
 **Connectivity** | GetConfigurationPermissionDenied | `from foundry_sdk.v2.connectivity.errors import GetConfigurationPermissionDenied` |
 **Connectivity** | HostNameCannotHaveProtocolOrPort | `from foundry_sdk.v2.connectivity.errors import HostNameCannotHaveProtocolOrPort` |
+**Connectivity** | InvalidVirtualTableConnection | `from foundry_sdk.v2.connectivity.errors import InvalidVirtualTableConnection` |
 **Connectivity** | ParentFolderNotFoundForConnection | `from foundry_sdk.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
 **Connectivity** | PropertyCannotBeBlank | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeBlank` |
 **Connectivity** | PropertyCannotBeEmpty | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeEmpty` |
@@ -2588,12 +2631,15 @@ Namespace | Name | Import |
 **Connectivity** | UpdateSecretsForConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UpdateSecretsForConnectionPermissionDenied` |
 **Connectivity** | UploadCustomJdbcDriverNotSupportForConnection | `from foundry_sdk.v2.connectivity.errors import UploadCustomJdbcDriverNotSupportForConnection` |
 **Connectivity** | UploadCustomJdbcDriversConnectionPermissionDenied | `from foundry_sdk.v2.connectivity.errors import UploadCustomJdbcDriversConnectionPermissionDenied` |
+**Connectivity** | VirtualTableAlreadyExists | `from foundry_sdk.v2.connectivity.errors import VirtualTableAlreadyExists` |
+**Connectivity** | VirtualTableRegisterFromSourcePermissionDenied | `from foundry_sdk.v2.connectivity.errors import VirtualTableRegisterFromSourcePermissionDenied` |
 **Core** | ApiFeaturePreviewUsageOnly | `from foundry_sdk.v2.core.errors import ApiFeaturePreviewUsageOnly` |
 **Core** | ApiUsageDenied | `from foundry_sdk.v2.core.errors import ApiUsageDenied` |
 **Core** | BatchRequestSizeExceededLimit | `from foundry_sdk.v2.core.errors import BatchRequestSizeExceededLimit` |
 **Core** | FolderNotFound | `from foundry_sdk.v2.core.errors import FolderNotFound` |
 **Core** | FoundryBranchNotFound | `from foundry_sdk.v2.core.errors import FoundryBranchNotFound` |
 **Core** | InvalidAndFilter | `from foundry_sdk.v2.core.errors import InvalidAndFilter` |
+**Core** | InvalidAttributionHeader | `from foundry_sdk.v2.core.errors import InvalidAttributionHeader` |
 **Core** | InvalidChangeDataCaptureConfiguration | `from foundry_sdk.v2.core.errors import InvalidChangeDataCaptureConfiguration` |
 **Core** | InvalidFieldSchema | `from foundry_sdk.v2.core.errors import InvalidFieldSchema` |
 **Core** | InvalidFilePath | `from foundry_sdk.v2.core.errors import InvalidFilePath` |
@@ -2614,8 +2660,10 @@ Namespace | Name | Import |
 **DataHealth** | CheckTypeNotSupported | `from foundry_sdk.v2.data_health.errors import CheckTypeNotSupported` |
 **DataHealth** | CreateCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import CreateCheckPermissionDenied` |
 **DataHealth** | DeleteCheckPermissionDenied | `from foundry_sdk.v2.data_health.errors import DeleteCheckPermissionDenied` |
+**DataHealth** | InvalidNumericColumnCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidNumericColumnCheckConfig` |
 **DataHealth** | InvalidPercentageCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidPercentageCheckConfig` |
 **DataHealth** | InvalidTimeCheckConfig | `from foundry_sdk.v2.data_health.errors import InvalidTimeCheckConfig` |
+**DataHealth** | InvalidTrendConfig | `from foundry_sdk.v2.data_health.errors import InvalidTrendConfig` |
 **DataHealth** | ModifyingCheckTypeNotSupported | `from foundry_sdk.v2.data_health.errors import ModifyingCheckTypeNotSupported` |
 **DataHealth** | PercentageValueAboveMaximum | `from foundry_sdk.v2.data_health.errors import PercentageValueAboveMaximum` |
 **DataHealth** | PercentageValueBelowMinimum | `from foundry_sdk.v2.data_health.errors import PercentageValueBelowMinimum` |
@@ -2745,6 +2793,7 @@ Namespace | Name | Import |
 **Filesystem** | TrashingAutosavedResourcesNotSupported | `from foundry_sdk.v2.filesystem.errors import TrashingAutosavedResourcesNotSupported` |
 **Filesystem** | TrashingHiddenResourcesNotSupported | `from foundry_sdk.v2.filesystem.errors import TrashingHiddenResourcesNotSupported` |
 **Filesystem** | TrashingSpaceNotSupported | `from foundry_sdk.v2.filesystem.errors import TrashingSpaceNotSupported` |
+**Filesystem** | UsageAccountServiceIsNotPresent | `from foundry_sdk.v2.filesystem.errors import UsageAccountServiceIsNotPresent` |
 **Functions** | ExecuteQueryPermissionDenied | `from foundry_sdk.v2.functions.errors import ExecuteQueryPermissionDenied` |
 **Functions** | GetByRidQueriesPermissionDenied | `from foundry_sdk.v2.functions.errors import GetByRidQueriesPermissionDenied` |
 **Functions** | InvalidQueryOutputValue | `from foundry_sdk.v2.functions.errors import InvalidQueryOutputValue` |
@@ -2775,6 +2824,8 @@ Namespace | Name | Import |
 **MediaSets** | MediaSetOpenTransactionAlreadyExists | `from foundry_sdk.v2.media_sets.errors import MediaSetOpenTransactionAlreadyExists` |
 **MediaSets** | MissingMediaItemContent | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemContent` |
 **MediaSets** | MissingMediaItemPath | `from foundry_sdk.v2.media_sets.errors import MissingMediaItemPath` |
+**MediaSets** | TemporaryMediaUploadInsufficientPermissions | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadInsufficientPermissions` |
+**MediaSets** | TemporaryMediaUploadUnknownFailure | `from foundry_sdk.v2.media_sets.errors import TemporaryMediaUploadUnknownFailure` |
 **MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |

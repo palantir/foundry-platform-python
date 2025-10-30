@@ -229,7 +229,7 @@ See [README](../../../README.md#authorization)
 # **read**
 Gets the content of a dataset as a table in the specified format.
 
-This endpoint currently does not support views (Virtual datasets composed of other datasets).
+This endpoint currently does not support views (virtual datasets composed of other datasets). For more information, refer to the [views documentation](https://palantir.com/docs/foundry/data-integration/views).
 
 
 ### Parameters
