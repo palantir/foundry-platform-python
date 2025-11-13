@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**post_edits**](#post_edits) | **POST** /v2/ontologies/{ontology}/transactions/{transactionRid}/edits | Private Beta |
+[**post_edits**](#post_edits) | **POST** /v2/ontologies/{ontology}/transactions/{transactionId}/edits | Private Beta |
 
 # **post_edits**
 Applies a set of edits to a transaction in order.
@@ -13,7 +13,7 @@ Applies a set of edits to a transaction in order.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
-**transaction_rid** | OntologyTransactionRid | The RID of the transaction to apply edits to.  |  |
+**transaction_id** | OntologyTransactionId | The RID of the transaction to apply edits to.  |  |
 **edits** | List[TransactionEdit] |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
@@ -31,8 +31,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier
 ontology = "palantir"
-# OntologyTransactionRid | The RID of the transaction to apply edits to.
-transaction_rid = None
+# OntologyTransactionId | The RID of the transaction to apply edits to.
+transaction_id = None
 # List[TransactionEdit]
 edits = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -41,7 +41,7 @@ preview = None
 
 try:
     api_response = client.ontologies.OntologyTransaction.post_edits(
-        ontology, transaction_rid, edits=edits, preview=preview
+        ontology, transaction_id, edits=edits, preview=preview
     )
     print("The post_edits response:\n")
     pprint(api_response)

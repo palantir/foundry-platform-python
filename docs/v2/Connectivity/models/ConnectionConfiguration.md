@@ -13,6 +13,7 @@ S3ConnectionConfiguration | s3
 RestConnectionConfiguration | rest
 SnowflakeConnectionConfiguration | snowflake
 DatabricksConnectionConfiguration | databricks
+SmbConnectionConfiguration | smb
 JdbcConnectionConfiguration | jdbc
 
 

@@ -440,6 +440,21 @@ class HostNameCannotHaveProtocolOrPort(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidShareNameParameters(typing_extensions.TypedDict):
+    """The share name is invalid. Share names cannot contain the following characters: \ / : * ? " < > |"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    shareName: str
+
+
+@dataclass
+class InvalidShareName(errors.BadRequestError):
+    name: typing.Literal["InvalidShareName"]
+    parameters: InvalidShareNameParameters
+    error_instance_id: str
+
+
 class InvalidVirtualTableConnectionParameters(typing_extensions.TypedDict):
     """The specified connection is invalid or inaccessible."""
 
@@ -468,6 +483,21 @@ class ParentFolderNotFoundForConnectionParameters(typing_extensions.TypedDict):
 class ParentFolderNotFoundForConnection(errors.NotFoundError):
     name: typing.Literal["ParentFolderNotFoundForConnection"]
     parameters: ParentFolderNotFoundForConnectionParameters
+    error_instance_id: str
+
+
+class PortNotInRangeParameters(typing_extensions.TypedDict):
+    """The specified port is not in the valid range (1-65535)."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    port: int
+
+
+@dataclass
+class PortNotInRange(errors.BadRequestError):
+    name: typing.Literal["PortNotInRange"]
+    parameters: PortNotInRangeParameters
     error_instance_id: str
 
 
@@ -728,8 +758,10 @@ __all__ = [
     "FilesCountLimitFilterInvalidLimit",
     "GetConfigurationPermissionDenied",
     "HostNameCannotHaveProtocolOrPort",
+    "InvalidShareName",
     "InvalidVirtualTableConnection",
     "ParentFolderNotFoundForConnection",
+    "PortNotInRange",
     "PropertyCannotBeBlank",
     "PropertyCannotBeEmpty",
     "ReplaceFileImportPermissionDenied",

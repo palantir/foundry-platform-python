@@ -926,6 +926,26 @@ class InvalidSortType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidTransactionEditPropertyValueParameters(typing_extensions.TypedDict):
+    """
+    The value of the given property is invalid. See the documentation of `DataValue` for details on
+    how properties are represented for transaction edits.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    propertyApiName: ontologies_models.PropertyApiName
+    propertyBaseType: ontologies_models.ValueType
+    propertyValue: ontologies_models.DataValue
+
+
+@dataclass
+class InvalidTransactionEditPropertyValue(errors.BadRequestError):
+    name: typing.Literal["InvalidTransactionEditPropertyValue"]
+    parameters: InvalidTransactionEditPropertyValueParameters
+    error_instance_id: str
+
+
 class InvalidUserIdParameters(typing_extensions.TypedDict):
     """The provided value for a user id must be a UUID."""
 
@@ -2167,6 +2187,7 @@ __all__ = [
     "InvalidRangeQuery",
     "InvalidSortOrder",
     "InvalidSortType",
+    "InvalidTransactionEditPropertyValue",
     "InvalidUserId",
     "InvalidVectorDimension",
     "LinkAlreadyExists",

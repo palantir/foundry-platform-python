@@ -152,6 +152,7 @@ ConnectionConfiguration = typing_extensions.Annotated[
         "RestConnectionConfiguration",
         "SnowflakeConnectionConfiguration",
         "DatabricksConnectionConfiguration",
+        "SmbConnectionConfiguration",
         "JdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -230,6 +231,7 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
         "CreateConnectionRequestRestConnectionConfiguration",
         "CreateConnectionRequestSnowflakeConnectionConfiguration",
         "CreateConnectionRequestDatabricksConnectionConfiguration",
+        "CreateConnectionRequestSmbConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -436,6 +438,52 @@ class CreateConnectionRequestS3ConnectionConfiguration(core.ModelBase):
     """
 
     type: typing.Literal["s3"] = "s3"
+
+
+class CreateConnectionRequestSmbConnectionConfiguration(core.ModelBase):
+    """CreateConnectionRequestSmbConnectionConfiguration"""
+
+    proxy: typing.Optional[SmbProxyConfiguration] = None
+    hostname: str
+    """
+    Any identifier that can resolve to a server hosting an SMB share. This includes IP addresses, local 
+    network names (e.g. FS-SERVER-01) or FQDNs. Should not include any protocol information like https://, smb://, etc
+    """
+
+    port: typing.Optional[int] = None
+    """445 by default"""
+
+    auth: CreateConnectionRequestSmbAuth
+    share: str
+    """
+    Must be a valid SMB share name.
+    https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/dc9978d7-6299-4c5a-a22d-a039cdc716ea
+    """
+
+    base_directory: typing.Optional[str] = pydantic.Field(alias=str("baseDirectory"), default=None)  # type: ignore[literal-required]
+    """All reads and writes in this source will happen in this subdirectory"""
+
+    require_message_signing: typing.Optional[bool] = pydantic.Field(alias=str("requireMessageSigning"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the client will request that the server sign all messages. If the server does not support 
+    message signing, the connection will fail. Defaults to true.
+    """
+
+    type: typing.Literal["smb"] = "smb"
+
+
+class CreateConnectionRequestSmbUsernamePasswordAuth(core.ModelBase):
+    """CreateConnectionRequestSmbUsernamePasswordAuth"""
+
+    password: CreateConnectionRequestEncryptedProperty
+    domain: typing.Optional[str] = None
+    """
+    Optionally specify a Windows domain to use when authenticating. Normal DNS domain restrictions apply
+    but the top-level domain might be something non-standard like .local. Defaults to WORKGROUP
+    """
+
+    username: str
+    type: typing.Literal["usernamePassword"] = "usernamePassword"
 
 
 CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated[
@@ -1569,6 +1617,64 @@ class SecretsWithPlaintextValues(core.ModelBase):
     type: typing.Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
 
 
+class SmbConnectionConfiguration(core.ModelBase):
+    """SmbConnectionConfiguration"""
+
+    hostname: str
+    """
+    Any identifier that can resolve to a server hosting an SMB share. This includes IP addresses, local 
+    network names (e.g. FS-SERVER-01) or FQDNs. Should not include any protocol information like https://, smb://, etc
+    """
+
+    port: typing.Optional[int] = None
+    """445 by default"""
+
+    proxy: typing.Optional[SmbProxyConfiguration] = None
+    share: str
+    """
+    Must be a valid SMB share name.
+    https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/dc9978d7-6299-4c5a-a22d-a039cdc716ea
+    """
+
+    base_directory: typing.Optional[str] = pydantic.Field(alias=str("baseDirectory"), default=None)  # type: ignore[literal-required]
+    """All reads and writes in this source will happen in this subdirectory"""
+
+    auth: SmbAuth
+    require_message_signing: typing.Optional[bool] = pydantic.Field(alias=str("requireMessageSigning"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the client will request that the server sign all messages. If the server does not support 
+    message signing, the connection will fail. Defaults to true.
+    """
+
+    type: typing.Literal["smb"] = "smb"
+
+
+class SmbProxyConfiguration(core.ModelBase):
+    """Egress proxy to pass all traffic through."""
+
+    hostname: str
+    port: int
+    protocol: SmbProxyType
+
+
+SmbProxyType = typing.Literal["HTTP", "SOCKS"]
+"""SmbProxyType"""
+
+
+class SmbUsernamePasswordAuth(core.ModelBase):
+    """SmbUsernamePasswordAuth"""
+
+    username: str
+    password: EncryptedProperty
+    domain: typing.Optional[str] = None
+    """
+    Optionally specify a Windows domain to use when authenticating. Normal DNS domain restrictions apply
+    but the top-level domain might be something non-standard like .local. Defaults to WORKGROUP
+    """
+
+    type: typing.Literal["usernamePassword"] = "usernamePassword"
+
+
 SnowflakeAuthenticationMode = typing_extensions.Annotated[
     typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", BasicCredentials],
     pydantic.Field(discriminator="type"),
@@ -1942,6 +2048,14 @@ class WorkflowIdentityFederation(core.ModelBase):
     type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
 
 
+CreateConnectionRequestSmbAuth = CreateConnectionRequestSmbUsernamePasswordAuth
+"""CreateConnectionRequestSmbAuth"""
+
+
+SmbAuth = SmbUsernamePasswordAuth
+"""SmbAuth"""
+
+
 core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
 core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())
 core.resolve_forward_references(
@@ -2014,6 +2128,9 @@ __all__ = [
     "CreateConnectionRequestPersonalAccessToken",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfiguration",
+    "CreateConnectionRequestSmbAuth",
+    "CreateConnectionRequestSmbConnectionConfiguration",
+    "CreateConnectionRequestSmbUsernamePasswordAuth",
     "CreateConnectionRequestSnowflakeAuthenticationMode",
     "CreateConnectionRequestSnowflakeConnectionConfiguration",
     "CreateConnectionRequestSnowflakeExternalOauth",
@@ -2102,6 +2219,11 @@ __all__ = [
     "SecretName",
     "SecretsNames",
     "SecretsWithPlaintextValues",
+    "SmbAuth",
+    "SmbConnectionConfiguration",
+    "SmbProxyConfiguration",
+    "SmbProxyType",
+    "SmbUsernamePasswordAuth",
     "SnowflakeAuthenticationMode",
     "SnowflakeConnectionConfiguration",
     "SnowflakeExternalOauth",

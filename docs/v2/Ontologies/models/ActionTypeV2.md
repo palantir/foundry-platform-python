@@ -12,6 +12,7 @@ Represents an action type in the Ontology.
 **parameters** | Dict[ParameterId, ActionParameterV2] | Yes |  |
 **rid** | ActionTypeRid | Yes |  |
 **operations** | List[LogicRule] | Yes |  |
+**tool_description** | Optional[str] | No | Optional description intended for tool use contexts, such as AI agents. |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -211,6 +211,21 @@ class QueryVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class StreamingExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not streamingExecute the Query."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryApiName: functions_models.QueryApiName
+
+
+@dataclass
+class StreamingExecuteQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["StreamingExecuteQueryPermissionDenied"]
+    parameters: StreamingExecuteQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
 class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
@@ -273,6 +288,7 @@ __all__ = [
     "QueryRuntimeError",
     "QueryTimeExceededLimit",
     "QueryVersionNotFound",
+    "StreamingExecuteQueryPermissionDenied",
     "UnknownParameter",
     "ValueTypeNotFound",
     "VersionIdNotFound",
