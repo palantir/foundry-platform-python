@@ -5307,7 +5307,10 @@ def functions_query_op_execute(
     """
     Executes a Query using the given parameters. By default, this executes the latest version of the query.
 
-    Optional parameters do not need to be supplied.
+    This endpoint is maintained for backward compatibility only.
+
+    For all new implementations, use the `streamingExecute` endpoint, which supports all function types
+    and provides enhanced functionality.
 
     """
     result = client.functions.Query.execute(
@@ -5370,6 +5373,77 @@ def functions_query_op_get_by_rid(
         version=version,
     )
     click.echo(repr(result))
+
+
+@functions_query.command("streaming_execute")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
+@click.option(
+    "--ontology",
+    type=str,
+    required=False,
+    help="""Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+function. When omitted, executes a global function.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
+@click.option("--version", type=str, required=False, help="""""")
+@click.pass_obj
+def functions_query_op_streaming_execute(
+    client: FoundryClient,
+    query_api_name: str,
+    parameters: str,
+    attribution: typing.Optional[str],
+    ontology: typing.Optional[str],
+    preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+    version: typing.Optional[str],
+):
+    """
+    Executes a Query using the given parameters, returning results as an NDJSON stream. By default, this executes the latest version of the query.
+
+    This endpoint supports all Query functions. The endpoint name 'streamingExecute' refers to the NDJSON
+    streaming response format. Both streaming and non-streaming functions can use this endpoint.
+    Non-streaming functions return a single-line NDJSON response, while streaming functions return multi-line NDJSON responses.
+    This is the recommended endpoint for all query execution.
+
+    The response is returned as a binary stream in NDJSON (Newline Delimited JSON) format, where each line
+    is a StreamingExecuteQueryResponse containing either a data batch or an error.
+
+    For a function returning a list of 5 records with a batch size of 3, the response stream would contain
+    two lines. The first line contains the first 3 items, and the second line contains the remaining 2 items:
+
+    ```
+    {"type":"data","value":[{"productId":"SKU-001","price":29.99},{"productId":"SKU-002","price":49.99},{"productId":"SKU-003","price":19.99}]}
+    {"type":"data","value":[{"productId":"SKU-004","price":39.99},{"productId":"SKU-005","price":59.99}]}
+    ```
+
+    Each line is a separate JSON object followed by a newline character. Clients should parse the stream
+    line-by-line to process results as they arrive. If an error occurs during execution, the stream will
+    contain an error line:
+
+    ```
+    {"type":"error","errorCode":"INVALID_ARGUMENT","errorName":"QueryRuntimeError","errorInstanceId":"3f8a9c7b-2e4d-4a1f-9b8c-7d6e5f4a3b2c","errorDescription":"Division by zero","parameters":{}}
+    ```
+
+    """
+    result = client.functions.Query.streaming_execute(
+        query_api_name=query_api_name,
+        parameters=json.loads(parameters),
+        attribution=attribution,
+        ontology=ontology,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        version=version,
+    )
+    click.echo(result)
 
 
 @cli.group("geo")
@@ -6003,10 +6077,12 @@ def media_sets_media_set_op_upload_media(
     preview: typing.Optional[bool],
 ):
     """
-    "Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
+    Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted.
+
+    If multiple resources are attributed to, usage will be attributed to the first one in the list.
 
     The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
-    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`."
+    Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
 
     """
     result = client.media_sets.MediaSet.upload_media(
@@ -6423,7 +6499,7 @@ def ontologies_ontology_transaction():
 
 @ontologies_ontology_transaction.command("post_edits")
 @click.argument("ontology", type=str, required=True)
-@click.argument("transaction_rid", type=str, required=True)
+@click.argument("transaction_id", type=str, required=True)
 @click.option("--edits", type=str, required=True, help="""""")
 @click.option(
     "--preview",
@@ -6436,7 +6512,7 @@ def ontologies_ontology_transaction():
 def ontologies_ontology_transaction_op_post_edits(
     client: FoundryClient,
     ontology: str,
-    transaction_rid: str,
+    transaction_id: str,
     edits: str,
     preview: typing.Optional[bool],
 ):
@@ -6446,7 +6522,7 @@ def ontologies_ontology_transaction_op_post_edits(
     """
     result = client.ontologies.OntologyTransaction.post_edits(
         ontology=ontology,
-        transaction_rid=transaction_rid,
+        transaction_id=transaction_id,
         edits=json.loads(edits),
         preview=preview,
     )

@@ -22,6 +22,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class ArrayConstraint(core.ModelBase):
@@ -283,6 +284,19 @@ class RidConstraint(core.ModelBase):
     """RidConstraint"""
 
     type: typing.Literal["rid"] = "rid"
+
+
+class StreamingExecuteQueryRequest(core.ModelBase):
+    """StreamingExecuteQueryRequest"""
+
+    ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
+    """
+    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+    function. When omitted, executes a global function.
+    """
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    version: typing.Optional[FunctionVersion] = None
 
 
 class StructConstraint(core.ModelBase):
@@ -593,6 +607,7 @@ __all__ = [
     "RangesConstraint",
     "RegexConstraint",
     "RidConstraint",
+    "StreamingExecuteQueryRequest",
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",

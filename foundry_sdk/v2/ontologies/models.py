@@ -142,6 +142,8 @@ class ActionTypeV2(core.ModelBase):
     parameters: typing.Dict[ParameterId, ActionParameterV2]
     rid: ActionTypeRid
     operations: typing.List[LogicRule]
+    tool_description: typing.Optional[str] = pydantic.Field(alias=str("toolDescription"), default=None)  # type: ignore[literal-required]
+    """Optional description intended for tool use contexts, such as AI agents."""
 
 
 class ActivePropertyTypeStatus(core.ModelBase):
@@ -185,7 +187,6 @@ class AddObjectEdit(core.ModelBase):
     """AddObjectEdit"""
 
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
-    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     properties: typing.Dict[PropertyApiName, DataValue]
     type: typing.Literal["addObject"] = "addObject"
 
@@ -2540,7 +2541,7 @@ class OntologyStructType(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-OntologyTransactionRid = core.RID
+OntologyTransactionId = str
 """The RID identifying a transaction."""
 
 
@@ -3579,7 +3580,11 @@ StructFieldArgument = typing_extensions.Annotated[
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
+        OneOfConstraint,
+        RangeConstraint,
+        ObjectQueryResultConstraint,
+        StringLengthConstraint,
+        StringRegexMatchConstraint,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3596,6 +3601,7 @@ The type of the constraint.
 | `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
 | `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
 | `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+| `objectQueryResult`   | The struct parameter field value must be the primary key of an object found within an object set.                                                                                                                               |
 """
 
 
@@ -4453,7 +4459,7 @@ __all__ = [
     "OntologySetType",
     "OntologyStructField",
     "OntologyStructType",
-    "OntologyTransactionRid",
+    "OntologyTransactionId",
     "OntologyV2",
     "OntologyValueType",
     "OrQueryV2",

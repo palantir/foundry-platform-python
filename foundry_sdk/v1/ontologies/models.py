@@ -1357,7 +1357,11 @@ class StructEvaluatedConstraint(core.ModelBase):
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
+        OneOfConstraint,
+        RangeConstraint,
+        ObjectQueryResultConstraint,
+        StringLengthConstraint,
+        StringRegexMatchConstraint,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1374,6 +1378,7 @@ The type of the constraint.
 | `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
 | `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
 | `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+| `objectQueryResult`   | The struct parameter field value must be the primary key of an object found within an object set.                                                                                                                               |
 """
 
 

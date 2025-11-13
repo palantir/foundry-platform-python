@@ -53,7 +53,7 @@ class OntologyTransactionClient:
     def post_edits(
         self,
         ontology: ontologies_models.OntologyIdentifier,
-        transaction_rid: ontologies_models.OntologyTransactionRid,
+        transaction_id: ontologies_models.OntologyTransactionId,
         *,
         edits: typing.List[ontologies_models.TransactionEdit],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -65,8 +65,8 @@ class OntologyTransactionClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param transaction_rid: The RID of the transaction to apply edits to.
-        :type transaction_rid: OntologyTransactionRid
+        :param transaction_id: The RID of the transaction to apply edits to.
+        :type transaction_id: OntologyTransactionId
         :param edits:
         :type edits: List[TransactionEdit]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -80,13 +80,13 @@ class OntologyTransactionClient:
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/ontologies/{ontology}/transactions/{transactionRid}/edits",
+                resource_path="/v2/ontologies/{ontology}/transactions/{transactionId}/edits",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
-                    "transactionRid": transaction_rid,
+                    "transactionId": transaction_id,
                 },
                 header_params={
                     "Content-Type": "application/json",
@@ -146,7 +146,7 @@ class AsyncOntologyTransactionClient:
     def post_edits(
         self,
         ontology: ontologies_models.OntologyIdentifier,
-        transaction_rid: ontologies_models.OntologyTransactionRid,
+        transaction_id: ontologies_models.OntologyTransactionId,
         *,
         edits: typing.List[ontologies_models.TransactionEdit],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -158,8 +158,8 @@ class AsyncOntologyTransactionClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param transaction_rid: The RID of the transaction to apply edits to.
-        :type transaction_rid: OntologyTransactionRid
+        :param transaction_id: The RID of the transaction to apply edits to.
+        :type transaction_id: OntologyTransactionId
         :param edits:
         :type edits: List[TransactionEdit]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
@@ -173,13 +173,13 @@ class AsyncOntologyTransactionClient:
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/ontologies/{ontology}/transactions/{transactionRid}/edits",
+                resource_path="/v2/ontologies/{ontology}/transactions/{transactionId}/edits",
                 query_params={
                     "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
-                    "transactionRid": transaction_rid,
+                    "transactionId": transaction_id,
                 },
                 header_params={
                     "Content-Type": "application/json",

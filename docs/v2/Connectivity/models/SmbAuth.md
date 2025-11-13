@@ -1,10 +1,10 @@
-# OntologyTransactionRid
+# SmbAuth
 
-The RID identifying a transaction.
+SmbAuth
 
 ## Type
 ```python
-RID
+SmbUsernamePasswordAuth
 ```
 
 

@@ -309,6 +309,54 @@ class InvalidEventId(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidEventParameterParameters(typing_extensions.TypedDict):
+    """The event parameter is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventParameterId: str
+
+
+@dataclass
+class InvalidEventParameter(errors.BadRequestError):
+    name: typing.Literal["InvalidEventParameter"]
+    parameters: InvalidEventParameterParameters
+    error_instance_id: str
+
+
+class InvalidEventParameterCountParameters(typing_extensions.TypedDict):
+    """The widget config contains an event with too many event parameters."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventParameterCount: int
+
+
+@dataclass
+class InvalidEventParameterCount(errors.BadRequestError):
+    name: typing.Literal["InvalidEventParameterCount"]
+    parameters: InvalidEventParameterCountParameters
+    error_instance_id: str
+
+
+class InvalidEventParameterIdParameters(typing_extensions.TypedDict):
+    """The event parameter id is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventParameterId: str
+
+
+@dataclass
+class InvalidEventParameterId(errors.BadRequestError):
+    name: typing.Literal["InvalidEventParameterId"]
+    parameters: InvalidEventParameterIdParameters
+    error_instance_id: str
+
+
 class InvalidEventParameterUpdateIdParameters(typing_extensions.TypedDict):
     """The event references an invalid parameter id."""
 
@@ -350,12 +398,47 @@ class InvalidManifestParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     reason: str
+    value: typing_extensions.NotRequired[typing.Any]
 
 
 @dataclass
 class InvalidManifest(errors.BadRequestError):
     name: typing.Literal["InvalidManifest"]
     parameters: InvalidManifestParameters
+    error_instance_id: str
+
+
+class InvalidObjectSetEventParameterTypeParameters(typing_extensions.TypedDict):
+    """The object set event parameter type is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    eventParameterId: str
+    value: typing_extensions.NotRequired[typing.Any]
+
+
+@dataclass
+class InvalidObjectSetEventParameterType(errors.BadRequestError):
+    name: typing.Literal["InvalidObjectSetEventParameterType"]
+    parameters: InvalidObjectSetEventParameterTypeParameters
+    error_instance_id: str
+
+
+class InvalidObjectSetParameterTypeParameters(typing_extensions.TypedDict):
+    """The object set parameter type is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    parameterId: str
+    value: typing_extensions.NotRequired[typing.Any]
+
+
+@dataclass
+class InvalidObjectSetParameterType(errors.BadRequestError):
+    name: typing.Literal["InvalidObjectSetParameterType"]
+    parameters: InvalidObjectSetParameterTypeParameters
     error_instance_id: str
 
 
@@ -728,9 +811,14 @@ __all__ = [
     "InvalidEventCount",
     "InvalidEventDisplayName",
     "InvalidEventId",
+    "InvalidEventParameter",
+    "InvalidEventParameterCount",
+    "InvalidEventParameterId",
     "InvalidEventParameterUpdateId",
     "InvalidFilePath",
     "InvalidManifest",
+    "InvalidObjectSetEventParameterType",
+    "InvalidObjectSetParameterType",
     "InvalidParameterCount",
     "InvalidParameterDisplayName",
     "InvalidParameterId",

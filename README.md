@@ -1133,6 +1133,9 @@ Namespace | Name | Import |
 **Connectivity** | [CreateConnectionRequestPersonalAccessToken](docs/v2/Connectivity/models/CreateConnectionRequestPersonalAccessToken.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestPersonalAccessToken` |
 **Connectivity** | [CreateConnectionRequestRestConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestRestConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestRestConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestS3ConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestS3ConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestS3ConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestSmbAuth](docs/v2/Connectivity/models/CreateConnectionRequestSmbAuth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSmbAuth` |
+**Connectivity** | [CreateConnectionRequestSmbConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestSmbConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSmbConnectionConfiguration` |
+**Connectivity** | [CreateConnectionRequestSmbUsernamePasswordAuth](docs/v2/Connectivity/models/CreateConnectionRequestSmbUsernamePasswordAuth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSmbUsernamePasswordAuth` |
 **Connectivity** | [CreateConnectionRequestSnowflakeAuthenticationMode](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeAuthenticationMode` |
 **Connectivity** | [CreateConnectionRequestSnowflakeConnectionConfiguration](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeConnectionConfiguration` |
 **Connectivity** | [CreateConnectionRequestSnowflakeExternalOauth](docs/v2/Connectivity/models/CreateConnectionRequestSnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import CreateConnectionRequestSnowflakeExternalOauth` |
@@ -1221,6 +1224,11 @@ Namespace | Name | Import |
 **Connectivity** | [SecretName](docs/v2/Connectivity/models/SecretName.md) | `from foundry_sdk.v2.connectivity.models import SecretName` |
 **Connectivity** | [SecretsNames](docs/v2/Connectivity/models/SecretsNames.md) | `from foundry_sdk.v2.connectivity.models import SecretsNames` |
 **Connectivity** | [SecretsWithPlaintextValues](docs/v2/Connectivity/models/SecretsWithPlaintextValues.md) | `from foundry_sdk.v2.connectivity.models import SecretsWithPlaintextValues` |
+**Connectivity** | [SmbAuth](docs/v2/Connectivity/models/SmbAuth.md) | `from foundry_sdk.v2.connectivity.models import SmbAuth` |
+**Connectivity** | [SmbConnectionConfiguration](docs/v2/Connectivity/models/SmbConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import SmbConnectionConfiguration` |
+**Connectivity** | [SmbProxyConfiguration](docs/v2/Connectivity/models/SmbProxyConfiguration.md) | `from foundry_sdk.v2.connectivity.models import SmbProxyConfiguration` |
+**Connectivity** | [SmbProxyType](docs/v2/Connectivity/models/SmbProxyType.md) | `from foundry_sdk.v2.connectivity.models import SmbProxyType` |
+**Connectivity** | [SmbUsernamePasswordAuth](docs/v2/Connectivity/models/SmbUsernamePasswordAuth.md) | `from foundry_sdk.v2.connectivity.models import SmbUsernamePasswordAuth` |
 **Connectivity** | [SnowflakeAuthenticationMode](docs/v2/Connectivity/models/SnowflakeAuthenticationMode.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeAuthenticationMode` |
 **Connectivity** | [SnowflakeConnectionConfiguration](docs/v2/Connectivity/models/SnowflakeConnectionConfiguration.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeConnectionConfiguration` |
 **Connectivity** | [SnowflakeExternalOauth](docs/v2/Connectivity/models/SnowflakeExternalOauth.md) | `from foundry_sdk.v2.connectivity.models import SnowflakeExternalOauth` |
@@ -1569,6 +1577,7 @@ Namespace | Name | Import |
 **Functions** | [RangesConstraint](docs/v2/Functions/models/RangesConstraint.md) | `from foundry_sdk.v2.functions.models import RangesConstraint` |
 **Functions** | [RegexConstraint](docs/v2/Functions/models/RegexConstraint.md) | `from foundry_sdk.v2.functions.models import RegexConstraint` |
 **Functions** | [RidConstraint](docs/v2/Functions/models/RidConstraint.md) | `from foundry_sdk.v2.functions.models import RidConstraint` |
+**Functions** | [StreamingExecuteQueryRequest](docs/v2/Functions/models/StreamingExecuteQueryRequest.md) | `from foundry_sdk.v2.functions.models import StreamingExecuteQueryRequest` |
 **Functions** | [StructConstraint](docs/v2/Functions/models/StructConstraint.md) | `from foundry_sdk.v2.functions.models import StructConstraint` |
 **Functions** | [StructFieldApiName](docs/v2/Functions/models/StructFieldApiName.md) | `from foundry_sdk.v2.functions.models import StructFieldApiName` |
 **Functions** | [StructFieldName](docs/v2/Functions/models/StructFieldName.md) | `from foundry_sdk.v2.functions.models import StructFieldName` |
@@ -1956,7 +1965,7 @@ Namespace | Name | Import |
 **Ontologies** | [OntologySetType](docs/v2/Ontologies/models/OntologySetType.md) | `from foundry_sdk.v2.ontologies.models import OntologySetType` |
 **Ontologies** | [OntologyStructField](docs/v2/Ontologies/models/OntologyStructField.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructField` |
 **Ontologies** | [OntologyStructType](docs/v2/Ontologies/models/OntologyStructType.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructType` |
-**Ontologies** | [OntologyTransactionRid](docs/v2/Ontologies/models/OntologyTransactionRid.md) | `from foundry_sdk.v2.ontologies.models import OntologyTransactionRid` |
+**Ontologies** | [OntologyTransactionId](docs/v2/Ontologies/models/OntologyTransactionId.md) | `from foundry_sdk.v2.ontologies.models import OntologyTransactionId` |
 **Ontologies** | [OntologyV2](docs/v2/Ontologies/models/OntologyV2.md) | `from foundry_sdk.v2.ontologies.models import OntologyV2` |
 **Ontologies** | [OntologyValueType](docs/v2/Ontologies/models/OntologyValueType.md) | `from foundry_sdk.v2.ontologies.models import OntologyValueType` |
 **Ontologies** | [OrderBy](docs/v2/Ontologies/models/OrderBy.md) | `from foundry_sdk.v2.ontologies.models import OrderBy` |
@@ -2616,8 +2625,10 @@ Namespace | Name | Import |
 **Connectivity** | FileSizeFilterMissingGreaterThanAndLessThan | `from foundry_sdk.v2.connectivity.errors import FileSizeFilterMissingGreaterThanAndLessThan` |
 **Connectivity** | GetConfigurationPermissionDenied | `from foundry_sdk.v2.connectivity.errors import GetConfigurationPermissionDenied` |
 **Connectivity** | HostNameCannotHaveProtocolOrPort | `from foundry_sdk.v2.connectivity.errors import HostNameCannotHaveProtocolOrPort` |
+**Connectivity** | InvalidShareName | `from foundry_sdk.v2.connectivity.errors import InvalidShareName` |
 **Connectivity** | InvalidVirtualTableConnection | `from foundry_sdk.v2.connectivity.errors import InvalidVirtualTableConnection` |
 **Connectivity** | ParentFolderNotFoundForConnection | `from foundry_sdk.v2.connectivity.errors import ParentFolderNotFoundForConnection` |
+**Connectivity** | PortNotInRange | `from foundry_sdk.v2.connectivity.errors import PortNotInRange` |
 **Connectivity** | PropertyCannotBeBlank | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeBlank` |
 **Connectivity** | PropertyCannotBeEmpty | `from foundry_sdk.v2.connectivity.errors import PropertyCannotBeEmpty` |
 **Connectivity** | ReplaceFileImportPermissionDenied | `from foundry_sdk.v2.connectivity.errors import ReplaceFileImportPermissionDenied` |
@@ -2805,6 +2816,7 @@ Namespace | Name | Import |
 **Functions** | QueryRuntimeError | `from foundry_sdk.v2.functions.errors import QueryRuntimeError` |
 **Functions** | QueryTimeExceededLimit | `from foundry_sdk.v2.functions.errors import QueryTimeExceededLimit` |
 **Functions** | QueryVersionNotFound | `from foundry_sdk.v2.functions.errors import QueryVersionNotFound` |
+**Functions** | StreamingExecuteQueryPermissionDenied | `from foundry_sdk.v2.functions.errors import StreamingExecuteQueryPermissionDenied` |
 **Functions** | UnknownParameter | `from foundry_sdk.v2.functions.errors import UnknownParameter` |
 **Functions** | ValueTypeNotFound | `from foundry_sdk.v2.functions.errors import ValueTypeNotFound` |
 **Functions** | VersionIdNotFound | `from foundry_sdk.v2.functions.errors import VersionIdNotFound` |
@@ -2881,6 +2893,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidRangeQuery | `from foundry_sdk.v2.ontologies.errors import InvalidRangeQuery` |
 **Ontologies** | InvalidSortOrder | `from foundry_sdk.v2.ontologies.errors import InvalidSortOrder` |
 **Ontologies** | InvalidSortType | `from foundry_sdk.v2.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidTransactionEditPropertyValue | `from foundry_sdk.v2.ontologies.errors import InvalidTransactionEditPropertyValue` |
 **Ontologies** | InvalidUserId | `from foundry_sdk.v2.ontologies.errors import InvalidUserId` |
 **Ontologies** | InvalidVectorDimension | `from foundry_sdk.v2.ontologies.errors import InvalidVectorDimension` |
 **Ontologies** | LinkAlreadyExists | `from foundry_sdk.v2.ontologies.errors import LinkAlreadyExists` |
@@ -3042,9 +3055,14 @@ Namespace | Name | Import |
 **Widgets** | InvalidEventCount | `from foundry_sdk.v2.widgets.errors import InvalidEventCount` |
 **Widgets** | InvalidEventDisplayName | `from foundry_sdk.v2.widgets.errors import InvalidEventDisplayName` |
 **Widgets** | InvalidEventId | `from foundry_sdk.v2.widgets.errors import InvalidEventId` |
+**Widgets** | InvalidEventParameter | `from foundry_sdk.v2.widgets.errors import InvalidEventParameter` |
+**Widgets** | InvalidEventParameterCount | `from foundry_sdk.v2.widgets.errors import InvalidEventParameterCount` |
+**Widgets** | InvalidEventParameterId | `from foundry_sdk.v2.widgets.errors import InvalidEventParameterId` |
 **Widgets** | InvalidEventParameterUpdateId | `from foundry_sdk.v2.widgets.errors import InvalidEventParameterUpdateId` |
 **Widgets** | InvalidFilePath | `from foundry_sdk.v2.widgets.errors import InvalidFilePath` |
 **Widgets** | InvalidManifest | `from foundry_sdk.v2.widgets.errors import InvalidManifest` |
+**Widgets** | InvalidObjectSetEventParameterType | `from foundry_sdk.v2.widgets.errors import InvalidObjectSetEventParameterType` |
+**Widgets** | InvalidObjectSetParameterType | `from foundry_sdk.v2.widgets.errors import InvalidObjectSetParameterType` |
 **Widgets** | InvalidParameterCount | `from foundry_sdk.v2.widgets.errors import InvalidParameterCount` |
 **Widgets** | InvalidParameterDisplayName | `from foundry_sdk.v2.widgets.errors import InvalidParameterDisplayName` |
 **Widgets** | InvalidParameterId | `from foundry_sdk.v2.widgets.errors import InvalidParameterId` |
@@ -3162,6 +3180,7 @@ Namespace | Name | Import |
 **Ontologies** | InvalidRangeQuery | `from foundry_sdk.v1.ontologies.errors import InvalidRangeQuery` |
 **Ontologies** | InvalidSortOrder | `from foundry_sdk.v1.ontologies.errors import InvalidSortOrder` |
 **Ontologies** | InvalidSortType | `from foundry_sdk.v1.ontologies.errors import InvalidSortType` |
+**Ontologies** | InvalidTransactionEditPropertyValue | `from foundry_sdk.v1.ontologies.errors import InvalidTransactionEditPropertyValue` |
 **Ontologies** | InvalidUserId | `from foundry_sdk.v1.ontologies.errors import InvalidUserId` |
 **Ontologies** | InvalidVectorDimension | `from foundry_sdk.v1.ontologies.errors import InvalidVectorDimension` |
 **Ontologies** | LinkAlreadyExists | `from foundry_sdk.v1.ontologies.errors import LinkAlreadyExists` |
