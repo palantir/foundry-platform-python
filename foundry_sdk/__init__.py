@@ -33,6 +33,7 @@ from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
+from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_VAR
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
 from foundry_sdk._errors import ConflictError
@@ -81,6 +82,7 @@ __all__ = [
     "HOSTNAME_ENV_VAR",
     "TOKEN_VAR",
     "TOKEN_ENV_VAR",
+    "ATTRIBUTION_VAR",
     "PalantirException",
     "EnvironmentNotConfigured",
     "NotAuthenticated",
