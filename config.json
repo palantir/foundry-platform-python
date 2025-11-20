@@ -176,6 +176,7 @@
         "LanguageModels": true,
         "MapRendering": false,
         "MediaSets": true,
+        "Models": true,
         "SqlQueries": true,
         "Ontologies": {
           "exclude": [
