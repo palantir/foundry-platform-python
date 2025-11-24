@@ -2548,7 +2548,7 @@ def connectivity_connection_virtual_table_op_create(
     preview: typing.Optional[bool],
 ):
     """
-    Creates a new VirtualTable from an upstream table. The VirtualTable will be created
+    Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
     in the specified parent folder and can be queried through Foundry's data access APIs.
 
     """
@@ -6094,6 +6094,159 @@ def media_sets_media_set_op_upload_media(
     click.echo(repr(result))
 
 
+@cli.group("models")
+def models():
+    pass
+
+
+@models.group("model")
+def models_model():
+    pass
+
+
+@models_model.command("create")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option("--parent_folder_rid", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_op_create(
+    client: FoundryClient,
+    name: str,
+    parent_folder_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new Model with no versions.
+    """
+    result = client.models.Model.create(
+        name=name,
+        parent_folder_rid=parent_folder_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.command("get")
+@click.argument("model_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_op_get(
+    client: FoundryClient,
+    model_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieves a Model by its Resource Identifier (RID).
+    """
+    result = client.models.Model.get(
+        model_rid=model_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.group("model_version")
+def models_model_model_version():
+    pass
+
+
+@models_model_model_version.command("create")
+@click.argument("model_rid", type=str, required=True)
+@click.option("--backing_repositories", type=str, required=True, help="""""")
+@click.option("--conda_requirements", type=str, required=True, help="""""")
+@click.option("--model_api", type=str, required=True, help="""""")
+@click.option("--model_files", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_version_op_create(
+    client: FoundryClient,
+    model_rid: str,
+    backing_repositories: str,
+    conda_requirements: str,
+    model_api: str,
+    model_files: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new Model Version on an existing model.
+    """
+    result = client.models.Model.Version.create(
+        model_rid=model_rid,
+        backing_repositories=json.loads(backing_repositories),
+        conda_requirements=json.loads(conda_requirements),
+        model_api=json.loads(model_api),
+        model_files=json.loads(model_files),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_model_version.command("get")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("model_version_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_version_op_get(
+    client: FoundryClient,
+    model_rid: str,
+    model_version_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieves a Model Version by its Resource Identifier (RID).
+    """
+    result = client.models.Model.Version.get(
+        model_rid=model_rid,
+        model_version_rid=model_version_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_model_version.command("list")
+@click.argument("model_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_model_version_op_list(
+    client: FoundryClient,
+    model_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all Model Versions for a given Model.
+    """
+    result = client.models.Model.Version.list(
+        model_rid=model_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("ontologies")
 def ontologies():
     pass
@@ -6568,6 +6721,13 @@ Branches are an experimental feature and not all workflows are supported.
     help="""The package version of the generated SDK.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_aggregate(
     client: FoundryClient,
@@ -6580,6 +6740,7 @@ def ontologies_ontology_object_set_op_aggregate(
     include_compute_usage: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Aggregates the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -6595,6 +6756,7 @@ def ontologies_ontology_object_set_op_aggregate(
         include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -6705,6 +6867,13 @@ Setting this to false will let new results enter as you page, but you may encoun
 This defaults to false if not specified, which means you will always get the latest results.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_load(
     client: FoundryClient,
@@ -6720,6 +6889,7 @@ def ontologies_ontology_object_set_op_load(
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition.
@@ -6745,6 +6915,7 @@ def ontologies_ontology_object_set_op_load(
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -6804,6 +6975,13 @@ Setting this to false will let new results enter as you page, but you may encoun
 This defaults to false if not specified, which means you will always get the latest results.
 """,
 )
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_load_multiple_object_types(
     client: FoundryClient,
@@ -6820,6 +6998,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting
@@ -6851,6 +7030,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -7792,6 +7972,15 @@ def ontologies_ontology_interface_op_list_outgoing_interface_link_types(
 @click.argument("ontology", type=str, required=True)
 @click.argument("interface_type", type=str, required=True)
 @click.option(
+    "--augmented_interface_property_types",
+    type=str,
+    required=True,
+    help="""A map from interface type API name to a list of interface property type API names. For each returned object, 
+if the object implements an interface that is a key in the map, then we augment the response for that object 
+type with the list of properties specified in the value.
+""",
+)
+@click.option(
     "--augmented_properties",
     type=str,
     required=True,
@@ -7815,6 +8004,14 @@ type with the list of properties specified in the value.
     required=True,
     help="""A list of interface type API names. Object types must implement all the mentioned interfaces in order to be 
 included in the response.
+""",
+)
+@click.option(
+    "--selected_interface_property_types",
+    type=str,
+    required=True,
+    help="""A list of interface property type API names of the interface type that should be included in the response. 
+Omit this parameter to include all properties of the interface type in the response.
 """,
 )
 @click.option(
@@ -7858,9 +8055,11 @@ def ontologies_ontology_interface_op_search(
     client: FoundryClient,
     ontology: str,
     interface_type: str,
+    augmented_interface_property_types: str,
     augmented_properties: str,
     augmented_shared_property_types: str,
     other_interface_types: str,
+    selected_interface_property_types: str,
     selected_object_types: str,
     selected_shared_property_types: str,
     branch: typing.Optional[str],
@@ -7907,9 +8106,11 @@ def ontologies_ontology_interface_op_search(
     result = client.ontologies.OntologyInterface.search(
         ontology=ontology,
         interface_type=interface_type,
+        augmented_interface_property_types=json.loads(augmented_interface_property_types),
         augmented_properties=json.loads(augmented_properties),
         augmented_shared_property_types=json.loads(augmented_shared_property_types),
         other_interface_types=json.loads(other_interface_types),
+        selected_interface_property_types=json.loads(selected_interface_property_types),
         selected_object_types=json.loads(selected_object_types),
         selected_shared_property_types=json.loads(selected_shared_property_types),
         branch=branch,
@@ -9085,6 +9286,54 @@ def ontologies_attachment_op_upload(
         content_length=content_length,
         content_type=content_type,
         filename=filename,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_attachment.command("upload_with_rid")
+@click.argument("attachment_rid", type=str, required=True)
+@click.argument("body", type=click.File("rb"), required=True)
+@click.option(
+    "--content_length",
+    type=int,
+    required=True,
+    help="""The size in bytes of the file content being uploaded.""",
+)
+@click.option(
+    "--content_type", type=str, required=True, help="""The media type of the file being uploaded."""
+)
+@click.option(
+    "--filename", type=str, required=True, help="""The name of the file being uploaded."""
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_attachment_op_upload_with_rid(
+    client: FoundryClient,
+    attachment_rid: str,
+    body: io.BufferedReader,
+    content_length: int,
+    content_type: str,
+    filename: str,
+    preview: typing.Optional[bool],
+):
+    """
+    This endpoint is identical to `/v2/ontologies/attachments/upload` but additionally accepts a previously
+    generated `AttachmentRid`.
+
+    """
+    result = client.ontologies.Attachment.upload_with_rid(
+        attachment_rid=attachment_rid,
+        body=body.read(),
+        content_length=content_length,
+        content_type=content_type,
+        filename=filename,
+        preview=preview,
     )
     click.echo(repr(result))
 

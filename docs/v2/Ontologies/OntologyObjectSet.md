@@ -26,6 +26,7 @@ Name | Type | Description  | Notes |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -67,6 +68,8 @@ include_compute_usage = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+transaction_id = None
 
 
 try:
@@ -80,6 +83,7 @@ try:
         include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     print("The aggregate response:\n")
     pprint(api_response)
@@ -238,6 +242,7 @@ Name | Type | Description  | Notes |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  | [optional] |
 
 ### Return type
 **LoadObjectSetResponseV2**
@@ -275,6 +280,8 @@ sdk_package_rid = None
 sdk_version = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+transaction_id = None
 
 
 try:
@@ -291,6 +298,7 @@ try:
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     print("The load response:\n")
     pprint(api_response)
@@ -345,6 +353,7 @@ Name | Type | Description  | Notes |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  | [optional] |
 
 ### Return type
 **LoadObjectSetV2MultipleObjectTypesResponse**
@@ -384,6 +393,8 @@ sdk_package_rid = None
 sdk_version = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+transaction_id = None
 
 
 try:
@@ -401,6 +412,7 @@ try:
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     print("The load_multiple_object_types response:\n")
     pprint(api_response)

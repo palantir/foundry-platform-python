@@ -83,7 +83,7 @@ ActionParameterType = typing_extensions.Annotated[
         core_models.MarkingType,
         core_models.AttachmentType,
         core_models.MediaReferenceType,
-        ActionParameterArrayType,
+        "ActionParameterArrayType",
         "OntologyObjectSetType",
         core_models.GeohashType,
         core_models.VectorType,
@@ -297,10 +297,10 @@ class AggregationFixedWidthGroupingV2(core.ModelBase):
 
 AggregationGroupByV2 = typing_extensions.Annotated[
     typing.Union[
-        AggregationDurationGroupingV2,
-        AggregationFixedWidthGroupingV2,
+        "AggregationDurationGroupingV2",
+        "AggregationFixedWidthGroupingV2",
         "AggregationRangesGroupingV2",
-        AggregationExactGroupingV2,
+        "AggregationExactGroupingV2",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -477,7 +477,7 @@ class AvgAggregationV2(core.ModelBase):
 
 
 BatchActionObjectEdit = typing_extensions.Annotated[
-    typing.Union["ModifyObject", AddObject, AddLink], pydantic.Field(discriminator="type")
+    typing.Union["ModifyObject", "AddObject", "AddLink"], pydantic.Field(discriminator="type")
 ]
 """BatchActionObjectEdit"""
 
@@ -495,7 +495,7 @@ class BatchActionObjectEdits(core.ModelBase):
 
 
 BatchActionResults = typing_extensions.Annotated[
-    typing.Union[BatchActionObjectEdits, "ObjectTypeEdits"], pydantic.Field(discriminator="type")
+    typing.Union["BatchActionObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
 ]
 """BatchActionResults"""
 
@@ -951,8 +951,8 @@ DerivedPropertyApiName = str
 
 DerivedPropertyDefinition = typing_extensions.Annotated[
     typing.Union[
-        AddPropertyExpression,
-        AbsoluteValuePropertyExpression,
+        "AddPropertyExpression",
+        "AbsoluteValuePropertyExpression",
         "ExtractPropertyExpression",
         "SelectedPropertyExpression",
         "NegatePropertyExpression",
@@ -1211,6 +1211,26 @@ class InQuery(core.ModelBase):
     type: typing.Literal["in"] = "in"
 
 
+class InterfaceDefinedPropertyType(core.ModelBase):
+    """
+    An interface property type with an additional field to indicate constraints that need to be satisfied by
+    implementing object property types.
+    """
+
+    rid: InterfacePropertyTypeRid
+    api_name: InterfacePropertyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    """The description of the interface property type."""
+
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
+    """Whether each implementing object type must declare an implementation for this property."""
+
+    type: typing.Literal["interfaceDefinedPropertyType"] = "interfaceDefinedPropertyType"
+
+
 class InterfaceLinkType(core.ModelBase):
     """
     A link type constraint defined at the interface level where the implementation of the links is provided
@@ -1262,6 +1282,35 @@ class InterfaceParameterPropertyArgument(core.ModelBase):
     type: typing.Literal["interfaceParameterPropertyValue"] = "interfaceParameterPropertyValue"
 
 
+InterfacePropertyApiName = str
+"""
+The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
+interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
+the **Ontology Manager**.
+"""
+
+
+class InterfacePropertyLocalPropertyImplementation(core.ModelBase):
+    """InterfacePropertyLocalPropertyImplementation"""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["localPropertyImplementation"] = "localPropertyImplementation"
+
+
+InterfacePropertyType = typing_extensions.Annotated[
+    typing.Union["InterfaceDefinedPropertyType", "InterfaceSharedPropertyType"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The definition of an interface property type on an interface. An interface property can either be backed by a
+shared property type or defined on the interface directly.
+"""
+
+
+InterfacePropertyTypeRid = core.RID
+"""The unique resource identifier of an interface property type, useful for interacting with other Foundry APIs."""
+
+
 class InterfaceSharedPropertyType(core.ModelBase):
     """
     A shared property type with an additional field to indicate whether the property must be included on every
@@ -1276,16 +1325,29 @@ class InterfaceSharedPropertyType(core.ModelBase):
 
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
     required: bool
     """Whether each implementing object type must declare an implementation for this property."""
+
+    type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
 InterfaceToObjectTypeMapping = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
 """Represents an implementation of an interface (the mapping of interface property to local property)."""
 
 
-InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", InterfaceToObjectTypeMapping]
+InterfaceToObjectTypeMappingV2 = typing.Dict[
+    "InterfacePropertyApiName", "InterfacePropertyTypeImplementation"
+]
+"""Represents an implementation of an interface (the mapping of interface property to how it is implemented."""
+
+
+InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMapping"]
 """Map from object type to the interface-to-object-type mapping for that object type."""
+
+
+InterfaceToObjectTypeMappingsV2 = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"]
+"""Map from object type to the interface property implementations of that object type."""
 
 
 class InterfaceType(core.ModelBase):
@@ -1301,6 +1363,7 @@ class InterfaceType(core.ModelBase):
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has. A shared property type must be unique across all of the properties.
+    This field only includes properties on the interface that are backed by shared property types.
     """
 
     all_properties: typing.Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType] = pydantic.Field(alias=str("allProperties"))  # type: ignore[literal-required]
@@ -1308,6 +1371,21 @@ class InterfaceType(core.ModelBase):
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has, including properties from all directly and indirectly extended 
     interfaces.
+    This field only includes properties on the interface that are backed by shared property types.
+    """
+
+    properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyType] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
+    """
+    A map from a interface property type API name to the corresponding interface property type. The map
+    describes the set of properties the interface has. An interface property can either be backed by a shared
+    property or it can be defined directly on the interface.
+    """
+
+    all_properties_v2: typing.Dict[InterfacePropertyApiName, ResolvedInterfacePropertyType] = pydantic.Field(alias=str("allPropertiesV2"))  # type: ignore[literal-required]
+    """
+    A map from a interface property type API name to the corresponding interface property type. The map
+    describes the set of properties the interface has, including properties from all directly and indirectly
+    extended interfaces.
     """
 
     extends_interfaces: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("extendsInterfaces"))  # type: ignore[literal-required]
@@ -1639,6 +1717,10 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
 
     The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to
     `PropertyApiName` for properties on the object(s).
+
+    The `interfaceToObjectTypeMappingsV2` field contains mappings from `InterfacePropertyApiName`s on the
+    interface(s) to `InterfacePropertyImplementation` for properties on the object(s). This therefore includes
+    implementations of both properties backed by SharedPropertyTypes as well as properties defined on the interface.
     """
 
     data: typing.List[OntologyObjectV2]
@@ -1647,6 +1729,7 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
+    interface_to_object_type_mappings_v2: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] = pydantic.Field(alias=str("interfaceToObjectTypeMappingsV2"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
 
 
@@ -1698,14 +1781,14 @@ class LoadOntologyMetadataRequest(core.ModelBase):
 
 LogicRule = typing_extensions.Annotated[
     typing.Union[
-        DeleteInterfaceObjectRule,
+        "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
         "ModifyObjectRule",
-        DeleteObjectRule,
-        CreateInterfaceObjectRule,
-        DeleteLinkRule,
-        CreateObjectRule,
-        CreateLinkRule,
+        "DeleteObjectRule",
+        "CreateInterfaceObjectRule",
+        "DeleteLinkRule",
+        "CreateObjectRule",
+        "CreateLinkRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1714,11 +1797,11 @@ LogicRule = typing_extensions.Annotated[
 
 LogicRuleArgument = typing_extensions.Annotated[
     typing.Union[
-        CurrentTimeArgument,
+        "CurrentTimeArgument",
         "StaticArgument",
-        CurrentUserArgument,
+        "CurrentUserArgument",
         "ParameterIdArgument",
-        InterfaceParameterPropertyArgument,
+        "InterfaceParameterPropertyArgument",
         "SynchronousWebhookOutputArgument",
         "ObjectParameterPropertyArgument",
         "UniqueIdentifierArgument",
@@ -1835,7 +1918,7 @@ class MultiplyPropertyExpression(core.ModelBase):
 
 
 NearestNeighborsQuery = typing_extensions.Annotated[
-    typing.Union[DoubleVector, "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
+    typing.Union["DoubleVector", "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
 ]
 """
 Queries support either a vector matching the embedding model defined on the property, or text that is 
@@ -2049,7 +2132,7 @@ Scale factor options for large numbers:
 
 
 ObjectEdit = typing_extensions.Annotated[
-    typing.Union[ModifyObject, DeleteObject, AddObject, DeleteLink, AddLink],
+    typing.Union["ModifyObject", "DeleteObject", "AddObject", "DeleteLink", "AddLink"],
     pydantic.Field(discriminator="type"),
 ]
 """ObjectEdit"""
@@ -2353,6 +2436,7 @@ class ObjectTypeInterfaceImplementation(core.ModelBase):
     """ObjectTypeInterfaceImplementation"""
 
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
+    properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyTypeImplementation] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
     links: typing.Dict[InterfaceLinkTypeApiName, typing.List[LinkTypeApiName]]
 
 
@@ -2423,7 +2507,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
-        OntologyArrayType,
+        "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
         core_models.ShortType,
@@ -2542,7 +2626,7 @@ class OntologyStructType(core.ModelBase):
 
 
 OntologyTransactionId = str
-"""The RID identifying a transaction."""
+"""The ID identifying a transaction."""
 
 
 class OntologyV2(core.ModelBase):
@@ -2596,13 +2680,13 @@ OrderByDirection = typing.Literal["ASC", "DESC"]
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
-        OneOfConstraint,
-        ArrayEvaluatedConstraint,
-        GroupMemberConstraint,
-        ObjectPropertyValueConstraint,
+        "OneOfConstraint",
+        "ArrayEvaluatedConstraint",
+        "GroupMemberConstraint",
+        "ObjectPropertyValueConstraint",
         "RangeConstraint",
-        ArraySizeConstraint,
-        ObjectQueryResultConstraint,
+        "ArraySizeConstraint",
+        "ObjectQueryResultConstraint",
         "StringLengthConstraint",
         "StringRegexMatchConstraint",
         "UnevaluableConstraint",
@@ -2764,7 +2848,7 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyIdentifier = typing_extensions.Annotated[
-    typing.Union[PropertyApiNameSelector, "StructFieldSelector"],
+    typing.Union["PropertyApiNameSelector", "StructFieldSelector"],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
@@ -2786,15 +2870,15 @@ class PropertyNumberFormattingRule(core.ModelBase):
 
 PropertyNumberFormattingRuleType = typing_extensions.Annotated[
     typing.Union[
-        NumberFormatStandard,
-        NumberFormatDuration,
-        NumberFormatFixedValues,
-        NumberFormatAffix,
-        NumberFormatScale,
-        NumberFormatCurrency,
-        NumberFormatStandardUnit,
-        NumberFormatCustomUnit,
-        NumberFormatRatio,
+        "NumberFormatStandard",
+        "NumberFormatDuration",
+        "NumberFormatFixedValues",
+        "NumberFormatAffix",
+        "NumberFormatScale",
+        "NumberFormatCurrency",
+        "NumberFormatStandardUnit",
+        "NumberFormatCustomUnit",
+        "NumberFormatRatio",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2823,7 +2907,7 @@ class PropertyTypeReference(core.ModelBase):
 
 
 PropertyTypeReferenceOrStringConstant = typing_extensions.Annotated[
-    typing.Union["StringConstant", PropertyTypeReference], pydantic.Field(discriminator="type")
+    typing.Union["StringConstant", "PropertyTypeReference"], pydantic.Field(discriminator="type")
 ]
 """PropertyTypeReferenceOrStringConstant"""
 
@@ -2834,10 +2918,10 @@ PropertyTypeRid = core.RID
 
 PropertyTypeStatus = typing_extensions.Annotated[
     typing.Union[
-        DeprecatedPropertyTypeStatus,
-        ActivePropertyTypeStatus,
-        ExperimentalPropertyTypeStatus,
-        ExamplePropertyTypeStatus,
+        "DeprecatedPropertyTypeStatus",
+        "ActivePropertyTypeStatus",
+        "ExperimentalPropertyTypeStatus",
+        "ExamplePropertyTypeStatus",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2898,11 +2982,11 @@ PropertyValueEscapedString = str
 
 PropertyValueFormattingRule = typing_extensions.Annotated[
     typing.Union[
-        PropertyDateFormattingRule,
-        PropertyNumberFormattingRule,
-        PropertyBooleanFormattingRule,
-        PropertyKnownTypeFormattingRule,
-        PropertyTimestampFormattingRule,
+        "PropertyDateFormattingRule",
+        "PropertyNumberFormattingRule",
+        "PropertyBooleanFormattingRule",
+        "PropertyKnownTypeFormattingRule",
+        "PropertyTimestampFormattingRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2981,11 +3065,11 @@ class QueryArrayType(core.ModelBase):
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
-        OntologyInterfaceObjectType,
+        "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
         core_models.StringType,
-        EntrySetType,
+        "EntrySetType",
         core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
@@ -2996,11 +3080,11 @@ QueryDataType = typing_extensions.Annotated[
         core_models.UnsupportedType,
         core_models.AttachmentType,
         core_models.NullType,
-        QueryArrayType,
-        OntologyObjectSetType,
+        "QueryArrayType",
+        "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        OntologyInterfaceObjectSetType,
-        OntologyObjectType,
+        "OntologyInterfaceObjectSetType",
+        "OntologyObjectType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -3144,6 +3228,25 @@ RelativeTimeSeriesTimeUnit = typing.Literal[
 """RelativeTimeSeriesTimeUnit"""
 
 
+class ResolvedInterfacePropertyType(core.ModelBase):
+    """
+    An interface property type with additional fields to indicate constraints that need to be satisfied by
+    implementing object property types.
+    """
+
+    rid: InterfacePropertyTypeRid
+    api_name: InterfacePropertyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    """A short text that describes the InterfacePropertyType."""
+
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
+    require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
+    """Whether each implementing object type must declare an implementation for this property."""
+
+
 ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
 """ReturnEditsMode"""
 
@@ -3175,30 +3278,30 @@ SdkVersion = str
 
 SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
-        LtQueryV2,
-        DoesNotIntersectBoundingBoxQuery,
+        "LtQueryV2",
+        "DoesNotIntersectBoundingBoxQuery",
         "WildcardQuery",
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
-        NotQueryV2,
-        IntersectsBoundingBoxQuery,
-        AndQueryV2,
-        ContainsAllTermsInOrderPrefixLastTerm,
-        GteQueryV2,
-        ContainsAllTermsInOrderQuery,
+        "NotQueryV2",
+        "IntersectsBoundingBoxQuery",
+        "AndQueryV2",
+        "ContainsAllTermsInOrderPrefixLastTerm",
+        "GteQueryV2",
+        "ContainsAllTermsInOrderQuery",
         "WithinPolygonQuery",
-        IntersectsPolygonQuery,
-        LteQueryV2,
-        OrQueryV2,
-        InQuery,
-        DoesNotIntersectPolygonQuery,
-        EqualsQueryV2,
-        ContainsAllTermsQuery,
-        GtQueryV2,
-        ContainsQueryV2,
-        RegexQuery,
-        IsNullQueryV2,
-        ContainsAnyTermQuery,
+        "IntersectsPolygonQuery",
+        "LteQueryV2",
+        "OrQueryV2",
+        "InQuery",
+        "DoesNotIntersectPolygonQuery",
+        "EqualsQueryV2",
+        "ContainsAllTermsQuery",
+        "GtQueryV2",
+        "ContainsQueryV2",
+        "RegexQuery",
+        "IsNullQueryV2",
+        "ContainsAnyTermQuery",
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -3225,9 +3328,22 @@ class SearchObjectsForInterfaceRequest(core.ModelBase):
     type with the list of properties specified in the value.
     """
 
+    augmented_interface_property_types: typing.Dict[InterfaceTypeApiName, typing.List[InterfacePropertyApiName]] = pydantic.Field(alias=str("augmentedInterfacePropertyTypes"))  # type: ignore[literal-required]
+    """
+    A map from interface type API name to a list of interface property type API names. For each returned object, 
+    if the object implements an interface that is a key in the map, then we augment the response for that object 
+    type with the list of properties specified in the value.
+    """
+
     selected_shared_property_types: typing.List[SharedPropertyTypeApiName] = pydantic.Field(alias=str("selectedSharedPropertyTypes"))  # type: ignore[literal-required]
     """
     A list of shared property type API names of the interface type that should be included in the response. 
+    Omit this parameter to include all properties of the interface type in the response.
+    """
+
+    selected_interface_property_types: typing.List[InterfacePropertyApiName] = pydantic.Field(alias=str("selectedInterfacePropertyTypes"))  # type: ignore[literal-required]
+    """
+    A list of interface property type API names of the interface type that should be included in the response. 
     Omit this parameter to include all properties of the interface type in the response.
     """
 
@@ -3419,17 +3535,17 @@ class SelectedPropertyMinAggregation(core.ModelBase):
 
 SelectedPropertyOperation = typing_extensions.Annotated[
     typing.Union[
-        SelectedPropertyApproximateDistinctAggregation,
-        SelectedPropertyMinAggregation,
-        SelectedPropertyAvgAggregation,
-        SelectedPropertyMaxAggregation,
-        SelectedPropertyApproximatePercentileAggregation,
-        GetSelectedPropertyOperation,
-        SelectedPropertyCountAggregation,
+        "SelectedPropertyApproximateDistinctAggregation",
+        "SelectedPropertyMinAggregation",
+        "SelectedPropertyAvgAggregation",
+        "SelectedPropertyMaxAggregation",
+        "SelectedPropertyApproximatePercentileAggregation",
+        "GetSelectedPropertyOperation",
+        "SelectedPropertyCountAggregation",
         "SelectedPropertySumAggregation",
-        SelectedPropertyCollectListAggregation,
-        SelectedPropertyExactDistinctAggregation,
-        SelectedPropertyCollectSetAggregation,
+        "SelectedPropertyCollectListAggregation",
+        "SelectedPropertyExactDistinctAggregation",
+        "SelectedPropertyCollectSetAggregation",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3580,11 +3696,11 @@ StructFieldArgument = typing_extensions.Annotated[
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint,
-        RangeConstraint,
-        ObjectQueryResultConstraint,
-        StringLengthConstraint,
-        StringRegexMatchConstraint,
+        "OneOfConstraint",
+        "RangeConstraint",
+        "ObjectQueryResultConstraint",
+        "StringLengthConstraint",
+        "StringRegexMatchConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3730,7 +3846,7 @@ class TimeCodeFormat(core.ModelBase):
 
 
 TimeRange = typing_extensions.Annotated[
-    typing.Union[AbsoluteTimeRange, RelativeTimeRange], pydantic.Field(discriminator="type")
+    typing.Union["AbsoluteTimeRange", "RelativeTimeRange"], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
@@ -3822,7 +3938,7 @@ class TimeSeriesRollingAggregate(core.ModelBase):
 
 
 TimeSeriesRollingAggregateWindow = typing_extensions.Annotated[
-    typing.Union[PreciseDuration, RollingAggregateWindowPoints],
+    typing.Union["PreciseDuration", "RollingAggregateWindowPoints"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -3856,7 +3972,9 @@ class TimeseriesEntry(core.ModelBase):
 
 
 TransactionEdit = typing_extensions.Annotated[
-    typing.Union[ModifyObjectEdit, DeleteObjectEdit, AddObjectEdit, DeleteLinkEdit, AddLinkEdit],
+    typing.Union[
+        "ModifyObjectEdit", "DeleteObjectEdit", "AddObjectEdit", "DeleteLinkEdit", "AddLinkEdit"
+    ],
     pydantic.Field(discriminator="type"),
 ]
 """TransactionEdit"""
@@ -3950,15 +4068,15 @@ class ValueTypeArrayType(core.ModelBase):
 
 ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
-        StructConstraint,
-        RegexConstraint,
+        "StructConstraint",
+        "RegexConstraint",
         core_models.UnsupportedType,
-        ArrayConstraint,
-        LengthConstraint,
-        RangesConstraint,
-        RidConstraint,
-        UuidConstraint,
-        EnumConstraint,
+        "ArrayConstraint",
+        "LengthConstraint",
+        "RangesConstraint",
+        "RidConstraint",
+        "UuidConstraint",
+        "EnumConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3985,10 +4103,10 @@ ValueTypeFieldType = typing_extensions.Annotated[
         core_models.LongType,
         "ValueTypeReferenceType",
         core_models.BooleanType,
-        ValueTypeArrayType,
+        "ValueTypeArrayType",
         core_models.BinaryType,
         core_models.ShortType,
-        ValueTypeDecimalType,
+        "ValueTypeDecimalType",
         "ValueTypeMapType",
         core_models.TimestampType,
     ],
@@ -4121,6 +4239,13 @@ Icon = BlueprintIcon
 """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
 
 
+InterfacePropertyTypeImplementation = InterfacePropertyLocalPropertyImplementation
+"""
+Describes how an object type implements an interface property type. For now this is only possible via a single
+local property but this may be extended in the future.
+"""
+
+
 MethodObjectSet = ObjectSet
 """MethodObjectSet"""
 
@@ -4148,8 +4273,15 @@ core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
 core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
@@ -4327,15 +4459,23 @@ __all__ = [
     "HumanReadableFormat",
     "Icon",
     "InQuery",
+    "InterfaceDefinedPropertyType",
     "InterfaceLinkType",
     "InterfaceLinkTypeApiName",
     "InterfaceLinkTypeCardinality",
     "InterfaceLinkTypeLinkedEntityApiName",
     "InterfaceLinkTypeRid",
     "InterfaceParameterPropertyArgument",
+    "InterfacePropertyApiName",
+    "InterfacePropertyLocalPropertyImplementation",
+    "InterfacePropertyType",
+    "InterfacePropertyTypeImplementation",
+    "InterfacePropertyTypeRid",
     "InterfaceSharedPropertyType",
     "InterfaceToObjectTypeMapping",
+    "InterfaceToObjectTypeMappingV2",
     "InterfaceToObjectTypeMappings",
+    "InterfaceToObjectTypeMappingsV2",
     "InterfaceType",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
@@ -4523,6 +4663,7 @@ __all__ = [
     "RelativeTimeRange",
     "RelativeTimeRelation",
     "RelativeTimeSeriesTimeUnit",
+    "ResolvedInterfacePropertyType",
     "ReturnEditsMode",
     "RidConstraint",
     "RollingAggregateWindowPoints",

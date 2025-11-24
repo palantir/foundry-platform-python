@@ -234,18 +234,18 @@ class Field(core.ModelBase):
 FieldDataType = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
-        DateType,
+        "DateType",
         "StringType",
-        ByteType,
-        DoubleType,
+        "ByteType",
+        "DoubleType",
         "IntegerType",
         "FloatType",
         "LongType",
-        BooleanType,
-        ArrayFieldType,
-        BinaryType,
+        "BooleanType",
+        "ArrayFieldType",
+        "BinaryType",
         "ShortType",
-        DecimalType,
+        "DecimalType",
         "MapFieldType",
         "TimestampType",
     ],
@@ -345,18 +345,18 @@ class FilterStringType(core.ModelBase):
 
 FilterType = typing_extensions.Annotated[
     typing.Union[
-        FilterDateTimeType,
-        FilterDateType,
-        FilterBooleanType,
-        FilterStringType,
-        FilterDoubleType,
-        FilterBinaryType,
-        FilterIntegerType,
-        FilterFloatType,
-        FilterRidType,
+        "FilterDateTimeType",
+        "FilterDateType",
+        "FilterBooleanType",
+        "FilterStringType",
+        "FilterDoubleType",
+        "FilterBinaryType",
+        "FilterIntegerType",
+        "FilterFloatType",
+        "FilterRidType",
         "FilterUuidType",
-        FilterEnumType,
-        FilterLongType,
+        "FilterEnumType",
+        "FilterLongType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -768,7 +768,7 @@ TableRid = core.RID
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
-    typing.Union[StringType, DoubleType], pydantic.Field(discriminator="type")
+    typing.Union["StringType", "DoubleType"], pydantic.Field(discriminator="type")
 ]
 """A union of the types supported by time series properties."""
 

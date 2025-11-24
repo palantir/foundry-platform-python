@@ -584,9 +584,11 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.  |  |
+**augmented_interface_property_types** | Dict[InterfaceTypeApiName, List[InterfacePropertyApiName]] | A map from interface type API name to a list of interface property type API names. For each returned object,  if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.  |  |
 **augmented_properties** | Dict[ObjectTypeApiName, List[PropertyApiName]] | A map from object type API name to a list of property type API names. For each returned object, if the  object’s object type is a key in the map, then we augment the response for that object type with the list  of properties specified in the value.  |  |
 **augmented_shared_property_types** | Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]] | A map from interface type API name to a list of shared property type API names. For each returned object, if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.  |  |
 **other_interface_types** | List[InterfaceTypeApiName] | A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.  |  |
+**selected_interface_property_types** | List[InterfacePropertyApiName] | A list of interface property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.  |  |
 **selected_object_types** | List[ObjectTypeApiName] | A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.  |  |
 **selected_shared_property_types** | List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
@@ -612,12 +614,16 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
 interface_type = "Employee"
+# Dict[InterfaceTypeApiName, List[InterfacePropertyApiName]] | A map from interface type API name to a list of interface property type API names. For each returned object,  if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
+augmented_interface_property_types = None
 # Dict[ObjectTypeApiName, List[PropertyApiName]] | A map from object type API name to a list of property type API names. For each returned object, if the  object’s object type is a key in the map, then we augment the response for that object type with the list  of properties specified in the value.
 augmented_properties = None
 # Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]] | A map from interface type API name to a list of shared property type API names. For each returned object, if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
 augmented_shared_property_types = None
 # List[InterfaceTypeApiName] | A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.
 other_interface_types = None
+# List[InterfacePropertyApiName] | A list of interface property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
+selected_interface_property_types = None
 # List[ObjectTypeApiName] | A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.
 selected_object_types = None
 # List[SharedPropertyTypeApiName] | A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
@@ -640,9 +646,11 @@ try:
     api_response = client.ontologies.OntologyInterface.search(
         ontology,
         interface_type,
+        augmented_interface_property_types=augmented_interface_property_types,
         augmented_properties=augmented_properties,
         augmented_shared_property_types=augmented_shared_property_types,
         other_interface_types=other_interface_types,
+        selected_interface_property_types=selected_interface_property_types,
         selected_object_types=selected_object_types,
         selected_shared_property_types=selected_shared_property_types,
         branch=branch,

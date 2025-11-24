@@ -139,7 +139,7 @@ class AnthropicDocumentCitations(core.ModelBase):
 
 
 AnthropicDocumentSource = typing_extensions.Annotated[
-    typing.Union[AnthropicBase64PdfDocumentSource, "AnthropicTextDocumentSource"],
+    typing.Union["AnthropicBase64PdfDocumentSource", "AnthropicTextDocumentSource"],
     pydantic.Field(discriminator="type"),
 ]
 """AnthropicDocumentSource"""
@@ -191,9 +191,9 @@ class AnthropicMessage(core.ModelBase):
 
 AnthropicMessageContent = typing_extensions.Annotated[
     typing.Union[
-        AnthropicImage,
+        "AnthropicImage",
         "AnthropicToolUse",
-        AnthropicDocument,
+        "AnthropicDocument",
         "AnthropicText",
         "AnthropicToolResult",
         "AnthropicThinking",
@@ -301,7 +301,7 @@ class AnthropicThinking(core.ModelBase):
 
 
 AnthropicThinkingConfig = typing_extensions.Annotated[
-    typing.Union[AnthropicDisabledThinking, AnthropicEnabledThinking],
+    typing.Union["AnthropicDisabledThinking", "AnthropicEnabledThinking"],
     pydantic.Field(discriminator="type"),
 ]
 """AnthropicThinkingConfig"""
@@ -318,9 +318,9 @@ class AnthropicTokenUsage(core.ModelBase):
 
 AnthropicToolChoice = typing_extensions.Annotated[
     typing.Union[
-        AnthropicAutoToolChoice,
-        AnthropicNoneToolChoice,
-        AnthropicAnyToolChoice,
+        "AnthropicAutoToolChoice",
+        "AnthropicNoneToolChoice",
+        "AnthropicAnyToolChoice",
         "AnthropicToolToolChoice",
     ],
     pydantic.Field(discriminator="type"),

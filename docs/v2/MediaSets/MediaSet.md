@@ -13,7 +13,7 @@ Method | HTTP request | Release Stage |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
-[**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Private Beta |
+[**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Public Beta |
 
 # **abort**
 Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.

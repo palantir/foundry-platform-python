@@ -62,6 +62,7 @@ class OntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AggregateObjectsResponseV2:
@@ -86,6 +87,8 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,6 +103,7 @@ class OntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -239,6 +243,7 @@ class OntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetResponseV2:
@@ -276,6 +281,8 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -290,6 +297,7 @@ class OntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -334,6 +342,7 @@ class OntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse:
@@ -378,6 +387,8 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -393,6 +404,7 @@ class OntologyObjectSetClient:
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -610,6 +622,7 @@ class AsyncOntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.AggregateObjectsResponseV2]:
@@ -634,6 +647,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -648,6 +663,7 @@ class AsyncOntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -787,6 +803,7 @@ class AsyncOntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetResponseV2]:
@@ -824,6 +841,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -838,6 +857,7 @@ class AsyncOntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -882,6 +902,7 @@ class AsyncOntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse]:
@@ -926,6 +947,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -941,6 +964,7 @@ class AsyncOntologyObjectSetClient:
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,

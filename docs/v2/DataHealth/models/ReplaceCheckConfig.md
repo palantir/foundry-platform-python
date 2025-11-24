@@ -10,17 +10,20 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-ReplaceColumnTypeCheckConfig | columnType
 ReplaceNumericColumnRangeCheckConfig | numericColumnRange
 ReplaceJobStatusCheckConfig | jobStatus
 ReplaceNumericColumnMeanCheckConfig | numericColumnMean
+ReplaceDateColumnRangeCheckConfig | dateColumnRange
 ReplaceJobDurationCheckConfig | jobDuration
+ReplaceApproximateUniquePercentageCheckConfig | approximateUniquePercentage
+ReplaceBuildStatusCheckConfig | buildStatus
+ReplaceColumnTypeCheckConfig | columnType
+ReplaceAllowedColumnValuesCheckConfig | allowedColumnValues
 ReplaceNullPercentageCheckConfig | nullPercentage
 ReplaceTotalColumnCountCheckConfig | totalColumnCount
 ReplaceNumericColumnMedianCheckConfig | numericColumnMedian
 ReplaceBuildDurationCheckConfig | buildDuration
 ReplaceSchemaComparisonCheckConfig | schemaComparison
-ReplaceBuildStatusCheckConfig | buildStatus
 ReplacePrimaryKeyCheckConfig | primaryKey
 
 

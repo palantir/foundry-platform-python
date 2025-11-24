@@ -65,7 +65,7 @@ class VirtualTableClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.VirtualTable:
         """
-        Creates a new VirtualTable from an upstream table. The VirtualTable will be created
+        Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
         in the specified parent folder and can be queried through Foundry's data access APIs.
 
         :param connection_rid:
@@ -179,7 +179,7 @@ class AsyncVirtualTableClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.VirtualTable]:
         """
-        Creates a new VirtualTable from an upstream table. The VirtualTable will be created
+        Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
         in the specified parent folder and can be queried through Foundry's data access APIs.
 
         :param connection_rid:

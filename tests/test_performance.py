@@ -283,6 +283,26 @@ def test_media_sets_v2_models_import_performance():
     assert init_and_access_time < 0.5
 
 
+def test_models_v2_client_access_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2', None);import foundry_sdk; import foundry_sdk.v2",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
+def test_models_v2_models_import_performance():
+    init_and_access_time = timeit.timeit(
+        stmt="import foundry_sdk.v2.models.models",
+        setup="import sys; sys.modules.pop('foundry_sdk.v2.models.models', None)",
+        number=1,
+    )
+
+    assert init_and_access_time < 0.5
+
+
 def test_ontologies_v2_client_access_performance():
     init_and_access_time = timeit.timeit(
         stmt="foundry_sdk.v2.FoundryClient(foundry_sdk.UserTokenAuth(token='token'), hostname='localhost').ontologies",

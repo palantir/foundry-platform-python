@@ -211,7 +211,7 @@ class CreateScheduleRequestProjectScope(core.ModelBase):
 
 
 CreateScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[CreateScheduleRequestProjectScope, "CreateScheduleRequestUserScope"],
+    typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -322,6 +322,9 @@ class Job(core.ModelBase):
     started_time: JobStartedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
     """The time this job started waiting for the dependencies to be resolved."""
 
+    latest_attempt_start_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("latestAttemptStartTime"), default=None)  # type: ignore[literal-required]
+    """The time this job's latest attempt started running. This field may be empty or outdated if the job failed to start."""
+
     finished_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
     """The time this job was finished."""
 
@@ -334,7 +337,7 @@ class Job(core.ModelBase):
 
 
 JobOutput = typing_extensions.Annotated[
-    typing.Union[DatasetJobOutput, "TransactionalMediaSetJobOutput"],
+    typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
     pydantic.Field(discriminator="type"),
 ]
 """Other types of Job Outputs exist in Foundry. Currently, only Dataset and Media Set are supported by the API."""
@@ -503,7 +506,7 @@ class ReplaceScheduleRequestProjectScope(core.ModelBase):
 
 
 ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
-    typing.Union[ReplaceScheduleRequestProjectScope, "ReplaceScheduleRequestUserScope"],
+    typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
 """The boundaries for the schedule build."""
@@ -614,7 +617,7 @@ class ScheduleRunIgnored(core.ModelBase):
 
 
 ScheduleRunResult = typing_extensions.Annotated[
-    typing.Union[ScheduleRunIgnored, "ScheduleRunSubmitted", ScheduleRunError],
+    typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -667,7 +670,7 @@ ScheduleVersionRid = core.RID
 
 
 ScopeMode = typing_extensions.Annotated[
-    typing.Union[ProjectScope, "UserScope"], pydantic.Field(discriminator="type")
+    typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
 
@@ -695,10 +698,10 @@ SearchBuildsFilter = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
-        SearchBuildsAndFilter,
+        "SearchBuildsAndFilter",
         "SearchBuildsLtFilter",
         "SearchBuildsGteFilter",
-        SearchBuildsEqualsFilter,
+        "SearchBuildsEqualsFilter",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -806,16 +809,16 @@ class TransactionalMediaSetJobOutput(core.ModelBase):
 
 Trigger = typing_extensions.Annotated[
     typing.Union[
-        JobSucceededTrigger,
-        OrTrigger,
-        NewLogicTrigger,
-        TableUpdatedTrigger,
-        AndTrigger,
-        DatasetUpdatedTrigger,
-        ScheduleSucceededTrigger,
-        MediaSetUpdatedTrigger,
-        TimeTrigger,
-        ManualTrigger,
+        "JobSucceededTrigger",
+        "OrTrigger",
+        "NewLogicTrigger",
+        "TableUpdatedTrigger",
+        "AndTrigger",
+        "DatasetUpdatedTrigger",
+        "ScheduleSucceededTrigger",
+        "MediaSetUpdatedTrigger",
+        "TimeTrigger",
+        "ManualTrigger",
     ],
     pydantic.Field(discriminator="type"),
 ]

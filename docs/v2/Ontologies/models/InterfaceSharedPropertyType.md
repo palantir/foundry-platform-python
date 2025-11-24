@@ -13,7 +13,9 @@ object type that implements the interface, or whether it is optional.
 **description** | Optional[str] | No | A short text that describes the SharedPropertyType. |
 **data_type** | ObjectPropertyType | Yes |  |
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
+**value_formatting** | Optional[PropertyValueFormattingRule] | No |  |
 **required** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |
+**type** | Literal["interfaceSharedPropertyType"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

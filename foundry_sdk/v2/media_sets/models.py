@@ -91,8 +91,8 @@ class TrackedTransformationPendingResponse(core.ModelBase):
 
 TrackedTransformationResponse = typing_extensions.Annotated[
     typing.Union[
-        TrackedTransformationPendingResponse,
-        TrackedTransformationFailedResponse,
+        "TrackedTransformationPendingResponse",
+        "TrackedTransformationFailedResponse",
         "TrackedTransformationSuccessfulResponse",
     ],
     pydantic.Field(discriminator="type"),

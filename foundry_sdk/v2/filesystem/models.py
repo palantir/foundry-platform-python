@@ -458,13 +458,13 @@ class ResourceRoleIdentifier(core.ModelBase):
 
 
 ResourceRolePrincipal = typing_extensions.Annotated[
-    typing.Union[PrincipalWithId, Everyone], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
 ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
-    typing.Union[PrincipalIdOnly, Everyone], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
 

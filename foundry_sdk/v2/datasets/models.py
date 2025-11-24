@@ -137,7 +137,7 @@ class GetDatasetJobsOrFilter(core.ModelBase):
 
 
 GetDatasetJobsQuery = typing_extensions.Annotated[
-    typing.Union[GetDatasetJobsOrFilter, GetDatasetJobsAndFilter, "GetDatasetJobsTimeFilter"],
+    typing.Union["GetDatasetJobsOrFilter", "GetDatasetJobsAndFilter", "GetDatasetJobsTimeFilter"],
     pydantic.Field(discriminator="type"),
 ]
 """Query for getting jobs on given dataset."""
@@ -397,7 +397,7 @@ class ViewPrimaryKey(core.ModelBase):
 
 
 ViewPrimaryKeyResolution = typing_extensions.Annotated[
-    typing.Union[PrimaryKeyResolutionUnique, PrimaryKeyResolutionDuplicate],
+    typing.Union["PrimaryKeyResolutionUnique", "PrimaryKeyResolutionDuplicate"],
     pydantic.Field(discriminator="type"),
 ]
 """Specifies how primary key conflicts are resolved within the view."""

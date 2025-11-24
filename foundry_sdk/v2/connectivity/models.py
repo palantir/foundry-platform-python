@@ -254,7 +254,7 @@ CreateConnectionRequestDatabricksAuthenticationMode = typing_extensions.Annotate
         "CreateConnectionRequestWorkflowIdentityFederation",
         "CreateConnectionRequestOauthMachineToMachineAuth",
         "CreateConnectionRequestPersonalAccessToken",
-        CreateConnectionRequestBasicCredentials,
+        "CreateConnectionRequestBasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -278,7 +278,7 @@ class CreateConnectionRequestDatabricksConnectionConfiguration(core.ModelBase):
 
 
 CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
-    typing.Union[CreateConnectionRequestAsSecretName, CreateConnectionRequestAsPlaintextValue],
+    typing.Union["CreateConnectionRequestAsSecretName", "CreateConnectionRequestAsPlaintextValue"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -490,7 +490,7 @@ CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated
     typing.Union[
         "CreateConnectionRequestSnowflakeExternalOauth",
         "CreateConnectionRequestSnowflakeKeyPairAuthentication",
-        CreateConnectionRequestBasicCredentials,
+        "CreateConnectionRequestBasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -687,13 +687,13 @@ class CreateTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        CreateTableImportRequestDatabricksTableImportConfig,
-        CreateTableImportRequestJdbcTableImportConfig,
-        CreateTableImportRequestMicrosoftSqlServerTableImportConfig,
-        CreateTableImportRequestPostgreSqlTableImportConfig,
-        CreateTableImportRequestMicrosoftAccessTableImportConfig,
-        CreateTableImportRequestSnowflakeTableImportConfig,
-        CreateTableImportRequestOracleTableImportConfig,
+        "CreateTableImportRequestDatabricksTableImportConfig",
+        "CreateTableImportRequestJdbcTableImportConfig",
+        "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "CreateTableImportRequestPostgreSqlTableImportConfig",
+        "CreateTableImportRequestMicrosoftAccessTableImportConfig",
+        "CreateTableImportRequestSnowflakeTableImportConfig",
+        "CreateTableImportRequestOracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -714,7 +714,7 @@ DatabricksAuthenticationMode = typing_extensions.Annotated[
         "WorkflowIdentityFederation",
         "OauthMachineToMachineAuth",
         "PersonalAccessToken",
-        BasicCredentials,
+        "BasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -803,7 +803,7 @@ class Domain(core.ModelBase):
 
 
 EncryptedProperty = typing_extensions.Annotated[
-    typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
+    typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -898,13 +898,13 @@ FileImportDisplayName = str
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
-        FileAnyPathMatchesFilter,
+        "FileAnyPathMatchesFilter",
         "FilesCountLimitFilter",
-        FileChangedSinceLastUploadFilter,
-        FileImportCustomFilter,
+        "FileChangedSinceLastUploadFilter",
+        "FileImportCustomFilter",
         "FileLastModifiedAfterFilter",
         "FilePathMatchesFilter",
-        FileAtLeastCountFilter,
+        "FileAtLeastCountFilter",
         "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
@@ -1390,13 +1390,13 @@ class ReplaceTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
 
 ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        ReplaceTableImportRequestDatabricksTableImportConfig,
-        ReplaceTableImportRequestJdbcTableImportConfig,
-        ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig,
-        ReplaceTableImportRequestPostgreSqlTableImportConfig,
-        ReplaceTableImportRequestMicrosoftAccessTableImportConfig,
-        ReplaceTableImportRequestSnowflakeTableImportConfig,
-        ReplaceTableImportRequestOracleTableImportConfig,
+        "ReplaceTableImportRequestDatabricksTableImportConfig",
+        "ReplaceTableImportRequestJdbcTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "ReplaceTableImportRequestPostgreSqlTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
+        "ReplaceTableImportRequestSnowflakeTableImportConfig",
+        "ReplaceTableImportRequestOracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1404,7 +1404,7 @@ ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
+    typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -1454,13 +1454,13 @@ class RestConnectionOAuth2(core.ModelBase):
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
-    typing.Union[HeaderApiKey, QueryParameterApiKey], pydantic.Field(discriminator="type")
+    typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union[AwsAccessKey, CloudIdentity, AwsOidcAuthentication],
+    typing.Union["AwsAccessKey", "CloudIdentity", "AwsOidcAuthentication"],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -1676,7 +1676,7 @@ class SmbUsernamePasswordAuth(core.ModelBase):
 
 
 SnowflakeAuthenticationMode = typing_extensions.Annotated[
-    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", BasicCredentials],
+    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", "BasicCredentials"],
     pydantic.Field(discriminator="type"),
 ]
 """SnowflakeAuthenticationMode"""
@@ -1868,13 +1868,13 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        DatabricksTableImportConfig,
-        JdbcTableImportConfig,
-        MicrosoftSqlServerTableImportConfig,
-        PostgreSqlTableImportConfig,
-        MicrosoftAccessTableImportConfig,
-        SnowflakeTableImportConfig,
-        OracleTableImportConfig,
+        "DatabricksTableImportConfig",
+        "JdbcTableImportConfig",
+        "MicrosoftSqlServerTableImportConfig",
+        "PostgreSqlTableImportConfig",
+        "MicrosoftAccessTableImportConfig",
+        "SnowflakeTableImportConfig",
+        "OracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1887,12 +1887,12 @@ TableImportDisplayName = str
 
 TableImportInitialIncrementalState = typing_extensions.Annotated[
     typing.Union[
-        StringColumnInitialIncrementalState,
-        DateColumnInitialIncrementalState,
-        IntegerColumnInitialIncrementalState,
+        "StringColumnInitialIncrementalState",
+        "DateColumnInitialIncrementalState",
+        "IntegerColumnInitialIncrementalState",
         "TimestampColumnInitialIncrementalState",
-        LongColumnInitialIncrementalState,
-        DecimalColumnInitialIncrementalState,
+        "LongColumnInitialIncrementalState",
+        "DecimalColumnInitialIncrementalState",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2003,13 +2003,13 @@ class VirtualTable(core.ModelBase):
 
 VirtualTableConfig = typing_extensions.Annotated[
     typing.Union[
-        SnowflakeVirtualTableConfig,
-        UnityVirtualTableConfig,
-        GlueVirtualTableConfig,
-        DeltaVirtualTableConfig,
-        IcebergVirtualTableConfig,
-        FilesVirtualTableConfig,
-        BigQueryVirtualTableConfig,
+        "SnowflakeVirtualTableConfig",
+        "UnityVirtualTableConfig",
+        "GlueVirtualTableConfig",
+        "DeltaVirtualTableConfig",
+        "IcebergVirtualTableConfig",
+        "FilesVirtualTableConfig",
+        "BigQueryVirtualTableConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]

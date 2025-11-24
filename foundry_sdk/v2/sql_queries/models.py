@@ -62,7 +62,7 @@ class FailedQueryStatus(core.ModelBase):
 
 QueryStatus = typing_extensions.Annotated[
     typing.Union[
-        "RunningQueryStatus", CanceledQueryStatus, FailedQueryStatus, "SucceededQueryStatus"
+        "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
     pydantic.Field(discriminator="type"),
 ]

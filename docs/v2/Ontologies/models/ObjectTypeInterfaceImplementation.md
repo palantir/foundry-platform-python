@@ -6,6 +6,7 @@ ObjectTypeInterfaceImplementation
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **properties** | Dict[SharedPropertyTypeApiName, PropertyApiName] | Yes |  |
+**properties_v2** | Dict[InterfacePropertyApiName, InterfacePropertyTypeImplementation] | Yes |  |
 **links** | Dict[InterfaceLinkTypeApiName, List[LinkTypeApiName]] | Yes |  |
 
 
