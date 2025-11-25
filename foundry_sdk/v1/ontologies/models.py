@@ -116,10 +116,10 @@ class AggregationFixedWidthGrouping(core.ModelBase):
 
 AggregationGroupBy = typing_extensions.Annotated[
     typing.Union[
-        AggregationDurationGrouping,
-        AggregationFixedWidthGrouping,
+        "AggregationDurationGrouping",
+        "AggregationFixedWidthGrouping",
         "AggregationRangesGrouping",
-        AggregationExactGrouping,
+        "AggregationExactGrouping",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -481,6 +481,14 @@ InterfaceLinkTypeRid = core.RID
 """The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
 
 
+InterfacePropertyApiName = str
+"""
+The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
+interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
+the **Ontology Manager**.
+"""
+
+
 InterfaceTypeApiName = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
@@ -596,14 +604,14 @@ class ListQueryTypesResponse(core.ModelBase):
 
 LogicRule = typing_extensions.Annotated[
     typing.Union[
-        DeleteInterfaceObjectRule,
+        "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
         "ModifyObjectRule",
-        DeleteObjectRule,
-        CreateInterfaceObjectRule,
-        DeleteLinkRule,
-        CreateObjectRule,
-        CreateLinkRule,
+        "DeleteObjectRule",
+        "CreateInterfaceObjectRule",
+        "DeleteLinkRule",
+        "CreateObjectRule",
+        "CreateLinkRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -764,7 +772,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
-        OntologyArrayType,
+        "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
         core_models.ShortType,
@@ -888,13 +896,13 @@ class Parameter(core.ModelBase):
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
-        OneOfConstraint,
-        ArrayEvaluatedConstraint,
-        GroupMemberConstraint,
-        ObjectPropertyValueConstraint,
+        "OneOfConstraint",
+        "ArrayEvaluatedConstraint",
+        "GroupMemberConstraint",
+        "ObjectPropertyValueConstraint",
         "RangeConstraint",
-        ArraySizeConstraint,
-        ObjectQueryResultConstraint,
+        "ArraySizeConstraint",
+        "ObjectQueryResultConstraint",
         "StringLengthConstraint",
         "StringRegexMatchConstraint",
         "UnevaluableConstraint",
@@ -1113,11 +1121,11 @@ class QueryArrayType(core.ModelBase):
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
-        OntologyInterfaceObjectType,
+        "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
         core_models.StringType,
-        EntrySetType,
+        "EntrySetType",
         core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
@@ -1128,11 +1136,11 @@ QueryDataType = typing_extensions.Annotated[
         core_models.UnsupportedType,
         core_models.AttachmentType,
         core_models.NullType,
-        QueryArrayType,
-        OntologyObjectSetType,
+        "QueryArrayType",
+        "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        OntologyInterfaceObjectSetType,
-        OntologyObjectType,
+        "OntologyInterfaceObjectSetType",
+        "OntologyObjectType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -1220,20 +1228,20 @@ SdkVersion = str
 
 SearchJsonQuery = typing_extensions.Annotated[
     typing.Union[
-        OrQuery,
-        PrefixQuery,
-        LtQuery,
-        AllTermsQuery,
-        EqualsQuery,
-        GtQuery,
-        ContainsQuery,
-        NotQuery,
-        PhraseQuery,
-        AndQuery,
-        IsNullQuery,
-        GteQuery,
-        AnyTermQuery,
-        LteQuery,
+        "OrQuery",
+        "PrefixQuery",
+        "LtQuery",
+        "AllTermsQuery",
+        "EqualsQuery",
+        "GtQuery",
+        "ContainsQuery",
+        "NotQuery",
+        "PhraseQuery",
+        "AndQuery",
+        "IsNullQuery",
+        "GteQuery",
+        "AnyTermQuery",
+        "LteQuery",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1357,11 +1365,11 @@ class StructEvaluatedConstraint(core.ModelBase):
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint,
-        RangeConstraint,
-        ObjectQueryResultConstraint,
-        StringLengthConstraint,
-        StringRegexMatchConstraint,
+        "OneOfConstraint",
+        "RangeConstraint",
+        "ObjectQueryResultConstraint",
+        "StringLengthConstraint",
+        "StringRegexMatchConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1577,6 +1585,7 @@ __all__ = [
     "GteQuery",
     "InterfaceLinkTypeApiName",
     "InterfaceLinkTypeRid",
+    "InterfacePropertyApiName",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
     "IsNullQuery",

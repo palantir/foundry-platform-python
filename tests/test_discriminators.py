@@ -32,6 +32,7 @@ from foundry_sdk.v2.functions import models as models_functions_v2
 from foundry_sdk.v2.geo import models as models_geo_v2
 from foundry_sdk.v2.language_models import models as models_language_models_v2
 from foundry_sdk.v2.media_sets import models as models_media_sets_v2
+from foundry_sdk.v2.models import models as models_models_v2
 from foundry_sdk.v2.ontologies import models as models_ontologies_v2
 from foundry_sdk.v2.orchestration import models as models_orchestration_v2
 from foundry_sdk.v2.sql_queries import models as models_sql_queries_v2
@@ -65,6 +66,7 @@ def test_can_validate_types():
         *[(models_geo_v2, model_name) for model_name in dir(models_geo_v2)],
         *[(models_language_models_v2, model_name) for model_name in dir(models_language_models_v2)],
         *[(models_media_sets_v2, model_name) for model_name in dir(models_media_sets_v2)],
+        *[(models_models_v2, model_name) for model_name in dir(models_models_v2)],
         *[(models_ontologies_v2, model_name) for model_name in dir(models_ontologies_v2)],
         *[(models_orchestration_v2, model_name) for model_name in dir(models_orchestration_v2)],
         *[(models_sql_queries_v2, model_name) for model_name in dir(models_sql_queries_v2)],

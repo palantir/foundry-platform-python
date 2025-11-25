@@ -272,6 +272,21 @@ class AttachmentNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class AttachmentRidAlreadyExistsParameters(typing_extensions.TypedDict):
+    """The provided attachment RID already exists and cannot be overwritten."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    attachmentRid: ontologies_models.AttachmentRid
+
+
+@dataclass
+class AttachmentRidAlreadyExists(errors.NotFoundError):
+    name: typing.Literal["AttachmentRidAlreadyExists"]
+    parameters: AttachmentRidAlreadyExistsParameters
+    error_instance_id: str
+
+
 class AttachmentSizeExceededLimitParameters(typing_extensions.TypedDict):
     """
     The file is too large to be uploaded as an attachment.
@@ -481,6 +496,37 @@ class InterfaceLinkTypeNotFoundParameters(typing_extensions.TypedDict):
 class InterfaceLinkTypeNotFound(errors.NotFoundError):
     name: typing.Literal["InterfaceLinkTypeNotFound"]
     parameters: InterfaceLinkTypeNotFoundParameters
+    error_instance_id: str
+
+
+class InterfacePropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
+    """Properties used in ordering must have the same ids."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    properties: typing.List[ontologies_models.InterfacePropertyApiName]
+
+
+@dataclass
+class InterfacePropertiesHaveDifferentIds(errors.BadRequestError):
+    name: typing.Literal["InterfacePropertiesHaveDifferentIds"]
+    parameters: InterfacePropertiesHaveDifferentIdsParameters
+    error_instance_id: str
+
+
+class InterfacePropertiesNotFoundParameters(typing_extensions.TypedDict):
+    """The requested interface property types are not present on every object type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: typing.List[ontologies_models.ObjectTypeApiName]
+    missingInterfaceProperties: typing.List[ontologies_models.InterfacePropertyApiName]
+
+
+@dataclass
+class InterfacePropertiesNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfacePropertiesNotFound"]
+    parameters: InterfacePropertiesNotFoundParameters
     error_instance_id: str
 
 
@@ -1427,6 +1473,25 @@ class ObjectsExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class ObjectsModifiedConcurrentlyParameters(typing_extensions.TypedDict):
+    """
+    The provided objects are being modified concurrently and the operation would result in a conflict.
+    The client should retry the request later.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[ontologies_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[ontologies_models.FunctionVersion]
+
+
+@dataclass
+class ObjectsModifiedConcurrently(errors.ConflictError):
+    name: typing.Literal["ObjectsModifiedConcurrently"]
+    parameters: ObjectsModifiedConcurrentlyParameters
+    error_instance_id: str
+
+
 class OntologyApiNameNotUniqueParameters(typing_extensions.TypedDict):
     """The given Ontology API name is not unique. Use the Ontology RID in place of the Ontology API name."""
 
@@ -1598,7 +1663,7 @@ class ParentAttachmentPermissionDenied(errors.PermissionDeniedError):
 
 
 class PropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
-    """Properties used in ordering must have the same ids. Temporary restriction imposed due to OSS limitations."""
+    """Properties used in ordering must have the same ids."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -2148,6 +2213,7 @@ __all__ = [
     "AggregationNestedObjectSetSizeExceededLimit",
     "ApplyActionFailed",
     "AttachmentNotFound",
+    "AttachmentRidAlreadyExists",
     "AttachmentSizeExceededLimit",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
@@ -2161,6 +2227,8 @@ __all__ = [
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
     "InterfaceLinkTypeNotFound",
+    "InterfacePropertiesHaveDifferentIds",
+    "InterfacePropertiesNotFound",
     "InterfaceTypeNotFound",
     "InterfaceTypesNotFound",
     "InvalidAggregationOrdering",
@@ -2217,6 +2285,7 @@ __all__ = [
     "ObjectTypeNotSynced",
     "ObjectTypesNotSynced",
     "ObjectsExceededLimit",
+    "ObjectsModifiedConcurrently",
     "OntologyApiNameNotUnique",
     "OntologyEditsExceededLimit",
     "OntologyNotFound",

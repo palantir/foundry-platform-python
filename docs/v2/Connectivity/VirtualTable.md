@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/virtualTables | Private Beta |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/virtualTables | Public Beta |
 
 # **create**
-Creates a new VirtualTable from an upstream table. The VirtualTable will be created
+Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
 in the specified parent folder and can be queried through Foundry's data access APIs.
 
 

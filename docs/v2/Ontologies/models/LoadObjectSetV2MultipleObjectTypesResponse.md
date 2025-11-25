@@ -9,6 +9,10 @@ single object set- some objects may have all their properties and some may only 
 The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to 
 `PropertyApiName` for properties on the object(s).
 
+The `interfaceToObjectTypeMappingsV2` field contains mappings from `InterfacePropertyApiName`s on the
+interface(s) to `InterfacePropertyImplementation` for properties on the object(s). This therefore includes
+implementations of both properties backed by SharedPropertyTypes as well as properties defined on the interface.
+
 
 ## Properties
 | Name | Type | Required | Description |
@@ -17,6 +21,7 @@ The `interfaceToObjectTypeMappings` field contains mappings from `SharedProperty
 **next_page_token** | Optional[PageToken] | No |  |
 **total_count** | TotalCount | Yes |  |
 **interface_to_object_type_mappings** | Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] | Yes |  |
+**interface_to_object_type_mappings_v2** | Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] | Yes |  |
 **compute_usage** | Optional[ComputeSeconds] | No |  |
 
 

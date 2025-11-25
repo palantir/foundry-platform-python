@@ -89,7 +89,7 @@ Geometry = typing_extensions.Annotated[
         "MultiLineString",
         "LineString",
         "MultiPolygon",
-        GeoPoint,
+        "GeoPoint",
         "Polygon",
     ],
     pydantic.Field(discriminator="type"),
@@ -175,7 +175,7 @@ class Polygon(core.ModelBase):
 
 
 Position = typing_extensions.Annotated[
-    typing.List[Coordinate], annotated_types.Len(min_length=2, max_length=3)
+    typing.List["Coordinate"], annotated_types.Len(min_length=2, max_length=3)
 ]
 """
 GeoJSon fundamental geometry construct.

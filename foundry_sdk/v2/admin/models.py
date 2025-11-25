@@ -63,7 +63,7 @@ AttributeValue = str
 """AttributeValue"""
 
 
-AttributeValues = typing.List[AttributeValue]
+AttributeValues = typing.List["AttributeValue"]
 """AttributeValues"""
 
 

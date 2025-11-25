@@ -352,6 +352,18 @@ def test_media_sets_v2_media_set_import():
     assert MediaSetClient is not None
 
 
+def test_models_v2_model_import():
+    from foundry_sdk.v2.models.model import ModelClient
+
+    assert ModelClient is not None
+
+
+def test_models_v2_model_version_import():
+    from foundry_sdk.v2.models.model_version import ModelVersionClient
+
+    assert ModelVersionClient is not None
+
+
 def test_ontologies_v2_action_import():
     from foundry_sdk.v2.ontologies.action import ActionClient
 

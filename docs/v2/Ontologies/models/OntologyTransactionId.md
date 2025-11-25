@@ -1,6 +1,6 @@
 # OntologyTransactionId
 
-The RID identifying a transaction.
+The ID identifying a transaction.
 
 ## Type
 ```python

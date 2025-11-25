@@ -25,6 +25,32 @@ from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import models as datasets_models
 
 
+class AllowedColumnValuesCheckConfig(core.ModelBase):
+    """Checks that values in a column are within an allowed set of values."""
+
+    subject: DatasetSubject
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    allowed_values: typing.List[ColumnValue] = pydantic.Field(alias=str("allowedValues"))  # type: ignore[literal-required]
+    allow_null: typing.Optional[bool] = pydantic.Field(alias=str("allowNull"), default=None)  # type: ignore[literal-required]
+    severity: SeverityLevel
+    type: typing.Literal["allowedColumnValues"] = "allowedColumnValues"
+
+
+class ApproximateUniquePercentageCheckConfig(core.ModelBase):
+    """Checks the approximate percentage of unique values in a specific column."""
+
+    subject: DatasetSubject
+    percentage_check_config: PercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["approximateUniquePercentage"] = "approximateUniquePercentage"
+
+
+class BooleanColumnValue(core.ModelBase):
+    """A boolean column value."""
+
+    value: bool
+    type: typing.Literal["boolean"] = "boolean"
+
+
 class BuildDurationCheckConfig(core.ModelBase):
     """Checks the total time a build takes to complete."""
 
@@ -57,17 +83,20 @@ class Check(core.ModelBase):
 
 CheckConfig = typing_extensions.Annotated[
     typing.Union[
-        "ColumnTypeCheckConfig",
         "NumericColumnRangeCheckConfig",
         "JobStatusCheckConfig",
         "NumericColumnMeanCheckConfig",
+        "DateColumnRangeCheckConfig",
         "JobDurationCheckConfig",
+        "ApproximateUniquePercentageCheckConfig",
+        "BuildStatusCheckConfig",
+        "ColumnTypeCheckConfig",
+        "AllowedColumnValuesCheckConfig",
         "NullPercentageCheckConfig",
         "TotalColumnCountCheckConfig",
         "NumericColumnMedianCheckConfig",
-        BuildDurationCheckConfig,
+        "BuildDurationCheckConfig",
         "SchemaComparisonCheckConfig",
-        BuildStatusCheckConfig,
         "PrimaryKeyCheckConfig",
     ],
     pydantic.Field(discriminator="type"),
@@ -117,6 +146,15 @@ class ColumnTypeConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+ColumnValue = typing_extensions.Annotated[
+    typing.Union[
+        "DateColumnValue", "BooleanColumnValue", "StringColumnValue", "NumericColumnValue"
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""A column value that can be of different types."""
+
+
 class CreateCheckRequest(core.ModelBase):
     """CreateCheckRequest"""
 
@@ -129,6 +167,36 @@ class DatasetSubject(core.ModelBase):
 
     dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     branch_id: datasets_models.BranchName = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
+
+
+class DateBounds(core.ModelBase):
+    """The range of date values a check is expected to be within."""
+
+    lower_bound: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("lowerBound"), default=None)  # type: ignore[literal-required]
+    upper_bound: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("upperBound"), default=None)  # type: ignore[literal-required]
+
+
+class DateBoundsConfig(core.ModelBase):
+    """Configuration for date bounds check with severity settings."""
+
+    date_bounds: DateBounds = pydantic.Field(alias=str("dateBounds"))  # type: ignore[literal-required]
+    severity: SeverityLevel
+
+
+class DateColumnRangeCheckConfig(core.ModelBase):
+    """Checks that values in a date column fall within a specified range."""
+
+    subject: DatasetSubject
+    column_name: ColumnName = pydantic.Field(alias=str("columnName"))  # type: ignore[literal-required]
+    date_bounds_config: DateBoundsConfig = pydantic.Field(alias=str("dateBoundsConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["dateColumnRange"] = "dateColumnRange"
+
+
+class DateColumnValue(core.ModelBase):
+    """A date column value."""
+
+    value: core.AwareDatetime
+    type: typing.Literal["date"] = "date"
 
 
 class EscalationConfig(core.ModelBase):
@@ -228,6 +296,13 @@ class NumericColumnRangeCheckConfig(core.ModelBase):
     type: typing.Literal["numericColumnRange"] = "numericColumnRange"
 
 
+class NumericColumnValue(core.ModelBase):
+    """A numeric column value."""
+
+    value: float
+    type: typing.Literal["numeric"] = "numeric"
+
+
 class PercentageBounds(core.ModelBase):
     """The configuration for the range of percentage values between which the health check is expected to succeed."""
 
@@ -275,6 +350,22 @@ class PrimaryKeyConfig(core.ModelBase):
     severity: SeverityLevel
 
 
+class ReplaceAllowedColumnValuesCheckConfig(core.ModelBase):
+    """ReplaceAllowedColumnValuesCheckConfig"""
+
+    allowed_values: typing.List[ColumnValue] = pydantic.Field(alias=str("allowedValues"))  # type: ignore[literal-required]
+    severity: SeverityLevel
+    allow_null: typing.Optional[bool] = pydantic.Field(alias=str("allowNull"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["allowedColumnValues"] = "allowedColumnValues"
+
+
+class ReplaceApproximateUniquePercentageCheckConfig(core.ModelBase):
+    """ReplaceApproximateUniquePercentageCheckConfig"""
+
+    percentage_check_config: ReplacePercentageCheckConfig = pydantic.Field(alias=str("percentageCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["approximateUniquePercentage"] = "approximateUniquePercentage"
+
+
 class ReplaceBuildDurationCheckConfig(core.ModelBase):
     """ReplaceBuildDurationCheckConfig"""
 
@@ -291,17 +382,20 @@ class ReplaceBuildStatusCheckConfig(core.ModelBase):
 
 ReplaceCheckConfig = typing_extensions.Annotated[
     typing.Union[
-        "ReplaceColumnTypeCheckConfig",
         "ReplaceNumericColumnRangeCheckConfig",
         "ReplaceJobStatusCheckConfig",
         "ReplaceNumericColumnMeanCheckConfig",
+        "ReplaceDateColumnRangeCheckConfig",
         "ReplaceJobDurationCheckConfig",
+        "ReplaceApproximateUniquePercentageCheckConfig",
+        "ReplaceBuildStatusCheckConfig",
+        "ReplaceColumnTypeCheckConfig",
+        "ReplaceAllowedColumnValuesCheckConfig",
         "ReplaceNullPercentageCheckConfig",
         "ReplaceTotalColumnCountCheckConfig",
         "ReplaceNumericColumnMedianCheckConfig",
-        ReplaceBuildDurationCheckConfig,
+        "ReplaceBuildDurationCheckConfig",
         "ReplaceSchemaComparisonCheckConfig",
-        ReplaceBuildStatusCheckConfig,
         "ReplacePrimaryKeyCheckConfig",
     ],
     pydantic.Field(discriminator="type"),
@@ -328,6 +422,13 @@ class ReplaceColumnTypeConfig(core.ModelBase):
 
     severity: SeverityLevel
     expected_type: typing.Optional[core_models.SchemaFieldType] = pydantic.Field(alias=str("expectedType"), default=None)  # type: ignore[literal-required]
+
+
+class ReplaceDateColumnRangeCheckConfig(core.ModelBase):
+    """ReplaceDateColumnRangeCheckConfig"""
+
+    date_bounds_config: DateBoundsConfig = pydantic.Field(alias=str("dateBoundsConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["dateColumnRange"] = "dateColumnRange"
 
 
 class ReplaceJobDurationCheckConfig(core.ModelBase):
@@ -463,6 +564,13 @@ class StatusCheckConfig(core.ModelBase):
     escalation_config: typing.Optional[EscalationConfig] = pydantic.Field(alias=str("escalationConfig"), default=None)  # type: ignore[literal-required]
 
 
+class StringColumnValue(core.ModelBase):
+    """A string column value."""
+
+    value: str
+    type: typing.Literal["string"] = "string"
+
+
 class TimeBounds(core.ModelBase):
     """The configuration for the range of time between which the health check is expected to succeed."""
 
@@ -514,9 +622,13 @@ The type of trend to validate:
 
 
 core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())
 core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
 
 __all__ = [
+    "AllowedColumnValuesCheckConfig",
+    "ApproximateUniquePercentageCheckConfig",
+    "BooleanColumnValue",
     "BuildDurationCheckConfig",
     "BuildStatusCheckConfig",
     "Check",
@@ -528,8 +640,13 @@ __all__ = [
     "ColumnName",
     "ColumnTypeCheckConfig",
     "ColumnTypeConfig",
+    "ColumnValue",
     "CreateCheckRequest",
     "DatasetSubject",
+    "DateBounds",
+    "DateBoundsConfig",
+    "DateColumnRangeCheckConfig",
+    "DateColumnValue",
     "EscalationConfig",
     "JobDurationCheckConfig",
     "JobStatusCheckConfig",
@@ -543,18 +660,22 @@ __all__ = [
     "NumericColumnMeanCheckConfig",
     "NumericColumnMedianCheckConfig",
     "NumericColumnRangeCheckConfig",
+    "NumericColumnValue",
     "PercentageBounds",
     "PercentageBoundsConfig",
     "PercentageCheckConfig",
     "PercentageValue",
     "PrimaryKeyCheckConfig",
     "PrimaryKeyConfig",
+    "ReplaceAllowedColumnValuesCheckConfig",
+    "ReplaceApproximateUniquePercentageCheckConfig",
     "ReplaceBuildDurationCheckConfig",
     "ReplaceBuildStatusCheckConfig",
     "ReplaceCheckConfig",
     "ReplaceCheckRequest",
     "ReplaceColumnTypeCheckConfig",
     "ReplaceColumnTypeConfig",
+    "ReplaceDateColumnRangeCheckConfig",
     "ReplaceJobDurationCheckConfig",
     "ReplaceJobStatusCheckConfig",
     "ReplaceNullPercentageCheckConfig",
@@ -573,6 +694,7 @@ __all__ = [
     "SchemaInfo",
     "SeverityLevel",
     "StatusCheckConfig",
+    "StringColumnValue",
     "TimeBounds",
     "TimeBoundsConfig",
     "TimeCheckConfig",
