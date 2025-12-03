@@ -1,12 +1,13 @@
-# InterfacePropertyLocalPropertyImplementation
+# LoadObjectSetLinksResponseV2
 
-An implementation of an interface property via a local property.
+LoadObjectSetLinksResponseV2
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**property_api_name** | PropertyApiName | Yes |  |
-**type** | Literal["localPropertyImplementation"] | Yes | None |
+**data** | List[LinksFromObject] | Yes |  |
+**next_page_token** | Optional[PageToken] | No |  |
+**compute_usage** | Optional[ComputeSeconds] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

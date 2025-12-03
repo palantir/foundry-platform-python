@@ -51,8 +51,8 @@ ontology = "palantir"
 interface_type = "Employee"
 # List[AggregationV2]
 aggregation = [
-    {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
-    {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
+    {"type": "min", "field": "tenure", "name": "min_tenure"},
+    {"type": "avg", "field": "tenure", "name": "avg_tenure"},
 ]
 # List[AggregationGroupByV2]
 group_by = [

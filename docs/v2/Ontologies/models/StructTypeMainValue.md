@@ -1,12 +1,12 @@
-# InterfacePropertyLocalPropertyImplementation
+# StructTypeMainValue
 
-An implementation of an interface property via a local property.
+StructTypeMainValue
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**property_api_name** | PropertyApiName | Yes |  |
-**type** | Literal["localPropertyImplementation"] | Yes | None |
+**main_value_type** | ObjectPropertyType | Yes |  |
+**fields** | List[StructFieldApiName] | Yes | The fields which comprise the main value of the struct. |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

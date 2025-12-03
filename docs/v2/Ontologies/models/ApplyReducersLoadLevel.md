@@ -1,12 +1,11 @@
-# InterfacePropertyLocalPropertyImplementation
+# ApplyReducersLoadLevel
 
-An implementation of an interface property via a local property.
+Returns a single value of an array as configured in the ontology.
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**property_api_name** | PropertyApiName | Yes |  |
-**type** | Literal["localPropertyImplementation"] | Yes | None |
+**type** | Literal["applyReducers"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -717,6 +717,7 @@ Namespace | Resource | Operation | HTTP request |
 **AipAgents** | Session | [**blocking_continue**](docs/v2/AipAgents/Session.md#blocking_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue |
 **AipAgents** | Session | [**cancel**](docs/v2/AipAgents/Session.md#cancel) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel |
 **AipAgents** | Session | [**create**](docs/v2/AipAgents/Session.md#create) | **POST** /v2/aipAgents/agents/{agentRid}/sessions |
+**AipAgents** | Session | [**delete**](docs/v2/AipAgents/Session.md#delete) | **DELETE** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} |
 **AipAgents** | Session | [**get**](docs/v2/AipAgents/Session.md#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} |
 **AipAgents** | Session | [**list**](docs/v2/AipAgents/Session.md#list) | **GET** /v2/aipAgents/agents/{agentRid}/sessions |
 **AipAgents** | Session | [**rag_context**](docs/v2/AipAgents/Session.md#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext |
@@ -728,6 +729,7 @@ Namespace | Resource | Operation | HTTP request |
 **Connectivity** | Connection | [**create**](docs/v2/Connectivity/Connection.md#create) | **POST** /v2/connectivity/connections |
 **Connectivity** | Connection | [**get**](docs/v2/Connectivity/Connection.md#get) | **GET** /v2/connectivity/connections/{connectionRid} |
 **Connectivity** | Connection | [**get_configuration**](docs/v2/Connectivity/Connection.md#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration |
+**Connectivity** | Connection | [**get_configuration_batch**](docs/v2/Connectivity/Connection.md#get_configuration_batch) | **POST** /v2/connectivity/connections/getConfigurationBatch |
 **Connectivity** | Connection | [**update_export_settings**](docs/v2/Connectivity/Connection.md#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings |
 **Connectivity** | Connection | [**update_secrets**](docs/v2/Connectivity/Connection.md#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets |
 **Connectivity** | Connection | [**upload_custom_jdbc_drivers**](docs/v2/Connectivity/Connection.md#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers |
@@ -1181,6 +1183,8 @@ Namespace | Name | Import |
 **Connectivity** | [FileSizeFilter](docs/v2/Connectivity/models/FileSizeFilter.md) | `from foundry_sdk.v2.connectivity.models import FileSizeFilter` |
 **Connectivity** | [FilesVirtualTableConfig](docs/v2/Connectivity/models/FilesVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import FilesVirtualTableConfig` |
 **Connectivity** | [FoundryWorker](docs/v2/Connectivity/models/FoundryWorker.md) | `from foundry_sdk.v2.connectivity.models import FoundryWorker` |
+**Connectivity** | [GetConfigurationConnectionsBatchRequestElement](docs/v2/Connectivity/models/GetConfigurationConnectionsBatchRequestElement.md) | `from foundry_sdk.v2.connectivity.models import GetConfigurationConnectionsBatchRequestElement` |
+**Connectivity** | [GetConfigurationConnectionsBatchResponse](docs/v2/Connectivity/models/GetConfigurationConnectionsBatchResponse.md) | `from foundry_sdk.v2.connectivity.models import GetConfigurationConnectionsBatchResponse` |
 **Connectivity** | [GlueVirtualTableConfig](docs/v2/Connectivity/models/GlueVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import GlueVirtualTableConfig` |
 **Connectivity** | [HeaderApiKey](docs/v2/Connectivity/models/HeaderApiKey.md) | `from foundry_sdk.v2.connectivity.models import HeaderApiKey` |
 **Connectivity** | [IcebergVirtualTableConfig](docs/v2/Connectivity/models/IcebergVirtualTableConfig.md) | `from foundry_sdk.v2.connectivity.models import IcebergVirtualTableConfig` |
@@ -1339,6 +1343,7 @@ Namespace | Name | Import |
 **Core** | [MediaSetViewRid](docs/v2/Core/models/MediaSetViewRid.md) | `from foundry_sdk.v2.core.models import MediaSetViewRid` |
 **Core** | [MediaType](docs/v2/Core/models/MediaType.md) | `from foundry_sdk.v2.core.models import MediaType` |
 **Core** | [NullType](docs/v2/Core/models/NullType.md) | `from foundry_sdk.v2.core.models import NullType` |
+**Core** | [NumericOrNonNumericType](docs/v2/Core/models/NumericOrNonNumericType.md) | `from foundry_sdk.v2.core.models import NumericOrNonNumericType` |
 **Core** | [Operation](docs/v2/Core/models/Operation.md) | `from foundry_sdk.v2.core.models import Operation` |
 **Core** | [OperationScope](docs/v2/Core/models/OperationScope.md) | `from foundry_sdk.v2.core.models import OperationScope` |
 **Core** | [OrderByDirection](docs/v2/Core/models/OrderByDirection.md) | `from foundry_sdk.v2.core.models import OrderByDirection` |
@@ -1771,6 +1776,8 @@ Namespace | Name | Import |
 **Ontologies** | [ApplyActionMode](docs/v2/Ontologies/models/ApplyActionMode.md) | `from foundry_sdk.v2.ontologies.models import ApplyActionMode` |
 **Ontologies** | [ApplyActionRequestOptions](docs/v2/Ontologies/models/ApplyActionRequestOptions.md) | `from foundry_sdk.v2.ontologies.models import ApplyActionRequestOptions` |
 **Ontologies** | [ApplyActionRequestV2](docs/v2/Ontologies/models/ApplyActionRequestV2.md) | `from foundry_sdk.v2.ontologies.models import ApplyActionRequestV2` |
+**Ontologies** | [ApplyReducersAndExtractMainValueLoadLevel](docs/v2/Ontologies/models/ApplyReducersAndExtractMainValueLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ApplyReducersAndExtractMainValueLoadLevel` |
+**Ontologies** | [ApplyReducersLoadLevel](docs/v2/Ontologies/models/ApplyReducersLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ApplyReducersLoadLevel` |
 **Ontologies** | [ApproximateDistinctAggregationV2](docs/v2/Ontologies/models/ApproximateDistinctAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximateDistinctAggregationV2` |
 **Ontologies** | [ApproximatePercentileAggregationV2](docs/v2/Ontologies/models/ApproximatePercentileAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import ApproximatePercentileAggregationV2` |
 **Ontologies** | [ArrayConstraint](docs/v2/Ontologies/models/ArrayConstraint.md) | `from foundry_sdk.v2.ontologies.models import ArrayConstraint` |
@@ -1853,6 +1860,7 @@ Namespace | Name | Import |
 **Ontologies** | [ExecuteQueryResponse](docs/v2/Ontologies/models/ExecuteQueryResponse.md) | `from foundry_sdk.v2.ontologies.models import ExecuteQueryResponse` |
 **Ontologies** | [ExperimentalPropertyTypeStatus](docs/v2/Ontologies/models/ExperimentalPropertyTypeStatus.md) | `from foundry_sdk.v2.ontologies.models import ExperimentalPropertyTypeStatus` |
 **Ontologies** | [ExtractDatePart](docs/v2/Ontologies/models/ExtractDatePart.md) | `from foundry_sdk.v2.ontologies.models import ExtractDatePart` |
+**Ontologies** | [ExtractMainValueLoadLevel](docs/v2/Ontologies/models/ExtractMainValueLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import ExtractMainValueLoadLevel` |
 **Ontologies** | [ExtractPropertyExpression](docs/v2/Ontologies/models/ExtractPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import ExtractPropertyExpression` |
 **Ontologies** | [FilterValue](docs/v2/Ontologies/models/FilterValue.md) | `from foundry_sdk.v2.ontologies.models import FilterValue` |
 **Ontologies** | [FixedValuesMapKey](docs/v2/Ontologies/models/FixedValuesMapKey.md) | `from foundry_sdk.v2.ontologies.models import FixedValuesMapKey` |
@@ -1878,6 +1886,8 @@ Namespace | Name | Import |
 **Ontologies** | [InterfaceParameterPropertyArgument](docs/v2/Ontologies/models/InterfaceParameterPropertyArgument.md) | `from foundry_sdk.v2.ontologies.models import InterfaceParameterPropertyArgument` |
 **Ontologies** | [InterfacePropertyApiName](docs/v2/Ontologies/models/InterfacePropertyApiName.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyApiName` |
 **Ontologies** | [InterfacePropertyLocalPropertyImplementation](docs/v2/Ontologies/models/InterfacePropertyLocalPropertyImplementation.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyLocalPropertyImplementation` |
+**Ontologies** | [InterfacePropertyStructFieldImplementation](docs/v2/Ontologies/models/InterfacePropertyStructFieldImplementation.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyStructFieldImplementation` |
+**Ontologies** | [InterfacePropertyStructImplementation](docs/v2/Ontologies/models/InterfacePropertyStructImplementation.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyStructImplementation` |
 **Ontologies** | [InterfacePropertyType](docs/v2/Ontologies/models/InterfacePropertyType.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyType` |
 **Ontologies** | [InterfacePropertyTypeImplementation](docs/v2/Ontologies/models/InterfacePropertyTypeImplementation.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyTypeImplementation` |
 **Ontologies** | [InterfacePropertyTypeRid](docs/v2/Ontologies/models/InterfacePropertyTypeRid.md) | `from foundry_sdk.v2.ontologies.models import InterfacePropertyTypeRid` |
@@ -1896,7 +1906,9 @@ Namespace | Name | Import |
 **Ontologies** | [LeastPropertyExpression](docs/v2/Ontologies/models/LeastPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import LeastPropertyExpression` |
 **Ontologies** | [LengthConstraint](docs/v2/Ontologies/models/LengthConstraint.md) | `from foundry_sdk.v2.ontologies.models import LengthConstraint` |
 **Ontologies** | [LinkedInterfaceTypeApiName](docs/v2/Ontologies/models/LinkedInterfaceTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import LinkedInterfaceTypeApiName` |
+**Ontologies** | [LinkedObjectLocator](docs/v2/Ontologies/models/LinkedObjectLocator.md) | `from foundry_sdk.v2.ontologies.models import LinkedObjectLocator` |
 **Ontologies** | [LinkedObjectTypeApiName](docs/v2/Ontologies/models/LinkedObjectTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import LinkedObjectTypeApiName` |
+**Ontologies** | [LinksFromObject](docs/v2/Ontologies/models/LinksFromObject.md) | `from foundry_sdk.v2.ontologies.models import LinksFromObject` |
 **Ontologies** | [LinkSideObject](docs/v2/Ontologies/models/LinkSideObject.md) | `from foundry_sdk.v2.ontologies.models import LinkSideObject` |
 **Ontologies** | [LinkTypeApiName](docs/v2/Ontologies/models/LinkTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeApiName` |
 **Ontologies** | [LinkTypeId](docs/v2/Ontologies/models/LinkTypeId.md) | `from foundry_sdk.v2.ontologies.models import LinkTypeId` |
@@ -1917,6 +1929,8 @@ Namespace | Name | Import |
 **Ontologies** | [ListOutgoingInterfaceLinkTypesResponse](docs/v2/Ontologies/models/ListOutgoingInterfaceLinkTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListOutgoingInterfaceLinkTypesResponse` |
 **Ontologies** | [ListOutgoingLinkTypesResponseV2](docs/v2/Ontologies/models/ListOutgoingLinkTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListOutgoingLinkTypesResponseV2` |
 **Ontologies** | [ListQueryTypesResponseV2](docs/v2/Ontologies/models/ListQueryTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListQueryTypesResponseV2` |
+**Ontologies** | [LoadObjectSetLinksRequestV2](docs/v2/Ontologies/models/LoadObjectSetLinksRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksRequestV2` |
+**Ontologies** | [LoadObjectSetLinksResponseV2](docs/v2/Ontologies/models/LoadObjectSetLinksResponseV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksResponseV2` |
 **Ontologies** | [LoadObjectSetRequestV2](docs/v2/Ontologies/models/LoadObjectSetRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetRequestV2` |
 **Ontologies** | [LoadObjectSetResponseV2](docs/v2/Ontologies/models/LoadObjectSetResponseV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetResponseV2` |
 **Ontologies** | [LoadObjectSetV2MultipleObjectTypesRequest](docs/v2/Ontologies/models/LoadObjectSetV2MultipleObjectTypesRequest.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetV2MultipleObjectTypesRequest` |
@@ -2001,6 +2015,8 @@ Namespace | Name | Import |
 **Ontologies** | [OntologyInterfaceObjectType](docs/v2/Ontologies/models/OntologyInterfaceObjectType.md) | `from foundry_sdk.v2.ontologies.models import OntologyInterfaceObjectType` |
 **Ontologies** | [OntologyMapType](docs/v2/Ontologies/models/OntologyMapType.md) | `from foundry_sdk.v2.ontologies.models import OntologyMapType` |
 **Ontologies** | [OntologyObjectArrayType](docs/v2/Ontologies/models/OntologyObjectArrayType.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectArrayType` |
+**Ontologies** | [OntologyObjectArrayTypeReducer](docs/v2/Ontologies/models/OntologyObjectArrayTypeReducer.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectArrayTypeReducer` |
+**Ontologies** | [OntologyObjectArrayTypeReducerSortDirection](docs/v2/Ontologies/models/OntologyObjectArrayTypeReducerSortDirection.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectArrayTypeReducerSortDirection` |
 **Ontologies** | [OntologyObjectSetType](docs/v2/Ontologies/models/OntologyObjectSetType.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectSetType` |
 **Ontologies** | [OntologyObjectType](docs/v2/Ontologies/models/OntologyObjectType.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectType` |
 **Ontologies** | [OntologyObjectTypeReferenceType](docs/v2/Ontologies/models/OntologyObjectTypeReferenceType.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectTypeReferenceType` |
@@ -2034,9 +2050,12 @@ Namespace | Name | Import |
 **Ontologies** | [PropertyFilter](docs/v2/Ontologies/models/PropertyFilter.md) | `from foundry_sdk.v2.ontologies.models import PropertyFilter` |
 **Ontologies** | [PropertyId](docs/v2/Ontologies/models/PropertyId.md) | `from foundry_sdk.v2.ontologies.models import PropertyId` |
 **Ontologies** | [PropertyIdentifier](docs/v2/Ontologies/models/PropertyIdentifier.md) | `from foundry_sdk.v2.ontologies.models import PropertyIdentifier` |
+**Ontologies** | [PropertyImplementation](docs/v2/Ontologies/models/PropertyImplementation.md) | `from foundry_sdk.v2.ontologies.models import PropertyImplementation` |
 **Ontologies** | [PropertyKnownTypeFormattingRule](docs/v2/Ontologies/models/PropertyKnownTypeFormattingRule.md) | `from foundry_sdk.v2.ontologies.models import PropertyKnownTypeFormattingRule` |
+**Ontologies** | [PropertyLoadLevel](docs/v2/Ontologies/models/PropertyLoadLevel.md) | `from foundry_sdk.v2.ontologies.models import PropertyLoadLevel` |
 **Ontologies** | [PropertyNumberFormattingRule](docs/v2/Ontologies/models/PropertyNumberFormattingRule.md) | `from foundry_sdk.v2.ontologies.models import PropertyNumberFormattingRule` |
 **Ontologies** | [PropertyNumberFormattingRuleType](docs/v2/Ontologies/models/PropertyNumberFormattingRuleType.md) | `from foundry_sdk.v2.ontologies.models import PropertyNumberFormattingRuleType` |
+**Ontologies** | [PropertyOrStructFieldOfPropertyImplementation](docs/v2/Ontologies/models/PropertyOrStructFieldOfPropertyImplementation.md) | `from foundry_sdk.v2.ontologies.models import PropertyOrStructFieldOfPropertyImplementation` |
 **Ontologies** | [PropertyTimestampFormattingRule](docs/v2/Ontologies/models/PropertyTimestampFormattingRule.md) | `from foundry_sdk.v2.ontologies.models import PropertyTimestampFormattingRule` |
 **Ontologies** | [PropertyTypeApiName](docs/v2/Ontologies/models/PropertyTypeApiName.md) | `from foundry_sdk.v2.ontologies.models import PropertyTypeApiName` |
 **Ontologies** | [PropertyTypeReference](docs/v2/Ontologies/models/PropertyTypeReference.md) | `from foundry_sdk.v2.ontologies.models import PropertyTypeReference` |
@@ -2048,6 +2067,7 @@ Namespace | Name | Import |
 **Ontologies** | [PropertyValue](docs/v2/Ontologies/models/PropertyValue.md) | `from foundry_sdk.v2.ontologies.models import PropertyValue` |
 **Ontologies** | [PropertyValueEscapedString](docs/v2/Ontologies/models/PropertyValueEscapedString.md) | `from foundry_sdk.v2.ontologies.models import PropertyValueEscapedString` |
 **Ontologies** | [PropertyValueFormattingRule](docs/v2/Ontologies/models/PropertyValueFormattingRule.md) | `from foundry_sdk.v2.ontologies.models import PropertyValueFormattingRule` |
+**Ontologies** | [PropertyWithLoadLevelSelector](docs/v2/Ontologies/models/PropertyWithLoadLevelSelector.md) | `from foundry_sdk.v2.ontologies.models import PropertyWithLoadLevelSelector` |
 **Ontologies** | [QueryAggregation](docs/v2/Ontologies/models/QueryAggregation.md) | `from foundry_sdk.v2.ontologies.models import QueryAggregation` |
 **Ontologies** | [QueryAggregationKeyType](docs/v2/Ontologies/models/QueryAggregationKeyType.md) | `from foundry_sdk.v2.ontologies.models import QueryAggregationKeyType` |
 **Ontologies** | [QueryAggregationRangeSubType](docs/v2/Ontologies/models/QueryAggregationRangeSubType.md) | `from foundry_sdk.v2.ontologies.models import QueryAggregationRangeSubType` |
@@ -2069,10 +2089,14 @@ Namespace | Name | Import |
 **Ontologies** | [RangesConstraint](docs/v2/Ontologies/models/RangesConstraint.md) | `from foundry_sdk.v2.ontologies.models import RangesConstraint` |
 **Ontologies** | [RegexConstraint](docs/v2/Ontologies/models/RegexConstraint.md) | `from foundry_sdk.v2.ontologies.models import RegexConstraint` |
 **Ontologies** | [RegexQuery](docs/v2/Ontologies/models/RegexQuery.md) | `from foundry_sdk.v2.ontologies.models import RegexQuery` |
+**Ontologies** | [RelativeDateRangeBound](docs/v2/Ontologies/models/RelativeDateRangeBound.md) | `from foundry_sdk.v2.ontologies.models import RelativeDateRangeBound` |
+**Ontologies** | [RelativeDateRangeQuery](docs/v2/Ontologies/models/RelativeDateRangeQuery.md) | `from foundry_sdk.v2.ontologies.models import RelativeDateRangeQuery` |
+**Ontologies** | [RelativePointInTime](docs/v2/Ontologies/models/RelativePointInTime.md) | `from foundry_sdk.v2.ontologies.models import RelativePointInTime` |
 **Ontologies** | [RelativeTime](docs/v2/Ontologies/models/RelativeTime.md) | `from foundry_sdk.v2.ontologies.models import RelativeTime` |
 **Ontologies** | [RelativeTimeRange](docs/v2/Ontologies/models/RelativeTimeRange.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeRange` |
 **Ontologies** | [RelativeTimeRelation](docs/v2/Ontologies/models/RelativeTimeRelation.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeRelation` |
 **Ontologies** | [RelativeTimeSeriesTimeUnit](docs/v2/Ontologies/models/RelativeTimeSeriesTimeUnit.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeSeriesTimeUnit` |
+**Ontologies** | [RelativeTimeUnit](docs/v2/Ontologies/models/RelativeTimeUnit.md) | `from foundry_sdk.v2.ontologies.models import RelativeTimeUnit` |
 **Ontologies** | [ResolvedInterfacePropertyType](docs/v2/Ontologies/models/ResolvedInterfacePropertyType.md) | `from foundry_sdk.v2.ontologies.models import ResolvedInterfacePropertyType` |
 **Ontologies** | [ReturnEditsMode](docs/v2/Ontologies/models/ReturnEditsMode.md) | `from foundry_sdk.v2.ontologies.models import ReturnEditsMode` |
 **Ontologies** | [RidConstraint](docs/v2/Ontologies/models/RidConstraint.md) | `from foundry_sdk.v2.ontologies.models import RidConstraint` |
@@ -2117,6 +2141,7 @@ Namespace | Name | Import |
 **Ontologies** | [StructFieldArgument](docs/v2/Ontologies/models/StructFieldArgument.md) | `from foundry_sdk.v2.ontologies.models import StructFieldArgument` |
 **Ontologies** | [StructFieldEvaluatedConstraint](docs/v2/Ontologies/models/StructFieldEvaluatedConstraint.md) | `from foundry_sdk.v2.ontologies.models import StructFieldEvaluatedConstraint` |
 **Ontologies** | [StructFieldEvaluationResult](docs/v2/Ontologies/models/StructFieldEvaluationResult.md) | `from foundry_sdk.v2.ontologies.models import StructFieldEvaluationResult` |
+**Ontologies** | [StructFieldOfPropertyImplementation](docs/v2/Ontologies/models/StructFieldOfPropertyImplementation.md) | `from foundry_sdk.v2.ontologies.models import StructFieldOfPropertyImplementation` |
 **Ontologies** | [StructFieldSelector](docs/v2/Ontologies/models/StructFieldSelector.md) | `from foundry_sdk.v2.ontologies.models import StructFieldSelector` |
 **Ontologies** | [StructFieldType](docs/v2/Ontologies/models/StructFieldType.md) | `from foundry_sdk.v2.ontologies.models import StructFieldType` |
 **Ontologies** | [StructFieldTypeRid](docs/v2/Ontologies/models/StructFieldTypeRid.md) | `from foundry_sdk.v2.ontologies.models import StructFieldTypeRid` |
@@ -2124,6 +2149,7 @@ Namespace | Name | Import |
 **Ontologies** | [StructParameterFieldApiName](docs/v2/Ontologies/models/StructParameterFieldApiName.md) | `from foundry_sdk.v2.ontologies.models import StructParameterFieldApiName` |
 **Ontologies** | [StructParameterFieldArgument](docs/v2/Ontologies/models/StructParameterFieldArgument.md) | `from foundry_sdk.v2.ontologies.models import StructParameterFieldArgument` |
 **Ontologies** | [StructType](docs/v2/Ontologies/models/StructType.md) | `from foundry_sdk.v2.ontologies.models import StructType` |
+**Ontologies** | [StructTypeMainValue](docs/v2/Ontologies/models/StructTypeMainValue.md) | `from foundry_sdk.v2.ontologies.models import StructTypeMainValue` |
 **Ontologies** | [SubmissionCriteriaEvaluation](docs/v2/Ontologies/models/SubmissionCriteriaEvaluation.md) | `from foundry_sdk.v2.ontologies.models import SubmissionCriteriaEvaluation` |
 **Ontologies** | [SubtractPropertyExpression](docs/v2/Ontologies/models/SubtractPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import SubtractPropertyExpression` |
 **Ontologies** | [SumAggregationV2](docs/v2/Ontologies/models/SumAggregationV2.md) | `from foundry_sdk.v2.ontologies.models import SumAggregationV2` |
@@ -2623,6 +2649,7 @@ Namespace | Name | Import |
 **AipAgents** | ContentNotFound | `from foundry_sdk.v2.aip_agents.errors import ContentNotFound` |
 **AipAgents** | ContextSizeExceededLimit | `from foundry_sdk.v2.aip_agents.errors import ContextSizeExceededLimit` |
 **AipAgents** | CreateSessionPermissionDenied | `from foundry_sdk.v2.aip_agents.errors import CreateSessionPermissionDenied` |
+**AipAgents** | DeleteSessionPermissionDenied | `from foundry_sdk.v2.aip_agents.errors import DeleteSessionPermissionDenied` |
 **AipAgents** | FunctionLocatorNotFound | `from foundry_sdk.v2.aip_agents.errors import FunctionLocatorNotFound` |
 **AipAgents** | GetAllSessionsAgentsPermissionDenied | `from foundry_sdk.v2.aip_agents.errors import GetAllSessionsAgentsPermissionDenied` |
 **AipAgents** | GetRagContextForSessionPermissionDenied | `from foundry_sdk.v2.aip_agents.errors import GetRagContextForSessionPermissionDenied` |
@@ -2954,6 +2981,7 @@ Namespace | Name | Import |
 **Ontologies** | LinkAlreadyExists | `from foundry_sdk.v2.ontologies.errors import LinkAlreadyExists` |
 **Ontologies** | LinkedObjectNotFound | `from foundry_sdk.v2.ontologies.errors import LinkedObjectNotFound` |
 **Ontologies** | LinkTypeNotFound | `from foundry_sdk.v2.ontologies.errors import LinkTypeNotFound` |
+**Ontologies** | LoadObjectSetLinksNotSupported | `from foundry_sdk.v2.ontologies.errors import LoadObjectSetLinksNotSupported` |
 **Ontologies** | MalformedPropertyFilters | `from foundry_sdk.v2.ontologies.errors import MalformedPropertyFilters` |
 **Ontologies** | MarketplaceActionMappingNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceActionMappingNotFound` |
 **Ontologies** | MarketplaceInstallationNotFound | `from foundry_sdk.v2.ontologies.errors import MarketplaceInstallationNotFound` |
@@ -3245,6 +3273,7 @@ Namespace | Name | Import |
 **Ontologies** | LinkAlreadyExists | `from foundry_sdk.v1.ontologies.errors import LinkAlreadyExists` |
 **Ontologies** | LinkedObjectNotFound | `from foundry_sdk.v1.ontologies.errors import LinkedObjectNotFound` |
 **Ontologies** | LinkTypeNotFound | `from foundry_sdk.v1.ontologies.errors import LinkTypeNotFound` |
+**Ontologies** | LoadObjectSetLinksNotSupported | `from foundry_sdk.v1.ontologies.errors import LoadObjectSetLinksNotSupported` |
 **Ontologies** | MalformedPropertyFilters | `from foundry_sdk.v1.ontologies.errors import MalformedPropertyFilters` |
 **Ontologies** | MarketplaceActionMappingNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceActionMappingNotFound` |
 **Ontologies** | MarketplaceInstallationNotFound | `from foundry_sdk.v1.ontologies.errors import MarketplaceInstallationNotFound` |

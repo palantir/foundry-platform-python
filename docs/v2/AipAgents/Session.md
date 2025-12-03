@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**blocking_continue**](#blocking_continue) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/blockingContinue | Public Beta |
 [**cancel**](#cancel) | **POST** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/cancel | Public Beta |
 [**create**](#create) | **POST** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} | Public Beta |
 [**get**](#get) | **GET** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid} | Public Beta |
 [**list**](#list) | **GET** /v2/aipAgents/agents/{agentRid}/sessions | Public Beta |
 [**rag_context**](#rag_context) | **PUT** /v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}/ragContext | Public Beta |
@@ -218,6 +219,61 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Session  | The created Session | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **delete**
+Delete a conversation session between the calling user and an Agent.
+Once deleted, the session can no longer be accessed and will not appear in session lists.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**agent_rid** | AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/). |  |
+**session_rid** | SessionRid | The Resource Identifier (RID) of the conversation session. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# AgentRid | An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+agent_rid = "ri.aip-agents..agent.732cd5b4-7ca7-4219-aabb-6e976faf63b1"
+# SessionRid | The Resource Identifier (RID) of the conversation session.
+session_rid = "ri.aip-agents..session.292db3b2-b653-4de6-971c-7e97a7b881d6"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.aip_agents.Agent.Session.delete(agent_rid, session_rid, preview=preview)
+    print("The delete response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Session.delete: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  |  | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

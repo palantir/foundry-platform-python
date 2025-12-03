@@ -1,12 +1,11 @@
-# InterfacePropertyLocalPropertyImplementation
+# GetConfigurationConnectionsBatchResponse
 
-An implementation of an interface property via a local property.
+GetConfigurationConnectionsBatchResponse
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**property_api_name** | PropertyApiName | Yes |  |
-**type** | Literal["localPropertyImplementation"] | Yes | None |
+**data** | Dict[ConnectionRid, ConnectionConfiguration] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

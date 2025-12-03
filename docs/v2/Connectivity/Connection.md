@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/connectivity/connections | Public Beta |
 [**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
 [**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
+[**get_configuration_batch**](#get_configuration_batch) | **POST** /v2/connectivity/connections/getConfigurationBatch | Public Beta |
 [**update_export_settings**](#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings | Public Beta |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Stable |
 [**upload_custom_jdbc_drivers**](#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers | Public Beta |
@@ -186,6 +187,60 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ConnectionConfiguration  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_configuration_batch**
+Returns a map of Connection RIDs to their corresponding configurations.
+Connections are filtered from the response if they don't exist or the requesting token lacks the required permissions.
+
+
+The maximum batch size for this endpoint is 200.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetConfigurationConnectionsBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetConfigurationConnectionsBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetConfigurationConnectionsBatchRequestElement] | Body of the request
+body = [{"connectionRid": "ri.magritte..source.c078b71b-92f9-41b6-b0df-3760f411120b"}]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.connectivity.Connection.get_configuration_batch(body, preview=preview)
+    print("The get_configuration_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Connection.get_configuration_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetConfigurationConnectionsBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

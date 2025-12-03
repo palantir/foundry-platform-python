@@ -1072,6 +1072,19 @@ class LinkedObjectNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class LoadObjectSetLinksNotSupportedParameters(typing_extensions.TypedDict):
+    """Bulk loading object set links is not supported by Object Storage v1."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class LoadObjectSetLinksNotSupported(errors.InternalServerError):
+    name: typing.Literal["LoadObjectSetLinksNotSupported"]
+    parameters: LoadObjectSetLinksNotSupportedParameters
+    error_instance_id: str
+
+
 class MalformedPropertyFiltersParameters(typing_extensions.TypedDict):
     """At least one of requested filters are malformed. Please look at the documentation of `PropertyFilter`."""
 
@@ -2261,6 +2274,7 @@ __all__ = [
     "LinkAlreadyExists",
     "LinkTypeNotFound",
     "LinkedObjectNotFound",
+    "LoadObjectSetLinksNotSupported",
     "MalformedPropertyFilters",
     "MarketplaceActionMappingNotFound",
     "MarketplaceInstallationNotFound",
