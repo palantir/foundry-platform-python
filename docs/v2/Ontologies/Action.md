@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**apply**](#apply) | **POST** /v2/ontologies/{ontology}/actions/{action}/apply | Stable |
 [**apply_batch**](#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch | Stable |
+[**apply_with_overrides**](#apply_with_overrides) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyWithOverrides | Private Beta |
 
 # **apply**
 Applies an action using the given parameters. 
@@ -170,6 +171,86 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | BatchApplyActionResponseV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **apply_with_overrides**
+Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
+CurrentTime generated action parameters.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**action** | ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.  |  |
+**overrides** | ApplyActionOverrides |  |  |
+**request** | ApplyActionRequestV2 |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+
+### Return type
+**SyncApplyActionResponseV2**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# ActionTypeApiName | The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
+action = "rename-employee"
+# ApplyActionOverrides
+overrides = {
+    "uniqueIdentifierLinkIdValues": {
+        "fd28fa5c-3028-4eca-bdc8-3be2c7949cd9": "4efdb11f-c1e3-417c-89fb-2225118b65e3"
+    },
+    "actionExecutionTime": "2025-10-25T13:00:00Z",
+}
+# ApplyActionRequestV2
+request = {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}}
+# Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
+
+
+try:
+    api_response = client.ontologies.Action.apply_with_overrides(
+        ontology,
+        action,
+        overrides=overrides,
+        request=request,
+        branch=branch,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    print("The apply_with_overrides response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Action.apply_with_overrides: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | SyncApplyActionResponseV2  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -589,6 +589,23 @@ class NullType(core.ModelBase):
     type: typing.Literal["null"] = "null"
 
 
+class NumericOrNonNumericType(core.ModelBase):
+    """
+    The time series property can either contain either numeric or non-numeric data. This enables mixed sensor types
+    where some sensor time series are numeric and others are categorical. A boolean property reference can be used
+    to determine if the series is numeric or non-numeric. Without this property, the series type can be either
+    numeric or non-numeric and must be inferred from the result of a time series query.
+    """
+
+    is_non_numeric_property_type_id: typing.Optional[str] = pydantic.Field(alias=str("isNonNumericPropertyTypeId"), default=None)  # type: ignore[literal-required]
+    """
+    The boolean property type ID specifying whether the series is numeric or non-numeric. If the value is true,
+    the series is non-numeric.
+    """
+
+    type: typing.Literal["numericOrNonNumeric"] = "numericOrNonNumeric"
+
+
 Operation = str
 """
 An operation that can be performed on a resource. Operations are used to define the permissions that a Role has.
@@ -768,7 +785,8 @@ TableRid = core.RID
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
-    typing.Union["StringType", "DoubleType"], pydantic.Field(discriminator="type")
+    typing.Union["StringType", "DoubleType", "NumericOrNonNumericType"],
+    pydantic.Field(discriminator="type"),
 ]
 """A union of the types supported by time series properties."""
 
@@ -782,7 +800,7 @@ TimeUnit = typing.Literal[
 class TimeseriesType(core.ModelBase):
     """TimeseriesType"""
 
-    item_type: typing.Optional[TimeSeriesItemType] = pydantic.Field(alias=str("itemType"), default=None)  # type: ignore[literal-required]
+    item_type: TimeSeriesItemType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
     type: typing.Literal["timeseries"] = "timeseries"
 
 
@@ -967,6 +985,7 @@ __all__ = [
     "MediaSetViewRid",
     "MediaType",
     "NullType",
+    "NumericOrNonNumericType",
     "Operation",
     "OperationScope",
     "OrderByDirection",

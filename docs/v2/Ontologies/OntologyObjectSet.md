@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**create_temporary**](#create_temporary) | **POST** /v2/ontologies/{ontology}/objectSets/createTemporary | Public Beta |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectSets/{objectSetRid} | Private Beta |
 [**load**](#load) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjects | Stable |
+[**load_links**](#load_links) | **POST** /v2/ontologies/{ontology}/objectSets/loadLinks | Private Beta |
 [**load_multiple_object_types**](#load_multiple_object_types) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsMultipleObjectTypes | Public Beta |
 [**load_objects_or_interfaces**](#load_objects_or_interfaces) | **POST** /v2/ontologies/{ontology}/objectSets/loadObjectsOrInterfaces | Public Beta |
 
@@ -44,8 +45,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # List[AggregationV2]
 aggregation = [
-    {"field": "properties.tenure", "name": "min_tenure", "type": "min"},
-    {"field": "properties.tenure", "name": "avg_tenure", "type": "avg"},
+    {"field": "tenure", "name": "min_tenure", "type": "min"},
+    {"field": "tenure", "name": "avg_tenure", "type": "avg"},
 ]
 # List[AggregationGroupByV2]
 group_by = [
@@ -233,6 +234,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -262,6 +264,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -273,7 +277,7 @@ order_by = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
-page_token = None
+page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -289,6 +293,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -320,6 +325,93 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **load_links**
+Loads the specified links from the defined object set. 
+
+Links are defined as a link type API name and object locators for the source and target objects
+where only the `__primaryKey` and `__apiName` properties are loaded.
+
+Links are grouped by source object locator.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**links** | List[LinkTypeApiName] |  |  |
+**object_set** | ObjectSet |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+
+### Return type
+**LoadObjectSetLinksResponseV2**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[LinkTypeApiName]
+links = None
+# ObjectSet
+object_set = {"objectType": "Employee", "type": "base"}
+# Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[IncludeComputeUsage]
+include_compute_usage = None
+# Optional[PageToken]
+page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The package version of the generated SDK.
+sdk_version = None
+
+
+try:
+    api_response = client.ontologies.OntologyObjectSet.load_links(
+        ontology,
+        links=links,
+        object_set=object_set,
+        branch=branch,
+        include_compute_usage=include_compute_usage,
+        page_token=page_token,
+        preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    print("The load_links response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling OntologyObjectSet.load_links: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | LoadObjectSetLinksResponseV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **load_multiple_object_types**
 Load the ontology objects present in the `ObjectSet` from the provided object set definition. The resulting 
 objects may be scoped to an object type, in which all the selected properties on the object type are returned, or scoped 
@@ -343,6 +435,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -373,6 +466,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -384,7 +479,7 @@ order_by = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
-page_token = None
+page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -402,6 +497,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -459,6 +555,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -487,6 +584,8 @@ ontology = "palantir"
 object_set = {"type": "base", "interfaceBase": "Person"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -496,7 +595,7 @@ order_by = None
 # Optional[PageSize]
 page_size = 10000
 # Optional[PageToken]
-page_token = None
+page_token = "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
@@ -512,6 +611,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,

@@ -1,6 +1,6 @@
 # InterfacePropertyLocalPropertyImplementation
 
-InterfacePropertyLocalPropertyImplementation
+An implementation of an interface property via a local property.
 
 ## Properties
 | Name | Type | Required | Description |
