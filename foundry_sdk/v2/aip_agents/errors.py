@@ -204,6 +204,25 @@ class CreateSessionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class DeleteSessionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not delete the Session."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+
+    sessionRid: aip_agents_models.SessionRid
+    """The Resource Identifier (RID) of the conversation session."""
+
+
+@dataclass
+class DeleteSessionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteSessionPermissionDenied"]
+    parameters: DeleteSessionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class FunctionLocatorNotFoundParameters(typing_extensions.TypedDict):
     """
     The specified function locator is configured for use by the Agent but could not be found.
@@ -568,6 +587,7 @@ __all__ = [
     "ContentNotFound",
     "ContextSizeExceededLimit",
     "CreateSessionPermissionDenied",
+    "DeleteSessionPermissionDenied",
     "FunctionLocatorNotFound",
     "GetAllSessionsAgentsPermissionDenied",
     "GetRagContextForSessionPermissionDenied",

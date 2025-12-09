@@ -44,8 +44,8 @@ ontology = "palantir"
 object_type = "employee"
 # List[AggregationV2]
 aggregation = [
-    {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
-    {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
+    {"type": "min", "field": "tenure", "name": "min_tenure"},
+    {"type": "avg", "field": "tenure", "name": "avg_tenure"},
 ]
 # List[AggregationGroupByV2]
 group_by = [
@@ -378,6 +378,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
 **select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -406,6 +407,8 @@ ontology = "palantir"
 object_type = "employee"
 # List[PropertyApiName] | The API names of the object type properties to include in the response.
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -431,6 +434,7 @@ try:
         ontology,
         object_type,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,

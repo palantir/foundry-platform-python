@@ -321,6 +321,62 @@ class SessionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def delete(
+        self,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Delete a conversation session between the calling user and an Agent.
+        Once deleted, the session can no longer be accessed and will not appear in session lists.
+
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :type agent_rid: AgentRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
+        :type session_rid: SessionRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises DeleteSessionPermissionDenied: Could not delete the Session.
+        :raises SessionNotFound: The given Session could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="DELETE",
+                resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "agentRid": agent_rid,
+                    "sessionRid": session_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "DeleteSessionPermissionDenied": aip_agents_errors.DeleteSessionPermissionDenied,
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         agent_rid: aip_agents_models.AgentRid,
@@ -680,6 +736,7 @@ class _SessionClientRaw:
         def blocking_continue(_: aip_agents_models.SessionExchangeResult): ...
         def cancel(_: aip_agents_models.CancelSessionResponse): ...
         def create(_: aip_agents_models.Session): ...
+        def delete(_: None): ...
         def get(_: aip_agents_models.Session): ...
         def list(_: aip_agents_models.ListSessionsResponse): ...
         def rag_context(_: aip_agents_models.AgentSessionRagContextResponse): ...
@@ -689,6 +746,7 @@ class _SessionClientRaw:
         self.blocking_continue = core.with_raw_response(blocking_continue, client.blocking_continue)
         self.cancel = core.with_raw_response(cancel, client.cancel)
         self.create = core.with_raw_response(create, client.create)
+        self.delete = core.with_raw_response(delete, client.delete)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
         self.rag_context = core.with_raw_response(rag_context, client.rag_context)
@@ -1007,6 +1065,62 @@ class AsyncSessionClient:
                     "ObjectTypeIdsNotFound": aip_agents_errors.ObjectTypeIdsNotFound,
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
+                    "SessionNotFound": aip_agents_errors.SessionNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def delete(
+        self,
+        agent_rid: aip_agents_models.AgentRid,
+        session_rid: aip_agents_models.SessionRid,
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Delete a conversation session between the calling user and an Agent.
+        Once deleted, the session can no longer be accessed and will not appear in session lists.
+
+        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :type agent_rid: AgentRid
+        :param session_rid: The Resource Identifier (RID) of the conversation session.
+        :type session_rid: SessionRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises AgentNotFound: The given Agent could not be found.
+        :raises DeleteSessionPermissionDenied: Could not delete the Session.
+        :raises SessionNotFound: The given Session could not be found.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="DELETE",
+                resource_path="/v2/aipAgents/agents/{agentRid}/sessions/{sessionRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "agentRid": agent_rid,
+                    "sessionRid": session_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AgentNotFound": aip_agents_errors.AgentNotFound,
+                    "DeleteSessionPermissionDenied": aip_agents_errors.DeleteSessionPermissionDenied,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -1375,6 +1489,7 @@ class _AsyncSessionClientRaw:
         def blocking_continue(_: aip_agents_models.SessionExchangeResult): ...
         def cancel(_: aip_agents_models.CancelSessionResponse): ...
         def create(_: aip_agents_models.Session): ...
+        def delete(_: None): ...
         def get(_: aip_agents_models.Session): ...
         def list(_: aip_agents_models.ListSessionsResponse): ...
         def rag_context(_: aip_agents_models.AgentSessionRagContextResponse): ...
@@ -1386,6 +1501,7 @@ class _AsyncSessionClientRaw:
         )
         self.cancel = core.async_with_raw_response(cancel, client.cancel)
         self.create = core.async_with_raw_response(create, client.create)
+        self.delete = core.async_with_raw_response(delete, client.delete)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
         self.rag_context = core.async_with_raw_response(rag_context, client.rag_context)

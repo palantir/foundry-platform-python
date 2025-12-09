@@ -1452,6 +1452,10 @@ class UnevaluableConstraint(core.ModelBase):
     type: typing.Literal["unevaluable"] = "unevaluable"
 
 
+UniqueIdentifierLinkId = core.UUID
+"""A reference to a UniqueIdentifierArgument linkId defined for this action type."""
+
+
 class ValidateActionRequest(core.ModelBase):
     """ValidateActionRequest"""
 
@@ -1688,6 +1692,7 @@ __all__ = [
     "ThreeDimensionalAggregation",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
+    "UniqueIdentifierLinkId",
     "ValidateActionRequest",
     "ValidateActionResponse",
     "ValidationResult",

@@ -1047,6 +1047,18 @@ class FoundryWorker(core.ModelBase):
     type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
+class GetConfigurationConnectionsBatchRequestElement(core.ModelBase):
+    """GetConfigurationConnectionsBatchRequestElement"""
+
+    connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
+
+
+class GetConfigurationConnectionsBatchResponse(core.ModelBase):
+    """GetConfigurationConnectionsBatchResponse"""
+
+    data: typing.Dict[ConnectionRid, ConnectionConfiguration]
+
+
 class GlueVirtualTableConfig(core.ModelBase):
     """Pointer to the table in AWS Glue."""
 
@@ -2174,6 +2186,8 @@ __all__ = [
     "FilesCountLimitFilter",
     "FilesVirtualTableConfig",
     "FoundryWorker",
+    "GetConfigurationConnectionsBatchRequestElement",
+    "GetConfigurationConnectionsBatchResponse",
     "GlueVirtualTableConfig",
     "HeaderApiKey",
     "IcebergVirtualTableConfig",

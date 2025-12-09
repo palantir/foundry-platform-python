@@ -200,23 +200,99 @@ class ActionClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def apply_with_overrides(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
+        *,
+        overrides: ontologies_models.ApplyActionOverrides,
+        request: ontologies_models.ApplyActionRequestV2,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.SyncApplyActionResponseV2:
+        """
+        Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
+        CurrentTime generated action parameters.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
+        :type action: ActionTypeApiName
+        :param overrides:
+        :type overrides: ApplyActionOverrides
+        :param request:
+        :type request: ApplyActionRequestV2
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.SyncApplyActionResponseV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
+                query_params={
+                    "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "action": action,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.ApplyActionWithOverridesRequest(
+                    request=request,
+                    overrides=overrides,
+                ),
+                response_type=ontologies_models.SyncApplyActionResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _ActionClientRaw:
     def __init__(self, client: ActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.with_raw_response(apply, client.apply)
         self.apply_batch = core.with_raw_response(apply_batch, client.apply_batch)
+        self.apply_with_overrides = core.with_raw_response(
+            apply_with_overrides, client.apply_with_overrides
+        )
 
 
 class _ActionClientStreaming:
     def __init__(self, client: ActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.with_streaming_response(apply, client.apply)
         self.apply_batch = core.with_streaming_response(apply_batch, client.apply_batch)
+        self.apply_with_overrides = core.with_streaming_response(
+            apply_with_overrides, client.apply_with_overrides
+        )
 
 
 class AsyncActionClient:
@@ -395,20 +471,96 @@ class AsyncActionClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def apply_with_overrides(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
+        *,
+        overrides: ontologies_models.ApplyActionOverrides,
+        request: ontologies_models.ApplyActionRequestV2,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.SyncApplyActionResponseV2]:
+        """
+        Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
+        CurrentTime generated action parameters.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
+        :type action: ActionTypeApiName
+        :param overrides:
+        :type overrides: ApplyActionOverrides
+        :param request:
+        :type request: ApplyActionRequestV2
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.SyncApplyActionResponseV2]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
+                query_params={
+                    "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "action": action,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.ApplyActionWithOverridesRequest(
+                    request=request,
+                    overrides=overrides,
+                ),
+                response_type=ontologies_models.SyncApplyActionResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncActionClientRaw:
     def __init__(self, client: AsyncActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.async_with_raw_response(apply, client.apply)
         self.apply_batch = core.async_with_raw_response(apply_batch, client.apply_batch)
+        self.apply_with_overrides = core.async_with_raw_response(
+            apply_with_overrides, client.apply_with_overrides
+        )
 
 
 class _AsyncActionClientStreaming:
     def __init__(self, client: AsyncActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.async_with_streaming_response(apply, client.apply)
         self.apply_batch = core.async_with_streaming_response(apply_batch, client.apply_batch)
+        self.apply_with_overrides = core.async_with_streaming_response(
+            apply_with_overrides, client.apply_with_overrides
+        )

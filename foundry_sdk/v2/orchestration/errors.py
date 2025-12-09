@@ -70,8 +70,23 @@ class BuildNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class BuildNotRunningParameters(typing_extensions.TypedDict):
+    """The build is not currently running."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    buildRid: core_models.BuildRid
+
+
+@dataclass
+class BuildNotRunning(errors.BadRequestError):
+    name: typing.Literal["BuildNotRunning"]
+    parameters: BuildNotRunningParameters
+    error_instance_id: str
+
+
 class BuildTargetsMissingJobSpecsParameters(typing_extensions.TypedDict):
-    """The action targets are missing job specs"""
+    """The action targets are missing job specs."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -271,7 +286,7 @@ class InvalidScheduleDescription(errors.BadRequestError):
 
 
 class InvalidScheduleNameParameters(typing_extensions.TypedDict):
-    """The schedule name is too long"""
+    """The schedule name is too long."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -315,7 +330,7 @@ class JobNotFound(errors.NotFoundError):
 
 
 class MissingBuildTargetsParameters(typing_extensions.TypedDict):
-    """The build target must contains at least one dataset target"""
+    """The build target must contains at least one dataset target."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -328,7 +343,7 @@ class MissingBuildTargets(errors.BadRequestError):
 
 
 class MissingConnectingBuildInputsParameters(typing_extensions.TypedDict):
-    """The connecting build target must contains at least one input dataset target"""
+    """The connecting build target must contains at least one input dataset target."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -341,7 +356,7 @@ class MissingConnectingBuildInputs(errors.BadRequestError):
 
 
 class MissingTriggerParameters(typing_extensions.TypedDict):
-    """You must pass in a trigger when creating or updating a schedule"""
+    """You must pass in a trigger when creating or updating a schedule."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -524,6 +539,7 @@ __all__ = [
     "BuildInputsNotFound",
     "BuildInputsPermissionDenied",
     "BuildNotFound",
+    "BuildNotRunning",
     "BuildTargetsMissingJobSpecs",
     "BuildTargetsNotFound",
     "BuildTargetsPermissionDenied",
