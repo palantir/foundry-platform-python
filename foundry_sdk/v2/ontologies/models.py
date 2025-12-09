@@ -40,6 +40,10 @@ class AbsoluteValuePropertyExpression(core.ModelBase):
     type: typing.Literal["absoluteValue"] = "absoluteValue"
 
 
+ActionExecutionTime = core.AwareDatetime
+"""An ISO 8601 timestamp."""
+
+
 ActionLogicRule = typing_extensions.Annotated[
     typing.Union[
         "ModifyInterfaceLogicRule",
@@ -375,6 +379,13 @@ ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
 """ApplyActionMode"""
 
 
+class ApplyActionOverrides(core.ModelBase):
+    """ApplyActionOverrides"""
+
+    unique_identifier_link_id_values: typing.Dict[UniqueIdentifierLinkId, UniqueIdentifierValue] = pydantic.Field(alias=str("uniqueIdentifierLinkIdValues"))  # type: ignore[literal-required]
+    action_execution_time: typing.Optional[ActionExecutionTime] = pydantic.Field(alias=str("actionExecutionTime"), default=None)  # type: ignore[literal-required]
+
+
 class ApplyActionRequestOptions(core.ModelBase):
     """ApplyActionRequestOptions"""
 
@@ -387,6 +398,25 @@ class ApplyActionRequestV2(core.ModelBase):
 
     options: typing.Optional[ApplyActionRequestOptions] = None
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+
+
+class ApplyActionWithOverridesRequest(core.ModelBase):
+    """ApplyActionWithOverridesRequest"""
+
+    request: ApplyActionRequestV2
+    overrides: ApplyActionOverrides
+
+
+class ApplyReducersAndExtractMainValueLoadLevel(core.ModelBase):
+    """Performs both apply reducers and extract main value to return the reduced main value."""
+
+    type: typing.Literal["applyReducersAndExtractMainValue"] = "applyReducersAndExtractMainValue"
+
+
+class ApplyReducersLoadLevel(core.ModelBase):
+    """Returns a single value of an array as configured in the ontology."""
+
+    type: typing.Literal["applyReducers"] = "applyReducers"
 
 
 class ApproximateDistinctAggregationV2(core.ModelBase):
@@ -1093,6 +1123,12 @@ ExtractDatePart = typing.Literal["DAYS", "MONTHS", "QUARTERS", "YEARS"]
 """ExtractDatePart"""
 
 
+class ExtractMainValueLoadLevel(core.ModelBase):
+    """Returns the main value of a struct as configured in the ontology."""
+
+    type: typing.Literal["extractMainValue"] = "extractMainValue"
+
+
 class ExtractPropertyExpression(core.ModelBase):
     """Extracts the specified date part from a date or timestamp."""
 
@@ -1291,10 +1327,36 @@ the **Ontology Manager**.
 
 
 class InterfacePropertyLocalPropertyImplementation(core.ModelBase):
-    """InterfacePropertyLocalPropertyImplementation"""
+    """An implementation of an interface property via a local property."""
 
     property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
     type: typing.Literal["localPropertyImplementation"] = "localPropertyImplementation"
+
+
+class InterfacePropertyStructFieldImplementation(core.ModelBase):
+    """An implementation of an interface property via the field of a local struct property."""
+
+    struct_field_of_property: StructFieldOfPropertyImplementation = pydantic.Field(alias=str("structFieldOfProperty"))  # type: ignore[literal-required]
+    type: typing.Literal["structFieldImplementation"] = "structFieldImplementation"
+
+
+class InterfacePropertyStructImplementation(core.ModelBase):
+    """
+    An implementation of a struct interface property via a local struct property. Specifies a mapping of interface
+    struct fields to local struct fields or properties.
+    """
+
+    mapping: InterfacePropertyStructImplementationMapping
+    type: typing.Literal["structImplementation"] = "structImplementation"
+
+
+InterfacePropertyStructImplementationMapping = typing.Dict[
+    "StructFieldApiName", "PropertyOrStructFieldOfPropertyImplementation"
+]
+"""
+An implementation of a struct interface property via a local struct property. Specifies a mapping of interface
+struct fields to local struct fields or properties.
+"""
 
 
 InterfacePropertyType = typing_extensions.Annotated[
@@ -1305,6 +1367,17 @@ InterfacePropertyType = typing_extensions.Annotated[
 The definition of an interface property type on an interface. An interface property can either be backed by a
 shared property type or defined on the interface directly.
 """
+
+
+InterfacePropertyTypeImplementation = typing_extensions.Annotated[
+    typing.Union[
+        "InterfacePropertyStructFieldImplementation",
+        "InterfacePropertyStructImplementation",
+        "InterfacePropertyLocalPropertyImplementation",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""Describes how an object type implements an interface property."""
 
 
 InterfacePropertyTypeRid = core.RID
@@ -1532,11 +1605,32 @@ class LinkedInterfaceTypeApiName(core.ModelBase):
     type: typing.Literal["interfaceTypeApiName"] = "interfaceTypeApiName"
 
 
+class LinkedObjectLocator(core.ModelBase):
+    """
+    Does not contain information about the source object. Should be used in a nested type that provides information about source objects.
+    The `targetObject` Ontology Object in this response will only ever have the `__primaryKey` and `__apiName`
+    fields present, thus functioning as object locators rather than full objects.
+    """
+
+    target_object: typing.Optional[OntologyObjectV2] = pydantic.Field(alias=str("targetObject"), default=None)  # type: ignore[literal-required]
+    link_type: typing.Optional[LinkTypeApiName] = pydantic.Field(alias=str("linkType"), default=None)  # type: ignore[literal-required]
+
+
 class LinkedObjectTypeApiName(core.ModelBase):
     """A reference to the linked object type."""
 
     api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     type: typing.Literal["objectTypeApiName"] = "objectTypeApiName"
+
+
+class LinksFromObject(core.ModelBase):
+    """
+    The Ontology Objects in this response will only ever have the `__primaryKey` and `__apiName`
+    fields present, thus functioning as object locators rather than full objects.
+    """
+
+    source_object: typing.Optional[OntologyObjectV2] = pydantic.Field(alias=str("sourceObject"), default=None)  # type: ignore[literal-required]
+    linked_objects: typing.List[LinkedObjectLocator] = pydantic.Field(alias=str("linkedObjects"))  # type: ignore[literal-required]
 
 
 class ListActionTypesFullMetadataResponse(core.ModelBase):
@@ -1646,12 +1740,35 @@ class ListQueryTypesResponseV2(core.ModelBase):
     data: typing.List[QueryTypeV2]
 
 
+class LoadObjectSetLinksRequestV2(core.ModelBase):
+    """LoadObjectSetLinksRequestV2"""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    links: typing.List[LinkTypeApiName]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+
+
+class LoadObjectSetLinksResponseV2(core.ModelBase):
+    """LoadObjectSetLinksResponseV2"""
+
+    data: typing.List[LinksFromObject]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
+
+
 class LoadObjectSetRequestV2(core.ModelBase):
     """Represents the API POST body when loading an `ObjectSet`."""
 
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -1688,6 +1805,12 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -1719,7 +1842,7 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     `PropertyApiName` for properties on the object(s).
 
     The `interfaceToObjectTypeMappingsV2` field contains mappings from `InterfacePropertyApiName`s on the
-    interface(s) to `InterfacePropertyImplementation` for properties on the object(s). This therefore includes
+    interface(s) to `InterfacePropertyTypeImplementation` for properties on the object(s). This therefore includes
     implementations of both properties backed by SharedPropertyTypes as well as properties defined on the interface.
     """
 
@@ -1739,6 +1862,12 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -2567,7 +2696,27 @@ class OntologyObjectArrayType(core.ModelBase):
     """OntologyObjectArrayType"""
 
     sub_type: ObjectPropertyType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
+    reducers: typing.List[OntologyObjectArrayTypeReducer]
+    """
+    If non-empty, this property can be reduced to a single value of the subtype. The reducers are applied in
+    order to determine a winning value. The array can be loaded as a reduced value or as the full array in an
+    object set.
+    """
+
     type: typing.Literal["array"] = "array"
+
+
+class OntologyObjectArrayTypeReducer(core.ModelBase):
+    """OntologyObjectArrayTypeReducer"""
+
+    direction: OntologyObjectArrayTypeReducerSortDirection
+    field: typing.Optional[StructFieldApiName] = None
+
+
+OntologyObjectArrayTypeReducerSortDirection = typing.Literal[
+    "ASCENDING_NULLS_LAST", "DESCENDING_NULLS_LAST"
+]
+"""OntologyObjectArrayTypeReducerSortDirection"""
 
 
 class OntologyObjectSetType(core.ModelBase):
@@ -2848,10 +2997,17 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyIdentifier = typing_extensions.Annotated[
-    typing.Union["PropertyApiNameSelector", "StructFieldSelector"],
+    typing.Union["PropertyApiNameSelector", "StructFieldSelector", "PropertyWithLoadLevelSelector"],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
+
+
+class PropertyImplementation(core.ModelBase):
+    """PropertyImplementation"""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["property"] = "property"
 
 
 class PropertyKnownTypeFormattingRule(core.ModelBase):
@@ -2859,6 +3015,22 @@ class PropertyKnownTypeFormattingRule(core.ModelBase):
 
     known_type: KnownType = pydantic.Field(alias=str("knownType"))  # type: ignore[literal-required]
     type: typing.Literal["knownType"] = "knownType"
+
+
+PropertyLoadLevel = typing_extensions.Annotated[
+    typing.Union[
+        "ApplyReducersAndExtractMainValueLoadLevel",
+        "ApplyReducersLoadLevel",
+        "ExtractMainValueLoadLevel",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The load level of the property:
+- APPLY_REDUCERS: Returns a single value of an array as configured in the ontology.
+- EXTRACT_MAIN_VALUE: Returns the main value of a struct as configured in the ontology.
+- APPLY_REDUCERS_AND_EXTRACT_MAIN_VALUE: Performs both to return the reduced main value.
+"""
 
 
 class PropertyNumberFormattingRule(core.ModelBase):
@@ -2883,6 +3055,13 @@ PropertyNumberFormattingRuleType = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """PropertyNumberFormattingRuleType"""
+
+
+PropertyOrStructFieldOfPropertyImplementation = typing_extensions.Annotated[
+    typing.Union["StructFieldOfPropertyImplementation", "PropertyImplementation"],
+    pydantic.Field(discriminator="type"),
+]
+"""PropertyOrStructFieldOfPropertyImplementation"""
 
 
 class PropertyTimestampFormattingRule(core.ModelBase):
@@ -3001,6 +3180,18 @@ Each formatter type provides specific options tailored to that data type:
 - Booleans: Custom true/false display text
 - Known types: Special formatting for Foundry-specific identifiers
 """
+
+
+class PropertyWithLoadLevelSelector(core.ModelBase):
+    """
+    A combination of a property identifier and the load level to apply to the property. You can select a reduced
+    value for arrays and the main value for structs. If the provided load level cannot be applied to the property
+    type, then it will be ignored. This selector is experimental and may not work in filters or sorts.
+    """
+
+    property_identifier: PropertyIdentifier = pydantic.Field(alias=str("propertyIdentifier"))  # type: ignore[literal-required]
+    load_level: PropertyLoadLevel = pydantic.Field(alias=str("loadLevel"))  # type: ignore[literal-required]
+    type: typing.Literal["propertyWithLoadLevel"] = "propertyWithLoadLevel"
 
 
 class QueryAggregation(core.ModelBase):
@@ -3202,6 +3393,51 @@ class RegexQuery(core.ModelBase):
     type: typing.Literal["regex"] = "regex"
 
 
+class RelativeDateRangeQuery(core.ModelBase):
+    """
+    Returns objects where the specified date or timestamp property falls within a relative date range.
+    The bounds are calculated relative to query execution time and rounded to midnight in the specified timezone.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    """The property API name to filter on (either field or propertyIdentifier must be provided)."""
+
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    """The property identifier to filter on (either field or propertyIdentifier must be provided)."""
+
+    relative_start_time: typing.Optional[RelativeDateRangeBound] = pydantic.Field(alias=str("relativeStartTime"), default=None)  # type: ignore[literal-required]
+    """
+    The lower bound relative to query time (inclusive). Negative values go into the past.
+    For example, { value: -7, timeUnit: DAY } means 7 days ago.
+    """
+
+    relative_end_time: typing.Optional[RelativeDateRangeBound] = pydantic.Field(alias=str("relativeEndTime"), default=None)  # type: ignore[literal-required]
+    """
+    The upper bound relative to query time (exclusive). Negative values go into the past.
+    For example, { value: 1, timeUnit: MONTH } means the start of next month.
+    """
+
+    time_zone_id: str = pydantic.Field(alias=str("timeZoneId"))  # type: ignore[literal-required]
+    """
+    Time zone ID for midnight calculation (e.g., "America/New_York", "Europe/London", "Etc/UTC").
+    See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for valid values.
+    """
+
+    type: typing.Literal["relativeDateRange"] = "relativeDateRange"
+
+
+class RelativePointInTime(core.ModelBase):
+    """A point in time specified relative to query execution time."""
+
+    value: int
+    """The numeric value of the time offset. Negative values indicate the past, positive values the future."""
+
+    time_unit: RelativeTimeUnit = pydantic.Field(alias=str("timeUnit"))  # type: ignore[literal-required]
+    """The unit of time for the value."""
+
+    type: typing.Literal["relativePoint"] = "relativePoint"
+
+
 class RelativeTime(core.ModelBase):
     """A relative time, such as "3 days before" or "2 hours after" the current moment."""
 
@@ -3226,6 +3462,10 @@ RelativeTimeSeriesTimeUnit = typing.Literal[
     "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS", "WEEKS", "MONTHS", "YEARS"
 ]
 """RelativeTimeSeriesTimeUnit"""
+
+
+RelativeTimeUnit = typing.Literal["DAY", "WEEK", "MONTH", "YEAR"]
+"""Units for relative time calculations."""
 
 
 class ResolvedInterfacePropertyType(core.ModelBase):
@@ -3280,6 +3520,7 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
         "LtQueryV2",
         "DoesNotIntersectBoundingBoxQuery",
+        "RelativeDateRangeQuery",
         "WildcardQuery",
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
@@ -3373,6 +3614,12 @@ class SearchObjectsRequestV2(core.ModelBase):
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     select: typing.List[PropertyApiName]
     """The API names of the object type properties to include in the response."""
+
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
 
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
@@ -3730,12 +3977,19 @@ class StructFieldEvaluationResult(core.ModelBase):
     """Represents whether the parameter is a required input to the action."""
 
 
+class StructFieldOfPropertyImplementation(core.ModelBase):
+    """StructFieldOfPropertyImplementation"""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    struct_field_api_name: StructFieldApiName = pydantic.Field(alias=str("structFieldApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["structFieldOfProperty"] = "structFieldOfProperty"
+
+
 class StructFieldSelector(core.ModelBase):
     """
-    A combination of a property API name and a struct field API name used to select struct fields. Note that you can
-    still select struct properties with only a 'PropertyApiNameSelector'; the queries will then become 'OR' queries
-    across the fields of the struct property, and derived property expressions will operate on the whole struct
-    where applicable.
+    A combination of a property identifier and the load level to apply to the property. You can select a reduced
+    value for arrays and the main value for structs. If the provided load level cannot be applied to the property
+    type, then it will be ignored. This selector is experimental and may not work in filters or sorts.
     """
 
     property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
@@ -3779,7 +4033,16 @@ class StructType(core.ModelBase):
     """StructType"""
 
     struct_field_types: typing.List[StructFieldType] = pydantic.Field(alias=str("structFieldTypes"))  # type: ignore[literal-required]
+    main_value: typing.Optional[StructTypeMainValue] = pydantic.Field(alias=str("mainValue"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["struct"] = "struct"
+
+
+class StructTypeMainValue(core.ModelBase):
+    """StructTypeMainValue"""
+
+    main_value_type: ObjectPropertyType = pydantic.Field(alias=str("mainValueType"))  # type: ignore[literal-required]
+    fields: typing.List[StructFieldApiName]
+    """The fields which comprise the main value of the struct."""
 
 
 class SubmissionCriteriaEvaluation(core.ModelBase):
@@ -4007,6 +4270,17 @@ class UniqueIdentifierArgument(core.ModelBase):
     """
 
     type: typing.Literal["uniqueIdentifier"] = "uniqueIdentifier"
+
+
+UniqueIdentifierLinkId = core.UUID
+"""A reference to a UniqueIdentifierArgument linkId defined for this action type."""
+
+
+UniqueIdentifierValue = core.UUID
+"""
+An override value to be used for a UniqueIdentifier action parameter, instead of 
+the value being automatically generated.
+"""
 
 
 class UuidConstraint(core.ModelBase):
@@ -4239,19 +4513,16 @@ Icon = BlueprintIcon
 """A union currently only consisting of the BlueprintIcon (more icon types may be added in the future)."""
 
 
-InterfacePropertyTypeImplementation = InterfacePropertyLocalPropertyImplementation
-"""
-Describes how an object type implements an interface property type. For now this is only possible via a single
-local property but this may be extended in the future.
-"""
-
-
 MethodObjectSet = ObjectSet
 """MethodObjectSet"""
 
 
 PolygonValue = geo_models.Polygon
 """PolygonValue"""
+
+
+RelativeDateRangeBound = RelativePointInTime
+"""Specifies a bound for a relative date range query."""
 
 
 WithinBoundingBoxPoint = geo_models.GeoPoint
@@ -4273,7 +4544,13 @@ core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(
+    InterfacePropertyStructImplementationMapping, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(InterfacePropertyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    InterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
@@ -4292,8 +4569,12 @@ core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=lo
 core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
 core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
+core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    PropertyOrStructFieldOfPropertyImplementation, globalns=globals(), localns=locals()
 )
 core.resolve_forward_references(
     PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
@@ -4322,6 +4603,7 @@ core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=
 __all__ = [
     "AbsoluteTimeRange",
     "AbsoluteValuePropertyExpression",
+    "ActionExecutionTime",
     "ActionLogicRule",
     "ActionParameterArrayType",
     "ActionParameterType",
@@ -4359,8 +4641,12 @@ __all__ = [
     "AggregationV2",
     "AndQueryV2",
     "ApplyActionMode",
+    "ApplyActionOverrides",
     "ApplyActionRequestOptions",
     "ApplyActionRequestV2",
+    "ApplyActionWithOverridesRequest",
+    "ApplyReducersAndExtractMainValueLoadLevel",
+    "ApplyReducersLoadLevel",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
     "ArrayConstraint",
@@ -4443,6 +4729,7 @@ __all__ = [
     "ExecuteQueryResponse",
     "ExperimentalPropertyTypeStatus",
     "ExtractDatePart",
+    "ExtractMainValueLoadLevel",
     "ExtractPropertyExpression",
     "FilterValue",
     "FixedValuesMapKey",
@@ -4468,6 +4755,9 @@ __all__ = [
     "InterfaceParameterPropertyArgument",
     "InterfacePropertyApiName",
     "InterfacePropertyLocalPropertyImplementation",
+    "InterfacePropertyStructFieldImplementation",
+    "InterfacePropertyStructImplementation",
+    "InterfacePropertyStructImplementationMapping",
     "InterfacePropertyType",
     "InterfacePropertyTypeImplementation",
     "InterfacePropertyTypeRid",
@@ -4492,7 +4782,9 @@ __all__ = [
     "LinkTypeSideCardinality",
     "LinkTypeSideV2",
     "LinkedInterfaceTypeApiName",
+    "LinkedObjectLocator",
     "LinkedObjectTypeApiName",
+    "LinksFromObject",
     "ListActionTypesFullMetadataResponse",
     "ListActionTypesResponseV2",
     "ListAttachmentsResponseV2",
@@ -4507,6 +4799,8 @@ __all__ = [
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
+    "LoadObjectSetLinksRequestV2",
+    "LoadObjectSetLinksResponseV2",
     "LoadObjectSetRequestV2",
     "LoadObjectSetResponseV2",
     "LoadObjectSetV2MultipleObjectTypesRequest",
@@ -4591,6 +4885,8 @@ __all__ = [
     "OntologyInterfaceObjectType",
     "OntologyMapType",
     "OntologyObjectArrayType",
+    "OntologyObjectArrayTypeReducer",
+    "OntologyObjectArrayTypeReducerSortDirection",
     "OntologyObjectSetType",
     "OntologyObjectType",
     "OntologyObjectTypeReferenceType",
@@ -4624,9 +4920,12 @@ __all__ = [
     "PropertyFilter",
     "PropertyId",
     "PropertyIdentifier",
+    "PropertyImplementation",
     "PropertyKnownTypeFormattingRule",
+    "PropertyLoadLevel",
     "PropertyNumberFormattingRule",
     "PropertyNumberFormattingRuleType",
+    "PropertyOrStructFieldOfPropertyImplementation",
     "PropertyTimestampFormattingRule",
     "PropertyTypeApiName",
     "PropertyTypeReference",
@@ -4638,6 +4937,7 @@ __all__ = [
     "PropertyValue",
     "PropertyValueEscapedString",
     "PropertyValueFormattingRule",
+    "PropertyWithLoadLevelSelector",
     "QueryAggregation",
     "QueryAggregationKeyType",
     "QueryAggregationRangeSubType",
@@ -4659,10 +4959,14 @@ __all__ = [
     "RangesConstraint",
     "RegexConstraint",
     "RegexQuery",
+    "RelativeDateRangeBound",
+    "RelativeDateRangeQuery",
+    "RelativePointInTime",
     "RelativeTime",
     "RelativeTimeRange",
     "RelativeTimeRelation",
     "RelativeTimeSeriesTimeUnit",
+    "RelativeTimeUnit",
     "ResolvedInterfacePropertyType",
     "ReturnEditsMode",
     "RidConstraint",
@@ -4707,6 +5011,7 @@ __all__ = [
     "StructFieldArgument",
     "StructFieldEvaluatedConstraint",
     "StructFieldEvaluationResult",
+    "StructFieldOfPropertyImplementation",
     "StructFieldSelector",
     "StructFieldType",
     "StructFieldTypeRid",
@@ -4714,6 +5019,7 @@ __all__ = [
     "StructParameterFieldApiName",
     "StructParameterFieldArgument",
     "StructType",
+    "StructTypeMainValue",
     "SubmissionCriteriaEvaluation",
     "SubtractPropertyExpression",
     "SumAggregationV2",
@@ -4736,6 +5042,8 @@ __all__ = [
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
+    "UniqueIdentifierLinkId",
+    "UniqueIdentifierValue",
     "UuidConstraint",
     "ValidateActionResponseV2",
     "ValidationResult",

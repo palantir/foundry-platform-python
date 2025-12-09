@@ -1891,6 +1891,32 @@ def aip_agents_agent_session_op_create(
     click.echo(repr(result))
 
 
+@aip_agents_agent_session.command("delete")
+@click.argument("agent_rid", type=str, required=True)
+@click.argument("session_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def aip_agents_agent_session_op_delete(
+    client: FoundryClient,
+    agent_rid: str,
+    session_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Delete a conversation session between the calling user and an Agent.
+    Once deleted, the session can no longer be accessed and will not appear in session lists.
+
+    """
+    result = client.aip_agents.Agent.Session.delete(
+        agent_rid=agent_rid,
+        session_rid=session_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @aip_agents_agent_session.command("get")
 @click.argument("agent_rid", type=str, required=True)
 @click.argument("session_rid", type=str, required=True)
@@ -2421,6 +2447,31 @@ def connectivity_connection_op_get_configuration(
     """
     result = client.connectivity.Connection.get_configuration(
         connection_rid=connection_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@connectivity_connection.command("get_configuration_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def connectivity_connection_op_get_configuration_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns a map of Connection RIDs to their corresponding configurations.
+    Connections are filtered from the response if they don't exist or the requesting token lacks the required permissions.
+
+
+    The maximum batch size for this endpoint is 200.
+    """
+    result = client.connectivity.Connection.get_configuration_batch(
+        body=json.loads(body),
         preview=preview,
     )
     click.echo(repr(result))
@@ -6824,6 +6875,14 @@ def ontologies_ontology_object_set_op_get(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
+    "--select_v2",
+    type=str,
+    required=True,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--branch",
     type=str,
     required=False,
@@ -6880,6 +6939,7 @@ def ontologies_ontology_object_set_op_load(
     ontology: str,
     object_set: str,
     select: str,
+    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -6906,6 +6966,7 @@ def ontologies_ontology_object_set_op_load(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -6920,10 +6981,89 @@ def ontologies_ontology_object_set_op_load(
     click.echo(repr(result))
 
 
+@ontologies_ontology_object_set.command("load_links")
+@click.argument("ontology", type=str, required=True)
+@click.option("--links", type=str, required=True, help="""""")
+@click.option("--object_set", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to aggregate the objects from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option("--include_compute_usage", type=bool, required=False, help="""""")
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The package version of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_set_op_load_links(
+    client: FoundryClient,
+    ontology: str,
+    links: str,
+    object_set: str,
+    branch: typing.Optional[str],
+    include_compute_usage: typing.Optional[bool],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+):
+    """
+    Loads the specified links from the defined object set.
+
+    Links are defined as a link type API name and object locators for the source and target objects
+    where only the `__primaryKey` and `__apiName` properties are loaded.
+
+    Links are grouped by source object locator.
+
+    """
+    result = client.ontologies.OntologyObjectSet.load_links(
+        ontology=ontology,
+        links=json.loads(links),
+        object_set=json.loads(object_set),
+        branch=branch,
+        include_compute_usage=include_compute_usage,
+        page_token=page_token,
+        preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_object_set.command("load_multiple_object_types")
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--select_v2",
+    type=str,
+    required=True,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
 @click.option(
     "--branch",
     type=str,
@@ -6988,6 +7128,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     ontology: str,
     object_set: str,
     select: str,
+    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -7020,6 +7161,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -7039,6 +7181,14 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
+@click.option(
+    "--select_v2",
+    type=str,
+    required=True,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
 @click.option(
     "--branch",
     type=str,
@@ -7095,6 +7245,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     ontology: str,
     object_set: str,
     select: str,
+    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7127,6 +7278,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
+        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7448,6 +7600,14 @@ def ontologies_ontology_object_op_list(
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=True,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7497,6 +7657,7 @@ def ontologies_ontology_object_op_search(
     ontology: str,
     object_type: str,
     select: str,
+    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7537,6 +7698,7 @@ def ontologies_ontology_object_op_search(
         ontology=ontology,
         object_type=object_type,
         select=json.loads(select),
+        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7634,6 +7796,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
 """,
 )
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_interface_op_get(
     client: FoundryClient,
@@ -7641,6 +7817,8 @@ def ontologies_ontology_interface_op_get(
     interface_type: str,
     branch: typing.Optional[str],
     preview: typing.Optional[bool],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
 ):
     """
     Gets a specific interface type with the given API name.
@@ -7651,6 +7829,8 @@ def ontologies_ontology_interface_op_get(
         interface_type=interface_type,
         branch=branch,
         preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     click.echo(repr(result))
 
@@ -9539,6 +9719,61 @@ def ontologies_action_op_apply_batch(
         requests=json.loads(requests),
         branch=branch,
         options=None if options is None else json.loads(options),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_action.command("apply_with_overrides")
+@click.argument("ontology", type=str, required=True)
+@click.argument("action", type=str, required=True)
+@click.option("--overrides", type=str, required=True, help="""""")
+@click.option("--request", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to apply the action against. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_action_op_apply_with_overrides(
+    client: FoundryClient,
+    ontology: str,
+    action: str,
+    overrides: str,
+    request: str,
+    branch: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+):
+    """
+    Same as regular apply action operation, but allows specifying overrides for UniqueIdentifier and
+    CurrentTime generated action parameters.
+
+    """
+    result = client.ontologies.Action.apply_with_overrides(
+        ontology=ontology,
+        action=action,
+        overrides=json.loads(overrides),
+        request=json.loads(request),
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )

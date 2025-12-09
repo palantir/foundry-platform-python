@@ -1,9 +1,8 @@
 # StructFieldSelector
 
-A combination of a property API name and a struct field API name used to select struct fields. Note that you can
-still select struct properties with only a 'PropertyApiNameSelector'; the queries will then become 'OR' queries
-across the fields of the struct property, and derived property expressions will operate on the whole struct
-where applicable.
+A combination of a property identifier and the load level to apply to the property. You can select a reduced
+value for arrays and the main value for structs. If the provided load level cannot be applied to the property
+type, then it will be ignored. This selector is experimental and may not work in filters or sorts.
 
 
 ## Properties

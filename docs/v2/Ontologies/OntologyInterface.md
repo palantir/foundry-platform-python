@@ -51,8 +51,8 @@ ontology = "palantir"
 interface_type = "Employee"
 # List[AggregationV2]
 aggregation = [
-    {"type": "min", "field": "properties.tenure", "name": "min_tenure"},
-    {"type": "avg", "field": "properties.tenure", "name": "avg_tenure"},
+    {"type": "min", "field": "tenure", "name": "min_tenure"},
+    {"type": "avg", "field": "tenure", "name": "avg_tenure"},
 ]
 # List[AggregationGroupByV2]
 group_by = [
@@ -116,6 +116,8 @@ Name | Type | Description  | Notes |
 **interface_type** | InterfaceTypeApiName | The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the interface type definition from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **InterfaceType**
@@ -137,11 +139,20 @@ interface_type = "Employee"
 branch = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
     api_response = client.ontologies.OntologyInterface.get(
-        ontology, interface_type, branch=branch, preview=preview
+        ontology,
+        interface_type,
+        branch=branch,
+        preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The get response:\n")
     pprint(api_response)
