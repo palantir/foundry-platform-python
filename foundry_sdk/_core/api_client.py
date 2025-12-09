@@ -671,6 +671,8 @@ class ApiClient(BaseApiClient):
         response_mode = self._get_response_mode(request_info)
 
         if response_mode == "ITERATOR":
+            # Extract the initial page_token from query_params if provided by the user
+            initial_page_token = cast(Optional[str], request_info.query_params.get("pageToken"))
 
             def fetch_page(
                 page_size: Optional[int],
@@ -688,7 +690,7 @@ class ApiClient(BaseApiClient):
 
                 return result.next_page_token, result.data or []
 
-            return ResourceIterator(paged_func=fetch_page)
+            return ResourceIterator(paged_func=fetch_page, page_token=initial_page_token)
 
         with error_handling():
 
@@ -764,6 +766,8 @@ class AsyncApiClient(BaseApiClient):
         response_mode = self._get_response_mode(request_info)
 
         if response_mode == "ITERATOR":
+            # Extract the initial page_token from query_params if provided by the user
+            initial_page_token = cast(Optional[str], request_info.query_params.get("pageToken"))
 
             async def fetch_page(
                 page_size: Optional[int],
@@ -779,7 +783,7 @@ class AsyncApiClient(BaseApiClient):
                 result = response.decode()
                 return result.next_page_token, result.data or []
 
-            return AsyncResourceIterator(paged_func=fetch_page)
+            return AsyncResourceIterator(paged_func=fetch_page, page_token=initial_page_token)
 
         if response_mode == "STREAMING":
             return AsyncStreamingContextManager(

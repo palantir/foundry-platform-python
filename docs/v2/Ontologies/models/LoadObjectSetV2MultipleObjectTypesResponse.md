@@ -10,7 +10,7 @@ The `interfaceToObjectTypeMappings` field contains mappings from `SharedProperty
 `PropertyApiName` for properties on the object(s).
 
 The `interfaceToObjectTypeMappingsV2` field contains mappings from `InterfacePropertyApiName`s on the
-interface(s) to `InterfacePropertyImplementation` for properties on the object(s). This therefore includes
+interface(s) to `InterfacePropertyTypeImplementation` for properties on the object(s). This therefore includes
 implementations of both properties backed by SharedPropertyTypes as well as properties defined on the interface.
 
 

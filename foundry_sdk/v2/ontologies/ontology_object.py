@@ -350,6 +350,7 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -393,6 +394,8 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -440,6 +443,7 @@ class OntologyObjectClient:
                     page_size=page_size,
                     page_token=page_token,
                     select=select,
+                    select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                 ),
@@ -807,6 +811,7 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -850,6 +855,8 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -897,6 +904,7 @@ class AsyncOntologyObjectClient:
                     page_size=page_size,
                     page_token=page_token,
                     select=select,
+                    select_v2=select_v2,
                     exclude_rid=exclude_rid,
                     snapshot=snapshot,
                 ),

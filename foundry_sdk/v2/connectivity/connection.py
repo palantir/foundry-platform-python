@@ -16,6 +16,7 @@
 import typing
 from functools import cached_property
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -272,6 +273,56 @@ class ConnectionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_configuration_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[connectivity_models.GetConfigurationConnectionsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=200),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> connectivity_models.GetConfigurationConnectionsBatchResponse:
+        """
+        Returns a map of Connection RIDs to their corresponding configurations.
+        Connections are filtered from the response if they don't exist or the requesting token lacks the required permissions.
+
+
+        The maximum batch size for this endpoint is 200.
+        :param body: Body of the request
+        :type body: List[GetConfigurationConnectionsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: connectivity_models.GetConfigurationConnectionsBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/getConfigurationBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=connectivity_models.GetConfigurationConnectionsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def update_export_settings(
         self,
         connection_rid: connectivity_models.ConnectionRid,
@@ -455,6 +506,9 @@ class _ConnectionClientRaw:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def get_configuration_batch(
+            _: connectivity_models.GetConfigurationConnectionsBatchResponse,
+        ): ...
         def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
         def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
@@ -462,6 +516,9 @@ class _ConnectionClientRaw:
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_configuration = core.with_raw_response(get_configuration, client.get_configuration)
+        self.get_configuration_batch = core.with_raw_response(
+            get_configuration_batch, client.get_configuration_batch
+        )
         self.update_export_settings = core.with_raw_response(
             update_export_settings, client.update_export_settings
         )
@@ -476,12 +533,18 @@ class _ConnectionClientStreaming:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def get_configuration_batch(
+            _: connectivity_models.GetConfigurationConnectionsBatchResponse,
+        ): ...
         def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_configuration = core.with_streaming_response(
             get_configuration, client.get_configuration
+        )
+        self.get_configuration_batch = core.with_streaming_response(
+            get_configuration_batch, client.get_configuration_batch
         )
         self.upload_custom_jdbc_drivers = core.with_streaming_response(
             upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers
@@ -732,6 +795,56 @@ class AsyncConnectionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_configuration_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[connectivity_models.GetConfigurationConnectionsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=200),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[connectivity_models.GetConfigurationConnectionsBatchResponse]:
+        """
+        Returns a map of Connection RIDs to their corresponding configurations.
+        Connections are filtered from the response if they don't exist or the requesting token lacks the required permissions.
+
+
+        The maximum batch size for this endpoint is 200.
+        :param body: Body of the request
+        :type body: List[GetConfigurationConnectionsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[connectivity_models.GetConfigurationConnectionsBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/connectivity/connections/getConfigurationBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=connectivity_models.GetConfigurationConnectionsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def update_export_settings(
         self,
         connection_rid: connectivity_models.ConnectionRid,
@@ -915,6 +1028,9 @@ class _AsyncConnectionClientRaw:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def get_configuration_batch(
+            _: connectivity_models.GetConfigurationConnectionsBatchResponse,
+        ): ...
         def update_export_settings(_: None): ...
         def update_secrets(_: None): ...
         def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
@@ -923,6 +1039,9 @@ class _AsyncConnectionClientRaw:
         self.get = core.async_with_raw_response(get, client.get)
         self.get_configuration = core.async_with_raw_response(
             get_configuration, client.get_configuration
+        )
+        self.get_configuration_batch = core.async_with_raw_response(
+            get_configuration_batch, client.get_configuration_batch
         )
         self.update_export_settings = core.async_with_raw_response(
             update_export_settings, client.update_export_settings
@@ -938,12 +1057,18 @@ class _AsyncConnectionClientStreaming:
         def create(_: connectivity_models.Connection): ...
         def get(_: connectivity_models.Connection): ...
         def get_configuration(_: connectivity_models.ConnectionConfiguration): ...
+        def get_configuration_batch(
+            _: connectivity_models.GetConfigurationConnectionsBatchResponse,
+        ): ...
         def upload_custom_jdbc_drivers(_: connectivity_models.Connection): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_configuration = core.async_with_streaming_response(
             get_configuration, client.get_configuration
+        )
+        self.get_configuration_batch = core.async_with_streaming_response(
+            get_configuration_batch, client.get_configuration_batch
         )
         self.upload_custom_jdbc_drivers = core.async_with_streaming_response(
             upload_custom_jdbc_drivers, client.upload_custom_jdbc_drivers

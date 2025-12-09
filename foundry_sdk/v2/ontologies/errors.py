@@ -1072,6 +1072,19 @@ class LinkedObjectNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class LoadObjectSetLinksNotSupportedParameters(typing_extensions.TypedDict):
+    """Bulk loading object set links is not supported by Object Storage v1."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class LoadObjectSetLinksNotSupported(errors.InternalServerError):
+    name: typing.Literal["LoadObjectSetLinksNotSupported"]
+    parameters: LoadObjectSetLinksNotSupportedParameters
+    error_instance_id: str
+
+
 class MalformedPropertyFiltersParameters(typing_extensions.TypedDict):
     """At least one of requested filters are malformed. Please look at the documentation of `PropertyFilter`."""
 
@@ -2131,6 +2144,24 @@ class UndecryptableValue(errors.BadRequestError):
     error_instance_id: str
 
 
+class UniqueIdentifierLinkIdsDoNotExistInActionTypeParameters(typing_extensions.TypedDict):
+    """
+    One or more unique identifier link IDs specified in apply action overrides could not be found
+    in the ActionType definition.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    unknownUniqueIdentifierLinkIds: typing.List[ontologies_models.UniqueIdentifierLinkId]
+
+
+@dataclass
+class UniqueIdentifierLinkIdsDoNotExistInActionType(errors.BadRequestError):
+    name: typing.Literal["UniqueIdentifierLinkIdsDoNotExistInActionType"]
+    parameters: UniqueIdentifierLinkIdsDoNotExistInActionTypeParameters
+    error_instance_id: str
+
+
 class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
@@ -2261,6 +2292,7 @@ __all__ = [
     "LinkAlreadyExists",
     "LinkTypeNotFound",
     "LinkedObjectNotFound",
+    "LoadObjectSetLinksNotSupported",
     "MalformedPropertyFilters",
     "MarketplaceActionMappingNotFound",
     "MarketplaceInstallationNotFound",
@@ -2324,6 +2356,7 @@ __all__ = [
     "TooManyNearestNeighborsRequested",
     "UnauthorizedCipherOperation",
     "UndecryptableValue",
+    "UniqueIdentifierLinkIdsDoNotExistInActionType",
     "UnknownParameter",
     "UnsupportedObjectSet",
     "ValueTypeNotFound",
