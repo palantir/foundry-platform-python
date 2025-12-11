@@ -1763,7 +1763,7 @@ class LoadObjectSetRequestV2(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
-    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    select_v2: typing.Optional[typing.List[PropertyIdentifier]] = pydantic.Field(alias=str("selectV2"), default=None)  # type: ignore[literal-required]
     """
     The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
     but not both.
@@ -1805,7 +1805,7 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
-    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    select_v2: typing.Optional[typing.List[PropertyIdentifier]] = pydantic.Field(alias=str("selectV2"), default=None)  # type: ignore[literal-required]
     """
     The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
     but not both.
@@ -1862,7 +1862,7 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
-    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    select_v2: typing.Optional[typing.List[PropertyIdentifier]] = pydantic.Field(alias=str("selectV2"), default=None)  # type: ignore[literal-required]
     """
     The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
     but not both.
@@ -3615,7 +3615,7 @@ class SearchObjectsRequestV2(core.ModelBase):
     select: typing.List[PropertyApiName]
     """The API names of the object type properties to include in the response."""
 
-    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    select_v2: typing.Optional[typing.List[PropertyIdentifier]] = pydantic.Field(alias=str("selectV2"), default=None)  # type: ignore[literal-required]
     """
     The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
     but not both.

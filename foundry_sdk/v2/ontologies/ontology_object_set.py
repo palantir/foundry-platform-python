@@ -234,7 +234,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -265,7 +265,7 @@ class OntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -416,7 +416,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -453,7 +453,7 @@ class OntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -527,7 +527,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -564,7 +564,7 @@ class OntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -890,7 +890,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -921,7 +921,7 @@ class AsyncOntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -1072,7 +1072,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
@@ -1109,7 +1109,7 @@ class AsyncOntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -1183,7 +1183,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.List[ontologies_models.PropertyIdentifier],
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1220,7 +1220,7 @@ class AsyncOntologyObjectSetClient:
         :param select:
         :type select: List[SelectedPropertyApiName]
         :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: List[PropertyIdentifier]
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
