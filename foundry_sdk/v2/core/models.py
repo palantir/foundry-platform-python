@@ -74,6 +74,10 @@ class ByteType(core.ModelBase):
     type: typing.Literal["byte"] = "byte"
 
 
+CheckReportRid = core.RID
+"""The unique resource identifier (RID) of a Data Health Check Report."""
+
+
 CheckRid = core.RID
 """The unique resource identifier (RID) of a Data Health Check."""
 
@@ -914,6 +918,7 @@ __all__ = [
     "BuildRid",
     "ByteType",
     "ChangeDataCaptureConfiguration",
+    "CheckReportRid",
     "CheckRid",
     "CipherTextType",
     "ComputeSeconds",

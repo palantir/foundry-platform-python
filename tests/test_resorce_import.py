@@ -256,6 +256,12 @@ def test_data_health_v2_check_import():
     assert CheckClient is not None
 
 
+def test_data_health_v2_check_report_import():
+    from foundry_sdk.v2.data_health.check_report import CheckReportClient
+
+    assert CheckReportClient is not None
+
+
 def test_datasets_v2_branch_import():
     from foundry_sdk.v2.datasets.branch import BranchClient
 

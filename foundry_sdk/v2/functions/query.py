@@ -63,6 +63,7 @@ class QueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -87,6 +88,8 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -103,6 +106,7 @@ class QueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/execute",
                 query_params={
                     "preview": preview,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "queryApiName": query_api_name,
@@ -249,6 +253,7 @@ class QueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -294,6 +299,8 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -310,6 +317,7 @@ class QueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/streamingExecute",
                 query_params={
                     "preview": preview,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "queryApiName": query_api_name,
@@ -401,6 +409,7 @@ class AsyncQueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -425,6 +434,8 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -441,6 +452,7 @@ class AsyncQueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/execute",
                 query_params={
                     "preview": preview,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "queryApiName": query_api_name,
@@ -587,6 +599,7 @@ class AsyncQueryClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -632,6 +645,8 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state:
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
         :param version:
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -648,6 +663,7 @@ class AsyncQueryClient:
                 resource_path="/v2/functions/queries/{queryApiName}/streamingExecute",
                 query_params={
                     "preview": preview,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "queryApiName": query_api_name,

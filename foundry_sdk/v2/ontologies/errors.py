@@ -343,6 +343,22 @@ class CompositePrimaryKeyNotSupported(errors.BadRequestError):
     error_instance_id: str
 
 
+class ConsistentSnapshotErrorParameters(typing_extensions.TypedDict):
+    """
+    An Ontology objects read failed because the Ontology snapshot snapshot used for consistent reads became
+    stale. Retrying the request typically resolves this.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ConsistentSnapshotError(errors.ConflictError):
+    name: typing.Literal["ConsistentSnapshotError"]
+    parameters: ConsistentSnapshotErrorParameters
+    error_instance_id: str
+
+
 class DefaultAndNullGroupsNotSupportedParameters(typing_extensions.TypedDict):
     """Exact match groupBy clause cannot specify a default value and allow null values."""
 
@@ -479,6 +495,19 @@ class HighScaleComputationNotEnabled(errors.InternalServerError):
     error_instance_id: str
 
 
+class InterfaceBasedObjectSetNotSupportedParameters(typing_extensions.TypedDict):
+    """The requested object set type is not supported for interface-based object sets."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InterfaceBasedObjectSetNotSupported(errors.BadRequestError):
+    name: typing.Literal["InterfaceBasedObjectSetNotSupported"]
+    parameters: InterfaceBasedObjectSetNotSupportedParameters
+    error_instance_id: str
+
+
 class InterfaceLinkTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested interface link type is not found, or the client token does not have access to it."""
 
@@ -527,6 +556,22 @@ class InterfacePropertiesNotFoundParameters(typing_extensions.TypedDict):
 class InterfacePropertiesNotFound(errors.NotFoundError):
     name: typing.Literal["InterfacePropertiesNotFound"]
     parameters: InterfacePropertiesNotFoundParameters
+    error_instance_id: str
+
+
+class InterfacePropertyNotFoundParameters(typing_extensions.TypedDict):
+    """The requested interface property was not found on the interface type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+
+
+@dataclass
+class InterfacePropertyNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfacePropertyNotFound"]
+    parameters: InterfacePropertyNotFoundParameters
     error_instance_id: str
 
 
@@ -618,6 +663,23 @@ class InvalidAggregationRangePropertyType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidAggregationRangePropertyTypeForInterfaceParameters(typing_extensions.TypedDict):
+    """Range group by is not supported by interface property type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidAggregationRangePropertyTypeForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationRangePropertyTypeForInterface"]
+    parameters: InvalidAggregationRangePropertyTypeForInterfaceParameters
+    error_instance_id: str
+
+
 class InvalidAggregationRangeValueParameters(typing_extensions.TypedDict):
     """Aggregation value does not conform to the expected underlying type."""
 
@@ -632,6 +694,23 @@ class InvalidAggregationRangeValueParameters(typing_extensions.TypedDict):
 class InvalidAggregationRangeValue(errors.BadRequestError):
     name: typing.Literal["InvalidAggregationRangeValue"]
     parameters: InvalidAggregationRangeValueParameters
+    error_instance_id: str
+
+
+class InvalidAggregationRangeValueForInterfaceParameters(typing_extensions.TypedDict):
+    """Aggregation value does not conform to the expected underlying type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidAggregationRangeValueForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationRangeValueForInterface"]
+    parameters: InvalidAggregationRangeValueForInterfaceParameters
     error_instance_id: str
 
 
@@ -709,6 +788,23 @@ class InvalidDurationGroupByPropertyTypeParameters(typing_extensions.TypedDict):
 class InvalidDurationGroupByPropertyType(errors.BadRequestError):
     name: typing.Literal["InvalidDurationGroupByPropertyType"]
     parameters: InvalidDurationGroupByPropertyTypeParameters
+    error_instance_id: str
+
+
+class InvalidDurationGroupByPropertyTypeForInterfaceParameters(typing_extensions.TypedDict):
+    """Invalid interface property type for duration groupBy."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidDurationGroupByPropertyTypeForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidDurationGroupByPropertyTypeForInterface"]
+    parameters: InvalidDurationGroupByPropertyTypeForInterfaceParameters
     error_instance_id: str
 
 
@@ -2181,6 +2277,21 @@ class UnknownParameter(errors.BadRequestError):
     error_instance_id: str
 
 
+class UnsupportedInterfaceBasedObjectSetParameters(typing_extensions.TypedDict):
+    """Aggregations on interface-based object sets are not supported for object sets with OSv1 objects."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+
+
+@dataclass
+class UnsupportedInterfaceBasedObjectSet(errors.BadRequestError):
+    name: typing.Literal["UnsupportedInterfaceBasedObjectSet"]
+    parameters: UnsupportedInterfaceBasedObjectSetParameters
+    error_instance_id: str
+
+
 class UnsupportedObjectSetParameters(typing_extensions.TypedDict):
     """The requested object set is not supported."""
 
@@ -2248,6 +2359,7 @@ __all__ = [
     "AttachmentSizeExceededLimit",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
+    "ConsistentSnapshotError",
     "DefaultAndNullGroupsNotSupported",
     "DerivedPropertyApiNamesNotUnique",
     "DuplicateOrderBy",
@@ -2257,21 +2369,26 @@ __all__ = [
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
+    "InterfaceBasedObjectSetNotSupported",
     "InterfaceLinkTypeNotFound",
     "InterfacePropertiesHaveDifferentIds",
     "InterfacePropertiesNotFound",
+    "InterfacePropertyNotFound",
     "InterfaceTypeNotFound",
     "InterfaceTypesNotFound",
     "InvalidAggregationOrdering",
     "InvalidAggregationOrderingWithNullValues",
     "InvalidAggregationRange",
     "InvalidAggregationRangePropertyType",
+    "InvalidAggregationRangePropertyTypeForInterface",
     "InvalidAggregationRangeValue",
+    "InvalidAggregationRangeValueForInterface",
     "InvalidApplyActionOptionCombination",
     "InvalidContentLength",
     "InvalidContentType",
     "InvalidDerivedPropertyDefinition",
     "InvalidDurationGroupByPropertyType",
+    "InvalidDurationGroupByPropertyTypeForInterface",
     "InvalidDurationGroupByValue",
     "InvalidFields",
     "InvalidGroupId",
@@ -2358,6 +2475,7 @@ __all__ = [
     "UndecryptableValue",
     "UniqueIdentifierLinkIdsDoNotExistInActionType",
     "UnknownParameter",
+    "UnsupportedInterfaceBasedObjectSet",
     "UnsupportedObjectSet",
     "ValueTypeNotFound",
     "ViewObjectPermissionDenied",

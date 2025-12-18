@@ -460,6 +460,42 @@ class RateLimitExceeded(errors.BadRequestError):
     error_instance_id: str
 
 
+class RetryAttemptsExceededParameters(typing_extensions.TypedDict):
+    """Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
+    details: str
+    """Any additional details provided for the error."""
+
+
+@dataclass
+class RetryAttemptsExceeded(errors.BadRequestError):
+    name: typing.Literal["RetryAttemptsExceeded"]
+    parameters: RetryAttemptsExceededParameters
+    error_instance_id: str
+
+
+class RetryDeadlineExceededParameters(typing_extensions.TypedDict):
+    """Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
+    details: str
+    """Any additional details provided for the error."""
+
+
+@dataclass
+class RetryDeadlineExceeded(errors.BadRequestError):
+    name: typing.Literal["RetryDeadlineExceeded"]
+    parameters: RetryDeadlineExceededParameters
+    error_instance_id: str
+
+
 class SessionExecutionFailedParameters(typing_extensions.TypedDict):
     """Failed to generate a response for a session due to an unexpected error."""
 
@@ -600,6 +636,8 @@ __all__ = [
     "ObjectTypeRidsNotFound",
     "OntologyEntitiesNotFound",
     "RateLimitExceeded",
+    "RetryAttemptsExceeded",
+    "RetryDeadlineExceeded",
     "SessionExecutionFailed",
     "SessionNotFound",
     "SessionTraceIdAlreadyExists",

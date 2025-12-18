@@ -65,7 +65,7 @@ class OntologyTransactionClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param transaction_id: The RID of the transaction to apply edits to.
+        :param transaction_id: The ID of the transaction to apply edits to. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: OntologyTransactionId
         :param edits:
         :type edits: List[TransactionEdit]
@@ -158,7 +158,7 @@ class AsyncOntologyTransactionClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param transaction_id: The RID of the transaction to apply edits to.
+        :param transaction_id: The ID of the transaction to apply edits to. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: OntologyTransactionId
         :param edits:
         :type edits: List[TransactionEdit]
