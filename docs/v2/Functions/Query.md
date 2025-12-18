@@ -26,6 +26,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
 **version** | Optional[FunctionVersion] |  | [optional] |
 
 ### Return type
@@ -52,6 +53,8 @@ preview = None
 trace_parent = None
 # Optional[TraceState]
 trace_state = None
+# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 # Optional[FunctionVersion]
 version = None
 
@@ -64,6 +67,7 @@ try:
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     print("The execute response:\n")
@@ -233,6 +237,7 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
 **version** | Optional[FunctionVersion] |  | [optional] |
 
 ### Return type
@@ -261,6 +266,8 @@ preview = None
 trace_parent = None
 # Optional[TraceState]
 trace_state = None
+# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 # Optional[FunctionVersion]
 version = None
 
@@ -274,6 +281,7 @@ try:
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     print("The streaming_execute response:\n")

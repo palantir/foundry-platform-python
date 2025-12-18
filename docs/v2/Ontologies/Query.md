@@ -22,6 +22,7 @@ Name | Type | Description  | Notes |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
 **trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
 
 ### Return type
@@ -52,6 +53,8 @@ sdk_version = None
 trace_parent = None
 # Optional[TraceState] | The W3C trace state header included in the request.
 trace_state = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 # Optional[FunctionVersion] | The version of the Query to execute.
 version = None
 
@@ -66,6 +69,7 @@ try:
         sdk_version=sdk_version,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     print("The execute response:\n")

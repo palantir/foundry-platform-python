@@ -16,7 +16,6 @@
 import typing
 
 import pydantic
-import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
@@ -87,7 +86,7 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -284,7 +283,7 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -351,7 +350,15 @@ class OntologyObjectSetClient:
         Links are defined as a link type API name and object locators for the source and target objects
         where only the `__primaryKey` and `__apiName` properties are loaded.
 
-        Links are grouped by source object locator.
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries with the same source object locator.
+
+        Please keep these limitations in mind:
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+          than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+        - This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+        - This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -474,7 +481,7 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -743,7 +750,7 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -940,7 +947,7 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -1007,7 +1014,15 @@ class AsyncOntologyObjectSetClient:
         Links are defined as a link type API name and object locators for the source and target objects
         where only the `__primaryKey` and `__apiName` properties are loaded.
 
-        Links are grouped by source object locator.
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries with the same source object locator.
+
+        Please keep these limitations in mind:
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+          than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+        - This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+        - This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
 
         :param ontology:
         :type ontology: OntologyIdentifier
@@ -1130,7 +1145,7 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
-        :param transaction_id: The ID of an Ontology transaction to read from.
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

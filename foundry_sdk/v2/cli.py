@@ -3072,6 +3072,32 @@ def data_health():
     pass
 
 
+@data_health.group("check_report")
+def data_health_check_report():
+    pass
+
+
+@data_health_check_report.command("get")
+@click.argument("check_report_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def data_health_check_report_op_get(
+    client: FoundryClient,
+    check_report_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the CheckReport with the specified rid.
+    """
+    result = client.data_health.CheckReport.get(
+        check_report_rid=check_report_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @data_health.group("check")
 def data_health_check():
     pass
@@ -5343,6 +5369,12 @@ def functions_query():
 )
 @click.option("--trace_parent", type=str, required=False, help="""""")
 @click.option("--trace_state", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+)
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_op_execute(
@@ -5353,6 +5385,7 @@ def functions_query_op_execute(
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -5371,6 +5404,7 @@ def functions_query_op_execute(
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     click.echo(repr(result))
@@ -5443,6 +5477,12 @@ function. When omitted, executes a global function.
 )
 @click.option("--trace_parent", type=str, required=False, help="""""")
 @click.option("--trace_state", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+)
 @click.option("--version", type=str, required=False, help="""""")
 @click.pass_obj
 def functions_query_op_streaming_execute(
@@ -5454,6 +5494,7 @@ def functions_query_op_streaming_execute(
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -5492,6 +5533,7 @@ def functions_query_op_streaming_execute(
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     click.echo(result)
@@ -6597,6 +6639,14 @@ def ontologies_query():
 """,
 )
 @click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from. 
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
+@click.option(
     "--version",
     type=str,
     required=False,
@@ -6614,6 +6664,7 @@ def ontologies_query_op_execute(
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
     version: typing.Optional[str],
 ):
     """
@@ -6631,6 +6682,7 @@ def ontologies_query_op_execute(
         sdk_version=sdk_version,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     click.echo(repr(result))
@@ -6777,6 +6829,7 @@ Branches are an experimental feature and not all workflows are supported.
     type=str,
     required=False,
     help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
 """,
 )
 @click.pass_obj
@@ -6931,6 +6984,7 @@ This defaults to false if not specified, which means you will always get the lat
     type=str,
     required=False,
     help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
 """,
 )
 @click.pass_obj
@@ -7035,7 +7089,15 @@ def ontologies_ontology_object_set_op_load_links(
     Links are defined as a link type API name and object locators for the source and target objects
     where only the `__primaryKey` and `__apiName` properties are loaded.
 
-    Links are grouped by source object locator.
+    Links are grouped by source object locator; however, the links for a given source object may be
+    split over multiple entries with the same source object locator.
+
+    Please keep these limitations in mind:
+    - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+    - This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+      than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+    - This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+    - This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
 
     """
     result = client.ontologies.OntologyObjectSet.load_links(
@@ -7120,6 +7182,7 @@ This defaults to false if not specified, which means you will always get the lat
     type=str,
     required=False,
     help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
 """,
 )
 @click.pass_obj

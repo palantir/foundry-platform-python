@@ -27,7 +27,7 @@ Name | Type | Description  | Notes |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
-**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **AggregateObjectsResponseV2**
@@ -69,7 +69,7 @@ include_compute_usage = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
-# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
 
@@ -284,7 +284,7 @@ sdk_package_rid = None
 sdk_version = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
-# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
 
@@ -331,7 +331,15 @@ Loads the specified links from the defined object set.
 Links are defined as a link type API name and object locators for the source and target objects
 where only the `__primaryKey` and `__apiName` properties are loaded.
 
-Links are grouped by source object locator.
+Links are grouped by source object locator; however, the links for a given source object may be
+split over multiple entries with the same source object locator.
+
+Please keep these limitations in mind:
+- Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+- This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+  than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+- This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+- This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
 
 
 ### Parameters
@@ -488,7 +496,7 @@ sdk_package_rid = None
 sdk_version = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
-# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
 

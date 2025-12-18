@@ -112,6 +112,31 @@ CheckIntent = str
 """A note about why the Check was set up."""
 
 
+class CheckReport(core.ModelBase):
+    """CheckReport"""
+
+    rid: core_models.CheckReportRid
+    check: Check
+    """Snapshot of the check configuration when this report was created. This will not change if the check is later modified."""
+
+    result: CheckResult
+    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+
+
+class CheckResult(core.ModelBase):
+    """The result of running a check."""
+
+    status: CheckResultStatus
+    message: typing.Optional[str] = None
+    """Further details about the result of the check."""
+
+
+CheckResultStatus = typing.Literal[
+    "PASSED", "FAILED", "WARNING", "ERROR", "NOT_APPLICABLE", "NOT_COMPUTABLE"
+]
+"""The status of a check report execution."""
+
+
 class ColumnCountConfig(core.ModelBase):
     """Configuration for column count validation with severity settings."""
 
@@ -635,6 +660,9 @@ __all__ = [
     "CheckConfig",
     "CheckGroupRid",
     "CheckIntent",
+    "CheckReport",
+    "CheckResult",
+    "CheckResultStatus",
     "ColumnCountConfig",
     "ColumnInfo",
     "ColumnName",

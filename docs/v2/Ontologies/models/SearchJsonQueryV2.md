@@ -34,6 +34,7 @@ ContainsQueryV2 | contains
 RegexQuery | regex
 IsNullQueryV2 | isNull
 ContainsAnyTermQuery | containsAnyTerm
+IntervalQuery | interval
 StartsWithQuery | startsWith
 
 

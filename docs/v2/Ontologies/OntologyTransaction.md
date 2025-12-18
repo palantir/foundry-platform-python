@@ -13,7 +13,7 @@ Applies a set of edits to a transaction in order.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
-**transaction_id** | OntologyTransactionId | The RID of the transaction to apply edits to.  |  |
+**transaction_id** | OntologyTransactionId | The ID of the transaction to apply edits to. Transactions are an experimental feature and all workflows may not be supported.  |  |
 **edits** | List[TransactionEdit] |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
@@ -31,7 +31,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier
 ontology = "palantir"
-# OntologyTransactionId | The RID of the transaction to apply edits to.
+# OntologyTransactionId | The ID of the transaction to apply edits to. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 # List[TransactionEdit]
 edits = None

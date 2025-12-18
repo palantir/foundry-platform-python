@@ -56,6 +56,21 @@ class CheckNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class CheckReportNotFoundParameters(typing_extensions.TypedDict):
+    """The given CheckReport could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    checkReportRid: core_models.CheckReportRid
+
+
+@dataclass
+class CheckReportNotFound(errors.NotFoundError):
+    name: typing.Literal["CheckReportNotFound"]
+    parameters: CheckReportNotFoundParameters
+    error_instance_id: str
+
+
 class CheckTypeNotSupportedParameters(typing_extensions.TypedDict):
     """The type of the requested check is not yet supported in the Platform API."""
 
@@ -223,6 +238,7 @@ class ReplaceCheckPermissionDenied(errors.PermissionDeniedError):
 __all__ = [
     "CheckAlreadyExists",
     "CheckNotFound",
+    "CheckReportNotFound",
     "CheckTypeNotSupported",
     "CreateCheckPermissionDenied",
     "DeleteCheckPermissionDenied",

@@ -329,6 +329,10 @@ class ThreeDimensionalAggregation(core.ModelBase):
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
 
 
+TransactionId = str
+"""The ID identifying a transaction."""
+
+
 class TwoDimensionalAggregation(core.ModelBase):
     """TwoDimensionalAggregation"""
 
@@ -613,6 +617,7 @@ __all__ = [
     "StructFieldName",
     "StructV1Constraint",
     "ThreeDimensionalAggregation",
+    "TransactionId",
     "TwoDimensionalAggregation",
     "UuidConstraint",
     "ValueType",

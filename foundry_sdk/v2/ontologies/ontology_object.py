@@ -16,7 +16,6 @@
 import typing
 
 import pydantic
-import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors

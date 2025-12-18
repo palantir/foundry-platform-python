@@ -368,11 +368,31 @@ AggregationV2 = typing_extensions.Annotated[
 """Specifies an aggregation function."""
 
 
+class AllOfRule(core.ModelBase):
+    """Matches intervals satisfying all the rules in the query"""
+
+    rules: typing.List[IntervalQueryRule]
+    max_gaps: typing.Optional[int] = pydantic.Field(alias=str("maxGaps"), default=None)  # type: ignore[literal-required]
+    """The maximum gaps between the intervals produced by the sub-rules. If not set, then gaps are not considered."""
+
+    ordered: bool
+    """If true, the matched intervals must occur in order."""
+
+    type: typing.Literal["allOf"] = "allOf"
+
+
 class AndQueryV2(core.ModelBase):
     """Returns objects where every query is satisfied."""
 
     value: typing.List[SearchJsonQueryV2]
     type: typing.Literal["and"] = "and"
+
+
+class AnyOfRule(core.ModelBase):
+    """Matches intervals satisfying any of the rules in the query"""
+
+    rules: typing.List[IntervalQueryRule]
+    type: typing.Literal["anyOf"] = "anyOf"
 
 
 ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
@@ -1333,6 +1353,13 @@ class InterfacePropertyLocalPropertyImplementation(core.ModelBase):
     type: typing.Literal["localPropertyImplementation"] = "localPropertyImplementation"
 
 
+class InterfacePropertyReducedPropertyImplementation(core.ModelBase):
+    """An implementation of an interface property via applying reducers on the nested implementation."""
+
+    implementation: NestedInterfacePropertyTypeImplementation
+    type: typing.Literal["reducedPropertyImplementation"] = "reducedPropertyImplementation"
+
+
 class InterfacePropertyStructFieldImplementation(core.ModelBase):
     """An implementation of an interface property via the field of a local struct property."""
 
@@ -1374,6 +1401,7 @@ InterfacePropertyTypeImplementation = typing_extensions.Annotated[
         "InterfacePropertyStructFieldImplementation",
         "InterfacePropertyStructImplementation",
         "InterfacePropertyLocalPropertyImplementation",
+        "InterfacePropertyReducedPropertyImplementation",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1519,6 +1547,25 @@ class IntersectsPolygonQuery(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: PolygonValue
     type: typing.Literal["intersectsPolygon"] = "intersectsPolygon"
+
+
+class IntervalQuery(core.ModelBase):
+    """
+    Returns objects where the specified field matches the sub-rule provided. This applies to the analyzed form of
+    text fields. Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    rule: IntervalQueryRule
+    type: typing.Literal["interval"] = "interval"
+
+
+IntervalQueryRule = typing_extensions.Annotated[
+    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule"],
+    pydantic.Field(discriminator="type"),
+]
+"""Sub-rule used for evaluating an IntervalQuery"""
 
 
 class IsNullQueryV2(core.ModelBase):
@@ -1964,6 +2011,22 @@ class LteQueryV2(core.ModelBase):
     type: typing.Literal["lte"] = "lte"
 
 
+class MatchRule(core.ModelBase):
+    """Matches intervals containing the terms in the query"""
+
+    query: str
+    max_gaps: typing.Optional[int] = pydantic.Field(alias=str("maxGaps"), default=None)  # type: ignore[literal-required]
+    """
+    The maximum gaps between matched terms in the interval. For example, in the text "quick brown fox",
+    the terms "quick" and "fox" have a gap of one. If not set, then gaps are not considered.
+    """
+
+    ordered: bool
+    """If true, the matched terms must occur in order."""
+
+    type: typing.Literal["match"] = "match"
+
+
 class MaxAggregationV2(core.ModelBase):
     """Computes the maximum value for the provided field."""
 
@@ -2067,6 +2130,20 @@ class NegatePropertyExpression(core.ModelBase):
 
     property: DerivedPropertyDefinition
     type: typing.Literal["negate"] = "negate"
+
+
+NestedInterfacePropertyTypeImplementation = typing_extensions.Annotated[
+    typing.Union[
+        "InterfacePropertyStructFieldImplementation",
+        "InterfacePropertyStructImplementation",
+        "InterfacePropertyLocalPropertyImplementation",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+Describes how an object type implements an interface property when a reducer is applied to it. Is missing a
+reduced property implementation to prevent arbitrarily nested implementations.
+"""
 
 
 class NestedQueryAggregation(core.ModelBase):
@@ -2922,6 +2999,16 @@ PreciseTimeUnit = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "
 """The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days."""
 
 
+class PrefixOnLastTokenRule(core.ModelBase):
+    """
+    Matches intervals containing all the terms, using exact match for all but the last term, and prefix match for
+    the last term. Ordering of the terms in the query is preserved.
+    """
+
+    query: str
+    type: typing.Literal["prefixOnLastToken"] = "prefixOnLastToken"
+
+
 PrimaryKeyValue = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
@@ -3543,6 +3630,7 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
         "RegexQuery",
         "IsNullQueryV2",
         "ContainsAnyTermQuery",
+        "IntervalQuery",
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -4559,9 +4647,13 @@ core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(
 core.resolve_forward_references(
     InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
 )
+core.resolve_forward_references(IntervalQueryRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
 core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
 core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    NestedInterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
@@ -4639,7 +4731,9 @@ __all__ = [
     "AggregationRangeV2",
     "AggregationRangesGroupingV2",
     "AggregationV2",
+    "AllOfRule",
     "AndQueryV2",
+    "AnyOfRule",
     "ApplyActionMode",
     "ApplyActionOverrides",
     "ApplyActionRequestOptions",
@@ -4755,6 +4849,7 @@ __all__ = [
     "InterfaceParameterPropertyArgument",
     "InterfacePropertyApiName",
     "InterfacePropertyLocalPropertyImplementation",
+    "InterfacePropertyReducedPropertyImplementation",
     "InterfacePropertyStructFieldImplementation",
     "InterfacePropertyStructImplementation",
     "InterfacePropertyStructImplementationMapping",
@@ -4771,6 +4866,8 @@ __all__ = [
     "InterfaceTypeRid",
     "IntersectsBoundingBoxQuery",
     "IntersectsPolygonQuery",
+    "IntervalQuery",
+    "IntervalQueryRule",
     "IsNullQueryV2",
     "KnownType",
     "LeastPropertyExpression",
@@ -4812,6 +4909,7 @@ __all__ = [
     "LogicRuleArgument",
     "LtQueryV2",
     "LteQueryV2",
+    "MatchRule",
     "MaxAggregationV2",
     "MediaMetadata",
     "MethodObjectSet",
@@ -4826,6 +4924,7 @@ __all__ = [
     "NearestNeighborsQuery",
     "NearestNeighborsQueryText",
     "NegatePropertyExpression",
+    "NestedInterfacePropertyTypeImplementation",
     "NestedQueryAggregation",
     "NotQueryV2",
     "NumberFormatAffix",
@@ -4912,6 +5011,7 @@ __all__ = [
     "PostTransactionEditsResponse",
     "PreciseDuration",
     "PreciseTimeUnit",
+    "PrefixOnLastTokenRule",
     "PrimaryKeyValue",
     "PropertyApiName",
     "PropertyApiNameSelector",

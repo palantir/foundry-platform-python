@@ -125,6 +125,8 @@ class SessionClient:
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
+        :raises RetryAttemptsExceeded: Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry.
+        :raises RetryDeadlineExceeded: Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
@@ -165,6 +167,8 @@ class SessionClient:
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
+                    "RetryAttemptsExceeded": aip_agents_errors.RetryAttemptsExceeded,
+                    "RetryDeadlineExceeded": aip_agents_errors.RetryDeadlineExceeded,
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
@@ -878,6 +882,8 @@ class AsyncSessionClient:
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises RateLimitExceeded: Failed to generate a response as the model rate limits were exceeded. Clients should wait and retry.
+        :raises RetryAttemptsExceeded: Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry.
+        :raises RetryDeadlineExceeded: Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry.
         :raises SessionExecutionFailed: Failed to generate a response for a session due to an unexpected error.
         :raises SessionNotFound: The given Session could not be found.
         :raises SessionTraceIdAlreadyExists: The provided trace ID already exists for the session and cannot be reused.
@@ -918,6 +924,8 @@ class AsyncSessionClient:
                     "ObjectTypeRidsNotFound": aip_agents_errors.ObjectTypeRidsNotFound,
                     "OntologyEntitiesNotFound": aip_agents_errors.OntologyEntitiesNotFound,
                     "RateLimitExceeded": aip_agents_errors.RateLimitExceeded,
+                    "RetryAttemptsExceeded": aip_agents_errors.RetryAttemptsExceeded,
+                    "RetryDeadlineExceeded": aip_agents_errors.RetryDeadlineExceeded,
                     "SessionExecutionFailed": aip_agents_errors.SessionExecutionFailed,
                     "SessionNotFound": aip_agents_errors.SessionNotFound,
                     "SessionTraceIdAlreadyExists": aip_agents_errors.SessionTraceIdAlreadyExists,
