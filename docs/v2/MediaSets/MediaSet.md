@@ -8,11 +8,13 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
 [**get_rid_by_path**](#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath | Public Beta |
 [**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
+[**metadata**](#metadata) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata | Public Beta |
 [**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
 [**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
+[**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Public Beta |
 
 # **abort**
 Aborts an open transaction. Items uploaded to the media set during this transaction will be deleted.
@@ -366,6 +368,66 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **metadata**
+Gets detailed metadata about the media item, including type-specific information
+such as dimensions for images, duration for audio/video, page count for documents, etc.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**read_token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**MediaItemMetadata**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+read_token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.metadata(
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+    )
+    print("The metadata response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.metadata: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | MediaItemMetadata  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **read**
 Gets the content of a media item.
 
@@ -600,7 +662,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | bytes  | Retrieves the thumbnail of an image (if available). | */* |
+**200** | bytes  | Retrieves the thumbnail of an image (if available).  | */* |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -681,6 +743,70 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | PutMediaItemResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **upload_media**
+Uploads a temporary media item. If the media item isn't persisted within 1 hour, the item will be deleted. 
+
+If multiple resources are attributed to, usage will be attributed to the first one in the list.
+
+The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
+Third-party applications using this endpoint via OAuth2 must request the following operation scopes: `api:ontologies-read api:ontologies-write`.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | bytes | Body of the request |  |
+**filename** | MediaItemPath | The path to write the media item to. Required if the backing media set requires paths.  |  |
+**attribution** | Optional[Attribution] | used for passing through usage attribution | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**MediaReference**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# bytes | Body of the request
+body = None
+# MediaItemPath | The path to write the media item to. Required if the backing media set requires paths.
+filename = "my-file.png"
+# Optional[Attribution] | used for passing through usage attribution
+attribution = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.upload_media(
+        body, filename=filename, attribution=attribution, preview=preview
+    )
+    print("The upload_media response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.upload_media: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | MediaReference  | The media reference for the uploaded media. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

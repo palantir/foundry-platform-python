@@ -131,6 +131,18 @@ class Dataset(core.ModelBase):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
 
+GetEndOffsetsResponse = typing.Dict["PartitionId", core.Long]
+"""The end offsets for each partition of a stream."""
+
+
+GetRecordsResponse = typing.List["RecordWithOffset"]
+"""A list of records from a stream with their offsets."""
+
+
+PartitionId = str
+"""The identifier for a partition of a Foundry stream."""
+
+
 PartitionsCount = int
 """The number of partitions for a Foundry stream."""
 
@@ -143,7 +155,7 @@ class PublishRecordToStreamRequest(core.ModelBase):
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """
-    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
     not provided, this endpoint will write the latest stream on the branch.
 
     Providing this value is an advanced configuration, to be used when additional control over the
@@ -159,7 +171,7 @@ class PublishRecordsToStreamRequest(core.ModelBase):
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """
-    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
     not provided, this endpoint will write to the latest stream on the branch.
 
     Providing this value is an advanced configuration, to be used when additional control over the
@@ -169,6 +181,16 @@ class PublishRecordsToStreamRequest(core.ModelBase):
 
 Record = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
+
+
+class RecordWithOffset(core.ModelBase):
+    """A record retrieved from a stream, including its offset within the partition."""
+
+    offset: core.Long
+    """The offset of the record within the partition."""
+
+    value: Record
+    """The record value as a map of field names to values."""
 
 
 class ResetStreamRequest(core.ModelBase):
@@ -254,7 +276,13 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-core.resolve_forward_references(Record, globalns=globals(), localns=locals())
+GetEndOffsetsResponse = core.resolve_forward_references(
+    GetEndOffsetsResponse, globalns=globals(), localns=locals()
+)
+GetRecordsResponse = core.resolve_forward_references(
+    GetRecordsResponse, globalns=globals(), localns=locals()
+)
+Record = core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
     "Compressed",
@@ -262,10 +290,14 @@ __all__ = [
     "CreateStreamRequestStreamSchema",
     "CreateStreamingDatasetRequest",
     "Dataset",
+    "GetEndOffsetsResponse",
+    "GetRecordsResponse",
+    "PartitionId",
     "PartitionsCount",
     "PublishRecordToStreamRequest",
     "PublishRecordsToStreamRequest",
     "Record",
+    "RecordWithOffset",
     "ResetStreamRequest",
     "Stream",
     "StreamType",

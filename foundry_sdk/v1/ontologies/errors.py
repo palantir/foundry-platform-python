@@ -221,6 +221,26 @@ class AggregationMemoryExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class AggregationMetricNotSupportedParameters(typing_extensions.TypedDict):
+    """
+    The requested aggregation metric is not supported by the storage backend.
+    Consider migrating queried object types to Object Storage V2. See
+    https://www.palantir.com/docs/foundry/object-backend/osv1-osv2-migration
+    for more details.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    metricType: str
+
+
+@dataclass
+class AggregationMetricNotSupported(errors.BadRequestError):
+    name: typing.Literal["AggregationMetricNotSupported"]
+    parameters: AggregationMetricNotSupportedParameters
+    error_instance_id: str
+
+
 class AggregationNestedObjectSetSizeExceededLimitParameters(typing_extensions.TypedDict):
     """
     A nested object set within the aggregation exceeded the allowed limit.
@@ -269,6 +289,21 @@ class AttachmentNotFoundParameters(typing_extensions.TypedDict):
 class AttachmentNotFound(errors.NotFoundError):
     name: typing.Literal["AttachmentNotFound"]
     parameters: AttachmentNotFoundParameters
+    error_instance_id: str
+
+
+class AttachmentRidAlreadyExistsParameters(typing_extensions.TypedDict):
+    """The provided attachment RID already exists and cannot be overwritten."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    attachmentRid: ontologies_models.AttachmentRid
+
+
+@dataclass
+class AttachmentRidAlreadyExists(errors.NotFoundError):
+    name: typing.Literal["AttachmentRidAlreadyExists"]
+    parameters: AttachmentRidAlreadyExistsParameters
     error_instance_id: str
 
 
@@ -325,6 +360,22 @@ class CompositePrimaryKeyNotSupportedParameters(typing_extensions.TypedDict):
 class CompositePrimaryKeyNotSupported(errors.BadRequestError):
     name: typing.Literal["CompositePrimaryKeyNotSupported"]
     parameters: CompositePrimaryKeyNotSupportedParameters
+    error_instance_id: str
+
+
+class ConsistentSnapshotErrorParameters(typing_extensions.TypedDict):
+    """
+    An Ontology objects read failed because the Ontology snapshot snapshot used for consistent reads became
+    stale. Retrying the request typically resolves this.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ConsistentSnapshotError(errors.ConflictError):
+    name: typing.Literal["ConsistentSnapshotError"]
+    parameters: ConsistentSnapshotErrorParameters
     error_instance_id: str
 
 
@@ -464,6 +515,19 @@ class HighScaleComputationNotEnabled(errors.InternalServerError):
     error_instance_id: str
 
 
+class InterfaceBasedObjectSetNotSupportedParameters(typing_extensions.TypedDict):
+    """The requested object set type is not supported for interface-based object sets."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InterfaceBasedObjectSetNotSupported(errors.BadRequestError):
+    name: typing.Literal["InterfaceBasedObjectSetNotSupported"]
+    parameters: InterfaceBasedObjectSetNotSupportedParameters
+    error_instance_id: str
+
+
 class InterfaceLinkTypeNotFoundParameters(typing_extensions.TypedDict):
     """The requested interface link type is not found, or the client token does not have access to it."""
 
@@ -481,6 +545,53 @@ class InterfaceLinkTypeNotFoundParameters(typing_extensions.TypedDict):
 class InterfaceLinkTypeNotFound(errors.NotFoundError):
     name: typing.Literal["InterfaceLinkTypeNotFound"]
     parameters: InterfaceLinkTypeNotFoundParameters
+    error_instance_id: str
+
+
+class InterfacePropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
+    """Properties used in ordering must have the same ids."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    properties: typing.List[ontologies_models.InterfacePropertyApiName]
+
+
+@dataclass
+class InterfacePropertiesHaveDifferentIds(errors.BadRequestError):
+    name: typing.Literal["InterfacePropertiesHaveDifferentIds"]
+    parameters: InterfacePropertiesHaveDifferentIdsParameters
+    error_instance_id: str
+
+
+class InterfacePropertiesNotFoundParameters(typing_extensions.TypedDict):
+    """The requested interface property types are not present on every object type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectType: typing.List[ontologies_models.ObjectTypeApiName]
+    missingInterfaceProperties: typing.List[ontologies_models.InterfacePropertyApiName]
+
+
+@dataclass
+class InterfacePropertiesNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfacePropertiesNotFound"]
+    parameters: InterfacePropertiesNotFoundParameters
+    error_instance_id: str
+
+
+class InterfacePropertyNotFoundParameters(typing_extensions.TypedDict):
+    """The requested interface property was not found on the interface type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+
+
+@dataclass
+class InterfacePropertyNotFound(errors.NotFoundError):
+    name: typing.Literal["InterfacePropertyNotFound"]
+    parameters: InterfacePropertyNotFoundParameters
     error_instance_id: str
 
 
@@ -572,6 +683,23 @@ class InvalidAggregationRangePropertyType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidAggregationRangePropertyTypeForInterfaceParameters(typing_extensions.TypedDict):
+    """Range group by is not supported by interface property type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidAggregationRangePropertyTypeForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationRangePropertyTypeForInterface"]
+    parameters: InvalidAggregationRangePropertyTypeForInterfaceParameters
+    error_instance_id: str
+
+
 class InvalidAggregationRangeValueParameters(typing_extensions.TypedDict):
     """Aggregation value does not conform to the expected underlying type."""
 
@@ -586,6 +714,23 @@ class InvalidAggregationRangeValueParameters(typing_extensions.TypedDict):
 class InvalidAggregationRangeValue(errors.BadRequestError):
     name: typing.Literal["InvalidAggregationRangeValue"]
     parameters: InvalidAggregationRangeValueParameters
+    error_instance_id: str
+
+
+class InvalidAggregationRangeValueForInterfaceParameters(typing_extensions.TypedDict):
+    """Aggregation value does not conform to the expected underlying type."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidAggregationRangeValueForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidAggregationRangeValueForInterface"]
+    parameters: InvalidAggregationRangeValueForInterfaceParameters
     error_instance_id: str
 
 
@@ -663,6 +808,23 @@ class InvalidDurationGroupByPropertyTypeParameters(typing_extensions.TypedDict):
 class InvalidDurationGroupByPropertyType(errors.BadRequestError):
     name: typing.Literal["InvalidDurationGroupByPropertyType"]
     parameters: InvalidDurationGroupByPropertyTypeParameters
+    error_instance_id: str
+
+
+class InvalidDurationGroupByPropertyTypeForInterfaceParameters(typing_extensions.TypedDict):
+    """Invalid interface property type for duration groupBy."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceProperty: ontologies_models.InterfacePropertyApiName
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    propertyBaseType: ontologies_models.ValueType
+
+
+@dataclass
+class InvalidDurationGroupByPropertyTypeForInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidDurationGroupByPropertyTypeForInterface"]
+    parameters: InvalidDurationGroupByPropertyTypeForInterfaceParameters
     error_instance_id: str
 
 
@@ -926,6 +1088,26 @@ class InvalidSortType(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidTransactionEditPropertyValueParameters(typing_extensions.TypedDict):
+    """
+    The value of the given property is invalid. See the documentation of `DataValue` for details on
+    how properties are represented for transaction edits.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    propertyApiName: ontologies_models.PropertyApiName
+    propertyBaseType: ontologies_models.ValueType
+    propertyValue: ontologies_models.DataValue
+
+
+@dataclass
+class InvalidTransactionEditPropertyValue(errors.BadRequestError):
+    name: typing.Literal["InvalidTransactionEditPropertyValue"]
+    parameters: InvalidTransactionEditPropertyValueParameters
+    error_instance_id: str
+
+
 class InvalidUserIdParameters(typing_extensions.TypedDict):
     """The provided value for a user id must be a UUID."""
 
@@ -1003,6 +1185,19 @@ class LinkedObjectNotFoundParameters(typing_extensions.TypedDict):
 class LinkedObjectNotFound(errors.NotFoundError):
     name: typing.Literal["LinkedObjectNotFound"]
     parameters: LinkedObjectNotFoundParameters
+    error_instance_id: str
+
+
+class LoadObjectSetLinksNotSupportedParameters(typing_extensions.TypedDict):
+    """Bulk loading object set links is not supported by Object Storage v1."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class LoadObjectSetLinksNotSupported(errors.InternalServerError):
+    name: typing.Literal["LoadObjectSetLinksNotSupported"]
+    parameters: LoadObjectSetLinksNotSupportedParameters
     error_instance_id: str
 
 
@@ -1407,6 +1602,25 @@ class ObjectsExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class ObjectsModifiedConcurrentlyParameters(typing_extensions.TypedDict):
+    """
+    The provided objects are being modified concurrently and the operation would result in a conflict.
+    The client should retry the request later.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[ontologies_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[ontologies_models.FunctionVersion]
+
+
+@dataclass
+class ObjectsModifiedConcurrently(errors.ConflictError):
+    name: typing.Literal["ObjectsModifiedConcurrently"]
+    parameters: ObjectsModifiedConcurrentlyParameters
+    error_instance_id: str
+
+
 class OntologyApiNameNotUniqueParameters(typing_extensions.TypedDict):
     """The given Ontology API name is not unique. Use the Ontology RID in place of the Ontology API name."""
 
@@ -1578,7 +1792,7 @@ class ParentAttachmentPermissionDenied(errors.PermissionDeniedError):
 
 
 class PropertiesHaveDifferentIdsParameters(typing_extensions.TypedDict):
-    """Properties used in ordering must have the same ids. Temporary restriction imposed due to OSS limitations."""
+    """Properties used in ordering must have the same ids."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -2046,6 +2260,24 @@ class UndecryptableValue(errors.BadRequestError):
     error_instance_id: str
 
 
+class UniqueIdentifierLinkIdsDoNotExistInActionTypeParameters(typing_extensions.TypedDict):
+    """
+    One or more unique identifier link IDs specified in apply action overrides could not be found
+    in the ActionType definition.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    unknownUniqueIdentifierLinkIds: typing.List[ontologies_models.UniqueIdentifierLinkId]
+
+
+@dataclass
+class UniqueIdentifierLinkIdsDoNotExistInActionType(errors.BadRequestError):
+    name: typing.Literal["UniqueIdentifierLinkIdsDoNotExistInActionType"]
+    parameters: UniqueIdentifierLinkIdsDoNotExistInActionTypeParameters
+    error_instance_id: str
+
+
 class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
@@ -2062,6 +2294,21 @@ class UnknownParameterParameters(typing_extensions.TypedDict):
 class UnknownParameter(errors.BadRequestError):
     name: typing.Literal["UnknownParameter"]
     parameters: UnknownParameterParameters
+    error_instance_id: str
+
+
+class UnsupportedInterfaceBasedObjectSetParameters(typing_extensions.TypedDict):
+    """Aggregations on interface-based object sets are not supported for object sets with OSv1 objects."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+
+
+@dataclass
+class UnsupportedInterfaceBasedObjectSet(errors.BadRequestError):
+    name: typing.Literal["UnsupportedInterfaceBasedObjectSet"]
+    parameters: UnsupportedInterfaceBasedObjectSetParameters
     error_instance_id: str
 
 
@@ -2125,12 +2372,15 @@ __all__ = [
     "AggregationAccuracyNotSupported",
     "AggregationGroupCountExceededLimit",
     "AggregationMemoryExceededLimit",
+    "AggregationMetricNotSupported",
     "AggregationNestedObjectSetSizeExceededLimit",
     "ApplyActionFailed",
     "AttachmentNotFound",
+    "AttachmentRidAlreadyExists",
     "AttachmentSizeExceededLimit",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
+    "ConsistentSnapshotError",
     "DefaultAndNullGroupsNotSupported",
     "DerivedPropertyApiNamesNotUnique",
     "DuplicateOrderBy",
@@ -2140,19 +2390,26 @@ __all__ = [
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
+    "InterfaceBasedObjectSetNotSupported",
     "InterfaceLinkTypeNotFound",
+    "InterfacePropertiesHaveDifferentIds",
+    "InterfacePropertiesNotFound",
+    "InterfacePropertyNotFound",
     "InterfaceTypeNotFound",
     "InterfaceTypesNotFound",
     "InvalidAggregationOrdering",
     "InvalidAggregationOrderingWithNullValues",
     "InvalidAggregationRange",
     "InvalidAggregationRangePropertyType",
+    "InvalidAggregationRangePropertyTypeForInterface",
     "InvalidAggregationRangeValue",
+    "InvalidAggregationRangeValueForInterface",
     "InvalidApplyActionOptionCombination",
     "InvalidContentLength",
     "InvalidContentType",
     "InvalidDerivedPropertyDefinition",
     "InvalidDurationGroupByPropertyType",
+    "InvalidDurationGroupByPropertyTypeForInterface",
     "InvalidDurationGroupByValue",
     "InvalidFields",
     "InvalidGroupId",
@@ -2167,11 +2424,13 @@ __all__ = [
     "InvalidRangeQuery",
     "InvalidSortOrder",
     "InvalidSortType",
+    "InvalidTransactionEditPropertyValue",
     "InvalidUserId",
     "InvalidVectorDimension",
     "LinkAlreadyExists",
     "LinkTypeNotFound",
     "LinkedObjectNotFound",
+    "LoadObjectSetLinksNotSupported",
     "MalformedPropertyFilters",
     "MarketplaceActionMappingNotFound",
     "MarketplaceInstallationNotFound",
@@ -2196,6 +2455,7 @@ __all__ = [
     "ObjectTypeNotSynced",
     "ObjectTypesNotSynced",
     "ObjectsExceededLimit",
+    "ObjectsModifiedConcurrently",
     "OntologyApiNameNotUnique",
     "OntologyEditsExceededLimit",
     "OntologyNotFound",
@@ -2234,7 +2494,9 @@ __all__ = [
     "TooManyNearestNeighborsRequested",
     "UnauthorizedCipherOperation",
     "UndecryptableValue",
+    "UniqueIdentifierLinkIdsDoNotExistInActionType",
     "UnknownParameter",
+    "UnsupportedInterfaceBasedObjectSet",
     "UnsupportedObjectSet",
     "ValueTypeNotFound",
     "ViewObjectPermissionDenied",

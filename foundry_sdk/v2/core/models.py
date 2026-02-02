@@ -42,6 +42,10 @@ class AttachmentType(core.ModelBase):
     type: typing.Literal["attachment"] = "attachment"
 
 
+Attribution = str
+"""Attribution for a request"""
+
+
 class BinaryType(core.ModelBase):
     """BinaryType"""
 
@@ -68,6 +72,14 @@ class ByteType(core.ModelBase):
     """ByteType"""
 
     type: typing.Literal["byte"] = "byte"
+
+
+CheckReportRid = core.RID
+"""The unique resource identifier (RID) of a Data Health Check Report."""
+
+
+CheckRid = core.RID
+"""The unique resource identifier (RID) of a Data Health Check."""
 
 
 class CipherTextType(core.ModelBase):
@@ -226,18 +238,18 @@ class Field(core.ModelBase):
 FieldDataType = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
-        DateType,
+        "DateType",
         "StringType",
-        ByteType,
-        DoubleType,
+        "ByteType",
+        "DoubleType",
         "IntegerType",
         "FloatType",
         "LongType",
-        BooleanType,
-        ArrayFieldType,
-        BinaryType,
+        "BooleanType",
+        "ArrayFieldType",
+        "BinaryType",
         "ShortType",
-        DecimalType,
+        "DecimalType",
         "MapFieldType",
         "TimestampType",
     ],
@@ -259,7 +271,10 @@ class FieldSchema(core.ModelBase):
 
 
 FilePath = str
-"""The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
+"""
+The path to a File within Foundry. Paths are relative and must not start with a leading slash.
+Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
+"""
 
 
 Filename = str
@@ -337,18 +352,18 @@ class FilterStringType(core.ModelBase):
 
 FilterType = typing_extensions.Annotated[
     typing.Union[
-        FilterDateTimeType,
-        FilterDateType,
-        FilterBooleanType,
-        FilterStringType,
-        FilterDoubleType,
-        FilterBinaryType,
-        FilterIntegerType,
-        FilterFloatType,
-        FilterRidType,
+        "FilterDateTimeType",
+        "FilterDateType",
+        "FilterBooleanType",
+        "FilterStringType",
+        "FilterDoubleType",
+        "FilterBinaryType",
+        "FilterIntegerType",
+        "FilterFloatType",
+        "FilterRidType",
         "FilterUuidType",
-        FilterEnumType,
-        FilterLongType,
+        "FilterEnumType",
+        "FilterLongType",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -481,6 +496,7 @@ class LmsEmbeddingModel(core.ModelBase):
 
 LmsEmbeddingModelValue = typing.Literal[
     "OPENAI_TEXT_EMBEDDING_ADA_002",
+    "TEXT_EMBEDDING_3_LARGE",
     "TEXT_EMBEDDING_3_SMALL",
     "SNOWFLAKE_ARCTIC_EMBED_M",
     "INSTRUCTOR_LARGE",
@@ -578,6 +594,23 @@ class NullType(core.ModelBase):
     """NullType"""
 
     type: typing.Literal["null"] = "null"
+
+
+class NumericOrNonNumericType(core.ModelBase):
+    """
+    The time series property can either contain either numeric or non-numeric data. This enables mixed sensor types
+    where some sensor time series are numeric and others are categorical. A boolean property reference can be used
+    to determine if the series is numeric or non-numeric. Without this property, the series type can be either
+    numeric or non-numeric and must be inferred from the result of a time series query.
+    """
+
+    is_non_numeric_property_type_id: typing.Optional[str] = pydantic.Field(alias=str("isNonNumericPropertyTypeId"), default=None)  # type: ignore[literal-required]
+    """
+    The boolean property type ID specifying whether the series is numeric or non-numeric. If the value is true,
+    the series is non-numeric.
+    """
+
+    type: typing.Literal["numericOrNonNumeric"] = "numericOrNonNumeric"
 
 
 Operation = str
@@ -759,7 +792,8 @@ TableRid = core.RID
 
 
 TimeSeriesItemType = typing_extensions.Annotated[
-    typing.Union[StringType, DoubleType], pydantic.Field(discriminator="type")
+    typing.Union["StringType", "DoubleType", "NumericOrNonNumericType"],
+    pydantic.Field(discriminator="type"),
 ]
 """A union of the types supported by time series properties."""
 
@@ -773,7 +807,7 @@ TimeUnit = typing.Literal[
 class TimeseriesType(core.ModelBase):
     """TimeseriesType"""
 
-    item_type: typing.Optional[TimeSeriesItemType] = pydantic.Field(alias=str("itemType"), default=None)  # type: ignore[literal-required]
+    item_type: TimeSeriesItemType = pydantic.Field(alias=str("itemType"))  # type: ignore[literal-required]
     type: typing.Literal["timeseries"] = "timeseries"
 
 
@@ -799,7 +833,16 @@ class UnsupportedType(core.ModelBase):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
+    params: typing.Dict[UnsupportedTypeParamKey, UnsupportedTypeParamValue]
     type: typing.Literal["unsupported"] = "unsupported"
+
+
+UnsupportedTypeParamKey = str
+"""UnsupportedTypeParamKey"""
+
+
+UnsupportedTypeParamValue = str
+"""UnsupportedTypeParamValue"""
 
 
 UpdatedTime = core.AwareDatetime
@@ -808,6 +851,10 @@ UpdatedTime = core.AwareDatetime
 
 UserId = core.UUID
 """A Foundry User ID."""
+
+
+UserStatus = typing.Literal["ACTIVE", "DELETED"]
+"""Present status of user."""
 
 
 class VectorSimilarityFunction(core.ModelBase):
@@ -866,22 +913,31 @@ UpdatedBy = UserId
 """The Foundry user who last updated this resource"""
 
 
-core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
-core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+CustomMetadata = core.resolve_forward_references(
+    CustomMetadata, globalns=globals(), localns=locals()
+)
+EmbeddingModel = core.resolve_forward_references(
+    EmbeddingModel, globalns=globals(), localns=locals()
+)
+FieldDataType = core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
+FilterType = core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
+TimeSeriesItemType = core.resolve_forward_references(
+    TimeSeriesItemType, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AnyType",
     "ArrayFieldType",
     "AttachmentType",
+    "Attribution",
     "BinaryType",
     "BooleanType",
     "BranchMetadata",
     "BuildRid",
     "ByteType",
     "ChangeDataCaptureConfiguration",
+    "CheckReportRid",
+    "CheckRid",
     "CipherTextType",
     "ComputeSeconds",
     "ContentLength",
@@ -952,6 +1008,7 @@ __all__ = [
     "MediaSetViewRid",
     "MediaType",
     "NullType",
+    "NumericOrNonNumericType",
     "Operation",
     "OperationScope",
     "OrderByDirection",
@@ -986,9 +1043,12 @@ __all__ = [
     "TraceParent",
     "TraceState",
     "UnsupportedType",
+    "UnsupportedTypeParamKey",
+    "UnsupportedTypeParamValue",
     "UpdatedBy",
     "UpdatedTime",
     "UserId",
+    "UserStatus",
     "VectorSimilarityFunction",
     "VectorSimilarityFunctionValue",
     "VectorType",

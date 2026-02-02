@@ -1,6 +1,6 @@
 # ReturnEditsMode
 
-ReturnEditsMode
+If not specified, defaults to `NONE`.
 
 | **Value** |
 | --------- |

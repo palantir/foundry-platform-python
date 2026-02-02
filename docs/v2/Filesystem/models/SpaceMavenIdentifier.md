@@ -1,10 +1,11 @@
-# CheckRid
+# SpaceMavenIdentifier
 
-The unique resource identifier (RID) of a Check.
+The maven identifier used as the prefix to the maven coordinate that uniquely identifies resources published from this space.
+
 
 ## Type
 ```python
-RID
+str
 ```
 
 

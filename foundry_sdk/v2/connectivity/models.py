@@ -104,6 +104,21 @@ class BearerToken(core.ModelBase):
     type: typing.Literal["bearerToken"] = "bearerToken"
 
 
+class BigQueryVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in BigQuery. Uses the BigQuery table identifier of project, dataset and table."""
+
+    project: str
+    """The BigQuery project name."""
+
+    dataset: str
+    """The BigQuery dataset name."""
+
+    table: str
+    """The BigQuery table name."""
+
+    type: typing.Literal["bigquery"] = "bigquery"
+
+
 class CloudIdentity(core.ModelBase):
     """
     [Cloud identities](https://palantir.com/docs/foundry/administration/configure-cloud-identities/) allow you to authenticate to
@@ -137,6 +152,7 @@ ConnectionConfiguration = typing_extensions.Annotated[
         "RestConnectionConfiguration",
         "SnowflakeConnectionConfiguration",
         "DatabricksConnectionConfiguration",
+        "SmbConnectionConfiguration",
         "JdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -215,6 +231,7 @@ CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
         "CreateConnectionRequestRestConnectionConfiguration",
         "CreateConnectionRequestSnowflakeConnectionConfiguration",
         "CreateConnectionRequestDatabricksConnectionConfiguration",
+        "CreateConnectionRequestSmbConnectionConfiguration",
         "CreateConnectionRequestJdbcConnectionConfiguration",
     ],
     pydantic.Field(discriminator="type"),
@@ -237,7 +254,7 @@ CreateConnectionRequestDatabricksAuthenticationMode = typing_extensions.Annotate
         "CreateConnectionRequestWorkflowIdentityFederation",
         "CreateConnectionRequestOauthMachineToMachineAuth",
         "CreateConnectionRequestPersonalAccessToken",
-        CreateConnectionRequestBasicCredentials,
+        "CreateConnectionRequestBasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -261,7 +278,7 @@ class CreateConnectionRequestDatabricksConnectionConfiguration(core.ModelBase):
 
 
 CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
-    typing.Union[CreateConnectionRequestAsSecretName, CreateConnectionRequestAsPlaintextValue],
+    typing.Union["CreateConnectionRequestAsSecretName", "CreateConnectionRequestAsPlaintextValue"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -423,11 +440,57 @@ class CreateConnectionRequestS3ConnectionConfiguration(core.ModelBase):
     type: typing.Literal["s3"] = "s3"
 
 
+class CreateConnectionRequestSmbConnectionConfiguration(core.ModelBase):
+    """CreateConnectionRequestSmbConnectionConfiguration"""
+
+    proxy: typing.Optional[SmbProxyConfiguration] = None
+    hostname: str
+    """
+    Any identifier that can resolve to a server hosting an SMB share. This includes IP addresses, local 
+    network names (e.g. FS-SERVER-01) or FQDNs. Should not include any protocol information like https://, smb://, etc
+    """
+
+    port: typing.Optional[int] = None
+    """445 by default"""
+
+    auth: CreateConnectionRequestSmbAuth
+    share: str
+    """
+    Must be a valid SMB share name.
+    https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/dc9978d7-6299-4c5a-a22d-a039cdc716ea
+    """
+
+    base_directory: typing.Optional[str] = pydantic.Field(alias=str("baseDirectory"), default=None)  # type: ignore[literal-required]
+    """All reads and writes in this source will happen in this subdirectory"""
+
+    require_message_signing: typing.Optional[bool] = pydantic.Field(alias=str("requireMessageSigning"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the client will request that the server sign all messages. If the server does not support 
+    message signing, the connection will fail. Defaults to true.
+    """
+
+    type: typing.Literal["smb"] = "smb"
+
+
+class CreateConnectionRequestSmbUsernamePasswordAuth(core.ModelBase):
+    """CreateConnectionRequestSmbUsernamePasswordAuth"""
+
+    password: CreateConnectionRequestEncryptedProperty
+    domain: typing.Optional[str] = None
+    """
+    Optionally specify a Windows domain to use when authenticating. Normal DNS domain restrictions apply
+    but the top-level domain might be something non-standard like .local. Defaults to WORKGROUP
+    """
+
+    username: str
+    type: typing.Literal["usernamePassword"] = "usernamePassword"
+
+
 CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated[
     typing.Union[
         "CreateConnectionRequestSnowflakeExternalOauth",
         "CreateConnectionRequestSnowflakeKeyPairAuthentication",
-        CreateConnectionRequestBasicCredentials,
+        "CreateConnectionRequestBasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -624,17 +687,26 @@ class CreateTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
 
 CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        CreateTableImportRequestDatabricksTableImportConfig,
-        CreateTableImportRequestJdbcTableImportConfig,
-        CreateTableImportRequestMicrosoftSqlServerTableImportConfig,
-        CreateTableImportRequestPostgreSqlTableImportConfig,
-        CreateTableImportRequestMicrosoftAccessTableImportConfig,
-        CreateTableImportRequestSnowflakeTableImportConfig,
-        CreateTableImportRequestOracleTableImportConfig,
+        "CreateTableImportRequestDatabricksTableImportConfig",
+        "CreateTableImportRequestJdbcTableImportConfig",
+        "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "CreateTableImportRequestPostgreSqlTableImportConfig",
+        "CreateTableImportRequestMicrosoftAccessTableImportConfig",
+        "CreateTableImportRequestSnowflakeTableImportConfig",
+        "CreateTableImportRequestOracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
+
+
+class CreateVirtualTableRequest(core.ModelBase):
+    """CreateVirtualTableRequest"""
+
+    markings: typing.Optional[typing.List[core_models.MarkingId]] = None
+    parent_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentRid"))  # type: ignore[literal-required]
+    name: TableName
+    config: VirtualTableConfig
 
 
 DatabricksAuthenticationMode = typing_extensions.Annotated[
@@ -642,7 +714,7 @@ DatabricksAuthenticationMode = typing_extensions.Annotated[
         "WorkflowIdentityFederation",
         "OauthMachineToMachineAuth",
         "PersonalAccessToken",
-        BasicCredentials,
+        "BasicCredentials",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -699,6 +771,15 @@ class DecimalColumnInitialIncrementalState(core.ModelBase):
     )
 
 
+class DeltaVirtualTableConfig(core.ModelBase):
+    """Pointer to the Delta table in cloud object storage (e.g., Azure Data Lake Storage, Google Cloud Storage, S3)."""
+
+    path: str
+    """The path of the Delta table in object storage."""
+
+    type: typing.Literal["delta"] = "delta"
+
+
 class Domain(core.ModelBase):
     """The domain that the connection is allowed to access."""
 
@@ -722,7 +803,7 @@ class Domain(core.ModelBase):
 
 
 EncryptedProperty = typing_extensions.Annotated[
-    typing.Union[AsSecretName, AsPlaintextValue], pydantic.Field(discriminator="type")
+    typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
 ]
 """
 When reading an encrypted property, the secret name representing the encrypted value will be returned.
@@ -774,6 +855,10 @@ class FileChangedSinceLastUploadFilter(core.ModelBase):
     type: typing.Literal["changedSinceLastUploadFilter"] = "changedSinceLastUploadFilter"
 
 
+FileFormat = typing.Literal["AVRO", "CSV", "PARQUET"]
+"""The format of files in the upstream source."""
+
+
 class FileImport(core.ModelBase):
     """FileImport"""
 
@@ -813,13 +898,13 @@ FileImportDisplayName = str
 FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
-        FileAnyPathMatchesFilter,
+        "FileAnyPathMatchesFilter",
         "FilesCountLimitFilter",
-        FileChangedSinceLastUploadFilter,
-        FileImportCustomFilter,
+        "FileChangedSinceLastUploadFilter",
+        "FileImportCustomFilter",
         "FileLastModifiedAfterFilter",
         "FilePathMatchesFilter",
-        FileAtLeastCountFilter,
+        "FileAtLeastCountFilter",
         "FileSizeFilter",
     ],
     pydantic.Field(discriminator="type"),
@@ -936,6 +1021,20 @@ class FilesCountLimitFilter(core.ModelBase):
     type: typing.Literal["filesCountLimitFilter"] = "filesCountLimitFilter"
 
 
+class FilesVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in cloud object storage (e.g., Azure Data Lake Storage, Google Cloud Storage, S3)."""
+
+    format: FileFormat
+    path: str
+    """
+    Storage path for the data in the underlying file system, i.e. paths like `/foo/bar`. The scheme is not 
+    included. May be either a folder or file. A non-partitioned table will have a single location. A 
+    partitioned table can have multiple locations, one for each partition.
+    """
+
+    type: typing.Literal["files"] = "files"
+
+
 class FoundryWorker(core.ModelBase):
     """
     The [Foundry worker](https://palantir.com/docs/foundry/data-connection/core-concepts/#foundry-worker) is used to run capabilities
@@ -948,6 +1047,30 @@ class FoundryWorker(core.ModelBase):
     type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
+class GetConfigurationConnectionsBatchRequestElement(core.ModelBase):
+    """GetConfigurationConnectionsBatchRequestElement"""
+
+    connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
+
+
+class GetConfigurationConnectionsBatchResponse(core.ModelBase):
+    """GetConfigurationConnectionsBatchResponse"""
+
+    data: typing.Dict[ConnectionRid, ConnectionConfiguration]
+
+
+class GlueVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in AWS Glue."""
+
+    database: str
+    """The database name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["glue"] = "glue"
+
+
 class HeaderApiKey(core.ModelBase):
     """HeaderApiKey"""
 
@@ -955,6 +1078,21 @@ class HeaderApiKey(core.ModelBase):
     """The name of the header that the API key is passed in."""
 
     type: typing.Literal["header"] = "header"
+
+
+class IcebergVirtualTableConfig(core.ModelBase):
+    """Pointer to the Iceberg table."""
+
+    table_identifier: str = pydantic.Field(alias=str("tableIdentifier"))  # type: ignore[literal-required]
+    """The identifier of the Iceberg table."""
+
+    warehouse_path: typing.Optional[str] = pydantic.Field(alias=str("warehousePath"), default=None)  # type: ignore[literal-required]
+    """
+    The path to the folder in the file system containing the Iceberg table. Can be omitted when the
+    connection is configured with a catalog that does not rely on warehouse path.
+    """
+
+    type: typing.Literal["iceberg"] = "iceberg"
 
 
 class IntegerColumnInitialIncrementalState(core.ModelBase):
@@ -967,6 +1105,72 @@ class IntegerColumnInitialIncrementalState(core.ModelBase):
     type: typing.Literal["integerColumnInitialIncrementalState"] = (
         "integerColumnInitialIncrementalState"
     )
+
+
+InvalidConnectionReason = typing.Literal[
+    "CONNECTION_NOT_FOUND",
+    "INVALID_CREDENTIALS",
+    "NETWORK_POLICY_VIOLATION",
+    "CONNECTION_UNAVAILABLE",
+    "CANNOT_DESERIALIZE",
+    "CANNOT_SUBSTITUTE_SECRETS",
+    "CANNOT_USE_USER_HOME_FOLDER",
+    "INVALID_SOURCE_RUNTIME",
+    "INVALID_SOURCE_TYPE",
+    "MISSING_CREDENTIALS",
+    "MISSING_PROXY_SETTINGS",
+    "NOT_CLOUD_RUNTIME",
+    "NO_AGENTS_ASSIGNED",
+    "SERVICE_UNAVAILABLE",
+    "TOO_MANY_REQUESTS",
+    "AZURE_CONTAINER_DOES_NOT_EXIST",
+    "AZURE_MANAGED_IDENTITY_AUTH_NOT_SUPPORTED",
+    "AZURE_REFRESH_TOKEN_AUTH_NOT_SUPPORTED",
+    "AZURE_SHARED_ACCESS_SIGNATURE_AUTH_NOT_SUPPORTED",
+    "AZURE_SHARED_KEY_AUTH_NOT_SUPPORTED",
+    "AZURE_TENANT_NOT_FOUND",
+    "INVALID_ABFS_ROOT_DIRECTORY",
+    "INVALID_CLIENT_ENDPOINT",
+    "DATABRICKS_AUTH_UNSUPPORTED",
+    "DATABRICKS_BASIC_AUTH_NOT_SUPPORTED",
+    "DATABRICKS_INVALID_CLIENT_CREDENTIALS",
+    "DATABRICKS_INVALID_HOST",
+    "DATABRICKS_INVALID_HTTP_PATH",
+    "DATABRICKS_INVALID_OIDC_CREDENTIALS",
+    "DATABRICKS_INVALID_TOKEN_URL",
+    "GCP_INSTANCE_AUTH_NOT_SUPPORTED",
+    "GCP_INVALID_OIDC_CREDENTIALS",
+    "INVALID_GCS_CONFIG",
+    "INVALID_GCS_URL",
+    "GCS_INVALID_PREFIX_PATH",
+    "MISSING_GLUE_CATALOG",
+    "INVALID_HIVE_URL",
+    "INVALID_KERBEROS_URL",
+    "MISSING_HIVE_CONFIGURATION",
+    "ICEBERG_CATALOG_UNSUPPORTED",
+    "INVALID_ICEBERG_CATALOG_URL",
+    "INVALID_ICEBERG_TOKEN_URL",
+    "CONNECTION_FAILED",
+    "INVALID_JDBC_DRIVER",
+    "INVALID_JDBC_URL",
+    "AWS_BUCKET_DOES_NOT_EXIST",
+    "AWS_SESSION_TOKEN_NOT_SUPPORTED",
+    "INVALID_S3_ENDPOINT",
+    "INVALID_S3_URL",
+    "INVALID_STS_ENDPOINT",
+    "MISSING_STS_ROLE",
+    "STS_ASSUME_ROLE_DENIED",
+    "INVALID_SNOWFLAKE_URL",
+    "SNOWFLAKE_IAM_AUTH_NOT_SUPPORTED",
+    "SNOWFLAKE_RSA_AUTH_NOT_SUPPORTED",
+    "INVALID_UNITY_CATALOG_TOKEN_URL",
+    "INVALID_UNITY_CATALOG_URL",
+    "MISSING_UNITY_CATALOG",
+    "UNITY_CATALOG_EXTERNAL_ACCESS_NOT_ENABLED",
+    "UNITY_CATALOG_INSUFFICIENT_PERMISSIONS",
+    "UNITY_CATALOG_TEMPORARY_CREDENTIALS_FAILED",
+]
+"""Reasons why a connection configuration is invalid."""
 
 
 class JdbcConnectionConfiguration(core.ModelBase):
@@ -1198,13 +1402,13 @@ class ReplaceTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
 
 ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        ReplaceTableImportRequestDatabricksTableImportConfig,
-        ReplaceTableImportRequestJdbcTableImportConfig,
-        ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig,
-        ReplaceTableImportRequestPostgreSqlTableImportConfig,
-        ReplaceTableImportRequestMicrosoftAccessTableImportConfig,
-        ReplaceTableImportRequestSnowflakeTableImportConfig,
-        ReplaceTableImportRequestOracleTableImportConfig,
+        "ReplaceTableImportRequestDatabricksTableImportConfig",
+        "ReplaceTableImportRequestJdbcTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "ReplaceTableImportRequestPostgreSqlTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
+        "ReplaceTableImportRequestSnowflakeTableImportConfig",
+        "ReplaceTableImportRequestOracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1212,7 +1416,7 @@ ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
 
 
 RestAuthenticationMode = typing_extensions.Annotated[
-    typing.Union[BearerToken, ApiKeyAuthentication, BasicCredentials, "RestConnectionOAuth2"],
+    typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
@@ -1262,13 +1466,13 @@ class RestConnectionOAuth2(core.ModelBase):
 
 
 RestRequestApiKeyLocation = typing_extensions.Annotated[
-    typing.Union[HeaderApiKey, QueryParameterApiKey], pydantic.Field(discriminator="type")
+    typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
 S3AuthenticationMode = typing_extensions.Annotated[
-    typing.Union[AwsAccessKey, CloudIdentity, AwsOidcAuthentication],
+    typing.Union["AwsAccessKey", "CloudIdentity", "AwsOidcAuthentication"],
     pydantic.Field(discriminator="type"),
 ]
 """S3AuthenticationMode"""
@@ -1425,8 +1629,66 @@ class SecretsWithPlaintextValues(core.ModelBase):
     type: typing.Literal["asSecretsWithPlaintextValues"] = "asSecretsWithPlaintextValues"
 
 
+class SmbConnectionConfiguration(core.ModelBase):
+    """SmbConnectionConfiguration"""
+
+    hostname: str
+    """
+    Any identifier that can resolve to a server hosting an SMB share. This includes IP addresses, local 
+    network names (e.g. FS-SERVER-01) or FQDNs. Should not include any protocol information like https://, smb://, etc
+    """
+
+    port: typing.Optional[int] = None
+    """445 by default"""
+
+    proxy: typing.Optional[SmbProxyConfiguration] = None
+    share: str
+    """
+    Must be a valid SMB share name.
+    https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-fscc/dc9978d7-6299-4c5a-a22d-a039cdc716ea
+    """
+
+    base_directory: typing.Optional[str] = pydantic.Field(alias=str("baseDirectory"), default=None)  # type: ignore[literal-required]
+    """All reads and writes in this source will happen in this subdirectory"""
+
+    auth: SmbAuth
+    require_message_signing: typing.Optional[bool] = pydantic.Field(alias=str("requireMessageSigning"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the client will request that the server sign all messages. If the server does not support 
+    message signing, the connection will fail. Defaults to true.
+    """
+
+    type: typing.Literal["smb"] = "smb"
+
+
+class SmbProxyConfiguration(core.ModelBase):
+    """Egress proxy to pass all traffic through."""
+
+    hostname: str
+    port: int
+    protocol: SmbProxyType
+
+
+SmbProxyType = typing.Literal["HTTP", "SOCKS"]
+"""SmbProxyType"""
+
+
+class SmbUsernamePasswordAuth(core.ModelBase):
+    """SmbUsernamePasswordAuth"""
+
+    username: str
+    password: EncryptedProperty
+    domain: typing.Optional[str] = None
+    """
+    Optionally specify a Windows domain to use when authenticating. Normal DNS domain restrictions apply
+    but the top-level domain might be something non-standard like .local. Defaults to WORKGROUP
+    """
+
+    type: typing.Literal["usernamePassword"] = "usernamePassword"
+
+
 SnowflakeAuthenticationMode = typing_extensions.Annotated[
-    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", BasicCredentials],
+    typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", "BasicCredentials"],
     pydantic.Field(discriminator="type"),
 ]
 """SnowflakeAuthenticationMode"""
@@ -1528,6 +1790,21 @@ class SnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
+class SnowflakeVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in Snowflake. Uses the Snowflake table identifier of database, schema and table."""
+
+    database: str
+    """The database name."""
+
+    schema_: str = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The schema name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["snowflake"] = "snowflake"
+
+
 class StringColumnInitialIncrementalState(core.ModelBase):
     """The state for an incremental table import using a column with a string data type."""
 
@@ -1603,13 +1880,13 @@ TableImportAllowSchemaChanges = bool
 
 TableImportConfig = typing_extensions.Annotated[
     typing.Union[
-        DatabricksTableImportConfig,
-        JdbcTableImportConfig,
-        MicrosoftSqlServerTableImportConfig,
-        PostgreSqlTableImportConfig,
-        MicrosoftAccessTableImportConfig,
-        SnowflakeTableImportConfig,
-        OracleTableImportConfig,
+        "DatabricksTableImportConfig",
+        "JdbcTableImportConfig",
+        "MicrosoftSqlServerTableImportConfig",
+        "PostgreSqlTableImportConfig",
+        "MicrosoftAccessTableImportConfig",
+        "SnowflakeTableImportConfig",
+        "OracleTableImportConfig",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1622,12 +1899,12 @@ TableImportDisplayName = str
 
 TableImportInitialIncrementalState = typing_extensions.Annotated[
     typing.Union[
-        StringColumnInitialIncrementalState,
-        DateColumnInitialIncrementalState,
-        IntegerColumnInitialIncrementalState,
+        "StringColumnInitialIncrementalState",
+        "DateColumnInitialIncrementalState",
+        "IntegerColumnInitialIncrementalState",
         "TimestampColumnInitialIncrementalState",
-        LongColumnInitialIncrementalState,
-        DecimalColumnInitialIncrementalState,
+        "LongColumnInitialIncrementalState",
+        "DecimalColumnInitialIncrementalState",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1663,6 +1940,14 @@ TableImportRid = core.RID
 """The Resource Identifier (RID) of a TableImport (also known as a batch sync)."""
 
 
+TableName = str
+"""The name of a VirtualTable."""
+
+
+TableRid = core.RID
+"""The Resource Identifier (RID) of a registered VirtualTable."""
+
+
 class TimestampColumnInitialIncrementalState(core.ModelBase):
     """TimestampColumnInitialIncrementalState"""
 
@@ -1673,6 +1958,21 @@ class TimestampColumnInitialIncrementalState(core.ModelBase):
     type: typing.Literal["timestampColumnInitialIncrementalState"] = (
         "timestampColumnInitialIncrementalState"
     )
+
+
+class UnityVirtualTableConfig(core.ModelBase):
+    """Pointer to the table in Unity Catalog. Uses the Databricks table identifier of catalog, schema and table."""
+
+    catalog: str
+    """The catalog name."""
+
+    schema_: str = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    """The schema name."""
+
+    table: str
+    """The table name."""
+
+    type: typing.Literal["unity"] = "unity"
 
 
 class UnknownWorker(core.ModelBase):
@@ -1701,6 +2001,31 @@ class UpdateSecretsForConnectionRequest(core.ModelBase):
 
 UriScheme = typing.Literal["HTTP", "HTTPS"]
 """Defines supported URI schemes to be used for external connections."""
+
+
+class VirtualTable(core.ModelBase):
+    """VirtualTable"""
+
+    rid: TableRid
+    name: TableName
+    parent_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentRid"))  # type: ignore[literal-required]
+    config: VirtualTableConfig
+    markings: typing.Optional[typing.List[core_models.MarkingId]] = None
+
+
+VirtualTableConfig = typing_extensions.Annotated[
+    typing.Union[
+        "SnowflakeVirtualTableConfig",
+        "UnityVirtualTableConfig",
+        "GlueVirtualTableConfig",
+        "DeltaVirtualTableConfig",
+        "IcebergVirtualTableConfig",
+        "FilesVirtualTableConfig",
+        "BigQueryVirtualTableConfig",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""VirtualTableConfig"""
 
 
 class WorkflowIdentityFederation(core.ModelBase):
@@ -1735,43 +2060,76 @@ class WorkflowIdentityFederation(core.ModelBase):
     type: typing.Literal["workflowIdentityFederation"] = "workflowIdentityFederation"
 
 
-core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
-core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+CreateConnectionRequestSmbAuth = CreateConnectionRequestSmbUsernamePasswordAuth
+"""CreateConnectionRequestSmbAuth"""
+
+
+SmbAuth = SmbUsernamePasswordAuth
+"""SmbAuth"""
+
+
+ConnectionConfiguration = core.resolve_forward_references(
+    ConnectionConfiguration, globalns=globals(), localns=locals()
+)
+ConnectionWorker = core.resolve_forward_references(
+    ConnectionWorker, globalns=globals(), localns=locals()
+)
+CreateConnectionRequestConnectionConfiguration = core.resolve_forward_references(
     CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateConnectionRequestConnectionWorker = core.resolve_forward_references(
     CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateConnectionRequestDatabricksAuthenticationMode = core.resolve_forward_references(
     CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateConnectionRequestEncryptedProperty = core.resolve_forward_references(
     CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateConnectionRequestSnowflakeAuthenticationMode = core.resolve_forward_references(
     CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+CreateTableImportRequestTableImportConfig = core.resolve_forward_references(
     CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
-core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(JdbcProperties, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+DatabricksAuthenticationMode = core.resolve_forward_references(
+    DatabricksAuthenticationMode, globalns=globals(), localns=locals()
+)
+EncryptedProperty = core.resolve_forward_references(
+    EncryptedProperty, globalns=globals(), localns=locals()
+)
+FileImportFilter = core.resolve_forward_references(
+    FileImportFilter, globalns=globals(), localns=locals()
+)
+JdbcProperties = core.resolve_forward_references(
+    JdbcProperties, globalns=globals(), localns=locals()
+)
+ReplaceTableImportRequestTableImportConfig = core.resolve_forward_references(
     ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+RestAuthenticationMode = core.resolve_forward_references(
+    RestAuthenticationMode, globalns=globals(), localns=locals()
+)
+RestConnectionAdditionalSecrets = core.resolve_forward_references(
     RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
-core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+RestRequestApiKeyLocation = core.resolve_forward_references(
+    RestRequestApiKeyLocation, globalns=globals(), localns=locals()
+)
+S3AuthenticationMode = core.resolve_forward_references(
+    S3AuthenticationMode, globalns=globals(), localns=locals()
+)
+SnowflakeAuthenticationMode = core.resolve_forward_references(
+    SnowflakeAuthenticationMode, globalns=globals(), localns=locals()
+)
+TableImportConfig = core.resolve_forward_references(
+    TableImportConfig, globalns=globals(), localns=locals()
+)
+TableImportInitialIncrementalState = core.resolve_forward_references(
     TableImportInitialIncrementalState, globalns=globals(), localns=locals()
+)
+VirtualTableConfig = core.resolve_forward_references(
+    VirtualTableConfig, globalns=globals(), localns=locals()
 )
 
 __all__ = [
@@ -1782,6 +2140,7 @@ __all__ = [
     "AwsOidcAuthentication",
     "BasicCredentials",
     "BearerToken",
+    "BigQueryVirtualTableConfig",
     "CloudIdentity",
     "CloudIdentityRid",
     "Connection",
@@ -1805,6 +2164,9 @@ __all__ = [
     "CreateConnectionRequestPersonalAccessToken",
     "CreateConnectionRequestRestConnectionConfiguration",
     "CreateConnectionRequestS3ConnectionConfiguration",
+    "CreateConnectionRequestSmbAuth",
+    "CreateConnectionRequestSmbConnectionConfiguration",
+    "CreateConnectionRequestSmbUsernamePasswordAuth",
     "CreateConnectionRequestSnowflakeAuthenticationMode",
     "CreateConnectionRequestSnowflakeConnectionConfiguration",
     "CreateConnectionRequestSnowflakeExternalOauth",
@@ -1821,16 +2183,19 @@ __all__ = [
     "CreateTableImportRequestPostgreSqlTableImportConfig",
     "CreateTableImportRequestSnowflakeTableImportConfig",
     "CreateTableImportRequestTableImportConfig",
+    "CreateVirtualTableRequest",
     "DatabricksAuthenticationMode",
     "DatabricksConnectionConfiguration",
     "DatabricksTableImportConfig",
     "DateColumnInitialIncrementalState",
     "DecimalColumnInitialIncrementalState",
+    "DeltaVirtualTableConfig",
     "Domain",
     "EncryptedProperty",
     "FileAnyPathMatchesFilter",
     "FileAtLeastCountFilter",
     "FileChangedSinceLastUploadFilter",
+    "FileFormat",
     "FileImport",
     "FileImportCustomFilter",
     "FileImportDisplayName",
@@ -1843,9 +2208,15 @@ __all__ = [
     "FileProperty",
     "FileSizeFilter",
     "FilesCountLimitFilter",
+    "FilesVirtualTableConfig",
     "FoundryWorker",
+    "GetConfigurationConnectionsBatchRequestElement",
+    "GetConfigurationConnectionsBatchResponse",
+    "GlueVirtualTableConfig",
     "HeaderApiKey",
+    "IcebergVirtualTableConfig",
     "IntegerColumnInitialIncrementalState",
+    "InvalidConnectionReason",
     "JdbcConnectionConfiguration",
     "JdbcDriverArtifactName",
     "JdbcProperties",
@@ -1886,11 +2257,17 @@ __all__ = [
     "SecretName",
     "SecretsNames",
     "SecretsWithPlaintextValues",
+    "SmbAuth",
+    "SmbConnectionConfiguration",
+    "SmbProxyConfiguration",
+    "SmbProxyType",
+    "SmbUsernamePasswordAuth",
     "SnowflakeAuthenticationMode",
     "SnowflakeConnectionConfiguration",
     "SnowflakeExternalOauth",
     "SnowflakeKeyPairAuthentication",
     "SnowflakeTableImportConfig",
+    "SnowflakeVirtualTableConfig",
     "StringColumnInitialIncrementalState",
     "StsRoleConfiguration",
     "TableImport",
@@ -1901,10 +2278,15 @@ __all__ = [
     "TableImportMode",
     "TableImportQuery",
     "TableImportRid",
+    "TableName",
+    "TableRid",
     "TimestampColumnInitialIncrementalState",
+    "UnityVirtualTableConfig",
     "UnknownWorker",
     "UpdateExportSettingsForConnectionRequest",
     "UpdateSecretsForConnectionRequest",
     "UriScheme",
+    "VirtualTable",
+    "VirtualTableConfig",
     "WorkflowIdentityFederation",
 ]

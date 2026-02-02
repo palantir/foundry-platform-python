@@ -6,7 +6,9 @@ Method | HTTP request | Release Stage |
 [**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Public Beta |
 [**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Public Beta |
 [**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Public Beta |
+[**get_batch**](#get_batch) | **POST** /v2/filesystem/resources/getBatch | Public Beta |
 [**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Public Beta |
+[**get_by_path_batch**](#get_by_path_batch) | **POST** /v2/filesystem/resources/getByPathBatch | Public Beta |
 [**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
 [**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Public Beta |
 [**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Public Beta |
@@ -221,6 +223,61 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_batch**
+Fetches multiple resources in a single request.
+Returns a map from RID to the corresponding resource. If a resource does not exist, or if it is a root folder or space, its RID will not be included in the map.
+At most 1,000 resources should be requested at once.
+
+
+The maximum batch size for this endpoint is 1000.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetResourcesBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetResourcesBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetResourcesBatchRequestElement] | Body of the request
+body = [{"resourceRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"}]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.filesystem.Resource.get_batch(body, preview=preview)
+    print("The get_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Resource.get_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetResourcesBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **get_by_path**
 Get a Resource by its absolute path.
 
@@ -268,6 +325,62 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Resource  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_by_path_batch**
+Gets multiple Resources by their absolute paths.
+Returns a list of resources. If a path does not exist, is inaccessible, or refers to 
+a root folder or space, it will not be included in the response.
+At most 1,000 paths should be requested at once.
+
+
+The maximum batch size for this endpoint is 1000.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetByPathResourcesBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetByPathResourcesBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetByPathResourcesBatchRequestElement] | Body of the request
+body = [{"path": "/My Organization-abcd/My Important Project/My Dataset"}]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.filesystem.Resource.get_by_path_batch(body, preview=preview)
+    print("The get_by_path_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Resource.get_by_path_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetByPathResourcesBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

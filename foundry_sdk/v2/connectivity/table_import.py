@@ -165,6 +165,7 @@ class TableImportClient:
         :rtype: None
 
         :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
+        :raises TableImportNotFound: The given TableImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -184,6 +185,7 @@ class TableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteTableImportPermissionDenied": connectivity_errors.DeleteTableImportPermissionDenied,
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -217,6 +219,7 @@ class TableImportClient:
         :rtype: core_models.BuildRid
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
+        :raises TableImportNotFound: The given TableImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -238,6 +241,7 @@ class TableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -395,6 +399,7 @@ class TableImportClient:
         :rtype: connectivity_models.TableImport
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ReplaceTableImportPermissionDenied: Could not replace the TableImport.
         :raises TableImportNotFound: The given TableImport could not be found.
         :raises TableImportNotSupportedForConnection: The specified connection does not support creating or replacing a table import with the specified config.
@@ -426,6 +431,7 @@ class TableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ReplaceTableImportPermissionDenied": connectivity_errors.ReplaceTableImportPermissionDenied,
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,
                     "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,
@@ -606,6 +612,7 @@ class AsyncTableImportClient:
         :rtype: typing.Awaitable[None]
 
         :raises DeleteTableImportPermissionDenied: Could not delete the TableImport.
+        :raises TableImportNotFound: The given TableImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -625,6 +632,7 @@ class AsyncTableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteTableImportPermissionDenied": connectivity_errors.DeleteTableImportPermissionDenied,
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -658,6 +666,7 @@ class AsyncTableImportClient:
         :rtype: typing.Awaitable[core_models.BuildRid]
 
         :raises ExecuteTableImportPermissionDenied: Could not execute the TableImport.
+        :raises TableImportNotFound: The given TableImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -679,6 +688,7 @@ class AsyncTableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteTableImportPermissionDenied": connectivity_errors.ExecuteTableImportPermissionDenied,
+                    "TableImportNotFound": connectivity_errors.TableImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -836,6 +846,7 @@ class AsyncTableImportClient:
         :rtype: typing.Awaitable[connectivity_models.TableImport]
 
         :raises ConnectionDetailsNotDetermined: Details of the connection (such as which types of import it supports) could not be determined.
+        :raises ConnectionNotFound: The given Connection could not be found.
         :raises ReplaceTableImportPermissionDenied: Could not replace the TableImport.
         :raises TableImportNotFound: The given TableImport could not be found.
         :raises TableImportNotSupportedForConnection: The specified connection does not support creating or replacing a table import with the specified config.
@@ -867,6 +878,7 @@ class AsyncTableImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ConnectionDetailsNotDetermined": connectivity_errors.ConnectionDetailsNotDetermined,
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
                     "ReplaceTableImportPermissionDenied": connectivity_errors.ReplaceTableImportPermissionDenied,
                     "TableImportNotFound": connectivity_errors.TableImportNotFound,
                     "TableImportNotSupportedForConnection": connectivity_errors.TableImportNotSupportedForConnection,

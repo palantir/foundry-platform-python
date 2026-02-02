@@ -12,6 +12,7 @@ User
 **email** | Optional[str] | No | The email at which to contact a User. Multiple users may have the same email address. |
 **realm** | Realm | Yes |  |
 **organization** | Optional[OrganizationRid] | No | The RID of the user's primary Organization. This will be blank for third-party application service users. |
+**status** | UserStatus | Yes | The current status of the user. |
 **attributes** | Dict[AttributeName, AttributeValues] | Yes | A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. Additional attributes may be configured by Foundry administrators in  Control Panel and populated by the User's SSO provider upon login.  |
 
 

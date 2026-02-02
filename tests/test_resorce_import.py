@@ -244,10 +244,22 @@ def test_connectivity_v2_table_import_import():
     assert TableImportClient is not None
 
 
+def test_connectivity_v2_virtual_table_import():
+    from foundry_sdk.v2.connectivity.virtual_table import VirtualTableClient
+
+    assert VirtualTableClient is not None
+
+
 def test_data_health_v2_check_import():
     from foundry_sdk.v2.data_health.check import CheckClient
 
     assert CheckClient is not None
+
+
+def test_data_health_v2_check_report_import():
+    from foundry_sdk.v2.data_health.check_report import CheckReportClient
+
+    assert CheckReportClient is not None
 
 
 def test_datasets_v2_branch_import():
@@ -382,6 +394,14 @@ def test_ontologies_v2_cipher_text_property_import():
     from foundry_sdk.v2.ontologies.cipher_text_property import CipherTextPropertyClient
 
     assert CipherTextPropertyClient is not None
+
+
+def test_ontologies_v2_geotemporal_series_property_import():
+    from foundry_sdk.v2.ontologies.geotemporal_series_property import (
+        GeotemporalSeriesPropertyClient,
+    )  # NOQA
+
+    assert GeotemporalSeriesPropertyClient is not None
 
 
 def test_ontologies_v2_linked_object_import():

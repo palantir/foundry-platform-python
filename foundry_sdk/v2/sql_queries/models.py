@@ -62,7 +62,7 @@ class FailedQueryStatus(core.ModelBase):
 
 QueryStatus = typing_extensions.Annotated[
     typing.Union[
-        "RunningQueryStatus", CanceledQueryStatus, FailedQueryStatus, "SucceededQueryStatus"
+        "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -87,7 +87,7 @@ class SucceededQueryStatus(core.ModelBase):
     type: typing.Literal["succeeded"] = "succeeded"
 
 
-core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
+QueryStatus = core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
 
 __all__ = [
     "CanceledQueryStatus",

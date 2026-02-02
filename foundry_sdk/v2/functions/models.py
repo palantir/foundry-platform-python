@@ -22,6 +22,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class ArrayConstraint(core.ModelBase):
@@ -221,7 +222,7 @@ QueryDataType = typing_extensions.Annotated[
         core_models.UnsupportedType,
         core_models.AttachmentType,
         core_models.NullType,
-        QueryArrayType,
+        "QueryArrayType",
         "TwoDimensionalAggregation",
         "ValueTypeReference",
         core_models.TimestampType,
@@ -285,6 +286,19 @@ class RidConstraint(core.ModelBase):
     type: typing.Literal["rid"] = "rid"
 
 
+class StreamingExecuteQueryRequest(core.ModelBase):
+    """StreamingExecuteQueryRequest"""
+
+    ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
+    """
+    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+    function. When omitted, executes a global function.
+    """
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    version: typing.Optional[FunctionVersion] = None
+
+
 class StructConstraint(core.ModelBase):
     """StructConstraint"""
 
@@ -313,6 +327,10 @@ class ThreeDimensionalAggregation(core.ModelBase):
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
     value_type: TwoDimensionalAggregation = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
     type: typing.Literal["threeDimensionalAggregation"] = "threeDimensionalAggregation"
+
+
+TransactionId = str
+"""The ID identifying a transaction."""
 
 
 class TwoDimensionalAggregation(core.ModelBase):
@@ -348,17 +366,17 @@ ValueTypeApiName = str
 
 ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
-        StructConstraint,
-        StructV1Constraint,
-        RegexConstraint,
-        NullableConstraint,
-        ArrayConstraint,
-        LengthConstraint,
-        RangesConstraint,
-        RidConstraint,
-        MapConstraint,
-        UuidConstraint,
-        EnumConstraint,
+        "StructConstraint",
+        "StructV1Constraint",
+        "RegexConstraint",
+        "NullableConstraint",
+        "ArrayConstraint",
+        "LengthConstraint",
+        "RangesConstraint",
+        "RidConstraint",
+        "MapConstraint",
+        "UuidConstraint",
+        "EnumConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -555,12 +573,22 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
+QueryAggregationKeyType = core.resolve_forward_references(
+    QueryAggregationKeyType, globalns=globals(), localns=locals()
+)
+QueryAggregationRangeSubType = core.resolve_forward_references(
+    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
+)
+QueryAggregationValueType = core.resolve_forward_references(
+    QueryAggregationValueType, globalns=globals(), localns=locals()
+)
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+ValueTypeConstraint = core.resolve_forward_references(
+    ValueTypeConstraint, globalns=globals(), localns=locals()
+)
+ValueTypeDataType = core.resolve_forward_references(
+    ValueTypeDataType, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "ArrayConstraint",
@@ -593,11 +621,13 @@ __all__ = [
     "RangesConstraint",
     "RegexConstraint",
     "RidConstraint",
+    "StreamingExecuteQueryRequest",
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",
     "StructV1Constraint",
     "ThreeDimensionalAggregation",
+    "TransactionId",
     "TwoDimensionalAggregation",
     "UuidConstraint",
     "ValueType",

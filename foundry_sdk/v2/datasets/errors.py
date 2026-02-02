@@ -395,6 +395,36 @@ class GetBranchTransactionHistoryPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetDatasetHealthCheckReportsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getHealthCheckReports the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class GetDatasetHealthCheckReportsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetHealthCheckReportsPermissionDenied"]
+    parameters: GetDatasetHealthCheckReportsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class GetDatasetHealthChecksPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getHealthChecks the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+
+
+@dataclass
+class GetDatasetHealthChecksPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetHealthChecksPermissionDenied"]
+    parameters: GetDatasetHealthChecksPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetDatasetJobsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not jobs the Dataset."""
 
@@ -923,6 +953,8 @@ __all__ = [
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
     "GetBranchTransactionHistoryPermissionDenied",
+    "GetDatasetHealthCheckReportsPermissionDenied",
+    "GetDatasetHealthChecksPermissionDenied",
     "GetDatasetJobsPermissionDenied",
     "GetDatasetSchedulesPermissionDenied",
     "GetDatasetSchemaPermissionDenied",

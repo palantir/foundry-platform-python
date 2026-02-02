@@ -91,6 +91,7 @@ class UserClient:
         :rtype: None
 
         :raises DeleteUserPermissionDenied: Could not delete the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -108,6 +109,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -121,6 +123,7 @@ class UserClient:
         self,
         user_id: core_models.UserId,
         *,
+        status: typing.Optional[core_models.UserStatus] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.User:
@@ -128,11 +131,15 @@ class UserClient:
         Get the User with the specified id.
         :param user_id:
         :type user_id: UserId
+        :param status:
+        :type status: Optional[UserStatus]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: admin_models.User
 
+        :raises UserDeleted: The user is deleted.
+        :raises UserIsActive: The user is an active user.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -140,7 +147,9 @@ class UserClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
-                query_params={},
+                query_params={
+                    "status": status,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -151,6 +160,8 @@ class UserClient:
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "UserDeleted": admin_errors.UserDeleted,
+                    "UserIsActive": admin_errors.UserIsActive,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -261,6 +272,7 @@ class UserClient:
         :rtype: admin_models.GetUserMarkingsResponse
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -282,6 +294,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -294,6 +307,7 @@ class UserClient:
     def list(
         self,
         *,
+        include: typing.Optional[core_models.UserStatus] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -303,6 +317,8 @@ class UserClient:
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param include:
+        :type include: Optional[UserStatus]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -313,6 +329,7 @@ class UserClient:
         :rtype: core.ResourceIterator[admin_models.User]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UserDeleted: The user is deleted.
         """
 
         return self._api_client.call_api(
@@ -320,6 +337,7 @@ class UserClient:
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
+                    "include": include,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -332,6 +350,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UserDeleted": admin_errors.UserDeleted,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -358,6 +377,8 @@ class UserClient:
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
+        :raises ProfileServiceNotPresent: The Profile service is unexpectedly not present.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -378,6 +399,8 @@ class UserClient:
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
                     "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                    "ProfileServiceNotPresent": admin_errors.ProfileServiceNotPresent,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -411,6 +434,7 @@ class UserClient:
         :rtype: None
 
         :raises RevokeAllTokensUserPermissionDenied: Could not revokeAllTokens the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -430,6 +454,7 @@ class UserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RevokeAllTokensUserPermissionDenied": admin_errors.RevokeAllTokensUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -597,6 +622,7 @@ class AsyncUserClient:
         :rtype: typing.Awaitable[None]
 
         :raises DeleteUserPermissionDenied: Could not delete the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -614,6 +640,7 @@ class AsyncUserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteUserPermissionDenied": admin_errors.DeleteUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -627,6 +654,7 @@ class AsyncUserClient:
         self,
         user_id: core_models.UserId,
         *,
+        status: typing.Optional[core_models.UserStatus] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.User]:
@@ -634,11 +662,15 @@ class AsyncUserClient:
         Get the User with the specified id.
         :param user_id:
         :type user_id: UserId
+        :param status:
+        :type status: Optional[UserStatus]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[admin_models.User]
 
+        :raises UserDeleted: The user is deleted.
+        :raises UserIsActive: The user is an active user.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -646,7 +678,9 @@ class AsyncUserClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}",
-                query_params={},
+                query_params={
+                    "status": status,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -657,6 +691,8 @@ class AsyncUserClient:
                 response_type=admin_models.User,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "UserDeleted": admin_errors.UserDeleted,
+                    "UserIsActive": admin_errors.UserIsActive,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -767,6 +803,7 @@ class AsyncUserClient:
         :rtype: typing.Awaitable[admin_models.GetUserMarkingsResponse]
 
         :raises GetMarkingsUserPermissionDenied: Could not getMarkings the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -788,6 +825,7 @@ class AsyncUserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "GetMarkingsUserPermissionDenied": admin_errors.GetMarkingsUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -800,6 +838,7 @@ class AsyncUserClient:
     def list(
         self,
         *,
+        include: typing.Optional[core_models.UserStatus] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -809,6 +848,8 @@ class AsyncUserClient:
         Lists all Users.
 
         This is a paged endpoint. Each page may be smaller or larger than the requested page size. However, it is guaranteed that if there are more results available, the `nextPageToken` field will be populated. To get the next page, make the same request again, but set the value of the `pageToken` query parameter to be value of the `nextPageToken` value of the previous response. If there is no `nextPageToken` field in the response, you are on the last page.
+        :param include:
+        :type include: Optional[UserStatus]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -819,6 +860,7 @@ class AsyncUserClient:
         :rtype: core.AsyncResourceIterator[admin_models.User]
 
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
+        :raises UserDeleted: The user is deleted.
         """
 
         return self._api_client.call_api(
@@ -826,6 +868,7 @@ class AsyncUserClient:
                 method="GET",
                 resource_path="/v2/admin/users",
                 query_params={
+                    "include": include,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -838,6 +881,7 @@ class AsyncUserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "InvalidPageSize": core_errors.InvalidPageSize,
+                    "UserDeleted": admin_errors.UserDeleted,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
@@ -864,6 +908,8 @@ class AsyncUserClient:
 
         :raises GetProfilePictureOfUserPermissionDenied: Could not profilePicture the User.
         :raises InvalidProfilePicture: The user's profile picture is not a valid image
+        :raises ProfileServiceNotPresent: The Profile service is unexpectedly not present.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -884,6 +930,8 @@ class AsyncUserClient:
                 throwable_errors={
                     "GetProfilePictureOfUserPermissionDenied": admin_errors.GetProfilePictureOfUserPermissionDenied,
                     "InvalidProfilePicture": admin_errors.InvalidProfilePicture,
+                    "ProfileServiceNotPresent": admin_errors.ProfileServiceNotPresent,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -917,6 +965,7 @@ class AsyncUserClient:
         :rtype: typing.Awaitable[None]
 
         :raises RevokeAllTokensUserPermissionDenied: Could not revokeAllTokens the User.
+        :raises UserDeleted: The user is deleted.
         :raises UserNotFound: The given User could not be found.
         """
 
@@ -936,6 +985,7 @@ class AsyncUserClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "RevokeAllTokensUserPermissionDenied": admin_errors.RevokeAllTokensUserPermissionDenied,
+                    "UserDeleted": admin_errors.UserDeleted,
                     "UserNotFound": admin_errors.UserNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

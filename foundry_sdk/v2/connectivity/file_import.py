@@ -173,6 +173,7 @@ class FileImportClient:
         :rtype: None
 
         :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -192,6 +193,7 @@ class FileImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteFileImportPermissionDenied": connectivity_errors.DeleteFileImportPermissionDenied,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -225,6 +227,7 @@ class FileImportClient:
         :rtype: core_models.BuildRid
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -246,6 +249,7 @@ class FileImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -332,6 +336,8 @@ class FileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[connectivity_models.FileImport]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         return self._api_client.call_api(
@@ -352,7 +358,9 @@ class FileImportClient:
                 body=None,
                 response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -396,6 +404,7 @@ class FileImportClient:
 
         :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
         :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileImportNotFound: The given FileImport could not be found.
         :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
         :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
         :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
@@ -429,6 +438,7 @@ class FileImportClient:
                 throwable_errors={
                     "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
                     "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                     "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
                     "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
                     "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,
@@ -618,6 +628,7 @@ class AsyncFileImportClient:
         :rtype: typing.Awaitable[None]
 
         :raises DeleteFileImportPermissionDenied: Could not delete the FileImport.
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -637,6 +648,7 @@ class AsyncFileImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "DeleteFileImportPermissionDenied": connectivity_errors.DeleteFileImportPermissionDenied,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -670,6 +682,7 @@ class AsyncFileImportClient:
         :rtype: typing.Awaitable[core_models.BuildRid]
 
         :raises ExecuteFileImportPermissionDenied: Could not execute the FileImport.
+        :raises FileImportNotFound: The given FileImport could not be found.
         """
 
         return self._api_client.call_api(
@@ -691,6 +704,7 @@ class AsyncFileImportClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteFileImportPermissionDenied": connectivity_errors.ExecuteFileImportPermissionDenied,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -777,6 +791,8 @@ class AsyncFileImportClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[connectivity_models.FileImport]
+
+        :raises ConnectionNotFound: The given Connection could not be found.
         """
 
         return self._api_client.call_api(
@@ -797,7 +813,9 @@ class AsyncFileImportClient:
                 body=None,
                 response_type=connectivity_models.ListFileImportsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ConnectionNotFound": connectivity_errors.ConnectionNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -841,6 +859,7 @@ class AsyncFileImportClient:
 
         :raises FileAtLeastCountFilterInvalidMinCount: The provided `minFilesCount` property in the FileAtLeastCountFilter must be strictly greater than 0.
         :raises FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports: Custom file import filters can be fetched but cannot currently be used when creating or updating file imports.
+        :raises FileImportNotFound: The given FileImport could not be found.
         :raises FileSizeFilterGreaterThanCannotBeNegative: The `gt` property in the FileSizeFilter cannot be a negative number.
         :raises FileSizeFilterInvalidGreaterThanAndLessThanRange: The provided `gt` and `lt` properties in the FileSizeFilter are invalid. No files will ever satisfy the provided range. The value specified for `gt` must be strictly less than `lt - 1`.
         :raises FileSizeFilterLessThanMustBeOneByteOrLarger: The `lt` property in the FileSizeFilter must be at least 1 byte.
@@ -874,6 +893,7 @@ class AsyncFileImportClient:
                 throwable_errors={
                     "FileAtLeastCountFilterInvalidMinCount": connectivity_errors.FileAtLeastCountFilterInvalidMinCount,
                     "FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports": connectivity_errors.FileImportCustomFilterCannotBeUsedToCreateOrUpdateFileImports,
+                    "FileImportNotFound": connectivity_errors.FileImportNotFound,
                     "FileSizeFilterGreaterThanCannotBeNegative": connectivity_errors.FileSizeFilterGreaterThanCannotBeNegative,
                     "FileSizeFilterInvalidGreaterThanAndLessThanRange": connectivity_errors.FileSizeFilterInvalidGreaterThanAndLessThanRange,
                     "FileSizeFilterLessThanMustBeOneByteOrLarger": connectivity_errors.FileSizeFilterLessThanMustBeOneByteOrLarger,

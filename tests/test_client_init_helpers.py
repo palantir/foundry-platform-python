@@ -32,8 +32,8 @@ from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
-from foundry_sdk._core.context_and_environment_vars import _maybe_get_context_var
 from foundry_sdk._core.context_and_environment_vars import _maybe_get_environment_var
+from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
 from foundry_sdk._core.context_and_environment_vars import (
     maybe_get_value_from_context_or_environment_vars,
 )  # NOQA
@@ -47,12 +47,12 @@ def test_maybe_get_context_var():
     example_context_vars = [CONTEXT_VAR1, CONTEXT_VAR2]
 
     CONTEXT_VAR2.set("context_var 2")
-    expect(_maybe_get_context_var(context_vars=example_context_vars)).to(equal("context_var 2"))
+    expect(maybe_get_context_var(context_vars=example_context_vars)).to(equal("context_var 2"))
     CONTEXT_VAR2.set(None)
 
     CONTEXT_VAR1.set("context_var 1")
     CONTEXT_VAR2.set("context_var 2")
-    expect(_maybe_get_context_var(context_vars=example_context_vars)).to(equal("context_var 1"))
+    expect(maybe_get_context_var(context_vars=example_context_vars)).to(equal("context_var 1"))
     CONTEXT_VAR1.set(None)
     CONTEXT_VAR2.set(None)
 

@@ -52,7 +52,21 @@ class ListLogFilesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class MissingStartDateParameters(typing_extensions.TypedDict):
+    """Start date is required to list audit log files."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class MissingStartDate(errors.BadRequestError):
+    name: typing.Literal["MissingStartDate"]
+    parameters: MissingStartDateParameters
+    error_instance_id: str
+
+
 __all__ = [
     "GetLogFileContentPermissionDenied",
     "ListLogFilesPermissionDenied",
+    "MissingStartDate",
 ]

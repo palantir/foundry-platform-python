@@ -57,6 +57,7 @@ class AnthropicModelClient:
         *,
         max_tokens: int,
         messages: typing.List[language_models_models.AnthropicMessage],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stop_sequences: typing.Optional[typing.List[str]] = None,
         system: typing.Optional[typing.List[language_models_models.AnthropicSystemMessage]] = None,
@@ -77,6 +78,8 @@ class AnthropicModelClient:
         :type max_tokens: int
         :param messages: Input messages to the model. This can include a single user-role message or multiple messages with alternating user and assistant roles.
         :type messages: List[AnthropicMessage]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stop_sequences: Custom text sequences that will cause the model to stop generating.
@@ -116,6 +119,7 @@ class AnthropicModelClient:
                     "anthropicModelModelId": anthropic_model_model_id,
                 },
                 header_params={
+                    "attribution": attribution,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -189,6 +193,7 @@ class AsyncAnthropicModelClient:
         *,
         max_tokens: int,
         messages: typing.List[language_models_models.AnthropicMessage],
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stop_sequences: typing.Optional[typing.List[str]] = None,
         system: typing.Optional[typing.List[language_models_models.AnthropicSystemMessage]] = None,
@@ -209,6 +214,8 @@ class AsyncAnthropicModelClient:
         :type max_tokens: int
         :param messages: Input messages to the model. This can include a single user-role message or multiple messages with alternating user and assistant roles.
         :type messages: List[AnthropicMessage]
+        :param attribution:
+        :type attribution: Optional[Attribution]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stop_sequences: Custom text sequences that will cause the model to stop generating.
@@ -248,6 +255,7 @@ class AsyncAnthropicModelClient:
                     "anthropicModelModelId": anthropic_model_model_id,
                 },
                 header_params={
+                    "attribution": attribution,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

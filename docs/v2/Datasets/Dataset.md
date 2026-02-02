@@ -4,8 +4,11 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/datasets | Stable |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
+[**get_health_check_reports**](#get_health_check_reports) | **GET** /v2/datasets/{datasetRid}/getHealthCheckReports | Public Beta |
+[**get_health_checks**](#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks | Public Beta |
 [**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
 [**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
+[**get_schema_batch**](#get_schema_batch) | **POST** /v2/datasets/getSchemaBatch | Public Beta |
 [**jobs**](#jobs) | **POST** /v2/datasets/{datasetRid}/jobs | Public Beta |
 [**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
@@ -106,6 +109,124 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Dataset  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_health_check_reports**
+Get the most recent Data Health Check report for each check configured on the given Dataset.
+Returns one report per check, representing the current health status of the dataset.
+
+To get the list of checks configured on a Dataset, use
+[Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
+For the full report history of a specific check, use
+[Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetHealthCheckReportsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+branch_name = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_health_check_reports(
+        dataset_rid, branch_name=branch_name, preview=preview
+    )
+    print("The get_health_check_reports response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_health_check_reports: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetHealthCheckReportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_health_checks**
+Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListHealthChecksResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+branch_name = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_health_checks(
+        dataset_rid, branch_name=branch_name, preview=preview
+    )
+    print("The get_health_checks response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_health_checks: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListHealthChecksResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -237,6 +358,67 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetDatasetSchemaResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_schema_batch**
+Fetch schemas for multiple datasets in a single request. Datasets not found 
+or inaccessible to the user will be omitted from the response.
+
+
+The maximum batch size for this endpoint is 1000.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetSchemaDatasetsBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetSchemaDatasetsBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetSchemaDatasetsBatchRequestElement] | Body of the request
+body = [
+    {
+        "endTransactionRid": "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4",
+        "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "versionId": "0000000d-2acf-537c-a228-3a9fe3cdc523",
+        "branchName": "master",
+    }
+]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_schema_batch(body, preview=preview)
+    print("The get_schema_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_schema_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetSchemaDatasetsBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -513,7 +695,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **transactions**
-Get the Transaction history for the given Dataset
+Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
 
 ### Parameters

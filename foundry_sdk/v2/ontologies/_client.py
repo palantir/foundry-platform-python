@@ -91,6 +91,18 @@ class OntologiesClient:
         )
 
     @cached_property
+    def GeotemporalSeriesProperty(self):
+        from foundry_sdk.v2.ontologies.geotemporal_series_property import (
+            GeotemporalSeriesPropertyClient,
+        )  # NOQA
+
+        return GeotemporalSeriesPropertyClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def LinkedObject(self):
         from foundry_sdk.v2.ontologies.linked_object import LinkedObjectClient
 
@@ -233,6 +245,9 @@ class AsyncOntologiesClient:
         from foundry_sdk.v2.ontologies.cipher_text_property import (
             AsyncCipherTextPropertyClient,
         )  # NOQA
+        from foundry_sdk.v2.ontologies.geotemporal_series_property import (
+            AsyncGeotemporalSeriesPropertyClient,
+        )  # NOQA
         from foundry_sdk.v2.ontologies.linked_object import AsyncLinkedObjectClient
         from foundry_sdk.v2.ontologies.media_reference_property import (
             AsyncMediaReferencePropertyClient,
@@ -272,6 +287,10 @@ class AsyncOntologiesClient:
         )
 
         self.CipherTextProperty = AsyncCipherTextPropertyClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.GeotemporalSeriesProperty = AsyncGeotemporalSeriesPropertyClient(
             auth=auth, hostname=hostname, config=config
         )
 

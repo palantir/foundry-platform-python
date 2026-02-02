@@ -289,7 +289,7 @@ class BranchClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset.
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -631,7 +631,7 @@ class AsyncBranchClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset.
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid

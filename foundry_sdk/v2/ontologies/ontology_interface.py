@@ -133,6 +133,8 @@ class OntologyInterfaceClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.InterfaceType:
@@ -147,6 +149,10 @@ class OntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -160,6 +166,8 @@ class OntologyInterfaceClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -532,6 +540,10 @@ class OntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        augmented_interface_property_types: typing.Dict[
+            ontologies_models.InterfaceTypeApiName,
+            typing.List[ontologies_models.InterfacePropertyApiName],
+        ],
         augmented_properties: typing.Dict[
             ontologies_models.ObjectTypeApiName, typing.List[ontologies_models.PropertyApiName]
         ],
@@ -540,6 +552,7 @@ class OntologyInterfaceClient:
             typing.List[ontologies_models.SharedPropertyTypeApiName],
         ],
         other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
+        selected_interface_property_types: typing.List[ontologies_models.InterfacePropertyApiName],
         selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
         selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
@@ -588,12 +601,16 @@ class OntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
+        :param augmented_interface_property_types: A map from interface type API name to a list of interface property type API names. For each returned object,  if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
+        :type augmented_interface_property_types: Dict[InterfaceTypeApiName, List[InterfacePropertyApiName]]
         :param augmented_properties: A map from object type API name to a list of property type API names. For each returned object, if the  object’s object type is a key in the map, then we augment the response for that object type with the list  of properties specified in the value.
         :type augmented_properties: Dict[ObjectTypeApiName, List[PropertyApiName]]
         :param augmented_shared_property_types: A map from interface type API name to a list of shared property type API names. For each returned object, if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
         :type augmented_shared_property_types: Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]]
         :param other_interface_types: A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.
         :type other_interface_types: List[InterfaceTypeApiName]
+        :param selected_interface_property_types: A list of interface property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
+        :type selected_interface_property_types: List[InterfacePropertyApiName]
         :param selected_object_types: A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
@@ -637,7 +654,9 @@ class OntologyInterfaceClient:
                     order_by=order_by,
                     augmented_properties=augmented_properties,
                     augmented_shared_property_types=augmented_shared_property_types,
+                    augmented_interface_property_types=augmented_interface_property_types,
                     selected_shared_property_types=selected_shared_property_types,
+                    selected_interface_property_types=selected_interface_property_types,
                     selected_object_types=selected_object_types,
                     other_interface_types=other_interface_types,
                     page_size=page_size,
@@ -826,6 +845,8 @@ class AsyncOntologyInterfaceClient:
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.InterfaceType]:
@@ -840,6 +861,10 @@ class AsyncOntologyInterfaceClient:
         :type branch: Optional[FoundryBranch]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -853,6 +878,8 @@ class AsyncOntologyInterfaceClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
                 },
                 path_params={
                     "ontology": ontology,
@@ -1225,6 +1252,10 @@ class AsyncOntologyInterfaceClient:
         ontology: ontologies_models.OntologyIdentifier,
         interface_type: ontologies_models.InterfaceTypeApiName,
         *,
+        augmented_interface_property_types: typing.Dict[
+            ontologies_models.InterfaceTypeApiName,
+            typing.List[ontologies_models.InterfacePropertyApiName],
+        ],
         augmented_properties: typing.Dict[
             ontologies_models.ObjectTypeApiName, typing.List[ontologies_models.PropertyApiName]
         ],
@@ -1233,6 +1264,7 @@ class AsyncOntologyInterfaceClient:
             typing.List[ontologies_models.SharedPropertyTypeApiName],
         ],
         other_interface_types: typing.List[ontologies_models.InterfaceTypeApiName],
+        selected_interface_property_types: typing.List[ontologies_models.InterfacePropertyApiName],
         selected_object_types: typing.List[ontologies_models.ObjectTypeApiName],
         selected_shared_property_types: typing.List[ontologies_models.SharedPropertyTypeApiName],
         branch: typing.Optional[core_models.FoundryBranch] = None,
@@ -1281,12 +1313,16 @@ class AsyncOntologyInterfaceClient:
         :type ontology: OntologyIdentifier
         :param interface_type: The API name of the interface type. To find the API name, use the **List interface types** endpoint or check the **Ontology Manager**.
         :type interface_type: InterfaceTypeApiName
+        :param augmented_interface_property_types: A map from interface type API name to a list of interface property type API names. For each returned object,  if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
+        :type augmented_interface_property_types: Dict[InterfaceTypeApiName, List[InterfacePropertyApiName]]
         :param augmented_properties: A map from object type API name to a list of property type API names. For each returned object, if the  object’s object type is a key in the map, then we augment the response for that object type with the list  of properties specified in the value.
         :type augmented_properties: Dict[ObjectTypeApiName, List[PropertyApiName]]
         :param augmented_shared_property_types: A map from interface type API name to a list of shared property type API names. For each returned object, if the object implements an interface that is a key in the map, then we augment the response for that object  type with the list of properties specified in the value.
         :type augmented_shared_property_types: Dict[InterfaceTypeApiName, List[SharedPropertyTypeApiName]]
         :param other_interface_types: A list of interface type API names. Object types must implement all the mentioned interfaces in order to be  included in the response.
         :type other_interface_types: List[InterfaceTypeApiName]
+        :param selected_interface_property_types: A list of interface property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
+        :type selected_interface_property_types: List[InterfacePropertyApiName]
         :param selected_object_types: A list of object type API names that should be included in the response. If non-empty, object types that are not mentioned will not be included in the response even if they implement the specified interface. Omit the  parameter to include all object types.
         :type selected_object_types: List[ObjectTypeApiName]
         :param selected_shared_property_types: A list of shared property type API names of the interface type that should be included in the response.  Omit this parameter to include all properties of the interface type in the response.
@@ -1330,7 +1366,9 @@ class AsyncOntologyInterfaceClient:
                     order_by=order_by,
                     augmented_properties=augmented_properties,
                     augmented_shared_property_types=augmented_shared_property_types,
+                    augmented_interface_property_types=augmented_interface_property_types,
                     selected_shared_property_types=selected_shared_property_types,
+                    selected_interface_property_types=selected_interface_property_types,
                     selected_object_types=selected_object_types,
                     other_interface_types=other_interface_types,
                     page_size=page_size,

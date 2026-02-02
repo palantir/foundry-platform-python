@@ -11,6 +11,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 LtQueryV2 | lt
 DoesNotIntersectBoundingBoxQuery | doesNotIntersectBoundingBox
+RelativeDateRangeQuery | relativeDateRange
 WildcardQuery | wildcard
 WithinDistanceOfQuery | withinDistanceOf
 WithinBoundingBoxQuery | withinBoundingBox
@@ -33,6 +34,7 @@ ContainsQueryV2 | contains
 RegexQuery | regex
 IsNullQueryV2 | isNull
 ContainsAnyTermQuery | containsAnyTerm
+IntervalQuery | interval
 StartsWithQuery | startsWith
 
 

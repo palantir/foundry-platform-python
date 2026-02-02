@@ -1,0 +1,99 @@
+# Modality
+
+DICOM modality code. A list of modalities and their meanings can be found in the DICOM specification. 
+https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html#sect_C.7.3.1.1.1
+
+
+| **Value** |
+| --------- |
+| `"AR"` |
+| `"ASMT"` |
+| `"AU"` |
+| `"BDUS"` |
+| `"BI"` |
+| `"BMD"` |
+| `"CR"` |
+| `"CT"` |
+| `"CTPROTOCOL"` |
+| `"DG"` |
+| `"DOC"` |
+| `"DX"` |
+| `"ECG"` |
+| `"EPS"` |
+| `"ES"` |
+| `"FID"` |
+| `"GM"` |
+| `"HC"` |
+| `"HD"` |
+| `"IO"` |
+| `"IOL"` |
+| `"IVOCT"` |
+| `"IVUS"` |
+| `"KER"` |
+| `"KO"` |
+| `"LEN"` |
+| `"LS"` |
+| `"MG"` |
+| `"MR"` |
+| `"M3D"` |
+| `"NM"` |
+| `"OAM"` |
+| `"OCT"` |
+| `"OP"` |
+| `"OPM"` |
+| `"OPT"` |
+| `"OPTBSV"` |
+| `"OPTENF"` |
+| `"OPV"` |
+| `"OSS"` |
+| `"OT"` |
+| `"PLAN"` |
+| `"PR"` |
+| `"PT"` |
+| `"PX"` |
+| `"REG"` |
+| `"RESP"` |
+| `"RF"` |
+| `"RG"` |
+| `"RTDOSE"` |
+| `"RTIMAGE"` |
+| `"RTINTENT"` |
+| `"RTPLAN"` |
+| `"RTRAD"` |
+| `"RTRECORD"` |
+| `"RTSEGANN"` |
+| `"RTSTRUCT"` |
+| `"RWV"` |
+| `"SEG"` |
+| `"SM"` |
+| `"SMR"` |
+| `"SR"` |
+| `"SRF"` |
+| `"STAIN"` |
+| `"TEXTUREMAP"` |
+| `"TG"` |
+| `"US"` |
+| `"VA"` |
+| `"XA"` |
+| `"XC"` |
+| `"AS"` |
+| `"CD"` |
+| `"CF"` |
+| `"CP"` |
+| `"CS"` |
+| `"DD"` |
+| `"DF"` |
+| `"DM"` |
+| `"DS"` |
+| `"EC"` |
+| `"FA"` |
+| `"FS"` |
+| `"LP"` |
+| `"MA"` |
+| `"MS"` |
+| `"OPR"` |
+| `"ST"` |
+| `"VF"` |
+
+
+[[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

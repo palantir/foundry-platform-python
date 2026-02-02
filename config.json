@@ -199,12 +199,20 @@
       },
       "skipTests": [],
       "skipValidation": {
-        "Filesystem": ["ResourceType"]
+        "Filesystem": [
+          "ResourceType"
+        ]
       },
       "tableOperations": [
         "readTableDataset",
         "getResultsSqlQuery"
       ]
     }
-  }
+  },
+  "optionalLists": [
+    "LoadObjectSetRequestV2.selectV2",
+    "LoadObjectSetV2MultipleObjectTypesRequest.selectV2",
+    "SearchObjectsRequestV2.selectV2",
+    "LoadObjectSetV2ObjectsOrInterfacesRequest.selectV2"
+  ]
 }

@@ -63,7 +63,7 @@ AttributeValue = str
 """AttributeValue"""
 
 
-AttributeValues = typing.List[AttributeValue]
+AttributeValues = typing.List["AttributeValue"]
 """AttributeValues"""
 
 
@@ -244,6 +244,7 @@ class GetUsersBatchRequestElement(core.ModelBase):
     """GetUsersBatchRequestElement"""
 
     user_id: core_models.UserId = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
+    status: typing.Optional[core_models.UserStatus] = None
 
 
 class GetUsersBatchResponse(core.ModelBase):
@@ -749,6 +750,9 @@ class User(core.ModelBase):
     organization: typing.Optional[core_models.OrganizationRid] = None
     """The RID of the user's primary Organization. This will be blank for third-party application service users."""
 
+    status: core_models.UserStatus
+    """The current status of the user."""
+
     attributes: typing.Dict[AttributeName, AttributeValues]
     """
     A map of the User's attributes. Attributes prefixed with "multipass:" are reserved for internal use by
@@ -778,8 +782,12 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
-core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+AttributeValues = core.resolve_forward_references(
+    AttributeValues, globalns=globals(), localns=locals()
+)
+AuthenticationProtocol = core.resolve_forward_references(
+    AuthenticationProtocol, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

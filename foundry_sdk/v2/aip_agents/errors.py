@@ -204,6 +204,25 @@ class CreateSessionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class DeleteSessionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not delete the Session."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+
+    sessionRid: aip_agents_models.SessionRid
+    """The Resource Identifier (RID) of the conversation session."""
+
+
+@dataclass
+class DeleteSessionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["DeleteSessionPermissionDenied"]
+    parameters: DeleteSessionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class FunctionLocatorNotFoundParameters(typing_extensions.TypedDict):
     """
     The specified function locator is configured for use by the Agent but could not be found.
@@ -441,6 +460,42 @@ class RateLimitExceeded(errors.BadRequestError):
     error_instance_id: str
 
 
+class RetryAttemptsExceededParameters(typing_extensions.TypedDict):
+    """Failed to generate a response after retrying up to the configured number of retry attempts. Clients should wait and retry."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
+    details: str
+    """Any additional details provided for the error."""
+
+
+@dataclass
+class RetryAttemptsExceeded(errors.BadRequestError):
+    name: typing.Literal["RetryAttemptsExceeded"]
+    parameters: RetryAttemptsExceededParameters
+    error_instance_id: str
+
+
+class RetryDeadlineExceededParameters(typing_extensions.TypedDict):
+    """Failed to generate a response after retrying up to the configured retry deadline. Clients should wait and retry."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    agentRid: aip_agents_models.AgentRid
+    sessionRid: aip_agents_models.SessionRid
+    details: str
+    """Any additional details provided for the error."""
+
+
+@dataclass
+class RetryDeadlineExceeded(errors.BadRequestError):
+    name: typing.Literal["RetryDeadlineExceeded"]
+    parameters: RetryDeadlineExceededParameters
+    error_instance_id: str
+
+
 class SessionExecutionFailedParameters(typing_extensions.TypedDict):
     """Failed to generate a response for a session due to an unexpected error."""
 
@@ -568,6 +623,7 @@ __all__ = [
     "ContentNotFound",
     "ContextSizeExceededLimit",
     "CreateSessionPermissionDenied",
+    "DeleteSessionPermissionDenied",
     "FunctionLocatorNotFound",
     "GetAllSessionsAgentsPermissionDenied",
     "GetRagContextForSessionPermissionDenied",
@@ -580,6 +636,8 @@ __all__ = [
     "ObjectTypeRidsNotFound",
     "OntologyEntitiesNotFound",
     "RateLimitExceeded",
+    "RetryAttemptsExceeded",
+    "RetryDeadlineExceeded",
     "SessionExecutionFailed",
     "SessionNotFound",
     "SessionTraceIdAlreadyExists",

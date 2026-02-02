@@ -30,8 +30,13 @@ T = TypeVar("T")
 class ResourceIterator(Generic[T]):
     """A generic class for iterating over paged responses."""
 
-    def __init__(self, paged_func: PageFunction[T], page_size: Optional[int] = None) -> None:
-        self._page_iterator = PageIterator(paged_func, page_size)
+    def __init__(
+        self,
+        paged_func: PageFunction[T],
+        page_size: Optional[int] = None,
+        page_token: Optional[str] = None,
+    ) -> None:
+        self._page_iterator = PageIterator(paged_func, page_size, page_token)
         self._index = 0
 
     @property
@@ -46,7 +51,7 @@ class ResourceIterator(Generic[T]):
         return self
 
     def __next__(self):
-        if self._index >= len(self._page_iterator.data):
+        while self._index >= len(self._page_iterator.data):
             self._get_data()
 
         obj = self._page_iterator.data[self._index]
@@ -64,8 +69,13 @@ class ResourceIterator(Generic[T]):
 class AsyncResourceIterator(Generic[T]):
     """A generic class for async iterating over paged responses."""
 
-    def __init__(self, paged_func: AsyncPageFunction[T], page_size: Optional[int] = None) -> None:
-        self._page_iterator = AsyncPageIterator(paged_func, page_size)
+    def __init__(
+        self,
+        paged_func: AsyncPageFunction[T],
+        page_size: Optional[int] = None,
+        page_token: Optional[str] = None,
+    ) -> None:
+        self._page_iterator = AsyncPageIterator(paged_func, page_size, page_token)
         self._data: Optional[List[T]] = None
         self._index = 0
 

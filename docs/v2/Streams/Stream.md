@@ -4,6 +4,8 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams | Public Beta |
 [**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} | Public Beta |
+[**get_end_offsets**](#get_end_offsets) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets | Private Beta |
+[**get_records**](#get_records) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords | Private Beta |
 [**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord | Public Beta |
 [**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord | Public Beta |
 [**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords | Public Beta |
@@ -140,6 +142,140 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_end_offsets**
+Get the end offsets for all partitions of a stream. The end offset is the offset of the next record that will be written to the partition.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**stream_branch_name** | BranchName |  |  |
+**view_rid** | ViewRid | The RID from the view to retrieve end offsets for. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetEndOffsetsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# BranchName
+stream_branch_name = None
+# ViewRid | The RID from the view to retrieve end offsets for.
+view_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.streams.Dataset.Stream.get_end_offsets(
+        dataset_rid, stream_branch_name, view_rid=view_rid, preview=preview
+    )
+    print("The get_end_offsets response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Stream.get_end_offsets: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetEndOffsetsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_records**
+Get a batch of records from a stream for a given partition. Offsets are ordered from [0, inf) but may be sparse (e.g.: 0, 2, 3, 5).
+Binary field values are returned as base64-encoded strings. Decode them to retrieve the original bytes.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**stream_branch_name** | BranchName |  |  |
+**limit** | int | The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.  |  |
+**partition_id** | PartitionId | The ID of the partition to retrieve records from. |  |
+**view_rid** | ViewRid | The Rid from the view to retrieve records from. |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**start_offset** | Optional[Long] | The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.  | [optional] |
+
+### Return type
+**GetRecordsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# BranchName
+stream_branch_name = None
+# int | The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.
+limit = None
+# PartitionId | The ID of the partition to retrieve records from.
+partition_id = None
+# ViewRid | The Rid from the view to retrieve records from.
+view_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+# Optional[Long] | The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
+start_offset = None
+
+
+try:
+    api_response = client.streams.Dataset.Stream.get_records(
+        dataset_rid,
+        stream_branch_name,
+        limit=limit,
+        partition_id=partition_id,
+        view_rid=view_rid,
+        preview=preview,
+        start_offset=start_offset,
+    )
+    print("The get_records response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Stream.get_records: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetRecordsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **publish_binary_record**
 Publish a single binary record to the stream. The stream's schema must be a single binary field.
 
@@ -152,7 +288,7 @@ Name | Type | Description  | Notes |
 **stream_branch_name** | BranchName |  |  |
 **body** | bytes | The binary record to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -174,7 +310,7 @@ stream_branch_name = None
 body = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = None
 
 
@@ -215,7 +351,7 @@ Name | Type | Description  | Notes |
 **stream_branch_name** | BranchName |  |  |
 **record** | Record | The record to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -237,7 +373,7 @@ stream_branch_name = None
 record = {"timestamp": 1731426022784, "value": "Hello, World!"}
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
@@ -278,7 +414,7 @@ Name | Type | Description  | Notes |
 **stream_branch_name** | BranchName |  |  |
 **records** | List[Record] | The records to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -300,7 +436,7 @@ stream_branch_name = None
 records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 

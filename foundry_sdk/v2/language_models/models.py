@@ -139,7 +139,7 @@ class AnthropicDocumentCitations(core.ModelBase):
 
 
 AnthropicDocumentSource = typing_extensions.Annotated[
-    typing.Union[AnthropicBase64PdfDocumentSource, "AnthropicTextDocumentSource"],
+    typing.Union["AnthropicBase64PdfDocumentSource", "AnthropicTextDocumentSource"],
     pydantic.Field(discriminator="type"),
 ]
 """AnthropicDocumentSource"""
@@ -191,9 +191,9 @@ class AnthropicMessage(core.ModelBase):
 
 AnthropicMessageContent = typing_extensions.Annotated[
     typing.Union[
-        AnthropicImage,
+        "AnthropicImage",
         "AnthropicToolUse",
-        AnthropicDocument,
+        "AnthropicDocument",
         "AnthropicText",
         "AnthropicToolResult",
         "AnthropicThinking",
@@ -301,7 +301,7 @@ class AnthropicThinking(core.ModelBase):
 
 
 AnthropicThinkingConfig = typing_extensions.Annotated[
-    typing.Union[AnthropicDisabledThinking, AnthropicEnabledThinking],
+    typing.Union["AnthropicDisabledThinking", "AnthropicEnabledThinking"],
     pydantic.Field(discriminator="type"),
 ]
 """AnthropicThinkingConfig"""
@@ -318,9 +318,9 @@ class AnthropicTokenUsage(core.ModelBase):
 
 AnthropicToolChoice = typing_extensions.Annotated[
     typing.Union[
-        AnthropicAutoToolChoice,
-        AnthropicNoneToolChoice,
-        AnthropicAnyToolChoice,
+        "AnthropicAutoToolChoice",
+        "AnthropicNoneToolChoice",
+        "AnthropicAnyToolChoice",
         "AnthropicToolToolChoice",
     ],
     pydantic.Field(discriminator="type"),
@@ -368,6 +368,13 @@ OpenAiEmbeddingInput = typing.List[str]
 """OpenAiEmbeddingInput"""
 
 
+class OpenAiEmbeddingTokenUsage(core.ModelBase):
+    """OpenAiEmbeddingTokenUsage"""
+
+    prompt_tokens: int = pydantic.Field(alias=str("promptTokens"))  # type: ignore[literal-required]
+    """Number of tokens in the prompt"""
+
+
 class OpenAiEmbeddingsRequest(core.ModelBase):
     """OpenAiEmbeddingsRequest"""
 
@@ -396,19 +403,12 @@ class OpenAiEmbeddingsResponse(core.ModelBase):
     model: str
     """The ID of the model used"""
 
-    usage: OpenAiTokenUsage
+    usage: OpenAiEmbeddingTokenUsage
     """Usage statistics for the request"""
 
 
 OpenAiEncodingFormat = typing.Literal["FLOAT", "BASE64"]
 """OpenAiEncodingFormat"""
-
-
-class OpenAiTokenUsage(core.ModelBase):
-    """OpenAiTokenUsage"""
-
-    prompt_tokens: int = pydantic.Field(alias=str("promptTokens"))  # type: ignore[literal-required]
-    """Number of tokens in the prompt"""
 
 
 AnthropicCacheControl = AnthropicEphemeralCacheControl
@@ -435,13 +435,25 @@ AnthropicToolResultContent = AnthropicText
 """AnthropicToolResultContent"""
 
 
-core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
-core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
-core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
+AnthropicCompletionContent = core.resolve_forward_references(
+    AnthropicCompletionContent, globalns=globals(), localns=locals()
+)
+AnthropicDocumentSource = core.resolve_forward_references(
+    AnthropicDocumentSource, globalns=globals(), localns=locals()
+)
+AnthropicMessageContent = core.resolve_forward_references(
+    AnthropicMessageContent, globalns=globals(), localns=locals()
+)
+AnthropicThinkingConfig = core.resolve_forward_references(
+    AnthropicThinkingConfig, globalns=globals(), localns=locals()
+)
+AnthropicToolChoice = core.resolve_forward_references(
+    AnthropicToolChoice, globalns=globals(), localns=locals()
+)
+JsonSchema = core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
+OpenAiEmbeddingInput = core.resolve_forward_references(
+    OpenAiEmbeddingInput, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AnthropicAnyToolChoice",
@@ -489,8 +501,8 @@ __all__ = [
     "JsonSchema",
     "LanguageModelApiName",
     "OpenAiEmbeddingInput",
+    "OpenAiEmbeddingTokenUsage",
     "OpenAiEmbeddingsRequest",
     "OpenAiEmbeddingsResponse",
     "OpenAiEncodingFormat",
-    "OpenAiTokenUsage",
 ]

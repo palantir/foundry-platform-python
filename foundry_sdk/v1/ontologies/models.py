@@ -116,10 +116,10 @@ class AggregationFixedWidthGrouping(core.ModelBase):
 
 AggregationGroupBy = typing_extensions.Annotated[
     typing.Union[
-        AggregationDurationGrouping,
-        AggregationFixedWidthGrouping,
+        "AggregationDurationGrouping",
+        "AggregationFixedWidthGrouping",
         "AggregationRangesGrouping",
-        AggregationExactGrouping,
+        "AggregationExactGrouping",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -202,7 +202,7 @@ class AnyTermQuery(core.ModelBase):
 
 
 ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
-"""ApplyActionMode"""
+"""If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
 class ApplyActionRequest(core.ModelBase):
@@ -481,6 +481,14 @@ InterfaceLinkTypeRid = core.RID
 """The unique resource identifier of an interface link type, useful for interacting with other Foundry APIs."""
 
 
+InterfacePropertyApiName = str
+"""
+The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
+interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
+the **Ontology Manager**.
+"""
+
+
 InterfaceTypeApiName = str
 """
 The name of the interface type in the API in UpperCamelCase format. To find the API name for your interface
@@ -596,14 +604,14 @@ class ListQueryTypesResponse(core.ModelBase):
 
 LogicRule = typing_extensions.Annotated[
     typing.Union[
-        DeleteInterfaceObjectRule,
+        "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
         "ModifyObjectRule",
-        DeleteObjectRule,
-        CreateInterfaceObjectRule,
-        DeleteLinkRule,
-        CreateObjectRule,
-        CreateLinkRule,
+        "DeleteObjectRule",
+        "CreateInterfaceObjectRule",
+        "DeleteLinkRule",
+        "CreateObjectRule",
+        "CreateLinkRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -764,7 +772,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
-        OntologyArrayType,
+        "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
         core_models.ShortType,
@@ -888,13 +896,13 @@ class Parameter(core.ModelBase):
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
-        OneOfConstraint,
-        ArrayEvaluatedConstraint,
-        GroupMemberConstraint,
-        ObjectPropertyValueConstraint,
+        "OneOfConstraint",
+        "ArrayEvaluatedConstraint",
+        "GroupMemberConstraint",
+        "ObjectPropertyValueConstraint",
         "RangeConstraint",
-        ArraySizeConstraint,
-        ObjectQueryResultConstraint,
+        "ArraySizeConstraint",
+        "ObjectQueryResultConstraint",
         "StringLengthConstraint",
         "StringRegexMatchConstraint",
         "UnevaluableConstraint",
@@ -1043,6 +1051,7 @@ Represents the value of a property in the following format.
 | Integer                                                                                                                   | number                                                      | `238940`                                                                                           |
 | Long                                                                                                                      | string                                                      | `"58319870951433"`                                                                                 |
 | [MediaReference](https://palantir.com/docs/foundry/api/v2/ontologies-v2-resources/media-reference-properties/media-reference-property-basics/)| JSON encoded `MediaReference` object                        | `{"mimeType":"application/pdf","reference":{"type":"mediaSetViewItem","mediaSetViewItem":{"mediaSetRid":"ri.mio.main.media-set.4153d42f-ca4b-4e42-8ca5-8e6aa7edb642","mediaSetViewRid":"ri.mio.main.view.82a798ad-d637-4595-acc6-987bcf16629b","mediaItemRid":"ri.mio.main.media-item.001ec98b-1620-4814-9e17-8e9c4e536225"}}}`                       |
+| Secured Property Value                                                                                                    | JSON encoded `SecuredPropertyValue` object                  | `{"value": 10, "propertySecurityIndex" : 5}`                                                       |
 | Short                                                                                                                     | number                                                      | `8739`                                                                                             |
 | String                                                                                                                    | string                                                      | `"Call me Ishmael"`                                                                                |
 | Struct                                                                                                                    | JSON object of struct field API name -> value               | {"firstName": "Alex", "lastName": "Karp"}                                                          |
@@ -1113,11 +1122,11 @@ class QueryArrayType(core.ModelBase):
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
-        OntologyInterfaceObjectType,
+        "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
         core_models.StringType,
-        EntrySetType,
+        "EntrySetType",
         core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
@@ -1128,11 +1137,11 @@ QueryDataType = typing_extensions.Annotated[
         core_models.UnsupportedType,
         core_models.AttachmentType,
         core_models.NullType,
-        QueryArrayType,
-        OntologyObjectSetType,
+        "QueryArrayType",
+        "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        OntologyInterfaceObjectSetType,
-        OntologyObjectType,
+        "OntologyInterfaceObjectSetType",
+        "OntologyObjectType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -1203,7 +1212,7 @@ class RangeConstraint(core.ModelBase):
 
 
 ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
-"""ReturnEditsMode"""
+"""If not specified, defaults to `NONE`."""
 
 
 SdkPackageName = str
@@ -1220,20 +1229,20 @@ SdkVersion = str
 
 SearchJsonQuery = typing_extensions.Annotated[
     typing.Union[
-        OrQuery,
-        PrefixQuery,
-        LtQuery,
-        AllTermsQuery,
-        EqualsQuery,
-        GtQuery,
-        ContainsQuery,
-        NotQuery,
-        PhraseQuery,
-        AndQuery,
-        IsNullQuery,
-        GteQuery,
-        AnyTermQuery,
-        LteQuery,
+        "OrQuery",
+        "PrefixQuery",
+        "LtQuery",
+        "AllTermsQuery",
+        "EqualsQuery",
+        "GtQuery",
+        "ContainsQuery",
+        "NotQuery",
+        "PhraseQuery",
+        "AndQuery",
+        "IsNullQuery",
+        "GteQuery",
+        "AnyTermQuery",
+        "LteQuery",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1357,7 +1366,11 @@ class StructEvaluatedConstraint(core.ModelBase):
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
+        "OneOfConstraint",
+        "RangeConstraint",
+        "ObjectQueryResultConstraint",
+        "StringLengthConstraint",
+        "StringRegexMatchConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1374,6 +1387,7 @@ The type of the constraint.
 | `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
 | `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
 | `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+| `objectQueryResult`   | The struct parameter field value must be the primary key of an object found within an object set.                                                                                                                               |
 """
 
 
@@ -1439,6 +1453,10 @@ class UnevaluableConstraint(core.ModelBase):
     type: typing.Literal["unevaluable"] = "unevaluable"
 
 
+UniqueIdentifierLinkId = core.UUID
+"""A reference to a UniqueIdentifierArgument linkId defined for this action type."""
+
+
 class ValidateActionRequest(core.ModelBase):
     """ValidateActionRequest"""
 
@@ -1497,17 +1515,31 @@ ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+Aggregation = core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
+AggregationGroupBy = core.resolve_forward_references(
+    AggregationGroupBy, globalns=globals(), localns=locals()
+)
+LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+OntologyDataType = core.resolve_forward_references(
+    OntologyDataType, globalns=globals(), localns=locals()
+)
+ParameterEvaluatedConstraint = core.resolve_forward_references(
+    ParameterEvaluatedConstraint, globalns=globals(), localns=locals()
+)
+QueryAggregationKeyType = core.resolve_forward_references(
+    QueryAggregationKeyType, globalns=globals(), localns=locals()
+)
+QueryAggregationRangeSubType = core.resolve_forward_references(
+    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
+)
+QueryAggregationValueType = core.resolve_forward_references(
+    QueryAggregationValueType, globalns=globals(), localns=locals()
+)
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+SearchJsonQuery = core.resolve_forward_references(
+    SearchJsonQuery, globalns=globals(), localns=locals()
+)
+StructFieldEvaluatedConstraint = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
 
@@ -1572,6 +1604,7 @@ __all__ = [
     "GteQuery",
     "InterfaceLinkTypeApiName",
     "InterfaceLinkTypeRid",
+    "InterfacePropertyApiName",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
     "IsNullQuery",
@@ -1674,6 +1707,7 @@ __all__ = [
     "ThreeDimensionalAggregation",
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
+    "UniqueIdentifierLinkId",
     "ValidateActionRequest",
     "ValidateActionResponse",
     "ValidationResult",

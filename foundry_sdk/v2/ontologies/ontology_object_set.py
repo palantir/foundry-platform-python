@@ -62,6 +62,7 @@ class OntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.AggregateObjectsResponseV2:
@@ -86,6 +87,8 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -100,6 +103,7 @@ class OntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -130,6 +134,7 @@ class OntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -142,6 +147,8 @@ class OntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -157,6 +164,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -230,15 +238,18 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetResponseV2:
@@ -258,12 +269,16 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -276,6 +291,8 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -290,6 +307,7 @@ class OntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -302,13 +320,103 @@ class OntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def load_links(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        links: typing.List[ontologies_models.LinkTypeApiName],
+        object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.LoadObjectSetLinksResponseV2:
+        """
+        Loads the specified links from the defined object set.
+
+        Links are defined as a link type API name and object locators for the source and target objects
+        where only the `__primaryKey` and `__apiName` properties are loaded.
+
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries with the same source object locator.
+
+        Please keep these limitations in mind:
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+          than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+        - This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+        - This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param links:
+        :type links: List[LinkTypeApiName]
+        :param object_set:
+        :type object_set: ObjectSet
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.LoadObjectSetLinksResponseV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectSets/loadLinks",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.LoadObjectSetLinksRequestV2(
+                    object_set=object_set,
+                    links=links,
+                    page_token=page_token,
+                    include_compute_usage=include_compute_usage,
+                ),
+                response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -324,9 +432,11 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -334,6 +444,7 @@ class OntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse:
@@ -358,12 +469,16 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -378,6 +493,8 @@ class OntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -393,6 +510,7 @@ class OntologyObjectSetClient:
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -405,9 +523,11 @@ class OntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -427,6 +547,7 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -462,6 +583,8 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -507,6 +630,7 @@ class OntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -526,6 +650,7 @@ class _OntologyObjectSetClientRaw:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectSetLinksResponseV2): ...
         def load_multiple_object_types(
             _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
         ): ...
@@ -537,6 +662,7 @@ class _OntologyObjectSetClientRaw:
         self.create_temporary = core.with_raw_response(create_temporary, client.create_temporary)
         self.get = core.with_raw_response(get, client.get)
         self.load = core.with_raw_response(load, client.load)
+        self.load_links = core.with_raw_response(load_links, client.load_links)
         self.load_multiple_object_types = core.with_raw_response(
             load_multiple_object_types, client.load_multiple_object_types
         )
@@ -551,6 +677,7 @@ class _OntologyObjectSetClientStreaming:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectSetLinksResponseV2): ...
         def load_multiple_object_types(
             _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
         ): ...
@@ -564,6 +691,7 @@ class _OntologyObjectSetClientStreaming:
         )
         self.get = core.with_streaming_response(get, client.get)
         self.load = core.with_streaming_response(load, client.load)
+        self.load_links = core.with_streaming_response(load_links, client.load_links)
         self.load_multiple_object_types = core.with_streaming_response(
             load_multiple_object_types, client.load_multiple_object_types
         )
@@ -610,6 +738,7 @@ class AsyncOntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.AggregateObjectsResponseV2]:
@@ -634,6 +763,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -648,6 +779,7 @@ class AsyncOntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -678,6 +810,7 @@ class AsyncOntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -690,6 +823,8 @@ class AsyncOntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -705,6 +840,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -778,15 +914,18 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetResponseV2]:
@@ -806,12 +945,16 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -824,6 +967,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -838,6 +983,7 @@ class AsyncOntologyObjectSetClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -850,13 +996,103 @@ class AsyncOntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
                 response_type=ontologies_models.LoadObjectSetResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def load_links(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        links: typing.List[ontologies_models.LinkTypeApiName],
+        object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.LoadObjectSetLinksResponseV2]:
+        """
+        Loads the specified links from the defined object set.
+
+        Links are defined as a link type API name and object locators for the source and target objects
+        where only the `__primaryKey` and `__apiName` properties are loaded.
+
+        Links are grouped by source object locator; however, the links for a given source object may be
+        split over multiple entries with the same source object locator.
+
+        Please keep these limitations in mind:
+        - Links returned may be stale. For example, primary keys returned by this endpoint may not exist anymore.
+        - This endpoint requests links for 1,000 objects at a time. If, for any page of 1,000 objects, there are more
+          than 100,000 links present, results are limited to 100,000 links and should be considered partial.
+        - This endpoint does not support OSv1 links and will return an error if links provided are backed by OSv1.
+        - This endpoint currently does not support interface object sets or interface links, but support will be added in the near future.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param links:
+        :type links: List[LinkTypeApiName]
+        :param object_set:
+        :type object_set: ObjectSet
+        :param branch: The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param include_compute_usage:
+        :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param page_token:
+        :type page_token: Optional[PageToken]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The package version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.LoadObjectSetLinksResponseV2]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectSets/loadLinks",
+                query_params={
+                    "branch": branch,
+                    "preview": preview,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.LoadObjectSetLinksRequestV2(
+                    object_set=object_set,
+                    links=links,
+                    page_token=page_token,
+                    include_compute_usage=include_compute_usage,
+                ),
+                response_type=ontologies_models.LoadObjectSetLinksResponseV2,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -872,9 +1108,11 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -882,6 +1120,7 @@ class AsyncOntologyObjectSetClient:
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         snapshot: typing.Optional[bool] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse]:
@@ -906,12 +1145,16 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -926,6 +1169,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_version: Optional[SdkVersion]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -941,6 +1186,7 @@ class AsyncOntologyObjectSetClient:
                     "preview": preview,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -953,9 +1199,11 @@ class AsyncOntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -975,6 +1223,7 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
+        select_v2: typing.List[ontologies_models.PropertyIdentifier],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1010,6 +1259,8 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: List[PropertyIdentifier]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -1055,6 +1306,7 @@ class AsyncOntologyObjectSetClient:
                     object_set=object_set,
                     order_by=order_by,
                     select=select,
+                    select_v2=select_v2,
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
@@ -1074,6 +1326,7 @@ class _AsyncOntologyObjectSetClientRaw:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectSetLinksResponseV2): ...
         def load_multiple_object_types(
             _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
         ): ...
@@ -1087,6 +1340,7 @@ class _AsyncOntologyObjectSetClientRaw:
         )
         self.get = core.async_with_raw_response(get, client.get)
         self.load = core.async_with_raw_response(load, client.load)
+        self.load_links = core.async_with_raw_response(load_links, client.load_links)
         self.load_multiple_object_types = core.async_with_raw_response(
             load_multiple_object_types, client.load_multiple_object_types
         )
@@ -1101,6 +1355,7 @@ class _AsyncOntologyObjectSetClientStreaming:
         def create_temporary(_: ontologies_models.CreateTemporaryObjectSetResponseV2): ...
         def get(_: ontologies_models.ObjectSet): ...
         def load(_: ontologies_models.LoadObjectSetResponseV2): ...
+        def load_links(_: ontologies_models.LoadObjectSetLinksResponseV2): ...
         def load_multiple_object_types(
             _: ontologies_models.LoadObjectSetV2MultipleObjectTypesResponse,
         ): ...
@@ -1114,6 +1369,7 @@ class _AsyncOntologyObjectSetClientStreaming:
         )
         self.get = core.async_with_streaming_response(get, client.get)
         self.load = core.async_with_streaming_response(load, client.load)
+        self.load_links = core.async_with_streaming_response(load_links, client.load_links)
         self.load_multiple_object_types = core.async_with_streaming_response(
             load_multiple_object_types, client.load_multiple_object_types
         )

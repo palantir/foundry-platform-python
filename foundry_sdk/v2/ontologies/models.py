@@ -40,6 +40,10 @@ class AbsoluteValuePropertyExpression(core.ModelBase):
     type: typing.Literal["absoluteValue"] = "absoluteValue"
 
 
+ActionExecutionTime = core.AwareDatetime
+"""An ISO 8601 timestamp."""
+
+
 ActionLogicRule = typing_extensions.Annotated[
     typing.Union[
         "ModifyInterfaceLogicRule",
@@ -83,7 +87,7 @@ ActionParameterType = typing_extensions.Annotated[
         core_models.MarkingType,
         core_models.AttachmentType,
         core_models.MediaReferenceType,
-        ActionParameterArrayType,
+        "ActionParameterArrayType",
         "OntologyObjectSetType",
         core_models.GeohashType,
         core_models.VectorType,
@@ -125,7 +129,7 @@ class ActionTypeFullMetadata(core.ModelBase):
     """Returns the full metadata for an Action type in the Ontology."""
 
     action_type: ActionTypeV2 = pydantic.Field(alias=str("actionType"))  # type: ignore[literal-required]
-    full_logic_rule: ActionLogicRule = pydantic.Field(alias=str("fullLogicRule"))  # type: ignore[literal-required]
+    full_logic_rules: typing.List[ActionLogicRule] = pydantic.Field(alias=str("fullLogicRules"))  # type: ignore[literal-required]
 
 
 ActionTypeRid = core.RID
@@ -142,6 +146,8 @@ class ActionTypeV2(core.ModelBase):
     parameters: typing.Dict[ParameterId, ActionParameterV2]
     rid: ActionTypeRid
     operations: typing.List[LogicRule]
+    tool_description: typing.Optional[str] = pydantic.Field(alias=str("toolDescription"), default=None)  # type: ignore[literal-required]
+    """Optional description intended for tool use contexts, such as AI agents."""
 
 
 class ActivePropertyTypeStatus(core.ModelBase):
@@ -185,7 +191,6 @@ class AddObjectEdit(core.ModelBase):
     """AddObjectEdit"""
 
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
-    primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
     properties: typing.Dict[PropertyApiName, DataValue]
     type: typing.Literal["addObject"] = "addObject"
 
@@ -296,10 +301,10 @@ class AggregationFixedWidthGroupingV2(core.ModelBase):
 
 AggregationGroupByV2 = typing_extensions.Annotated[
     typing.Union[
-        AggregationDurationGroupingV2,
-        AggregationFixedWidthGroupingV2,
+        "AggregationDurationGroupingV2",
+        "AggregationFixedWidthGroupingV2",
         "AggregationRangesGroupingV2",
-        AggregationExactGroupingV2,
+        "AggregationExactGroupingV2",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -363,6 +368,19 @@ AggregationV2 = typing_extensions.Annotated[
 """Specifies an aggregation function."""
 
 
+class AllOfRule(core.ModelBase):
+    """Matches intervals satisfying all the rules in the query"""
+
+    rules: typing.List[IntervalQueryRule]
+    max_gaps: typing.Optional[int] = pydantic.Field(alias=str("maxGaps"), default=None)  # type: ignore[literal-required]
+    """The maximum gaps between the intervals produced by the sub-rules. If not set, then gaps are not considered."""
+
+    ordered: bool
+    """If true, the matched intervals must occur in order."""
+
+    type: typing.Literal["allOf"] = "allOf"
+
+
 class AndQueryV2(core.ModelBase):
     """Returns objects where every query is satisfied."""
 
@@ -370,8 +388,22 @@ class AndQueryV2(core.ModelBase):
     type: typing.Literal["and"] = "and"
 
 
+class AnyOfRule(core.ModelBase):
+    """Matches intervals satisfying any of the rules in the query"""
+
+    rules: typing.List[IntervalQueryRule]
+    type: typing.Literal["anyOf"] = "anyOf"
+
+
 ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
-"""ApplyActionMode"""
+"""If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
+
+
+class ApplyActionOverrides(core.ModelBase):
+    """ApplyActionOverrides"""
+
+    unique_identifier_link_id_values: typing.Dict[UniqueIdentifierLinkId, UniqueIdentifierValue] = pydantic.Field(alias=str("uniqueIdentifierLinkIdValues"))  # type: ignore[literal-required]
+    action_execution_time: typing.Optional[ActionExecutionTime] = pydantic.Field(alias=str("actionExecutionTime"), default=None)  # type: ignore[literal-required]
 
 
 class ApplyActionRequestOptions(core.ModelBase):
@@ -386,6 +418,25 @@ class ApplyActionRequestV2(core.ModelBase):
 
     options: typing.Optional[ApplyActionRequestOptions] = None
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+
+
+class ApplyActionWithOverridesRequest(core.ModelBase):
+    """ApplyActionWithOverridesRequest"""
+
+    request: ApplyActionRequestV2
+    overrides: ApplyActionOverrides
+
+
+class ApplyReducersAndExtractMainValueLoadLevel(core.ModelBase):
+    """Performs both apply reducers and extract main value to return the reduced main value."""
+
+    type: typing.Literal["applyReducersAndExtractMainValue"] = "applyReducersAndExtractMainValue"
+
+
+class ApplyReducersLoadLevel(core.ModelBase):
+    """Returns a single value of an array as configured in the ontology."""
+
+    type: typing.Literal["applyReducers"] = "applyReducers"
 
 
 class ApproximateDistinctAggregationV2(core.ModelBase):
@@ -476,7 +527,7 @@ class AvgAggregationV2(core.ModelBase):
 
 
 BatchActionObjectEdit = typing_extensions.Annotated[
-    typing.Union["ModifyObject", AddObject, AddLink], pydantic.Field(discriminator="type")
+    typing.Union["ModifyObject", "AddObject", "AddLink"], pydantic.Field(discriminator="type")
 ]
 """BatchActionObjectEdit"""
 
@@ -494,7 +545,7 @@ class BatchActionObjectEdits(core.ModelBase):
 
 
 BatchActionResults = typing_extensions.Annotated[
-    typing.Union[BatchActionObjectEdits, "ObjectTypeEdits"], pydantic.Field(discriminator="type")
+    typing.Union["BatchActionObjectEdits", "ObjectTypeEdits"], pydantic.Field(discriminator="type")
 ]
 """BatchActionResults"""
 
@@ -525,7 +576,7 @@ class BatchApplyActionResponseV2(core.ModelBase):
 
 
 BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
-"""BatchReturnEditsMode"""
+"""If not specified, defaults to `NONE`."""
 
 
 class BatchedFunctionLogicRule(core.ModelBase):
@@ -563,6 +614,37 @@ class CenterPoint(core.ModelBase):
 
     center: CenterPointTypes
     distance: core_models.Distance
+
+
+ConjunctiveMarkingSummary = typing.List["MarkingId"]
+"""
+The conjunctive set of markings required to access the property value. 
+All markings from a conjunctive set must be met for access.
+"""
+
+
+ContainerConjunctiveMarkingSummary = typing.List["MarkingId"]
+"""
+The conjunctive set of markings for the container of this property value,
+such as the project of a dataset. These markings may differ from the marking
+on the actual property value, but still must be satisfied for accessing the property    
+    
+All markings from a conjunctive set must be met for access.
+"""
+
+
+ContainerDisjunctiveMarkingSummary = typing.List[typing.List["MarkingId"]]
+"""
+The disjunctive set of markings for the container of this property value,
+such as the project of a dataset. These markings may differ from the marking
+on the actual property value, but still must be satisfied for accessing the property        
+All markings from a conjunctive set must be met for access.
+
+Disjunctive markings are represented as a conjunctive list of disjunctive sets.
+The top-level set is a conjunction of sets, where each inner set should be 
+treated as a unit where any marking within the set can satisfy the set.
+All sets within the top level set should be satisfied.
+"""
 
 
 class ContainsAllTermsInOrderPrefixLastTerm(core.ModelBase):
@@ -950,8 +1032,8 @@ DerivedPropertyApiName = str
 
 DerivedPropertyDefinition = typing_extensions.Annotated[
     typing.Union[
-        AddPropertyExpression,
-        AbsoluteValuePropertyExpression,
+        "AddPropertyExpression",
+        "AbsoluteValuePropertyExpression",
         "ExtractPropertyExpression",
         "SelectedPropertyExpression",
         "NegatePropertyExpression",
@@ -965,6 +1047,16 @@ DerivedPropertyDefinition = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """Definition of a derived property."""
+
+
+DisjunctiveMarkingSummary = typing.List[typing.List["MarkingId"]]
+"""
+The disjunctive set of markings required to access the property value.
+Disjunctive markings are represented as a conjunctive list of disjunctive sets.
+The top-level set is a conjunction of sets, where each inner set should be 
+treated as a unit where any marking within the set can satisfy the set.
+All sets within the top level set should be satisfied.
+"""
 
 
 class DividePropertyExpression(core.ModelBase):
@@ -1052,6 +1144,12 @@ class EqualsQueryV2(core.ModelBase):
     type: typing.Literal["eq"] = "eq"
 
 
+class ErrorComputingSecurity(core.ModelBase):
+    """Indicates the server was not able to load the securities of the property."""
+
+    type: typing.Literal["errorComputingSecurity"] = "errorComputingSecurity"
+
+
 class ExactDistinctAggregationV2(core.ModelBase):
     """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation. Requires Object Storage V2."""
 
@@ -1090,6 +1188,12 @@ class ExperimentalPropertyTypeStatus(core.ModelBase):
 
 ExtractDatePart = typing.Literal["DAYS", "MONTHS", "QUARTERS", "YEARS"]
 """ExtractDatePart"""
+
+
+class ExtractMainValueLoadLevel(core.ModelBase):
+    """Returns the main value of a struct as configured in the ontology."""
+
+    type: typing.Literal["extractMainValue"] = "extractMainValue"
 
 
 class ExtractPropertyExpression(core.ModelBase):
@@ -1137,6 +1241,15 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 
 FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
+
+
+class GeotemporalSeriesEntry(core.ModelBase):
+    """A single geotemporal data point representing the location of an entity at a specific point in time."""
+
+    time: core.AwareDatetime
+    """An ISO 8601 timestamp."""
+
+    position: geo_models.GeoPoint
 
 
 class GetSelectedPropertyOperation(core.ModelBase):
@@ -1200,14 +1313,34 @@ class HumanReadableFormat(core.ModelBase):
 class InQuery(core.ModelBase):
     """
     Returns objects where the specified field equals any of the provided values. Allows you to
-    specify a property to query on by a variety of means. Either `field` or `propertyIdentifier` must be supplied,
-    but not both.
+    specify a property to query on by a variety of means. If an empty array is provided as the value, then the filter will match all objects
+    in the object set. Either `field` or `propertyIdentifier` must be supplied, but not both.
     """
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: typing.List[PropertyValue]
     type: typing.Literal["in"] = "in"
+
+
+class InterfaceDefinedPropertyType(core.ModelBase):
+    """
+    An interface property type with an additional field to indicate constraints that need to be satisfied by
+    implementing object property types.
+    """
+
+    rid: InterfacePropertyTypeRid
+    api_name: InterfacePropertyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    """The description of the interface property type."""
+
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
+    """Whether each implementing object type must declare an implementation for this property."""
+
+    type: typing.Literal["interfaceDefinedPropertyType"] = "interfaceDefinedPropertyType"
 
 
 class InterfaceLinkType(core.ModelBase):
@@ -1261,6 +1394,80 @@ class InterfaceParameterPropertyArgument(core.ModelBase):
     type: typing.Literal["interfaceParameterPropertyValue"] = "interfaceParameterPropertyValue"
 
 
+InterfacePropertyApiName = str
+"""
+The name of the interface property type in the API in lowerCamelCase format. To find the API name for your
+interface property type, use the `List interface types` endpoint and check the `allPropertiesV2` field or check
+the **Ontology Manager**.
+"""
+
+
+class InterfacePropertyLocalPropertyImplementation(core.ModelBase):
+    """An implementation of an interface property via a local property."""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["localPropertyImplementation"] = "localPropertyImplementation"
+
+
+class InterfacePropertyReducedPropertyImplementation(core.ModelBase):
+    """An implementation of an interface property via applying reducers on the nested implementation."""
+
+    implementation: NestedInterfacePropertyTypeImplementation
+    type: typing.Literal["reducedPropertyImplementation"] = "reducedPropertyImplementation"
+
+
+class InterfacePropertyStructFieldImplementation(core.ModelBase):
+    """An implementation of an interface property via the field of a local struct property."""
+
+    struct_field_of_property: StructFieldOfPropertyImplementation = pydantic.Field(alias=str("structFieldOfProperty"))  # type: ignore[literal-required]
+    type: typing.Literal["structFieldImplementation"] = "structFieldImplementation"
+
+
+class InterfacePropertyStructImplementation(core.ModelBase):
+    """
+    An implementation of a struct interface property via a local struct property. Specifies a mapping of interface
+    struct fields to local struct fields or properties.
+    """
+
+    mapping: InterfacePropertyStructImplementationMapping
+    type: typing.Literal["structImplementation"] = "structImplementation"
+
+
+InterfacePropertyStructImplementationMapping = typing.Dict[
+    "StructFieldApiName", "PropertyOrStructFieldOfPropertyImplementation"
+]
+"""
+An implementation of a struct interface property via a local struct property. Specifies a mapping of interface
+struct fields to local struct fields or properties.
+"""
+
+
+InterfacePropertyType = typing_extensions.Annotated[
+    typing.Union["InterfaceDefinedPropertyType", "InterfaceSharedPropertyType"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The definition of an interface property type on an interface. An interface property can either be backed by a
+shared property type or defined on the interface directly.
+"""
+
+
+InterfacePropertyTypeImplementation = typing_extensions.Annotated[
+    typing.Union[
+        "InterfacePropertyStructFieldImplementation",
+        "InterfacePropertyStructImplementation",
+        "InterfacePropertyLocalPropertyImplementation",
+        "InterfacePropertyReducedPropertyImplementation",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""Describes how an object type implements an interface property."""
+
+
+InterfacePropertyTypeRid = core.RID
+"""The unique resource identifier of an interface property type, useful for interacting with other Foundry APIs."""
+
+
 class InterfaceSharedPropertyType(core.ModelBase):
     """
     A shared property type with an additional field to indicate whether the property must be included on every
@@ -1275,16 +1482,29 @@ class InterfaceSharedPropertyType(core.ModelBase):
 
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
     required: bool
     """Whether each implementing object type must declare an implementation for this property."""
+
+    type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
 InterfaceToObjectTypeMapping = typing.Dict["SharedPropertyTypeApiName", "PropertyApiName"]
 """Represents an implementation of an interface (the mapping of interface property to local property)."""
 
 
-InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", InterfaceToObjectTypeMapping]
+InterfaceToObjectTypeMappingV2 = typing.Dict[
+    "InterfacePropertyApiName", "InterfacePropertyTypeImplementation"
+]
+"""Represents an implementation of an interface (the mapping of interface property to how it is implemented."""
+
+
+InterfaceToObjectTypeMappings = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMapping"]
 """Map from object type to the interface-to-object-type mapping for that object type."""
+
+
+InterfaceToObjectTypeMappingsV2 = typing.Dict["ObjectTypeApiName", "InterfaceToObjectTypeMappingV2"]
+"""Map from object type to the interface property implementations of that object type."""
 
 
 class InterfaceType(core.ModelBase):
@@ -1300,6 +1520,7 @@ class InterfaceType(core.ModelBase):
     """
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has. A shared property type must be unique across all of the properties.
+    This field only includes properties on the interface that are backed by shared property types.
     """
 
     all_properties: typing.Dict[SharedPropertyTypeApiName, InterfaceSharedPropertyType] = pydantic.Field(alias=str("allProperties"))  # type: ignore[literal-required]
@@ -1307,6 +1528,21 @@ class InterfaceType(core.ModelBase):
     A map from a shared property type API name to the corresponding shared property type. The map describes the 
     set of properties the interface has, including properties from all directly and indirectly extended 
     interfaces.
+    This field only includes properties on the interface that are backed by shared property types.
+    """
+
+    properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyType] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
+    """
+    A map from a interface property type API name to the corresponding interface property type. The map
+    describes the set of properties the interface has. An interface property can either be backed by a shared
+    property or it can be defined directly on the interface.
+    """
+
+    all_properties_v2: typing.Dict[InterfacePropertyApiName, ResolvedInterfacePropertyType] = pydantic.Field(alias=str("allPropertiesV2"))  # type: ignore[literal-required]
+    """
+    A map from a interface property type API name to the corresponding interface property type. The map
+    describes the set of properties the interface has, including properties from all directly and indirectly
+    extended interfaces.
     """
 
     extends_interfaces: typing.List[InterfaceTypeApiName] = pydantic.Field(alias=str("extendsInterfaces"))  # type: ignore[literal-required]
@@ -1369,6 +1605,25 @@ class IntersectsPolygonQuery(core.ModelBase):
     type: typing.Literal["intersectsPolygon"] = "intersectsPolygon"
 
 
+class IntervalQuery(core.ModelBase):
+    """
+    Returns objects where the specified field matches the sub-rule provided. This applies to the analyzed form of
+    text fields. Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    rule: IntervalQueryRule
+    type: typing.Literal["interval"] = "interval"
+
+
+IntervalQueryRule = typing_extensions.Annotated[
+    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule"],
+    pydantic.Field(discriminator="type"),
+]
+"""Sub-rule used for evaluating an IntervalQuery"""
+
+
 class IsNullQueryV2(core.ModelBase):
     """
     Returns objects based on the existence of the specified field. Allows you to specify a property to query on
@@ -1381,12 +1636,12 @@ class IsNullQueryV2(core.ModelBase):
     type: typing.Literal["isNull"] = "isNull"
 
 
-KnownType = typing.Literal["userOrGroupRid", "resourceRid", "artifactGid"]
+KnownType = typing.Literal["USER_OR_GROUP_ID", "RESOURCE_RID", "ARTIFACT_GID"]
 """
 Known Foundry types for specialized formatting:
-- userOrGroupRid: Format as user or group RID (both are structurally RIDs)
-- resourceRid: Format as resource RID
-- artifactGid: Format as artifact GID
+- userOrGroupRid: Format as user or group
+- resourceRid: Format as resource 
+- artifactGid: Format as artifact
 """
 
 
@@ -1453,11 +1708,39 @@ class LinkedInterfaceTypeApiName(core.ModelBase):
     type: typing.Literal["interfaceTypeApiName"] = "interfaceTypeApiName"
 
 
+class LinkedObjectLocator(core.ModelBase):
+    """
+    Does not contain information about the source object. Should be used in a nested type that provides information about source objects.
+    The `targetObject` Ontology Object in this response will only ever have the `__primaryKey` and `__apiName`
+    fields present, thus functioning as object locators rather than full objects.
+    """
+
+    target_object: typing.Optional[OntologyObjectV2] = pydantic.Field(alias=str("targetObject"), default=None)  # type: ignore[literal-required]
+    link_type: typing.Optional[LinkTypeApiName] = pydantic.Field(alias=str("linkType"), default=None)  # type: ignore[literal-required]
+
+
 class LinkedObjectTypeApiName(core.ModelBase):
     """A reference to the linked object type."""
 
     api_name: ObjectTypeApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     type: typing.Literal["objectTypeApiName"] = "objectTypeApiName"
+
+
+class LinksFromObject(core.ModelBase):
+    """
+    The Ontology Objects in this response will only ever have the `__primaryKey` and `__apiName`
+    fields present, thus functioning as object locators rather than full objects.
+    """
+
+    source_object: typing.Optional[OntologyObjectV2] = pydantic.Field(alias=str("sourceObject"), default=None)  # type: ignore[literal-required]
+    linked_objects: typing.List[LinkedObjectLocator] = pydantic.Field(alias=str("linkedObjects"))  # type: ignore[literal-required]
+
+
+class ListActionTypesFullMetadataResponse(core.ModelBase):
+    """ListActionTypesFullMetadataResponse"""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    data: typing.List[ActionTypeFullMetadata]
 
 
 class ListActionTypesResponseV2(core.ModelBase):
@@ -1560,18 +1843,50 @@ class ListQueryTypesResponseV2(core.ModelBase):
     data: typing.List[QueryTypeV2]
 
 
+class LoadObjectSetLinksRequestV2(core.ModelBase):
+    """LoadObjectSetLinksRequestV2"""
+
+    object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
+    links: typing.List[LinkTypeApiName]
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = pydantic.Field(alias=str("includeComputeUsage"), default=None)  # type: ignore[literal-required]
+
+
+class LoadObjectSetLinksResponseV2(core.ModelBase):
+    """LoadObjectSetLinksResponseV2"""
+
+    data: typing.List[LinksFromObject]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
+
+
 class LoadObjectSetRequestV2(core.ModelBase):
     """Represents the API POST body when loading an `ObjectSet`."""
 
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
     A flag to exclude the retrieval of the `__rid` property.
     Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    load_property_securities: typing.Optional[bool] = pydantic.Field(alias=str("loadPropertySecurities"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load the securities for all properties.
+    Setting this flag to true will return a list of securities in the `propertySecurities` field of the response.
+    Returned objects will return all properties as Secured Property Values, which provide the property data
+    as well an index into the `propertySecurities` list.
+    This feature is experimental and not yet generally available.
     """
 
     snapshot: typing.Optional[bool] = None
@@ -1594,6 +1909,7 @@ class LoadObjectSetResponseV2(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
+    property_securities: typing.List[PropertySecurities] = pydantic.Field(alias=str("propertySecurities"))  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
@@ -1602,12 +1918,27 @@ class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
     A flag to exclude the retrieval of the `$rid` property.
     Setting this to true may improve performance of this endpoint for object types in OSV2.
+    """
+
+    load_property_securities: typing.Optional[bool] = pydantic.Field(alias=str("loadPropertySecurities"), default=None)  # type: ignore[literal-required]
+    """
+    A flag to load the securities for all properties.
+    Setting this flag to true will return a list of securities in the `propertySecurities` field of the response.
+    Returned objects will return all properties as Secured Property Values, which provide the property data
+    as well an index into the `propertySecurities` list.
+    This feature is experimental and not yet generally available.
     """
 
     snapshot: typing.Optional[bool] = None
@@ -1631,6 +1962,10 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
 
     The `interfaceToObjectTypeMappings` field contains mappings from `SharedPropertyTypeApiName`s on the interface(s) to
     `PropertyApiName` for properties on the object(s).
+
+    The `interfaceToObjectTypeMappingsV2` field contains mappings from `InterfacePropertyApiName`s on the
+    interface(s) to `InterfacePropertyTypeImplementation` for properties on the object(s). This therefore includes
+    implementations of both properties backed by SharedPropertyTypes as well as properties defined on the interface.
     """
 
     data: typing.List[OntologyObjectV2]
@@ -1639,7 +1974,9 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
+    interface_to_object_type_mappings_v2: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] = pydantic.Field(alias=str("interfaceToObjectTypeMappingsV2"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
+    property_securities: typing.List[PropertySecurities] = pydantic.Field(alias=str("propertySecurities"))  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
@@ -1648,6 +1985,12 @@ class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
     object_set: ObjectSet = pydantic.Field(alias=str("objectSet"))  # type: ignore[literal-required]
     order_by: typing.Optional[SearchOrderByV2] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
     select: typing.List[SelectedPropertyApiName]
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
+
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
@@ -1690,14 +2033,14 @@ class LoadOntologyMetadataRequest(core.ModelBase):
 
 LogicRule = typing_extensions.Annotated[
     typing.Union[
-        DeleteInterfaceObjectRule,
+        "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
         "ModifyObjectRule",
-        DeleteObjectRule,
-        CreateInterfaceObjectRule,
-        DeleteLinkRule,
-        CreateObjectRule,
-        CreateLinkRule,
+        "DeleteObjectRule",
+        "CreateInterfaceObjectRule",
+        "DeleteLinkRule",
+        "CreateObjectRule",
+        "CreateLinkRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1706,11 +2049,11 @@ LogicRule = typing_extensions.Annotated[
 
 LogicRuleArgument = typing_extensions.Annotated[
     typing.Union[
-        CurrentTimeArgument,
+        "CurrentTimeArgument",
         "StaticArgument",
-        CurrentUserArgument,
+        "CurrentUserArgument",
         "ParameterIdArgument",
-        InterfaceParameterPropertyArgument,
+        "InterfaceParameterPropertyArgument",
         "SynchronousWebhookOutputArgument",
         "ObjectParameterPropertyArgument",
         "UniqueIdentifierArgument",
@@ -1742,6 +2085,26 @@ class LteQueryV2(core.ModelBase):
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: PropertyValue
     type: typing.Literal["lte"] = "lte"
+
+
+MarkingId = str
+"""The id of a classification or mandatory marking."""
+
+
+class MatchRule(core.ModelBase):
+    """Matches intervals containing the terms in the query"""
+
+    query: str
+    max_gaps: typing.Optional[int] = pydantic.Field(alias=str("maxGaps"), default=None)  # type: ignore[literal-required]
+    """
+    The maximum gaps between matched terms in the interval. For example, in the text "quick brown fox",
+    the terms "quick" and "fox" have a gap of one. If not set, then gaps are not considered.
+    """
+
+    ordered: bool
+    """If true, the matched terms must occur in order."""
+
+    type: typing.Literal["match"] = "match"
 
 
 class MaxAggregationV2(core.ModelBase):
@@ -1827,7 +2190,7 @@ class MultiplyPropertyExpression(core.ModelBase):
 
 
 NearestNeighborsQuery = typing_extensions.Annotated[
-    typing.Union[DoubleVector, "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
+    typing.Union["DoubleVector", "NearestNeighborsQueryText"], pydantic.Field(discriminator="type")
 ]
 """
 Queries support either a vector matching the embedding model defined on the property, or text that is 
@@ -1847,6 +2210,20 @@ class NegatePropertyExpression(core.ModelBase):
 
     property: DerivedPropertyDefinition
     type: typing.Literal["negate"] = "negate"
+
+
+NestedInterfacePropertyTypeImplementation = typing_extensions.Annotated[
+    typing.Union[
+        "InterfacePropertyStructFieldImplementation",
+        "InterfacePropertyStructImplementation",
+        "InterfacePropertyLocalPropertyImplementation",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+Describes how an object type implements an interface property when a reducer is applied to it. Is missing a
+reduced property implementation to prevent arbitrarily nested implementations.
+"""
 
 
 class NestedQueryAggregation(core.ModelBase):
@@ -2041,7 +2418,7 @@ Scale factor options for large numbers:
 
 
 ObjectEdit = typing_extensions.Annotated[
-    typing.Union[ModifyObject, DeleteObject, AddObject, DeleteLink, AddLink],
+    typing.Union["ModifyObject", "DeleteObject", "AddObject", "DeleteLink", "AddLink"],
     pydantic.Field(discriminator="type"),
 ]
 """ObjectEdit"""
@@ -2344,7 +2721,10 @@ ObjectTypeId = str
 class ObjectTypeInterfaceImplementation(core.ModelBase):
     """ObjectTypeInterfaceImplementation"""
 
+    api_name: typing.Optional[InterfaceTypeApiName] = pydantic.Field(alias=str("apiName"), default=None)  # type: ignore[literal-required]
+    rid: typing.Optional[InterfaceTypeRid] = None
     properties: typing.Dict[SharedPropertyTypeApiName, PropertyApiName]
+    properties_v2: typing.Dict[InterfacePropertyApiName, InterfacePropertyTypeImplementation] = pydantic.Field(alias=str("propertiesV2"))  # type: ignore[literal-required]
     links: typing.Dict[InterfaceLinkTypeApiName, typing.List[LinkTypeApiName]]
 
 
@@ -2415,7 +2795,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
-        OntologyArrayType,
+        "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
         core_models.ShortType,
@@ -2475,7 +2855,27 @@ class OntologyObjectArrayType(core.ModelBase):
     """OntologyObjectArrayType"""
 
     sub_type: ObjectPropertyType = pydantic.Field(alias=str("subType"))  # type: ignore[literal-required]
+    reducers: typing.List[OntologyObjectArrayTypeReducer]
+    """
+    If non-empty, this property can be reduced to a single value of the subtype. The reducers are applied in
+    order to determine a winning value. The array can be loaded as a reduced value or as the full array in an
+    object set.
+    """
+
     type: typing.Literal["array"] = "array"
+
+
+class OntologyObjectArrayTypeReducer(core.ModelBase):
+    """OntologyObjectArrayTypeReducer"""
+
+    direction: OntologyObjectArrayTypeReducerSortDirection
+    field: typing.Optional[StructFieldApiName] = None
+
+
+OntologyObjectArrayTypeReducerSortDirection = typing.Literal[
+    "ASCENDING_NULLS_LAST", "DESCENDING_NULLS_LAST"
+]
+"""OntologyObjectArrayTypeReducerSortDirection"""
 
 
 class OntologyObjectSetType(core.ModelBase):
@@ -2533,8 +2933,8 @@ class OntologyStructType(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-OntologyTransactionRid = core.RID
-"""The RID identifying a transaction."""
+OntologyTransactionId = str
+"""The ID identifying a transaction."""
 
 
 class OntologyV2(core.ModelBase):
@@ -2588,13 +2988,13 @@ OrderByDirection = typing.Literal["ASC", "DESC"]
 ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
-        OneOfConstraint,
-        ArrayEvaluatedConstraint,
-        GroupMemberConstraint,
-        ObjectPropertyValueConstraint,
+        "OneOfConstraint",
+        "ArrayEvaluatedConstraint",
+        "GroupMemberConstraint",
+        "ObjectPropertyValueConstraint",
         "RangeConstraint",
-        ArraySizeConstraint,
-        ObjectQueryResultConstraint,
+        "ArraySizeConstraint",
+        "ObjectQueryResultConstraint",
         "StringLengthConstraint",
         "StringRegexMatchConstraint",
         "UnevaluableConstraint",
@@ -2681,6 +3081,16 @@ PreciseTimeUnit = typing.Literal["NANOSECONDS", "SECONDS", "MINUTES", "HOURS", "
 """The unit of a fixed-width duration. Each day is 24 hours and each week is 7 days."""
 
 
+class PrefixOnLastTokenRule(core.ModelBase):
+    """
+    Matches intervals containing all the terms, using exact match for all but the last term, and prefix match for
+    the last term. Ordering of the terms in the query is preserved.
+    """
+
+    query: str
+    type: typing.Literal["prefixOnLastToken"] = "prefixOnLastToken"
+
+
 PrimaryKeyValue = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
@@ -2756,10 +3166,17 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyIdentifier = typing_extensions.Annotated[
-    typing.Union[PropertyApiNameSelector, "StructFieldSelector"],
+    typing.Union["PropertyApiNameSelector", "StructFieldSelector", "PropertyWithLoadLevelSelector"],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
+
+
+class PropertyImplementation(core.ModelBase):
+    """PropertyImplementation"""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["property"] = "property"
 
 
 class PropertyKnownTypeFormattingRule(core.ModelBase):
@@ -2767,6 +3184,32 @@ class PropertyKnownTypeFormattingRule(core.ModelBase):
 
     known_type: KnownType = pydantic.Field(alias=str("knownType"))  # type: ignore[literal-required]
     type: typing.Literal["knownType"] = "knownType"
+
+
+PropertyLoadLevel = typing_extensions.Annotated[
+    typing.Union[
+        "ApplyReducersAndExtractMainValueLoadLevel",
+        "ApplyReducersLoadLevel",
+        "ExtractMainValueLoadLevel",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The load level of the property:
+- APPLY_REDUCERS: Returns a single value of an array as configured in the ontology.
+- EXTRACT_MAIN_VALUE: Returns the main value of a struct as configured in the ontology.
+- APPLY_REDUCERS_AND_EXTRACT_MAIN_VALUE: Performs both to return the reduced main value.
+"""
+
+
+class PropertyMarkingSummary(core.ModelBase):
+    """All marking requirements applicable to a property value."""
+
+    conjunctive: typing.Optional[ConjunctiveMarkingSummary] = None
+    disjunctive: typing.Optional[DisjunctiveMarkingSummary] = None
+    container_conjunctive: typing.Optional[ContainerConjunctiveMarkingSummary] = pydantic.Field(alias=str("containerConjunctive"), default=None)  # type: ignore[literal-required]
+    container_disjunctive: typing.Optional[ContainerDisjunctiveMarkingSummary] = pydantic.Field(alias=str("containerDisjunctive"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["propertyMarkingSummary"] = "propertyMarkingSummary"
 
 
 class PropertyNumberFormattingRule(core.ModelBase):
@@ -2778,19 +3221,39 @@ class PropertyNumberFormattingRule(core.ModelBase):
 
 PropertyNumberFormattingRuleType = typing_extensions.Annotated[
     typing.Union[
-        NumberFormatStandard,
-        NumberFormatDuration,
-        NumberFormatFixedValues,
-        NumberFormatAffix,
-        NumberFormatScale,
-        NumberFormatCurrency,
-        NumberFormatStandardUnit,
-        NumberFormatCustomUnit,
-        NumberFormatRatio,
+        "NumberFormatStandard",
+        "NumberFormatDuration",
+        "NumberFormatFixedValues",
+        "NumberFormatAffix",
+        "NumberFormatScale",
+        "NumberFormatCurrency",
+        "NumberFormatStandardUnit",
+        "NumberFormatCustomUnit",
+        "NumberFormatRatio",
     ],
     pydantic.Field(discriminator="type"),
 ]
 """PropertyNumberFormattingRuleType"""
+
+
+PropertyOrStructFieldOfPropertyImplementation = typing_extensions.Annotated[
+    typing.Union["StructFieldOfPropertyImplementation", "PropertyImplementation"],
+    pydantic.Field(discriminator="type"),
+]
+"""PropertyOrStructFieldOfPropertyImplementation"""
+
+
+class PropertySecurities(core.ModelBase):
+    """A disjunctive set of security results for a property value."""
+
+    disjunction: typing.List[PropertySecurity]
+
+
+PropertySecurity = typing_extensions.Annotated[
+    typing.Union["PropertyMarkingSummary", "UnsupportedPolicy", "ErrorComputingSecurity"],
+    pydantic.Field(discriminator="type"),
+]
+"""PropertySecurity"""
 
 
 class PropertyTimestampFormattingRule(core.ModelBase):
@@ -2815,7 +3278,7 @@ class PropertyTypeReference(core.ModelBase):
 
 
 PropertyTypeReferenceOrStringConstant = typing_extensions.Annotated[
-    typing.Union["StringConstant", PropertyTypeReference], pydantic.Field(discriminator="type")
+    typing.Union["StringConstant", "PropertyTypeReference"], pydantic.Field(discriminator="type")
 ]
 """PropertyTypeReferenceOrStringConstant"""
 
@@ -2826,10 +3289,10 @@ PropertyTypeRid = core.RID
 
 PropertyTypeStatus = typing_extensions.Annotated[
     typing.Union[
-        DeprecatedPropertyTypeStatus,
-        ActivePropertyTypeStatus,
-        ExperimentalPropertyTypeStatus,
-        ExamplePropertyTypeStatus,
+        "DeprecatedPropertyTypeStatus",
+        "ActivePropertyTypeStatus",
+        "ExperimentalPropertyTypeStatus",
+        "ExamplePropertyTypeStatus",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2873,6 +3336,7 @@ Represents the value of a property in the following format.
 | Integer                                                                                                                   | number                                                      | `238940`                                                                                           |
 | Long                                                                                                                      | string                                                      | `"58319870951433"`                                                                                 |
 | [MediaReference](https://palantir.com/docs/foundry/api/v2/ontologies-v2-resources/media-reference-properties/media-reference-property-basics/)| JSON encoded `MediaReference` object                        | `{"mimeType":"application/pdf","reference":{"type":"mediaSetViewItem","mediaSetViewItem":{"mediaSetRid":"ri.mio.main.media-set.4153d42f-ca4b-4e42-8ca5-8e6aa7edb642","mediaSetViewRid":"ri.mio.main.view.82a798ad-d637-4595-acc6-987bcf16629b","mediaItemRid":"ri.mio.main.media-item.001ec98b-1620-4814-9e17-8e9c4e536225"}}}`                       |
+| Secured Property Value                                                                                                    | JSON encoded `SecuredPropertyValue` object                  | `{"value": 10, "propertySecurityIndex" : 5}`                                                       |
 | Short                                                                                                                     | number                                                      | `8739`                                                                                             |
 | String                                                                                                                    | string                                                      | `"Call me Ishmael"`                                                                                |
 | Struct                                                                                                                    | JSON object of struct field API name -> value               | {"firstName": "Alex", "lastName": "Karp"}                                                          |
@@ -2890,11 +3354,11 @@ PropertyValueEscapedString = str
 
 PropertyValueFormattingRule = typing_extensions.Annotated[
     typing.Union[
-        PropertyDateFormattingRule,
-        PropertyNumberFormattingRule,
-        PropertyBooleanFormattingRule,
-        PropertyKnownTypeFormattingRule,
-        PropertyTimestampFormattingRule,
+        "PropertyDateFormattingRule",
+        "PropertyNumberFormattingRule",
+        "PropertyBooleanFormattingRule",
+        "PropertyKnownTypeFormattingRule",
+        "PropertyTimestampFormattingRule",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -2909,6 +3373,18 @@ Each formatter type provides specific options tailored to that data type:
 - Booleans: Custom true/false display text
 - Known types: Special formatting for Foundry-specific identifiers
 """
+
+
+class PropertyWithLoadLevelSelector(core.ModelBase):
+    """
+    A combination of a property identifier and the load level to apply to the property. You can select a reduced
+    value for arrays and the main value for structs. If the provided load level cannot be applied to the property
+    type, then it will be ignored. This selector is experimental and may not work in filters or sorts.
+    """
+
+    property_identifier: PropertyIdentifier = pydantic.Field(alias=str("propertyIdentifier"))  # type: ignore[literal-required]
+    load_level: PropertyLoadLevel = pydantic.Field(alias=str("loadLevel"))  # type: ignore[literal-required]
+    type: typing.Literal["propertyWithLoadLevel"] = "propertyWithLoadLevel"
 
 
 class QueryAggregation(core.ModelBase):
@@ -2973,11 +3449,11 @@ class QueryArrayType(core.ModelBase):
 QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
-        OntologyInterfaceObjectType,
+        "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
         core_models.StringType,
-        EntrySetType,
+        "EntrySetType",
         core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
@@ -2988,11 +3464,11 @@ QueryDataType = typing_extensions.Annotated[
         core_models.UnsupportedType,
         core_models.AttachmentType,
         core_models.NullType,
-        QueryArrayType,
-        OntologyObjectSetType,
+        "QueryArrayType",
+        "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        OntologyInterfaceObjectSetType,
-        OntologyObjectType,
+        "OntologyInterfaceObjectSetType",
+        "OntologyObjectType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -3110,6 +3586,51 @@ class RegexQuery(core.ModelBase):
     type: typing.Literal["regex"] = "regex"
 
 
+class RelativeDateRangeQuery(core.ModelBase):
+    """
+    Returns objects where the specified date or timestamp property falls within a relative date range.
+    The bounds are calculated relative to query execution time and rounded to midnight in the specified timezone.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    """The property API name to filter on (either field or propertyIdentifier must be provided)."""
+
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    """The property identifier to filter on (either field or propertyIdentifier must be provided)."""
+
+    relative_start_time: typing.Optional[RelativeDateRangeBound] = pydantic.Field(alias=str("relativeStartTime"), default=None)  # type: ignore[literal-required]
+    """
+    The lower bound relative to query time (inclusive). Negative values go into the past.
+    For example, { value: -7, timeUnit: DAY } means 7 days ago.
+    """
+
+    relative_end_time: typing.Optional[RelativeDateRangeBound] = pydantic.Field(alias=str("relativeEndTime"), default=None)  # type: ignore[literal-required]
+    """
+    The upper bound relative to query time (exclusive). Negative values go into the past.
+    For example, { value: 1, timeUnit: MONTH } means the start of next month.
+    """
+
+    time_zone_id: str = pydantic.Field(alias=str("timeZoneId"))  # type: ignore[literal-required]
+    """
+    Time zone ID for midnight calculation (e.g., "America/New_York", "Europe/London", "Etc/UTC").
+    See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for valid values.
+    """
+
+    type: typing.Literal["relativeDateRange"] = "relativeDateRange"
+
+
+class RelativePointInTime(core.ModelBase):
+    """A point in time specified relative to query execution time."""
+
+    value: int
+    """The numeric value of the time offset. Negative values indicate the past, positive values the future."""
+
+    time_unit: RelativeTimeUnit = pydantic.Field(alias=str("timeUnit"))  # type: ignore[literal-required]
+    """The unit of time for the value."""
+
+    type: typing.Literal["relativePoint"] = "relativePoint"
+
+
 class RelativeTime(core.ModelBase):
     """A relative time, such as "3 days before" or "2 hours after" the current moment."""
 
@@ -3136,8 +3657,31 @@ RelativeTimeSeriesTimeUnit = typing.Literal[
 """RelativeTimeSeriesTimeUnit"""
 
 
+RelativeTimeUnit = typing.Literal["DAY", "WEEK", "MONTH", "YEAR"]
+"""Units for relative time calculations."""
+
+
+class ResolvedInterfacePropertyType(core.ModelBase):
+    """
+    An interface property type with additional fields to indicate constraints that need to be satisfied by
+    implementing object property types.
+    """
+
+    rid: InterfacePropertyTypeRid
+    api_name: InterfacePropertyApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    display_name: core_models.DisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    description: typing.Optional[str] = None
+    """A short text that describes the InterfacePropertyType."""
+
+    data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
+    value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
+    require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
+    """Whether each implementing object type must declare an implementation for this property."""
+
+
 ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
-"""ReturnEditsMode"""
+"""If not specified, defaults to `NONE`."""
 
 
 class RidConstraint(core.ModelBase):
@@ -3167,30 +3711,32 @@ SdkVersion = str
 
 SearchJsonQueryV2 = typing_extensions.Annotated[
     typing.Union[
-        LtQueryV2,
-        DoesNotIntersectBoundingBoxQuery,
+        "LtQueryV2",
+        "DoesNotIntersectBoundingBoxQuery",
+        "RelativeDateRangeQuery",
         "WildcardQuery",
         "WithinDistanceOfQuery",
         "WithinBoundingBoxQuery",
-        NotQueryV2,
-        IntersectsBoundingBoxQuery,
-        AndQueryV2,
-        ContainsAllTermsInOrderPrefixLastTerm,
-        GteQueryV2,
-        ContainsAllTermsInOrderQuery,
+        "NotQueryV2",
+        "IntersectsBoundingBoxQuery",
+        "AndQueryV2",
+        "ContainsAllTermsInOrderPrefixLastTerm",
+        "GteQueryV2",
+        "ContainsAllTermsInOrderQuery",
         "WithinPolygonQuery",
-        IntersectsPolygonQuery,
-        LteQueryV2,
-        OrQueryV2,
-        InQuery,
-        DoesNotIntersectPolygonQuery,
-        EqualsQueryV2,
-        ContainsAllTermsQuery,
-        GtQueryV2,
-        ContainsQueryV2,
-        RegexQuery,
-        IsNullQueryV2,
-        ContainsAnyTermQuery,
+        "IntersectsPolygonQuery",
+        "LteQueryV2",
+        "OrQueryV2",
+        "InQuery",
+        "DoesNotIntersectPolygonQuery",
+        "EqualsQueryV2",
+        "ContainsAllTermsQuery",
+        "GtQueryV2",
+        "ContainsQueryV2",
+        "RegexQuery",
+        "IsNullQueryV2",
+        "ContainsAnyTermQuery",
+        "IntervalQuery",
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -3217,9 +3763,22 @@ class SearchObjectsForInterfaceRequest(core.ModelBase):
     type with the list of properties specified in the value.
     """
 
+    augmented_interface_property_types: typing.Dict[InterfaceTypeApiName, typing.List[InterfacePropertyApiName]] = pydantic.Field(alias=str("augmentedInterfacePropertyTypes"))  # type: ignore[literal-required]
+    """
+    A map from interface type API name to a list of interface property type API names. For each returned object, 
+    if the object implements an interface that is a key in the map, then we augment the response for that object 
+    type with the list of properties specified in the value.
+    """
+
     selected_shared_property_types: typing.List[SharedPropertyTypeApiName] = pydantic.Field(alias=str("selectedSharedPropertyTypes"))  # type: ignore[literal-required]
     """
     A list of shared property type API names of the interface type that should be included in the response. 
+    Omit this parameter to include all properties of the interface type in the response.
+    """
+
+    selected_interface_property_types: typing.List[InterfacePropertyApiName] = pydantic.Field(alias=str("selectedInterfacePropertyTypes"))  # type: ignore[literal-required]
+    """
+    A list of interface property type API names of the interface type that should be included in the response. 
     Omit this parameter to include all properties of the interface type in the response.
     """
 
@@ -3249,6 +3808,12 @@ class SearchObjectsRequestV2(core.ModelBase):
     page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
     select: typing.List[PropertyApiName]
     """The API names of the object type properties to include in the response."""
+
+    select_v2: typing.List[PropertyIdentifier] = pydantic.Field(alias=str("selectV2"))  # type: ignore[literal-required]
+    """
+    The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+    but not both.
+    """
 
     exclude_rid: typing.Optional[bool] = pydantic.Field(alias=str("excludeRid"), default=None)  # type: ignore[literal-required]
     """
@@ -3411,17 +3976,17 @@ class SelectedPropertyMinAggregation(core.ModelBase):
 
 SelectedPropertyOperation = typing_extensions.Annotated[
     typing.Union[
-        SelectedPropertyApproximateDistinctAggregation,
-        SelectedPropertyMinAggregation,
-        SelectedPropertyAvgAggregation,
-        SelectedPropertyMaxAggregation,
-        SelectedPropertyApproximatePercentileAggregation,
-        GetSelectedPropertyOperation,
-        SelectedPropertyCountAggregation,
+        "SelectedPropertyApproximateDistinctAggregation",
+        "SelectedPropertyMinAggregation",
+        "SelectedPropertyAvgAggregation",
+        "SelectedPropertyMaxAggregation",
+        "SelectedPropertyApproximatePercentileAggregation",
+        "GetSelectedPropertyOperation",
+        "SelectedPropertyCountAggregation",
         "SelectedPropertySumAggregation",
-        SelectedPropertyCollectListAggregation,
-        SelectedPropertyExactDistinctAggregation,
-        SelectedPropertyCollectSetAggregation,
+        "SelectedPropertyCollectListAggregation",
+        "SelectedPropertyExactDistinctAggregation",
+        "SelectedPropertyCollectSetAggregation",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3478,6 +4043,12 @@ class StaticArgument(core.ModelBase):
 
     value: DataValue
     type: typing.Literal["staticValue"] = "staticValue"
+
+
+class StreamGeotemporalSeriesValuesRequest(core.ModelBase):
+    """StreamGeotemporalSeriesValuesRequest"""
+
+    range: typing.Optional[TimeRange] = None
 
 
 class StreamTimeSeriesPointsRequest(core.ModelBase):
@@ -3572,7 +4143,11 @@ StructFieldArgument = typing_extensions.Annotated[
 
 StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
-        OneOfConstraint, RangeConstraint, StringLengthConstraint, StringRegexMatchConstraint
+        "OneOfConstraint",
+        "RangeConstraint",
+        "ObjectQueryResultConstraint",
+        "StringLengthConstraint",
+        "StringRegexMatchConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3589,6 +4164,7 @@ The type of the constraint.
 | `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
 | `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
 | `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+| `objectQueryResult`   | The struct parameter field value must be the primary key of an object found within an object set.                                                                                                                               |
 """
 
 
@@ -3601,12 +4177,19 @@ class StructFieldEvaluationResult(core.ModelBase):
     """Represents whether the parameter is a required input to the action."""
 
 
+class StructFieldOfPropertyImplementation(core.ModelBase):
+    """StructFieldOfPropertyImplementation"""
+
+    property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
+    struct_field_api_name: StructFieldApiName = pydantic.Field(alias=str("structFieldApiName"))  # type: ignore[literal-required]
+    type: typing.Literal["structFieldOfProperty"] = "structFieldOfProperty"
+
+
 class StructFieldSelector(core.ModelBase):
     """
-    A combination of a property API name and a struct field API name used to select struct fields. Note that you can
-    still select struct properties with only a 'PropertyApiNameSelector'; the queries will then become 'OR' queries
-    across the fields of the struct property, and derived property expressions will operate on the whole struct
-    where applicable.
+    A combination of a property identifier and the load level to apply to the property. You can select a reduced
+    value for arrays and the main value for structs. If the provided load level cannot be applied to the property
+    type, then it will be ignored. This selector is experimental and may not work in filters or sorts.
     """
 
     property_api_name: PropertyApiName = pydantic.Field(alias=str("propertyApiName"))  # type: ignore[literal-required]
@@ -3650,7 +4233,16 @@ class StructType(core.ModelBase):
     """StructType"""
 
     struct_field_types: typing.List[StructFieldType] = pydantic.Field(alias=str("structFieldTypes"))  # type: ignore[literal-required]
+    main_value: typing.Optional[StructTypeMainValue] = pydantic.Field(alias=str("mainValue"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["struct"] = "struct"
+
+
+class StructTypeMainValue(core.ModelBase):
+    """StructTypeMainValue"""
+
+    main_value_type: ObjectPropertyType = pydantic.Field(alias=str("mainValueType"))  # type: ignore[literal-required]
+    fields: typing.List[StructFieldApiName]
+    """The fields which comprise the main value of the struct."""
 
 
 class SubmissionCriteriaEvaluation(core.ModelBase):
@@ -3717,7 +4309,7 @@ class TimeCodeFormat(core.ModelBase):
 
 
 TimeRange = typing_extensions.Annotated[
-    typing.Union[AbsoluteTimeRange, RelativeTimeRange], pydantic.Field(discriminator="type")
+    typing.Union["AbsoluteTimeRange", "RelativeTimeRange"], pydantic.Field(discriminator="type")
 ]
 """An absolute or relative range for a time series query."""
 
@@ -3809,7 +4401,7 @@ class TimeSeriesRollingAggregate(core.ModelBase):
 
 
 TimeSeriesRollingAggregateWindow = typing_extensions.Annotated[
-    typing.Union[PreciseDuration, RollingAggregateWindowPoints],
+    typing.Union["PreciseDuration", "RollingAggregateWindowPoints"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -3843,7 +4435,9 @@ class TimeseriesEntry(core.ModelBase):
 
 
 TransactionEdit = typing_extensions.Annotated[
-    typing.Union[ModifyObjectEdit, DeleteObjectEdit, AddObjectEdit, DeleteLinkEdit, AddLinkEdit],
+    typing.Union[
+        "ModifyObjectEdit", "DeleteObjectEdit", "AddObjectEdit", "DeleteLinkEdit", "AddLinkEdit"
+    ],
     pydantic.Field(discriminator="type"),
 ]
 """TransactionEdit"""
@@ -3876,6 +4470,23 @@ class UniqueIdentifierArgument(core.ModelBase):
     """
 
     type: typing.Literal["uniqueIdentifier"] = "uniqueIdentifier"
+
+
+UniqueIdentifierLinkId = core.UUID
+"""A reference to a UniqueIdentifierArgument linkId defined for this action type."""
+
+
+UniqueIdentifierValue = core.UUID
+"""
+An override value to be used for a UniqueIdentifier action parameter, instead of 
+the value being automatically generated.
+"""
+
+
+class UnsupportedPolicy(core.ModelBase):
+    """Indicates the property is backed by a restricted view that does not support property securities."""
+
+    type: typing.Literal["unsupportedPolicy"] = "unsupportedPolicy"
 
 
 class UuidConstraint(core.ModelBase):
@@ -3937,15 +4548,15 @@ class ValueTypeArrayType(core.ModelBase):
 
 ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
-        StructConstraint,
-        RegexConstraint,
+        "StructConstraint",
+        "RegexConstraint",
         core_models.UnsupportedType,
-        ArrayConstraint,
-        LengthConstraint,
-        RangesConstraint,
-        RidConstraint,
-        UuidConstraint,
-        EnumConstraint,
+        "ArrayConstraint",
+        "LengthConstraint",
+        "RangesConstraint",
+        "RidConstraint",
+        "UuidConstraint",
+        "EnumConstraint",
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3972,10 +4583,10 @@ ValueTypeFieldType = typing_extensions.Annotated[
         core_models.LongType,
         "ValueTypeReferenceType",
         core_models.BooleanType,
-        ValueTypeArrayType,
+        "ValueTypeArrayType",
         core_models.BinaryType,
         core_models.ShortType,
-        ValueTypeDecimalType,
+        "ValueTypeDecimalType",
         "ValueTypeMapType",
         core_models.TimestampType,
     ],
@@ -4116,67 +4727,176 @@ PolygonValue = geo_models.Polygon
 """PolygonValue"""
 
 
+RelativeDateRangeBound = RelativePointInTime
+"""Specifies a bound for a relative date range query."""
+
+
 WithinBoundingBoxPoint = geo_models.GeoPoint
 """WithinBoundingBoxPoint"""
 
 
-core.resolve_forward_references(ActionLogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupByV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(AttachmentMetadataResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(BatchActionResults, globalns=globals(), localns=locals())
-core.resolve_forward_references(DatetimeFormat, globalns=globals(), localns=locals())
-core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=locals())
-core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
-core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+ActionLogicRule = core.resolve_forward_references(
+    ActionLogicRule, globalns=globals(), localns=locals()
+)
+ActionParameterType = core.resolve_forward_references(
+    ActionParameterType, globalns=globals(), localns=locals()
+)
+ActionResults = core.resolve_forward_references(ActionResults, globalns=globals(), localns=locals())
+AggregationGroupByV2 = core.resolve_forward_references(
+    AggregationGroupByV2, globalns=globals(), localns=locals()
+)
+AggregationV2 = core.resolve_forward_references(AggregationV2, globalns=globals(), localns=locals())
+AttachmentMetadataResponse = core.resolve_forward_references(
+    AttachmentMetadataResponse, globalns=globals(), localns=locals()
+)
+BatchActionObjectEdit = core.resolve_forward_references(
+    BatchActionObjectEdit, globalns=globals(), localns=locals()
+)
+BatchActionResults = core.resolve_forward_references(
+    BatchActionResults, globalns=globals(), localns=locals()
+)
+ConjunctiveMarkingSummary = core.resolve_forward_references(
+    ConjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+ContainerConjunctiveMarkingSummary = core.resolve_forward_references(
+    ContainerConjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+ContainerDisjunctiveMarkingSummary = core.resolve_forward_references(
+    ContainerDisjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+DatetimeFormat = core.resolve_forward_references(
+    DatetimeFormat, globalns=globals(), localns=locals()
+)
+DatetimeTimezone = core.resolve_forward_references(
+    DatetimeTimezone, globalns=globals(), localns=locals()
+)
+DerivedPropertyDefinition = core.resolve_forward_references(
+    DerivedPropertyDefinition, globalns=globals(), localns=locals()
+)
+DisjunctiveMarkingSummary = core.resolve_forward_references(
+    DisjunctiveMarkingSummary, globalns=globals(), localns=locals()
+)
+DurationFormatStyle = core.resolve_forward_references(
+    DurationFormatStyle, globalns=globals(), localns=locals()
+)
+InterfaceLinkTypeLinkedEntityApiName = core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(InterfaceToObjectTypeMapping, globalns=globals(), localns=locals())
-core.resolve_forward_references(InterfaceToObjectTypeMappings, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRuleArgument, globalns=globals(), localns=locals())
-core.resolve_forward_references(NearestNeighborsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+InterfacePropertyStructImplementationMapping = core.resolve_forward_references(
+    InterfacePropertyStructImplementationMapping, globalns=globals(), localns=locals()
+)
+InterfacePropertyType = core.resolve_forward_references(
+    InterfacePropertyType, globalns=globals(), localns=locals()
+)
+InterfacePropertyTypeImplementation = core.resolve_forward_references(
+    InterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
+)
+InterfaceToObjectTypeMapping = core.resolve_forward_references(
+    InterfaceToObjectTypeMapping, globalns=globals(), localns=locals()
+)
+InterfaceToObjectTypeMappingV2 = core.resolve_forward_references(
+    InterfaceToObjectTypeMappingV2, globalns=globals(), localns=locals()
+)
+InterfaceToObjectTypeMappings = core.resolve_forward_references(
+    InterfaceToObjectTypeMappings, globalns=globals(), localns=locals()
+)
+InterfaceToObjectTypeMappingsV2 = core.resolve_forward_references(
+    InterfaceToObjectTypeMappingsV2, globalns=globals(), localns=locals()
+)
+IntervalQueryRule = core.resolve_forward_references(
+    IntervalQueryRule, globalns=globals(), localns=locals()
+)
+LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+LogicRuleArgument = core.resolve_forward_references(
+    LogicRuleArgument, globalns=globals(), localns=locals()
+)
+NearestNeighborsQuery = core.resolve_forward_references(
+    NearestNeighborsQuery, globalns=globals(), localns=locals()
+)
+NestedInterfacePropertyTypeImplementation = core.resolve_forward_references(
+    NestedInterfacePropertyTypeImplementation, globalns=globals(), localns=locals()
+)
+ObjectEdit = core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
+ObjectPropertyType = core.resolve_forward_references(
+    ObjectPropertyType, globalns=globals(), localns=locals()
+)
+ObjectSet = core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
+OntologyDataType = core.resolve_forward_references(
+    OntologyDataType, globalns=globals(), localns=locals()
+)
+OntologyObjectV2 = core.resolve_forward_references(
+    OntologyObjectV2, globalns=globals(), localns=locals()
+)
+ParameterEvaluatedConstraint = core.resolve_forward_references(
+    ParameterEvaluatedConstraint, globalns=globals(), localns=locals()
+)
+PropertyIdentifier = core.resolve_forward_references(
+    PropertyIdentifier, globalns=globals(), localns=locals()
+)
+PropertyLoadLevel = core.resolve_forward_references(
+    PropertyLoadLevel, globalns=globals(), localns=locals()
+)
+PropertyNumberFormattingRuleType = core.resolve_forward_references(
     PropertyNumberFormattingRuleType, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(
+PropertyOrStructFieldOfPropertyImplementation = core.resolve_forward_references(
+    PropertyOrStructFieldOfPropertyImplementation, globalns=globals(), localns=locals()
+)
+PropertySecurity = core.resolve_forward_references(
+    PropertySecurity, globalns=globals(), localns=locals()
+)
+PropertyTypeReferenceOrStringConstant = core.resolve_forward_references(
     PropertyTypeReferenceOrStringConstant, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(PropertyTypeStatus, globalns=globals(), localns=locals())
-core.resolve_forward_references(PropertyValueFormattingRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQueryV2, globalns=globals(), localns=locals())
-core.resolve_forward_references(SelectedPropertyOperation, globalns=globals(), localns=locals())
-core.resolve_forward_references(StructFieldArgument, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+PropertyTypeStatus = core.resolve_forward_references(
+    PropertyTypeStatus, globalns=globals(), localns=locals()
+)
+PropertyValueFormattingRule = core.resolve_forward_references(
+    PropertyValueFormattingRule, globalns=globals(), localns=locals()
+)
+QueryAggregationKeyType = core.resolve_forward_references(
+    QueryAggregationKeyType, globalns=globals(), localns=locals()
+)
+QueryAggregationRangeSubType = core.resolve_forward_references(
+    QueryAggregationRangeSubType, globalns=globals(), localns=locals()
+)
+QueryAggregationValueType = core.resolve_forward_references(
+    QueryAggregationValueType, globalns=globals(), localns=locals()
+)
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+SearchJsonQueryV2 = core.resolve_forward_references(
+    SearchJsonQueryV2, globalns=globals(), localns=locals()
+)
+SelectedPropertyOperation = core.resolve_forward_references(
+    SelectedPropertyOperation, globalns=globals(), localns=locals()
+)
+StructFieldArgument = core.resolve_forward_references(
+    StructFieldArgument, globalns=globals(), localns=locals()
+)
+StructFieldEvaluatedConstraint = core.resolve_forward_references(
     StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesAggregationStrategy, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+TimeRange = core.resolve_forward_references(TimeRange, globalns=globals(), localns=locals())
+TimeSeriesAggregationStrategy = core.resolve_forward_references(
+    TimeSeriesAggregationStrategy, globalns=globals(), localns=locals()
+)
+TimeSeriesRollingAggregateWindow = core.resolve_forward_references(
     TimeSeriesRollingAggregateWindow, globalns=globals(), localns=locals()
 )
-core.resolve_forward_references(TransactionEdit, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeFieldType, globalns=globals(), localns=locals())
+TransactionEdit = core.resolve_forward_references(
+    TransactionEdit, globalns=globals(), localns=locals()
+)
+ValueTypeConstraint = core.resolve_forward_references(
+    ValueTypeConstraint, globalns=globals(), localns=locals()
+)
+ValueTypeFieldType = core.resolve_forward_references(
+    ValueTypeFieldType, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AbsoluteTimeRange",
     "AbsoluteValuePropertyExpression",
+    "ActionExecutionTime",
     "ActionLogicRule",
     "ActionParameterArrayType",
     "ActionParameterType",
@@ -4212,10 +4932,16 @@ __all__ = [
     "AggregationRangeV2",
     "AggregationRangesGroupingV2",
     "AggregationV2",
+    "AllOfRule",
     "AndQueryV2",
+    "AnyOfRule",
     "ApplyActionMode",
+    "ApplyActionOverrides",
     "ApplyActionRequestOptions",
     "ApplyActionRequestV2",
+    "ApplyActionWithOverridesRequest",
+    "ApplyReducersAndExtractMainValueLoadLevel",
+    "ApplyReducersLoadLevel",
     "ApproximateDistinctAggregationV2",
     "ApproximatePercentileAggregationV2",
     "ArrayConstraint",
@@ -4240,6 +4966,9 @@ __all__ = [
     "BoundingBoxValue",
     "CenterPoint",
     "CenterPointTypes",
+    "ConjunctiveMarkingSummary",
+    "ContainerConjunctiveMarkingSummary",
+    "ContainerDisjunctiveMarkingSummary",
     "ContainsAllTermsInOrderPrefixLastTerm",
     "ContainsAllTermsInOrderQuery",
     "ContainsAllTermsQuery",
@@ -4282,6 +5011,7 @@ __all__ = [
     "DeprecatedPropertyTypeStatus",
     "DerivedPropertyApiName",
     "DerivedPropertyDefinition",
+    "DisjunctiveMarkingSummary",
     "DividePropertyExpression",
     "DoesNotIntersectBoundingBoxQuery",
     "DoesNotIntersectPolygonQuery",
@@ -4292,12 +5022,14 @@ __all__ = [
     "EntrySetType",
     "EnumConstraint",
     "EqualsQueryV2",
+    "ErrorComputingSecurity",
     "ExactDistinctAggregationV2",
     "ExamplePropertyTypeStatus",
     "ExecuteQueryRequest",
     "ExecuteQueryResponse",
     "ExperimentalPropertyTypeStatus",
     "ExtractDatePart",
+    "ExtractMainValueLoadLevel",
     "ExtractPropertyExpression",
     "FilterValue",
     "FixedValuesMapKey",
@@ -4306,6 +5038,7 @@ __all__ = [
     "FunctionRid",
     "FunctionVersion",
     "FuzzyV2",
+    "GeotemporalSeriesEntry",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",
@@ -4314,20 +5047,34 @@ __all__ = [
     "HumanReadableFormat",
     "Icon",
     "InQuery",
+    "InterfaceDefinedPropertyType",
     "InterfaceLinkType",
     "InterfaceLinkTypeApiName",
     "InterfaceLinkTypeCardinality",
     "InterfaceLinkTypeLinkedEntityApiName",
     "InterfaceLinkTypeRid",
     "InterfaceParameterPropertyArgument",
+    "InterfacePropertyApiName",
+    "InterfacePropertyLocalPropertyImplementation",
+    "InterfacePropertyReducedPropertyImplementation",
+    "InterfacePropertyStructFieldImplementation",
+    "InterfacePropertyStructImplementation",
+    "InterfacePropertyStructImplementationMapping",
+    "InterfacePropertyType",
+    "InterfacePropertyTypeImplementation",
+    "InterfacePropertyTypeRid",
     "InterfaceSharedPropertyType",
     "InterfaceToObjectTypeMapping",
+    "InterfaceToObjectTypeMappingV2",
     "InterfaceToObjectTypeMappings",
+    "InterfaceToObjectTypeMappingsV2",
     "InterfaceType",
     "InterfaceTypeApiName",
     "InterfaceTypeRid",
     "IntersectsBoundingBoxQuery",
     "IntersectsPolygonQuery",
+    "IntervalQuery",
+    "IntervalQueryRule",
     "IsNullQueryV2",
     "KnownType",
     "LeastPropertyExpression",
@@ -4339,7 +5086,10 @@ __all__ = [
     "LinkTypeSideCardinality",
     "LinkTypeSideV2",
     "LinkedInterfaceTypeApiName",
+    "LinkedObjectLocator",
     "LinkedObjectTypeApiName",
+    "LinksFromObject",
+    "ListActionTypesFullMetadataResponse",
     "ListActionTypesResponseV2",
     "ListAttachmentsResponseV2",
     "ListInterfaceLinkedObjectsResponse",
@@ -4353,6 +5103,8 @@ __all__ = [
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
+    "LoadObjectSetLinksRequestV2",
+    "LoadObjectSetLinksResponseV2",
     "LoadObjectSetRequestV2",
     "LoadObjectSetResponseV2",
     "LoadObjectSetV2MultipleObjectTypesRequest",
@@ -4364,6 +5116,8 @@ __all__ = [
     "LogicRuleArgument",
     "LtQueryV2",
     "LteQueryV2",
+    "MarkingId",
+    "MatchRule",
     "MaxAggregationV2",
     "MediaMetadata",
     "MethodObjectSet",
@@ -4378,6 +5132,7 @@ __all__ = [
     "NearestNeighborsQuery",
     "NearestNeighborsQueryText",
     "NegatePropertyExpression",
+    "NestedInterfacePropertyTypeImplementation",
     "NestedQueryAggregation",
     "NotQueryV2",
     "NumberFormatAffix",
@@ -4437,6 +5192,8 @@ __all__ = [
     "OntologyInterfaceObjectType",
     "OntologyMapType",
     "OntologyObjectArrayType",
+    "OntologyObjectArrayTypeReducer",
+    "OntologyObjectArrayTypeReducerSortDirection",
     "OntologyObjectSetType",
     "OntologyObjectType",
     "OntologyObjectTypeReferenceType",
@@ -4445,7 +5202,7 @@ __all__ = [
     "OntologySetType",
     "OntologyStructField",
     "OntologyStructType",
-    "OntologyTransactionRid",
+    "OntologyTransactionId",
     "OntologyV2",
     "OntologyValueType",
     "OrQueryV2",
@@ -4462,6 +5219,7 @@ __all__ = [
     "PostTransactionEditsResponse",
     "PreciseDuration",
     "PreciseTimeUnit",
+    "PrefixOnLastTokenRule",
     "PrimaryKeyValue",
     "PropertyApiName",
     "PropertyApiNameSelector",
@@ -4470,9 +5228,15 @@ __all__ = [
     "PropertyFilter",
     "PropertyId",
     "PropertyIdentifier",
+    "PropertyImplementation",
     "PropertyKnownTypeFormattingRule",
+    "PropertyLoadLevel",
+    "PropertyMarkingSummary",
     "PropertyNumberFormattingRule",
     "PropertyNumberFormattingRuleType",
+    "PropertyOrStructFieldOfPropertyImplementation",
+    "PropertySecurities",
+    "PropertySecurity",
     "PropertyTimestampFormattingRule",
     "PropertyTypeApiName",
     "PropertyTypeReference",
@@ -4484,6 +5248,7 @@ __all__ = [
     "PropertyValue",
     "PropertyValueEscapedString",
     "PropertyValueFormattingRule",
+    "PropertyWithLoadLevelSelector",
     "QueryAggregation",
     "QueryAggregationKeyType",
     "QueryAggregationRangeSubType",
@@ -4505,10 +5270,15 @@ __all__ = [
     "RangesConstraint",
     "RegexConstraint",
     "RegexQuery",
+    "RelativeDateRangeBound",
+    "RelativeDateRangeQuery",
+    "RelativePointInTime",
     "RelativeTime",
     "RelativeTimeRange",
     "RelativeTimeRelation",
     "RelativeTimeSeriesTimeUnit",
+    "RelativeTimeUnit",
+    "ResolvedInterfacePropertyType",
     "ReturnEditsMode",
     "RidConstraint",
     "RollingAggregateWindowPoints",
@@ -4540,6 +5310,7 @@ __all__ = [
     "SharedPropertyTypeRid",
     "StartsWithQuery",
     "StaticArgument",
+    "StreamGeotemporalSeriesValuesRequest",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesValuesRequest",
     "StreamingOutputFormat",
@@ -4552,6 +5323,7 @@ __all__ = [
     "StructFieldArgument",
     "StructFieldEvaluatedConstraint",
     "StructFieldEvaluationResult",
+    "StructFieldOfPropertyImplementation",
     "StructFieldSelector",
     "StructFieldType",
     "StructFieldTypeRid",
@@ -4559,6 +5331,7 @@ __all__ = [
     "StructParameterFieldApiName",
     "StructParameterFieldArgument",
     "StructType",
+    "StructTypeMainValue",
     "SubmissionCriteriaEvaluation",
     "SubtractPropertyExpression",
     "SumAggregationV2",
@@ -4581,6 +5354,9 @@ __all__ = [
     "TwoDimensionalAggregation",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
+    "UniqueIdentifierLinkId",
+    "UniqueIdentifierValue",
+    "UnsupportedPolicy",
     "UuidConstraint",
     "ValidateActionResponseV2",
     "ValidationResult",

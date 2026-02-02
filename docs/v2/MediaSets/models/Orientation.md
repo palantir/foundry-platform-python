@@ -1,11 +1,12 @@
-# OpenAiTokenUsage
+# Orientation
 
-OpenAiTokenUsage
+The orientation information as encoded in EXIF metadata.
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**prompt_tokens** | int | Yes | Number of tokens in the prompt |
+**rotation_angle** | Optional[RotationAngle] | No |  |
+**flip_axis** | Optional[FlipAxis] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

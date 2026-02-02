@@ -58,16 +58,18 @@ class QueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.ExecuteQueryResponse:
         """
-        Executes a Query using the given parameters.
+        Executes a Query using the given parameters. By default, the latest version of the Query is executed.
 
         Optional parameters do not need to be supplied.
 
@@ -77,6 +79,8 @@ class QueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution: The Attribution to be used when executing this request.
+        :type attribution: Optional[Attribution]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -85,6 +89,8 @@ class QueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state: The W3C trace state header included in the request.
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -100,6 +106,7 @@ class QueryClient:
                 query_params={
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                     "version": version,
                 },
                 path_params={
@@ -107,6 +114,7 @@ class QueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",
@@ -171,16 +179,18 @@ class AsyncQueryClient:
         parameters: typing.Dict[
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
+        attribution: typing.Optional[core_models.Attribution] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         version: typing.Optional[ontologies_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.ExecuteQueryResponse]:
         """
-        Executes a Query using the given parameters.
+        Executes a Query using the given parameters. By default, the latest version of the Query is executed.
 
         Optional parameters do not need to be supplied.
 
@@ -190,6 +200,8 @@ class AsyncQueryClient:
         :type query_api_name: QueryApiName
         :param parameters:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution: The Attribution to be used when executing this request.
+        :type attribution: Optional[Attribution]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -198,6 +210,8 @@ class AsyncQueryClient:
         :type trace_parent: Optional[TraceParent]
         :param trace_state: The W3C trace state header included in the request.
         :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param version: The version of the Query to execute.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
@@ -213,6 +227,7 @@ class AsyncQueryClient:
                 query_params={
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                     "version": version,
                 },
                 path_params={
@@ -220,6 +235,7 @@ class AsyncQueryClient:
                     "queryApiName": query_api_name,
                 },
                 header_params={
+                    "attribution": attribution,
                     "traceParent": trace_parent,
                     "traceState": trace_state,
                     "Content-Type": "application/json",

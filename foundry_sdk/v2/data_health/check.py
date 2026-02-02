@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -48,6 +49,16 @@ class CheckClient:
         self.with_streaming_response = _CheckClientStreaming(self)
         self.with_raw_response = _CheckClientRaw(self)
 
+    @cached_property
+    def CheckReport(self):
+        from foundry_sdk.v2.data_health.check_report import CheckReportClient
+
+        return CheckReportClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -76,8 +87,11 @@ class CheckClient:
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
         :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises InvalidNumericColumnCheckConfig: The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTransactionTimeCheckConfig: The TransactionTimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTrendConfig: The TrendConfig is invalid. It must contain at least one of trendType or differenceBounds.
         """
 
         return self._api_client.call_api(
@@ -102,8 +116,11 @@ class CheckClient:
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
                     "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "InvalidNumericColumnCheckConfig": data_health_errors.InvalidNumericColumnCheckConfig,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "InvalidTransactionTimeCheckConfig": data_health_errors.InvalidTransactionTimeCheckConfig,
+                    "InvalidTrendConfig": data_health_errors.InvalidTrendConfig,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -114,7 +131,7 @@ class CheckClient:
     @errors.handle_unexpected
     def delete(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -162,7 +179,7 @@ class CheckClient:
     @errors.handle_unexpected
     def get(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -212,7 +229,7 @@ class CheckClient:
     @errors.handle_unexpected
     def replace(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         config: data_health_models.ReplaceCheckConfig,
         intent: typing.Optional[data_health_models.CheckIntent] = None,
@@ -221,7 +238,7 @@ class CheckClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> data_health_models.Check:
         """
-        Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+        Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
         :param check_rid:
         :type check_rid: CheckRid
         :param config:
@@ -237,8 +254,11 @@ class CheckClient:
 
         :raises CheckNotFound: The given Check could not be found.
         :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises InvalidNumericColumnCheckConfig: The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTransactionTimeCheckConfig: The TransactionTimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTrendConfig: The TrendConfig is invalid. It must contain at least one of trendType or differenceBounds.
         :raises ModifyingCheckTypeNotSupported: Changing the type of a check after it has been created is not supported.
         :raises ReplaceCheckPermissionDenied: Could not replace the Check.
         """
@@ -266,8 +286,11 @@ class CheckClient:
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
                     "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "InvalidNumericColumnCheckConfig": data_health_errors.InvalidNumericColumnCheckConfig,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "InvalidTransactionTimeCheckConfig": data_health_errors.InvalidTransactionTimeCheckConfig,
+                    "InvalidTrendConfig": data_health_errors.InvalidTrendConfig,
                     "ModifyingCheckTypeNotSupported": data_health_errors.ModifyingCheckTypeNotSupported,
                     "ReplaceCheckPermissionDenied": data_health_errors.ReplaceCheckPermissionDenied,
                 },
@@ -323,6 +346,16 @@ class AsyncCheckClient:
         self.with_streaming_response = _AsyncCheckClientStreaming(self)
         self.with_raw_response = _AsyncCheckClientRaw(self)
 
+    @cached_property
+    def CheckReport(self):
+        from foundry_sdk.v2.data_health.check_report import AsyncCheckReportClient
+
+        return AsyncCheckReportClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -351,8 +384,11 @@ class AsyncCheckClient:
         :raises CheckAlreadyExists: A check of the given type for the given subject(s) already exists. The conflicting check will be returned if the provided token has permission to view it.
         :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
         :raises CreateCheckPermissionDenied: Could not create the Check.
+        :raises InvalidNumericColumnCheckConfig: The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTransactionTimeCheckConfig: The TransactionTimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTrendConfig: The TrendConfig is invalid. It must contain at least one of trendType or differenceBounds.
         """
 
         return self._api_client.call_api(
@@ -377,8 +413,11 @@ class AsyncCheckClient:
                     "CheckAlreadyExists": data_health_errors.CheckAlreadyExists,
                     "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
                     "CreateCheckPermissionDenied": data_health_errors.CreateCheckPermissionDenied,
+                    "InvalidNumericColumnCheckConfig": data_health_errors.InvalidNumericColumnCheckConfig,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "InvalidTransactionTimeCheckConfig": data_health_errors.InvalidTransactionTimeCheckConfig,
+                    "InvalidTrendConfig": data_health_errors.InvalidTrendConfig,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -389,7 +428,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def delete(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -437,7 +476,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def get(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -487,7 +526,7 @@ class AsyncCheckClient:
     @errors.handle_unexpected
     def replace(
         self,
-        check_rid: data_health_models.CheckRid,
+        check_rid: core_models.CheckRid,
         *,
         config: data_health_models.ReplaceCheckConfig,
         intent: typing.Optional[data_health_models.CheckIntent] = None,
@@ -496,7 +535,7 @@ class AsyncCheckClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[data_health_models.Check]:
         """
-        Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+        Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
         :param check_rid:
         :type check_rid: CheckRid
         :param config:
@@ -512,8 +551,11 @@ class AsyncCheckClient:
 
         :raises CheckNotFound: The given Check could not be found.
         :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises InvalidNumericColumnCheckConfig: The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend.
         :raises InvalidPercentageCheckConfig: The PercentageCheckConfig is invalid. It must contain at least one of percentageBounds or medianDeviation.
         :raises InvalidTimeCheckConfig: The TimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTransactionTimeCheckConfig: The TransactionTimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation.
+        :raises InvalidTrendConfig: The TrendConfig is invalid. It must contain at least one of trendType or differenceBounds.
         :raises ModifyingCheckTypeNotSupported: Changing the type of a check after it has been created is not supported.
         :raises ReplaceCheckPermissionDenied: Could not replace the Check.
         """
@@ -541,8 +583,11 @@ class AsyncCheckClient:
                 throwable_errors={
                     "CheckNotFound": data_health_errors.CheckNotFound,
                     "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "InvalidNumericColumnCheckConfig": data_health_errors.InvalidNumericColumnCheckConfig,
                     "InvalidPercentageCheckConfig": data_health_errors.InvalidPercentageCheckConfig,
                     "InvalidTimeCheckConfig": data_health_errors.InvalidTimeCheckConfig,
+                    "InvalidTransactionTimeCheckConfig": data_health_errors.InvalidTransactionTimeCheckConfig,
+                    "InvalidTrendConfig": data_health_errors.InvalidTrendConfig,
                     "ModifyingCheckTypeNotSupported": data_health_errors.ModifyingCheckTypeNotSupported,
                     "ReplaceCheckPermissionDenied": data_health_errors.ReplaceCheckPermissionDenied,
                 },

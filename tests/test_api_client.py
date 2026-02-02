@@ -257,9 +257,44 @@ def test_429_error():
         call_api_helper(status_code=429, data=EMPTY_BODY)
 
 
-def test_503_error():
+def test_503_with_propagate_to_caller():
+    client = ApiClient(
+        auth=UserTokenAuth(token="bar"),
+        hostname="foo",
+        config=Config(propagate_qos="PROPAGATE_429_AND_503_TO_CALLER"),
+    )
+
+    client._session.send = Mock(
+        side_effect=(
+            AttrDict(status_code=503, headers={}, content=b"", text=""),
+            AttrDict(status_code=200, headers={}, content=b"", text=""),
+        )
+    )
+
     with pytest.raises(ServiceUnavailable):
-        call_api_helper(status_code=503, data=EMPTY_BODY)
+        client.call_api(RequestInfo.with_defaults("POST", "/abc"))
+
+    assert client._session.send.call_count == 1
+
+
+def test_503_with_retry():
+    client = ApiClient(
+        auth=UserTokenAuth(token="bar"),
+        hostname="foo",
+        config=Config(propagate_qos="AUTOMATIC_RETRY"),
+    )
+
+    client._session.send = Mock(
+        side_effect=(
+            AttrDict(status_code=503, headers={}, content=b"", text=""),
+            AttrDict(status_code=200, headers={}, content=b"", text=""),
+        )
+    )
+
+    response = client.call_api(RequestInfo.with_defaults("POST", "/abc", response_mode="RAW"))
+    assert response.status_code == 200
+
+    assert client._session.send.call_count == 2
 
 
 def test_413_error():
@@ -511,6 +546,7 @@ def test_create_headers():
                 "float_header": 123.123,
                 "int_header": 123,
                 "str_header": "string",
+                "optional_header": None,
             },
         ),
         token=UserTokenAuth(token="bar").get_token(),

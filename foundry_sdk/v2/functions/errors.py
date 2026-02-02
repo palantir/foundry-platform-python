@@ -22,6 +22,25 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.functions import models as functions_models
 
 
+class ConsistentSnapshotErrorParameters(typing_extensions.TypedDict):
+    """
+    The query failed because the Ontology snapshot used for consistent reads became stale. Retrying the request
+    typically resolves this.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
+
+
+@dataclass
+class ConsistentSnapshotError(errors.ConflictError):
+    name: typing.Literal["ConsistentSnapshotError"]
+    parameters: ConsistentSnapshotErrorParameters
+    error_instance_id: str
+
+
 class ExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not execute the Query."""
 
@@ -211,6 +230,21 @@ class QueryVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class StreamingExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not streamingExecute the Query."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryApiName: functions_models.QueryApiName
+
+
+@dataclass
+class StreamingExecuteQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["StreamingExecuteQueryPermissionDenied"]
+    parameters: StreamingExecuteQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
 class UnknownParameterParameters(typing_extensions.TypedDict):
     """
     The provided parameters were not found. Please look at the `knownParameters` field
@@ -262,6 +296,7 @@ class VersionIdNotFound(errors.NotFoundError):
 
 
 __all__ = [
+    "ConsistentSnapshotError",
     "ExecuteQueryPermissionDenied",
     "GetByRidQueriesPermissionDenied",
     "InvalidQueryOutputValue",
@@ -273,6 +308,7 @@ __all__ = [
     "QueryRuntimeError",
     "QueryTimeExceededLimit",
     "QueryVersionNotFound",
+    "StreamingExecuteQueryPermissionDenied",
     "UnknownParameter",
     "ValueTypeNotFound",
     "VersionIdNotFound",

@@ -9,9 +9,11 @@ Represents the API POST body when loading an `ObjectSet`. Used on the `/loadObje
 **object_set** | ObjectSet | Yes |  |
 **order_by** | Optional[SearchOrderByV2] | No |  |
 **select** | List[SelectedPropertyApiName] | Yes |  |
+**select_v2** | List[PropertyIdentifier] | Yes | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |
 **page_token** | Optional[PageToken] | No |  |
 **page_size** | Optional[PageSize] | No |  |
 **exclude_rid** | Optional[bool] | No | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  |
+**load_property_securities** | Optional[bool] | No | A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.  |
 **snapshot** | Optional[bool] | No | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  |
 **include_compute_usage** | Optional[IncludeComputeUsage] | No |  |
 

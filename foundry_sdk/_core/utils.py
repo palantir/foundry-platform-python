@@ -14,6 +14,7 @@
 
 
 import inspect
+import sys
 import typing
 import warnings
 from datetime import timezone
@@ -99,20 +100,31 @@ def maybe_ignore_preview(func: AnyCallableT) -> AnyCallableT:
 
 
 def resolve_forward_references(type_obj: Any, globalns: dict, localns: dict) -> Any:
+    # Create and return a new type object with resolved references
+    # This is required for Python 3.14+ where typing objects cannot be modified directly
     if typing.get_origin(type_obj) is None:
         return type_obj
 
     args = tuple(
         (
-            typing._eval_type(arg, globalns, localns)  # type: ignore
+            # Handle forward references based on Python version
+            # Use typing.evaluate_forward_ref once we drop support for Python 3.9
+            (
+                arg._evaluate(globalns, localns, recursive_guard=frozenset(), type_params=())
+                if sys.version_info >= (3, 13)
+                else arg._evaluate(globalns, localns, recursive_guard=frozenset())
+            )  # type: ignore # noqa: D103
             if isinstance(arg, ForwardRef)
             else resolve_forward_references(arg, globalns, localns)
         )
         for arg in typing.get_args(type_obj)  # type: ignore
     )
 
-    setattr(type_obj, "__args__", args)
-    return type_obj
+    # Create a new type object with the resolved arguments
+    origin = typing.get_origin(type_obj)
+    result = origin[args] if args else origin
+
+    return result
 
 
 def assert_non_empty_string(value: str, name: str) -> None:

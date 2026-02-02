@@ -175,6 +175,19 @@ A folder can be a regular Folder, a
 """
 
 
+class GetByPathResourcesBatchRequestElement(core.ModelBase):
+    """GetByPathResourcesBatchRequestElement"""
+
+    path: ResourcePath
+    """The path to the Resource. The leading slash is optional."""
+
+
+class GetByPathResourcesBatchResponse(core.ModelBase):
+    """GetByPathResourcesBatchResponse"""
+
+    data: typing.List[Resource]
+
+
 class GetFoldersBatchRequestElement(core.ModelBase):
     """GetFoldersBatchRequestElement"""
 
@@ -185,6 +198,18 @@ class GetFoldersBatchResponse(core.ModelBase):
     """GetFoldersBatchResponse"""
 
     data: typing.Dict[FolderRid, Folder]
+
+
+class GetResourcesBatchRequestElement(core.ModelBase):
+    """GetResourcesBatchRequestElement"""
+
+    resource_rid: ResourceRid = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+
+
+class GetResourcesBatchResponse(core.ModelBase):
+    """GetResourcesBatchResponse"""
+
+    data: typing.Dict[ResourceRid, Resource]
 
 
 IsDirectlyApplied = bool
@@ -433,13 +458,13 @@ class ResourceRoleIdentifier(core.ModelBase):
 
 
 ResourceRolePrincipal = typing_extensions.Annotated[
-    typing.Union[PrincipalWithId, Everyone], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
 ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
-    typing.Union[PrincipalIdOnly, Everyone], pydantic.Field(discriminator="type")
+    typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
 
@@ -561,6 +586,13 @@ class Space(core.ModelBase):
     default_role_set_id: core_models.RoleSetId = pydantic.Field(alias=str("defaultRoleSetId"))  # type: ignore[literal-required]
     """The ID of the default Role Set for this Space, which defines the set of roles that Projects in this Space must use. If not provided, the default Role Set for Projects will be used."""
 
+    space_maven_identifier: typing.Optional[SpaceMavenIdentifier] = pydantic.Field(alias=str("spaceMavenIdentifier"), default=None)  # type: ignore[literal-required]
+    """The maven identifier used as the prefix to the maven coordinate that uniquely identifies resources published from this space. This is only present if configured in control panel in the space settings."""
+
+
+SpaceMavenIdentifier = str
+"""The maven identifier used as the prefix to the maven coordinate that uniquely identifies resources published from this space."""
+
 
 SpaceRid = core.RID
 """The unique resource identifier (RID) of a Space."""
@@ -574,8 +606,10 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
-core.resolve_forward_references(
+ResourceRolePrincipal = core.resolve_forward_references(
+    ResourceRolePrincipal, globalns=globals(), localns=locals()
+)
+ResourceRolePrincipalIdentifier = core.resolve_forward_references(
     ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
 )
 
@@ -593,8 +627,12 @@ __all__ = [
     "Folder",
     "FolderRid",
     "FolderType",
+    "GetByPathResourcesBatchRequestElement",
+    "GetByPathResourcesBatchResponse",
     "GetFoldersBatchRequestElement",
     "GetFoldersBatchResponse",
+    "GetResourcesBatchRequestElement",
+    "GetResourcesBatchResponse",
     "IsDirectlyApplied",
     "ListChildrenOfFolderResponse",
     "ListMarkingsOfResourceResponse",
@@ -625,6 +663,7 @@ __all__ = [
     "ResourceRolePrincipalIdentifier",
     "ResourceType",
     "Space",
+    "SpaceMavenIdentifier",
     "SpaceRid",
     "TrashStatus",
     "UsageAccountRid",

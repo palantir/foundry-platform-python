@@ -5,7 +5,7 @@ Method | HTTP request | Release Stage |
 [**execute**](#execute) | **POST** /v2/ontologies/{ontology}/queries/{queryApiName}/execute | Stable |
 
 # **execute**
-Executes a Query using the given parameters.
+Executes a Query using the given parameters. By default, the latest version of the Query is executed.
 
 Optional parameters do not need to be supplied.
 
@@ -17,10 +17,12 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
+**attribution** | Optional[Attribution] | The Attribution to be used when executing this request.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
 **trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
 
 ### Return type
@@ -41,6 +43,8 @@ ontology = "palantir"
 query_api_name = "getEmployeesInCity"
 # Dict[ParameterId, Optional[DataValue]]
 parameters = {"city": "New York"}
+# Optional[Attribution] | The Attribution to be used when executing this request.
+attribution = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -49,6 +53,8 @@ sdk_version = None
 trace_parent = None
 # Optional[TraceState] | The W3C trace state header included in the request.
 trace_state = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 # Optional[FunctionVersion] | The version of the Query to execute.
 version = None
 
@@ -58,10 +64,12 @@ try:
         ontology,
         query_api_name,
         parameters=parameters,
+        attribution=attribution,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
         trace_state=trace_state,
+        transaction_id=transaction_id,
         version=version,
     )
     print("The execute response:\n")

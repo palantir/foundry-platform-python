@@ -1,10 +1,10 @@
-# OntologyTransactionRid
+# ImageAttributeKey
 
-The RID identifying a transaction.
+The key of an image attribute within a domain.
 
 ## Type
 ```python
-RID
+str
 ```
 
 

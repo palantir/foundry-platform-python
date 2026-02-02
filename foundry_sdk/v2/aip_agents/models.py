@@ -220,7 +220,7 @@ class GetRagContextForSessionRequest(core.ModelBase):
 
 
 InputContext = typing_extensions.Annotated[
-    typing.Union[FunctionRetrievedContext, "ObjectContext"], pydantic.Field(discriminator="type")
+    typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
@@ -315,20 +315,20 @@ ParameterId = str
 
 
 ParameterType = typing_extensions.Annotated[
-    typing.Union["StringParameter", ObjectSetParameter], pydantic.Field(discriminator="type")
+    typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
 ParameterValue = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", ObjectSetParameterValue],
+    typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
 ParameterValueUpdate = typing_extensions.Annotated[
-    typing.Union["StringParameterValue", ObjectSetParameterValueUpdate],
+    typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
     pydantic.Field(discriminator="type"),
 ]
 """
@@ -588,7 +588,8 @@ class ToolCallInput(core.ModelBase):
 
 
 ToolCallOutput = typing_extensions.Annotated[
-    typing.Union[SuccessToolCallOutput, FailureToolCallOutput], pydantic.Field(discriminator="type")
+    typing.Union["SuccessToolCallOutput", "FailureToolCallOutput"],
+    pydantic.Field(discriminator="type"),
 ]
 """The output of a tool call."""
 
@@ -598,7 +599,7 @@ ToolInputName = str
 
 
 ToolInputValue = typing_extensions.Annotated[
-    typing.Union[StringToolInputValue, RidToolInputValue], pydantic.Field(discriminator="type")
+    typing.Union["StringToolInputValue", "RidToolInputValue"], pydantic.Field(discriminator="type")
 ]
 """A tool input value, which can be either a string or a Resource Identifier (RID)."""
 
@@ -614,7 +615,8 @@ class ToolMetadata(core.ModelBase):
 
 
 ToolOutputValue = typing_extensions.Annotated[
-    typing.Union[StringToolOutputValue, RidToolOutputValue], pydantic.Field(discriminator="type")
+    typing.Union["StringToolOutputValue", "RidToolOutputValue"],
+    pydantic.Field(discriminator="type"),
 ]
 """A tool output value, which can be either a string or a Resource Identifier (RID)."""
 
@@ -649,13 +651,23 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
+InputContext = core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
+ParameterType = core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
+ParameterValue = core.resolve_forward_references(
+    ParameterValue, globalns=globals(), localns=locals()
+)
+ParameterValueUpdate = core.resolve_forward_references(
+    ParameterValueUpdate, globalns=globals(), localns=locals()
+)
+ToolCallOutput = core.resolve_forward_references(
+    ToolCallOutput, globalns=globals(), localns=locals()
+)
+ToolInputValue = core.resolve_forward_references(
+    ToolInputValue, globalns=globals(), localns=locals()
+)
+ToolOutputValue = core.resolve_forward_references(
+    ToolOutputValue, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "Agent",

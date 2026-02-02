@@ -22,6 +22,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.data_health import models as data_health_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
@@ -137,7 +138,7 @@ class GetDatasetJobsOrFilter(core.ModelBase):
 
 
 GetDatasetJobsQuery = typing_extensions.Annotated[
-    typing.Union[GetDatasetJobsOrFilter, GetDatasetJobsAndFilter, "GetDatasetJobsTimeFilter"],
+    typing.Union["GetDatasetJobsOrFilter", "GetDatasetJobsAndFilter", "GetDatasetJobsTimeFilter"],
     pydantic.Field(discriminator="type"),
 ]
 """Query for getting jobs on given dataset."""
@@ -187,11 +188,40 @@ class GetDatasetSchemaResponse(core.ModelBase):
     version_id: core_models.VersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
 
 
+class GetHealthCheckReportsResponse(core.ModelBase):
+    """GetHealthCheckReportsResponse"""
+
+    data: typing.Dict[core_models.CheckRid, typing.Optional[data_health_models.CheckReport]]
+    """
+    A map from Check RID to the most recent report for that check. If a check is configured
+    but has not yet produced a report, the value will be absent.
+    """
+
+
 class GetJobResponse(core.ModelBase):
     """GetJobResponse"""
 
     data: typing.List[JobDetails]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class GetSchemaDatasetsBatchRequestElement(core.ModelBase):
+    """GetSchemaDatasetsBatchRequestElement"""
+
+    end_transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("endTransactionRid"), default=None)  # type: ignore[literal-required]
+    """The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used."""
+
+    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    version_id: typing.Optional[core_models.VersionId] = pydantic.Field(alias=str("versionId"), default=None)  # type: ignore[literal-required]
+    """The schema version that should be used. If none is provided, the latest version will be used."""
+
+    branch_name: typing.Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+
+
+class GetSchemaDatasetsBatchResponse(core.ModelBase):
+    """GetSchemaDatasetsBatchResponse"""
+
+    data: typing.Dict[DatasetRid, GetDatasetSchemaResponse]
 
 
 class JobDetails(core.ModelBase):
@@ -212,6 +242,12 @@ class ListFilesResponse(core.ModelBase):
 
     data: typing.List[File]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class ListHealthChecksResponse(core.ModelBase):
+    """ListHealthChecksResponse"""
+
+    data: typing.List[core_models.CheckRid]
 
 
 class ListSchedulesResponse(core.ModelBase):
@@ -341,7 +377,9 @@ class View(core.ModelBase):
 class ViewBackingDataset(core.ModelBase):
     """One of the Datasets backing a View."""
 
-    branch: BranchName
+    branch: typing.Optional[BranchName] = None
+    """The branch of the backing dataset. If not specified, defaults to the branch of the View."""
+
     dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
 
 
@@ -372,7 +410,7 @@ class ViewPrimaryKey(core.ModelBase):
 
 
 ViewPrimaryKeyResolution = typing_extensions.Annotated[
-    typing.Union[PrimaryKeyResolutionUnique, PrimaryKeyResolutionDuplicate],
+    typing.Union["PrimaryKeyResolutionUnique", "PrimaryKeyResolutionDuplicate"],
     pydantic.Field(discriminator="type"),
 ]
 """Specifies how primary key conflicts are resolved within the view."""
@@ -382,8 +420,12 @@ PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
-core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+GetDatasetJobsQuery = core.resolve_forward_references(
+    GetDatasetJobsQuery, globalns=globals(), localns=locals()
+)
+ViewPrimaryKeyResolution = core.resolve_forward_references(
+    ViewPrimaryKeyResolution, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "AddBackingDatasetsRequest",
@@ -411,10 +453,14 @@ __all__ = [
     "GetDatasetJobsTimeFilter",
     "GetDatasetJobsTimeFilterField",
     "GetDatasetSchemaResponse",
+    "GetHealthCheckReportsResponse",
     "GetJobResponse",
+    "GetSchemaDatasetsBatchRequestElement",
+    "GetSchemaDatasetsBatchResponse",
     "JobDetails",
     "ListBranchesResponse",
     "ListFilesResponse",
+    "ListHealthChecksResponse",
     "ListSchedulesResponse",
     "ListTransactionsOfDatasetResponse",
     "ListTransactionsResponse",

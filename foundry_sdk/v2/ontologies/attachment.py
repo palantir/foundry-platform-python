@@ -183,16 +183,80 @@ class AttachmentClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_with_rid(
+        self,
+        attachment_rid: ontologies_models.AttachmentRid,
+        body: bytes,
+        *,
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.AttachmentV2:
+        """
+        This endpoint is identical to `/v2/ontologies/attachments/upload` but additionally accepts a previously
+        generated `AttachmentRid`.
+
+        :param attachment_rid: The `AttachmentRid` of the attachment being uploaded.
+        :type attachment_rid: AttachmentRid
+        :param body: Body of the request
+        :type body: bytes
+        :param content_length: The size in bytes of the file content being uploaded.
+        :type content_length: ContentLength
+        :param content_type: The media type of the file being uploaded.
+        :type content_type: ContentType
+        :param filename: The name of the file being uploaded.
+        :type filename: Filename
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.AttachmentV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/attachments/upload/{attachmentRid}",
+                query_params={
+                    "filename": filename,
+                    "preview": preview,
+                },
+                path_params={
+                    "attachmentRid": attachment_rid,
+                },
+                header_params={
+                    "Content-Length": content_length,
+                    "Content-Type": content_type,
+                    "Content-Type": "*/*",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=ontologies_models.AttachmentV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AttachmentClientRaw:
     def __init__(self, client: AttachmentClient) -> None:
         def get(_: ontologies_models.AttachmentV2): ...
         def read(_: bytes): ...
         def upload(_: ontologies_models.AttachmentV2): ...
+        def upload_with_rid(_: ontologies_models.AttachmentV2): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.read = core.with_raw_response(read, client.read)
         self.upload = core.with_raw_response(upload, client.upload)
+        self.upload_with_rid = core.with_raw_response(upload_with_rid, client.upload_with_rid)
 
 
 class _AttachmentClientStreaming:
@@ -200,10 +264,12 @@ class _AttachmentClientStreaming:
         def get(_: ontologies_models.AttachmentV2): ...
         def read(_: bytes): ...
         def upload(_: ontologies_models.AttachmentV2): ...
+        def upload_with_rid(_: ontologies_models.AttachmentV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.read = core.with_streaming_response(read, client.read)
         self.upload = core.with_streaming_response(upload, client.upload)
+        self.upload_with_rid = core.with_streaming_response(upload_with_rid, client.upload_with_rid)
 
 
 class AsyncAttachmentClient:
@@ -365,16 +431,80 @@ class AsyncAttachmentClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def upload_with_rid(
+        self,
+        attachment_rid: ontologies_models.AttachmentRid,
+        body: bytes,
+        *,
+        content_length: core_models.ContentLength,
+        content_type: core_models.ContentType,
+        filename: core_models.Filename,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.AttachmentV2]:
+        """
+        This endpoint is identical to `/v2/ontologies/attachments/upload` but additionally accepts a previously
+        generated `AttachmentRid`.
+
+        :param attachment_rid: The `AttachmentRid` of the attachment being uploaded.
+        :type attachment_rid: AttachmentRid
+        :param body: Body of the request
+        :type body: bytes
+        :param content_length: The size in bytes of the file content being uploaded.
+        :type content_length: ContentLength
+        :param content_type: The media type of the file being uploaded.
+        :type content_type: ContentType
+        :param filename: The name of the file being uploaded.
+        :type filename: Filename
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.AttachmentV2]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/attachments/upload/{attachmentRid}",
+                query_params={
+                    "filename": filename,
+                    "preview": preview,
+                },
+                path_params={
+                    "attachmentRid": attachment_rid,
+                },
+                header_params={
+                    "Content-Length": content_length,
+                    "Content-Type": content_type,
+                    "Content-Type": "*/*",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=ontologies_models.AttachmentV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncAttachmentClientRaw:
     def __init__(self, client: AsyncAttachmentClient) -> None:
         def get(_: ontologies_models.AttachmentV2): ...
         def read(_: bytes): ...
         def upload(_: ontologies_models.AttachmentV2): ...
+        def upload_with_rid(_: ontologies_models.AttachmentV2): ...
 
         self.get = core.async_with_raw_response(get, client.get)
         self.read = core.async_with_raw_response(read, client.read)
         self.upload = core.async_with_raw_response(upload, client.upload)
+        self.upload_with_rid = core.async_with_raw_response(upload_with_rid, client.upload_with_rid)
 
 
 class _AsyncAttachmentClientStreaming:
@@ -382,7 +512,11 @@ class _AsyncAttachmentClientStreaming:
         def get(_: ontologies_models.AttachmentV2): ...
         def read(_: bytes): ...
         def upload(_: ontologies_models.AttachmentV2): ...
+        def upload_with_rid(_: ontologies_models.AttachmentV2): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
         self.read = core.async_with_streaming_response(read, client.read)
         self.upload = core.async_with_streaming_response(upload, client.upload)
+        self.upload_with_rid = core.async_with_streaming_response(
+            upload_with_rid, client.upload_with_rid
+        )

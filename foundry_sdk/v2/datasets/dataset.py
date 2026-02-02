@@ -16,6 +16,7 @@
 import typing
 from functools import cached_property
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -23,6 +24,7 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.data_health import errors as data_health_errors
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import errors as filesystem_errors
@@ -197,6 +199,128 @@ class DatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_health_check_reports(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetHealthCheckReportsResponse:
+        """
+        Get the most recent Data Health Check report for each check configured on the given Dataset.
+        Returns one report per check, representing the current health status of the dataset.
+
+        To get the list of checks configured on a Dataset, use
+        [Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
+        For the full report history of a specific check, use
+        [Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetHealthCheckReportsResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthCheckReportsPermissionDenied: Could not getHealthCheckReports the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthCheckReports",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.GetHealthCheckReportsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthCheckReportsPermissionDenied": datasets_errors.GetDatasetHealthCheckReportsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_health_checks(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.ListHealthChecksResponse:
+        """
+        Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.ListHealthChecksResponse
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthChecksPermissionDenied: Could not getHealthChecks the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthChecks",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.ListHealthChecksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthChecksPermissionDenied": datasets_errors.GetDatasetHealthChecksPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_schedules(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -326,6 +450,56 @@ class DatasetClient:
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_schema_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[datasets_models.GetSchemaDatasetsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> datasets_models.GetSchemaDatasetsBatchResponse:
+        """
+        Fetch schemas for multiple datasets in a single request. Datasets not found
+        or inaccessible to the user will be omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchemaDatasetsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: datasets_models.GetSchemaDatasetsBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/getSchemaBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=datasets_models.GetSchemaDatasetsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -580,7 +754,7 @@ class DatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -630,8 +804,11 @@ class _DatasetClientRaw:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_check_reports(_: datasets_models.GetHealthCheckReportsResponse): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -639,8 +816,13 @@ class _DatasetClientRaw:
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.get_health_check_reports = core.with_raw_response(
+            get_health_check_reports, client.get_health_check_reports
+        )
+        self.get_health_checks = core.with_raw_response(get_health_checks, client.get_health_checks)
         self.get_schedules = core.with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_raw_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.with_raw_response(get_schema_batch, client.get_schema_batch)
         self.jobs = core.with_raw_response(jobs, client.jobs)
         self.put_schema = core.with_raw_response(put_schema, client.put_schema)
         self.read_table = core.with_raw_response(read_table, client.read_table)
@@ -651,8 +833,11 @@ class _DatasetClientStreaming:
     def __init__(self, client: DatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_check_reports(_: datasets_models.GetHealthCheckReportsResponse): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -660,8 +845,17 @@ class _DatasetClientStreaming:
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_health_check_reports = core.with_streaming_response(
+            get_health_check_reports, client.get_health_check_reports
+        )
+        self.get_health_checks = core.with_streaming_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.with_streaming_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.with_streaming_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.with_streaming_response(jobs, client.jobs)
         self.put_schema = core.with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.with_streaming_response(read_table, client.read_table)
@@ -836,6 +1030,128 @@ class AsyncDatasetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_health_check_reports(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetHealthCheckReportsResponse]:
+        """
+        Get the most recent Data Health Check report for each check configured on the given Dataset.
+        Returns one report per check, representing the current health status of the dataset.
+
+        To get the list of checks configured on a Dataset, use
+        [Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
+        For the full report history of a specific check, use
+        [Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetHealthCheckReportsResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises CheckTypeNotSupported: The type of the requested check is not yet supported in the Platform API.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthCheckReportsPermissionDenied: Could not getHealthCheckReports the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthCheckReports",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.GetHealthCheckReportsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "CheckTypeNotSupported": data_health_errors.CheckTypeNotSupported,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthCheckReportsPermissionDenied": datasets_errors.GetDatasetHealthCheckReportsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_health_checks(
+        self,
+        dataset_rid: datasets_models.DatasetRid,
+        *,
+        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.ListHealthChecksResponse]:
+        """
+        Get the RIDs of the Data Health Checks that are configured for the given Dataset.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param branch_name: The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+        :type branch_name: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.ListHealthChecksResponse]
+
+        :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
+        :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
+        :raises GetDatasetHealthChecksPermissionDenied: Could not getHealthChecks the Dataset.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/datasets/{datasetRid}/getHealthChecks",
+                query_params={
+                    "branchName": branch_name,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=datasets_models.ListHealthChecksResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "BranchNotFound": datasets_errors.BranchNotFound,
+                    "DatasetNotFound": datasets_errors.DatasetNotFound,
+                    "GetDatasetHealthChecksPermissionDenied": datasets_errors.GetDatasetHealthChecksPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_schedules(
         self,
         dataset_rid: datasets_models.DatasetRid,
@@ -965,6 +1281,56 @@ class AsyncDatasetClient:
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_schema_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[datasets_models.GetSchemaDatasetsBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=1000),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[datasets_models.GetSchemaDatasetsBatchResponse]:
+        """
+        Fetch schemas for multiple datasets in a single request. Datasets not found
+        or inaccessible to the user will be omitted from the response.
+
+
+        The maximum batch size for this endpoint is 1000.
+        :param body: Body of the request
+        :type body: List[GetSchemaDatasetsBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[datasets_models.GetSchemaDatasetsBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/datasets/getSchemaBatch",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=body,
+                response_type=datasets_models.GetSchemaDatasetsBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -1219,7 +1585,7 @@ class AsyncDatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[datasets_models.Transaction]:
         """
-        Get the Transaction history for the given Dataset
+        Get the Transaction history for the given Dataset. When requesting all transactions, the endpoint returns them in reverse chronological order.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1269,8 +1635,11 @@ class _AsyncDatasetClientRaw:
     def __init__(self, client: AsyncDatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_check_reports(_: datasets_models.GetHealthCheckReportsResponse): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -1278,8 +1647,17 @@ class _AsyncDatasetClientRaw:
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_health_check_reports = core.async_with_raw_response(
+            get_health_check_reports, client.get_health_check_reports
+        )
+        self.get_health_checks = core.async_with_raw_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.async_with_raw_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_raw_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.async_with_raw_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.async_with_raw_response(jobs, client.jobs)
         self.put_schema = core.async_with_raw_response(put_schema, client.put_schema)
         self.read_table = core.async_with_raw_response(read_table, client.read_table)
@@ -1290,8 +1668,11 @@ class _AsyncDatasetClientStreaming:
     def __init__(self, client: AsyncDatasetClient) -> None:
         def create(_: datasets_models.Dataset): ...
         def get(_: datasets_models.Dataset): ...
+        def get_health_check_reports(_: datasets_models.GetHealthCheckReportsResponse): ...
+        def get_health_checks(_: datasets_models.ListHealthChecksResponse): ...
         def get_schedules(_: datasets_models.ListSchedulesResponse): ...
         def get_schema(_: datasets_models.GetDatasetSchemaResponse): ...
+        def get_schema_batch(_: datasets_models.GetSchemaDatasetsBatchResponse): ...
         def jobs(_: datasets_models.GetJobResponse): ...
         def put_schema(_: datasets_models.GetDatasetSchemaResponse): ...
         def read_table(_: bytes): ...
@@ -1299,8 +1680,17 @@ class _AsyncDatasetClientStreaming:
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_health_check_reports = core.async_with_streaming_response(
+            get_health_check_reports, client.get_health_check_reports
+        )
+        self.get_health_checks = core.async_with_streaming_response(
+            get_health_checks, client.get_health_checks
+        )
         self.get_schedules = core.async_with_streaming_response(get_schedules, client.get_schedules)
         self.get_schema = core.async_with_streaming_response(get_schema, client.get_schema)
+        self.get_schema_batch = core.async_with_streaming_response(
+            get_schema_batch, client.get_schema_batch
+        )
         self.jobs = core.async_with_streaming_response(jobs, client.jobs)
         self.put_schema = core.async_with_streaming_response(put_schema, client.put_schema)
         self.read_table = core.async_with_streaming_response(read_table, client.read_table)

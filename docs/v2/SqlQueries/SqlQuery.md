@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Public Beta |
-[**execute**](#execute) | **POST** /v2/sqlQueries/execute | Public Beta |
-[**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Public Beta |
-[**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Public Beta |
+[**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Stable |
+[**execute**](#execute) | **POST** /v2/sqlQueries/execute | Stable |
+[**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Stable |
+[**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Stable |
 
 # **cancel**
 Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -15,8 +15,7 @@ Cancels a query. If the query is no longer running this is effectively a no-op.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**sql_query_id** | SqlQueryId | The id of a query.  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**sql_query_id** | SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.  |  |
 
 ### Return type
 **None**
@@ -30,14 +29,12 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# SqlQueryId | The id of a query.
+# SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
 sql_query_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.sql_queries.SqlQuery.cancel(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.cancel(sql_query_id)
     print("The cancel response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -70,7 +67,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query** | str | The SQL query to execute. Queries should conform to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Datasets can be referenced in SQL queries by path or by RID. See the  [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) for more details.  |  |
 **fallback_branch_ids** | Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **QueryStatus**
@@ -88,13 +84,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 query = "SELECT * FROM `/Path/To/Dataset`"
 # Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
 fallback_branch_ids = ["master"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.sql_queries.SqlQuery.execute(
-        query=query, fallback_branch_ids=fallback_branch_ids, preview=preview
+        query=query, fallback_branch_ids=fallback_branch_ids
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -128,8 +122,7 @@ retried while the query is still running.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**sql_query_id** | SqlQueryId | The id of a query.  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**sql_query_id** | SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.  |  |
 
 ### Return type
 **bytes**
@@ -139,7 +132,7 @@ Name | Type | Description  | Notes |
 >
 > ```python
 > # Get data in Arrow format
-> table_data = client.sql_queries.SqlQuery.get_results(sql_query_id, preview=preview)
+> table_data = client.sql_queries.SqlQuery.get_results(sql_query_id)
 >
 > # Convert to a PyArrow Table
 > arrow_table = table_data.to_pyarrow()
@@ -165,14 +158,12 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# SqlQueryId | The id of a query.
+# SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
 sql_query_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.sql_queries.SqlQuery.get_results(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.get_results(sql_query_id)
     print("The get_results response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -201,8 +192,7 @@ Gets the status of a query.
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**sql_query_id** | SqlQueryId | The id of a query.  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**sql_query_id** | SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.  |  |
 
 ### Return type
 **QueryStatus**
@@ -216,14 +206,12 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# SqlQueryId | The id of a query.
+# SqlQueryId | The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
 sql_query_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.sql_queries.SqlQuery.get_status(sql_query_id, preview=preview)
+    api_response = client.sql_queries.SqlQuery.get_status(sql_query_id)
     print("The get_status response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

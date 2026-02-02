@@ -190,7 +190,6 @@ class FileClient:
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
-        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         :raises TransactionNotOpen: The given transaction is not open.
         """
@@ -223,7 +222,6 @@ class FileClient:
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "InvalidTransactionType": datasets_errors.InvalidTransactionType,
-                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
                     "TransactionNotOpen": datasets_errors.TransactionNotOpen,
@@ -333,6 +331,7 @@ class FileClient:
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        path_prefix: typing.Optional[core_models.FilePath] = None,
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -367,6 +366,8 @@ class FileClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
+        :param path_prefix: When present returns only files in the dataset whose path starts with this value. If pathPrefix matches a file exactly, returns just that file.
+        :type path_prefix: Optional[FilePath]
         :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -377,6 +378,7 @@ class FileClient:
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidFilePath: The provided file path is invalid. Check that the path does not start with a leading slash.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -391,6 +393,7 @@ class FileClient:
                     "endTransactionRid": end_transaction_rid,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "pathPrefix": path_prefix,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -406,6 +409,7 @@ class FileClient:
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidFilePath": core_errors.InvalidFilePath,
                     "InvalidPageSize": core_errors.InvalidPageSize,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -468,7 +472,7 @@ class FileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
-        :raises InvalidFilePath: The provided file path is invalid.
+        :raises InvalidFilePath: The provided file path is invalid. Check that the path does not start with a leading slash.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -708,7 +712,6 @@ class AsyncFileClient:
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises InvalidTransactionType: The given transaction type is not valid. Valid transaction types are `SNAPSHOT`, `UPDATE`, `APPEND`, and `DELETE`.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
-        :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
         :raises TransactionNotOpen: The given transaction is not open.
         """
@@ -741,7 +744,6 @@ class AsyncFileClient:
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "InvalidTransactionType": datasets_errors.InvalidTransactionType,
-                    "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "OpenTransactionAlreadyExists": datasets_errors.OpenTransactionAlreadyExists,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
                     "TransactionNotOpen": datasets_errors.TransactionNotOpen,
@@ -851,6 +853,7 @@ class AsyncFileClient:
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        path_prefix: typing.Optional[core_models.FilePath] = None,
         start_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -885,6 +888,8 @@ class AsyncFileClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
+        :param path_prefix: When present returns only files in the dataset whose path starts with this value. If pathPrefix matches a file exactly, returns just that file.
+        :type path_prefix: Optional[FilePath]
         :param start_transaction_rid: The Resource Identifier (RID) of the start Transaction.
         :type start_transaction_rid: Optional[TransactionRid]
         :param request_timeout: timeout setting for this request in seconds.
@@ -895,6 +900,7 @@ class AsyncFileClient:
         :raises BranchNotFound: The requested branch could not be found, or the client token does not have access to it.
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
+        :raises InvalidFilePath: The provided file path is invalid. Check that the path does not start with a leading slash.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.
@@ -909,6 +915,7 @@ class AsyncFileClient:
                     "endTransactionRid": end_transaction_rid,
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "pathPrefix": path_prefix,
                     "startTransactionRid": start_transaction_rid,
                 },
                 path_params={
@@ -924,6 +931,7 @@ class AsyncFileClient:
                     "BranchNotFound": datasets_errors.BranchNotFound,
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
+                    "InvalidFilePath": core_errors.InvalidFilePath,
                     "InvalidPageSize": core_errors.InvalidPageSize,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
                     "TransactionNotFound": datasets_errors.TransactionNotFound,
@@ -986,7 +994,7 @@ class AsyncFileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileAlreadyExists: The given file path already exists in the dataset and transaction.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
-        :raises InvalidFilePath: The provided file path is invalid.
+        :raises InvalidFilePath: The provided file path is invalid. Check that the path does not start with a leading slash.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
         :raises OpenTransactionAlreadyExists: A transaction is already open on this dataset and branch. A branch of a dataset can only have one open transaction at a time.
         :raises TransactionNotFound: The requested transaction could not be found on the dataset, or the client token does not have access to it.

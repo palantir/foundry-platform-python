@@ -12,6 +12,7 @@ The type of the constraint.
 | `range`               | The struct parameter field value must be within the defined range.                                                                                                                                                              |
 | `stringLength`        | The struct parameter field value must have a length within the defined range.                                                                                                                                                   |
 | `stringRegexMatch`    | The struct parameter field value must match a predefined regular expression.                                                                                                                                                    |
+| `objectQueryResult`   | The struct parameter field value must be the primary key of an object found within an object set.                                                                                                                               |
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
@@ -23,6 +24,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 | ------------ | -------------
 OneOfConstraint | oneOf
 RangeConstraint | range
+ObjectQueryResultConstraint | objectQueryResult
 StringLengthConstraint | stringLength
 StringRegexMatchConstraint | stringRegexMatch
 

@@ -161,7 +161,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **replace**
-Replace the Check with the specified rid. Changing the type of a check after it has been created  is not supported.
+Replace the Check with the specified rid. Changing the type of a check after it has been created is not supported.
 
 ### Parameters
 

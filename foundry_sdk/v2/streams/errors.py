@@ -96,6 +96,38 @@ class FailedToProcessBinaryRecord(errors.InternalServerError):
     error_instance_id: str
 
 
+class GetEndOffsetsForStreamPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getEndOffsets the Stream."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+    streamBranchName: datasets_models.BranchName
+
+
+@dataclass
+class GetEndOffsetsForStreamPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetEndOffsetsForStreamPermissionDenied"]
+    parameters: GetEndOffsetsForStreamPermissionDeniedParameters
+    error_instance_id: str
+
+
+class GetRecordsFromStreamPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getRecords the Stream."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: datasets_models.DatasetRid
+    streamBranchName: datasets_models.BranchName
+
+
+@dataclass
+class GetRecordsFromStreamPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetRecordsFromStreamPermissionDenied"]
+    parameters: GetRecordsFromStreamPermissionDeniedParameters
+    error_instance_id: str
+
+
 class InvalidStreamNoSchemaParameters(typing_extensions.TypedDict):
     """The requested stream exists but is invalid, as it does not have a schema."""
 
@@ -239,7 +271,7 @@ class StreamNotFound(errors.NotFoundError):
 
 
 class ViewNotFoundParameters(typing_extensions.TypedDict):
-    """No view for the provided view rid provided could be found."""
+    """No view for the provided view RID provided could be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -259,6 +291,8 @@ __all__ = [
     "CreateStreamPermissionDenied",
     "CreateStreamingDatasetPermissionDenied",
     "FailedToProcessBinaryRecord",
+    "GetEndOffsetsForStreamPermissionDenied",
+    "GetRecordsFromStreamPermissionDenied",
     "InvalidStreamNoSchema",
     "InvalidStreamType",
     "PublishBinaryRecordToStreamPermissionDenied",
