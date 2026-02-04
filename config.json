@@ -125,6 +125,7 @@
           "DerivedPropertyApiName",
           "MethodObjectSet",
           "NestedQueryAggregation",
+          "ObjectSetStreamSubscribeRequests",
           "QueryAggregation",
           "QueryThreeDimensionalAggregation",
           "QueryTwoDimensionalAggregation",
@@ -139,6 +140,7 @@
           "SelectedPropertyApproximatePercentileAggregation",
           "SelectedPropertyCollectListAggregation",
           "SelectedPropertyCollectSetAggregation",
+          "StreamMessage",
           "GetSelectedPropertyOperation",
           "ObjectSetWithPropertiesType",
           "ObjectSetMethodInputType"
