@@ -5,7 +5,7 @@ One of the Datasets backing a View.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**branch** | BranchName | Yes |  |
+**branch** | Optional[BranchName] | No | The branch of the backing dataset. If not specified, defaults to the branch of the View. |
 **dataset_rid** | DatasetRid | Yes |  |
 
 

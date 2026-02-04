@@ -373,21 +373,21 @@ Partial terms are not matched by terms filters except where explicitly noted.
 
 ### Parameters
 
-Name | Type                               | Description  | Notes |
-------------- |------------------------------------| ------------- | ------------- |
-**ontology** | OntologyIdentifier                 |  |  |
-**object_type** | ObjectTypeApiName                  | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
-**select** | List[PropertyApiName]              | The API names of the object type properties to include in the response.  |  |
-**select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
-**branch** | Optional[FoundryBranch]            | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
-**exclude_rid** | Optional[bool]                     | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
-**order_by** | Optional[SearchOrderByV2]          |  | [optional] |
-**page_size** | Optional[PageSize]                 |  | [optional] |
-**page_token** | Optional[PageToken]                |  | [optional] |
-**sdk_package_rid** | Optional[SdkPackageRid]            | The package rid of the generated SDK.  | [optional] |
-**sdk_version** | Optional[SdkVersion]               | The version of the generated SDK.  | [optional] |
-**snapshot** | Optional[bool]                     | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
-**where** | Optional[SearchJsonQueryV2]        |  | [optional] |
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**object_type** | ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager**.  |  |
+**select** | List[PropertyApiName] | The API names of the object type properties to include in the response.  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
+**order_by** | Optional[SearchOrderByV2] |  | [optional] |
+**page_size** | Optional[PageSize] |  | [optional] |
+**page_token** | Optional[PageToken] |  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**where** | Optional[SearchJsonQueryV2] |  | [optional] |
 
 ### Return type
 **SearchObjectsResponseV2**

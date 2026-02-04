@@ -269,6 +269,7 @@ Name | Type | Description  | Notes |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**path_prefix** | Optional[FilePath] | When present returns only files in the dataset whose path starts with this value. If pathPrefix matches a file exactly, returns just that file.  | [optional] |
 **start_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.  | [optional] |
 
 ### Return type
@@ -293,6 +294,8 @@ end_transaction_rid = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
+# Optional[FilePath] | When present returns only files in the dataset whose path starts with this value. If pathPrefix matches a file exactly, returns just that file.
+path_prefix = None
 # Optional[TransactionRid] | The Resource Identifier (RID) of the start Transaction.
 start_transaction_rid = None
 
@@ -304,6 +307,7 @@ try:
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
         page_token=page_token,
+        path_prefix=path_prefix,
         start_transaction_rid=start_transaction_rid,
     ):
         pprint(file)

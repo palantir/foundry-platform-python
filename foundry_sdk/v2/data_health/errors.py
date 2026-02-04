@@ -56,12 +56,51 @@ class CheckNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class CheckReportLimitAboveMaximumParameters(typing_extensions.TypedDict):
+    """CheckReportLimit must be less than or equal to 100"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: int
+    """The value that was provided."""
+
+    maxInclusive: int
+    """The maximum value allowed."""
+
+
+@dataclass
+class CheckReportLimitAboveMaximum(errors.BadRequestError):
+    name: typing.Literal["CheckReportLimitAboveMaximum"]
+    parameters: CheckReportLimitAboveMaximumParameters
+    error_instance_id: str
+
+
+class CheckReportLimitBelowMinimumParameters(typing_extensions.TypedDict):
+    """CheckReportLimit must be greater than or equal to 1"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    value: int
+    """The value that was provided."""
+
+    minInclusive: int
+    """The minimum value allowed."""
+
+
+@dataclass
+class CheckReportLimitBelowMinimum(errors.BadRequestError):
+    name: typing.Literal["CheckReportLimitBelowMinimum"]
+    parameters: CheckReportLimitBelowMinimumParameters
+    error_instance_id: str
+
+
 class CheckReportNotFoundParameters(typing_extensions.TypedDict):
     """The given CheckReport could not be found."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     checkReportRid: core_models.CheckReportRid
+    checkRid: core_models.CheckRid
 
 
 @dataclass
@@ -114,6 +153,21 @@ class DeleteCheckPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetLatestCheckReportsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getLatest the CheckReport."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    checkRid: core_models.CheckRid
+
+
+@dataclass
+class GetLatestCheckReportsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetLatestCheckReportsPermissionDenied"]
+    parameters: GetLatestCheckReportsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class InvalidNumericColumnCheckConfigParameters(typing_extensions.TypedDict):
     """The NumericColumnCheckConfig is invalid. It must contain at least one of numericBounds or trend."""
 
@@ -150,6 +204,19 @@ class InvalidTimeCheckConfigParameters(typing_extensions.TypedDict):
 class InvalidTimeCheckConfig(errors.BadRequestError):
     name: typing.Literal["InvalidTimeCheckConfig"]
     parameters: InvalidTimeCheckConfigParameters
+    error_instance_id: str
+
+
+class InvalidTransactionTimeCheckConfigParameters(typing_extensions.TypedDict):
+    """The TransactionTimeCheckConfig is invalid. It must contain at least one of timeBounds or medianDeviation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidTransactionTimeCheckConfig(errors.BadRequestError):
+    name: typing.Literal["InvalidTransactionTimeCheckConfig"]
+    parameters: InvalidTransactionTimeCheckConfigParameters
     error_instance_id: str
 
 
@@ -238,13 +305,17 @@ class ReplaceCheckPermissionDenied(errors.PermissionDeniedError):
 __all__ = [
     "CheckAlreadyExists",
     "CheckNotFound",
+    "CheckReportLimitAboveMaximum",
+    "CheckReportLimitBelowMinimum",
     "CheckReportNotFound",
     "CheckTypeNotSupported",
     "CreateCheckPermissionDenied",
     "DeleteCheckPermissionDenied",
+    "GetLatestCheckReportsPermissionDenied",
     "InvalidNumericColumnCheckConfig",
     "InvalidPercentageCheckConfig",
     "InvalidTimeCheckConfig",
+    "InvalidTransactionTimeCheckConfig",
     "InvalidTrendConfig",
     "ModifyingCheckTypeNotSupported",
     "PercentageValueAboveMaximum",

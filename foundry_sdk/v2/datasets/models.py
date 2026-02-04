@@ -22,33 +22,30 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.data_health import models as data_health_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
 class AddBackingDatasetsRequest(core.ModelBase):
     """AddBackingDatasetsRequest"""
 
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
 
 
 class AddPrimaryKeyRequest(core.ModelBase):
     """AddPrimaryKeyRequest"""
 
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     primary_key: ViewPrimaryKey = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
 
 
 class Branch(core.ModelBase):
     """Branch"""
 
-    name: BranchName
+    name: core_models.BranchName
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
-
-
-BranchName = str
-"""The name of a Branch."""
 
 
 class CreateBranchRequest(core.ModelBase):
@@ -57,7 +54,7 @@ class CreateBranchRequest(core.ModelBase):
     transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("transactionRid"), default=None)  # type: ignore[literal-required]
     """The most recent OPEN or COMMITTED transaction on the branch. This will never be an ABORTED transaction."""
 
-    name: BranchName
+    name: core_models.BranchName
 
 
 class CreateDatasetRequest(core.ModelBase):
@@ -79,7 +76,7 @@ class CreateViewRequest(core.ModelBase):
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
     view_name: DatasetName = pydantic.Field(alias=str("viewName"))  # type: ignore[literal-required]
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     """The branch name of the View. If not specified, defaults to `master` for most enrollments."""
 
     primary_key: typing.Optional[ViewPrimaryKey] = pydantic.Field(alias=str("primaryKey"), default=None)  # type: ignore[literal-required]
@@ -92,17 +89,13 @@ DataframeReader = typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]
 class Dataset(core.ModelBase):
     """Dataset"""
 
-    rid: DatasetRid
+    rid: core_models.DatasetRid
     name: DatasetName
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
 
 
 DatasetName = str
 """DatasetName"""
-
-
-DatasetRid = core.RID
-"""The Resource Identifier (RID) of a Dataset."""
 
 
 class File(core.ModelBase):
@@ -181,10 +174,20 @@ GetDatasetJobsTimeFilterField = typing.Literal["SUBMITTED_TIME", "FINISHED_TIME"
 class GetDatasetSchemaResponse(core.ModelBase):
     """GetDatasetSchemaResponse"""
 
-    branch_name: BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     end_transaction_rid: TransactionRid = pydantic.Field(alias=str("endTransactionRid"))  # type: ignore[literal-required]
     schema_: core_models.DatasetSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     version_id: core_models.VersionId = pydantic.Field(alias=str("versionId"))  # type: ignore[literal-required]
+
+
+class GetHealthCheckReportsResponse(core.ModelBase):
+    """GetHealthCheckReportsResponse"""
+
+    data: typing.Dict[core_models.CheckRid, typing.Optional[data_health_models.CheckReport]]
+    """
+    A map from Check RID to the most recent report for that check. If a check is configured
+    but has not yet produced a report, the value will be absent.
+    """
 
 
 class GetJobResponse(core.ModelBase):
@@ -200,17 +203,17 @@ class GetSchemaDatasetsBatchRequestElement(core.ModelBase):
     end_transaction_rid: typing.Optional[TransactionRid] = pydantic.Field(alias=str("endTransactionRid"), default=None)  # type: ignore[literal-required]
     """The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used."""
 
-    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     version_id: typing.Optional[core_models.VersionId] = pydantic.Field(alias=str("versionId"), default=None)  # type: ignore[literal-required]
     """The schema version that should be used. If none is provided, the latest version will be used."""
 
-    branch_name: typing.Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
 
 
 class GetSchemaDatasetsBatchResponse(core.ModelBase):
     """GetSchemaDatasetsBatchResponse"""
 
-    data: typing.Dict[DatasetRid, GetDatasetSchemaResponse]
+    data: typing.Dict[core_models.DatasetRid, GetDatasetSchemaResponse]
 
 
 class JobDetails(core.ModelBase):
@@ -290,7 +293,7 @@ class PrimaryKeyResolutionUnique(core.ModelBase):
 class PutDatasetSchemaRequest(core.ModelBase):
     """PutDatasetSchemaRequest"""
 
-    branch_name: typing.Optional[BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     dataframe_reader: typing.Optional[DataframeReader] = pydantic.Field(alias=str("dataframeReader"), default=None)  # type: ignore[literal-required]
     """The dataframe reader used for reading the dataset schema. Defaults to PARQUET."""
 
@@ -304,14 +307,14 @@ class PutDatasetSchemaRequest(core.ModelBase):
 class RemoveBackingDatasetsRequest(core.ModelBase):
     """RemoveBackingDatasetsRequest"""
 
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
 
 
 class ReplaceBackingDatasetsRequest(core.ModelBase):
     """ReplaceBackingDatasetsRequest"""
 
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
 
 
@@ -352,11 +355,11 @@ class View(core.ModelBase):
     """View"""
 
     view_name: DatasetName = pydantic.Field(alias=str("viewName"))  # type: ignore[literal-required]
-    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The rid of the View."""
 
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
-    branch: typing.Optional[BranchName] = None
+    branch: typing.Optional[core_models.BranchName] = None
     """The branch name of the View. If not specified, defaults to `master` for most enrollments."""
 
     backing_datasets: typing.List[ViewBackingDataset] = pydantic.Field(alias=str("backingDatasets"))  # type: ignore[literal-required]
@@ -366,8 +369,10 @@ class View(core.ModelBase):
 class ViewBackingDataset(core.ModelBase):
     """One of the Datasets backing a View."""
 
-    branch: BranchName
-    dataset_rid: DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[core_models.BranchName] = None
+    """The branch of the backing dataset. If not specified, defaults to the branch of the View."""
+
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
 
 
 class ViewPrimaryKey(core.ModelBase):
@@ -414,7 +419,6 @@ __all__ = [
     "AddBackingDatasetsRequest",
     "AddPrimaryKeyRequest",
     "Branch",
-    "BranchName",
     "CreateBranchRequest",
     "CreateDatasetRequest",
     "CreateTransactionRequest",
@@ -422,7 +426,6 @@ __all__ = [
     "DataframeReader",
     "Dataset",
     "DatasetName",
-    "DatasetRid",
     "File",
     "FileUpdatedTime",
     "GetDatasetJobsAndFilter",
@@ -436,6 +439,7 @@ __all__ = [
     "GetDatasetJobsTimeFilter",
     "GetDatasetJobsTimeFilterField",
     "GetDatasetSchemaResponse",
+    "GetHealthCheckReportsResponse",
     "GetJobResponse",
     "GetSchemaDatasetsBatchRequestElement",
     "GetSchemaDatasetsBatchResponse",

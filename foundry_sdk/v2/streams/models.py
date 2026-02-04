@@ -53,7 +53,7 @@ class CreateStreamRequest(core.ModelBase):
     LOW_LATENCY are not compatible with each other. Defaults to LOW_LATENCY.
     """
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     compressed: typing.Optional[Compressed] = None
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
@@ -95,7 +95,7 @@ class CreateStreamingDatasetRequest(core.ModelBase):
     schema_: core_models.StreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     """The Foundry schema to apply to the new stream."""
 
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """
     The branch to create the initial stream on. If not specified, the default branch will be used
     ('master' for most enrollments).
@@ -126,9 +126,21 @@ class CreateStreamingDatasetRequest(core.ModelBase):
 class Dataset(core.ModelBase):
     """Dataset"""
 
-    rid: datasets_models.DatasetRid
+    rid: core_models.DatasetRid
     name: datasets_models.DatasetName
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+
+
+GetEndOffsetsResponse = typing.Dict["PartitionId", core.Long]
+"""The end offsets for each partition of a stream."""
+
+
+GetRecordsResponse = typing.List["RecordWithOffset"]
+"""A list of records from a stream with their offsets."""
+
+
+PartitionId = str
+"""The identifier for a partition of a Foundry stream."""
 
 
 PartitionsCount = int
@@ -143,7 +155,7 @@ class PublishRecordToStreamRequest(core.ModelBase):
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """
-    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
     not provided, this endpoint will write the latest stream on the branch.
 
     Providing this value is an advanced configuration, to be used when additional control over the
@@ -159,7 +171,7 @@ class PublishRecordsToStreamRequest(core.ModelBase):
 
     view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
     """
-    If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
     not provided, this endpoint will write to the latest stream on the branch.
 
     Providing this value is an advanced configuration, to be used when additional control over the
@@ -169,6 +181,16 @@ class PublishRecordsToStreamRequest(core.ModelBase):
 
 Record = typing.Dict[str, typing.Optional[typing.Any]]
 """A record to be published to a stream."""
+
+
+class RecordWithOffset(core.ModelBase):
+    """A record retrieved from a stream, including its offset within the partition."""
+
+    offset: core.Long
+    """The offset of the record within the partition."""
+
+    value: Record
+    """The record value as a map of field names to values."""
 
 
 class ResetStreamRequest(core.ModelBase):
@@ -209,7 +231,7 @@ class ResetStreamRequest(core.ModelBase):
 class Stream(core.ModelBase):
     """Stream"""
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     schema_: core_models.StreamSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
     """The Foundry schema for this stream."""
 
@@ -254,6 +276,8 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
+core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
 core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
@@ -262,10 +286,14 @@ __all__ = [
     "CreateStreamRequestStreamSchema",
     "CreateStreamingDatasetRequest",
     "Dataset",
+    "GetEndOffsetsResponse",
+    "GetRecordsResponse",
+    "PartitionId",
     "PartitionsCount",
     "PublishRecordToStreamRequest",
     "PublishRecordsToStreamRequest",
     "Record",
+    "RecordWithOffset",
     "ResetStreamRequest",
     "Stream",
     "StreamType",

@@ -24,7 +24,6 @@ from foundry_sdk.v2.connectivity import errors as connectivity_errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
-from foundry_sdk.v2.datasets import models as datasets_models
 
 
 class FileImportClient:
@@ -57,11 +56,11 @@ class FileImportClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -512,11 +511,11 @@ class AsyncFileImportClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,

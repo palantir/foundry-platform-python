@@ -21,7 +21,6 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.sql_queries import errors as sql_queries_errors
 from foundry_sdk.v2.sql_queries import models as sql_queries_models
 
@@ -56,17 +55,14 @@ class SqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param sql_query_id: The id of a query.
+        :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -85,9 +81,7 @@ class SqlQueryClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/cancel",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },
@@ -115,8 +109,7 @@ class SqlQueryClient:
         self,
         *,
         query: str,
-        fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
+        fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
@@ -129,8 +122,6 @@ class SqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -149,9 +140,7 @@ class SqlQueryClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/sqlQueries/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -183,7 +172,6 @@ class SqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.TableResponse:
@@ -194,10 +182,8 @@ class SqlQueryClient:
         This endpoint implements long polling and requests will time out after one minute. They can be safely
         retried while the query is still running.
 
-        :param sql_query_id: The id of a query.
+        :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -217,9 +203,7 @@ class SqlQueryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/getResults",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },
@@ -249,17 +233,14 @@ class SqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
         """
         Gets the status of a query.
 
-        :param sql_query_id: The id of a query.
+        :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -278,9 +259,7 @@ class SqlQueryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/getStatus",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },
@@ -358,17 +337,14 @@ class AsyncSqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
         Cancels a query. If the query is no longer running this is effectively a no-op.
 
-        :param sql_query_id: The id of a query.
+        :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -387,9 +363,7 @@ class AsyncSqlQueryClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/cancel",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },
@@ -417,8 +391,7 @@ class AsyncSqlQueryClient:
         self,
         *,
         query: str,
-        fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
+        fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
@@ -431,8 +404,6 @@ class AsyncSqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -451,9 +422,7 @@ class AsyncSqlQueryClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/sqlQueries/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -485,7 +454,6 @@ class AsyncSqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core.TableResponse]:
@@ -496,10 +464,8 @@ class AsyncSqlQueryClient:
                 This endpoint implements long polling and requests will time out after one minute. They can be safely
                 retried while the query is still running.
 
-                :param sql_query_id: The id of a query.
+                :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
                 :type sql_query_id: SqlQueryId
-                :param preview: Enables the use of preview functionality.
-                :type preview: Optional[PreviewMode]
                 :param request_timeout: timeout setting for this request in seconds.
                 :type request_timeout: Optional[int]
                 :return: Returns the result object.
@@ -519,9 +485,7 @@ class AsyncSqlQueryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/getResults",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },
@@ -551,17 +515,14 @@ class AsyncSqlQueryClient:
         self,
         sql_query_id: sql_queries_models.SqlQueryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
         """
         Gets the status of a query.
 
-        :param sql_query_id: The id of a query.
+        :param sql_query_id: The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints.
         :type sql_query_id: SqlQueryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -580,9 +541,7 @@ class AsyncSqlQueryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/sqlQueries/{sqlQueryId}/getStatus",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "sqlQueryId": sql_query_id,
                 },

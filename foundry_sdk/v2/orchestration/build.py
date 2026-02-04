@@ -22,7 +22,6 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.orchestration import errors as orchestration_errors
 from foundry_sdk.v2.orchestration import models as orchestration_models
 
@@ -101,7 +100,7 @@ class BuildClient:
         fallback_branches: orchestration_models.FallbackBranches,
         target: orchestration_models.BuildTarget,
         abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         force_build: typing.Optional[orchestration_models.ForceBuild] = None,
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
         retry_backoff_duration: typing.Optional[orchestration_models.RetryBackoffDuration] = None,
@@ -466,7 +465,7 @@ class AsyncBuildClient:
         fallback_branches: orchestration_models.FallbackBranches,
         target: orchestration_models.BuildTarget,
         abort_on_failure: typing.Optional[orchestration_models.AbortOnFailure] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         force_build: typing.Optional[orchestration_models.ForceBuild] = None,
         notifications_enabled: typing.Optional[orchestration_models.NotificationsEnabled] = None,
         retry_backoff_duration: typing.Optional[orchestration_models.RetryBackoffDuration] = None,

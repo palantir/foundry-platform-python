@@ -104,6 +104,9 @@ class ActionTypeFullMetadataClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        object_type_api_names: typing.Optional[
+            typing.List[ontologies_models.ObjectTypeApiName]
+        ] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -119,6 +122,8 @@ class ActionTypeFullMetadataClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param object_type_api_names: An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+        :type object_type_api_names: Optional[List[ObjectTypeApiName]]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -135,6 +140,7 @@ class ActionTypeFullMetadataClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypesFullMetadata",
                 query_params={
                     "branch": branch,
+                    "objectTypeApiNames": object_type_api_names,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -251,6 +257,9 @@ class AsyncActionTypeFullMetadataClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        object_type_api_names: typing.Optional[
+            typing.List[ontologies_models.ObjectTypeApiName]
+        ] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -266,6 +275,8 @@ class AsyncActionTypeFullMetadataClient:
         :type ontology: OntologyIdentifier
         :param branch: The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param object_type_api_names: An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+        :type object_type_api_names: Optional[List[ObjectTypeApiName]]
         :param page_size: The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -282,6 +293,7 @@ class AsyncActionTypeFullMetadataClient:
                 resource_path="/v2/ontologies/{ontology}/actionTypesFullMetadata",
                 query_params={
                     "branch": branch,
+                    "objectTypeApiNames": object_type_api_names,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },

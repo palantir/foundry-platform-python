@@ -145,7 +145,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_by_rid**
-Gets a specific query type with the given RID.By default, this gets the latest version of the query.
+Gets a specific query type with the given RID. By default, this gets the latest version of the query.
 
 
 ### Parameters

@@ -82,7 +82,6 @@ class MarkingClient:
         initial_role_assignments: typing.List[admin_models.MarkingRoleUpdate],
         name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.Marking:
@@ -98,8 +97,6 @@ class MarkingClient:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -118,9 +115,7 @@ class MarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -155,7 +150,6 @@ class MarkingClient:
         self,
         marking_id: core_models.MarkingId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.Marking:
@@ -163,8 +157,6 @@ class MarkingClient:
         Get the Marking with the specified id.
         :param marking_id:
         :type marking_id: MarkingId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -178,9 +170,7 @@ class MarkingClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -208,7 +198,6 @@ class MarkingClient:
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.GetMarkingsBatchResponse:
@@ -218,8 +207,6 @@ class MarkingClient:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -230,9 +217,7 @@ class MarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -254,7 +239,6 @@ class MarkingClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[admin_models.Marking]:
@@ -264,8 +248,6 @@ class MarkingClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -281,7 +263,6 @@ class MarkingClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -306,7 +287,6 @@ class MarkingClient:
         *,
         name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.Marking:
@@ -318,8 +298,6 @@ class MarkingClient:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -337,9 +315,7 @@ class MarkingClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/markings/{markingId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -452,7 +428,6 @@ class AsyncMarkingClient:
         initial_role_assignments: typing.List[admin_models.MarkingRoleUpdate],
         name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.Marking]:
@@ -468,8 +443,6 @@ class AsyncMarkingClient:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -488,9 +461,7 @@ class AsyncMarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -525,7 +496,6 @@ class AsyncMarkingClient:
         self,
         marking_id: core_models.MarkingId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.Marking]:
@@ -533,8 +503,6 @@ class AsyncMarkingClient:
         Get the Marking with the specified id.
         :param marking_id:
         :type marking_id: MarkingId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -548,9 +516,7 @@ class AsyncMarkingClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markings/{markingId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },
@@ -578,7 +544,6 @@ class AsyncMarkingClient:
             annotated_types.Len(min_length=1, max_length=500),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.GetMarkingsBatchResponse]:
@@ -588,8 +553,6 @@ class AsyncMarkingClient:
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
         :type body: List[GetMarkingsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -600,9 +563,7 @@ class AsyncMarkingClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/markings/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -624,7 +585,6 @@ class AsyncMarkingClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[admin_models.Marking]:
@@ -634,8 +594,6 @@ class AsyncMarkingClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -651,7 +609,6 @@ class AsyncMarkingClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -676,7 +633,6 @@ class AsyncMarkingClient:
         *,
         name: admin_models.MarkingName,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.Marking]:
@@ -688,8 +644,6 @@ class AsyncMarkingClient:
         :type name: MarkingName
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -707,9 +661,7 @@ class AsyncMarkingClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/markings/{markingId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingId": marking_id,
                 },

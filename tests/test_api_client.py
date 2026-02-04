@@ -430,51 +430,51 @@ def test_ssl_error():
 def test_passing_in_str_auth():
     with pytest.raises(TypeError) as e:
         ApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
-        assert str(e.value).startswith(
-            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
-        )
+    assert str(e.value).startswith(
+        "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+    )
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
-        assert str(e.value).startswith(
-            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
-        )
+    assert str(e.value).startswith(
+        "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+    )
 
 
 def test_passing_in_int_to_auth():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=2, hostname="localhost:8123")  # type: ignore
-        assert (
-            str(e.value)
-            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
-        )
+    assert (
+        str(e.value)
+        == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+    )
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=2, hostname="localhost:8123")  # type: ignore
-        assert (
-            str(e.value)
-            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
-        )
+    assert (
+        str(e.value)
+        == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+    )
 
 
 def test_passing_in_int_to_hostname():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
-        assert str(e.value) == "hostname must be a string, not int."
+    assert str(e.value) == "The hostname must be a string, not <class 'int'>."
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
-        assert str(e.value) == "hostname must be a string, not int."
+    assert str(e.value) == "The hostname must be a string, not <class 'int'>."
 
 
 def test_passing_in_int_to_config():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
-        assert str(e.value) == "config must be an instance of Config, not int."
+    assert str(e.value) == "config must be an instance of Config, not <class 'int'>."
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
-        assert str(e.value) == "config must be an instance of Config, not int."
+    assert str(e.value) == "config must be an instance of Config, not <class 'int'>."
 
 
 def test_config_shared_with_auth():

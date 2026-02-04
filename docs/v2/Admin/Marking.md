@@ -2,11 +2,11 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/admin/markings | Public Beta |
-[**get**](#get) | **GET** /v2/admin/markings/{markingId} | Public Beta |
-[**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Public Beta |
-[**list**](#list) | **GET** /v2/admin/markings | Public Beta |
-[**replace**](#replace) | **PUT** /v2/admin/markings/{markingId} | Public Beta |
+[**create**](#create) | **POST** /v2/admin/markings | Stable |
+[**get**](#get) | **GET** /v2/admin/markings/{markingId} | Stable |
+[**get_batch**](#get_batch) | **POST** /v2/admin/markings/getBatch | Stable |
+[**list**](#list) | **GET** /v2/admin/markings | Stable |
+[**replace**](#replace) | **PUT** /v2/admin/markings/{markingId} | Stable |
 
 # **create**
 Creates a new Marking.
@@ -20,7 +20,6 @@ Name | Type | Description  | Notes |
 **initial_role_assignments** | List[MarkingRoleUpdate] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
 **name** | MarkingName |  |  |
 **description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Marking**
@@ -46,8 +45,6 @@ initial_role_assignments = [
 name = "PII"
 # Optional[str]
 description = "Contains personally identifiable information about our customers"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
@@ -57,7 +54,6 @@ try:
         initial_role_assignments=initial_role_assignments,
         name=name,
         description=description,
-        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -87,7 +83,6 @@ Get the Marking with the specified id.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **marking_id** | MarkingId |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Marking**
@@ -103,12 +98,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # MarkingId
 marking_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Marking.get(marking_id, preview=preview)
+    api_response = client.admin.Marking.get(marking_id)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -139,7 +132,6 @@ The maximum batch size for this endpoint is 500.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[GetMarkingsBatchRequestElement] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetMarkingsBatchResponse**
@@ -155,12 +147,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # List[GetMarkingsBatchRequestElement] | Body of the request
 body = [{"markingId": "18212f9a-0e63-4b79-96a0-aae04df23336"}]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Marking.get_batch(body, preview=preview)
+    api_response = client.admin.Marking.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -190,7 +180,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingsResponse**
@@ -208,14 +197,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    for marking in client.admin.Marking.list(
-        page_size=page_size, page_token=page_token, preview=preview
-    ):
+    for marking in client.admin.Marking.list(page_size=page_size, page_token=page_token):
         pprint(marking)
 except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Marking.list: %s\n" % e)
@@ -245,7 +230,6 @@ Name | Type | Description  | Notes |
 **marking_id** | MarkingId |  |  |
 **name** | MarkingName |  |  |
 **description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Marking**
@@ -265,14 +249,10 @@ marking_id = None
 name = "PII"
 # Optional[str]
 description = "Contains personally identifiable information about our customers"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Marking.replace(
-        marking_id, name=name, description=description, preview=preview
-    )
+    api_response = client.admin.Marking.replace(marking_id, name=name, description=description)
     print("The replace response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
