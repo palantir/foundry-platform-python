@@ -1909,7 +1909,7 @@ class LoadObjectSetResponseV2(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
-    property_securities: typing.List[PropertySecurities] = pydantic.Field(alias=str("propertySecurities"))  # type: ignore[literal-required]
+    property_securities: typing.Optional[typing.List[PropertySecurities]] = pydantic.Field(alias=str("propertySecurities"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2MultipleObjectTypesRequest(core.ModelBase):
@@ -1976,7 +1976,7 @@ class LoadObjectSetV2MultipleObjectTypesResponse(core.ModelBase):
     interface_to_object_type_mappings: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] = pydantic.Field(alias=str("interfaceToObjectTypeMappings"))  # type: ignore[literal-required]
     interface_to_object_type_mappings_v2: typing.Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] = pydantic.Field(alias=str("interfaceToObjectTypeMappingsV2"))  # type: ignore[literal-required]
     compute_usage: typing.Optional[core_models.ComputeSeconds] = pydantic.Field(alias=str("computeUsage"), default=None)  # type: ignore[literal-required]
-    property_securities: typing.List[PropertySecurities] = pydantic.Field(alias=str("propertySecurities"))  # type: ignore[literal-required]
+    property_securities: typing.Optional[typing.List[PropertySecurities]] = pydantic.Field(alias=str("propertySecurities"), default=None)  # type: ignore[literal-required]
 
 
 class LoadObjectSetV2ObjectsOrInterfacesRequest(core.ModelBase):
