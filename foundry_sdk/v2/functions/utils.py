@@ -21,7 +21,7 @@ from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
 from foundry_sdk._core.http_client import HttpClient
 
 
-def get_api_gateway_base_url(*, preview: bool = False) -> str:
+def _get_api_gateway_base_url(*, preview: bool = False) -> str:
     """Get the Foundry hostname from the current execution context.
 
     Args:
@@ -89,7 +89,7 @@ def get_openai_base_url(*, preview: bool = False) -> str:
             "get_openai_base_url() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     return f"https://{hostname}/api/v1/models/openai"
 
 
@@ -111,7 +111,7 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
             "get_anthropic_base_url() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     return f"https://{hostname}/api/v1/models/anthropic"
 
 
@@ -134,5 +134,5 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
             "get_http_client() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     return HttpClient(hostname=hostname, config=config)
