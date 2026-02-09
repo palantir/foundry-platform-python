@@ -136,3 +136,4 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         )
     hostname = _get_api_gateway_base_url(preview=True)
     return HttpClient(hostname=hostname, config=config)
+

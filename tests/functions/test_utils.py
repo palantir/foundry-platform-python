@@ -24,7 +24,7 @@ from foundry_sdk.v2.functions import (
     get_http_client,
     get_openai_base_url,
 )
-from foundry_sdk.v2.functions.utils import __get_api_gateway_base_url
+from foundry_sdk.v2.functions.utils import _get_api_gateway_base_url
 
 
 class TestPreviewParameter:
