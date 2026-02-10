@@ -9,7 +9,7 @@
   "autoreleaseUrl": "https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python",
   "promotedMajorVersion": "v2",
   "additionalFiles": [
-    ["assets/function-utils.py", "foundry_sdk/v2/functions/utils.py"]
+    ["assets/function_utils.py", "foundry_sdk/v2/functions/utils.py"]
   ],
   "documentationBaseUrl": "https://palantir.com",
   "extraDocsDir": "assets/docs_examples",
