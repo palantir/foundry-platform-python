@@ -15,16 +15,8 @@
 
 from foundry_sdk.v2.functions._client import AsyncFunctionsClient
 from foundry_sdk.v2.functions._client import FunctionsClient
-from foundry_sdk.v2.functions.utils import get_anthropic_base_url
-from foundry_sdk.v2.functions.utils import get_foundry_token
-from foundry_sdk.v2.functions.utils import get_http_client
-from foundry_sdk.v2.functions.utils import get_openai_base_url
 
 __all__ = [
     "FunctionsClient",
     "AsyncFunctionsClient",
-    "get_anthropic_base_url",
-    "get_foundry_token",
-    "get_http_client",
-    "get_openai_base_url",
 ]
