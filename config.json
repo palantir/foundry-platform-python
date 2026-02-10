@@ -9,8 +9,8 @@
   "autoreleaseUrl": "https://autorelease.general.dmz.palantir.tech/palantir/foundry-platform-python",
   "promotedMajorVersion": "v2",
   "additionalFiles": [
-    ["assets/function-utils.py", "foundry_sdk/v2/functions/utils.py"],
-    ["assets/test-function-utils.py", "tests/functions/test_utils.py"]
+    ["assets/language_model_utils.py", "foundry_sdk/v2/language_models/utils.py"],
+    ["assets/test_language_model_utils.py", "tests/language_models/test_utils.py"]
   ],
   "documentationBaseUrl": "https://palantir.com",
   "extraDocsDir": "assets/docs_examples",
@@ -174,18 +174,18 @@
         "DataHealth": true,
         "Datasets": true,
         "Filesystem": true,
-        "Functions": {
-          "exclude": [],
-          "additionalExports": [
-            "from foundry_sdk.v2.functions.utils import get_foundry_token",
-            "from foundry_sdk.v2.functions.utils import get_openai_base_url",
-            "from foundry_sdk.v2.functions.utils import get_anthropic_base_url",
-            "from foundry_sdk.v2.functions.utils import get_http_client"
-          ]
-        },
+        "Functions": true,
         "Gaia": false,
         "Geo": true,
-        "LanguageModels": true,
+        "LanguageModels": {
+          "exclude": [],
+          "additionalExports": [
+            "from foundry_sdk.v2.language_models.utils import get_foundry_token",
+            "from foundry_sdk.v2.language_models.utils import get_openai_base_url",
+            "from foundry_sdk.v2.language_models.utils import get_anthropic_base_url",
+            "from foundry_sdk.v2.language_models.utils import get_http_client"
+          ]
+        },
         "MapRendering": false,
         "MediaSets": true,
         "Models": true,
