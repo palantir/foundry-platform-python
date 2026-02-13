@@ -140,6 +140,14 @@ def test_admin_v2_marking_category_import():
     assert MarkingCategoryClient is not None
 
 
+def test_admin_v2_marking_category_permissions_import():
+    from foundry_sdk.v2.admin.marking_category_permissions import (
+        MarkingCategoryPermissionsClient,
+    )  # NOQA
+
+    assert MarkingCategoryPermissionsClient is not None
+
+
 def test_admin_v2_marking_member_import():
     from foundry_sdk.v2.admin.marking_member import MarkingMemberClient
 
@@ -406,6 +414,14 @@ def test_ontologies_v2_cipher_text_property_import():
     from foundry_sdk.v2.ontologies.cipher_text_property import CipherTextPropertyClient
 
     assert CipherTextPropertyClient is not None
+
+
+def test_ontologies_v2_geotemporal_series_property_import():
+    from foundry_sdk.v2.ontologies.geotemporal_series_property import (
+        GeotemporalSeriesPropertyClient,
+    )  # NOQA
+
+    assert GeotemporalSeriesPropertyClient is not None
 
 
 def test_ontologies_v2_linked_object_import():

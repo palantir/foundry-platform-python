@@ -20,6 +20,7 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
+from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
 from foundry_sdk.v2.datasets import models as datasets_models
@@ -55,10 +56,10 @@ class ViewClient:
     @errors.handle_unexpected
     def add_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -83,6 +84,7 @@ class ViewClient:
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
         """
 
@@ -110,6 +112,7 @@ class ViewClient:
                     "AddBackingDatasetsPermissionDenied": datasets_errors.AddBackingDatasetsPermissionDenied,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -121,10 +124,10 @@ class ViewClient:
     @errors.handle_unexpected
     def add_primary_key(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         primary_key: datasets_models.ViewPrimaryKey,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -201,7 +204,7 @@ class ViewClient:
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -235,6 +238,7 @@ class ViewClient:
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
         :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -274,6 +278,7 @@ class ViewClient:
                     "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
                     "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
                     "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
@@ -290,9 +295,9 @@ class ViewClient:
     @errors.handle_unexpected
     def get(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -342,10 +347,10 @@ class ViewClient:
     @errors.handle_unexpected
     def remove_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -409,10 +414,10 @@ class ViewClient:
     @errors.handle_unexpected
     def replace_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -436,6 +441,7 @@ class ViewClient:
 
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
         """
@@ -463,6 +469,7 @@ class ViewClient:
                 throwable_errors={
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ReplaceBackingDatasetsPermissionDenied": datasets_errors.ReplaceBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },
@@ -545,10 +552,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def add_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -573,6 +580,7 @@ class AsyncViewClient:
         :raises AddBackingDatasetsPermissionDenied: Could not addBackingDatasets the View.
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
         """
 
@@ -600,6 +608,7 @@ class AsyncViewClient:
                     "AddBackingDatasetsPermissionDenied": datasets_errors.AddBackingDatasetsPermissionDenied,
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -611,10 +620,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def add_primary_key(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         primary_key: datasets_models.ViewPrimaryKey,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -691,7 +700,7 @@ class AsyncViewClient:
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -725,6 +734,7 @@ class AsyncViewClient:
         :raises InvalidViewPrimaryKeyColumnType: The type of each referenced column in the primary key must be one of the following: BYTE, SHORT, DECIMAL, INTEGER, LONG, STRING, BOOLEAN, TIMESTAMP or DATE.
         :raises InvalidViewPrimaryKeyDeletionColumn: The deletion column must be a boolean.
         :raises NotAllColumnsInPrimaryKeyArePresent: Not all columns in the View's primary key are present in the dataset(s).
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         :raises ViewDatasetCleanupFailed: Failed to delete dataset following View creation failure.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
@@ -764,6 +774,7 @@ class AsyncViewClient:
                     "InvalidViewPrimaryKeyColumnType": datasets_errors.InvalidViewPrimaryKeyColumnType,
                     "InvalidViewPrimaryKeyDeletionColumn": datasets_errors.InvalidViewPrimaryKeyDeletionColumn,
                     "NotAllColumnsInPrimaryKeyArePresent": datasets_errors.NotAllColumnsInPrimaryKeyArePresent,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                     "ViewDatasetCleanupFailed": datasets_errors.ViewDatasetCleanupFailed,
                     "ViewNotFound": datasets_errors.ViewNotFound,
@@ -780,9 +791,9 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def get(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -832,10 +843,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def remove_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -899,10 +910,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def replace_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -926,6 +937,7 @@ class AsyncViewClient:
 
         :raises InputBackingDatasetNotInOutputViewProject: One or more backing datasets do not live in the same project as the view. Either move the input datasets to the same project as the view or add them as project references.
         :raises InvalidViewBackingDataset: Either you do not have access to one or more of the backing datasets or it does not exist.
+        :raises NotAuthorizedToDeclassifyMarkings: The caller does not have DECLASSIFY permission on these markings or the markings do not exist.
         :raises ReplaceBackingDatasetsPermissionDenied: Could not replaceBackingDatasets the View.
         :raises ViewNotFound: The requested View could not be found. Either the view does not exist, the branch is not valid or the client token does not have access to it.
         """
@@ -953,6 +965,7 @@ class AsyncViewClient:
                 throwable_errors={
                     "InputBackingDatasetNotInOutputViewProject": datasets_errors.InputBackingDatasetNotInOutputViewProject,
                     "InvalidViewBackingDataset": datasets_errors.InvalidViewBackingDataset,
+                    "NotAuthorizedToDeclassifyMarkings": core_errors.NotAuthorizedToDeclassifyMarkings,
                     "ReplaceBackingDatasetsPermissionDenied": datasets_errors.ReplaceBackingDatasetsPermissionDenied,
                     "ViewNotFound": datasets_errors.ViewNotFound,
                 },

@@ -1,6 +1,6 @@
 # LoadObjectSetV2ObjectsOrInterfacesResponse
 
-Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties 
+Represents the API response when loading an `ObjectSet`. Objects in the returned set can either have properties
 defined by an interface that the objects belong to or properties defined by the object type of the object.
 
 

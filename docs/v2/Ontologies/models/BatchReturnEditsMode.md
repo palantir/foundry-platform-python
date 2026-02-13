@@ -1,6 +1,6 @@
 # BatchReturnEditsMode
 
-BatchReturnEditsMode
+If not specified, defaults to `NONE`.
 
 | **Value** |
 | --------- |

@@ -425,7 +425,7 @@ class BaseApiClient:
         elif not isinstance(auth, Auth):
             raise TypeError(
                 "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or "
-                "PublicClientAuth, not an instance of {type(auth)}."
+                f"PublicClientAuth, not an instance of {type(auth).__name__}."
             )
 
         assert_non_empty_string(hostname, "hostname")

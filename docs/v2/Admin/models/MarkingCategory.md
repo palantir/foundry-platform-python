@@ -7,7 +7,7 @@ MarkingCategory
 | ------------ | ------------- | ------------- | ------------- |
 **id** | MarkingCategoryId | Yes |  |
 **name** | MarkingCategoryName | Yes |  |
-**description** | Optional[str] | No |  |
+**description** | MarkingCategoryDescription | Yes |  |
 **category_type** | MarkingCategoryType | Yes |  |
 **marking_type** | MarkingType | Yes |  |
 **markings** | List[MarkingId] | Yes |  |

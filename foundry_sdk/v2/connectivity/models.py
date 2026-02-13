@@ -24,7 +24,6 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
@@ -597,12 +596,12 @@ class CreateConnectionRequestWorkflowIdentityFederation(core.ModelBase):
 class CreateFileImportRequest(core.ModelBase):
     """CreateFileImportRequest"""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset. Can not be modified after the file import is created."""
 
     import_mode: FileImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
     display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created."""
 
     subfolder: typing.Optional[str] = None
@@ -615,7 +614,7 @@ class CreateFileImportRequest(core.ModelBase):
 class CreateTableImportRequest(core.ModelBase):
     """CreateTableImportRequest"""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset. Can not be modified after the table import is created."""
 
     import_mode: TableImportMode = pydantic.Field(alias=str("importMode"))  # type: ignore[literal-required]
@@ -623,7 +622,7 @@ class CreateTableImportRequest(core.ModelBase):
     allow_schema_changes: typing.Optional[TableImportAllowSchemaChanges] = pydantic.Field(alias=str("allowSchemaChanges"), default=None)  # type: ignore[literal-required]
     """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created."""
 
     config: CreateTableImportRequestTableImportConfig
@@ -866,10 +865,10 @@ class FileImport(core.ModelBase):
     connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
     """The RID of the Connection (also known as a source) that the File Import uses to import data."""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset. Can not be modified after the file import is created."""
 
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created."""
 
     display_name: FileImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
@@ -1860,10 +1859,10 @@ class TableImport(core.ModelBase):
     connection_rid: ConnectionRid = pydantic.Field(alias=str("connectionRid"))  # type: ignore[literal-required]
     """The RID of the Connection (also known as a source) that the Table Import uses to import data."""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     """The RID of the output dataset. Can not be modified after the table import is created."""
 
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created."""
 
     display_name: TableImportDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]

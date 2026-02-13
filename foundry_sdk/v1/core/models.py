@@ -116,7 +116,10 @@ class DoubleType(core.ModelBase):
 
 
 FilePath = str
-"""The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
+"""
+The path to a File within Foundry. Paths are relative and must not start with a leading slash.
+Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
+"""
 
 
 Filename = str
@@ -234,7 +237,16 @@ class UnsupportedType(core.ModelBase):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
+    params: typing.Dict[UnsupportedTypeParamKey, UnsupportedTypeParamValue]
     type: typing.Literal["unsupported"] = "unsupported"
+
+
+UnsupportedTypeParamKey = str
+"""UnsupportedTypeParamKey"""
+
+
+UnsupportedTypeParamValue = str
+"""UnsupportedTypeParamValue"""
 
 
 __all__ = [
@@ -276,4 +288,6 @@ __all__ = [
     "TraceParent",
     "TraceState",
     "UnsupportedType",
+    "UnsupportedTypeParamKey",
+    "UnsupportedTypeParamValue",
 ]

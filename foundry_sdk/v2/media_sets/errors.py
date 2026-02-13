@@ -239,6 +239,32 @@ class TemporaryMediaUploadUnknownFailure(errors.InternalServerError):
     error_instance_id: str
 
 
+class TransformationNotFoundParameters(typing_extensions.TypedDict):
+    """The requested transformation could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationNotFound(errors.NotFoundError):
+    name: typing.Literal["TransformationNotFound"]
+    parameters: TransformationNotFoundParameters
+    error_instance_id: str
+
+
+class TransformationUnavailableParameters(typing_extensions.TypedDict):
+    """The requested transformation is not currently available."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class TransformationUnavailable(errors.BadRequestError):
+    name: typing.Literal["TransformationUnavailable"]
+    parameters: TransformationUnavailableParameters
+    error_instance_id: str
+
+
 class TransformedMediaItemNotFoundParameters(typing_extensions.TypedDict):
     """The requested media item could not be found, or the client token does not have access to it."""
 
@@ -252,6 +278,19 @@ class TransformedMediaItemNotFoundParameters(typing_extensions.TypedDict):
 class TransformedMediaItemNotFound(errors.NotFoundError):
     name: typing.Literal["TransformedMediaItemNotFound"]
     parameters: TransformedMediaItemNotFoundParameters
+    error_instance_id: str
+
+
+class UnexpectedMetadataTypeParameters(typing_extensions.TypedDict):
+    """Received an unexpected metadata type, this particular media item may use features that are not yet fully supported in the public API."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnexpectedMetadataType(errors.InternalServerError):
+    name: typing.Literal["UnexpectedMetadataType"]
+    parameters: UnexpectedMetadataTypeParameters
     error_instance_id: str
 
 
@@ -270,5 +309,8 @@ __all__ = [
     "MissingMediaItemPath",
     "TemporaryMediaUploadInsufficientPermissions",
     "TemporaryMediaUploadUnknownFailure",
+    "TransformationNotFound",
+    "TransformationUnavailable",
     "TransformedMediaItemNotFound",
+    "UnexpectedMetadataType",
 ]

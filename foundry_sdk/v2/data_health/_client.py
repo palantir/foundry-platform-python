@@ -48,16 +48,6 @@ class DataHealthClient:
             config=self._config,
         )
 
-    @cached_property
-    def CheckReport(self):
-        from foundry_sdk.v2.data_health.check_report import CheckReportClient
-
-        return CheckReportClient(
-            auth=self._auth,
-            hostname=self._hostname,
-            config=self._config,
-        )
-
 
 class AsyncDataHealthClient:
     """
@@ -75,8 +65,5 @@ class AsyncDataHealthClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.data_health.check import AsyncCheckClient
-        from foundry_sdk.v2.data_health.check_report import AsyncCheckReportClient
 
         self.Check = AsyncCheckClient(auth=auth, hostname=hostname, config=config)
-
-        self.CheckReport = AsyncCheckReportClient(auth=auth, hostname=hostname, config=config)

@@ -53,7 +53,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -108,7 +108,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -167,7 +167,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -222,10 +222,10 @@ class TransactionClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
         transaction_type: datasets_models.TransactionType,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.Transaction:
@@ -285,7 +285,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -335,7 +335,7 @@ class TransactionClient:
     @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -452,7 +452,7 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def abort(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -507,7 +507,7 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def build(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -566,7 +566,7 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def commit(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -621,10 +621,10 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
         transaction_type: datasets_models.TransactionType,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.Transaction]:
@@ -684,7 +684,7 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -734,7 +734,7 @@ class AsyncTransactionClient:
     @errors.handle_unexpected
     def job(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         transaction_rid: datasets_models.TransactionRid,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,

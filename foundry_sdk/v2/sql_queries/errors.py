@@ -29,7 +29,7 @@ class CancelSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
@@ -58,7 +58,7 @@ class GetResultsSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
@@ -74,7 +74,7 @@ class GetStatusSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass

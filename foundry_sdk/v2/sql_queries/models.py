@@ -21,7 +21,7 @@ import pydantic
 import typing_extensions
 
 from foundry_sdk import _core as core
-from foundry_sdk.v2.datasets import models as datasets_models
+from foundry_sdk.v2.core import models as core_models
 
 
 class CanceledQueryStatus(core.ModelBase):
@@ -42,7 +42,7 @@ class ExecuteSqlQueryRequest(core.ModelBase):
     for more details.
     """
 
-    fallback_branch_ids: typing.Optional[typing.List[datasets_models.BranchName]] = pydantic.Field(alias=str("fallbackBranchIds"), default=None)  # type: ignore[literal-required]
+    fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = pydantic.Field(alias=str("fallbackBranchIds"), default=None)  # type: ignore[literal-required]
     """
     The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a
     is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch

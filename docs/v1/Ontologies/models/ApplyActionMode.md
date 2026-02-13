@@ -1,6 +1,6 @@
 # ApplyActionMode
 
-ApplyActionMode
+If not specified, defaults to `VALIDATE_AND_EXECUTE`.
 
 | **Value** |
 | --------- |
