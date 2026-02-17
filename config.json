@@ -209,5 +209,13 @@
         "getResultsSqlQuery"
       ]
     }
-  }
+  },
+  "optionalLists": [
+    "LoadObjectSetRequestV2.selectV2",
+    "LoadObjectSetV2MultipleObjectTypesRequest.selectV2",
+    "LoadObjectSetV2ObjectsOrInterfacesRequest.selectV2",
+    "SearchObjectsRequestV2.selectV2",
+    "LoadObjectSetResponseV2.propertySecurities",
+    "LoadObjectSetV2MultipleObjectTypesResponse.propertySecurities"
+  ]
 }
