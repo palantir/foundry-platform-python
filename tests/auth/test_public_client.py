@@ -18,15 +18,11 @@ import contextlib
 import httpx
 import pytest
 from mockito import any
-from mockito import spy
 from mockito import unstub
 from mockito import verify
 from mockito import when
 
 from foundry_sdk._core.auth_utils import Token
-from foundry_sdk._core.oauth_utils import AuthorizeRequest
-from foundry_sdk._core.oauth_utils import OAuthToken
-from foundry_sdk._core.oauth_utils import OAuthTokenResponse
 from foundry_sdk._core.public_client_auth import PublicClientAuth
 from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
@@ -83,9 +79,9 @@ def test_public_client_instantiate():
     )
     assert auth._client_id == "client_id"
     assert auth._redirect_url == "redirect_url"
-    assert auth._token == None
+    assert auth._token is None
     assert auth.url == "a.b.c.com"
-    assert auth._should_refresh == True
+    assert auth._should_refresh
 
 
 def test_public_client_sign_in():
@@ -129,7 +125,7 @@ def test_public_client_sign_out():
 
         auth.sign_out()
         assert auth._token is None
-        assert auth._stop_refresh_event._flag == True  # type: ignore
+        assert auth._stop_refresh_event._flag
 
 
 def test_public_client_get_token_throws_if_not_signed_in():

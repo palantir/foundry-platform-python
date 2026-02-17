@@ -61,8 +61,8 @@ from foundry_sdk._errors import WriteTimeout
 # The OpenAPI document version from the spec information
 # See https://swagger.io/specification/#info-object
 # The SDK version
-from foundry_sdk._versions import __openapi_document_version__
-from foundry_sdk._versions import __version__
+from foundry_sdk._version import __openapi_document_version__
+from foundry_sdk._version import __version__
 from foundry_sdk.v2 import AsyncFoundryClient
 from foundry_sdk.v2 import FoundryClient
 

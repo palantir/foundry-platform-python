@@ -7028,14 +7028,6 @@ def ontologies_ontology_object_set_op_get(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7081,6 +7073,14 @@ This feature is experimental and not yet generally available.
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7104,7 +7104,6 @@ def ontologies_ontology_object_set_op_load(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -7114,6 +7113,7 @@ def ontologies_ontology_object_set_op_load(
     page_token: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     transaction_id: typing.Optional[str],
 ):
@@ -7132,7 +7132,6 @@ def ontologies_ontology_object_set_op_load(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -7142,6 +7141,7 @@ def ontologies_ontology_object_set_op_load(
         page_token=page_token,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -7232,14 +7232,6 @@ def ontologies_ontology_object_set_op_load_links(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7292,6 +7284,14 @@ This feature is experimental and not yet generally available.
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7315,7 +7315,6 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
@@ -7326,6 +7325,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     transaction_id: typing.Optional[str],
 ):
@@ -7349,7 +7349,6 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -7360,6 +7359,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -7370,14 +7370,6 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
-@click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
 @click.option(
     "--branch",
     type=str,
@@ -7419,6 +7411,14 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7434,7 +7434,6 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7443,6 +7442,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
 ):
     """
@@ -7467,7 +7467,6 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7476,6 +7475,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
     )
     click.echo(repr(result))
@@ -7789,14 +7789,6 @@ def ontologies_ontology_object_op_list(
 """,
 )
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7830,6 +7822,14 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7846,7 +7846,6 @@ def ontologies_ontology_object_op_search(
     ontology: str,
     object_type: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7854,6 +7853,7 @@ def ontologies_ontology_object_op_search(
     page_token: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     where: typing.Optional[str],
 ):
@@ -7887,7 +7887,6 @@ def ontologies_ontology_object_op_search(
         ontology=ontology,
         object_type=object_type,
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7895,6 +7894,7 @@ def ontologies_ontology_object_op_search(
         page_token=page_token,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         where=None if where is None else json.loads(where),
     )
