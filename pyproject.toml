@@ -44,3 +44,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 foundry_sdk_v1 = "foundry_sdk.v1.cli:cli"
 foundry_sdk_v2 = "foundry_sdk.v2.cli:cli"
+
+[tool.pyright]
+reportInvalidTypeForm = false
+reportRedeclaration = false
