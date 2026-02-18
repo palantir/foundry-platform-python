@@ -223,7 +223,7 @@ DurationSeconds = core.Long
 """A duration of time measured in seconds."""
 
 
-EmbeddingModel = typing_extensions.Annotated[
+EmbeddingModel: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["LmsEmbeddingModel", "FoundryLiveDeployment"], pydantic.Field(discriminator="type")
 ]
 """EmbeddingModel"""
@@ -243,7 +243,7 @@ class Field(core.ModelBase):
     schema_: FieldSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
 
 
-FieldDataType = typing_extensions.Annotated[
+FieldDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructFieldType",
         "DateType",
@@ -358,7 +358,7 @@ class FilterStringType(core.ModelBase):
     type: typing.Literal["string"] = "string"
 
 
-FilterType = typing_extensions.Annotated[
+FilterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "FilterDateTimeType",
         "FilterDateType",
@@ -799,7 +799,7 @@ TableRid = core.RID
 """The Resource Identifier (RID) of a Table."""
 
 
-TimeSeriesItemType = typing_extensions.Annotated[
+TimeSeriesItemType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringType", "DoubleType", "NumericOrNonNumericType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -921,11 +921,11 @@ UpdatedBy = UserId
 """The Foundry user who last updated this resource"""
 
 
-core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
-core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
+CustomMetadata = core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())  # type: ignore[misc]
+EmbeddingModel = core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())  # type: ignore[misc]
+FieldDataType = core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+FilterType = core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())  # type: ignore[misc]
+TimeSeriesItemType = core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AnyType",

@@ -82,7 +82,7 @@ class GeoPoint(core.ModelBase):
     type: typing.Literal["Point"] = "Point"
 
 
-Geometry = typing_extensions.Annotated[
+Geometry: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "MultiPoint",
         "GeometryCollection",
@@ -199,11 +199,11 @@ FeatureCollectionTypes = Feature
 """FeatureCollectionTypes"""
 
 
-core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
-core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
-core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
-core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
-core.resolve_forward_references(Position, globalns=globals(), localns=locals())
+BBox = core.resolve_forward_references(BBox, globalns=globals(), localns=locals())  # type: ignore[misc]
+Geometry = core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())  # type: ignore[misc]
+LineStringCoordinates = core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())  # type: ignore[misc]
+LinearRing = core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())  # type: ignore[misc]
+Position = core.resolve_forward_references(Position, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "BBox",

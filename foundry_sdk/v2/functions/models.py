@@ -154,7 +154,7 @@ class Query(core.ModelBase):
     version: FunctionVersion
 
 
-QueryAggregationKeyType = typing_extensions.Annotated[
+QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -169,7 +169,7 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType = typing_extensions.Annotated[
+QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -188,7 +188,7 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType = typing_extensions.Annotated[
+QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
@@ -206,7 +206,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType = typing_extensions.Annotated[
+QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "QueryStructType",
@@ -364,7 +364,7 @@ ValueTypeApiName = str
 """The registered API name for the value type."""
 
 
-ValueTypeConstraint = typing_extensions.Annotated[
+ValueTypeConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructConstraint",
         "StructV1Constraint",
@@ -383,7 +383,7 @@ ValueTypeConstraint = typing_extensions.Annotated[
 """ValueTypeConstraint"""
 
 
-ValueTypeDataType = typing_extensions.Annotated[
+ValueTypeDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ValueTypeDataTypeDateType",
         "ValueTypeDataTypeStructType",
@@ -573,12 +573,12 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
+QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+ValueTypeConstraint = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
+ValueTypeDataType = core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "ArrayConstraint",

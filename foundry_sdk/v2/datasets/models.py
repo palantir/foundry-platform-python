@@ -129,7 +129,7 @@ class GetDatasetJobsOrFilter(core.ModelBase):
     type: typing.Literal["or"] = "or"
 
 
-GetDatasetJobsQuery = typing_extensions.Annotated[
+GetDatasetJobsQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["GetDatasetJobsOrFilter", "GetDatasetJobsAndFilter", "GetDatasetJobsTimeFilter"],
     pydantic.Field(discriminator="type"),
 ]
@@ -401,7 +401,7 @@ class ViewPrimaryKey(core.ModelBase):
     """
 
 
-ViewPrimaryKeyResolution = typing_extensions.Annotated[
+ViewPrimaryKeyResolution: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrimaryKeyResolutionUnique", "PrimaryKeyResolutionDuplicate"],
     pydantic.Field(discriminator="type"),
 ]
@@ -412,8 +412,8 @@ PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
-core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())
+GetDatasetJobsQuery = core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())  # type: ignore[misc]
+ViewPrimaryKeyResolution = core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AddBackingDatasetsRequest",

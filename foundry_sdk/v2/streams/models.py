@@ -276,9 +276,9 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(Record, globalns=globals(), localns=locals())
+GetEndOffsetsResponse = core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())  # type: ignore[misc]
+GetRecordsResponse = core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())  # type: ignore[misc]
+Record = core.resolve_forward_references(Record, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "Compressed",

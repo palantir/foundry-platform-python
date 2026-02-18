@@ -89,7 +89,7 @@ BuildStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED", "CANCELED"]
 """The status of the build."""
 
 
-BuildTarget = typing_extensions.Annotated[
+BuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["UpstreamTarget", "ManualTarget", "ConnectingTarget"],
     pydantic.Field(discriminator="type"),
 ]
@@ -170,7 +170,7 @@ class CreateScheduleRequestAction(core.ModelBase):
     target: CreateScheduleRequestBuildTarget
 
 
-CreateScheduleRequestBuildTarget = typing_extensions.Annotated[
+CreateScheduleRequestBuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "CreateScheduleRequestUpstreamTarget",
         "CreateScheduleRequestManualTarget",
@@ -210,7 +210,7 @@ class CreateScheduleRequestProjectScope(core.ModelBase):
     type: typing.Literal["project"] = "project"
 
 
-CreateScheduleRequestScopeMode = typing_extensions.Annotated[
+CreateScheduleRequestScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["CreateScheduleRequestProjectScope", "CreateScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
@@ -336,7 +336,7 @@ class Job(core.ModelBase):
     """
 
 
-JobOutput = typing_extensions.Annotated[
+JobOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["DatasetJobOutput", "TransactionalMediaSetJobOutput"],
     pydantic.Field(discriminator="type"),
 ]
@@ -465,7 +465,7 @@ class ReplaceScheduleRequestAction(core.ModelBase):
     target: ReplaceScheduleRequestBuildTarget
 
 
-ReplaceScheduleRequestBuildTarget = typing_extensions.Annotated[
+ReplaceScheduleRequestBuildTarget: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ReplaceScheduleRequestUpstreamTarget",
         "ReplaceScheduleRequestManualTarget",
@@ -505,7 +505,7 @@ class ReplaceScheduleRequestProjectScope(core.ModelBase):
     type: typing.Literal["project"] = "project"
 
 
-ReplaceScheduleRequestScopeMode = typing_extensions.Annotated[
+ReplaceScheduleRequestScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ReplaceScheduleRequestProjectScope", "ReplaceScheduleRequestUserScope"],
     pydantic.Field(discriminator="type"),
 ]
@@ -616,7 +616,7 @@ class ScheduleRunIgnored(core.ModelBase):
     type: typing.Literal["ignored"] = "ignored"
 
 
-ScheduleRunResult = typing_extensions.Annotated[
+ScheduleRunResult: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ScheduleRunIgnored", "ScheduleRunSubmitted", "ScheduleRunError"],
     pydantic.Field(discriminator="type"),
 ]
@@ -669,7 +669,7 @@ ScheduleVersionRid = core.RID
 """The RID of a schedule version"""
 
 
-ScopeMode = typing_extensions.Annotated[
+ScopeMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["ProjectScope", "UserScope"], pydantic.Field(discriminator="type")
 ]
 """The boundaries for the schedule build."""
@@ -694,7 +694,7 @@ SearchBuildsEqualsFilterField = typing.Literal["CREATED_BY", "BRANCH_NAME", "STA
 """SearchBuildsEqualsFilterField"""
 
 
-SearchBuildsFilter = typing_extensions.Annotated[
+SearchBuildsFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "SearchBuildsNotFilter",
         "SearchBuildsOrFilter",
@@ -807,7 +807,7 @@ class TransactionalMediaSetJobOutput(core.ModelBase):
     type: typing.Literal["transactionalMediaSetJobOutput"] = "transactionalMediaSetJobOutput"
 
 
-Trigger = typing_extensions.Annotated[
+Trigger: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "JobSucceededTrigger",
         "OrTrigger",
@@ -850,25 +850,17 @@ RetryBackoffDuration = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
-    CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
-core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(
-    ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
-)
-core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
-core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
-core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
+BuildTarget = core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())  # type: ignore[misc]
+CreateScheduleRequestBuildTarget = core.resolve_forward_references(CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals())  # type: ignore[misc]
+CreateScheduleRequestScopeMode = core.resolve_forward_references(CreateScheduleRequestScopeMode, globalns=globals(), localns=locals())  # type: ignore[misc]
+FallbackBranches = core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())  # type: ignore[misc]
+JobOutput = core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())  # type: ignore[misc]
+ReplaceScheduleRequestBuildTarget = core.resolve_forward_references(ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals())  # type: ignore[misc]
+ReplaceScheduleRequestScopeMode = core.resolve_forward_references(ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals())  # type: ignore[misc]
+ScheduleRunResult = core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())  # type: ignore[misc]
+ScopeMode = core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())  # type: ignore[misc]
+SearchBuildsFilter = core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())  # type: ignore[misc]
+Trigger = core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AbortOnFailure",

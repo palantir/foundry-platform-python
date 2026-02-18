@@ -219,7 +219,7 @@ class GetRagContextForSessionRequest(core.ModelBase):
     """Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval."""
 
 
-InputContext = typing_extensions.Annotated[
+InputContext: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
@@ -314,20 +314,20 @@ ParameterId = str
 """The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
-ParameterType = typing_extensions.Annotated[
+ParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
-ParameterValue = typing_extensions.Annotated[
+ParameterValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
-ParameterValueUpdate = typing_extensions.Annotated[
+ParameterValueUpdate: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
     pydantic.Field(discriminator="type"),
 ]
@@ -587,7 +587,7 @@ class ToolCallInput(core.ModelBase):
     inputs: typing.Dict[ToolInputName, ToolInputValue]
 
 
-ToolCallOutput = typing_extensions.Annotated[
+ToolCallOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SuccessToolCallOutput", "FailureToolCallOutput"],
     pydantic.Field(discriminator="type"),
 ]
@@ -598,7 +598,7 @@ ToolInputName = str
 """The name of a tool input parameter."""
 
 
-ToolInputValue = typing_extensions.Annotated[
+ToolInputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringToolInputValue", "RidToolInputValue"], pydantic.Field(discriminator="type")
 ]
 """A tool input value, which can be either a string or a Resource Identifier (RID)."""
@@ -614,7 +614,7 @@ class ToolMetadata(core.ModelBase):
     """The type of the tool that was called."""
 
 
-ToolOutputValue = typing_extensions.Annotated[
+ToolOutputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["StringToolOutputValue", "RidToolOutputValue"],
     pydantic.Field(discriminator="type"),
 ]
@@ -651,13 +651,13 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
+InputContext = core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())  # type: ignore[misc]
+ParameterType = core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())  # type: ignore[misc]
+ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())  # type: ignore[misc]
+ParameterValueUpdate = core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())  # type: ignore[misc]
+ToolCallOutput = core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())  # type: ignore[misc]
+ToolInputValue = core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())  # type: ignore[misc]
+ToolOutputValue = core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "Agent",

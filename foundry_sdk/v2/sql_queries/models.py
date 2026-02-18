@@ -60,7 +60,7 @@ class FailedQueryStatus(core.ModelBase):
     type: typing.Literal["failed"] = "failed"
 
 
-QueryStatus = typing_extensions.Annotated[
+QueryStatus: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
@@ -87,7 +87,7 @@ class SucceededQueryStatus(core.ModelBase):
     type: typing.Literal["succeeded"] = "succeeded"
 
 
-core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())
+QueryStatus = core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "CanceledQueryStatus",

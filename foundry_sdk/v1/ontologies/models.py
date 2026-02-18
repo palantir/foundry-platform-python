@@ -73,7 +73,7 @@ class AggregateObjectsResponseItem(core.ModelBase):
     metrics: typing.List[AggregationMetricResult]
 
 
-Aggregation = typing_extensions.Annotated[
+Aggregation: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ApproximateDistinctAggregation",
         "MinAggregation",
@@ -114,7 +114,7 @@ class AggregationFixedWidthGrouping(core.ModelBase):
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
 
-AggregationGroupBy = typing_extensions.Annotated[
+AggregationGroupBy: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AggregationDurationGrouping",
         "AggregationFixedWidthGrouping",
@@ -602,7 +602,7 @@ class ListQueryTypesResponse(core.ModelBase):
     data: typing.List[QueryType]
 
 
-LogicRule = typing_extensions.Annotated[
+LogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
@@ -756,7 +756,7 @@ class OntologyArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-OntologyDataType = typing_extensions.Annotated[
+OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyStructType",
@@ -893,7 +893,7 @@ class Parameter(core.ModelBase):
     required: bool
 
 
-ParameterEvaluatedConstraint = typing_extensions.Annotated[
+ParameterEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
         "OneOfConstraint",
@@ -1067,7 +1067,7 @@ PropertyValueEscapedString = str
 """Represents the value of a property in string format. This is used in URL parameters."""
 
 
-QueryAggregationKeyType = typing_extensions.Annotated[
+QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -1082,7 +1082,7 @@ QueryAggregationKeyType = typing_extensions.Annotated[
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType = typing_extensions.Annotated[
+QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -1101,7 +1101,7 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType = typing_extensions.Annotated[
+QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
@@ -1119,7 +1119,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType = typing_extensions.Annotated[
+QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyInterfaceObjectType",
@@ -1227,7 +1227,7 @@ SdkVersion = str
 """SdkVersion"""
 
 
-SearchJsonQuery = typing_extensions.Annotated[
+SearchJsonQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "OrQuery",
         "PrefixQuery",
@@ -1364,7 +1364,7 @@ class StructEvaluatedConstraint(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-StructFieldEvaluatedConstraint = typing_extensions.Annotated[
+StructFieldEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "OneOfConstraint",
         "RangeConstraint",
@@ -1515,19 +1515,17 @@ ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
-core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
-core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
-core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
-core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
-)
+Aggregation = core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())  # type: ignore[misc]
+AggregationGroupBy = core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())  # type: ignore[misc]
+LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())  # type: ignore[misc]
+OntologyDataType = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+ParameterEvaluatedConstraint = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())  # type: ignore[misc]
+QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+SearchJsonQuery = core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())  # type: ignore[misc]
+StructFieldEvaluatedConstraint = core.resolve_forward_references(StructFieldEvaluatedConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "ActionRid",

@@ -80,7 +80,7 @@ class Check(core.ModelBase):
     """The timestamp when the Check was last updated."""
 
 
-CheckConfig = typing_extensions.Annotated[
+CheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "NumericColumnRangeCheckConfig",
         "JobStatusCheckConfig",
@@ -182,7 +182,7 @@ class ColumnTypeConfig(core.ModelBase):
     severity: SeverityLevel
 
 
-ColumnValue = typing_extensions.Annotated[
+ColumnValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DateColumnValue", "BooleanColumnValue", "StringColumnValue", "NumericColumnValue"
     ],
@@ -427,7 +427,7 @@ class ReplaceBuildStatusCheckConfig(core.ModelBase):
     type: typing.Literal["buildStatus"] = "buildStatus"
 
 
-ReplaceCheckConfig = typing_extensions.Annotated[
+ReplaceCheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "ReplaceNumericColumnRangeCheckConfig",
         "ReplaceJobStatusCheckConfig",
@@ -692,9 +692,9 @@ The type of trend to validate:
 """
 
 
-core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())
-core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())
+CheckConfig = core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
+ColumnValue = core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())  # type: ignore[misc]
+ReplaceCheckConfig = core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AllowedColumnValuesCheckConfig",

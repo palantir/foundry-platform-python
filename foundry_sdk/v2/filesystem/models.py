@@ -457,13 +457,13 @@ class ResourceRoleIdentifier(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
-ResourceRolePrincipal = typing_extensions.Annotated[
+ResourceRolePrincipal: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
-ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
+ResourceRolePrincipalIdentifier: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
@@ -606,10 +606,8 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
-core.resolve_forward_references(
-    ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
-)
+ResourceRolePrincipal = core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())  # type: ignore[misc]
+ResourceRolePrincipalIdentifier = core.resolve_forward_references(ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AccessRequirements",

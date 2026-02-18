@@ -427,7 +427,7 @@ class Mailbox(core.ModelBase):
     """The email address of the mailbox."""
 
 
-MailboxOrGroup = typing_extensions.Annotated[
+MailboxOrGroup: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["MailboxWrapper", "GroupWrapper"], pydantic.Field(discriminator="type")
 ]
 """Either a mailbox or a group of mailboxes."""
@@ -448,7 +448,7 @@ class MediaAttribution(core.ModelBase):
     """The timestamp when the media item was created, in ISO 8601 timestamp format."""
 
 
-MediaItemMetadata = typing_extensions.Annotated[
+MediaItemMetadata: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "DocumentMediaItemMetadata",
         "ImageryMediaItemMetadata",
@@ -623,7 +623,7 @@ class TrackedTransformationPendingResponse(core.ModelBase):
     type: typing.Literal["pending"] = "pending"
 
 
-TrackedTransformationResponse = typing_extensions.Annotated[
+TrackedTransformationResponse: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "TrackedTransformationPendingResponse",
         "TrackedTransformationFailedResponse",
@@ -690,9 +690,9 @@ DicomMetaInformation = DicomMetaInformationV1
 """DICOM meta information."""
 
 
-core.resolve_forward_references(MailboxOrGroup, globalns=globals(), localns=locals())
-core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=locals())
-core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
+MailboxOrGroup = core.resolve_forward_references(MailboxOrGroup, globalns=globals(), localns=locals())  # type: ignore[misc]
+MediaItemMetadata = core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=locals())  # type: ignore[misc]
+TrackedTransformationResponse = core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AffineTransform",

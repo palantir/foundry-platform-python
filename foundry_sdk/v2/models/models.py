@@ -91,7 +91,7 @@ class ModelApiColumn(core.ModelBase):
     data_type: ModelApiDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
 
 
-ModelApiDataType = typing_extensions.Annotated[
+ModelApiDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -111,7 +111,7 @@ ModelApiDataType = typing_extensions.Annotated[
 """ModelApiDataType"""
 
 
-ModelApiInput = typing_extensions.Annotated[
+ModelApiInput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.UnsupportedType, "ModelApiParameterType", "ModelApiTabularType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -126,7 +126,7 @@ class ModelApiMapType(core.ModelBase):
     type: typing.Literal["map"] = "map"
 
 
-ModelApiOutput = typing_extensions.Annotated[
+ModelApiOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[core_models.UnsupportedType, "ModelApiParameterType", "ModelApiTabularType"],
     pydantic.Field(discriminator="type"),
 ]
@@ -190,9 +190,9 @@ Must be a base64-encoded string of a dill-serialized model function.
 """
 
 
-core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
-core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
+ModelApiDataType = core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+ModelApiInput = core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())  # type: ignore[misc]
+ModelApiOutput = core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "CreateModelRequest",

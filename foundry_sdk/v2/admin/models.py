@@ -67,7 +67,7 @@ AttributeValues = typing.List["AttributeValue"]
 """AttributeValues"""
 
 
-AuthenticationProtocol = typing_extensions.Annotated[
+AuthenticationProtocol: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["SamlAuthenticationProtocol", "OidcAuthenticationProtocol"],
     pydantic.Field(discriminator="type"),
 ]
@@ -782,8 +782,8 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
-core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
+AttributeValues = core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())  # type: ignore[misc]
+AuthenticationProtocol = core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",

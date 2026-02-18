@@ -55,7 +55,7 @@ class AnthropicCharacterLocationCitation(core.ModelBase):
     type: typing.Literal["charLocation"] = "charLocation"
 
 
-AnthropicCompletionContent = typing_extensions.Annotated[
+AnthropicCompletionContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicCompletionToolUse",
         "AnthropicCompletionText",
@@ -138,7 +138,7 @@ class AnthropicDocumentCitations(core.ModelBase):
     enabled: bool
 
 
-AnthropicDocumentSource = typing_extensions.Annotated[
+AnthropicDocumentSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AnthropicBase64PdfDocumentSource", "AnthropicTextDocumentSource"],
     pydantic.Field(discriminator="type"),
 ]
@@ -189,7 +189,7 @@ class AnthropicMessage(core.ModelBase):
     role: AnthropicMessageRole
 
 
-AnthropicMessageContent = typing_extensions.Annotated[
+AnthropicMessageContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicImage",
         "AnthropicToolUse",
@@ -300,7 +300,7 @@ class AnthropicThinking(core.ModelBase):
     type: typing.Literal["thinking"] = "thinking"
 
 
-AnthropicThinkingConfig = typing_extensions.Annotated[
+AnthropicThinkingConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union["AnthropicDisabledThinking", "AnthropicEnabledThinking"],
     pydantic.Field(discriminator="type"),
 ]
@@ -316,7 +316,7 @@ class AnthropicTokenUsage(core.ModelBase):
     output_tokens: int = pydantic.Field(alias=str("outputTokens"))  # type: ignore[literal-required]
 
 
-AnthropicToolChoice = typing_extensions.Annotated[
+AnthropicToolChoice: typing_extensions.TypeAlias = typing_extensions.Annotated[
     typing.Union[
         "AnthropicAutoToolChoice",
         "AnthropicNoneToolChoice",
@@ -435,13 +435,13 @@ AnthropicToolResultContent = AnthropicText
 """AnthropicToolResultContent"""
 
 
-core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
-core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
-core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
-core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
+AnthropicCompletionContent = core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())  # type: ignore[misc]
+AnthropicDocumentSource = core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())  # type: ignore[misc]
+AnthropicMessageContent = core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())  # type: ignore[misc]
+AnthropicThinkingConfig = core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
+AnthropicToolChoice = core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())  # type: ignore[misc]
+JsonSchema = core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())  # type: ignore[misc]
+OpenAiEmbeddingInput = core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())  # type: ignore[misc]
 
 __all__ = [
     "AnthropicAnyToolChoice",
