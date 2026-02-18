@@ -163,7 +163,7 @@ class InvalidFieldSchema(errors.BadRequestError):
 
 
 class InvalidFilePathParameters(typing_extensions.TypedDict):
-    """The provided file path is invalid."""
+    """The provided file path is invalid. Check that the path does not start with a leading slash."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

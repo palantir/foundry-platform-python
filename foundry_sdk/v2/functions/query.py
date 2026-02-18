@@ -197,7 +197,7 @@ class QueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> functions_models.Query:
         """
-        Gets a specific query type with the given RID.By default, this gets the latest version of the query.
+        Gets a specific query type with the given RID. By default, this gets the latest version of the query.
 
         :param rid:
         :type rid: FunctionRid
@@ -543,7 +543,7 @@ class AsyncQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[functions_models.Query]:
         """
-        Gets a specific query type with the given RID.By default, this gets the latest version of the query.
+        Gets a specific query type with the given RID. By default, this gets the latest version of the query.
 
         :param rid:
         :type rid: FunctionRid

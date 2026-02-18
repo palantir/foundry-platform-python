@@ -16,6 +16,7 @@
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
@@ -133,6 +134,7 @@ class OntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -145,6 +147,8 @@ class OntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -160,6 +164,7 @@ class OntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -233,15 +238,16 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -263,14 +269,14 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -281,6 +287,8 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -316,6 +324,7 @@ class OntologyObjectSetClient:
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -423,16 +432,17 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -459,14 +469,14 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -479,6 +489,8 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -515,6 +527,7 @@ class OntologyObjectSetClient:
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -534,7 +547,6 @@ class OntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -543,6 +555,7 @@ class OntologyObjectSetClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -570,8 +583,6 @@ class OntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -588,6 +599,8 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -797,6 +810,7 @@ class AsyncOntologyObjectSetClient:
         ontology: ontologies_models.OntologyIdentifier,
         *,
         object_set: ontologies_models.ObjectSet,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -809,6 +823,8 @@ class AsyncOntologyObjectSetClient:
         :type ontology: OntologyIdentifier
         :param object_set:
         :type object_set: ObjectSet
+        :param branch: The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -824,6 +840,7 @@ class AsyncOntologyObjectSetClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/objectSets/createTemporary",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                 },
@@ -897,15 +914,16 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -927,14 +945,14 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -945,6 +963,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -980,6 +1000,7 @@ class AsyncOntologyObjectSetClient:
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -1087,16 +1108,17 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        load_property_securities: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -1123,14 +1145,14 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
         :type exclude_rid: Optional[bool]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param load_property_securities: A flag to load the securities for all properties. Setting this flag to true will return a list of securities in the `propertySecurities` field of the response. Returned objects will return all properties as Secured Property Values, which provide the property data as well an index into the `propertySecurities` list. This feature is experimental and not yet generally available.
+        :type load_property_securities: Optional[bool]
         :param order_by:
         :type order_by: Optional[SearchOrderByV2]
         :param page_size:
@@ -1143,6 +1165,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -1179,6 +1203,7 @@ class AsyncOntologyObjectSetClient:
                     page_token=page_token,
                     page_size=page_size,
                     exclude_rid=exclude_rid,
+                    load_property_securities=load_property_securities,
                     snapshot=snapshot,
                     include_compute_usage=include_compute_usage,
                 ),
@@ -1198,7 +1223,6 @@ class AsyncOntologyObjectSetClient:
         *,
         object_set: ontologies_models.ObjectSet,
         select: typing.List[ontologies_models.SelectedPropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -1207,6 +1231,7 @@ class AsyncOntologyObjectSetClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1234,8 +1259,6 @@ class AsyncOntologyObjectSetClient:
         :type object_set: ObjectSet
         :param select:
         :type select: List[SelectedPropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -1252,6 +1275,8 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.

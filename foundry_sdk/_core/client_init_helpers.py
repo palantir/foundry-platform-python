@@ -13,9 +13,6 @@
 #  limitations under the License.
 
 
-from contextvars import ContextVar
-from typing import Optional
-
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_CONTEXT_VARS
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VARS

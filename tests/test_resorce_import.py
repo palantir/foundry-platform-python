@@ -408,6 +408,14 @@ def test_ontologies_v2_cipher_text_property_import():
     assert CipherTextPropertyClient is not None
 
 
+def test_ontologies_v2_geotemporal_series_property_import():
+    from foundry_sdk.v2.ontologies.geotemporal_series_property import (
+        GeotemporalSeriesPropertyClient,
+    )  # NOQA
+
+    assert GeotemporalSeriesPropertyClient is not None
+
+
 def test_ontologies_v2_linked_object_import():
     from foundry_sdk.v2.ontologies.linked_object import LinkedObjectClient
 

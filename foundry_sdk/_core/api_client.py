@@ -83,7 +83,6 @@ from foundry_sdk._errors import UnauthorizedError
 from foundry_sdk._errors import UnprocessableEntityError
 from foundry_sdk._errors import WriteTimeout
 from foundry_sdk._errors import deserialize_error
-from foundry_sdk._versions import __version__
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 
@@ -425,7 +424,7 @@ class BaseApiClient:
         elif not isinstance(auth, Auth):
             raise TypeError(
                 "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or "
-                "PublicClientAuth, not an instance of {type(auth)}."
+                f"PublicClientAuth, not an instance of {type(auth).__name__}."
             )
 
         assert_non_empty_string(hostname, "hostname")

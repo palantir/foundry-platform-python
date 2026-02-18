@@ -22,7 +22,6 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
 
 
 class AllowedColumnValuesCheckConfig(core.ModelBase):
@@ -92,6 +91,7 @@ CheckConfig = typing_extensions.Annotated[
         "BuildStatusCheckConfig",
         "ColumnTypeCheckConfig",
         "AllowedColumnValuesCheckConfig",
+        "TimeSinceLastUpdatedCheckConfig",
         "NullPercentageCheckConfig",
         "TotalColumnCountCheckConfig",
         "NumericColumnMedianCheckConfig",
@@ -121,6 +121,17 @@ class CheckReport(core.ModelBase):
 
     result: CheckResult
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+
+
+CheckReportLimit = int
+"""
+The maximum number of check reports to return in a single request.
+
+
+Validation rules:
+ * must be greater than or equal to 1
+ * must be less than or equal to 100
+"""
 
 
 class CheckResult(core.ModelBase):
@@ -190,8 +201,8 @@ class CreateCheckRequest(core.ModelBase):
 class DatasetSubject(core.ModelBase):
     """A dataset resource type."""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    branch_id: datasets_models.BranchName = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_id: core_models.BranchName = pydantic.Field(alias=str("branchId"))  # type: ignore[literal-required]
 
 
 class DateBounds(core.ModelBase):
@@ -229,6 +240,17 @@ class EscalationConfig(core.ModelBase):
 
     failures_to_critical: int = pydantic.Field(alias=str("failuresToCritical"))  # type: ignore[literal-required]
     time_interval_in_seconds: typing.Optional[core.Long] = pydantic.Field(alias=str("timeIntervalInSeconds"), default=None)  # type: ignore[literal-required]
+
+
+class GetLatestCheckReportsResponse(core.ModelBase):
+    """The response for getting the latest check reports."""
+
+    data: typing.List[CheckReport]
+    """The list of check reports."""
+
+
+IgnoreEmptyTransactions = bool
+"""Whether empty transactions should be ignored when calculating time since last updated. If true (default), only transactions with actual data changes are considered."""
 
 
 class JobDurationCheckConfig(core.ModelBase):
@@ -416,6 +438,7 @@ ReplaceCheckConfig = typing_extensions.Annotated[
         "ReplaceBuildStatusCheckConfig",
         "ReplaceColumnTypeCheckConfig",
         "ReplaceAllowedColumnValuesCheckConfig",
+        "ReplaceTimeSinceLastUpdatedCheckConfig",
         "ReplaceNullPercentageCheckConfig",
         "ReplaceTotalColumnCountCheckConfig",
         "ReplaceNumericColumnMedianCheckConfig",
@@ -532,6 +555,13 @@ class ReplaceSchemaComparisonCheckConfig(core.ModelBase):
     type: typing.Literal["schemaComparison"] = "schemaComparison"
 
 
+class ReplaceTimeSinceLastUpdatedCheckConfig(core.ModelBase):
+    """ReplaceTimeSinceLastUpdatedCheckConfig"""
+
+    time_check_config: TransactionTimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["timeSinceLastUpdated"] = "timeSinceLastUpdated"
+
+
 class ReplaceTotalColumnCountCheckConfig(core.ModelBase):
     """ReplaceTotalColumnCountCheckConfig"""
 
@@ -617,12 +647,28 @@ class TimeCheckConfig(core.ModelBase):
     median_deviation: typing.Optional[MedianDeviationConfig] = pydantic.Field(alias=str("medianDeviation"), default=None)  # type: ignore[literal-required]
 
 
+class TimeSinceLastUpdatedCheckConfig(core.ModelBase):
+    """Checks the total time since the dataset has updated."""
+
+    subject: DatasetSubject
+    time_check_config: TransactionTimeCheckConfig = pydantic.Field(alias=str("timeCheckConfig"))  # type: ignore[literal-required]
+    type: typing.Literal["timeSinceLastUpdated"] = "timeSinceLastUpdated"
+
+
 class TotalColumnCountCheckConfig(core.ModelBase):
     """Checks the total number of columns in the dataset."""
 
     subject: DatasetSubject
     column_count_config: ColumnCountConfig = pydantic.Field(alias=str("columnCountConfig"))  # type: ignore[literal-required]
     type: typing.Literal["totalColumnCount"] = "totalColumnCount"
+
+
+class TransactionTimeCheckConfig(core.ModelBase):
+    """Defines the configuration of a transaction-based time check."""
+
+    time_bounds: typing.Optional[TimeBoundsConfig] = pydantic.Field(alias=str("timeBounds"), default=None)  # type: ignore[literal-required]
+    median_deviation: typing.Optional[MedianDeviationConfig] = pydantic.Field(alias=str("medianDeviation"), default=None)  # type: ignore[literal-required]
+    ignore_empty_transactions: typing.Optional[IgnoreEmptyTransactions] = pydantic.Field(alias=str("ignoreEmptyTransactions"), default=None)  # type: ignore[literal-required]
 
 
 class TrendConfig(core.ModelBase):
@@ -661,6 +707,7 @@ __all__ = [
     "CheckGroupRid",
     "CheckIntent",
     "CheckReport",
+    "CheckReportLimit",
     "CheckResult",
     "CheckResultStatus",
     "ColumnCountConfig",
@@ -676,6 +723,8 @@ __all__ = [
     "DateColumnRangeCheckConfig",
     "DateColumnValue",
     "EscalationConfig",
+    "GetLatestCheckReportsResponse",
+    "IgnoreEmptyTransactions",
     "JobDurationCheckConfig",
     "JobStatusCheckConfig",
     "MedianDeviation",
@@ -715,6 +764,7 @@ __all__ = [
     "ReplacePrimaryKeyCheckConfig",
     "ReplacePrimaryKeyConfig",
     "ReplaceSchemaComparisonCheckConfig",
+    "ReplaceTimeSinceLastUpdatedCheckConfig",
     "ReplaceTotalColumnCountCheckConfig",
     "SchemaComparisonCheckConfig",
     "SchemaComparisonConfig",
@@ -726,7 +776,9 @@ __all__ = [
     "TimeBounds",
     "TimeBoundsConfig",
     "TimeCheckConfig",
+    "TimeSinceLastUpdatedCheckConfig",
     "TotalColumnCountCheckConfig",
+    "TransactionTimeCheckConfig",
     "TrendConfig",
     "TrendType",
 ]

@@ -55,10 +55,10 @@ class ViewClient:
     @errors.handle_unexpected
     def add_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -121,10 +121,10 @@ class ViewClient:
     @errors.handle_unexpected
     def add_primary_key(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         primary_key: datasets_models.ViewPrimaryKey,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -201,7 +201,7 @@ class ViewClient:
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -290,9 +290,9 @@ class ViewClient:
     @errors.handle_unexpected
     def get(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -342,10 +342,10 @@ class ViewClient:
     @errors.handle_unexpected
     def remove_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -409,10 +409,10 @@ class ViewClient:
     @errors.handle_unexpected
     def replace_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -545,10 +545,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def add_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -611,10 +611,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def add_primary_key(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         primary_key: datasets_models.ViewPrimaryKey,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -691,7 +691,7 @@ class AsyncViewClient:
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -780,9 +780,9 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def get(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -832,10 +832,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def remove_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -899,10 +899,10 @@ class AsyncViewClient:
     @errors.handle_unexpected
     def replace_backing_datasets(
         self,
-        view_dataset_rid: datasets_models.DatasetRid,
+        view_dataset_rid: core_models.DatasetRid,
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
-        branch: typing.Optional[datasets_models.BranchName] = None,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},

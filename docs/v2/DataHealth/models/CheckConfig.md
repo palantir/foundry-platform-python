@@ -19,6 +19,7 @@ ApproximateUniquePercentageCheckConfig | approximateUniquePercentage
 BuildStatusCheckConfig | buildStatus
 ColumnTypeCheckConfig | columnType
 AllowedColumnValuesCheckConfig | allowedColumnValues
+TimeSinceLastUpdatedCheckConfig | timeSinceLastUpdated
 NullPercentageCheckConfig | nullPercentage
 TotalColumnCountCheckConfig | totalColumnCount
 NumericColumnMedianCheckConfig | numericColumnMedian

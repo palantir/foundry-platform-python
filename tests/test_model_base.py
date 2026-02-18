@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import warnings
 from typing import Any
 from typing import Dict
 from typing import List
@@ -96,7 +95,7 @@ def test_warns_on_mutation_after_hash() -> None:
     assert model._hash_value is None
 
     # Re-hashing should work
-    new_hash = hash(model)
+    _new_hash = hash(model)
 
     # But we can add it back
     data[model] = "updated value"
@@ -121,7 +120,7 @@ def test_hash_includes_class_identity() -> None:
     assert hash(user) != hash(person)
 
     # Dictionaries should treat them as separate keys
-    data = {}
+    data: dict[ModelBase, str] = {}
     data[user] = "User data"
     data[person] = "Person data"
 

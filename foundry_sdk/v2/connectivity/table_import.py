@@ -24,7 +24,6 @@ from foundry_sdk.v2.connectivity import errors as connectivity_errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
-from foundry_sdk.v2.datasets import models as datasets_models
 
 
 class TableImportClient:
@@ -58,13 +57,13 @@ class TableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         config: connectivity_models.CreateTableImportRequestTableImportConfig,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         display_name: connectivity_models.TableImportDisplayName,
         import_mode: connectivity_models.TableImportMode,
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -505,13 +504,13 @@ class AsyncTableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         config: connectivity_models.CreateTableImportRequestTableImportConfig,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         display_name: connectivity_models.TableImportDisplayName,
         import_mode: connectivity_models.TableImportMode,
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
-        branch_name: typing.Optional[datasets_models.BranchName] = None,
+        branch_name: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},

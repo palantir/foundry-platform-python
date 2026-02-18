@@ -705,9 +705,6 @@ you will create a Marking that you cannot administer.
 )
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_op_create(
     client: FoundryClient,
@@ -716,7 +713,6 @@ def admin_marking_op_create(
     initial_role_assignments: str,
     name: str,
     description: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new Marking.
@@ -727,42 +723,32 @@ def admin_marking_op_create(
         initial_role_assignments=json.loads(initial_role_assignments),
         name=name,
         description=description,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_marking.command("get")
 @click.argument("marking_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_op_get(
     client: FoundryClient,
     marking_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Marking with the specified id.
     """
     result = client.admin.Marking.get(
         marking_id=marking_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_marking.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_op_get_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Execute multiple get requests on Marking.
@@ -771,7 +757,6 @@ def admin_marking_op_get_batch(
     """
     result = client.admin.Marking.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -788,15 +773,11 @@ def admin_marking_op_get_batch(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_op_list(
     client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -804,7 +785,6 @@ def admin_marking_op_list(
     result = client.admin.Marking.list(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -813,16 +793,12 @@ def admin_marking_op_list(
 @click.argument("marking_id", type=str, required=True)
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_op_replace(
     client: FoundryClient,
     marking_id: str,
     name: str,
     description: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Replace the Marking with the specified id.
@@ -831,7 +807,6 @@ def admin_marking_op_replace(
         marking_id=marking_id,
         name=name,
         description=description,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3072,32 +3047,6 @@ def data_health():
     pass
 
 
-@data_health.group("check_report")
-def data_health_check_report():
-    pass
-
-
-@data_health_check_report.command("get")
-@click.argument("check_report_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def data_health_check_report_op_get(
-    client: FoundryClient,
-    check_report_rid: str,
-    preview: typing.Optional[bool],
-):
-    """
-    Get the CheckReport with the specified rid.
-    """
-    result = client.data_health.CheckReport.get(
-        check_report_rid=check_report_rid,
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
 @data_health.group("check")
 def data_health_check():
     pass
@@ -3191,6 +3140,68 @@ def data_health_check_op_replace(
         check_rid=check_rid,
         config=json.loads(config),
         intent=intent,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@data_health_check.group("check_report")
+def data_health_check_check_report():
+    pass
+
+
+@data_health_check_check_report.command("get")
+@click.argument("check_rid", type=str, required=True)
+@click.argument("check_report_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def data_health_check_check_report_op_get(
+    client: FoundryClient,
+    check_rid: str,
+    check_report_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the CheckReport with the specified rid.
+    """
+    result = client.data_health.Check.CheckReport.get(
+        check_rid=check_rid,
+        check_report_rid=check_report_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@data_health_check_check_report.command("get_latest")
+@click.argument("check_rid", type=str, required=True)
+@click.option(
+    "--limit",
+    type=int,
+    required=False,
+    help="""The maximum number of check reports to return. Defaults to 10.
+Maximum allowed value is 100.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def data_health_check_check_report_op_get_latest(
+    client: FoundryClient,
+    check_rid: str,
+    limit: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the most recent check reports for this Check. Reports are returned
+    in reverse chronological order (most recent first).
+
+    """
+    result = client.data_health.Check.CheckReport.get_latest(
+        check_rid=check_rid,
+        limit=limit,
         preview=preview,
     )
     click.echo(repr(result))
@@ -3422,6 +3433,43 @@ def datasets_dataset_op_get(
     """
     result = client.datasets.Dataset.get(
         dataset_rid=dataset_rid,
+    )
+    click.echo(repr(result))
+
+
+@datasets_dataset.command("get_health_check_reports")
+@click.argument("dataset_rid", type=str, required=True)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def datasets_dataset_op_get_health_check_reports(
+    client: FoundryClient,
+    dataset_rid: str,
+    branch_name: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Get the most recent Data Health Check report for each check configured on the given Dataset.
+    Returns one report per check, representing the current health status of the dataset.
+
+    To get the list of checks configured on a Dataset, use
+    [Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
+    For the full report history of a specific check, use
+    [Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+    """
+    result = client.datasets.Dataset.get_health_check_reports(
+        dataset_rid=dataset_rid,
+        branch_name=branch_name,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3977,6 +4025,13 @@ To fetch the next page, clients should take the value from the `nextPageToken` f
 and use it to populate the `pageToken` field of the next request.""",
 )
 @click.option(
+    "--path_prefix",
+    type=str,
+    required=False,
+    help="""When present returns only files in the dataset whose path starts with this value. If pathPrefix matches a file exactly, returns just that file.
+""",
+)
+@click.option(
     "--start_transaction_rid",
     type=str,
     required=False,
@@ -3991,6 +4046,7 @@ def datasets_dataset_file_op_list(
     end_transaction_rid: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    path_prefix: typing.Optional[str],
     start_transaction_rid: typing.Optional[str],
 ):
     """
@@ -4020,6 +4076,7 @@ def datasets_dataset_file_op_list(
         end_transaction_rid=end_transaction_rid,
         page_size=page_size,
         page_token=page_token,
+        path_prefix=path_prefix,
         start_transaction_rid=start_transaction_rid,
     )
     click.echo(repr(result))
@@ -5449,7 +5506,7 @@ def functions_query_op_get_by_rid(
     version: typing.Optional[str],
 ):
     """
-    Gets a specific query type with the given RID.By default, this gets the latest version of the query.
+    Gets a specific query type with the given RID. By default, this gets the latest version of the query.
 
     """
     result = client.functions.Query.get_by_rid(
@@ -5932,6 +5989,39 @@ def media_sets_media_set_op_info(
 
     """
     result = client.media_sets.MediaSet.info(
+        media_set_rid=media_set_rid,
+        media_item_rid=media_item_rid,
+        preview=preview,
+        read_token=read_token,
+    )
+    click.echo(repr(result))
+
+
+@media_sets_media_set.command("metadata")
+@click.argument("media_set_rid", type=str, required=True)
+@click.argument("media_item_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option("--read_token", type=str, required=False, help="""""")
+@click.pass_obj
+def media_sets_media_set_op_metadata(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_rid: str,
+    preview: typing.Optional[bool],
+    read_token: typing.Optional[str],
+):
+    """
+    Gets detailed metadata about the media item, including type-specific information
+    such as dimensions for images, duration for audio/video, page count for documents, etc.
+
+    """
+    result = client.media_sets.MediaSet.metadata(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
         preview=preview,
@@ -6869,6 +6959,14 @@ def ontologies_ontology_object_set_op_aggregate(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to reference. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -6887,6 +6985,7 @@ def ontologies_ontology_object_set_op_create_temporary(
     client: FoundryClient,
     ontology: str,
     object_set: str,
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
 ):
@@ -6897,6 +6996,7 @@ def ontologies_ontology_object_set_op_create_temporary(
     result = client.ontologies.OntologyObjectSet.create_temporary(
         ontology=ontology,
         object_set=json.loads(object_set),
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
     )
@@ -6928,14 +7028,6 @@ def ontologies_ontology_object_set_op_get(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -6952,6 +7044,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
+@click.option(
+    "--load_property_securities",
+    type=bool,
+    required=False,
+    help="""A flag to load the securities for all properties.
+Setting this flag to true will return a list of securities in the `propertySecurities` field of the response.
+Returned objects will return all properties as Secured Property Values, which provide the property data
+as well an index into the `propertySecurities` list.
+This feature is experimental and not yet generally available.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -6967,6 +7070,14 @@ Setting this to true may improve performance of this endpoint for object types i
     type=str,
     required=False,
     help="""The package version of the generated SDK.
+""",
+)
+@click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
 """,
 )
 @click.option(
@@ -6993,15 +7104,16 @@ def ontologies_ontology_object_set_op_load(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
+    load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     transaction_id: typing.Optional[str],
 ):
@@ -7020,15 +7132,16 @@ def ontologies_ontology_object_set_op_load(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
+        load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -7119,14 +7232,6 @@ def ontologies_ontology_object_set_op_load_links(
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7143,6 +7248,17 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
+@click.option(
+    "--load_property_securities",
+    type=bool,
+    required=False,
+    help="""A flag to load the securities for all properties.
+Setting this flag to true will return a list of securities in the `propertySecurities` field of the response.
+Returned objects will return all properties as Secured Property Values, which provide the property data
+as well an index into the `propertySecurities` list.
+This feature is experimental and not yet generally available.
+""",
+)
 @click.option("--order_by", type=str, required=False, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
@@ -7165,6 +7281,14 @@ Setting this to true may improve performance of this endpoint for object types i
     type=str,
     required=False,
     help="""The package version of the generated SDK.
+""",
+)
+@click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
 """,
 )
 @click.option(
@@ -7191,16 +7315,17 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     include_compute_usage: typing.Optional[bool],
+    load_property_securities: typing.Optional[bool],
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     transaction_id: typing.Optional[str],
 ):
@@ -7224,16 +7349,17 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
+        load_property_securities=load_property_securities,
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -7244,14 +7370,6 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
 @click.argument("ontology", type=str, required=True)
 @click.option("--object_set", type=str, required=True, help="""""")
 @click.option("--select", type=str, required=True, help="""""")
-@click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
 @click.option(
     "--branch",
     type=str,
@@ -7293,6 +7411,14 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7308,7 +7434,6 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     ontology: str,
     object_set: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7317,6 +7442,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
 ):
     """
@@ -7341,7 +7467,6 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         ontology=ontology,
         object_set=json.loads(object_set),
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7350,6 +7475,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
     )
     click.echo(repr(result))
@@ -7663,14 +7789,6 @@ def ontologies_ontology_object_op_list(
 """,
 )
 @click.option(
-    "--select_v2",
-    type=str,
-    required=True,
-    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
-but not both.
-""",
-)
-@click.option(
     "--branch",
     type=str,
     required=False,
@@ -7704,6 +7822,14 @@ Setting this to true may improve performance of this endpoint for object types i
 """,
 )
 @click.option(
+    "--select_v2",
+    type=str,
+    required=False,
+    help="""The identifiers of the properties to include in the response. Only selectV2 or select should be populated,
+but not both.
+""",
+)
+@click.option(
     "--snapshot",
     type=bool,
     required=False,
@@ -7720,7 +7846,6 @@ def ontologies_ontology_object_op_search(
     ontology: str,
     object_type: str,
     select: str,
-    select_v2: str,
     branch: typing.Optional[str],
     exclude_rid: typing.Optional[bool],
     order_by: typing.Optional[str],
@@ -7728,6 +7853,7 @@ def ontologies_ontology_object_op_search(
     page_token: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
     where: typing.Optional[str],
 ):
@@ -7761,7 +7887,6 @@ def ontologies_ontology_object_op_search(
         ontology=ontology,
         object_type=object_type,
         select=json.loads(select),
-        select_v2=json.loads(select_v2),
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=None if order_by is None else json.loads(order_by),
@@ -7769,6 +7894,7 @@ def ontologies_ontology_object_op_search(
         page_token=page_token,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
         where=None if where is None else json.loads(where),
     )
@@ -9235,6 +9361,102 @@ def ontologies_linked_object_op_list_linked_objects(
     click.echo(repr(result))
 
 
+@ontologies.group("geotemporal_series_property")
+def ontologies_geotemporal_series_property():
+    pass
+
+
+@ontologies_geotemporal_series_property.command("get_geotemporal_series_latest_value")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property_name", type=str, required=True)
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_geotemporal_series_property_op_get_geotemporal_series_latest_value(
+    client: FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property_name: str,
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+):
+    """
+    Get the latest recorded location for a geotemporal series reference property.
+
+    """
+    result = client.ontologies.GeotemporalSeriesProperty.get_geotemporal_series_latest_value(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property_name=property_name,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_geotemporal_series_property.command("stream_geotemporal_series_historic_values")
+@click.argument("ontology", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("primary_key", type=str, required=True)
+@click.argument("property_name", type=str, required=True)
+@click.option("--range", type=str, required=False, help="""""")
+@click.option(
+    "--sdk_package_rid",
+    type=str,
+    required=False,
+    help="""The package rid of the generated SDK.
+""",
+)
+@click.option(
+    "--sdk_version",
+    type=str,
+    required=False,
+    help="""The version of the generated SDK.
+""",
+)
+@click.pass_obj
+def ontologies_geotemporal_series_property_op_stream_geotemporal_series_historic_values(
+    client: FoundryClient,
+    ontology: str,
+    object_type: str,
+    primary_key: str,
+    property_name: str,
+    range: typing.Optional[str],
+    sdk_package_rid: typing.Optional[str],
+    sdk_version: typing.Optional[str],
+):
+    """
+    Stream historic points of a geotemporal series reference property.
+
+    """
+    result = client.ontologies.GeotemporalSeriesProperty.stream_geotemporal_series_historic_values(
+        ontology=ontology,
+        object_type=object_type,
+        primary_key=primary_key,
+        property_name=property_name,
+        range=None if range is None else json.loads(range),
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
+    )
+    click.echo(result)
+
+
 @ontologies.group("cipher_text_property")
 def ontologies_cipher_text_property():
     pass
@@ -9626,6 +9848,13 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--object_type_api_names",
+    type=str,
+    required=False,
+    help="""An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -9639,6 +9868,7 @@ def ontologies_action_type_full_metadata_op_list(
     client: FoundryClient,
     ontology: str,
     branch: typing.Optional[str],
+    object_type_api_names: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -9652,6 +9882,9 @@ def ontologies_action_type_full_metadata_op_list(
     result = client.ontologies.ActionTypeFullMetadata.list(
         ontology=ontology,
         branch=branch,
+        object_type_api_names=(
+            None if object_type_api_names is None else json.loads(object_type_api_names)
+        ),
         page_size=page_size,
         page_token=page_token,
     )
@@ -10369,14 +10602,10 @@ def sql_queries_sql_query():
 
 @sql_queries_sql_query.command("cancel")
 @click.argument("sql_query_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def sql_queries_sql_query_op_cancel(
     client: FoundryClient,
     sql_query_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Cancels a query. If the query is no longer running this is effectively a no-op.
@@ -10384,7 +10613,6 @@ def sql_queries_sql_query_op_cancel(
     """
     result = client.sql_queries.SqlQuery.cancel(
         sql_query_id=sql_query_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10411,15 +10639,11 @@ provided that exists. If no fallback branches are provided the default branch is
 `master` for most enrollments.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def sql_queries_sql_query_op_execute(
     client: FoundryClient,
     query: str,
     fallback_branch_ids: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Executes a new query. Only the user that invoked the query can operate on the query. The size of query
@@ -10432,21 +10656,16 @@ def sql_queries_sql_query_op_execute(
         fallback_branch_ids=(
             None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
         ),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @sql_queries_sql_query.command("get_results")
 @click.argument("sql_query_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def sql_queries_sql_query_op_get_results(
     client: FoundryClient,
     sql_query_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Gets the results of a query. The results of the query are returned in the
@@ -10458,21 +10677,16 @@ def sql_queries_sql_query_op_get_results(
     """
     result = client.sql_queries.SqlQuery.get_results(
         sql_query_id=sql_query_id,
-        preview=preview,
     )
     click.echo(result)
 
 
 @sql_queries_sql_query.command("get_status")
 @click.argument("sql_query_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def sql_queries_sql_query_op_get_status(
     client: FoundryClient,
     sql_query_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Gets the status of a query.
@@ -10480,7 +10694,6 @@ def sql_queries_sql_query_op_get_status(
     """
     result = client.sql_queries.SqlQuery.get_status(
         sql_query_id=sql_query_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10666,6 +10879,100 @@ def streams_dataset_stream_op_get(
     click.echo(repr(result))
 
 
+@streams_dataset_stream.command("get_end_offsets")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=True,
+    help="""The RID from the view to retrieve end offsets for.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def streams_dataset_stream_op_get_end_offsets(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    view_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Get the end offsets for all partitions of a stream. The end offset is the offset of the next record that will be written to the partition.
+
+    """
+    result = client.streams.Dataset.Stream.get_end_offsets(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        view_rid=view_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.command("get_records")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option(
+    "--limit",
+    type=int,
+    required=True,
+    help="""The total number of records to be retrieved. The response may contain fewer records than requested depending on number
+of records in the partition and server-defined limits.
+""",
+)
+@click.option(
+    "--partition_id",
+    type=str,
+    required=True,
+    help="""The ID of the partition to retrieve records from.""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=True,
+    help="""The Rid from the view to retrieve records from.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--start_offset",
+    type=int,
+    required=False,
+    help="""The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_op_get_records(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    limit: int,
+    partition_id: str,
+    view_rid: str,
+    preview: typing.Optional[bool],
+    start_offset: typing.Optional[int],
+):
+    """
+    Get a batch of records from a stream for a given partition. Offsets are ordered from [0, inf) but may be sparse (e.g.: 0, 2, 3, 5).
+    Binary field values are returned as base64-encoded strings. Decode them to retrieve the original bytes.
+
+    """
+    result = client.streams.Dataset.Stream.get_records(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        limit=limit,
+        partition_id=partition_id,
+        view_rid=view_rid,
+        preview=preview,
+        start_offset=start_offset,
+    )
+    click.echo(repr(result))
+
+
 @streams_dataset_stream.command("publish_binary_record")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("stream_branch_name", type=str, required=True)
@@ -10677,7 +10984,7 @@ def streams_dataset_stream_op_get(
     "--view_rid",
     type=str,
     required=False,
-    help="""If provided, this operation will only write to the stream corresponding to the specified view rid. If
+    help="""If provided, this operation will only write to the stream corresponding to the specified view RID. If
 not provided, this operation will write to the latest stream on the branch.
 
 Providing this value is an advanced configuration, to be used when additional control over the
@@ -10724,7 +11031,7 @@ def streams_dataset_stream_op_publish_binary_record(
     "--view_rid",
     type=str,
     required=False,
-    help="""If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    help="""If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
 not provided, this endpoint will write the latest stream on the branch.
 
 Providing this value is an advanced configuration, to be used when additional control over the
@@ -10772,7 +11079,7 @@ def streams_dataset_stream_op_publish_record(
     "--view_rid",
     type=str,
     required=False,
-    help="""If provided, this endpoint will only write to the stream corresponding to the specified view rid. If
+    help="""If provided, this endpoint will only write to the stream corresponding to the specified view RID. If
 not provided, this endpoint will write to the latest stream on the branch.
 
 Providing this value is an advanced configuration, to be used when additional control over the

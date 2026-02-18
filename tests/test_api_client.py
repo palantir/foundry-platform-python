@@ -32,31 +32,30 @@ from unittest.mock import patch
 import httpx
 import pytest
 
-from foundry_sdk import ApiNotFoundError
-from foundry_sdk import BadRequestError
-from foundry_sdk import ConfidentialClientAuth
-from foundry_sdk import Config
-from foundry_sdk import ConflictError
-from foundry_sdk import ConnectionError
-from foundry_sdk import InternalServerError
-from foundry_sdk import NotFoundError
-from foundry_sdk import PalantirRPCException
-from foundry_sdk import PermissionDeniedError
-from foundry_sdk import ProxyError
-from foundry_sdk import RateLimitError
-from foundry_sdk import ReadTimeout
-from foundry_sdk import RequestEntityTooLargeError
-from foundry_sdk import ServiceUnavailable
-from foundry_sdk import StreamConsumedError
-from foundry_sdk import UnauthorizedError
-from foundry_sdk import UnprocessableEntityError
-from foundry_sdk import UserTokenAuth
-from foundry_sdk import WriteTimeout
-from foundry_sdk import __version__
 from foundry_sdk._core import ApiClient
 from foundry_sdk._core import ApiResponse
 from foundry_sdk._core import AsyncApiClient
+from foundry_sdk._core import ConfidentialClientAuth
+from foundry_sdk._core import Config
 from foundry_sdk._core import RequestInfo
+from foundry_sdk._core import UserTokenAuth
+from foundry_sdk._errors import ApiNotFoundError
+from foundry_sdk._errors import BadRequestError
+from foundry_sdk._errors import ConflictError
+from foundry_sdk._errors import ConnectionError
+from foundry_sdk._errors import InternalServerError
+from foundry_sdk._errors import NotFoundError
+from foundry_sdk._errors import PalantirRPCException
+from foundry_sdk._errors import PermissionDeniedError
+from foundry_sdk._errors import ProxyError
+from foundry_sdk._errors import RateLimitError
+from foundry_sdk._errors import ReadTimeout
+from foundry_sdk._errors import RequestEntityTooLargeError
+from foundry_sdk._errors import ServiceUnavailable
+from foundry_sdk._errors import StreamConsumedError
+from foundry_sdk._errors import UnauthorizedError
+from foundry_sdk._errors import UnprocessableEntityError
+from foundry_sdk._errors import WriteTimeout
 from tests.server import FooBar
 from tests.server import FooData
 
@@ -116,15 +115,15 @@ def get_mock_awaitable(return_value):
 
 def create_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
     client = ApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
-    client._session.build_request = Mock(wraps=client._session.build_request)
-    client._session.send = Mock(return_value=AttrDict(status_code=200, content=b"", headers={}))
+    client._session.build_request = Mock(wraps=client._session.build_request)  # type: ignore
+    client._session.send = Mock(return_value=AttrDict(status_code=200, content=b"", headers={}))  # type: ignore
     return client
 
 
 def create_async_mock_client(config: Optional[Config] = None, hostname=HOSTNAME):
     client = AsyncApiClient(auth=UserTokenAuth(token="bar"), hostname=hostname, config=config)
-    client._client.build_request = Mock(wraps=client._client.build_request)
-    client._client.send = get_mock_awaitable(AttrDict(status_code=200, content=b"", headers={}))
+    client._client.build_request = Mock(wraps=client._client.build_request)  # type: ignore
+    client._client.send = get_mock_awaitable(AttrDict(status_code=200, content=b"", headers={}))  # type: ignore
     return client
 
 
@@ -205,7 +204,7 @@ def call_api_helper(
 ):
     client = ApiClient(auth=UserTokenAuth(token="bar"), hostname="foo")
 
-    client._session.send = Mock(
+    client._session.send = Mock(  # type: ignore
         return_value=AttrDict(
             status_code=status_code,
             headers=headers,
@@ -430,51 +429,51 @@ def test_ssl_error():
 def test_passing_in_str_auth():
     with pytest.raises(TypeError) as e:
         ApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
-        assert str(e.value).startswith(
-            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
-        )
+    assert str(e.value).startswith(
+        "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+    )
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth="foo", hostname="localhost:8123")  # type: ignore
-        assert str(e.value).startswith(
-            "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
-        )
+    assert str(e.value).startswith(
+        "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not a string."
+    )
 
 
 def test_passing_in_int_to_auth():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=2, hostname="localhost:8123")  # type: ignore
-        assert (
-            str(e.value)
-            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
-        )
+    assert (
+        str(e.value)
+        == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+    )
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=2, hostname="localhost:8123")  # type: ignore
-        assert (
-            str(e.value)
-            == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
-        )
+    assert (
+        str(e.value)
+        == "auth must be an instance of UserTokenAuth, ConfidentialClientAuth or PublicClientAuth, not an instance of int."
+    )
 
 
 def test_passing_in_int_to_hostname():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
-        assert str(e.value) == "hostname must be a string, not int."
+    assert str(e.value) == "The hostname must be a string, not <class 'int'>."
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname=2)  # type: ignore
-        assert str(e.value) == "hostname must be a string, not int."
+    assert str(e.value) == "The hostname must be a string, not <class 'int'>."
 
 
 def test_passing_in_int_to_config():
     with pytest.raises(TypeError) as e:
         ApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
-        assert str(e.value) == "config must be an instance of Config, not int."
+    assert str(e.value) == "config must be an instance of Config, not <class 'int'>."
 
     with pytest.raises(TypeError) as e:
         AsyncApiClient(auth=UserTokenAuth(token="foo"), hostname="localhost:1234", config=2)  # type: ignore
-        assert str(e.value) == "config must be an instance of Config, not int."
+    assert str(e.value) == "config must be an instance of Config, not <class 'int'>."
 
 
 def test_config_shared_with_auth():

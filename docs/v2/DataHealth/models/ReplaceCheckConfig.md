@@ -19,6 +19,7 @@ ReplaceApproximateUniquePercentageCheckConfig | approximateUniquePercentage
 ReplaceBuildStatusCheckConfig | buildStatus
 ReplaceColumnTypeCheckConfig | columnType
 ReplaceAllowedColumnValuesCheckConfig | allowedColumnValues
+ReplaceTimeSinceLastUpdatedCheckConfig | timeSinceLastUpdated
 ReplaceNullPercentageCheckConfig | nullPercentage
 ReplaceTotalColumnCountCheckConfig | totalColumnCount
 ReplaceNumericColumnMedianCheckConfig | numericColumnMedian

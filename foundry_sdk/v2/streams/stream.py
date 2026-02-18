@@ -23,7 +23,6 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import errors as core_errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import errors as datasets_errors
-from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.streams import errors as streams_errors
 from foundry_sdk.v2.streams import models as streams_models
 
@@ -56,9 +55,9 @@ class StreamClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
-        branch_name: datasets_models.BranchName,
+        branch_name: core_models.BranchName,
         schema: streams_models.CreateStreamRequestStreamSchema,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -135,8 +134,8 @@ class StreamClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -193,10 +192,137 @@ class StreamClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_end_offsets(
+        self,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
+        *,
+        view_rid: streams_models.ViewRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> streams_models.GetEndOffsetsResponse:
+        """
+        Get the end offsets for all partitions of a stream. The end offset is the offset of the next record that will be written to the partition.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param stream_branch_name:
+        :type stream_branch_name: BranchName
+        :param view_rid: The RID from the view to retrieve end offsets for.
+        :type view_rid: ViewRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: streams_models.GetEndOffsetsResponse
+
+        :raises GetEndOffsetsForStreamPermissionDenied: Could not getEndOffsets the Stream.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets",
+                query_params={
+                    "viewRid": view_rid,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "streamBranchName": stream_branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=streams_models.GetEndOffsetsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetEndOffsetsForStreamPermissionDenied": streams_errors.GetEndOffsetsForStreamPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_records(
+        self,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
+        *,
+        limit: int,
+        partition_id: streams_models.PartitionId,
+        view_rid: streams_models.ViewRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        start_offset: typing.Optional[core.Long] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> streams_models.GetRecordsResponse:
+        """
+        Get a batch of records from a stream for a given partition. Offsets are ordered from [0, inf) but may be sparse (e.g.: 0, 2, 3, 5).
+        Binary field values are returned as base64-encoded strings. Decode them to retrieve the original bytes.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param stream_branch_name:
+        :type stream_branch_name: BranchName
+        :param limit: The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.
+        :type limit: int
+        :param partition_id: The ID of the partition to retrieve records from.
+        :type partition_id: PartitionId
+        :param view_rid: The Rid from the view to retrieve records from.
+        :type view_rid: ViewRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param start_offset: The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
+        :type start_offset: Optional[Long]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: streams_models.GetRecordsResponse
+
+        :raises GetRecordsFromStreamPermissionDenied: Could not getRecords the Stream.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords",
+                query_params={
+                    "limit": limit,
+                    "partitionId": partition_id,
+                    "viewRid": view_rid,
+                    "preview": preview,
+                    "startOffset": start_offset,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "streamBranchName": stream_branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=streams_models.GetRecordsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetRecordsFromStreamPermissionDenied": streams_errors.GetRecordsFromStreamPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         body: bytes,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -215,7 +341,7 @@ class StreamClient:
         :type body: bytes
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -255,8 +381,8 @@ class StreamClient:
     @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         record: streams_models.Record,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -276,7 +402,7 @@ class StreamClient:
         :type record: Record
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -318,8 +444,8 @@ class StreamClient:
     @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         records: typing.List[streams_models.Record],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -339,7 +465,7 @@ class StreamClient:
         :type records: List[Record]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -381,8 +507,8 @@ class StreamClient:
     @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -468,6 +594,8 @@ class _StreamClientRaw:
     def __init__(self, client: StreamClient) -> None:
         def create(_: streams_models.Stream): ...
         def get(_: streams_models.Stream): ...
+        def get_end_offsets(_: streams_models.GetEndOffsetsResponse): ...
+        def get_records(_: streams_models.GetRecordsResponse): ...
         def publish_binary_record(_: None): ...
         def publish_record(_: None): ...
         def publish_records(_: None): ...
@@ -475,6 +603,8 @@ class _StreamClientRaw:
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.get_end_offsets = core.with_raw_response(get_end_offsets, client.get_end_offsets)
+        self.get_records = core.with_raw_response(get_records, client.get_records)
         self.publish_binary_record = core.with_raw_response(
             publish_binary_record, client.publish_binary_record
         )
@@ -487,10 +617,14 @@ class _StreamClientStreaming:
     def __init__(self, client: StreamClient) -> None:
         def create(_: streams_models.Stream): ...
         def get(_: streams_models.Stream): ...
+        def get_end_offsets(_: streams_models.GetEndOffsetsResponse): ...
+        def get_records(_: streams_models.GetRecordsResponse): ...
         def reset(_: streams_models.Stream): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.get_end_offsets = core.with_streaming_response(get_end_offsets, client.get_end_offsets)
+        self.get_records = core.with_streaming_response(get_records, client.get_records)
         self.reset = core.with_streaming_response(reset, client.reset)
 
 
@@ -522,9 +656,9 @@ class AsyncStreamClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
-        branch_name: datasets_models.BranchName,
+        branch_name: core_models.BranchName,
         schema: streams_models.CreateStreamRequestStreamSchema,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -601,8 +735,8 @@ class AsyncStreamClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -659,10 +793,137 @@ class AsyncStreamClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_end_offsets(
+        self,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
+        *,
+        view_rid: streams_models.ViewRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[streams_models.GetEndOffsetsResponse]:
+        """
+        Get the end offsets for all partitions of a stream. The end offset is the offset of the next record that will be written to the partition.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param stream_branch_name:
+        :type stream_branch_name: BranchName
+        :param view_rid: The RID from the view to retrieve end offsets for.
+        :type view_rid: ViewRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[streams_models.GetEndOffsetsResponse]
+
+        :raises GetEndOffsetsForStreamPermissionDenied: Could not getEndOffsets the Stream.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets",
+                query_params={
+                    "viewRid": view_rid,
+                    "preview": preview,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "streamBranchName": stream_branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=streams_models.GetEndOffsetsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetEndOffsetsForStreamPermissionDenied": streams_errors.GetEndOffsetsForStreamPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_records(
+        self,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
+        *,
+        limit: int,
+        partition_id: streams_models.PartitionId,
+        view_rid: streams_models.ViewRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        start_offset: typing.Optional[core.Long] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[streams_models.GetRecordsResponse]:
+        """
+        Get a batch of records from a stream for a given partition. Offsets are ordered from [0, inf) but may be sparse (e.g.: 0, 2, 3, 5).
+        Binary field values are returned as base64-encoded strings. Decode them to retrieve the original bytes.
+
+        :param dataset_rid:
+        :type dataset_rid: DatasetRid
+        :param stream_branch_name:
+        :type stream_branch_name: BranchName
+        :param limit: The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.
+        :type limit: int
+        :param partition_id: The ID of the partition to retrieve records from.
+        :type partition_id: PartitionId
+        :param view_rid: The Rid from the view to retrieve records from.
+        :type view_rid: ViewRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param start_offset: The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
+        :type start_offset: Optional[Long]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[streams_models.GetRecordsResponse]
+
+        :raises GetRecordsFromStreamPermissionDenied: Could not getRecords the Stream.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords",
+                query_params={
+                    "limit": limit,
+                    "partitionId": partition_id,
+                    "viewRid": view_rid,
+                    "preview": preview,
+                    "startOffset": start_offset,
+                },
+                path_params={
+                    "datasetRid": dataset_rid,
+                    "streamBranchName": stream_branch_name,
+                },
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=streams_models.GetRecordsResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetRecordsFromStreamPermissionDenied": streams_errors.GetRecordsFromStreamPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def publish_binary_record(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         body: bytes,
         *,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -681,7 +942,7 @@ class AsyncStreamClient:
         :type body: bytes
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view rid. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -721,8 +982,8 @@ class AsyncStreamClient:
     @errors.handle_unexpected
     def publish_record(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         record: streams_models.Record,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -742,7 +1003,7 @@ class AsyncStreamClient:
         :type record: Record
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -784,8 +1045,8 @@ class AsyncStreamClient:
     @errors.handle_unexpected
     def publish_records(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         records: typing.List[streams_models.Record],
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -805,7 +1066,7 @@ class AsyncStreamClient:
         :type records: List[Record]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view rid. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -847,8 +1108,8 @@ class AsyncStreamClient:
     @errors.handle_unexpected
     def reset(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        stream_branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        stream_branch_name: core_models.BranchName,
         *,
         compressed: typing.Optional[streams_models.Compressed] = None,
         partitions_count: typing.Optional[streams_models.PartitionsCount] = None,
@@ -934,6 +1195,8 @@ class _AsyncStreamClientRaw:
     def __init__(self, client: AsyncStreamClient) -> None:
         def create(_: streams_models.Stream): ...
         def get(_: streams_models.Stream): ...
+        def get_end_offsets(_: streams_models.GetEndOffsetsResponse): ...
+        def get_records(_: streams_models.GetRecordsResponse): ...
         def publish_binary_record(_: None): ...
         def publish_record(_: None): ...
         def publish_records(_: None): ...
@@ -941,6 +1204,8 @@ class _AsyncStreamClientRaw:
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_end_offsets = core.async_with_raw_response(get_end_offsets, client.get_end_offsets)
+        self.get_records = core.async_with_raw_response(get_records, client.get_records)
         self.publish_binary_record = core.async_with_raw_response(
             publish_binary_record, client.publish_binary_record
         )
@@ -953,8 +1218,14 @@ class _AsyncStreamClientStreaming:
     def __init__(self, client: AsyncStreamClient) -> None:
         def create(_: streams_models.Stream): ...
         def get(_: streams_models.Stream): ...
+        def get_end_offsets(_: streams_models.GetEndOffsetsResponse): ...
+        def get_records(_: streams_models.GetRecordsResponse): ...
         def reset(_: streams_models.Stream): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_end_offsets = core.async_with_streaming_response(
+            get_end_offsets, client.get_end_offsets
+        )
+        self.get_records = core.async_with_streaming_response(get_records, client.get_records)
         self.reset = core.async_with_streaming_response(reset, client.reset)

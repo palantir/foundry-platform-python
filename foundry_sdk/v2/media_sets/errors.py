@@ -255,6 +255,19 @@ class TransformedMediaItemNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class UnexpectedMetadataTypeParameters(typing_extensions.TypedDict):
+    """Received an unexpected metadata type, this particular media item may use features that are not yet fully supported in the public API."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnexpectedMetadataType(errors.InternalServerError):
+    name: typing.Literal["UnexpectedMetadataType"]
+    parameters: UnexpectedMetadataTypeParameters
+    error_instance_id: str
+
+
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
@@ -271,4 +284,5 @@ __all__ = [
     "TemporaryMediaUploadInsufficientPermissions",
     "TemporaryMediaUploadUnknownFailure",
     "TransformedMediaItemNotFound",
+    "UnexpectedMetadataType",
 ]

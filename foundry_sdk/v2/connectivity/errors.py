@@ -441,7 +441,7 @@ class HostNameCannotHaveProtocolOrPort(errors.BadRequestError):
 
 
 class InvalidShareNameParameters(typing_extensions.TypedDict):
-    """The share name is invalid. Share names cannot contain the following characters: \ / : * ? " < > |"""
+    """The share name is invalid. Share names cannot contain the following characters: \\ / : * ? " < > |"""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 

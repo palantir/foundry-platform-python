@@ -29,7 +29,7 @@ class AbortTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
 
 
@@ -45,7 +45,7 @@ class AddBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
+    viewDatasetRid: core_models.DatasetRid
     """The rid of the View."""
 
 
@@ -61,7 +61,7 @@ class AddPrimaryKeyPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
+    viewDatasetRid: core_models.DatasetRid
     """The rid of the View."""
 
 
@@ -77,8 +77,8 @@ class BranchAlreadyExistsParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -93,8 +93,8 @@ class BranchNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -109,7 +109,7 @@ class BuildTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
 
 
@@ -125,7 +125,7 @@ class ColumnTypesNotSupportedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -140,7 +140,7 @@ class CommitTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
 
 
@@ -156,8 +156,8 @@ class CreateBranchPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -188,8 +188,8 @@ class CreateTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: typing_extensions.NotRequired[datasets_models.BranchName]
+    datasetRid: core_models.DatasetRid
+    branchName: typing_extensions.NotRequired[core_models.BranchName]
 
 
 @dataclass
@@ -217,7 +217,7 @@ class DatasetNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -232,7 +232,7 @@ class DatasetReadNotSupportedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -251,8 +251,8 @@ class DatasetViewNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branch: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branch: core_models.BranchName
 
 
 @dataclass
@@ -267,8 +267,8 @@ class DeleteBranchPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -283,7 +283,7 @@ class DeleteFilePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     filePath: core_models.FilePath
 
 
@@ -299,8 +299,8 @@ class DeleteSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
     transactionId: typing_extensions.NotRequired[datasets_models.TransactionRid]
 
 
@@ -316,7 +316,7 @@ class FileAlreadyExistsParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
     path: core_models.FilePath
 
@@ -333,7 +333,7 @@ class FileNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     filePath: core_models.FilePath
 
 
@@ -349,8 +349,8 @@ class FileNotFoundOnBranchParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
     path: core_models.FilePath
 
 
@@ -366,7 +366,7 @@ class FileNotFoundOnTransactionRangeParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     startTransactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
     endTransactionRid: datasets_models.TransactionRid
     path: core_models.FilePath
@@ -384,8 +384,8 @@ class GetBranchTransactionHistoryPermissionDeniedParameters(typing_extensions.Ty
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -395,12 +395,27 @@ class GetBranchTransactionHistoryPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class GetDatasetHealthCheckReportsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getHealthCheckReports the Dataset."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: core_models.DatasetRid
+
+
+@dataclass
+class GetDatasetHealthCheckReportsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetDatasetHealthCheckReportsPermissionDenied"]
+    parameters: GetDatasetHealthCheckReportsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class GetDatasetHealthChecksPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getHealthChecks the Dataset."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -415,7 +430,7 @@ class GetDatasetJobsPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -430,7 +445,7 @@ class GetDatasetSchedulesPermissionDeniedParameters(typing_extensions.TypedDict)
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -445,7 +460,7 @@ class GetDatasetSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -460,7 +475,7 @@ class GetFileContentPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     filePath: core_models.FilePath
 
 
@@ -492,7 +507,7 @@ class InvalidBranchNameParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    branchName: datasets_models.BranchName
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -507,7 +522,7 @@ class InvalidTransactionTypeParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
     transactionType: datasets_models.TransactionType
 
@@ -572,7 +587,7 @@ class JobTransactionPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
 
 
@@ -604,8 +619,8 @@ class OpenTransactionAlreadyExistsParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -620,7 +635,7 @@ class PutDatasetSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -635,8 +650,8 @@ class PutSchemaPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
 
 
 @dataclass
@@ -651,7 +666,7 @@ class ReadTableDatasetPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -666,7 +681,7 @@ class ReadTableErrorParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     message: str
 
 
@@ -685,7 +700,7 @@ class ReadTableRowLimitExceededParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -700,7 +715,7 @@ class ReadTableTimeoutParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -715,7 +730,7 @@ class RemoveBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDic
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
+    viewDatasetRid: core_models.DatasetRid
     """The rid of the View."""
 
 
@@ -731,7 +746,7 @@ class ReplaceBackingDatasetsPermissionDeniedParameters(typing_extensions.TypedDi
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
+    viewDatasetRid: core_models.DatasetRid
     """The rid of the View."""
 
 
@@ -747,8 +762,8 @@ class SchemaNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
-    branchName: datasets_models.BranchName
+    datasetRid: core_models.DatasetRid
+    branchName: core_models.BranchName
     transactionRid: typing_extensions.NotRequired[datasets_models.TransactionRid]
 
 
@@ -764,7 +779,7 @@ class TransactionNotCommittedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
     transactionStatus: datasets_models.TransactionStatus
 
@@ -781,7 +796,7 @@ class TransactionNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
 
 
@@ -797,7 +812,7 @@ class TransactionNotOpenParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
     transactionStatus: datasets_models.TransactionStatus
 
@@ -814,7 +829,7 @@ class UploadFilePermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    datasetRid: datasets_models.DatasetRid
+    datasetRid: core_models.DatasetRid
     transactionRid: datasets_models.TransactionRid
     path: core_models.FilePath
 
@@ -831,7 +846,7 @@ class ViewDatasetCleanupFailedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
+    viewDatasetRid: core_models.DatasetRid
 
 
 @dataclass
@@ -849,8 +864,8 @@ class ViewNotFoundParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    viewDatasetRid: datasets_models.DatasetRid
-    branch: datasets_models.BranchName
+    viewDatasetRid: core_models.DatasetRid
+    branch: core_models.BranchName
 
 
 @dataclass
@@ -938,6 +953,7 @@ __all__ = [
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
     "GetBranchTransactionHistoryPermissionDenied",
+    "GetDatasetHealthCheckReportsPermissionDenied",
     "GetDatasetHealthChecksPermissionDenied",
     "GetDatasetJobsPermissionDenied",
     "GetDatasetSchedulesPermissionDenied",
