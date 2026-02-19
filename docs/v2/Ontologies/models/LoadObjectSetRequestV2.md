@@ -8,7 +8,7 @@ Represents the API POST body when loading an `ObjectSet`.
 **object_set** | ObjectSet | Yes |  |
 **order_by** | Optional[SearchOrderByV2] | No |  |
 **select** | List[SelectedPropertyApiName] | Yes |  |
-**select_v2** | Optional[List[PropertyIdentifier]] | No | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |
+**select_v2** | List[PropertyIdentifier] | Yes | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |
 **page_token** | Optional[PageToken] | No |  |
 **page_size** | Optional[PageSize] | No |  |
 **exclude_rid** | Optional[bool] | No | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  |

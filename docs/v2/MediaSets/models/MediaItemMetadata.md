@@ -16,6 +16,7 @@ ImageryMediaItemMetadata | imagery
 SpreadsheetMediaItemMetadata | spreadsheet
 UntypedMediaItemMetadata | untyped
 AudioMediaItemMetadata | audio
+Model3dMediaItemMetadata | model3d
 VideoMediaItemMetadata | video
 DicomMediaItemMetadata | dicom
 EmailMediaItemMetadata | email

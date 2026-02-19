@@ -241,6 +241,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -250,7 +251,6 @@ Name | Type | Description  | Notes |
 **page_token** | Optional[PageToken] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
-**select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
@@ -272,6 +272,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -290,8 +292,6 @@ page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmV
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
-# Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -303,6 +303,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -312,7 +313,6 @@ try:
         page_token=page_token,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
-        select_v2=select_v2,
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -454,6 +454,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
@@ -464,7 +465,6 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
-**select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
@@ -486,6 +486,8 @@ ontology = "palantir"
 object_set = {"type": "base", "objectType": "Employee"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the object set for multiple object types. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -506,8 +508,6 @@ preview = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
-# Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
@@ -519,6 +519,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         include_compute_usage=include_compute_usage,
@@ -529,7 +530,6 @@ try:
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
-        select_v2=select_v2,
         snapshot=snapshot,
         transaction_id=transaction_id,
     )
@@ -578,6 +578,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **object_set** | ObjectSet |  |  |
 **select** | List[SelectedPropertyApiName] |  |  |
+**select_v2** | List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **exclude_rid** | Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.  | [optional] |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
@@ -586,8 +587,8 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
-**select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **LoadObjectSetV2ObjectsOrInterfacesResponse**
@@ -607,6 +608,8 @@ ontology = "palantir"
 object_set = {"type": "interfaceBase", "interfaceType": "Person"}
 # List[SelectedPropertyApiName]
 select = None
+# List[PropertyIdentifier] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+select_v2 = None
 # Optional[FoundryBranch] | The Foundry branch to load the objects or interfaces from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
 # Optional[bool] | A flag to exclude the retrieval of the `$rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -623,10 +626,10 @@ preview = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
-# Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -634,6 +637,7 @@ try:
         ontology,
         object_set=object_set,
         select=select,
+        select_v2=select_v2,
         branch=branch,
         exclude_rid=exclude_rid,
         order_by=order_by,
@@ -642,8 +646,8 @@ try:
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
-        select_v2=select_v2,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     print("The load_objects_or_interfaces response:\n")
     pprint(api_response)

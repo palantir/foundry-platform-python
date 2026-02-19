@@ -62,6 +62,7 @@ class ActionClient:
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.SyncApplyActionResponseV2:
@@ -91,6 +92,8 @@ class ActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -105,6 +108,7 @@ class ActionClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -213,6 +217,7 @@ class ActionClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.SyncApplyActionResponseV2:
@@ -234,6 +239,8 @@ class ActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -248,6 +255,7 @@ class ActionClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -333,6 +341,7 @@ class AsyncActionClient:
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.SyncApplyActionResponseV2]:
@@ -362,6 +371,8 @@ class AsyncActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -376,6 +387,7 @@ class AsyncActionClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,
@@ -484,6 +496,7 @@ class AsyncActionClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.SyncApplyActionResponseV2]:
@@ -505,6 +518,8 @@ class AsyncActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -519,6 +534,7 @@ class AsyncActionClient:
                     "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
+                    "transactionId": transaction_id,
                 },
                 path_params={
                     "ontology": ontology,

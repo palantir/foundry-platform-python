@@ -20,6 +20,7 @@ from typing import Optional
 from fastapi import APIRouter
 from fastapi import FastAPI
 from fastapi import HTTPException
+from fastapi import Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from pydantic import Field

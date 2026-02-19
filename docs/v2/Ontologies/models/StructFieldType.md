@@ -8,6 +8,7 @@ StructFieldType
 **api_name** | StructFieldApiName | Yes |  |
 **rid** | StructFieldTypeRid | Yes |  |
 **data_type** | ObjectPropertyType | Yes |  |
+**type_classes** | List[TypeClass] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

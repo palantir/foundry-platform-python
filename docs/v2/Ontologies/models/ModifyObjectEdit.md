@@ -7,7 +7,7 @@ ModifyObjectEdit
 | ------------ | ------------- | ------------- | ------------- |
 **object_type** | ObjectTypeApiName | Yes |  |
 **primary_key** | PropertyValue | Yes |  |
-**properties** | Dict[PropertyApiName, DataValue] | Yes |  |
+**properties** | Dict[PropertyApiName, Optional[DataValue]] | Yes |  |
 **type** | Literal["modifyObject"] | Yes | None |
 
 

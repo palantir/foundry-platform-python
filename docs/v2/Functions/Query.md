@@ -153,6 +153,7 @@ Gets a specific query type with the given RID. By default, this gets the latest 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **rid** | FunctionRid |  |  |
+**include_prerelease** | Optional[bool] | When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **version** | Optional[FunctionVersion] |  | [optional] |
 
@@ -170,6 +171,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # FunctionRid
 rid = None
+# Optional[bool] | When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.
+include_prerelease = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[FunctionVersion]
@@ -177,7 +180,9 @@ version = None
 
 
 try:
-    api_response = client.functions.Query.get_by_rid(rid=rid, preview=preview, version=version)
+    api_response = client.functions.Query.get_by_rid(
+        rid=rid, include_prerelease=include_prerelease, preview=preview, version=version
+    )
     print("The get_by_rid response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

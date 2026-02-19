@@ -19,12 +19,17 @@ from datetime import timedelta
 from datetime import timezone
 from typing import Any
 from typing import Dict
+from typing import Generic
 from typing import List
 from typing import Literal
 from typing import Optional
+from typing import TypeVar
+from typing import Union
 
+import httpx
 import pydantic
 import pytest
+from typing_extensions import Annotated
 
 from foundry_sdk._core.api_client import BaseApiClient
 
@@ -110,8 +115,8 @@ def test_serialize_primitive_types():
     assert json.loads((client._serialize(3.14) or b"").decode()) == 3.14
 
     # Boolean
-    assert json.loads((client._serialize(True) or b"").decode())
-    assert not json.loads((client._serialize(False) or b"").decode())
+    assert json.loads((client._serialize(True) or b"").decode()) == True
+    assert json.loads((client._serialize(False) or b"").decode()) == False
 
     # Array of primitives
     assert json.loads((client._serialize([1, 2, 3]) or b"").decode()) == [1, 2, 3]

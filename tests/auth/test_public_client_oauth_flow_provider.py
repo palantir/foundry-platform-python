@@ -17,11 +17,13 @@ import httpx
 import pytest
 from expects import equal
 from expects import expect
+from expects import raise_error
 from mockito import mock
 from mockito import unstub
 from mockito import when
 
 from foundry_sdk._core.http_client import HttpClient
+from foundry_sdk._core.oauth_utils import OAuthUtils
 from foundry_sdk._core.oauth_utils import PublicClientOAuthFlowProvider
 
 

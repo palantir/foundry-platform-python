@@ -23,6 +23,7 @@ from mockito import when
 
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._core.oauth_utils import ConfidentialClientOAuthFlowProvider
+from foundry_sdk._core.oauth_utils import OAuthUtils
 
 
 @pytest.fixture(name="client", scope="module")

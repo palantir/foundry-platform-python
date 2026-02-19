@@ -81,6 +81,9 @@ class Build(core.ModelBase):
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
+    finished_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
+    """The time the build finished processing. Will be empty while the build is still running."""
+
     schedule_rid: typing.Optional[core_models.ScheduleRid] = pydantic.Field(alias=str("scheduleRid"), default=None)  # type: ignore[literal-required]
     """Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty."""
 

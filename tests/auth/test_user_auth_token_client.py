@@ -15,7 +15,7 @@
 
 import pytest
 
-from foundry_sdk._core.user_token_auth_client import UserTokenAuth
+from foundry_sdk import UserTokenAuth
 
 
 def test_invalid_token_raises_appropriate_error():

@@ -14,7 +14,9 @@
 
 
 import inspect
+import json
 import re
+import sys
 from types import ModuleType
 from typing import List
 from typing import Type
@@ -23,6 +25,7 @@ import pydantic
 import pytest
 
 from foundry_sdk import _errors
+from foundry_sdk._errors.palantir_rpc_exception import PalantirRPCException
 from foundry_sdk._errors.sdk_internal_error import PalantirException
 from foundry_sdk._errors.sdk_internal_error import SDKInternalError
 from foundry_sdk._errors.sdk_internal_error import handle_unexpected
@@ -54,8 +57,8 @@ def test_sdk_internal_error():
 This is an unexpected issue and should be reported. When filing an issue, make sure to copy the package information listed below.\n
 OS: \w+
 Python Version: \d+\.\d+\.\d+[^\n]+
-SDK Version: \d+\.\d+\.\d+([\.\-].+)?
-OpenAPI Document Version: \d+\.\d+\.\d+([\.\-].+)?
+SDK Version: \d+\.\d+\.\d+
+OpenAPI Document Version: \d+\.\d+\.\d+
 Pydantic Version: \d+\.\d+\.\d+
 Pydantic Core Version: \d+\.\d+\.\d+
 Httpx Version: \d+\.\d+\.\d+

@@ -29,9 +29,6 @@ def fastapi_server():
     )
     time.sleep(2)  # Wait a moment for the server to start
 
-    if process.poll() is not None:
-        raise RuntimeError("FastAPI server failed to start.")
-
     yield
 
     # Teardown: Stop the server

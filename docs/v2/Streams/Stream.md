@@ -4,8 +4,8 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams | Public Beta |
 [**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} | Public Beta |
-[**get_end_offsets**](#get_end_offsets) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets | Private Beta |
-[**get_records**](#get_records) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords | Private Beta |
+[**get_end_offsets**](#get_end_offsets) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets | Public Beta |
+[**get_records**](#get_records) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords | Public Beta |
 [**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord | Public Beta |
 [**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord | Public Beta |
 [**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords | Public Beta |
@@ -152,8 +152,8 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
-**view_rid** | ViewRid | The RID from the view to retrieve end offsets for. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **GetEndOffsetsResponse**
@@ -171,15 +171,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 dataset_rid = None
 # BranchName
 stream_branch_name = None
-# ViewRid | The RID from the view to retrieve end offsets for.
-view_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[ViewRid] | If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+view_rid = None
 
 
 try:
     api_response = client.streams.Dataset.Stream.get_end_offsets(
-        dataset_rid, stream_branch_name, view_rid=view_rid, preview=preview
+        dataset_rid, stream_branch_name, preview=preview, view_rid=view_rid
     )
     print("The get_end_offsets response:\n")
     pprint(api_response)
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes |
 **stream_branch_name** | BranchName |  |  |
 **limit** | int | The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.  |  |
 **partition_id** | PartitionId | The ID of the partition to retrieve records from. |  |
-**view_rid** | ViewRid | The Rid from the view to retrieve records from. |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **start_offset** | Optional[Long] | The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.  | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **GetRecordsResponse**
@@ -235,15 +235,15 @@ dataset_rid = None
 # BranchName
 stream_branch_name = None
 # int | The total number of records to be retrieved. The response may contain fewer records than requested depending on number of records in the partition and server-defined limits.
-limit = None
+limit = 100
 # PartitionId | The ID of the partition to retrieve records from.
 partition_id = None
-# ViewRid | The Rid from the view to retrieve records from.
-view_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[Long] | The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
 start_offset = None
+# Optional[ViewRid] | If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+view_rid = None
 
 
 try:
@@ -252,9 +252,9 @@ try:
         stream_branch_name,
         limit=limit,
         partition_id=partition_id,
-        view_rid=view_rid,
         preview=preview,
         start_offset=start_offset,
+        view_rid=view_rid,
     )
     print("The get_records response:\n")
     pprint(api_response)
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes |
 **stream_branch_name** | BranchName |  |  |
 **body** | bytes | The binary record to publish to the stream  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**view_rid** | Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
+**view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
 **None**
@@ -310,7 +310,7 @@ stream_branch_name = None
 body = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
-# Optional[ViewRid] | If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+# Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = None
 
 

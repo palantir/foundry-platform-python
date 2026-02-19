@@ -17,7 +17,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **category_id** | MarkingCategoryId |  |  |
 **initial_members** | List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.  |  |
-**initial_role_assignments** | List[MarkingRoleUpdate] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
+**initial_role_assignments** | List[MarkingRoleUpdate] | The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.  |  |
 **name** | MarkingName |  |  |
 **description** | Optional[str] |  | [optional] |
 
@@ -37,7 +37,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 category_id = "0950264e-01c8-4e83-81a9-1a6b7f77621a"
 # List[PrincipalId] | Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
 initial_members = ["f05f8da4-b84c-4fca-9c77-8af0b13d11de"]
-# List[MarkingRoleUpdate] | The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+# List[MarkingRoleUpdate] | The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
 initial_role_assignments = [
     {"role": "ADMINISTER", "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de"}
 ]

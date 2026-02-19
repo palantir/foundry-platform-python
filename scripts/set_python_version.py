@@ -4,7 +4,7 @@ gitversion = subprocess.check_output("git describe --tags --abbrev=0".split()).d
 
 print(f"Setting version to {gitversion}...")
 
-path = "foundry_sdk/_version.py"
+path = "foundry_sdk/_versions.py"
 
 with open(path, "r") as f:
     content = f.read()

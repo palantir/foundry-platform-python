@@ -6,7 +6,7 @@ AddObjectEdit
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **object_type** | ObjectTypeApiName | Yes |  |
-**properties** | Dict[PropertyApiName, DataValue] | Yes |  |
+**properties** | Dict[PropertyApiName, Optional[DataValue]] | Yes |  |
 **type** | Literal["addObject"] | Yes | None |
 
 

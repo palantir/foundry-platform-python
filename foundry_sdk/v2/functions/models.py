@@ -98,6 +98,14 @@ class GetByRidQueriesRequest(core.ModelBase):
 
     rid: FunctionRid
     version: typing.Optional[FunctionVersion] = None
+    include_prerelease: typing.Optional[bool] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
+    """
+    When no version is specified and this flag is set to true, the latest version resolution will consider
+    prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable
+    versions are considered when determining the latest version.
+
+    Defaults to false.
+    """
 
 
 class LengthConstraint(core.ModelBase):

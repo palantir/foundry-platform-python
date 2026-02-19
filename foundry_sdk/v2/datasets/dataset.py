@@ -333,7 +333,11 @@ class DatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[core_models.ScheduleRid]:
         """
-        Get the RIDs of the Schedules that target the given Dataset
+        Get the RIDs of the Schedules that target the given Dataset.
+
+        Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+        especially for schedules managed by Marketplace. This operation will return outdated results in the
+        meantime.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1164,7 +1168,11 @@ class AsyncDatasetClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[core_models.ScheduleRid]:
         """
-        Get the RIDs of the Schedules that target the given Dataset
+        Get the RIDs of the Schedules that target the given Dataset.
+
+        Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+        especially for schedules managed by Marketplace. This operation will return outdated results in the
+        meantime.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid

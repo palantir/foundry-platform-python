@@ -17,6 +17,7 @@ import decimal
 import json
 from datetime import date
 from datetime import datetime
+from datetime import timezone
 from typing import Any
 from typing import Dict
 from typing import Generic
@@ -37,6 +38,7 @@ from foundry_sdk._core.utils import RID
 from foundry_sdk._core.utils import UUID
 from foundry_sdk._core.utils import AwareDatetime
 from foundry_sdk._core.utils import Long
+from tests.server import FooBar
 
 
 # Simple BaseModel types for testing

@@ -30,6 +30,7 @@ Name | Type | Description  | Notes |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **SyncApplyActionResponseV2**
@@ -57,6 +58,8 @@ options = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -68,6 +71,7 @@ try:
         options=options,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     print("The apply response:\n")
     pprint(api_response)
@@ -190,6 +194,7 @@ Name | Type | Description  | Notes |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **SyncApplyActionResponseV2**
@@ -222,6 +227,8 @@ branch = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -233,6 +240,7 @@ try:
         branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        transaction_id=transaction_id,
     )
     print("The apply_with_overrides response:\n")
     pprint(api_response)
