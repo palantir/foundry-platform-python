@@ -18,18 +18,14 @@ from typing import Callable
 from typing import TypeVar
 from typing import Union
 
-import httpx
-
 from foundry_sdk._core.user_token_auth_client import Auth
 from foundry_sdk._core.user_token_auth_client import Token
 from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured
-from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
 T = TypeVar("T")
 
 
 class _PipelineToken(Token):
-
     def __init__(self, token: str) -> None:
         self._token = token
 

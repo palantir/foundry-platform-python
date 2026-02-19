@@ -60,7 +60,7 @@ class Config:
     backoff_slot_size_ms: Optional[int] = None
     """
     The size of one backoff time slot in milliseconds for call retries. For example,
-    an exponential backoff retry algorithm may choose a backoff time in [0, backoffSlotSize * 2^c] 
+    an exponential backoff retry algorithm may choose a backoff time in [0, backoffSlotSize * 2^c]
     for the c-th retry.
     If no value is provided, it defaults to 250 milliseconds.
     """

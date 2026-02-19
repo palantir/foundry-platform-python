@@ -19,13 +19,10 @@ from typing import Callable
 from typing import Optional
 from typing import TypeVar
 
-import httpx
-
 from foundry_sdk._core.config import Config
 
 
 class Token(ABC):
-
     @property
     @abstractmethod
     def access_token(self) -> str:

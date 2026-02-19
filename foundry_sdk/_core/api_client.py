@@ -83,7 +83,6 @@ from foundry_sdk._errors import UnauthorizedError
 from foundry_sdk._errors import UnprocessableEntityError
 from foundry_sdk._errors import WriteTimeout
 from foundry_sdk._errors import deserialize_error
-from foundry_sdk._versions import __version__
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 

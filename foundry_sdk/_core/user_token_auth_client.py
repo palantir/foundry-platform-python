@@ -13,23 +13,18 @@
 #  limitations under the License.
 
 
-import os
 from typing import Callable
 from typing import TypeVar
-
-import httpx
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.auth_utils import Token
 from foundry_sdk._core.utils import assert_non_empty_string
-from foundry_sdk._errors.environment_not_configured import EnvironmentNotConfigured
 from foundry_sdk._errors.not_authenticated import NotAuthenticated
 
 T = TypeVar("T")
 
 
 class _UserToken(Token):
-
     def __init__(self, token: str) -> None:
         self._token = token
 

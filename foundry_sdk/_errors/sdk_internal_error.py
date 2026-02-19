@@ -24,9 +24,8 @@ from httpx import __version__ as __httpx_version__
 from pydantic import __version__ as __pydantic__version__
 from pydantic_core import __version__ as __pydantic_core_version__
 
+from foundry_sdk import _version
 from foundry_sdk._errors.palantir_exception import PalantirException
-from foundry_sdk._versions import __openapi_document_version__
-from foundry_sdk._versions import __version__
 
 AnyCallableT = TypeVar("AnyCallableT", bound=Callable[..., Any])
 
@@ -55,6 +54,9 @@ class SDKInternalError(PalantirException):
     def __str__(self):
         message = self.msg
 
+        # Renderer doesn't include this variable at build time
+        openapi_version = getattr(_version, "__openapi_document_version__", "0.0.0-dev")
+
         sys_version = sys.version.replace("\n", " ")
         message += (
             "\n\nThis is an unexpected issue and should be reported. "
@@ -62,8 +64,8 @@ class SDKInternalError(PalantirException):
             "listed below.\n\n"
             f"OS: {sys.platform}\n"
             f"Python Version: {sys_version}\n"
-            f"SDK Version: {__version__}\n"
-            f"OpenAPI Document Version: {__openapi_document_version__}\n"
+            f"SDK Version: {_version.__version__}\n"
+            f"OpenAPI Document Version: {openapi_version}\n"
             f"Pydantic Version: {__pydantic__version__}\n"
             f"Pydantic Core Version: {__pydantic_core_version__}\n"
             f"Httpx Version: {__httpx_version__}\n"

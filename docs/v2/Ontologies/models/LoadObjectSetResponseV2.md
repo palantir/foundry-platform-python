@@ -9,7 +9,7 @@ Represents the API response when loading an `ObjectSet`.
 **next_page_token** | Optional[PageToken] | No |  |
 **total_count** | TotalCount | Yes |  |
 **compute_usage** | Optional[ComputeSeconds] | No |  |
-**property_securities** | List[PropertySecurities] | Yes |  |
+**property_securities** | Optional[List[PropertySecurities]] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)
