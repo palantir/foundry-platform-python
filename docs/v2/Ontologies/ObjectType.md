@@ -3,7 +3,8 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} | Stable |
-[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Private Beta |
+[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Private Beta |
+[**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
 [**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes | Stable |
@@ -59,6 +60,94 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ObjectTypeV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_edits_history**
+Returns the history of edits (additions, modifications, deletions) for objects of a
+specific object type. This endpoint provides visibility into all actions that have
+modified objects of this type.
+
+The edits are returned in reverse chronological order (most recent first) by default. 
+
+Note that filters are ignored for OSv1 object types.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier | The ontology RID or API name |  |
+**object_type** | ObjectTypeApiName | The API name of the object type |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**filters** | Optional[EditsHistoryFilter] |  | [optional] |
+**include_all_previous_properties** | Optional[bool] |  | [optional] |
+**object_primary_key** | Optional[ObjectPrimaryKeyV2] |  | [optional] |
+**page_size** | Optional[int] | The maximum number of edits to return per page. Defaults to 100. | [optional] |
+**page_token** | Optional[str] | Token for retrieving the next page of results | [optional] |
+**sort_order** | Optional[EditsHistorySortOrder] |  | [optional] |
+
+### Return type
+**ObjectTypeEditsHistoryResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier | The ontology RID or API name
+ontology = "palantir"
+# ObjectTypeApiName | The API name of the object type
+object_type = "Employee"
+# Optional[FoundryBranch] | The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[EditsHistoryFilter]
+filters = None
+# Optional[bool]
+include_all_previous_properties = None
+# Optional[ObjectPrimaryKeyV2]
+object_primary_key = None
+# Optional[int] | The maximum number of edits to return per page. Defaults to 100.
+page_size = None
+# Optional[str] | Token for retrieving the next page of results
+page_token = None
+# Optional[EditsHistorySortOrder]
+sort_order = None
+
+
+try:
+    api_response = client.ontologies.Ontology.ObjectType.get_edits_history(
+        ontology,
+        object_type,
+        branch=branch,
+        filters=filters,
+        include_all_previous_properties=include_all_previous_properties,
+        object_primary_key=object_primary_key,
+        page_size=page_size,
+        page_token=page_token,
+        sort_order=sort_order,
+    )
+    print("The get_edits_history response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling ObjectType.get_edits_history: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ObjectTypeEditsHistoryResponse  | Success response | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

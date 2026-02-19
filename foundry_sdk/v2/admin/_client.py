@@ -79,6 +79,18 @@ class AdminClient:
         )
 
     @cached_property
+    def Permissions(self):
+        from foundry_sdk.v2.admin.marking_category_permissions import (
+            MarkingCategoryPermissionsClient,
+        )  # NOQA
+
+        return MarkingCategoryPermissionsClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Organization(self):
         from foundry_sdk.v2.admin.organization import OrganizationClient
 
@@ -128,6 +140,9 @@ class AsyncAdminClient:
         from foundry_sdk.v2.admin.group import AsyncGroupClient
         from foundry_sdk.v2.admin.marking import AsyncMarkingClient
         from foundry_sdk.v2.admin.marking_category import AsyncMarkingCategoryClient
+        from foundry_sdk.v2.admin.marking_category_permissions import (
+            AsyncMarkingCategoryPermissionsClient,
+        )  # NOQA
         from foundry_sdk.v2.admin.organization import AsyncOrganizationClient
         from foundry_sdk.v2.admin.role import AsyncRoleClient
         from foundry_sdk.v2.admin.user import AsyncUserClient
@@ -139,6 +154,10 @@ class AsyncAdminClient:
         self.Marking = AsyncMarkingClient(auth=auth, hostname=hostname, config=config)
 
         self.MarkingCategory = AsyncMarkingCategoryClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.Permissions = AsyncMarkingCategoryPermissionsClient(
             auth=auth, hostname=hostname, config=config
         )
 

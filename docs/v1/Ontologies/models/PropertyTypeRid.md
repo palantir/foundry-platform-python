@@ -1,6 +1,6 @@
 # PropertyTypeRid
 
-PropertyTypeRid
+The unique resource identifier of a property.
 
 ## Type
 ```python

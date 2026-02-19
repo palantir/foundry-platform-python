@@ -15,6 +15,7 @@ Build
 **retry_backoff_duration** | RetryBackoffDuration | Yes |  |
 **abort_on_failure** | AbortOnFailure | Yes |  |
 **status** | BuildStatus | Yes |  |
+**finished_time** | Optional[datetime] | No | The time the build finished processing. Will be empty while the build is still running. |
 **schedule_rid** | Optional[ScheduleRid] | No | Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty. |
 
 

@@ -38,6 +38,22 @@ class CondaSolveFailureForProvidedPackages(errors.BadRequestError):
     error_instance_id: str
 
 
+class CreateConfigValidationErrorParameters(typing_extensions.TypedDict):
+    """The provided configuration is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    studioRid: models_models.ModelStudioRid
+    validationFailures: str
+
+
+@dataclass
+class CreateConfigValidationError(errors.BadRequestError):
+    name: typing.Literal["CreateConfigValidationError"]
+    parameters: CreateConfigValidationErrorParameters
+    error_instance_id: str
+
+
 class CreateModelPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Model."""
 
@@ -48,6 +64,34 @@ class CreateModelPermissionDeniedParameters(typing_extensions.TypedDict):
 class CreateModelPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["CreateModelPermissionDenied"]
     parameters: CreateModelPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CreateModelStudioConfigVersionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the ModelStudioConfigVersion."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelStudioRid: models_models.ModelStudioRid
+
+
+@dataclass
+class CreateModelStudioConfigVersionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateModelStudioConfigVersionPermissionDenied"]
+    parameters: CreateModelStudioConfigVersionPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CreateModelStudioPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Permission denied to create a Model Studio."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateModelStudioPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateModelStudioPermissionDenied"]
+    parameters: CreateModelStudioPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -82,6 +126,49 @@ class InvalidModelApi(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidModelStudioCreateRequestParameters(typing_extensions.TypedDict):
+    """The request to create a Model Studio contains invalid arguments."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class InvalidModelStudioCreateRequest(errors.BadRequestError):
+    name: typing.Literal["InvalidModelStudioCreateRequest"]
+    parameters: InvalidModelStudioCreateRequestParameters
+    error_instance_id: str
+
+
+class LatestModelStudioConfigVersionsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not latest the ModelStudioConfigVersion."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelStudioRid: models_models.ModelStudioRid
+
+
+@dataclass
+class LatestModelStudioConfigVersionsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["LatestModelStudioConfigVersionsPermissionDenied"]
+    parameters: LatestModelStudioConfigVersionsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class LaunchModelStudioPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Permission denied to launch a Model Studio run."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    studioRid: models_models.ModelStudioRid
+
+
+@dataclass
+class LaunchModelStudioPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["LaunchModelStudioPermissionDenied"]
+    parameters: LaunchModelStudioPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ModelNotFoundParameters(typing_extensions.TypedDict):
     """The given Model could not be found."""
 
@@ -94,6 +181,52 @@ class ModelNotFoundParameters(typing_extensions.TypedDict):
 class ModelNotFound(errors.NotFoundError):
     name: typing.Literal["ModelNotFound"]
     parameters: ModelNotFoundParameters
+    error_instance_id: str
+
+
+class ModelStudioConfigVersionNotFoundParameters(typing_extensions.TypedDict):
+    """The requested Model Studio configuration version was not found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    studioRid: models_models.ModelStudioRid
+    configVersion: models_models.ModelStudioConfigVersionNumber
+
+
+@dataclass
+class ModelStudioConfigVersionNotFound(errors.NotFoundError):
+    name: typing.Literal["ModelStudioConfigVersionNotFound"]
+    parameters: ModelStudioConfigVersionNotFoundParameters
+    error_instance_id: str
+
+
+class ModelStudioNotFoundParameters(typing_extensions.TypedDict):
+    """The requested Model Studio was not found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    studioRid: models_models.ModelStudioRid
+
+
+@dataclass
+class ModelStudioNotFound(errors.NotFoundError):
+    name: typing.Literal["ModelStudioNotFound"]
+    parameters: ModelStudioNotFoundParameters
+    error_instance_id: str
+
+
+class ModelStudioTrainerNotFoundParameters(typing_extensions.TypedDict):
+    """The given ModelStudioTrainer could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelStudioTrainerTrainerId: models_models.TrainerId
+
+
+@dataclass
+class ModelStudioTrainerNotFound(errors.NotFoundError):
+    name: typing.Literal["ModelStudioTrainerNotFound"]
+    parameters: ModelStudioTrainerNotFoundParameters
     error_instance_id: str
 
 
@@ -113,11 +246,36 @@ class ModelVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class TrainerNotFoundParameters(typing_extensions.TypedDict):
+    """The specified trainer does not exist."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    trainerId: str
+
+
+@dataclass
+class TrainerNotFound(errors.NotFoundError):
+    name: typing.Literal["TrainerNotFound"]
+    parameters: TrainerNotFoundParameters
+    error_instance_id: str
+
+
 __all__ = [
     "CondaSolveFailureForProvidedPackages",
+    "CreateConfigValidationError",
     "CreateModelPermissionDenied",
+    "CreateModelStudioConfigVersionPermissionDenied",
+    "CreateModelStudioPermissionDenied",
     "CreateModelVersionPermissionDenied",
     "InvalidModelApi",
+    "InvalidModelStudioCreateRequest",
+    "LatestModelStudioConfigVersionsPermissionDenied",
+    "LaunchModelStudioPermissionDenied",
     "ModelNotFound",
+    "ModelStudioConfigVersionNotFound",
+    "ModelStudioNotFound",
+    "ModelStudioTrainerNotFound",
     "ModelVersionNotFound",
+    "TrainerNotFound",
 ]

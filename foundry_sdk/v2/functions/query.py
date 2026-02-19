@@ -191,6 +191,7 @@ class QueryClient:
         self,
         *,
         rid: functions_models.FunctionRid,
+        include_prerelease: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -201,6 +202,8 @@ class QueryClient:
 
         :param rid:
         :type rid: FunctionRid
+        :param include_prerelease: When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.
+        :type include_prerelease: Optional[bool]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -228,6 +231,7 @@ class QueryClient:
                 body=functions_models.GetByRidQueriesRequest(
                     rid=rid,
                     version=version,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,
@@ -537,6 +541,7 @@ class AsyncQueryClient:
         self,
         *,
         rid: functions_models.FunctionRid,
+        include_prerelease: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -547,6 +552,8 @@ class AsyncQueryClient:
 
         :param rid:
         :type rid: FunctionRid
+        :param include_prerelease: When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.
+        :type include_prerelease: Optional[bool]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -574,6 +581,7 @@ class AsyncQueryClient:
                 body=functions_models.GetByRidQueriesRequest(
                     rid=rid,
                     version=version,
+                    include_prerelease=include_prerelease,
                 ),
                 response_type=functions_models.Query,
                 request_timeout=request_timeout,

@@ -316,6 +316,21 @@ class MissingPostBody(errors.BadRequestError):
     error_instance_id: str
 
 
+class NotAuthorizedToDeclassifyMarkingsParameters(typing_extensions.TypedDict):
+    """The caller does not have DECLASSIFY permission on these markings or the markings do not exist."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    markingIds: typing.List[core_models.MarkingId]
+
+
+@dataclass
+class NotAuthorizedToDeclassifyMarkings(errors.PermissionDeniedError):
+    name: typing.Literal["NotAuthorizedToDeclassifyMarkings"]
+    parameters: NotAuthorizedToDeclassifyMarkingsParameters
+    error_instance_id: str
+
+
 class ResourceNameAlreadyExistsParameters(typing_extensions.TypedDict):
     """The provided resource name is already in use by another resource in the same folder."""
 
@@ -381,6 +396,7 @@ __all__ = [
     "InvalidTimeZone",
     "MissingBatchRequest",
     "MissingPostBody",
+    "NotAuthorizedToDeclassifyMarkings",
     "ResourceNameAlreadyExists",
     "SchemaIsNotStreamSchema",
     "UnknownDistanceUnit",
