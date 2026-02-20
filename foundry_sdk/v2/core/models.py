@@ -1,12 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +11,16 @@ from foundry_sdk import _core as core
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
 
 
 class AnyType(core.ModelBase):
@@ -924,64 +925,11 @@ UpdatedBy = UserId
 """The Foundry user who last updated this resource"""
 
 
-AnyType.model_rebuild()
-ArrayFieldType.model_rebuild()
-AttachmentType.model_rebuild()
-BinaryType.model_rebuild()
-BooleanType.model_rebuild()
-BranchMetadata.model_rebuild()
-ByteType.model_rebuild()
-CipherTextType.model_rebuild()
-DatasetFieldSchema.model_rebuild()
-DatasetSchema.model_rebuild()
-DateType.model_rebuild()
-DecimalType.model_rebuild()
-Distance.model_rebuild()
-DoubleType.model_rebuild()
-Duration.model_rebuild()
-Field.model_rebuild()
-FieldSchema.model_rebuild()
-FilterBinaryType.model_rebuild()
-FilterBooleanType.model_rebuild()
-FilterDateTimeType.model_rebuild()
-FilterDateType.model_rebuild()
-FilterDoubleType.model_rebuild()
-FilterEnumType.model_rebuild()
-FilterFloatType.model_rebuild()
-FilterIntegerType.model_rebuild()
-FilterLongType.model_rebuild()
-FilterRidType.model_rebuild()
-FilterStringType.model_rebuild()
-FilterUuidType.model_rebuild()
-FloatType.model_rebuild()
-FoundryLiveDeployment.model_rebuild()
-FullRowChangeDataCaptureConfiguration.model_rebuild()
-GeoPointType.model_rebuild()
-GeoShapeType.model_rebuild()
-GeohashType.model_rebuild()
-GeotimeSeriesReferenceType.model_rebuild()
-IntegerType.model_rebuild()
-LmsEmbeddingModel.model_rebuild()
-LongType.model_rebuild()
-MapFieldType.model_rebuild()
-MarkingType.model_rebuild()
-MediaReference.model_rebuild()
-MediaReferenceType.model_rebuild()
-MediaSetViewItem.model_rebuild()
-MediaSetViewItemWrapper.model_rebuild()
-NullType.model_rebuild()
-NumericOrNonNumericType.model_rebuild()
-Role.model_rebuild()
-RoleAssignmentUpdate.model_rebuild()
-ShortType.model_rebuild()
-StreamSchema.model_rebuild()
-StringType.model_rebuild()
-StructFieldType.model_rebuild()
-TimeseriesType.model_rebuild()
-TimestampType.model_rebuild()
-UnsupportedType.model_rebuild()
-VectorSimilarityFunction.model_rebuild()
-VectorType.model_rebuild()
+core.resolve_forward_references(CustomMetadata, globalns=globals(), localns=locals())
+core.resolve_forward_references(EmbeddingModel, globalns=globals(), localns=locals())
+core.resolve_forward_references(FieldDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(FilterType, globalns=globals(), localns=locals())
+core.resolve_forward_references(TimeSeriesItemType, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnyType",

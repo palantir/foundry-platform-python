@@ -1,14 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +12,17 @@ from foundry_sdk.v2.filesystem import models as filesystem_models
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
 
 ColumnTypeSpecId = str
 """An identifier for a column type specification."""
@@ -487,34 +487,9 @@ ModelStudioRunOutput = ModelStudioRunModelOutput
 """Resolved output details for a Model Studio run."""
 
 
-CreateModelRequest.model_rebuild()
-CreateModelStudioConfigVersionRequest.model_rebuild()
-CreateModelStudioRequest.model_rebuild()
-CreateModelVersionRequest.model_rebuild()
-DatasetInput.model_rebuild()
-DillModelFiles.model_rebuild()
-ListModelStudioConfigVersionsResponse.model_rebuild()
-ListModelStudioRunsResponse.model_rebuild()
-ListModelStudioTrainersResponse.model_rebuild()
-ListModelVersionsResponse.model_rebuild()
-Model.model_rebuild()
-ModelApi.model_rebuild()
-ModelApiAnyType.model_rebuild()
-ModelApiArrayType.model_rebuild()
-ModelApiColumn.model_rebuild()
-ModelApiMapType.model_rebuild()
-ModelApiParameterType.model_rebuild()
-ModelApiTabularType.model_rebuild()
-ModelOutput.model_rebuild()
-ModelStudio.model_rebuild()
-ModelStudioConfigVersion.model_rebuild()
-ModelStudioRun.model_rebuild()
-ModelStudioRunModelOutput.model_rebuild()
-ModelStudioTrainer.model_rebuild()
-ModelStudioWorkerConfig.model_rebuild()
-ModelVersion.model_rebuild()
-ResourceConfiguration.model_rebuild()
-TrainerVersionLocator.model_rebuild()
+core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
+core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
 
 __all__ = [
     "ColumnTypeSpecId",

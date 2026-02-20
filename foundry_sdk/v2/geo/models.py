@@ -1,13 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import annotated_types
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +12,16 @@ from foundry_sdk import _core as core
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import typing
+
+import annotated_types
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
 
 BBox = typing.List["Coordinate"]
 """
@@ -199,15 +199,11 @@ FeatureCollectionTypes = Feature
 """FeatureCollectionTypes"""
 
 
-Feature.model_rebuild()
-FeatureCollection.model_rebuild()
-GeoPoint.model_rebuild()
-GeometryCollection.model_rebuild()
-LineString.model_rebuild()
-MultiLineString.model_rebuild()
-MultiPoint.model_rebuild()
-MultiPolygon.model_rebuild()
-Polygon.model_rebuild()
+core.resolve_forward_references(BBox, globalns=globals(), localns=locals())
+core.resolve_forward_references(Geometry, globalns=globals(), localns=locals())
+core.resolve_forward_references(LineStringCoordinates, globalns=globals(), localns=locals())
+core.resolve_forward_references(LinearRing, globalns=globals(), localns=locals())
+core.resolve_forward_references(Position, globalns=globals(), localns=locals())
 
 __all__ = [
     "BBox",

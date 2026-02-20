@@ -1,15 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.functions import models as functions_models
-from foundry_sdk.v2.ontologies import models as ontologies_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +11,19 @@ from foundry_sdk.v2.ontologies import models as ontologies_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.functions import models as functions_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class Agent(core.ModelBase):
@@ -650,47 +651,13 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-Agent.model_rebuild()
-AgentMetadata.model_rebuild()
-AgentSessionRagContextResponse.model_rebuild()
-AgentVersion.model_rebuild()
-AgentVersionDetails.model_rebuild()
-AgentsSessionsPage.model_rebuild()
-BlockingContinueSessionRequest.model_rebuild()
-CancelSessionRequest.model_rebuild()
-CancelSessionResponse.model_rebuild()
-Content.model_rebuild()
-CreateSessionRequest.model_rebuild()
-FailureToolCallOutput.model_rebuild()
-FunctionRetrievedContext.model_rebuild()
-GetRagContextForSessionRequest.model_rebuild()
-ListAgentVersionsResponse.model_rebuild()
-ListSessionsResponse.model_rebuild()
-ObjectContext.model_rebuild()
-ObjectSetParameter.model_rebuild()
-ObjectSetParameterValue.model_rebuild()
-ObjectSetParameterValueUpdate.model_rebuild()
-Parameter.model_rebuild()
-RidToolInputValue.model_rebuild()
-RidToolOutputValue.model_rebuild()
-Session.model_rebuild()
-SessionExchange.model_rebuild()
-SessionExchangeContexts.model_rebuild()
-SessionExchangeResult.model_rebuild()
-SessionMetadata.model_rebuild()
-SessionTrace.model_rebuild()
-StreamingContinueSessionRequest.model_rebuild()
-StringParameter.model_rebuild()
-StringParameterValue.model_rebuild()
-StringToolInputValue.model_rebuild()
-StringToolOutputValue.model_rebuild()
-SuccessToolCallOutput.model_rebuild()
-ToolCall.model_rebuild()
-ToolCallGroup.model_rebuild()
-ToolCallInput.model_rebuild()
-ToolMetadata.model_rebuild()
-UpdateSessionTitleRequest.model_rebuild()
-UserTextInput.model_rebuild()
+core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())
+core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())
 
 __all__ = [
     "Agent",

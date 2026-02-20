@@ -1,13 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +11,17 @@ from foundry_sdk.v2.core import models as core_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
 
 
 class AffineTransform(core.ModelBase):
@@ -749,6 +750,7 @@ class GetMediaItemInfoResponse(core.ModelBase):
     path: typing.Optional[core_models.MediaItemPath] = None
     logical_timestamp: LogicalTimestamp = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
     attribution: typing.Optional[MediaAttribution] = None
+    originally_uploaded_file_mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("originallyUploadedFileMimeType"), default=None)  # type: ignore[literal-required]
 
 
 class GetMediaItemRidByPathResponse(core.ModelBase):
@@ -2206,136 +2208,27 @@ VideoToTextOperation = GetTimestampsForSceneFramesOperation
 """The operation to perform for video to text conversion."""
 
 
-AffineTransform.model_rebuild()
-AnnotateImageOperation.model_rebuild()
-Annotation.model_rebuild()
-AudioChannelOperation.model_rebuild()
-AudioChunkOperation.model_rebuild()
-AudioMediaItemMetadata.model_rebuild()
-AudioSpecification.model_rebuild()
-AudioToTextTransformation.model_rebuild()
-AudioTransformation.model_rebuild()
-BandInfo.model_rebuild()
-BoundingBox.model_rebuild()
-BoundingBoxGeometry.model_rebuild()
-Color.model_rebuild()
-CommonDicomDataElements.model_rebuild()
-ContrastBinarize.model_rebuild()
-ContrastEqualize.model_rebuild()
-ContrastImageOperation.model_rebuild()
-ContrastRayleigh.model_rebuild()
-ConvertAudioOperation.model_rebuild()
-ConvertDocumentOperation.model_rebuild()
-ConvertSheetToJsonOperation.model_rebuild()
-CoordinateReferenceSystem.model_rebuild()
-CreatePdfOperation.model_rebuild()
-CropImageOperation.model_rebuild()
-DecryptImageOperation.model_rebuild()
-DicomMediaItemMetadata.model_rebuild()
-DicomMetaInformationV1.model_rebuild()
-DicomToImageTransformation.model_rebuild()
-Dimensions.model_rebuild()
-DocumentExtractLayoutAwareContentOperation.model_rebuild()
-DocumentMediaItemMetadata.model_rebuild()
-DocumentToDocumentTransformation.model_rebuild()
-DocumentToImageTransformation.model_rebuild()
-DocumentToTextTransformation.model_rebuild()
-EmailAttachment.model_rebuild()
-EmailMediaItemMetadata.model_rebuild()
-EmailToAttachmentTransformation.model_rebuild()
-EmailToTextTransformation.model_rebuild()
-EncryptImageOperation.model_rebuild()
-ExtractAllTextOperation.model_rebuild()
-ExtractAudioOperation.model_rebuild()
-ExtractFirstFrameOperation.model_rebuild()
-ExtractFormFieldsOperation.model_rebuild()
-ExtractFramesAtTimestampsOperation.model_rebuild()
-ExtractSceneFramesOperation.model_rebuild()
-ExtractTableOfContentsOperation.model_rebuild()
-ExtractTextFromPagesToArrayOperation.model_rebuild()
-ExtractUnstructuredTextFromPageOperation.model_rebuild()
-GcpList.model_rebuild()
-GenerateEmbeddingOperation.model_rebuild()
-GeoMetadata.model_rebuild()
-GetEmailAttachmentOperation.model_rebuild()
-GetEmailBodyOperation.model_rebuild()
-GetMediaItemInfoResponse.model_rebuild()
-GetMediaItemRidByPathResponse.model_rebuild()
-GetPdfPageDimensionsOperation.model_rebuild()
-GetTimestampsForSceneFramesOperation.model_rebuild()
-GetTransformationJobStatusResponse.model_rebuild()
-GpsMetadata.model_rebuild()
-GrayscaleImageOperation.model_rebuild()
-GroundControlPoint.model_rebuild()
-Group.model_rebuild()
-GroupWrapper.model_rebuild()
-ImageExtractLayoutAwareContentOperation.model_rebuild()
-ImageOcrOperation.model_rebuild()
-ImagePixelCoordinate.model_rebuild()
-ImageToDocumentTransformation.model_rebuild()
-ImageToEmbeddingTransformation.model_rebuild()
-ImageToTextTransformation.model_rebuild()
-ImageTransformation.model_rebuild()
-ImageryMediaItemMetadata.model_rebuild()
-JpgFormat.model_rebuild()
-LayoutAwareExtractionParameters.model_rebuild()
-Mailbox.model_rebuild()
-MailboxWrapper.model_rebuild()
-MediaAttribution.model_rebuild()
-MkvVideoContainerFormat.model_rebuild()
-Model3dMediaItemMetadata.model_rebuild()
-MovVideoContainerFormat.model_rebuild()
-Mp3Format.model_rebuild()
-Mp4VideoContainerFormat.model_rebuild()
-NumberOfChannels.model_rebuild()
-OcrHocrOutputFormat.model_rebuild()
-OcrLanguageWrapper.model_rebuild()
-OcrOnPageOperation.model_rebuild()
-OcrOnPagesOperation.model_rebuild()
-OcrParameters.model_rebuild()
-OcrScriptWrapper.model_rebuild()
-OcrTextOutputFormat.model_rebuild()
-Orientation.model_rebuild()
-PdfFormat.model_rebuild()
-PlainTextNoSegmentData.model_rebuild()
-PngFormat.model_rebuild()
-Pttml.model_rebuild()
-PutMediaItemResponse.model_rebuild()
-RenderImageLayerOperation.model_rebuild()
-RenderPageOperation.model_rebuild()
-RenderPageToFitBoundingBoxOperation.model_rebuild()
-ResizeImageOperation.model_rebuild()
-ResizeToFitBoundingBoxOperation.model_rebuild()
-RotateImageOperation.model_rebuild()
-SlicePdfRangeOperation.model_rebuild()
-SpreadsheetMediaItemMetadata.model_rebuild()
-SpreadsheetToTextTransformation.model_rebuild()
-TarFormat.model_rebuild()
-TiffFormat.model_rebuild()
-TileImageOperation.model_rebuild()
-TrackedTransformationFailedResponse.model_rebuild()
-TrackedTransformationPendingResponse.model_rebuild()
-TrackedTransformationSuccessfulResponse.model_rebuild()
-TranscodeOperation.model_rebuild()
-TranscribeJson.model_rebuild()
-TranscribeOperation.model_rebuild()
-TransformMediaItemRequest.model_rebuild()
-TransformMediaItemResponse.model_rebuild()
-TsAudioContainerFormat.model_rebuild()
-TsVideoContainerFormat.model_rebuild()
-UnitInterpretation.model_rebuild()
-UntypedMediaItemMetadata.model_rebuild()
-VideoChunkOperation.model_rebuild()
-VideoMediaItemMetadata.model_rebuild()
-VideoSpecification.model_rebuild()
-VideoToArchiveTransformation.model_rebuild()
-VideoToAudioTransformation.model_rebuild()
-VideoToImageTransformation.model_rebuild()
-VideoToTextTransformation.model_rebuild()
-VideoTransformation.model_rebuild()
-WavEncodeFormat.model_rebuild()
-WaveformOperation.model_rebuild()
-WebpFormat.model_rebuild()
+core.resolve_forward_references(AudioEncodeFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(AudioOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(AudioToTextOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(ContrastType, globalns=globals(), localns=locals())
+core.resolve_forward_references(DocumentToDocumentOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(DocumentToImageOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(DocumentToTextOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(ImageOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(ImageRegionPolygon, globalns=globals(), localns=locals())
+core.resolve_forward_references(ImageToTextOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(ImageryEncodeFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(MailboxOrGroup, globalns=globals(), localns=locals())
+core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=locals())
+core.resolve_forward_references(OcrLanguageOrScript, globalns=globals(), localns=locals())
+core.resolve_forward_references(OcrOutputFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(TranscribeTextEncodeFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(Transformation, globalns=globals(), localns=locals())
+core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
+core.resolve_forward_references(VideoOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(VideoToImageOperation, globalns=globals(), localns=locals())
 
 __all__ = [
     "AffineTransform",

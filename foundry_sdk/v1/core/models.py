@@ -1,11 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-
-from foundry_sdk import _core as core
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +11,15 @@ from foundry_sdk import _core as core
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+
+from foundry_sdk import _core as core
 
 
 class AnyType(core.ModelBase):
@@ -247,25 +248,6 @@ UnsupportedTypeParamKey = str
 UnsupportedTypeParamValue = str
 """UnsupportedTypeParamValue"""
 
-
-AnyType.model_rebuild()
-AttachmentType.model_rebuild()
-BinaryType.model_rebuild()
-BooleanType.model_rebuild()
-ByteType.model_rebuild()
-CipherTextType.model_rebuild()
-DateType.model_rebuild()
-DecimalType.model_rebuild()
-DoubleType.model_rebuild()
-FloatType.model_rebuild()
-IntegerType.model_rebuild()
-LongType.model_rebuild()
-MarkingType.model_rebuild()
-NullType.model_rebuild()
-ShortType.model_rebuild()
-StringType.model_rebuild()
-TimestampType.model_rebuild()
-UnsupportedType.model_rebuild()
 
 __all__ = [
     "AnyType",

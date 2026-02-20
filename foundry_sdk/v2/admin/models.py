@@ -1,13 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +11,17 @@ from foundry_sdk.v2.core import models as core_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
 
 
 class AddEnrollmentRoleAssignmentsRequest(core.ModelBase):
@@ -672,6 +673,13 @@ class ReplaceGroupProviderInfoRequest(core.ModelBase):
     """
 
 
+class ReplaceMarkingCategoryRequest(core.ModelBase):
+    """ReplaceMarkingCategoryRequest"""
+
+    name: MarkingCategoryName
+    description: MarkingCategoryDescription
+
+
 class ReplaceMarkingRequest(core.ModelBase):
     """ReplaceMarkingRequest"""
 
@@ -833,80 +841,8 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-AddEnrollmentRoleAssignmentsRequest.model_rebuild()
-AddGroupMembersRequest.model_rebuild()
-AddMarkingMembersRequest.model_rebuild()
-AddMarkingRoleAssignmentsRequest.model_rebuild()
-AddOrganizationRoleAssignmentsRequest.model_rebuild()
-AuthenticationProvider.model_rebuild()
-CertificateInfo.model_rebuild()
-CreateGroupRequest.model_rebuild()
-CreateMarkingCategoryRequest.model_rebuild()
-CreateMarkingRequest.model_rebuild()
-CreateOrganizationRequest.model_rebuild()
-Enrollment.model_rebuild()
-EnrollmentRoleAssignment.model_rebuild()
-GetGroupsBatchRequestElement.model_rebuild()
-GetGroupsBatchResponse.model_rebuild()
-GetMarkingsBatchRequestElement.model_rebuild()
-GetMarkingsBatchResponse.model_rebuild()
-GetRolesBatchRequestElement.model_rebuild()
-GetRolesBatchResponse.model_rebuild()
-GetUserMarkingsResponse.model_rebuild()
-GetUsersBatchRequestElement.model_rebuild()
-GetUsersBatchResponse.model_rebuild()
-Group.model_rebuild()
-GroupMember.model_rebuild()
-GroupMembership.model_rebuild()
-GroupMembershipExpirationPolicy.model_rebuild()
-GroupProviderInfo.model_rebuild()
-GroupSearchFilter.model_rebuild()
-Host.model_rebuild()
-ListAuthenticationProvidersResponse.model_rebuild()
-ListAvailableOrganizationRolesResponse.model_rebuild()
-ListEnrollmentRoleAssignmentsResponse.model_rebuild()
-ListGroupMembersResponse.model_rebuild()
-ListGroupMembershipsResponse.model_rebuild()
-ListGroupsResponse.model_rebuild()
-ListHostsResponse.model_rebuild()
-ListMarkingCategoriesResponse.model_rebuild()
-ListMarkingMembersResponse.model_rebuild()
-ListMarkingRoleAssignmentsResponse.model_rebuild()
-ListMarkingsResponse.model_rebuild()
-ListOrganizationRoleAssignmentsResponse.model_rebuild()
-ListUsersResponse.model_rebuild()
-Marking.model_rebuild()
-MarkingCategory.model_rebuild()
-MarkingCategoryPermissions.model_rebuild()
-MarkingCategoryRoleAssignment.model_rebuild()
-MarkingMember.model_rebuild()
-MarkingRoleAssignment.model_rebuild()
-MarkingRoleUpdate.model_rebuild()
-OidcAuthenticationProtocol.model_rebuild()
-Organization.model_rebuild()
-OrganizationRoleAssignment.model_rebuild()
-PreregisterGroupRequest.model_rebuild()
-PreregisterUserRequest.model_rebuild()
-RemoveEnrollmentRoleAssignmentsRequest.model_rebuild()
-RemoveGroupMembersRequest.model_rebuild()
-RemoveMarkingMembersRequest.model_rebuild()
-RemoveMarkingRoleAssignmentsRequest.model_rebuild()
-RemoveOrganizationRoleAssignmentsRequest.model_rebuild()
-ReplaceGroupMembershipExpirationPolicyRequest.model_rebuild()
-ReplaceGroupProviderInfoRequest.model_rebuild()
-ReplaceMarkingRequest.model_rebuild()
-ReplaceOrganizationRequest.model_rebuild()
-ReplaceUserProviderInfoRequest.model_rebuild()
-Role.model_rebuild()
-SamlAuthenticationProtocol.model_rebuild()
-SamlServiceProviderMetadata.model_rebuild()
-SearchGroupsRequest.model_rebuild()
-SearchGroupsResponse.model_rebuild()
-SearchUsersRequest.model_rebuild()
-SearchUsersResponse.model_rebuild()
-User.model_rebuild()
-UserProviderInfo.model_rebuild()
-UserSearchFilter.model_rebuild()
+core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())
+core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",
@@ -994,6 +930,7 @@ __all__ = [
     "RemoveOrganizationRoleAssignmentsRequest",
     "ReplaceGroupMembershipExpirationPolicyRequest",
     "ReplaceGroupProviderInfoRequest",
+    "ReplaceMarkingCategoryRequest",
     "ReplaceMarkingRequest",
     "ReplaceOrganizationRequest",
     "ReplaceUserProviderInfoRequest",

@@ -1,9 +1,3 @@
-from __future__ import annotations
-
-import pydantic
-
-from foundry_sdk import _core as core
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,5 +12,11 @@ from foundry_sdk import _core as core
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import pydantic
+
+from foundry_sdk import _core as core
 
 __all__ = []

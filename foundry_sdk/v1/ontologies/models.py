@@ -1,13 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v1.core import models as core_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +12,16 @@ from foundry_sdk.v1.core import models as core_models
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v1.core import models as core_models
 
 ActionRid = core.RID
 """The unique resource identifier for an action."""
@@ -1519,105 +1519,19 @@ ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-ActionType.model_rebuild()
-AggregateObjectsRequest.model_rebuild()
-AggregateObjectsResponse.model_rebuild()
-AggregateObjectsResponseItem.model_rebuild()
-AggregationDurationGrouping.model_rebuild()
-AggregationExactGrouping.model_rebuild()
-AggregationFixedWidthGrouping.model_rebuild()
-AggregationMetricResult.model_rebuild()
-AggregationRange.model_rebuild()
-AggregationRangesGrouping.model_rebuild()
-AllTermsQuery.model_rebuild()
-AndQuery.model_rebuild()
-AnyTermQuery.model_rebuild()
-ApplyActionRequest.model_rebuild()
-ApplyActionRequestOptions.model_rebuild()
-ApplyActionResponse.model_rebuild()
-ApproximateDistinctAggregation.model_rebuild()
-ArrayEvaluatedConstraint.model_rebuild()
-ArraySizeConstraint.model_rebuild()
-Attachment.model_rebuild()
-AvgAggregation.model_rebuild()
-BatchApplyActionRequest.model_rebuild()
-BatchApplyActionResponse.model_rebuild()
-ContainsQuery.model_rebuild()
-CountAggregation.model_rebuild()
-CreateInterfaceObjectRule.model_rebuild()
-CreateLinkRule.model_rebuild()
-CreateObjectRule.model_rebuild()
-DeleteInterfaceObjectRule.model_rebuild()
-DeleteLinkRule.model_rebuild()
-DeleteObjectRule.model_rebuild()
-EntrySetType.model_rebuild()
-EqualsQuery.model_rebuild()
-ExecuteQueryRequest.model_rebuild()
-ExecuteQueryResponse.model_rebuild()
-GroupMemberConstraint.model_rebuild()
-GtQuery.model_rebuild()
-GteQuery.model_rebuild()
-IsNullQuery.model_rebuild()
-LinkTypeSide.model_rebuild()
-ListActionTypesResponse.model_rebuild()
-ListLinkedObjectsResponse.model_rebuild()
-ListObjectTypesResponse.model_rebuild()
-ListObjectsResponse.model_rebuild()
-ListOntologiesResponse.model_rebuild()
-ListOutgoingLinkTypesResponse.model_rebuild()
-ListQueryTypesResponse.model_rebuild()
-LtQuery.model_rebuild()
-LteQuery.model_rebuild()
-MaxAggregation.model_rebuild()
-MinAggregation.model_rebuild()
-ModifyInterfaceObjectRule.model_rebuild()
-ModifyObjectRule.model_rebuild()
-NotQuery.model_rebuild()
-ObjectPropertyValueConstraint.model_rebuild()
-ObjectQueryResultConstraint.model_rebuild()
-ObjectType.model_rebuild()
-OneOfConstraint.model_rebuild()
-Ontology.model_rebuild()
-OntologyArrayType.model_rebuild()
-OntologyInterfaceObjectSetType.model_rebuild()
-OntologyInterfaceObjectType.model_rebuild()
-OntologyMapType.model_rebuild()
-OntologyObject.model_rebuild()
-OntologyObjectSetType.model_rebuild()
-OntologyObjectType.model_rebuild()
-OntologySetType.model_rebuild()
-OntologyStructField.model_rebuild()
-OntologyStructType.model_rebuild()
-OrQuery.model_rebuild()
-Parameter.model_rebuild()
-ParameterEvaluationResult.model_rebuild()
-ParameterOption.model_rebuild()
-PhraseQuery.model_rebuild()
-PrefixQuery.model_rebuild()
-Property.model_rebuild()
-QueryAggregationRangeType.model_rebuild()
-QueryArrayType.model_rebuild()
-QuerySetType.model_rebuild()
-QueryStructField.model_rebuild()
-QueryStructType.model_rebuild()
-QueryType.model_rebuild()
-QueryUnionType.model_rebuild()
-RangeConstraint.model_rebuild()
-SearchObjectsRequest.model_rebuild()
-SearchObjectsResponse.model_rebuild()
-SearchOrderBy.model_rebuild()
-SearchOrdering.model_rebuild()
-StringLengthConstraint.model_rebuild()
-StringRegexMatchConstraint.model_rebuild()
-StructEvaluatedConstraint.model_rebuild()
-StructFieldEvaluationResult.model_rebuild()
-SubmissionCriteriaEvaluation.model_rebuild()
-SumAggregation.model_rebuild()
-ThreeDimensionalAggregation.model_rebuild()
-TwoDimensionalAggregation.model_rebuild()
-UnevaluableConstraint.model_rebuild()
-ValidateActionRequest.model_rebuild()
-ValidateActionResponse.model_rebuild()
+core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())
+core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())
+core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())
+core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    StructFieldEvaluatedConstraint, globalns=globals(), localns=locals()
+)
 
 __all__ = [
     "ActionRid",

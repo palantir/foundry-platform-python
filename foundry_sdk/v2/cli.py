@@ -720,6 +720,33 @@ def admin_marking_category_op_list(
     click.echo(repr(result))
 
 
+@admin_marking_category.command("replace")
+@click.argument("marking_category_id", type=str, required=True)
+@click.option("--description", type=str, required=True, help="""""")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_category_op_replace(
+    client: FoundryClient,
+    marking_category_id: str,
+    description: str,
+    name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the MarkingCategory with the specified id.
+    """
+    result = client.admin.MarkingCategory.replace(
+        marking_category_id=marking_category_id,
+        description=description,
+        name=name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin.group("marking")
 def admin_marking():
     pass
@@ -5572,6 +5599,32 @@ def functions_query_op_get_by_rid(
         include_prerelease=include_prerelease,
         preview=preview,
         version=version,
+    )
+    click.echo(repr(result))
+
+
+@functions_query.command("get_by_rid_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def functions_query_op_get_by_rid_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
+
+    Queries are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+    """
+    result = client.functions.Query.get_by_rid_batch(
+        body=json.loads(body),
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -11279,6 +11332,63 @@ def sql_queries_sql_query_op_execute(
         ),
     )
     click.echo(repr(result))
+
+
+@sql_queries_sql_query.command("execute_ontology")
+@click.option(
+    "--query",
+    type=str,
+    required=True,
+    help="""The SQL query to execute.
+""",
+)
+@click.option(
+    "--dry_run",
+    type=bool,
+    required=False,
+    help="""If true, parse and validate the query without executing it. Defaults to false.
+""",
+)
+@click.option(
+    "--parameters",
+    type=str,
+    required=False,
+    help="""Parameters for the SQL query. Can be either unnamed positional parameters
+or a named parameter mapping.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--row_limit",
+    type=int,
+    required=False,
+    help="""Maximum number of rows to return.
+""",
+)
+@click.pass_obj
+def sql_queries_sql_query_op_execute_ontology(
+    client: FoundryClient,
+    query: str,
+    dry_run: typing.Optional[bool],
+    parameters: typing.Optional[str],
+    preview: typing.Optional[bool],
+    row_limit: typing.Optional[int],
+):
+    """
+    Executes a SQL query against the Ontology. Results are returned synchronously in
+    [Apache Arrow](https://arrow.apache.org/) format.
+
+    """
+    result = client.sql_queries.SqlQuery.execute_ontology(
+        query=query,
+        dry_run=dry_run,
+        parameters=None if parameters is None else json.loads(parameters),
+        preview=preview,
+        row_limit=row_limit,
+    )
+    click.echo(result)
 
 
 @sql_queries_sql_query.command("get_results")

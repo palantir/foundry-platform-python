@@ -5,6 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/admin/markingCategories | Private Beta |
 [**get**](#get) | **GET** /v2/admin/markingCategories/{markingCategoryId} | Public Beta |
 [**list**](#list) | **GET** /v2/admin/markingCategories | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/markingCategories/{markingCategoryId} | Private Beta |
 
 # **create**
 Creates a new MarkingCategory.
@@ -168,6 +169,64 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListMarkingCategoriesResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the MarkingCategory with the specified id.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**marking_category_id** | MarkingCategoryId |  |  |
+**description** | MarkingCategoryDescription |  |  |
+**name** | MarkingCategoryName |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**MarkingCategory**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MarkingCategoryId
+marking_category_id = None
+# MarkingCategoryDescription
+description = "Markings related to data about our customers"
+# MarkingCategoryName
+name = "Customer Data"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.MarkingCategory.replace(
+        marking_category_id, description=description, name=name, preview=preview
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MarkingCategory.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | MarkingCategory  | The replaced MarkingCategory | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

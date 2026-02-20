@@ -1,12 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +12,15 @@ from foundry_sdk.v2.core import models as core_models
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
 
 FileId = str
 """The ID of an audit log file"""
@@ -38,9 +38,6 @@ class LogFile(core.ModelBase):
 
     id: FileId
 
-
-ListLogFilesResponse.model_rebuild()
-LogFile.model_rebuild()
 
 __all__ = [
     "FileId",

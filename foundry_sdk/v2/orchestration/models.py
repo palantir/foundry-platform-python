@@ -1,15 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +12,18 @@ from foundry_sdk.v2.filesystem import models as filesystem_models
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.datasets import models as datasets_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
 
 AbortOnFailure = bool
 """
@@ -853,66 +853,25 @@ RetryBackoffDuration = core_models.Duration
 """The duration to wait before retrying after a Job fails."""
 
 
-Action.model_rebuild()
-AffectedResourcesResponse.model_rebuild()
-AndTrigger.model_rebuild()
-Build.model_rebuild()
-ConnectingTarget.model_rebuild()
-CreateBuildRequest.model_rebuild()
-CreateScheduleRequest.model_rebuild()
-CreateScheduleRequestAction.model_rebuild()
-CreateScheduleRequestConnectingTarget.model_rebuild()
-CreateScheduleRequestManualTarget.model_rebuild()
-CreateScheduleRequestProjectScope.model_rebuild()
-CreateScheduleRequestUpstreamTarget.model_rebuild()
-CreateScheduleRequestUserScope.model_rebuild()
-DatasetJobOutput.model_rebuild()
-DatasetUpdatedTrigger.model_rebuild()
-GetBuildsBatchRequestElement.model_rebuild()
-GetBuildsBatchResponse.model_rebuild()
-GetJobsBatchRequestElement.model_rebuild()
-GetJobsBatchResponse.model_rebuild()
-GetSchedulesBatchRequestElement.model_rebuild()
-GetSchedulesBatchResponse.model_rebuild()
-Job.model_rebuild()
-JobSucceededTrigger.model_rebuild()
-ListJobsOfBuildResponse.model_rebuild()
-ListRunsOfScheduleResponse.model_rebuild()
-ManualTarget.model_rebuild()
-ManualTrigger.model_rebuild()
-MediaSetUpdatedTrigger.model_rebuild()
-NewLogicTrigger.model_rebuild()
-OrTrigger.model_rebuild()
-ProjectScope.model_rebuild()
-ReplaceScheduleRequest.model_rebuild()
-ReplaceScheduleRequestAction.model_rebuild()
-ReplaceScheduleRequestConnectingTarget.model_rebuild()
-ReplaceScheduleRequestManualTarget.model_rebuild()
-ReplaceScheduleRequestProjectScope.model_rebuild()
-ReplaceScheduleRequestUpstreamTarget.model_rebuild()
-ReplaceScheduleRequestUserScope.model_rebuild()
-Schedule.model_rebuild()
-ScheduleRun.model_rebuild()
-ScheduleRunError.model_rebuild()
-ScheduleRunIgnored.model_rebuild()
-ScheduleRunSubmitted.model_rebuild()
-ScheduleSucceededTrigger.model_rebuild()
-ScheduleVersion.model_rebuild()
-SearchBuildsAndFilter.model_rebuild()
-SearchBuildsEqualsFilter.model_rebuild()
-SearchBuildsGteFilter.model_rebuild()
-SearchBuildsLtFilter.model_rebuild()
-SearchBuildsNotFilter.model_rebuild()
-SearchBuildsOrFilter.model_rebuild()
-SearchBuildsOrderBy.model_rebuild()
-SearchBuildsOrderByItem.model_rebuild()
-SearchBuildsRequest.model_rebuild()
-SearchBuildsResponse.model_rebuild()
-TableUpdatedTrigger.model_rebuild()
-TimeTrigger.model_rebuild()
-TransactionalMediaSetJobOutput.model_rebuild()
-UpstreamTarget.model_rebuild()
-UserScope.model_rebuild()
+core.resolve_forward_references(BuildTarget, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(FallbackBranches, globalns=globals(), localns=locals())
+core.resolve_forward_references(JobOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ReplaceScheduleRequestBuildTarget, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    ReplaceScheduleRequestScopeMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(ScheduleRunResult, globalns=globals(), localns=locals())
+core.resolve_forward_references(ScopeMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchBuildsFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(Trigger, globalns=globals(), localns=locals())
 
 __all__ = [
     "AbortOnFailure",

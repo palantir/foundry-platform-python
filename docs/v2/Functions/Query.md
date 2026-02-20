@@ -4,7 +4,8 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**execute**](#execute) | **POST** /v2/functions/queries/{queryApiName}/execute | Private Beta |
 [**get**](#get) | **GET** /v2/functions/queries/{queryApiName} | Private Beta |
-[**get_by_rid**](#get_by_rid) | **POST** /v2/functions/queries/getByRid | Private Beta |
+[**get_by_rid**](#get_by_rid) | **GET** /v2/functions/queries/getByRid | Private Beta |
+[**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/functions/queries/getByRidBatch | Private Beta |
 [**streaming_execute**](#streaming_execute) | **POST** /v2/functions/queries/{queryApiName}/streamingExecute | Private Beta |
 
 # **execute**
@@ -200,6 +201,61 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | Query  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_by_rid_batch**
+Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
+
+Queries are filtered from the response if they don't exist or the requesting token lacks the required 
+permissions.
+
+The maximum batch size for this endpoint is 100.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**body** | List[GetByRidQueriesBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetByRidQueriesBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# List[GetByRidQueriesBatchRequestElement] | Body of the request
+body = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.functions.Query.get_by_rid_batch(body, preview=preview)
+    print("The get_by_rid_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Query.get_by_rid_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetByRidQueriesBatchResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -1,12 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +11,16 @@ from foundry_sdk import _core as core
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
 
 
 class AnthropicAnyToolChoice(core.ModelBase):
@@ -434,37 +435,13 @@ AnthropicToolResultContent = AnthropicText
 """AnthropicToolResultContent"""
 
 
-AnthropicAnyToolChoice.model_rebuild()
-AnthropicAutoToolChoice.model_rebuild()
-AnthropicBase64PdfDocumentSource.model_rebuild()
-AnthropicCharacterLocationCitation.model_rebuild()
-AnthropicCompletionRedactedThinking.model_rebuild()
-AnthropicCompletionText.model_rebuild()
-AnthropicCompletionThinking.model_rebuild()
-AnthropicCompletionToolUse.model_rebuild()
-AnthropicCustomTool.model_rebuild()
-AnthropicDisabledThinking.model_rebuild()
-AnthropicDocument.model_rebuild()
-AnthropicDocumentCitations.model_rebuild()
-AnthropicEnabledThinking.model_rebuild()
-AnthropicEphemeralCacheControl.model_rebuild()
-AnthropicImage.model_rebuild()
-AnthropicImageBase64Source.model_rebuild()
-AnthropicMessage.model_rebuild()
-AnthropicMessagesRequest.model_rebuild()
-AnthropicMessagesResponse.model_rebuild()
-AnthropicNoneToolChoice.model_rebuild()
-AnthropicRedactedThinking.model_rebuild()
-AnthropicText.model_rebuild()
-AnthropicTextDocumentSource.model_rebuild()
-AnthropicThinking.model_rebuild()
-AnthropicTokenUsage.model_rebuild()
-AnthropicToolResult.model_rebuild()
-AnthropicToolToolChoice.model_rebuild()
-AnthropicToolUse.model_rebuild()
-OpenAiEmbeddingTokenUsage.model_rebuild()
-OpenAiEmbeddingsRequest.model_rebuild()
-OpenAiEmbeddingsResponse.model_rebuild()
+core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())
+core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())
+core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())
+core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())
+core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())
+core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())
 
 __all__ = [
     "AnthropicAnyToolChoice",

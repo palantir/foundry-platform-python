@@ -1,16 +1,3 @@
-from __future__ import annotations
-
-import decimal
-import typing
-from datetime import date
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +11,20 @@ from foundry_sdk.v2.filesystem import models as filesystem_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import decimal
+import typing
+from datetime import date
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
 class ApiKeyAuthentication(core.ModelBase):
@@ -2066,115 +2067,45 @@ SmbAuth = SmbUsernamePasswordAuth
 """SmbAuth"""
 
 
-ApiKeyAuthentication.model_rebuild()
-AsPlaintextValue.model_rebuild()
-AsSecretName.model_rebuild()
-AwsAccessKey.model_rebuild()
-AwsOidcAuthentication.model_rebuild()
-BasicCredentials.model_rebuild()
-BearerToken.model_rebuild()
-BigQueryVirtualTableConfig.model_rebuild()
-CloudIdentity.model_rebuild()
-Connection.model_rebuild()
-ConnectionExportSettings.model_rebuild()
-CreateConnectionRequest.model_rebuild()
-CreateConnectionRequestAsPlaintextValue.model_rebuild()
-CreateConnectionRequestAsSecretName.model_rebuild()
-CreateConnectionRequestBasicCredentials.model_rebuild()
-CreateConnectionRequestDatabricksConnectionConfiguration.model_rebuild()
-CreateConnectionRequestFoundryWorker.model_rebuild()
-CreateConnectionRequestJdbcConnectionConfiguration.model_rebuild()
-CreateConnectionRequestOauthMachineToMachineAuth.model_rebuild()
-CreateConnectionRequestPersonalAccessToken.model_rebuild()
-CreateConnectionRequestRestConnectionConfiguration.model_rebuild()
-CreateConnectionRequestS3ConnectionConfiguration.model_rebuild()
-CreateConnectionRequestSmbConnectionConfiguration.model_rebuild()
-CreateConnectionRequestSmbUsernamePasswordAuth.model_rebuild()
-CreateConnectionRequestSnowflakeConnectionConfiguration.model_rebuild()
-CreateConnectionRequestSnowflakeExternalOauth.model_rebuild()
-CreateConnectionRequestSnowflakeKeyPairAuthentication.model_rebuild()
-CreateConnectionRequestUnknownWorker.model_rebuild()
-CreateConnectionRequestWorkflowIdentityFederation.model_rebuild()
-CreateFileImportRequest.model_rebuild()
-CreateTableImportRequest.model_rebuild()
-CreateTableImportRequestDatabricksTableImportConfig.model_rebuild()
-CreateTableImportRequestJdbcTableImportConfig.model_rebuild()
-CreateTableImportRequestMicrosoftAccessTableImportConfig.model_rebuild()
-CreateTableImportRequestMicrosoftSqlServerTableImportConfig.model_rebuild()
-CreateTableImportRequestOracleTableImportConfig.model_rebuild()
-CreateTableImportRequestPostgreSqlTableImportConfig.model_rebuild()
-CreateTableImportRequestSnowflakeTableImportConfig.model_rebuild()
-CreateVirtualTableRequest.model_rebuild()
-DatabricksConnectionConfiguration.model_rebuild()
-DatabricksTableImportConfig.model_rebuild()
-DateColumnInitialIncrementalState.model_rebuild()
-DecimalColumnInitialIncrementalState.model_rebuild()
-DeltaVirtualTableConfig.model_rebuild()
-Domain.model_rebuild()
-FileAnyPathMatchesFilter.model_rebuild()
-FileAtLeastCountFilter.model_rebuild()
-FileChangedSinceLastUploadFilter.model_rebuild()
-FileImport.model_rebuild()
-FileImportCustomFilter.model_rebuild()
-FileLastModifiedAfterFilter.model_rebuild()
-FilePathMatchesFilter.model_rebuild()
-FilePathNotMatchesFilter.model_rebuild()
-FileSizeFilter.model_rebuild()
-FilesCountLimitFilter.model_rebuild()
-FilesVirtualTableConfig.model_rebuild()
-FoundryWorker.model_rebuild()
-GetConfigurationConnectionsBatchRequestElement.model_rebuild()
-GetConfigurationConnectionsBatchResponse.model_rebuild()
-GlueVirtualTableConfig.model_rebuild()
-HeaderApiKey.model_rebuild()
-IcebergVirtualTableConfig.model_rebuild()
-IntegerColumnInitialIncrementalState.model_rebuild()
-JdbcConnectionConfiguration.model_rebuild()
-JdbcTableImportConfig.model_rebuild()
-ListFileImportsResponse.model_rebuild()
-ListTableImportsResponse.model_rebuild()
-LongColumnInitialIncrementalState.model_rebuild()
-MicrosoftAccessTableImportConfig.model_rebuild()
-MicrosoftSqlServerTableImportConfig.model_rebuild()
-OauthMachineToMachineAuth.model_rebuild()
-OracleTableImportConfig.model_rebuild()
-PersonalAccessToken.model_rebuild()
-PostgreSqlTableImportConfig.model_rebuild()
-QueryParameterApiKey.model_rebuild()
-ReplaceFileImportRequest.model_rebuild()
-ReplaceTableImportRequest.model_rebuild()
-ReplaceTableImportRequestDatabricksTableImportConfig.model_rebuild()
-ReplaceTableImportRequestJdbcTableImportConfig.model_rebuild()
-ReplaceTableImportRequestMicrosoftAccessTableImportConfig.model_rebuild()
-ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig.model_rebuild()
-ReplaceTableImportRequestOracleTableImportConfig.model_rebuild()
-ReplaceTableImportRequestPostgreSqlTableImportConfig.model_rebuild()
-ReplaceTableImportRequestSnowflakeTableImportConfig.model_rebuild()
-RestConnectionConfiguration.model_rebuild()
-RestConnectionOAuth2.model_rebuild()
-S3ConnectionConfiguration.model_rebuild()
-S3KmsConfiguration.model_rebuild()
-S3ProxyConfiguration.model_rebuild()
-SecretsNames.model_rebuild()
-SecretsWithPlaintextValues.model_rebuild()
-SmbConnectionConfiguration.model_rebuild()
-SmbProxyConfiguration.model_rebuild()
-SmbUsernamePasswordAuth.model_rebuild()
-SnowflakeConnectionConfiguration.model_rebuild()
-SnowflakeExternalOauth.model_rebuild()
-SnowflakeKeyPairAuthentication.model_rebuild()
-SnowflakeTableImportConfig.model_rebuild()
-SnowflakeVirtualTableConfig.model_rebuild()
-StringColumnInitialIncrementalState.model_rebuild()
-StsRoleConfiguration.model_rebuild()
-TableImport.model_rebuild()
-TimestampColumnInitialIncrementalState.model_rebuild()
-UnityVirtualTableConfig.model_rebuild()
-UnknownWorker.model_rebuild()
-UpdateExportSettingsForConnectionRequest.model_rebuild()
-UpdateSecretsForConnectionRequest.model_rebuild()
-VirtualTable.model_rebuild()
-WorkflowIdentityFederation.model_rebuild()
+core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())
+core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(
+    CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())
+core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(JdbcProperties, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    RestConnectionAdditionalSecrets, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())
+core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())
+core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())
+core.resolve_forward_references(
+    TableImportInitialIncrementalState, globalns=globals(), localns=locals()
+)
+core.resolve_forward_references(VirtualTableConfig, globalns=globals(), localns=locals())
 
 __all__ = [
     "ApiKeyAuthentication",

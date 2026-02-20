@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Stable |
 [**execute**](#execute) | **POST** /v2/sqlQueries/execute | Stable |
+[**execute_ontology**](#execute_ontology) | **POST** /v2/sqlQueries/executeOntology | Private Beta |
 [**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Stable |
 [**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Stable |
 
@@ -107,6 +108,69 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | QueryStatus  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **execute_ontology**
+Executes a SQL query against the Ontology. Results are returned synchronously in
+[Apache Arrow](https://arrow.apache.org/) format.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**query** | str | The SQL query to execute.  |  |
+**dry_run** | Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.  | [optional] |
+**parameters** | Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**row_limit** | Optional[int] | Maximum number of rows to return.  | [optional] |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# str | The SQL query to execute.
+query = "SELECT * FROM ri.ontology.main.object-type.xxx"
+# Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.
+dry_run = None
+# Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
+parameters = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+# Optional[int] | Maximum number of rows to return.
+row_limit = None
+
+
+try:
+    api_response = client.sql_queries.SqlQuery.execute_ontology(
+        query=query, dry_run=dry_run, parameters=parameters, preview=preview, row_limit=row_limit
+    )
+    print("The execute_ontology response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling SqlQuery.execute_ontology: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  |  | application/octet-stream |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

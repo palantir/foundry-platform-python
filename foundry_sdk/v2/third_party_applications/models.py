@@ -1,12 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,6 +11,16 @@ from foundry_sdk.v2.core import models as core_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
 
 
 class DeployWebsiteRequest(core.ModelBase):
@@ -70,12 +71,6 @@ class Website(core.ModelBase):
     subdomains: typing.List[Subdomain]
     """The subdomains from which the Website is currently served."""
 
-
-DeployWebsiteRequest.model_rebuild()
-ListVersionsResponse.model_rebuild()
-ThirdPartyApplication.model_rebuild()
-Version.model_rebuild()
-Website.model_rebuild()
 
 __all__ = [
     "DeployWebsiteRequest",

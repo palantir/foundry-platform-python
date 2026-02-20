@@ -1,14 +1,3 @@
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.ontologies import models as ontologies_models
-
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +11,18 @@ from foundry_sdk.v2.ontologies import models as ontologies_models
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
+
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class ArrayConstraint(core.ModelBase):
@@ -92,11 +93,9 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
-class GetByRidQueriesRequest(core.ModelBase):
-    """GetByRidQueriesRequest"""
+class GetByRidQueriesBatchRequestElement(core.ModelBase):
+    """GetByRidQueriesBatchRequestElement"""
 
-    rid: FunctionRid
-    version: typing.Optional[FunctionVersion] = None
     include_prerelease: typing.Optional[bool] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
     """
     When no version is specified and this flag is set to true, the latest version resolution will consider
@@ -105,6 +104,15 @@ class GetByRidQueriesRequest(core.ModelBase):
 
     Defaults to false.
     """
+
+    rid: FunctionRid
+    version: typing.Optional[FunctionVersion] = None
+
+
+class GetByRidQueriesBatchResponse(core.ModelBase):
+    """GetByRidQueriesBatchResponse"""
+
+    data: typing.List[Query]
 
 
 class LengthConstraint(core.ModelBase):
@@ -580,53 +588,12 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-ArrayConstraint.model_rebuild()
-EnumConstraint.model_rebuild()
-ExecuteQueryRequest.model_rebuild()
-ExecuteQueryResponse.model_rebuild()
-GetByRidQueriesRequest.model_rebuild()
-LengthConstraint.model_rebuild()
-MapConstraint.model_rebuild()
-NullableConstraint.model_rebuild()
-Parameter.model_rebuild()
-Query.model_rebuild()
-QueryAggregationRangeType.model_rebuild()
-QueryArrayType.model_rebuild()
-QuerySetType.model_rebuild()
-QueryStructField.model_rebuild()
-QueryStructType.model_rebuild()
-QueryUnionType.model_rebuild()
-RangesConstraint.model_rebuild()
-RegexConstraint.model_rebuild()
-RidConstraint.model_rebuild()
-StreamingExecuteQueryRequest.model_rebuild()
-StructConstraint.model_rebuild()
-StructV1Constraint.model_rebuild()
-ThreeDimensionalAggregation.model_rebuild()
-TwoDimensionalAggregation.model_rebuild()
-UuidConstraint.model_rebuild()
-ValueType.model_rebuild()
-ValueTypeDataTypeArrayType.model_rebuild()
-ValueTypeDataTypeBinaryType.model_rebuild()
-ValueTypeDataTypeBooleanType.model_rebuild()
-ValueTypeDataTypeByteType.model_rebuild()
-ValueTypeDataTypeDateType.model_rebuild()
-ValueTypeDataTypeDecimalType.model_rebuild()
-ValueTypeDataTypeDoubleType.model_rebuild()
-ValueTypeDataTypeFloatType.model_rebuild()
-ValueTypeDataTypeIntegerType.model_rebuild()
-ValueTypeDataTypeLongType.model_rebuild()
-ValueTypeDataTypeMapType.model_rebuild()
-ValueTypeDataTypeOptionalType.model_rebuild()
-ValueTypeDataTypeShortType.model_rebuild()
-ValueTypeDataTypeStringType.model_rebuild()
-ValueTypeDataTypeStructElement.model_rebuild()
-ValueTypeDataTypeStructType.model_rebuild()
-ValueTypeDataTypeTimestampType.model_rebuild()
-ValueTypeDataTypeUnionType.model_rebuild()
-ValueTypeDataTypeValueTypeReference.model_rebuild()
-ValueTypeReference.model_rebuild()
-VersionId.model_rebuild()
+core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
+core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())
+core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())
+core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())
 
 __all__ = [
     "ArrayConstraint",
@@ -636,7 +603,8 @@ __all__ = [
     "ExecuteQueryResponse",
     "FunctionRid",
     "FunctionVersion",
-    "GetByRidQueriesRequest",
+    "GetByRidQueriesBatchRequestElement",
+    "GetByRidQueriesBatchResponse",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",

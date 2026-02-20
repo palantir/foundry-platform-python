@@ -158,6 +158,15 @@ def test_resolve_dict_forward_references():
     assert A == typing.Dict[str, str]
 
 
+def test_resolve_annotated_union_forward_references():
+    A = typing_extensions.Annotated[typing.Union["B", "C"], "Foo Bar"]
+    B = str
+    C = int
+
+    resolve_forward_references(A, globals(), locals())
+    assert A == typing_extensions.Annotated[typing.Union[str, int], "Foo Bar"]
+
+
 def test_resolve_duplicate_forward_references():
     A = typing.List["C"]
     B = typing.List["C"]
