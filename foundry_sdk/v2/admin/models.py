@@ -673,6 +673,13 @@ class ReplaceGroupProviderInfoRequest(core.ModelBase):
     """
 
 
+class ReplaceMarkingCategoryRequest(core.ModelBase):
+    """ReplaceMarkingCategoryRequest"""
+
+    name: MarkingCategoryName
+    description: MarkingCategoryDescription
+
+
 class ReplaceMarkingRequest(core.ModelBase):
     """ReplaceMarkingRequest"""
 
@@ -923,6 +930,7 @@ __all__ = [
     "RemoveOrganizationRoleAssignmentsRequest",
     "ReplaceGroupMembershipExpirationPolicyRequest",
     "ReplaceGroupProviderInfoRequest",
+    "ReplaceMarkingCategoryRequest",
     "ReplaceMarkingRequest",
     "ReplaceOrganizationRequest",
     "ReplaceUserProviderInfoRequest",

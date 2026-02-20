@@ -1344,6 +1344,22 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
+class FuzzyRule(core.ModelBase):
+    """
+    Matches intervals containing terms that are similar to the provided term, within an edit distance
+    defined by fuzziness. An edit is a single character change needed to make a term match, including
+    character insertion, deletion, substitution, or transposition of two adjacent characters.
+    """
+
+    term: str
+    """The term to match."""
+
+    fuzziness: typing.Optional[int] = None
+    """Maximum edit distance allowed for matching. Valid values are 0, 1, or 2. Defaults to 2."""
+
+    type: typing.Literal["fuzzy"] = "fuzzy"
+
+
 FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
 
@@ -1742,7 +1758,7 @@ class IntervalQuery(core.ModelBase):
 
 
 IntervalQueryRule = typing_extensions.Annotated[
-    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule"],
+    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule", "FuzzyRule"],
     pydantic.Field(discriminator="type"),
 ]
 """Sub-rule used for evaluating an IntervalQuery"""
@@ -5398,6 +5414,7 @@ __all__ = [
     "FunctionParameterName",
     "FunctionRid",
     "FunctionVersion",
+    "FuzzyRule",
     "FuzzyV2",
     "GeotemporalSeriesEntry",
     "GeotimeSeriesValue",

@@ -750,6 +750,7 @@ class GetMediaItemInfoResponse(core.ModelBase):
     path: typing.Optional[core_models.MediaItemPath] = None
     logical_timestamp: LogicalTimestamp = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
     attribution: typing.Optional[MediaAttribution] = None
+    originally_uploaded_file_mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("originallyUploadedFileMimeType"), default=None)  # type: ignore[literal-required]
 
 
 class GetMediaItemRidByPathResponse(core.ModelBase):
