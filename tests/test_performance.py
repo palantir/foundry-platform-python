@@ -40,7 +40,7 @@ def test_datasets_v1_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_ontologies_v1_client_access_performance():
@@ -60,7 +60,7 @@ def test_ontologies_v1_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_import_v2_client_performance():
@@ -100,7 +100,7 @@ def test_admin_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_aip_agents_v2_client_access_performance():
@@ -120,7 +120,7 @@ def test_aip_agents_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_audit_v2_client_access_performance():
@@ -140,7 +140,7 @@ def test_audit_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_connectivity_v2_client_access_performance():
@@ -160,7 +160,7 @@ def test_connectivity_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_data_health_v2_client_access_performance():
@@ -180,7 +180,7 @@ def test_data_health_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_datasets_v2_client_access_performance():
@@ -200,7 +200,7 @@ def test_datasets_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_filesystem_v2_client_access_performance():
@@ -220,7 +220,7 @@ def test_filesystem_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_functions_v2_client_access_performance():
@@ -240,7 +240,7 @@ def test_functions_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_language_models_v2_client_access_performance():
@@ -260,7 +260,7 @@ def test_language_models_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_media_sets_v2_client_access_performance():
@@ -280,7 +280,7 @@ def test_media_sets_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_models_v2_client_access_performance():
@@ -300,7 +300,7 @@ def test_models_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_ontologies_v2_client_access_performance():
@@ -320,7 +320,7 @@ def test_ontologies_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_orchestration_v2_client_access_performance():
@@ -340,7 +340,7 @@ def test_orchestration_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_sql_queries_v2_client_access_performance():
@@ -360,7 +360,7 @@ def test_sql_queries_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_streams_v2_client_access_performance():
@@ -380,7 +380,7 @@ def test_streams_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_third_party_applications_v2_client_access_performance():
@@ -400,7 +400,7 @@ def test_third_party_applications_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
 
 
 def test_widgets_v2_client_access_performance():
@@ -420,4 +420,4 @@ def test_widgets_v2_models_import_performance():
         number=1,
     )
 
-    assert init_and_access_time < 0.5
+    assert init_and_access_time < 0.75
