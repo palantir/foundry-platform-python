@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,17 +21,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
 
 
 class AllowedColumnValuesCheckConfig(core.ModelBase):
@@ -80,7 +79,7 @@ class Check(core.ModelBase):
     """The timestamp when the Check was last updated."""
 
 
-CheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
+CheckConfig = typing_extensions.Annotated[
     typing.Union[
         "NumericColumnRangeCheckConfig",
         "JobStatusCheckConfig",
@@ -182,7 +181,7 @@ class ColumnTypeConfig(core.ModelBase):
     severity: SeverityLevel
 
 
-ColumnValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ColumnValue = typing_extensions.Annotated[
     typing.Union[
         "DateColumnValue", "BooleanColumnValue", "StringColumnValue", "NumericColumnValue"
     ],
@@ -427,7 +426,7 @@ class ReplaceBuildStatusCheckConfig(core.ModelBase):
     type: typing.Literal["buildStatus"] = "buildStatus"
 
 
-ReplaceCheckConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ReplaceCheckConfig = typing_extensions.Annotated[
     typing.Union[
         "ReplaceNumericColumnRangeCheckConfig",
         "ReplaceJobStatusCheckConfig",
@@ -692,9 +691,76 @@ The type of trend to validate:
 """
 
 
-CheckConfig = core.resolve_forward_references(CheckConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
-ColumnValue = core.resolve_forward_references(ColumnValue, globalns=globals(), localns=locals())  # type: ignore[misc]
-ReplaceCheckConfig = core.resolve_forward_references(ReplaceCheckConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
+AllowedColumnValuesCheckConfig.model_rebuild()
+ApproximateUniquePercentageCheckConfig.model_rebuild()
+BooleanColumnValue.model_rebuild()
+BuildDurationCheckConfig.model_rebuild()
+BuildStatusCheckConfig.model_rebuild()
+Check.model_rebuild()
+CheckReport.model_rebuild()
+CheckResult.model_rebuild()
+ColumnCountConfig.model_rebuild()
+ColumnInfo.model_rebuild()
+ColumnTypeCheckConfig.model_rebuild()
+ColumnTypeConfig.model_rebuild()
+CreateCheckRequest.model_rebuild()
+DatasetSubject.model_rebuild()
+DateBounds.model_rebuild()
+DateBoundsConfig.model_rebuild()
+DateColumnRangeCheckConfig.model_rebuild()
+DateColumnValue.model_rebuild()
+EscalationConfig.model_rebuild()
+GetLatestCheckReportsResponse.model_rebuild()
+JobDurationCheckConfig.model_rebuild()
+JobStatusCheckConfig.model_rebuild()
+MedianDeviation.model_rebuild()
+MedianDeviationConfig.model_rebuild()
+NullPercentageCheckConfig.model_rebuild()
+NumericBounds.model_rebuild()
+NumericBoundsConfig.model_rebuild()
+NumericColumnCheckConfig.model_rebuild()
+NumericColumnMeanCheckConfig.model_rebuild()
+NumericColumnMedianCheckConfig.model_rebuild()
+NumericColumnRangeCheckConfig.model_rebuild()
+NumericColumnValue.model_rebuild()
+PercentageBounds.model_rebuild()
+PercentageBoundsConfig.model_rebuild()
+PercentageCheckConfig.model_rebuild()
+PrimaryKeyCheckConfig.model_rebuild()
+PrimaryKeyConfig.model_rebuild()
+ReplaceAllowedColumnValuesCheckConfig.model_rebuild()
+ReplaceApproximateUniquePercentageCheckConfig.model_rebuild()
+ReplaceBuildDurationCheckConfig.model_rebuild()
+ReplaceBuildStatusCheckConfig.model_rebuild()
+ReplaceCheckRequest.model_rebuild()
+ReplaceColumnTypeCheckConfig.model_rebuild()
+ReplaceColumnTypeConfig.model_rebuild()
+ReplaceDateColumnRangeCheckConfig.model_rebuild()
+ReplaceJobDurationCheckConfig.model_rebuild()
+ReplaceJobStatusCheckConfig.model_rebuild()
+ReplaceNullPercentageCheckConfig.model_rebuild()
+ReplaceNumericColumnCheckConfig.model_rebuild()
+ReplaceNumericColumnMeanCheckConfig.model_rebuild()
+ReplaceNumericColumnMedianCheckConfig.model_rebuild()
+ReplaceNumericColumnRangeCheckConfig.model_rebuild()
+ReplacePercentageCheckConfig.model_rebuild()
+ReplacePrimaryKeyCheckConfig.model_rebuild()
+ReplacePrimaryKeyConfig.model_rebuild()
+ReplaceSchemaComparisonCheckConfig.model_rebuild()
+ReplaceTimeSinceLastUpdatedCheckConfig.model_rebuild()
+ReplaceTotalColumnCountCheckConfig.model_rebuild()
+SchemaComparisonCheckConfig.model_rebuild()
+SchemaComparisonConfig.model_rebuild()
+SchemaInfo.model_rebuild()
+StatusCheckConfig.model_rebuild()
+StringColumnValue.model_rebuild()
+TimeBounds.model_rebuild()
+TimeBoundsConfig.model_rebuild()
+TimeCheckConfig.model_rebuild()
+TimeSinceLastUpdatedCheckConfig.model_rebuild()
+TotalColumnCountCheckConfig.model_rebuild()
+TransactionTimeCheckConfig.model_rebuild()
+TrendConfig.model_rebuild()
 
 __all__ = [
     "AllowedColumnValuesCheckConfig",

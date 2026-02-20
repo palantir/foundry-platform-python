@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v1.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +22,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v1.core import models as core_models
 
 ActionRid = core.RID
 """The unique resource identifier for an action."""
@@ -73,7 +73,7 @@ class AggregateObjectsResponseItem(core.ModelBase):
     metrics: typing.List[AggregationMetricResult]
 
 
-Aggregation: typing_extensions.TypeAlias = typing_extensions.Annotated[
+Aggregation = typing_extensions.Annotated[
     typing.Union[
         "ApproximateDistinctAggregation",
         "MinAggregation",
@@ -114,7 +114,7 @@ class AggregationFixedWidthGrouping(core.ModelBase):
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
 
-AggregationGroupBy: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AggregationGroupBy = typing_extensions.Annotated[
     typing.Union[
         "AggregationDurationGrouping",
         "AggregationFixedWidthGrouping",
@@ -403,7 +403,11 @@ class EntrySetType(core.ModelBase):
 
 
 class EqualsQuery(core.ModelBase):
-    """Returns objects where the specified field is equal to a value."""
+    """
+    Returns objects where the specified field is equal to a value.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
+    """
 
     field: FieldNameV1
     value: PropertyValue
@@ -602,7 +606,7 @@ class ListQueryTypesResponse(core.ModelBase):
     data: typing.List[QueryType]
 
 
-LogicRule: typing_extensions.TypeAlias = typing_extensions.Annotated[
+LogicRule = typing_extensions.Annotated[
     typing.Union[
         "DeleteInterfaceObjectRule",
         "ModifyInterfaceObjectRule",
@@ -756,7 +760,7 @@ class OntologyArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-OntologyDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+OntologyDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyStructType",
@@ -893,7 +897,7 @@ class Parameter(core.ModelBase):
     required: bool
 
 
-ParameterEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ParameterEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructEvaluatedConstraint",
         "OneOfConstraint",
@@ -1028,7 +1032,7 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyTypeRid = core.RID
-"""PropertyTypeRid"""
+"""The unique resource identifier of a property."""
 
 
 PropertyValue = typing.Any
@@ -1067,7 +1071,7 @@ PropertyValueEscapedString = str
 """Represents the value of a property in string format. This is used in URL parameters."""
 
 
-QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -1082,7 +1086,7 @@ QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotat
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -1101,7 +1105,7 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationValueType = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
@@ -1119,7 +1123,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "OntologyInterfaceObjectType",
@@ -1227,7 +1231,7 @@ SdkVersion = str
 """SdkVersion"""
 
 
-SearchJsonQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
+SearchJsonQuery = typing_extensions.Annotated[
     typing.Union[
         "OrQuery",
         "PrefixQuery",
@@ -1364,7 +1368,7 @@ class StructEvaluatedConstraint(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-StructFieldEvaluatedConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
+StructFieldEvaluatedConstraint = typing_extensions.Annotated[
     typing.Union[
         "OneOfConstraint",
         "RangeConstraint",
@@ -1515,17 +1519,105 @@ ArrayEntryEvaluatedConstraint = StructEvaluatedConstraint
 """Evaluated constraints for entries of array parameters for which per-entry evaluation is supported."""
 
 
-Aggregation = core.resolve_forward_references(Aggregation, globalns=globals(), localns=locals())  # type: ignore[misc]
-AggregationGroupBy = core.resolve_forward_references(AggregationGroupBy, globalns=globals(), localns=locals())  # type: ignore[misc]
-LogicRule = core.resolve_forward_references(LogicRule, globalns=globals(), localns=locals())  # type: ignore[misc]
-OntologyDataType = core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
-ParameterEvaluatedConstraint = core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
-SearchJsonQuery = core.resolve_forward_references(SearchJsonQuery, globalns=globals(), localns=locals())  # type: ignore[misc]
-StructFieldEvaluatedConstraint = core.resolve_forward_references(StructFieldEvaluatedConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
+ActionType.model_rebuild()
+AggregateObjectsRequest.model_rebuild()
+AggregateObjectsResponse.model_rebuild()
+AggregateObjectsResponseItem.model_rebuild()
+AggregationDurationGrouping.model_rebuild()
+AggregationExactGrouping.model_rebuild()
+AggregationFixedWidthGrouping.model_rebuild()
+AggregationMetricResult.model_rebuild()
+AggregationRange.model_rebuild()
+AggregationRangesGrouping.model_rebuild()
+AllTermsQuery.model_rebuild()
+AndQuery.model_rebuild()
+AnyTermQuery.model_rebuild()
+ApplyActionRequest.model_rebuild()
+ApplyActionRequestOptions.model_rebuild()
+ApplyActionResponse.model_rebuild()
+ApproximateDistinctAggregation.model_rebuild()
+ArrayEvaluatedConstraint.model_rebuild()
+ArraySizeConstraint.model_rebuild()
+Attachment.model_rebuild()
+AvgAggregation.model_rebuild()
+BatchApplyActionRequest.model_rebuild()
+BatchApplyActionResponse.model_rebuild()
+ContainsQuery.model_rebuild()
+CountAggregation.model_rebuild()
+CreateInterfaceObjectRule.model_rebuild()
+CreateLinkRule.model_rebuild()
+CreateObjectRule.model_rebuild()
+DeleteInterfaceObjectRule.model_rebuild()
+DeleteLinkRule.model_rebuild()
+DeleteObjectRule.model_rebuild()
+EntrySetType.model_rebuild()
+EqualsQuery.model_rebuild()
+ExecuteQueryRequest.model_rebuild()
+ExecuteQueryResponse.model_rebuild()
+GroupMemberConstraint.model_rebuild()
+GtQuery.model_rebuild()
+GteQuery.model_rebuild()
+IsNullQuery.model_rebuild()
+LinkTypeSide.model_rebuild()
+ListActionTypesResponse.model_rebuild()
+ListLinkedObjectsResponse.model_rebuild()
+ListObjectTypesResponse.model_rebuild()
+ListObjectsResponse.model_rebuild()
+ListOntologiesResponse.model_rebuild()
+ListOutgoingLinkTypesResponse.model_rebuild()
+ListQueryTypesResponse.model_rebuild()
+LtQuery.model_rebuild()
+LteQuery.model_rebuild()
+MaxAggregation.model_rebuild()
+MinAggregation.model_rebuild()
+ModifyInterfaceObjectRule.model_rebuild()
+ModifyObjectRule.model_rebuild()
+NotQuery.model_rebuild()
+ObjectPropertyValueConstraint.model_rebuild()
+ObjectQueryResultConstraint.model_rebuild()
+ObjectType.model_rebuild()
+OneOfConstraint.model_rebuild()
+Ontology.model_rebuild()
+OntologyArrayType.model_rebuild()
+OntologyInterfaceObjectSetType.model_rebuild()
+OntologyInterfaceObjectType.model_rebuild()
+OntologyMapType.model_rebuild()
+OntologyObject.model_rebuild()
+OntologyObjectSetType.model_rebuild()
+OntologyObjectType.model_rebuild()
+OntologySetType.model_rebuild()
+OntologyStructField.model_rebuild()
+OntologyStructType.model_rebuild()
+OrQuery.model_rebuild()
+Parameter.model_rebuild()
+ParameterEvaluationResult.model_rebuild()
+ParameterOption.model_rebuild()
+PhraseQuery.model_rebuild()
+PrefixQuery.model_rebuild()
+Property.model_rebuild()
+QueryAggregationRangeType.model_rebuild()
+QueryArrayType.model_rebuild()
+QuerySetType.model_rebuild()
+QueryStructField.model_rebuild()
+QueryStructType.model_rebuild()
+QueryType.model_rebuild()
+QueryUnionType.model_rebuild()
+RangeConstraint.model_rebuild()
+SearchObjectsRequest.model_rebuild()
+SearchObjectsResponse.model_rebuild()
+SearchOrderBy.model_rebuild()
+SearchOrdering.model_rebuild()
+StringLengthConstraint.model_rebuild()
+StringRegexMatchConstraint.model_rebuild()
+StructEvaluatedConstraint.model_rebuild()
+StructFieldEvaluationResult.model_rebuild()
+SubmissionCriteriaEvaluation.model_rebuild()
+SumAggregation.model_rebuild()
+ThreeDimensionalAggregation.model_rebuild()
+TwoDimensionalAggregation.model_rebuild()
+UnevaluableConstraint.model_rebuild()
+ValidateActionRequest.model_rebuild()
+ValidateActionResponse.model_rebuild()
 
 __all__ = [
     "ActionRid",

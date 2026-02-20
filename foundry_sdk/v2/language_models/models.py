@@ -1,3 +1,12 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,16 +20,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
 
 
 class AnthropicAnyToolChoice(core.ModelBase):
@@ -55,7 +54,7 @@ class AnthropicCharacterLocationCitation(core.ModelBase):
     type: typing.Literal["charLocation"] = "charLocation"
 
 
-AnthropicCompletionContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AnthropicCompletionContent = typing_extensions.Annotated[
     typing.Union[
         "AnthropicCompletionToolUse",
         "AnthropicCompletionText",
@@ -138,7 +137,7 @@ class AnthropicDocumentCitations(core.ModelBase):
     enabled: bool
 
 
-AnthropicDocumentSource: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AnthropicDocumentSource = typing_extensions.Annotated[
     typing.Union["AnthropicBase64PdfDocumentSource", "AnthropicTextDocumentSource"],
     pydantic.Field(discriminator="type"),
 ]
@@ -189,7 +188,7 @@ class AnthropicMessage(core.ModelBase):
     role: AnthropicMessageRole
 
 
-AnthropicMessageContent: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AnthropicMessageContent = typing_extensions.Annotated[
     typing.Union[
         "AnthropicImage",
         "AnthropicToolUse",
@@ -300,7 +299,7 @@ class AnthropicThinking(core.ModelBase):
     type: typing.Literal["thinking"] = "thinking"
 
 
-AnthropicThinkingConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AnthropicThinkingConfig = typing_extensions.Annotated[
     typing.Union["AnthropicDisabledThinking", "AnthropicEnabledThinking"],
     pydantic.Field(discriminator="type"),
 ]
@@ -316,7 +315,7 @@ class AnthropicTokenUsage(core.ModelBase):
     output_tokens: int = pydantic.Field(alias=str("outputTokens"))  # type: ignore[literal-required]
 
 
-AnthropicToolChoice: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AnthropicToolChoice = typing_extensions.Annotated[
     typing.Union[
         "AnthropicAutoToolChoice",
         "AnthropicNoneToolChoice",
@@ -435,13 +434,37 @@ AnthropicToolResultContent = AnthropicText
 """AnthropicToolResultContent"""
 
 
-AnthropicCompletionContent = core.resolve_forward_references(AnthropicCompletionContent, globalns=globals(), localns=locals())  # type: ignore[misc]
-AnthropicDocumentSource = core.resolve_forward_references(AnthropicDocumentSource, globalns=globals(), localns=locals())  # type: ignore[misc]
-AnthropicMessageContent = core.resolve_forward_references(AnthropicMessageContent, globalns=globals(), localns=locals())  # type: ignore[misc]
-AnthropicThinkingConfig = core.resolve_forward_references(AnthropicThinkingConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
-AnthropicToolChoice = core.resolve_forward_references(AnthropicToolChoice, globalns=globals(), localns=locals())  # type: ignore[misc]
-JsonSchema = core.resolve_forward_references(JsonSchema, globalns=globals(), localns=locals())  # type: ignore[misc]
-OpenAiEmbeddingInput = core.resolve_forward_references(OpenAiEmbeddingInput, globalns=globals(), localns=locals())  # type: ignore[misc]
+AnthropicAnyToolChoice.model_rebuild()
+AnthropicAutoToolChoice.model_rebuild()
+AnthropicBase64PdfDocumentSource.model_rebuild()
+AnthropicCharacterLocationCitation.model_rebuild()
+AnthropicCompletionRedactedThinking.model_rebuild()
+AnthropicCompletionText.model_rebuild()
+AnthropicCompletionThinking.model_rebuild()
+AnthropicCompletionToolUse.model_rebuild()
+AnthropicCustomTool.model_rebuild()
+AnthropicDisabledThinking.model_rebuild()
+AnthropicDocument.model_rebuild()
+AnthropicDocumentCitations.model_rebuild()
+AnthropicEnabledThinking.model_rebuild()
+AnthropicEphemeralCacheControl.model_rebuild()
+AnthropicImage.model_rebuild()
+AnthropicImageBase64Source.model_rebuild()
+AnthropicMessage.model_rebuild()
+AnthropicMessagesRequest.model_rebuild()
+AnthropicMessagesResponse.model_rebuild()
+AnthropicNoneToolChoice.model_rebuild()
+AnthropicRedactedThinking.model_rebuild()
+AnthropicText.model_rebuild()
+AnthropicTextDocumentSource.model_rebuild()
+AnthropicThinking.model_rebuild()
+AnthropicTokenUsage.model_rebuild()
+AnthropicToolResult.model_rebuild()
+AnthropicToolToolChoice.model_rebuild()
+AnthropicToolUse.model_rebuild()
+OpenAiEmbeddingTokenUsage.model_rebuild()
+OpenAiEmbeddingsRequest.model_rebuild()
+OpenAiEmbeddingsResponse.model_rebuild()
 
 __all__ = [
     "AnthropicAnyToolChoice",

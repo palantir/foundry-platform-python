@@ -1,3 +1,12 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+
+from foundry_sdk import _core as core
+from foundry_sdk.v1.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,16 +20,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-
-from foundry_sdk import _core as core
-from foundry_sdk.v1.core import models as core_models
 
 
 class Branch(core.ModelBase):
@@ -122,6 +121,16 @@ TransactionStatus = typing.Literal["ABORTED", "COMMITTED", "OPEN"]
 TransactionType = typing.Literal["APPEND", "UPDATE", "SNAPSHOT", "DELETE"]
 """The type of a Transaction."""
 
+
+Branch.model_rebuild()
+CreateBranchRequest.model_rebuild()
+CreateDatasetRequest.model_rebuild()
+CreateTransactionRequest.model_rebuild()
+Dataset.model_rebuild()
+File.model_rebuild()
+ListBranchesResponse.model_rebuild()
+ListFilesResponse.model_rebuild()
+Transaction.model_rebuild()
 
 __all__ = [
     "Branch",

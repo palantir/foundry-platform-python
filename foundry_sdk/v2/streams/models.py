@@ -1,3 +1,14 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.datasets import models as datasets_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +23,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.datasets import models as datasets_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
 
 Compressed = bool
 """
@@ -276,9 +276,15 @@ ViewRid = core.RID
 """The resource identifier (RID) of the view that represents a stream."""
 
 
-GetEndOffsetsResponse = core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())  # type: ignore[misc]
-GetRecordsResponse = core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())  # type: ignore[misc]
-Record = core.resolve_forward_references(Record, globalns=globals(), localns=locals())  # type: ignore[misc]
+CreateStreamRequest.model_rebuild()
+CreateStreamRequestStreamSchema.model_rebuild()
+CreateStreamingDatasetRequest.model_rebuild()
+Dataset.model_rebuild()
+PublishRecordToStreamRequest.model_rebuild()
+PublishRecordsToStreamRequest.model_rebuild()
+RecordWithOffset.model_rebuild()
+ResetStreamRequest.model_rebuild()
+Stream.model_rebuild()
 
 __all__ = [
     "Compressed",

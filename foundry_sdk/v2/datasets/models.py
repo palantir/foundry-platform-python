@@ -1,3 +1,15 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.data_health import models as data_health_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,19 +23,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.data_health import models as data_health_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
 class AddBackingDatasetsRequest(core.ModelBase):
@@ -129,7 +128,7 @@ class GetDatasetJobsOrFilter(core.ModelBase):
     type: typing.Literal["or"] = "or"
 
 
-GetDatasetJobsQuery: typing_extensions.TypeAlias = typing_extensions.Annotated[
+GetDatasetJobsQuery = typing_extensions.Annotated[
     typing.Union["GetDatasetJobsOrFilter", "GetDatasetJobsAndFilter", "GetDatasetJobsTimeFilter"],
     pydantic.Field(discriminator="type"),
 ]
@@ -373,6 +372,12 @@ class ViewBackingDataset(core.ModelBase):
     """The branch of the backing dataset. If not specified, defaults to the branch of the View."""
 
     dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    stop_propagating_marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("stopPropagatingMarkingIds"))  # type: ignore[literal-required]
+    """
+    Markings listed here will not be inherited from this backing dataset. The caller must have the DECLASSIFY 
+    permission on each marking listed here. If multiple backing datasets have the same marking applied,
+    the marking must be listed for each backing dataset or it will still be inherited.
+    """
 
 
 class ViewPrimaryKey(core.ModelBase):
@@ -401,7 +406,7 @@ class ViewPrimaryKey(core.ModelBase):
     """
 
 
-ViewPrimaryKeyResolution: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ViewPrimaryKeyResolution = typing_extensions.Annotated[
     typing.Union["PrimaryKeyResolutionUnique", "PrimaryKeyResolutionDuplicate"],
     pydantic.Field(discriminator="type"),
 ]
@@ -412,8 +417,42 @@ PrimaryKeyResolutionStrategy = PrimaryKeyLatestWinsResolutionStrategy
 """PrimaryKeyResolutionStrategy"""
 
 
-GetDatasetJobsQuery = core.resolve_forward_references(GetDatasetJobsQuery, globalns=globals(), localns=locals())  # type: ignore[misc]
-ViewPrimaryKeyResolution = core.resolve_forward_references(ViewPrimaryKeyResolution, globalns=globals(), localns=locals())  # type: ignore[misc]
+AddBackingDatasetsRequest.model_rebuild()
+AddPrimaryKeyRequest.model_rebuild()
+Branch.model_rebuild()
+CreateBranchRequest.model_rebuild()
+CreateDatasetRequest.model_rebuild()
+CreateTransactionRequest.model_rebuild()
+CreateViewRequest.model_rebuild()
+Dataset.model_rebuild()
+File.model_rebuild()
+GetDatasetJobsAndFilter.model_rebuild()
+GetDatasetJobsOrFilter.model_rebuild()
+GetDatasetJobsRequest.model_rebuild()
+GetDatasetJobsSort.model_rebuild()
+GetDatasetJobsTimeFilter.model_rebuild()
+GetDatasetSchemaResponse.model_rebuild()
+GetHealthCheckReportsResponse.model_rebuild()
+GetJobResponse.model_rebuild()
+GetSchemaDatasetsBatchRequestElement.model_rebuild()
+GetSchemaDatasetsBatchResponse.model_rebuild()
+JobDetails.model_rebuild()
+ListBranchesResponse.model_rebuild()
+ListFilesResponse.model_rebuild()
+ListHealthChecksResponse.model_rebuild()
+ListSchedulesResponse.model_rebuild()
+ListTransactionsOfDatasetResponse.model_rebuild()
+ListTransactionsResponse.model_rebuild()
+PrimaryKeyLatestWinsResolutionStrategy.model_rebuild()
+PrimaryKeyResolutionDuplicate.model_rebuild()
+PrimaryKeyResolutionUnique.model_rebuild()
+PutDatasetSchemaRequest.model_rebuild()
+RemoveBackingDatasetsRequest.model_rebuild()
+ReplaceBackingDatasetsRequest.model_rebuild()
+Transaction.model_rebuild()
+View.model_rebuild()
+ViewBackingDataset.model_rebuild()
+ViewPrimaryKey.model_rebuild()
 
 __all__ = [
     "AddBackingDatasetsRequest",

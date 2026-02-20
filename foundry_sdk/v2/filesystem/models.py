@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,17 +21,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
 
 
 class AccessRequirements(core.ModelBase):
@@ -457,13 +456,13 @@ class ResourceRoleIdentifier(core.ModelBase):
     role_id: core_models.RoleId = pydantic.Field(alias=str("roleId"))  # type: ignore[literal-required]
 
 
-ResourceRolePrincipal: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ResourceRolePrincipal = typing_extensions.Annotated[
     typing.Union["PrincipalWithId", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """ResourceRolePrincipal"""
 
 
-ResourceRolePrincipalIdentifier: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ResourceRolePrincipalIdentifier = typing_extensions.Annotated[
     typing.Union["PrincipalIdOnly", "Everyone"], pydantic.Field(discriminator="type")
 ]
 """A principal for resource role operations that doesn't require specifying the principal type."""
@@ -606,8 +605,41 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
-ResourceRolePrincipal = core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())  # type: ignore[misc]
-ResourceRolePrincipalIdentifier = core.resolve_forward_references(ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals())  # type: ignore[misc]
+AccessRequirements.model_rebuild()
+AddMarkingsRequest.model_rebuild()
+AddOrganizationsRequest.model_rebuild()
+AddResourceRolesRequest.model_rebuild()
+CreateFolderRequest.model_rebuild()
+CreateProjectFromTemplateRequest.model_rebuild()
+CreateProjectRequest.model_rebuild()
+CreateSpaceRequest.model_rebuild()
+Everyone.model_rebuild()
+Folder.model_rebuild()
+GetByPathResourcesBatchRequestElement.model_rebuild()
+GetByPathResourcesBatchResponse.model_rebuild()
+GetFoldersBatchRequestElement.model_rebuild()
+GetFoldersBatchResponse.model_rebuild()
+GetResourcesBatchRequestElement.model_rebuild()
+GetResourcesBatchResponse.model_rebuild()
+ListChildrenOfFolderResponse.model_rebuild()
+ListMarkingsOfResourceResponse.model_rebuild()
+ListOrganizationsOfProjectResponse.model_rebuild()
+ListResourceRolesResponse.model_rebuild()
+ListSpacesResponse.model_rebuild()
+Marking.model_rebuild()
+Organization.model_rebuild()
+PrincipalIdOnly.model_rebuild()
+PrincipalWithId.model_rebuild()
+Project.model_rebuild()
+RemoveMarkingsRequest.model_rebuild()
+RemoveOrganizationsRequest.model_rebuild()
+RemoveResourceRolesRequest.model_rebuild()
+ReplaceProjectRequest.model_rebuild()
+ReplaceSpaceRequest.model_rebuild()
+Resource.model_rebuild()
+ResourceRole.model_rebuild()
+ResourceRoleIdentifier.model_rebuild()
+Space.model_rebuild()
 
 __all__ = [
     "AccessRequirements",

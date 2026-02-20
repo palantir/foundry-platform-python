@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,17 +21,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
 
 
 class AddEnrollmentRoleAssignmentsRequest(core.ModelBase):
@@ -67,7 +66,7 @@ AttributeValues = typing.List["AttributeValue"]
 """AttributeValues"""
 
 
-AuthenticationProtocol: typing_extensions.TypeAlias = typing_extensions.Annotated[
+AuthenticationProtocol = typing_extensions.Annotated[
     typing.Union["SamlAuthenticationProtocol", "OidcAuthenticationProtocol"],
     pydantic.Field(discriminator="type"),
 ]
@@ -135,12 +134,28 @@ class CreateGroupRequest(core.ModelBase):
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
 
+class CreateMarkingCategoryRequest(core.ModelBase):
+    """CreateMarkingCategoryRequest"""
+
+    initial_permissions: MarkingCategoryPermissions = pydantic.Field(alias=str("initialPermissions"))  # type: ignore[literal-required]
+    """
+    The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations.
+    The provided permissions must include at least one ADMINISTER role assignment.
+
+    WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an
+    ADMINISTER, you will create a Marking Category that you cannot administer.
+    """
+
+    name: MarkingCategoryName
+    description: MarkingCategoryDescription
+
+
 class CreateMarkingRequest(core.ModelBase):
     """CreateMarkingRequest"""
 
     initial_role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("initialRoleAssignments"))  # type: ignore[literal-required]
     """
-    The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be
+    The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be
     provided. This can be changed later through the MarkingRoleAssignment operations.
 
     WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of,
@@ -438,12 +453,16 @@ class MarkingCategory(core.ModelBase):
 
     id: MarkingCategoryId
     name: MarkingCategoryName
-    description: typing.Optional[str] = None
+    description: MarkingCategoryDescription
     category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
     marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
     markings: typing.List[core_models.MarkingId]
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
+
+
+MarkingCategoryDescription = str
+"""MarkingCategoryDescription"""
 
 
 MarkingCategoryId = str
@@ -455,6 +474,38 @@ Organizations are placed in a category with ID "Organization".
 
 MarkingCategoryName = str
 """MarkingCategoryName"""
+
+
+class MarkingCategoryPermissions(core.ModelBase):
+    """MarkingCategoryPermissions"""
+
+    organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+    """Users must be members of at least one of the Organizations in this list to view Markings in the category, regardless of their assigned roles."""
+
+    roles: typing.List[MarkingCategoryRoleAssignment]
+    is_public: MarkingCategoryPermissionsIsPublic = pydantic.Field(alias=str("isPublic"))  # type: ignore[literal-required]
+    """If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
+
+
+MarkingCategoryPermissionsIsPublic = bool
+"""If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
+
+
+MarkingCategoryRole = typing.Literal["ADMINISTER", "VIEW"]
+"""
+Represents the operations that a user can perform with regards to a Marking Category.
+  * ADMINISTER: The user can update a Marking Category's metadata and permissions
+  * VIEW: The user can view the Marking Category and the Markings within it.
+
+NOTE: Permissions to administer or view a Marking Category do not confer any permissions to administer or view data protected by the Markings within that category.
+"""
+
+
+class MarkingCategoryRoleAssignment(core.ModelBase):
+    """MarkingCategoryRoleAssignment"""
+
+    role: MarkingCategoryRole
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
 MarkingCategoryType = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
@@ -782,8 +833,80 @@ UserUsername = str
 """The Foundry username of the User. This is unique within the realm."""
 
 
-AttributeValues = core.resolve_forward_references(AttributeValues, globalns=globals(), localns=locals())  # type: ignore[misc]
-AuthenticationProtocol = core.resolve_forward_references(AuthenticationProtocol, globalns=globals(), localns=locals())  # type: ignore[misc]
+AddEnrollmentRoleAssignmentsRequest.model_rebuild()
+AddGroupMembersRequest.model_rebuild()
+AddMarkingMembersRequest.model_rebuild()
+AddMarkingRoleAssignmentsRequest.model_rebuild()
+AddOrganizationRoleAssignmentsRequest.model_rebuild()
+AuthenticationProvider.model_rebuild()
+CertificateInfo.model_rebuild()
+CreateGroupRequest.model_rebuild()
+CreateMarkingCategoryRequest.model_rebuild()
+CreateMarkingRequest.model_rebuild()
+CreateOrganizationRequest.model_rebuild()
+Enrollment.model_rebuild()
+EnrollmentRoleAssignment.model_rebuild()
+GetGroupsBatchRequestElement.model_rebuild()
+GetGroupsBatchResponse.model_rebuild()
+GetMarkingsBatchRequestElement.model_rebuild()
+GetMarkingsBatchResponse.model_rebuild()
+GetRolesBatchRequestElement.model_rebuild()
+GetRolesBatchResponse.model_rebuild()
+GetUserMarkingsResponse.model_rebuild()
+GetUsersBatchRequestElement.model_rebuild()
+GetUsersBatchResponse.model_rebuild()
+Group.model_rebuild()
+GroupMember.model_rebuild()
+GroupMembership.model_rebuild()
+GroupMembershipExpirationPolicy.model_rebuild()
+GroupProviderInfo.model_rebuild()
+GroupSearchFilter.model_rebuild()
+Host.model_rebuild()
+ListAuthenticationProvidersResponse.model_rebuild()
+ListAvailableOrganizationRolesResponse.model_rebuild()
+ListEnrollmentRoleAssignmentsResponse.model_rebuild()
+ListGroupMembersResponse.model_rebuild()
+ListGroupMembershipsResponse.model_rebuild()
+ListGroupsResponse.model_rebuild()
+ListHostsResponse.model_rebuild()
+ListMarkingCategoriesResponse.model_rebuild()
+ListMarkingMembersResponse.model_rebuild()
+ListMarkingRoleAssignmentsResponse.model_rebuild()
+ListMarkingsResponse.model_rebuild()
+ListOrganizationRoleAssignmentsResponse.model_rebuild()
+ListUsersResponse.model_rebuild()
+Marking.model_rebuild()
+MarkingCategory.model_rebuild()
+MarkingCategoryPermissions.model_rebuild()
+MarkingCategoryRoleAssignment.model_rebuild()
+MarkingMember.model_rebuild()
+MarkingRoleAssignment.model_rebuild()
+MarkingRoleUpdate.model_rebuild()
+OidcAuthenticationProtocol.model_rebuild()
+Organization.model_rebuild()
+OrganizationRoleAssignment.model_rebuild()
+PreregisterGroupRequest.model_rebuild()
+PreregisterUserRequest.model_rebuild()
+RemoveEnrollmentRoleAssignmentsRequest.model_rebuild()
+RemoveGroupMembersRequest.model_rebuild()
+RemoveMarkingMembersRequest.model_rebuild()
+RemoveMarkingRoleAssignmentsRequest.model_rebuild()
+RemoveOrganizationRoleAssignmentsRequest.model_rebuild()
+ReplaceGroupMembershipExpirationPolicyRequest.model_rebuild()
+ReplaceGroupProviderInfoRequest.model_rebuild()
+ReplaceMarkingRequest.model_rebuild()
+ReplaceOrganizationRequest.model_rebuild()
+ReplaceUserProviderInfoRequest.model_rebuild()
+Role.model_rebuild()
+SamlAuthenticationProtocol.model_rebuild()
+SamlServiceProviderMetadata.model_rebuild()
+SearchGroupsRequest.model_rebuild()
+SearchGroupsResponse.model_rebuild()
+SearchUsersRequest.model_rebuild()
+SearchUsersResponse.model_rebuild()
+User.model_rebuild()
+UserProviderInfo.model_rebuild()
+UserSearchFilter.model_rebuild()
 
 __all__ = [
     "AddEnrollmentRoleAssignmentsRequest",
@@ -802,6 +925,7 @@ __all__ = [
     "CertificateInfo",
     "CertificateUsageType",
     "CreateGroupRequest",
+    "CreateMarkingCategoryRequest",
     "CreateMarkingRequest",
     "CreateOrganizationRequest",
     "Enrollment",
@@ -841,8 +965,13 @@ __all__ = [
     "ListUsersResponse",
     "Marking",
     "MarkingCategory",
+    "MarkingCategoryDescription",
     "MarkingCategoryId",
     "MarkingCategoryName",
+    "MarkingCategoryPermissions",
+    "MarkingCategoryPermissionsIsPublic",
+    "MarkingCategoryRole",
+    "MarkingCategoryRoleAssignment",
     "MarkingCategoryType",
     "MarkingMember",
     "MarkingName",

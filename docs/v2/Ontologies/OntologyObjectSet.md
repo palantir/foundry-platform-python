@@ -588,6 +588,7 @@ Name | Type | Description  | Notes |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
 **LoadObjectSetV2ObjectsOrInterfacesResponse**
@@ -627,6 +628,8 @@ sdk_version = None
 select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+transaction_id = None
 
 
 try:
@@ -644,6 +647,7 @@ try:
         sdk_version=sdk_version,
         select_v2=select_v2,
         snapshot=snapshot,
+        transaction_id=transaction_id,
     )
     print("The load_objects_or_interfaces response:\n")
     pprint(api_response)

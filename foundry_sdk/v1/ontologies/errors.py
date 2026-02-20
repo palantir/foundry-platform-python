@@ -515,6 +515,22 @@ class HighScaleComputationNotEnabled(errors.InternalServerError):
     error_instance_id: str
 
 
+class IncompatibleNestedObjectSetParameters(typing_extensions.TypedDict):
+    """
+    A wrapper object set type is incompatible with one or more of the nested object set types.
+    For example, an interfaceLinkSearchAround object set wrapping a non-interface object set.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class IncompatibleNestedObjectSet(errors.BadRequestError):
+    name: typing.Literal["IncompatibleNestedObjectSet"]
+    parameters: IncompatibleNestedObjectSetParameters
+    error_instance_id: str
+
+
 class InterfaceBasedObjectSetNotSupportedParameters(typing_extensions.TypedDict):
     """The requested object set type is not supported for interface-based object sets."""
 
@@ -2390,6 +2406,7 @@ __all__ = [
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
+    "IncompatibleNestedObjectSet",
     "InterfaceBasedObjectSetNotSupported",
     "InterfaceLinkTypeNotFound",
     "InterfacePropertiesHaveDifferentIds",

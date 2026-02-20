@@ -1,3 +1,16 @@
+from __future__ import annotations
+
+import decimal
+import typing
+from datetime import date
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import models as filesystem_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,20 +24,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import decimal
-import typing
-from datetime import date
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.filesystem import models as filesystem_models
 
 
 class ApiKeyAuthentication(core.ModelBase):
@@ -145,7 +144,7 @@ class Connection(core.ModelBase):
     configuration: ConnectionConfiguration
 
 
-ConnectionConfiguration: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ConnectionConfiguration = typing_extensions.Annotated[
     typing.Union[
         "S3ConnectionConfiguration",
         "RestConnectionConfiguration",
@@ -182,7 +181,7 @@ ConnectionRid = core.RID
 """The Resource Identifier (RID) of a Connection (also known as a source)."""
 
 
-ConnectionWorker: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ConnectionWorker = typing_extensions.Annotated[
     typing.Union["UnknownWorker", "FoundryWorker"], pydantic.Field(discriminator="type")
 ]
 """
@@ -224,23 +223,21 @@ class CreateConnectionRequestBasicCredentials(core.ModelBase):
     type: typing.Literal["basic"] = "basic"
 
 
-CreateConnectionRequestConnectionConfiguration: typing_extensions.TypeAlias = (
-    typing_extensions.Annotated[
-        typing.Union[
-            "CreateConnectionRequestS3ConnectionConfiguration",
-            "CreateConnectionRequestRestConnectionConfiguration",
-            "CreateConnectionRequestSnowflakeConnectionConfiguration",
-            "CreateConnectionRequestDatabricksConnectionConfiguration",
-            "CreateConnectionRequestSmbConnectionConfiguration",
-            "CreateConnectionRequestJdbcConnectionConfiguration",
-        ],
-        pydantic.Field(discriminator="type"),
-    ]
-)
+CreateConnectionRequestConnectionConfiguration = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestS3ConnectionConfiguration",
+        "CreateConnectionRequestRestConnectionConfiguration",
+        "CreateConnectionRequestSnowflakeConnectionConfiguration",
+        "CreateConnectionRequestDatabricksConnectionConfiguration",
+        "CreateConnectionRequestSmbConnectionConfiguration",
+        "CreateConnectionRequestJdbcConnectionConfiguration",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """CreateConnectionRequestConnectionConfiguration"""
 
 
-CreateConnectionRequestConnectionWorker: typing_extensions.TypeAlias = typing_extensions.Annotated[
+CreateConnectionRequestConnectionWorker = typing_extensions.Annotated[
     typing.Union["CreateConnectionRequestUnknownWorker", "CreateConnectionRequestFoundryWorker"],
     pydantic.Field(discriminator="type"),
 ]
@@ -250,17 +247,15 @@ compute for capabilities are run.
 """
 
 
-CreateConnectionRequestDatabricksAuthenticationMode: typing_extensions.TypeAlias = (
-    typing_extensions.Annotated[
-        typing.Union[
-            "CreateConnectionRequestWorkflowIdentityFederation",
-            "CreateConnectionRequestOauthMachineToMachineAuth",
-            "CreateConnectionRequestPersonalAccessToken",
-            "CreateConnectionRequestBasicCredentials",
-        ],
-        pydantic.Field(discriminator="type"),
-    ]
-)
+CreateConnectionRequestDatabricksAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestWorkflowIdentityFederation",
+        "CreateConnectionRequestOauthMachineToMachineAuth",
+        "CreateConnectionRequestPersonalAccessToken",
+        "CreateConnectionRequestBasicCredentials",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """The method of authentication for connecting to an external Databricks system."""
 
 
@@ -280,7 +275,7 @@ class CreateConnectionRequestDatabricksConnectionConfiguration(core.ModelBase):
     type: typing.Literal["databricks"] = "databricks"
 
 
-CreateConnectionRequestEncryptedProperty: typing_extensions.TypeAlias = typing_extensions.Annotated[
+CreateConnectionRequestEncryptedProperty = typing_extensions.Annotated[
     typing.Union["CreateConnectionRequestAsSecretName", "CreateConnectionRequestAsPlaintextValue"],
     pydantic.Field(discriminator="type"),
 ]
@@ -489,16 +484,14 @@ class CreateConnectionRequestSmbUsernamePasswordAuth(core.ModelBase):
     type: typing.Literal["usernamePassword"] = "usernamePassword"
 
 
-CreateConnectionRequestSnowflakeAuthenticationMode: typing_extensions.TypeAlias = (
-    typing_extensions.Annotated[
-        typing.Union[
-            "CreateConnectionRequestSnowflakeExternalOauth",
-            "CreateConnectionRequestSnowflakeKeyPairAuthentication",
-            "CreateConnectionRequestBasicCredentials",
-        ],
-        pydantic.Field(discriminator="type"),
-    ]
-)
+CreateConnectionRequestSnowflakeAuthenticationMode = typing_extensions.Annotated[
+    typing.Union[
+        "CreateConnectionRequestSnowflakeExternalOauth",
+        "CreateConnectionRequestSnowflakeKeyPairAuthentication",
+        "CreateConnectionRequestBasicCredentials",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """CreateConnectionRequestSnowflakeAuthenticationMode"""
 
 
@@ -690,20 +683,18 @@ class CreateTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
-CreateTableImportRequestTableImportConfig: typing_extensions.TypeAlias = (
-    typing_extensions.Annotated[
-        typing.Union[
-            "CreateTableImportRequestDatabricksTableImportConfig",
-            "CreateTableImportRequestJdbcTableImportConfig",
-            "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
-            "CreateTableImportRequestPostgreSqlTableImportConfig",
-            "CreateTableImportRequestMicrosoftAccessTableImportConfig",
-            "CreateTableImportRequestSnowflakeTableImportConfig",
-            "CreateTableImportRequestOracleTableImportConfig",
-        ],
-        pydantic.Field(discriminator="type"),
-    ]
-)
+CreateTableImportRequestTableImportConfig = typing_extensions.Annotated[
+    typing.Union[
+        "CreateTableImportRequestDatabricksTableImportConfig",
+        "CreateTableImportRequestJdbcTableImportConfig",
+        "CreateTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "CreateTableImportRequestPostgreSqlTableImportConfig",
+        "CreateTableImportRequestMicrosoftAccessTableImportConfig",
+        "CreateTableImportRequestSnowflakeTableImportConfig",
+        "CreateTableImportRequestOracleTableImportConfig",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
@@ -716,7 +707,7 @@ class CreateVirtualTableRequest(core.ModelBase):
     config: VirtualTableConfig
 
 
-DatabricksAuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
+DatabricksAuthenticationMode = typing_extensions.Annotated[
     typing.Union[
         "WorkflowIdentityFederation",
         "OauthMachineToMachineAuth",
@@ -809,7 +800,7 @@ class Domain(core.ModelBase):
     """
 
 
-EncryptedProperty: typing_extensions.TypeAlias = typing_extensions.Annotated[
+EncryptedProperty = typing_extensions.Annotated[
     typing.Union["AsSecretName", "AsPlaintextValue"], pydantic.Field(discriminator="type")
 ]
 """
@@ -902,7 +893,7 @@ FileImportDisplayName = str
 """FileImportDisplayName"""
 
 
-FileImportFilter: typing_extensions.TypeAlias = typing_extensions.Annotated[
+FileImportFilter = typing_extensions.Annotated[
     typing.Union[
         "FilePathNotMatchesFilter",
         "FileAnyPathMatchesFilter",
@@ -1407,31 +1398,29 @@ class ReplaceTableImportRequestSnowflakeTableImportConfig(core.ModelBase):
     type: typing.Literal["snowflakeImportConfig"] = "snowflakeImportConfig"
 
 
-ReplaceTableImportRequestTableImportConfig: typing_extensions.TypeAlias = (
-    typing_extensions.Annotated[
-        typing.Union[
-            "ReplaceTableImportRequestDatabricksTableImportConfig",
-            "ReplaceTableImportRequestJdbcTableImportConfig",
-            "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
-            "ReplaceTableImportRequestPostgreSqlTableImportConfig",
-            "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
-            "ReplaceTableImportRequestSnowflakeTableImportConfig",
-            "ReplaceTableImportRequestOracleTableImportConfig",
-        ],
-        pydantic.Field(discriminator="type"),
-    ]
-)
+ReplaceTableImportRequestTableImportConfig = typing_extensions.Annotated[
+    typing.Union[
+        "ReplaceTableImportRequestDatabricksTableImportConfig",
+        "ReplaceTableImportRequestJdbcTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig",
+        "ReplaceTableImportRequestPostgreSqlTableImportConfig",
+        "ReplaceTableImportRequestMicrosoftAccessTableImportConfig",
+        "ReplaceTableImportRequestSnowflakeTableImportConfig",
+        "ReplaceTableImportRequestOracleTableImportConfig",
+    ],
+    pydantic.Field(discriminator="type"),
+]
 """The import configuration for a specific [connector type](https://palantir.com/docs/foundry/data-integration/source-type-overview)."""
 
 
-RestAuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
+RestAuthenticationMode = typing_extensions.Annotated[
     typing.Union["BearerToken", "ApiKeyAuthentication", "BasicCredentials", "RestConnectionOAuth2"],
     pydantic.Field(discriminator="type"),
 ]
 """The method of authentication for connecting to an external REST system."""
 
 
-RestConnectionAdditionalSecrets: typing_extensions.TypeAlias = typing_extensions.Annotated[
+RestConnectionAdditionalSecrets = typing_extensions.Annotated[
     typing.Union["SecretsWithPlaintextValues", "SecretsNames"], pydantic.Field(discriminator="type")
 ]
 """
@@ -1474,13 +1463,13 @@ class RestConnectionOAuth2(core.ModelBase):
     type: typing.Literal["oauth2"] = "oauth2"
 
 
-RestRequestApiKeyLocation: typing_extensions.TypeAlias = typing_extensions.Annotated[
+RestRequestApiKeyLocation = typing_extensions.Annotated[
     typing.Union["HeaderApiKey", "QueryParameterApiKey"], pydantic.Field(discriminator="type")
 ]
 """The location of the API key in the request."""
 
 
-S3AuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
+S3AuthenticationMode = typing_extensions.Annotated[
     typing.Union["AwsAccessKey", "CloudIdentity", "AwsOidcAuthentication"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1696,7 +1685,7 @@ class SmbUsernamePasswordAuth(core.ModelBase):
     type: typing.Literal["usernamePassword"] = "usernamePassword"
 
 
-SnowflakeAuthenticationMode: typing_extensions.TypeAlias = typing_extensions.Annotated[
+SnowflakeAuthenticationMode = typing_extensions.Annotated[
     typing.Union["SnowflakeExternalOauth", "SnowflakeKeyPairAuthentication", "BasicCredentials"],
     pydantic.Field(discriminator="type"),
 ]
@@ -1887,7 +1876,7 @@ TableImportAllowSchemaChanges = bool
 """Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports."""
 
 
-TableImportConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
+TableImportConfig = typing_extensions.Annotated[
     typing.Union[
         "DatabricksTableImportConfig",
         "JdbcTableImportConfig",
@@ -1906,7 +1895,7 @@ TableImportDisplayName = str
 """TableImportDisplayName"""
 
 
-TableImportInitialIncrementalState: typing_extensions.TypeAlias = typing_extensions.Annotated[
+TableImportInitialIncrementalState = typing_extensions.Annotated[
     typing.Union[
         "StringColumnInitialIncrementalState",
         "DateColumnInitialIncrementalState",
@@ -2022,7 +2011,7 @@ class VirtualTable(core.ModelBase):
     markings: typing.Optional[typing.List[core_models.MarkingId]] = None
 
 
-VirtualTableConfig: typing_extensions.TypeAlias = typing_extensions.Annotated[
+VirtualTableConfig = typing_extensions.Annotated[
     typing.Union[
         "SnowflakeVirtualTableConfig",
         "UnityVirtualTableConfig",
@@ -2077,27 +2066,115 @@ SmbAuth = SmbUsernamePasswordAuth
 """SmbAuth"""
 
 
-ConnectionConfiguration = core.resolve_forward_references(ConnectionConfiguration, globalns=globals(), localns=locals())  # type: ignore[misc]
-ConnectionWorker = core.resolve_forward_references(ConnectionWorker, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateConnectionRequestConnectionConfiguration = core.resolve_forward_references(CreateConnectionRequestConnectionConfiguration, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateConnectionRequestConnectionWorker = core.resolve_forward_references(CreateConnectionRequestConnectionWorker, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateConnectionRequestDatabricksAuthenticationMode = core.resolve_forward_references(CreateConnectionRequestDatabricksAuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateConnectionRequestEncryptedProperty = core.resolve_forward_references(CreateConnectionRequestEncryptedProperty, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateConnectionRequestSnowflakeAuthenticationMode = core.resolve_forward_references(CreateConnectionRequestSnowflakeAuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-CreateTableImportRequestTableImportConfig = core.resolve_forward_references(CreateTableImportRequestTableImportConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
-DatabricksAuthenticationMode = core.resolve_forward_references(DatabricksAuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-EncryptedProperty = core.resolve_forward_references(EncryptedProperty, globalns=globals(), localns=locals())  # type: ignore[misc]
-FileImportFilter = core.resolve_forward_references(FileImportFilter, globalns=globals(), localns=locals())  # type: ignore[misc]
-JdbcProperties = core.resolve_forward_references(JdbcProperties, globalns=globals(), localns=locals())  # type: ignore[misc]
-ReplaceTableImportRequestTableImportConfig = core.resolve_forward_references(ReplaceTableImportRequestTableImportConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
-RestAuthenticationMode = core.resolve_forward_references(RestAuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-RestConnectionAdditionalSecrets = core.resolve_forward_references(RestConnectionAdditionalSecrets, globalns=globals(), localns=locals())  # type: ignore[misc]
-RestRequestApiKeyLocation = core.resolve_forward_references(RestRequestApiKeyLocation, globalns=globals(), localns=locals())  # type: ignore[misc]
-S3AuthenticationMode = core.resolve_forward_references(S3AuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-SnowflakeAuthenticationMode = core.resolve_forward_references(SnowflakeAuthenticationMode, globalns=globals(), localns=locals())  # type: ignore[misc]
-TableImportConfig = core.resolve_forward_references(TableImportConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
-TableImportInitialIncrementalState = core.resolve_forward_references(TableImportInitialIncrementalState, globalns=globals(), localns=locals())  # type: ignore[misc]
-VirtualTableConfig = core.resolve_forward_references(VirtualTableConfig, globalns=globals(), localns=locals())  # type: ignore[misc]
+ApiKeyAuthentication.model_rebuild()
+AsPlaintextValue.model_rebuild()
+AsSecretName.model_rebuild()
+AwsAccessKey.model_rebuild()
+AwsOidcAuthentication.model_rebuild()
+BasicCredentials.model_rebuild()
+BearerToken.model_rebuild()
+BigQueryVirtualTableConfig.model_rebuild()
+CloudIdentity.model_rebuild()
+Connection.model_rebuild()
+ConnectionExportSettings.model_rebuild()
+CreateConnectionRequest.model_rebuild()
+CreateConnectionRequestAsPlaintextValue.model_rebuild()
+CreateConnectionRequestAsSecretName.model_rebuild()
+CreateConnectionRequestBasicCredentials.model_rebuild()
+CreateConnectionRequestDatabricksConnectionConfiguration.model_rebuild()
+CreateConnectionRequestFoundryWorker.model_rebuild()
+CreateConnectionRequestJdbcConnectionConfiguration.model_rebuild()
+CreateConnectionRequestOauthMachineToMachineAuth.model_rebuild()
+CreateConnectionRequestPersonalAccessToken.model_rebuild()
+CreateConnectionRequestRestConnectionConfiguration.model_rebuild()
+CreateConnectionRequestS3ConnectionConfiguration.model_rebuild()
+CreateConnectionRequestSmbConnectionConfiguration.model_rebuild()
+CreateConnectionRequestSmbUsernamePasswordAuth.model_rebuild()
+CreateConnectionRequestSnowflakeConnectionConfiguration.model_rebuild()
+CreateConnectionRequestSnowflakeExternalOauth.model_rebuild()
+CreateConnectionRequestSnowflakeKeyPairAuthentication.model_rebuild()
+CreateConnectionRequestUnknownWorker.model_rebuild()
+CreateConnectionRequestWorkflowIdentityFederation.model_rebuild()
+CreateFileImportRequest.model_rebuild()
+CreateTableImportRequest.model_rebuild()
+CreateTableImportRequestDatabricksTableImportConfig.model_rebuild()
+CreateTableImportRequestJdbcTableImportConfig.model_rebuild()
+CreateTableImportRequestMicrosoftAccessTableImportConfig.model_rebuild()
+CreateTableImportRequestMicrosoftSqlServerTableImportConfig.model_rebuild()
+CreateTableImportRequestOracleTableImportConfig.model_rebuild()
+CreateTableImportRequestPostgreSqlTableImportConfig.model_rebuild()
+CreateTableImportRequestSnowflakeTableImportConfig.model_rebuild()
+CreateVirtualTableRequest.model_rebuild()
+DatabricksConnectionConfiguration.model_rebuild()
+DatabricksTableImportConfig.model_rebuild()
+DateColumnInitialIncrementalState.model_rebuild()
+DecimalColumnInitialIncrementalState.model_rebuild()
+DeltaVirtualTableConfig.model_rebuild()
+Domain.model_rebuild()
+FileAnyPathMatchesFilter.model_rebuild()
+FileAtLeastCountFilter.model_rebuild()
+FileChangedSinceLastUploadFilter.model_rebuild()
+FileImport.model_rebuild()
+FileImportCustomFilter.model_rebuild()
+FileLastModifiedAfterFilter.model_rebuild()
+FilePathMatchesFilter.model_rebuild()
+FilePathNotMatchesFilter.model_rebuild()
+FileSizeFilter.model_rebuild()
+FilesCountLimitFilter.model_rebuild()
+FilesVirtualTableConfig.model_rebuild()
+FoundryWorker.model_rebuild()
+GetConfigurationConnectionsBatchRequestElement.model_rebuild()
+GetConfigurationConnectionsBatchResponse.model_rebuild()
+GlueVirtualTableConfig.model_rebuild()
+HeaderApiKey.model_rebuild()
+IcebergVirtualTableConfig.model_rebuild()
+IntegerColumnInitialIncrementalState.model_rebuild()
+JdbcConnectionConfiguration.model_rebuild()
+JdbcTableImportConfig.model_rebuild()
+ListFileImportsResponse.model_rebuild()
+ListTableImportsResponse.model_rebuild()
+LongColumnInitialIncrementalState.model_rebuild()
+MicrosoftAccessTableImportConfig.model_rebuild()
+MicrosoftSqlServerTableImportConfig.model_rebuild()
+OauthMachineToMachineAuth.model_rebuild()
+OracleTableImportConfig.model_rebuild()
+PersonalAccessToken.model_rebuild()
+PostgreSqlTableImportConfig.model_rebuild()
+QueryParameterApiKey.model_rebuild()
+ReplaceFileImportRequest.model_rebuild()
+ReplaceTableImportRequest.model_rebuild()
+ReplaceTableImportRequestDatabricksTableImportConfig.model_rebuild()
+ReplaceTableImportRequestJdbcTableImportConfig.model_rebuild()
+ReplaceTableImportRequestMicrosoftAccessTableImportConfig.model_rebuild()
+ReplaceTableImportRequestMicrosoftSqlServerTableImportConfig.model_rebuild()
+ReplaceTableImportRequestOracleTableImportConfig.model_rebuild()
+ReplaceTableImportRequestPostgreSqlTableImportConfig.model_rebuild()
+ReplaceTableImportRequestSnowflakeTableImportConfig.model_rebuild()
+RestConnectionConfiguration.model_rebuild()
+RestConnectionOAuth2.model_rebuild()
+S3ConnectionConfiguration.model_rebuild()
+S3KmsConfiguration.model_rebuild()
+S3ProxyConfiguration.model_rebuild()
+SecretsNames.model_rebuild()
+SecretsWithPlaintextValues.model_rebuild()
+SmbConnectionConfiguration.model_rebuild()
+SmbProxyConfiguration.model_rebuild()
+SmbUsernamePasswordAuth.model_rebuild()
+SnowflakeConnectionConfiguration.model_rebuild()
+SnowflakeExternalOauth.model_rebuild()
+SnowflakeKeyPairAuthentication.model_rebuild()
+SnowflakeTableImportConfig.model_rebuild()
+SnowflakeVirtualTableConfig.model_rebuild()
+StringColumnInitialIncrementalState.model_rebuild()
+StsRoleConfiguration.model_rebuild()
+TableImport.model_rebuild()
+TimestampColumnInitialIncrementalState.model_rebuild()
+UnityVirtualTableConfig.model_rebuild()
+UnknownWorker.model_rebuild()
+UpdateExportSettingsForConnectionRequest.model_rebuild()
+UpdateSecretsForConnectionRequest.model_rebuild()
+VirtualTable.model_rebuild()
+WorkflowIdentityFederation.model_rebuild()
 
 __all__ = [
     "ApiKeyAuthentication",

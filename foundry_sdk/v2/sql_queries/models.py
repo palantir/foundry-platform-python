@@ -1,3 +1,13 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,17 +21,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
 
 
 class CanceledQueryStatus(core.ModelBase):
@@ -60,7 +59,7 @@ class FailedQueryStatus(core.ModelBase):
     type: typing.Literal["failed"] = "failed"
 
 
-QueryStatus: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryStatus = typing_extensions.Annotated[
     typing.Union[
         "RunningQueryStatus", "CanceledQueryStatus", "FailedQueryStatus", "SucceededQueryStatus"
     ],
@@ -87,7 +86,11 @@ class SucceededQueryStatus(core.ModelBase):
     type: typing.Literal["succeeded"] = "succeeded"
 
 
-QueryStatus = core.resolve_forward_references(QueryStatus, globalns=globals(), localns=locals())  # type: ignore[misc]
+CanceledQueryStatus.model_rebuild()
+ExecuteSqlQueryRequest.model_rebuild()
+FailedQueryStatus.model_rebuild()
+RunningQueryStatus.model_rebuild()
+SucceededQueryStatus.model_rebuild()
 
 __all__ = [
     "CanceledQueryStatus",

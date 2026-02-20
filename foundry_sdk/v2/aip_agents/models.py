@@ -1,3 +1,15 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.functions import models as functions_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,19 +23,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.functions import models as functions_models
-from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class Agent(core.ModelBase):
@@ -219,7 +218,7 @@ class GetRagContextForSessionRequest(core.ModelBase):
     """Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval."""
 
 
-InputContext: typing_extensions.TypeAlias = typing_extensions.Annotated[
+InputContext = typing_extensions.Annotated[
     typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
 """Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
@@ -314,20 +313,20 @@ ParameterId = str
 """The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
 
 
-ParameterType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ParameterType = typing_extensions.Annotated[
     typing.Union["StringParameter", "ObjectSetParameter"], pydantic.Field(discriminator="type")
 ]
 """ParameterType"""
 
 
-ParameterValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ParameterValue = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
 """The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
 
 
-ParameterValueUpdate: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ParameterValueUpdate = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValueUpdate"],
     pydantic.Field(discriminator="type"),
 ]
@@ -587,7 +586,7 @@ class ToolCallInput(core.ModelBase):
     inputs: typing.Dict[ToolInputName, ToolInputValue]
 
 
-ToolCallOutput: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ToolCallOutput = typing_extensions.Annotated[
     typing.Union["SuccessToolCallOutput", "FailureToolCallOutput"],
     pydantic.Field(discriminator="type"),
 ]
@@ -598,7 +597,7 @@ ToolInputName = str
 """The name of a tool input parameter."""
 
 
-ToolInputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ToolInputValue = typing_extensions.Annotated[
     typing.Union["StringToolInputValue", "RidToolInputValue"], pydantic.Field(discriminator="type")
 ]
 """A tool input value, which can be either a string or a Resource Identifier (RID)."""
@@ -614,7 +613,7 @@ class ToolMetadata(core.ModelBase):
     """The type of the tool that was called."""
 
 
-ToolOutputValue: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ToolOutputValue = typing_extensions.Annotated[
     typing.Union["StringToolOutputValue", "RidToolOutputValue"],
     pydantic.Field(discriminator="type"),
 ]
@@ -651,13 +650,47 @@ class UserTextInput(core.ModelBase):
     """The user message text."""
 
 
-InputContext = core.resolve_forward_references(InputContext, globalns=globals(), localns=locals())  # type: ignore[misc]
-ParameterType = core.resolve_forward_references(ParameterType, globalns=globals(), localns=locals())  # type: ignore[misc]
-ParameterValue = core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())  # type: ignore[misc]
-ParameterValueUpdate = core.resolve_forward_references(ParameterValueUpdate, globalns=globals(), localns=locals())  # type: ignore[misc]
-ToolCallOutput = core.resolve_forward_references(ToolCallOutput, globalns=globals(), localns=locals())  # type: ignore[misc]
-ToolInputValue = core.resolve_forward_references(ToolInputValue, globalns=globals(), localns=locals())  # type: ignore[misc]
-ToolOutputValue = core.resolve_forward_references(ToolOutputValue, globalns=globals(), localns=locals())  # type: ignore[misc]
+Agent.model_rebuild()
+AgentMetadata.model_rebuild()
+AgentSessionRagContextResponse.model_rebuild()
+AgentVersion.model_rebuild()
+AgentVersionDetails.model_rebuild()
+AgentsSessionsPage.model_rebuild()
+BlockingContinueSessionRequest.model_rebuild()
+CancelSessionRequest.model_rebuild()
+CancelSessionResponse.model_rebuild()
+Content.model_rebuild()
+CreateSessionRequest.model_rebuild()
+FailureToolCallOutput.model_rebuild()
+FunctionRetrievedContext.model_rebuild()
+GetRagContextForSessionRequest.model_rebuild()
+ListAgentVersionsResponse.model_rebuild()
+ListSessionsResponse.model_rebuild()
+ObjectContext.model_rebuild()
+ObjectSetParameter.model_rebuild()
+ObjectSetParameterValue.model_rebuild()
+ObjectSetParameterValueUpdate.model_rebuild()
+Parameter.model_rebuild()
+RidToolInputValue.model_rebuild()
+RidToolOutputValue.model_rebuild()
+Session.model_rebuild()
+SessionExchange.model_rebuild()
+SessionExchangeContexts.model_rebuild()
+SessionExchangeResult.model_rebuild()
+SessionMetadata.model_rebuild()
+SessionTrace.model_rebuild()
+StreamingContinueSessionRequest.model_rebuild()
+StringParameter.model_rebuild()
+StringParameterValue.model_rebuild()
+StringToolInputValue.model_rebuild()
+StringToolOutputValue.model_rebuild()
+SuccessToolCallOutput.model_rebuild()
+ToolCall.model_rebuild()
+ToolCallGroup.model_rebuild()
+ToolCallInput.model_rebuild()
+ToolMetadata.model_rebuild()
+UpdateSessionTitleRequest.model_rebuild()
+UserTextInput.model_rebuild()
 
 __all__ = [
     "Agent",

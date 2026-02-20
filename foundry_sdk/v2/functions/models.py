@@ -1,3 +1,14 @@
+from __future__ import annotations
+
+import typing
+
+import pydantic
+import typing_extensions
+
+from foundry_sdk import _core as core
+from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
+
 #  Copyright 2024 Palantir Technologies, Inc.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,18 +22,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
-from __future__ import annotations
-
-import typing
-
-import pydantic
-import typing_extensions
-
-from foundry_sdk import _core as core
-from foundry_sdk.v2.core import models as core_models
-from foundry_sdk.v2.ontologies import models as ontologies_models
 
 
 class ArrayConstraint(core.ModelBase):
@@ -98,6 +97,14 @@ class GetByRidQueriesRequest(core.ModelBase):
 
     rid: FunctionRid
     version: typing.Optional[FunctionVersion] = None
+    include_prerelease: typing.Optional[bool] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
+    """
+    When no version is specified and this flag is set to true, the latest version resolution will consider
+    prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable
+    versions are considered when determining the latest version.
+
+    Defaults to false.
+    """
 
 
 class LengthConstraint(core.ModelBase):
@@ -154,7 +161,7 @@ class Query(core.ModelBase):
     version: FunctionVersion
 
 
-QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationKeyType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.BooleanType,
@@ -169,7 +176,7 @@ QueryAggregationKeyType: typing_extensions.TypeAlias = typing_extensions.Annotat
 """A union of all the types supported by query aggregation keys."""
 
 
-QueryAggregationRangeSubType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationRangeSubType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         core_models.DoubleType,
@@ -188,7 +195,7 @@ class QueryAggregationRangeType(core.ModelBase):
     type: typing.Literal["range"] = "range"
 
 
-QueryAggregationValueType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryAggregationValueType = typing_extensions.Annotated[
     typing.Union[core_models.DateType, core_models.DoubleType, core_models.TimestampType],
     pydantic.Field(discriminator="type"),
 ]
@@ -206,7 +213,7 @@ class QueryArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-QueryDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+QueryDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
         "QueryStructType",
@@ -364,7 +371,7 @@ ValueTypeApiName = str
 """The registered API name for the value type."""
 
 
-ValueTypeConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ValueTypeConstraint = typing_extensions.Annotated[
     typing.Union[
         "StructConstraint",
         "StructV1Constraint",
@@ -383,7 +390,7 @@ ValueTypeConstraint: typing_extensions.TypeAlias = typing_extensions.Annotated[
 """ValueTypeConstraint"""
 
 
-ValueTypeDataType: typing_extensions.TypeAlias = typing_extensions.Annotated[
+ValueTypeDataType = typing_extensions.Annotated[
     typing.Union[
         "ValueTypeDataTypeDateType",
         "ValueTypeDataTypeStructType",
@@ -573,12 +580,53 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-QueryAggregationKeyType = core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryAggregationRangeSubType = core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryAggregationValueType = core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())  # type: ignore[misc]
-QueryDataType = core.resolve_forward_references(QueryDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
-ValueTypeConstraint = core.resolve_forward_references(ValueTypeConstraint, globalns=globals(), localns=locals())  # type: ignore[misc]
-ValueTypeDataType = core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=locals())  # type: ignore[misc]
+ArrayConstraint.model_rebuild()
+EnumConstraint.model_rebuild()
+ExecuteQueryRequest.model_rebuild()
+ExecuteQueryResponse.model_rebuild()
+GetByRidQueriesRequest.model_rebuild()
+LengthConstraint.model_rebuild()
+MapConstraint.model_rebuild()
+NullableConstraint.model_rebuild()
+Parameter.model_rebuild()
+Query.model_rebuild()
+QueryAggregationRangeType.model_rebuild()
+QueryArrayType.model_rebuild()
+QuerySetType.model_rebuild()
+QueryStructField.model_rebuild()
+QueryStructType.model_rebuild()
+QueryUnionType.model_rebuild()
+RangesConstraint.model_rebuild()
+RegexConstraint.model_rebuild()
+RidConstraint.model_rebuild()
+StreamingExecuteQueryRequest.model_rebuild()
+StructConstraint.model_rebuild()
+StructV1Constraint.model_rebuild()
+ThreeDimensionalAggregation.model_rebuild()
+TwoDimensionalAggregation.model_rebuild()
+UuidConstraint.model_rebuild()
+ValueType.model_rebuild()
+ValueTypeDataTypeArrayType.model_rebuild()
+ValueTypeDataTypeBinaryType.model_rebuild()
+ValueTypeDataTypeBooleanType.model_rebuild()
+ValueTypeDataTypeByteType.model_rebuild()
+ValueTypeDataTypeDateType.model_rebuild()
+ValueTypeDataTypeDecimalType.model_rebuild()
+ValueTypeDataTypeDoubleType.model_rebuild()
+ValueTypeDataTypeFloatType.model_rebuild()
+ValueTypeDataTypeIntegerType.model_rebuild()
+ValueTypeDataTypeLongType.model_rebuild()
+ValueTypeDataTypeMapType.model_rebuild()
+ValueTypeDataTypeOptionalType.model_rebuild()
+ValueTypeDataTypeShortType.model_rebuild()
+ValueTypeDataTypeStringType.model_rebuild()
+ValueTypeDataTypeStructElement.model_rebuild()
+ValueTypeDataTypeStructType.model_rebuild()
+ValueTypeDataTypeTimestampType.model_rebuild()
+ValueTypeDataTypeUnionType.model_rebuild()
+ValueTypeDataTypeValueTypeReference.model_rebuild()
+ValueTypeReference.model_rebuild()
+VersionId.model_rebuild()
 
 __all__ = [
     "ArrayConstraint",

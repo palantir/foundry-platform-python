@@ -41,6 +41,7 @@ view_dataset_rid = None
 backing_datasets = [
     {
         "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "stopPropagatingMarkingIds": ["18212f9a-0e63-4b79-96a0-aae04df23336"],
         "branch": "master",
     }
 ]
@@ -171,6 +172,7 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 backing_datasets = [
     {
         "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "stopPropagatingMarkingIds": ["18212f9a-0e63-4b79-96a0-aae04df23336"],
         "branch": "master",
     }
 ]
@@ -301,6 +303,7 @@ view_dataset_rid = None
 backing_datasets = [
     {
         "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "stopPropagatingMarkingIds": ["18212f9a-0e63-4b79-96a0-aae04df23336"],
         "branch": "master",
     }
 ]
@@ -366,6 +369,7 @@ view_dataset_rid = None
 backing_datasets = [
     {
         "datasetRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da",
+        "stopPropagatingMarkingIds": ["18212f9a-0e63-4b79-96a0-aae04df23336"],
         "branch": "master",
     }
 ]
