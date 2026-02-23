@@ -107,7 +107,7 @@ class ActionParameterV2(core.ModelBase):
     description: typing.Optional[str] = None
     data_type: ActionParameterType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     required: bool
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 ActionResults = typing_extensions.Annotated[
@@ -1478,7 +1478,7 @@ class InterfaceDefinedPropertyType(core.ModelBase):
     require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
     """Whether each implementing object type must declare an implementation for this property."""
 
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceDefinedPropertyType"] = "interfaceDefinedPropertyType"
 
 
@@ -1625,7 +1625,7 @@ class InterfaceSharedPropertyType(core.ModelBase):
     required: bool
     """Whether each implementing object type must declare an implementation for this property."""
 
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
@@ -3628,7 +3628,7 @@ class PropertyV2(core.ModelBase):
     visibility: typing.Optional[PropertyTypeVisibility] = None
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 PropertyValue = typing.Any
@@ -4370,7 +4370,7 @@ class SharedPropertyType(core.ModelBase):
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 SharedPropertyTypeApiName = str
@@ -4578,7 +4578,7 @@ class StructFieldType(core.ModelBase):
     api_name: StructFieldApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     rid: StructFieldTypeRid
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
-    type_classes: typing.List[TypeClass] = pydantic.Field(alias=str("typeClasses"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 StructFieldTypeRid = core.RID

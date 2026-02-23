@@ -14,7 +14,7 @@ implementing object property types.
 **data_type** | ObjectPropertyType | Yes |  |
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 **require_implementation** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |
-**type_classes** | List[TypeClass] | Yes |  |
+**type_classes** | Optional[List[TypeClass]] | No |  |
 **type** | Literal["interfaceDefinedPropertyType"] | Yes | None |
 
 
