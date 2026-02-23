@@ -24,6 +24,14 @@ from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
+
+class BooleanParameter(core.ModelBase):
+    """A boolean parameter value."""
+
+    value: bool
+    type: typing.Literal["boolean"] = "boolean"
+
+
 ColumnTypeSpecId = str
 """An identifier for a column type specification."""
 
@@ -91,6 +99,13 @@ class DatasetInput(core.ModelBase):
     type: typing.Literal["dataset"] = "dataset"
 
 
+class DatetimeParameter(core.ModelBase):
+    """A datetime parameter value."""
+
+    value: core.AwareDatetime
+    type: typing.Literal["datetime"] = "datetime"
+
+
 class DillModelFiles(core.ModelBase):
     """DillModelFiles"""
 
@@ -98,8 +113,203 @@ class DillModelFiles(core.ModelBase):
     type: typing.Literal["dill"] = "dill"
 
 
+class DoubleParameter(core.ModelBase):
+    """A double parameter value."""
+
+    value: float
+    type: typing.Literal["double"] = "double"
+
+
+class DoubleSeriesAggregations(core.ModelBase):
+    """Aggregated statistics for numeric series."""
+
+    min: float
+    """Minimum value in the series"""
+
+    max: float
+    """Maximum value in the series"""
+
+    last: float
+    """Most recent value in the series"""
+
+    type: typing.Literal["double"] = "double"
+
+
+class DoubleSeriesV1(core.ModelBase):
+    """A series of double values."""
+
+    series: typing.List[DoubleSeriesValueV1]
+    type: typing.Literal["doubleV1"] = "doubleV1"
+
+
+class DoubleSeriesValueV1(core.ModelBase):
+    """A single double value in a series."""
+
+    value: float
+    timestamp: EpochMillis
+    """Milliseconds since unix time zero"""
+
+    step: core.Long
+
+
+EpochMillis = core.Long
+"""
+Milliseconds since unix time zero. This representation is used to maintain consistency with the Parquet
+format.
+"""
+
+
+class Experiment(core.ModelBase):
+    """Experiment"""
+
+    rid: ExperimentRid
+    model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
+    name: ExperimentName
+    created_at: core_models.CreatedTime = pydantic.Field(alias=str("createdAt"))  # type: ignore[literal-required]
+    created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
+    source: ExperimentSource
+    status: ExperimentStatus
+    status_message: typing.Optional[str] = pydantic.Field(alias=str("statusMessage"), default=None)  # type: ignore[literal-required]
+    branch: ExperimentBranch
+    parameters: typing.List[Parameter]
+    series: typing.List[SeriesAggregations]
+    summary_metrics: typing.List[SummaryMetric] = pydantic.Field(alias=str("summaryMetrics"))  # type: ignore[literal-required]
+    artifacts: typing.Dict[ExperimentArtifactName, ExperimentArtifactMetadata]
+    tags: typing.List[ExperimentTagText]
+    linked_model_version: typing.Optional[ModelVersionRid] = pydantic.Field(alias=str("linkedModelVersion"), default=None)  # type: ignore[literal-required]
+    job_rid: typing.Optional[core_models.JobRid] = pydantic.Field(alias=str("jobRid"), default=None)  # type: ignore[literal-required]
+
+
+class ExperimentArtifactMetadata(core.ModelBase):
+    """Metadata about an experiment artifact."""
+
+    name: ExperimentArtifactName
+    description: typing.Optional[str] = None
+    size_bytes: core_models.SizeBytes = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
+    details: ExperimentArtifactDetails
+
+
+ExperimentArtifactName = str
+"""The name of an experiment artifact."""
+
+
+class ExperimentAuthoringSource(core.ModelBase):
+    """Experiment created from an authoring repository."""
+
+    stemma_rid: core.RID = pydantic.Field(alias=str("stemmaRid"))  # type: ignore[literal-required]
+    type: typing.Literal["authoring"] = "authoring"
+
+
+ExperimentBranch = str
+"""ExperimentBranch"""
+
+
+class ExperimentCodeWorkspaceSource(core.ModelBase):
+    """Experiment created from a code workspace."""
+
+    container_rid: core.RID = pydantic.Field(alias=str("containerRid"))  # type: ignore[literal-required]
+    deployment_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("deploymentRid"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["codeWorkspace"] = "codeWorkspace"
+
+
+ExperimentName = str
+"""ExperimentName"""
+
+
+ExperimentRid = core.RID
+"""The Resource Identifier (RID) of an Experiment."""
+
+
+class ExperimentSdkSource(core.ModelBase):
+    """Experiment created from the SDK."""
+
+    type: typing.Literal["sdk"] = "sdk"
+
+
+ExperimentSource = typing_extensions.Annotated[
+    typing.Union[
+        "ExperimentCodeWorkspaceSource", "ExperimentAuthoringSource", "ExperimentSdkSource"
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""The source from which the experiment was created."""
+
+
+ExperimentStatus = typing.Literal["RUNNING", "SUCCEEDED", "FAILED"]
+"""The current status of an experiment."""
+
+
+ExperimentTagText = str
+"""A tag associated with an experiment."""
+
+
+class InconsistentArrayDimensionsError(core.ModelBase):
+    """Array elements have inconsistent dimensions."""
+
+    first_element_shape: typing.List[int] = pydantic.Field(alias=str("firstElementShape"))  # type: ignore[literal-required]
+    """The shape of the first array element"""
+
+    conflicting_element_shape: typing.List[int] = pydantic.Field(alias=str("conflictingElementShape"))  # type: ignore[literal-required]
+    """The shape of the conflicting array element"""
+
+    type: typing.Literal["inconsistentArrayDimensions"] = "inconsistentArrayDimensions"
+
+
+InferenceInputErrorType = typing_extensions.Annotated[
+    typing.Union[
+        "InvalidArrayShapeError",
+        "TypeMismatchError",
+        "UnsupportedTypeError",
+        "UnknownInputNameError",
+        "InvalidTabularFormatError",
+        "InconsistentArrayDimensionsError",
+        "RequiredValueMissingError",
+        "InvalidMapFormatError",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+The specific type and details of an input validation error for inference requests.
+Each variant carries parameters relevant to that specific error category.
+"""
+
+
 InputAlias = str
 """A string alias used to identify inputs in a Model Studio configuration."""
+
+
+class IntegerParameter(core.ModelBase):
+    """An integer parameter value."""
+
+    value: core.Long
+    type: typing.Literal["integer"] = "integer"
+
+
+class InvalidArrayShapeError(core.ModelBase):
+    """Array dimensions do not match expected ndarray shape."""
+
+    expected_shape: typing.List[int] = pydantic.Field(alias=str("expectedShape"))  # type: ignore[literal-required]
+    """The expected array shape from the model API specification"""
+
+    actual_shape: typing.Optional[typing.List[int]] = pydantic.Field(alias=str("actualShape"), default=None)  # type: ignore[literal-required]
+    """The actual shape of the provided array"""
+
+    type: typing.Literal["invalidArrayShape"] = "invalidArrayShape"
+
+
+class InvalidMapFormatError(core.ModelBase):
+    """Map input has incorrect structure or null keys."""
+
+    type: typing.Literal["invalidMapFormat"] = "invalidMapFormat"
+
+
+class InvalidTabularFormatError(core.ModelBase):
+    """Tabular input has incorrect JSON structure."""
+
+    input_field_name: str = pydantic.Field(alias=str("inputFieldName"))  # type: ignore[literal-required]
+    """The name of the tabular input field with incorrect format"""
+
+    type: typing.Literal["invalidTabularFormat"] = "invalidTabularFormat"
 
 
 class ListModelStudioConfigVersionsResponse(core.ModelBase):
@@ -128,6 +338,10 @@ class ListModelVersionsResponse(core.ModelBase):
 
     data: typing.List[ModelVersion]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+LiveDeploymentRid = core.RID
+"""The Resource Identifier (RID) of a Live Deployment."""
 
 
 class Model(core.ModelBase):
@@ -415,6 +629,42 @@ OutputAlias = str
 """A string alias used to identify outputs in a Model Studio configuration."""
 
 
+class Parameter(core.ModelBase):
+    """A parameter with its name and value."""
+
+    name: ParameterName
+    """The parameter name"""
+
+    value: ParameterValue
+    """The parameter value"""
+
+
+ParameterName = str
+"""The name of an experiment parameter."""
+
+
+ParameterValue = typing_extensions.Annotated[
+    typing.Union[
+        "DatetimeParameter",
+        "BooleanParameter",
+        "StringParameter",
+        "DoubleParameter",
+        "IntegerParameter",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""A parameter value logged for an experiment."""
+
+
+class RequiredValueMissingError(core.ModelBase):
+    """Required input field is null or missing."""
+
+    field_name: str = pydantic.Field(alias=str("fieldName"))  # type: ignore[literal-required]
+    """The name of the required field that was null or missing"""
+
+    type: typing.Literal["requiredValueMissing"] = "requiredValueMissing"
+
+
 class ResourceConfiguration(core.ModelBase):
     """Compute resource configuration for training runs."""
 
@@ -427,6 +677,265 @@ class ResourceConfiguration(core.ModelBase):
 
 RunId = str
 """A unique identifier for a Model Studio run, derived from the studio, config, and build."""
+
+
+class SearchExperimentsAndFilter(core.ModelBase):
+    """Returns experiments where every filter is satisfied."""
+
+    filters: typing.List[SearchExperimentsFilter]
+    type: typing.Literal["and"] = "and"
+
+
+class SearchExperimentsContainsFilter(core.ModelBase):
+    """Filter for substring containment matches."""
+
+    field: SearchExperimentsContainsFilterField
+    value: typing.Any
+    type: typing.Literal["contains"] = "contains"
+
+
+SearchExperimentsContainsFilterField = typing.Literal[
+    "EXPERIMENT_NAME", "PARAMETER_NAME", "SERIES_NAME"
+]
+"""Fields that support substring containment filtering."""
+
+
+class SearchExperimentsEqualsFilter(core.ModelBase):
+    """Filter for exact field value matches."""
+
+    field: SearchExperimentsEqualsFilterField
+    value: typing.Any
+    type: typing.Literal["eq"] = "eq"
+
+
+SearchExperimentsEqualsFilterField = typing.Literal[
+    "STATUS",
+    "BRANCH",
+    "EXPERIMENT_NAME",
+    "EXPERIMENT_RID",
+    "JOB_RID",
+    "TAG",
+    "PARAMETER_NAME",
+    "SERIES_NAME",
+]
+"""Fields that support equality filtering."""
+
+
+SearchExperimentsFilter = typing_extensions.Annotated[
+    typing.Union[
+        "SearchExperimentsSeriesFilter",
+        "SearchExperimentsContainsFilter",
+        "SearchExperimentsNotFilter",
+        "SearchExperimentsOrFilter",
+        "SearchExperimentsAndFilter",
+        "SearchExperimentsParameterFilter",
+        "SearchExperimentsSummaryMetricFilter",
+        "SearchExperimentsEqualsFilter",
+        "SearchExperimentsStartsWithFilter",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""
+Filter for searching experiments using operator-based composition.
+Supports equality, text matching, boolean combination operators, and compound filters
+that atomically bind a name to a value comparison.
+
+Example filters:
+- Simple status: {"eq": {"field": "STATUS", "value": "RUNNING"}}
+- Branch match: {"eq": {"field": "BRANCH", "value": "master"}}
+- Parameter filter: {"parameterFilter": {"parameterName": "learning_rate", "operator": "GT", "value": 0.01}}
+- Combined: {"and": {"filters": [
+    {"eq": {"field": "STATUS", "value": "SUCCEEDED"}},
+    {"parameterFilter": {"parameterName": "learning_rate", "operator": "GT", "value": 0.5}}
+  ]}}
+"""
+
+
+SearchExperimentsFilterOperator = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
+"""Comparison operator for compound filter predicates."""
+
+
+class SearchExperimentsNotFilter(core.ModelBase):
+    """Returns experiments where the filter is not satisfied."""
+
+    value: SearchExperimentsFilter
+    type: typing.Literal["not"] = "not"
+
+
+class SearchExperimentsOrFilter(core.ModelBase):
+    """Returns experiments where at least one filter is satisfied."""
+
+    filters: typing.List[SearchExperimentsFilter]
+    type: typing.Literal["or"] = "or"
+
+
+class SearchExperimentsOrderBy(core.ModelBase):
+    """Ordering configuration for experiment search results."""
+
+    field: SearchExperimentsOrderByField
+    direction: core_models.OrderByDirection
+
+
+SearchExperimentsOrderByField = typing.Literal["EXPERIMENT_NAME", "CREATED_AT"]
+"""Fields to order experiment search results by."""
+
+
+class SearchExperimentsParameterFilter(core.ModelBase):
+    """
+    Filter that atomically binds a parameter name to a value comparison,
+    ensuring both conditions are evaluated on the same parameter.
+    Supported combinations:
+    - EQ: boolean, double, integer, datetime, or string value
+    - GT/LT: double, integer, or datetime value
+    - CONTAINS: string value (matches the parameter's string value)
+    """
+
+    parameter_name: ParameterName = pydantic.Field(alias=str("parameterName"))  # type: ignore[literal-required]
+    """The exact name of the parameter to filter on."""
+
+    operator: SearchExperimentsFilterOperator
+    """The comparison operator to apply."""
+
+    value: typing.Any
+    """The value to compare against."""
+
+    type: typing.Literal["parameterFilter"] = "parameterFilter"
+
+
+class SearchExperimentsRequest(core.ModelBase):
+    """SearchExperimentsRequest"""
+
+    where: typing.Optional[SearchExperimentsFilter] = None
+    """Optional search filter for filtering experiments. If not provided, all experiments for the model are returned."""
+
+    order_by: typing.Optional[SearchExperimentsOrderBy] = pydantic.Field(alias=str("orderBy"), default=None)  # type: ignore[literal-required]
+    """The field to sort by. Default is to sort by relevance."""
+
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    """The maximum number of results to return. Default 50, maximum of 100."""
+
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    """PageToken to identify the next page to retrieve. Leave empty for the first request."""
+
+
+class SearchExperimentsResponse(core.ModelBase):
+    """Response from searching experiments."""
+
+    data: typing.List[Experiment]
+    """List of experiments matching the search criteria."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    """Token for retrieving the next page of results, if more results are available."""
+
+
+class SearchExperimentsSeriesFilter(core.ModelBase):
+    """
+    Filter that atomically binds a series name to a metric comparison,
+    ensuring all conditions are evaluated on the same series.
+    """
+
+    series_name: SeriesName = pydantic.Field(alias=str("seriesName"))  # type: ignore[literal-required]
+    """The name of the series to filter on."""
+
+    field: SearchExperimentsSeriesFilterField
+    """The series metric to compare."""
+
+    operator: SearchExperimentsFilterOperator
+    """The comparison operator (EQ, GT, or LT)."""
+
+    value: typing.Any
+    """The value to compare against."""
+
+    type: typing.Literal["seriesFilter"] = "seriesFilter"
+
+
+SearchExperimentsSeriesFilterField = typing.Literal[
+    "LENGTH", "AGGREGATION_MIN", "AGGREGATION_MAX", "AGGREGATION_LAST"
+]
+"""The series metric to filter on."""
+
+
+class SearchExperimentsStartsWithFilter(core.ModelBase):
+    """Filter for prefix matches."""
+
+    field: SearchExperimentsStartsWithFilterField
+    value: typing.Any
+    type: typing.Literal["startsWith"] = "startsWith"
+
+
+SearchExperimentsStartsWithFilterField = typing.Literal[
+    "EXPERIMENT_NAME", "PARAMETER_NAME", "SERIES_NAME"
+]
+"""Fields that support prefix filtering."""
+
+
+class SearchExperimentsSummaryMetricFilter(core.ModelBase):
+    """
+    Filter that atomically binds a series name and aggregation type to a value comparison,
+    ensuring all conditions are evaluated on the same summary metric.
+    """
+
+    series_name: SeriesName = pydantic.Field(alias=str("seriesName"))  # type: ignore[literal-required]
+    """The name of the series this metric belongs to."""
+
+    aggregation: SummaryMetricAggregation
+    """The aggregation type (MIN, MAX, LAST)."""
+
+    operator: SearchExperimentsFilterOperator
+    """The comparison operator (EQ, GT, or LT)."""
+
+    value: typing.Any
+    """The value to compare against."""
+
+    type: typing.Literal["summaryMetricFilter"] = "summaryMetricFilter"
+
+
+class SeriesAggregations(core.ModelBase):
+    """Series with precomputed aggregation values."""
+
+    name: SeriesName
+    """The series name"""
+
+    length: core.Long
+    """Number of values in the series"""
+
+    value: SeriesAggregationsValue
+    """Aggregated values for this series"""
+
+
+SeriesName = str
+"""The name of a series (metrics tracked over time)."""
+
+
+class StringParameter(core.ModelBase):
+    """A string parameter value."""
+
+    value: str
+    type: typing.Literal["string"] = "string"
+
+
+class SummaryMetric(core.ModelBase):
+    """A summary metric with series name, aggregation type, and computed value."""
+
+    series_name: SeriesName = pydantic.Field(alias=str("seriesName"))  # type: ignore[literal-required]
+    """Name of the series this metric belongs to"""
+
+    aggregation: SummaryMetricAggregation
+    """Type of aggregation (MIN, MAX, LAST)"""
+
+    value: float
+    """The computed value"""
+
+
+SummaryMetricAggregation = typing.Literal["MIN", "MAX", "LAST"]
+"""The type of aggregation computed for a summary metric."""
+
+
+class TableArtifactDetails(core.ModelBase):
+    """Details about a table artifact."""
+
+    row_count: core.Long = pydantic.Field(alias=str("rowCount"))  # type: ignore[literal-required]
+    type: typing.Literal["table"] = "table"
 
 
 TrainerDescription = str
@@ -468,6 +977,54 @@ class TrainerVersionLocator(core.ModelBase):
     version: str
 
 
+class TransformJsonLiveDeploymentRequest(core.ModelBase):
+    """TransformJsonLiveDeploymentRequest"""
+
+    input: typing.Dict[str, typing.Any]
+    """The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data."""
+
+
+class TransformLiveDeploymentResponse(core.ModelBase):
+    """The response from transforming input data using a live deployment."""
+
+    output: typing.Dict[str, typing.Any]
+    """The output data from the model inference. The structure depends on the model's defined API specification, where each key is an output name and the value is the corresponding output data."""
+
+
+class TypeMismatchError(core.ModelBase):
+    """Input type does not match expected type in model API."""
+
+    expected_type: str = pydantic.Field(alias=str("expectedType"))  # type: ignore[literal-required]
+    """The expected type from the model API specification"""
+
+    actual_type: str = pydantic.Field(alias=str("actualType"))  # type: ignore[literal-required]
+    """The actual type provided in the input"""
+
+    type: typing.Literal["typeMismatch"] = "typeMismatch"
+
+
+class UnknownInputNameError(core.ModelBase):
+    """Provided input name not found in model API specification."""
+
+    input_name: str = pydantic.Field(alias=str("inputName"))  # type: ignore[literal-required]
+    """The input name that was not found in the model API specification"""
+
+    type: typing.Literal["unknownInputName"] = "unknownInputName"
+
+
+class UnsupportedTypeError(core.ModelBase):
+    """Input contains an unsupported data type."""
+
+    unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
+    """The unsupported data type"""
+
+    type: typing.Literal["unsupportedType"] = "unsupportedType"
+
+
+ExperimentArtifactDetails = TableArtifactDetails
+"""Details about an experiment artifact."""
+
+
 ModelFiles = DillModelFiles
 """
 The serialized data of a machine learning model. This can include the model's parameters, architecture, and any other relevant information needed to reconstruct the model.
@@ -487,23 +1044,62 @@ ModelStudioRunOutput = ModelStudioRunModelOutput
 """Resolved output details for a Model Studio run."""
 
 
+Series = DoubleSeriesV1
+"""A series of values logged over time."""
+
+
+SeriesAggregationsValue = DoubleSeriesAggregations
+"""Union of aggregation values by series type."""
+
+
+core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
+core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
+core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
 
 __all__ = [
+    "BooleanParameter",
     "ColumnTypeSpecId",
     "CreateModelRequest",
     "CreateModelStudioConfigVersionRequest",
     "CreateModelStudioRequest",
     "CreateModelVersionRequest",
     "DatasetInput",
+    "DatetimeParameter",
     "DillModelFiles",
+    "DoubleParameter",
+    "DoubleSeriesAggregations",
+    "DoubleSeriesV1",
+    "DoubleSeriesValueV1",
+    "EpochMillis",
+    "Experiment",
+    "ExperimentArtifactDetails",
+    "ExperimentArtifactMetadata",
+    "ExperimentArtifactName",
+    "ExperimentAuthoringSource",
+    "ExperimentBranch",
+    "ExperimentCodeWorkspaceSource",
+    "ExperimentName",
+    "ExperimentRid",
+    "ExperimentSdkSource",
+    "ExperimentSource",
+    "ExperimentStatus",
+    "ExperimentTagText",
+    "InconsistentArrayDimensionsError",
+    "InferenceInputErrorType",
     "InputAlias",
+    "IntegerParameter",
+    "InvalidArrayShapeError",
+    "InvalidMapFormatError",
+    "InvalidTabularFormatError",
     "ListModelStudioConfigVersionsResponse",
     "ListModelStudioRunsResponse",
     "ListModelStudioTrainersResponse",
     "ListModelVersionsResponse",
+    "LiveDeploymentRid",
     "Model",
     "ModelApi",
     "ModelApiAnyType",
@@ -538,8 +1134,39 @@ __all__ = [
     "ModelVersion",
     "ModelVersionRid",
     "OutputAlias",
+    "Parameter",
+    "ParameterName",
+    "ParameterValue",
+    "RequiredValueMissingError",
     "ResourceConfiguration",
     "RunId",
+    "SearchExperimentsAndFilter",
+    "SearchExperimentsContainsFilter",
+    "SearchExperimentsContainsFilterField",
+    "SearchExperimentsEqualsFilter",
+    "SearchExperimentsEqualsFilterField",
+    "SearchExperimentsFilter",
+    "SearchExperimentsFilterOperator",
+    "SearchExperimentsNotFilter",
+    "SearchExperimentsOrFilter",
+    "SearchExperimentsOrderBy",
+    "SearchExperimentsOrderByField",
+    "SearchExperimentsParameterFilter",
+    "SearchExperimentsRequest",
+    "SearchExperimentsResponse",
+    "SearchExperimentsSeriesFilter",
+    "SearchExperimentsSeriesFilterField",
+    "SearchExperimentsStartsWithFilter",
+    "SearchExperimentsStartsWithFilterField",
+    "SearchExperimentsSummaryMetricFilter",
+    "Series",
+    "SeriesAggregations",
+    "SeriesAggregationsValue",
+    "SeriesName",
+    "StringParameter",
+    "SummaryMetric",
+    "SummaryMetricAggregation",
+    "TableArtifactDetails",
     "TrainerDescription",
     "TrainerId",
     "TrainerInputsSpecification",
@@ -549,4 +1176,9 @@ __all__ = [
     "TrainerType",
     "TrainerVersion",
     "TrainerVersionLocator",
+    "TransformJsonLiveDeploymentRequest",
+    "TransformLiveDeploymentResponse",
+    "TypeMismatchError",
+    "UnknownInputNameError",
+    "UnsupportedTypeError",
 ]

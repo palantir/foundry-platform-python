@@ -204,9 +204,13 @@
       "skipValidation": {
         "Filesystem": ["ResourceType"]
       },
-      "tableOperations": [
+      "arrowTableOperations": [
         "readTableDataset",
         "getResultsSqlQuery"
+      ],
+      "parquetTableOperations": [
+        "parquetExperimentSeries",
+        "parquetExperimentArtifactTable"
       ]
     }
   },

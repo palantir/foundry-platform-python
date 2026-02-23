@@ -366,6 +366,32 @@ def test_media_sets_v2_media_set_import():
     assert MediaSetClient is not None
 
 
+def test_models_v2_experiment_import():
+    from foundry_sdk.v2.models.experiment import ExperimentClient
+
+    assert ExperimentClient is not None
+
+
+def test_models_v2_experiment_artifact_table_import():
+    from foundry_sdk.v2.models.experiment_artifact_table import (
+        ExperimentArtifactTableClient,
+    )  # NOQA
+
+    assert ExperimentArtifactTableClient is not None
+
+
+def test_models_v2_experiment_series_import():
+    from foundry_sdk.v2.models.experiment_series import ExperimentSeriesClient
+
+    assert ExperimentSeriesClient is not None
+
+
+def test_models_v2_live_deployment_import():
+    from foundry_sdk.v2.models.live_deployment import LiveDeploymentClient
+
+    assert LiveDeploymentClient is not None
+
+
 def test_models_v2_model_import():
     from foundry_sdk.v2.models.model import ModelClient
 

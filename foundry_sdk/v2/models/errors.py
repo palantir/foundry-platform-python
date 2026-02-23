@@ -18,6 +18,7 @@ from dataclasses import dataclass
 
 import typing_extensions
 
+from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.models import models as models_models
 
@@ -110,6 +111,113 @@ class CreateModelVersionPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ExperimentArtifactNotFoundParameters(typing_extensions.TypedDict):
+    """The requested artifact was not found in the experiment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelRid: core.RID
+    experimentRid: core.RID
+    artifactName: str
+
+
+@dataclass
+class ExperimentArtifactNotFound(errors.NotFoundError):
+    name: typing.Literal["ExperimentArtifactNotFound"]
+    parameters: ExperimentArtifactNotFoundParameters
+    error_instance_id: str
+
+
+class ExperimentNotFoundParameters(typing_extensions.TypedDict):
+    """The given Experiment could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    experimentRid: models_models.ExperimentRid
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class ExperimentNotFound(errors.NotFoundError):
+    name: typing.Literal["ExperimentNotFound"]
+    parameters: ExperimentNotFoundParameters
+    error_instance_id: str
+
+
+class ExperimentSeriesNotFoundParameters(typing_extensions.TypedDict):
+    """The requested series was not found in the experiment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelRid: core.RID
+    experimentRid: core.RID
+    seriesName: str
+
+
+@dataclass
+class ExperimentSeriesNotFound(errors.NotFoundError):
+    name: typing.Literal["ExperimentSeriesNotFound"]
+    parameters: ExperimentSeriesNotFoundParameters
+    error_instance_id: str
+
+
+class InferenceFailureParameters(typing_extensions.TypedDict):
+    """
+    The inference request failed due to a model execution error or unexpected internal issue.
+    This typically indicates a problem with the model itself rather than the input data.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+    errorMessage: str
+
+
+@dataclass
+class InferenceFailure(errors.BadRequestError):
+    name: typing.Literal["InferenceFailure"]
+    parameters: InferenceFailureParameters
+    error_instance_id: str
+
+
+class InferenceInvalidInputParameters(typing_extensions.TypedDict):
+    """
+    The inference request contains invalid input data that does not match the model's API specification.
+    Check the error type for specific validation failure details.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+    errorType: models_models.InferenceInputErrorType
+    """The specific type and details of the input validation error"""
+
+
+@dataclass
+class InferenceInvalidInput(errors.BadRequestError):
+    name: typing.Literal["InferenceInvalidInput"]
+    parameters: InferenceInvalidInputParameters
+    error_instance_id: str
+
+
+class InferenceTimeoutParameters(typing_extensions.TypedDict):
+    """
+    The live deployment took longer than 5 minutes to respond to the inference request.
+    This typically indicates the model execution is taking too long or the deployment is under heavy load.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class InferenceTimeout(errors.InternalServerError):
+    name: typing.Literal["InferenceTimeout"]
+    parameters: InferenceTimeoutParameters
+    error_instance_id: str
+
+
 class InvalidModelApiParameters(typing_extensions.TypedDict):
     """The model api failed validations"""
 
@@ -136,6 +244,40 @@ class InvalidModelStudioCreateRequestParameters(typing_extensions.TypedDict):
 class InvalidModelStudioCreateRequest(errors.BadRequestError):
     name: typing.Literal["InvalidModelStudioCreateRequest"]
     parameters: InvalidModelStudioCreateRequestParameters
+    error_instance_id: str
+
+
+class JsonExperimentArtifactTablePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not json the ExperimentArtifactTable."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    experimentRid: models_models.ExperimentRid
+    experimentArtifactTableName: models_models.ExperimentArtifactName
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class JsonExperimentArtifactTablePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["JsonExperimentArtifactTablePermissionDenied"]
+    parameters: JsonExperimentArtifactTablePermissionDeniedParameters
+    error_instance_id: str
+
+
+class JsonExperimentSeriesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not json the ExperimentSeries."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    experimentSeriesName: models_models.SeriesName
+    experimentRid: models_models.ExperimentRid
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class JsonExperimentSeriesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["JsonExperimentSeriesPermissionDenied"]
+    parameters: JsonExperimentSeriesPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -166,6 +308,37 @@ class LaunchModelStudioPermissionDeniedParameters(typing_extensions.TypedDict):
 class LaunchModelStudioPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["LaunchModelStudioPermissionDenied"]
     parameters: LaunchModelStudioPermissionDeniedParameters
+    error_instance_id: str
+
+
+class LiveDeploymentNotFoundParameters(typing_extensions.TypedDict):
+    """The specified live deployment was not found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class LiveDeploymentNotFound(errors.NotFoundError):
+    name: typing.Literal["LiveDeploymentNotFound"]
+    parameters: LiveDeploymentNotFoundParameters
+    error_instance_id: str
+
+
+class ModelExperimentNotFoundParameters(typing_extensions.TypedDict):
+    """The requested experiment was not found or the user lacks permission to access it."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelRid: core.RID
+    experimentRid: core.RID
+
+
+@dataclass
+class ModelExperimentNotFound(errors.NotFoundError):
+    name: typing.Literal["ModelExperimentNotFound"]
+    parameters: ModelExperimentNotFoundParameters
     error_instance_id: str
 
 
@@ -246,6 +419,55 @@ class ModelVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class ParquetExperimentArtifactTablePermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not parquet the ExperimentArtifactTable."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    experimentRid: models_models.ExperimentRid
+    experimentArtifactTableName: models_models.ExperimentArtifactName
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class ParquetExperimentArtifactTablePermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ParquetExperimentArtifactTablePermissionDenied"]
+    parameters: ParquetExperimentArtifactTablePermissionDeniedParameters
+    error_instance_id: str
+
+
+class ParquetExperimentSeriesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not parquet the ExperimentSeries."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    experimentSeriesName: models_models.SeriesName
+    experimentRid: models_models.ExperimentRid
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class ParquetExperimentSeriesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ParquetExperimentSeriesPermissionDenied"]
+    parameters: ParquetExperimentSeriesPermissionDeniedParameters
+    error_instance_id: str
+
+
+class SearchExperimentsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not search the Experiment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class SearchExperimentsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["SearchExperimentsPermissionDenied"]
+    parameters: SearchExperimentsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class TrainerNotFoundParameters(typing_extensions.TypedDict):
     """The specified trainer does not exist."""
 
@@ -261,6 +483,21 @@ class TrainerNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class TransformJsonLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not transformJson the LiveDeployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class TransformJsonLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["TransformJsonLiveDeploymentPermissionDenied"]
+    parameters: TransformJsonLiveDeploymentPermissionDeniedParameters
+    error_instance_id: str
+
+
 __all__ = [
     "CondaSolveFailureForProvidedPackages",
     "CreateConfigValidationError",
@@ -268,14 +505,28 @@ __all__ = [
     "CreateModelStudioConfigVersionPermissionDenied",
     "CreateModelStudioPermissionDenied",
     "CreateModelVersionPermissionDenied",
+    "ExperimentArtifactNotFound",
+    "ExperimentNotFound",
+    "ExperimentSeriesNotFound",
+    "InferenceFailure",
+    "InferenceInvalidInput",
+    "InferenceTimeout",
     "InvalidModelApi",
     "InvalidModelStudioCreateRequest",
+    "JsonExperimentArtifactTablePermissionDenied",
+    "JsonExperimentSeriesPermissionDenied",
     "LatestModelStudioConfigVersionsPermissionDenied",
     "LaunchModelStudioPermissionDenied",
+    "LiveDeploymentNotFound",
+    "ModelExperimentNotFound",
     "ModelNotFound",
     "ModelStudioConfigVersionNotFound",
     "ModelStudioNotFound",
     "ModelStudioTrainerNotFound",
     "ModelVersionNotFound",
+    "ParquetExperimentArtifactTablePermissionDenied",
+    "ParquetExperimentSeriesPermissionDenied",
+    "SearchExperimentsPermissionDenied",
     "TrainerNotFound",
+    "TransformJsonLiveDeploymentPermissionDenied",
 ]

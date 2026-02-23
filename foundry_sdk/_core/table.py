@@ -70,6 +70,13 @@ class TableResponse(bytes):
             raise ImportError(_error_msg("duckdb", "a DuckDB relation", "duckdb"))
 
     def _get_arrow_table(self, extra_dependency: str) -> "pa.Table":
+        raise NotImplementedError("Subclasses must implement _get_arrow_table")
+
+
+class ArrowTableResponse(TableResponse):
+    """Deserializes an Arrow IPC stream into various formats."""
+
+    def _get_arrow_table(self, extra_dependency: str) -> "pa.Table":
         try:
             import pyarrow as pa
         except ImportError:
@@ -77,5 +84,21 @@ class TableResponse(bytes):
 
         if self._arrow_table is None:
             self._arrow_table = pa.ipc.open_stream(self).read_all()
+
+        return self._arrow_table
+
+
+class ParquetTableResponse(TableResponse):
+    """Deserializes Parquet bytes into various formats."""
+
+    def _get_arrow_table(self, extra_dependency: str) -> "pa.Table":
+        try:
+            import pyarrow as pa
+            import pyarrow.parquet as pq  # type: ignore[import-untyped]
+        except ImportError:
+            raise ImportError(_error_msg("pyarrow", "an Arrow Table", extra_dependency))
+
+        if self._arrow_table is None:
+            self._arrow_table = pq.read_table(pa.BufferReader(self))
 
         return self._arrow_table

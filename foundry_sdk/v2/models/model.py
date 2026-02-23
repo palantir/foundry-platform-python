@@ -51,6 +51,16 @@ class ModelClient:
         self.with_raw_response = _ModelClientRaw(self)
 
     @cached_property
+    def Experiment(self):
+        from foundry_sdk.v2.models.experiment import ExperimentClient
+
+        return ExperimentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Version(self):
         from foundry_sdk.v2.models.model_version import ModelVersionClient
 
@@ -202,6 +212,16 @@ class AsyncModelClient:
 
         self.with_streaming_response = _AsyncModelClientStreaming(self)
         self.with_raw_response = _AsyncModelClientRaw(self)
+
+    @cached_property
+    def Experiment(self):
+        from foundry_sdk.v2.models.experiment import AsyncExperimentClient
+
+        return AsyncExperimentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @cached_property
     def Version(self):

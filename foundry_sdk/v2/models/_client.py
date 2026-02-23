@@ -39,6 +39,16 @@ class ModelsClient:
         self._config = config
 
     @cached_property
+    def LiveDeployment(self):
+        from foundry_sdk.v2.models.live_deployment import LiveDeploymentClient
+
+        return LiveDeploymentClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
     def Model(self):
         from foundry_sdk.v2.models.model import ModelClient
 
@@ -84,9 +94,12 @@ class AsyncModelsClient:
         hostname: str,
         config: typing.Optional[core.Config] = None,
     ):
+        from foundry_sdk.v2.models.live_deployment import AsyncLiveDeploymentClient
         from foundry_sdk.v2.models.model import AsyncModelClient
         from foundry_sdk.v2.models.model_studio import AsyncModelStudioClient
         from foundry_sdk.v2.models.model_studio_trainer import AsyncModelStudioTrainerClient  # NOQA
+
+        self.LiveDeployment = AsyncLiveDeploymentClient(auth=auth, hostname=hostname, config=config)
 
         self.Model = AsyncModelClient(auth=auth, hostname=hostname, config=config)
 

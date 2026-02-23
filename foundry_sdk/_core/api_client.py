@@ -61,7 +61,8 @@ from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
-from foundry_sdk._core.table import TableResponse
+from foundry_sdk._core.table import ArrowTableResponse
+from foundry_sdk._core.table import ParquetTableResponse
 from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
@@ -162,7 +163,7 @@ def async_with_streaming_response(
     )
 
 
-ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "TABLE"]
+ResponseMode = Literal["DECODED", "ITERATOR", "RAW", "STREAMING", "ARROW_TABLE", "PARQUET_TABLE"]
 
 
 # The SdkInternal dictionary is a flexible way to pass additional information to the API client
@@ -715,11 +716,16 @@ class ApiClient(BaseApiClient):
 
         if response_mode == "STREAMING":
             return StreamingContextManager(request_info, api_response)
-        elif response_mode == "TABLE":
+        elif response_mode == "ARROW_TABLE":
             if res.content == b"":
                 return None
             else:
-                return TableResponse(res.content)
+                return ArrowTableResponse(res.content)
+        elif response_mode == "PARQUET_TABLE":
+            if res.content == b"":
+                return None
+            else:
+                return ParquetTableResponse(res.content)
         elif response_mode == "RAW":
             return api_response
         else:
@@ -813,11 +819,16 @@ class AsyncApiClient(BaseApiClient):
 
         if response_mode == "RAW" or response_mode == "STREAMING":
             return api_response
-        elif response_mode == "TABLE":
+        elif response_mode == "ARROW_TABLE":
             if res.content == b"":
                 return None
             else:
-                return TableResponse(res.content)
+                return ArrowTableResponse(res.content)
+        elif response_mode == "PARQUET_TABLE":
+            if res.content == b"":
+                return None
+            else:
+                return ParquetTableResponse(res.content)
         else:
             return api_response.decode()
 

@@ -5796,6 +5796,12 @@ alternating user and assistant roles.
 )
 @click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
+    "--output_config",
+    type=str,
+    required=False,
+    help="""Configuration to control the shape of the model's output""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
@@ -5854,6 +5860,7 @@ def language_models_anthropic_model_op_messages(
     max_tokens: int,
     messages: str,
     attribution: typing.Optional[str],
+    output_config: typing.Optional[str],
     preview: typing.Optional[bool],
     stop_sequences: typing.Optional[str],
     system: typing.Optional[str],
@@ -5870,6 +5877,7 @@ def language_models_anthropic_model_op_messages(
         max_tokens=max_tokens,
         messages=json.loads(messages),
         attribution=attribution,
+        output_config=None if output_config is None else json.loads(output_config),
         preview=preview,
         stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
         system=None if system is None else json.loads(system),
@@ -6985,6 +6993,285 @@ def models_model_model_version_op_list(
         model_rid=model_rid,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.group("experiment")
+def models_model_experiment():
+    pass
+
+
+@models_model_experiment.command("get")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_op_get(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve a single experiment with all metadata, parameters, series metadata, and summary metrics.
+
+    """
+    result = client.models.Model.Experiment.get(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment.command("search")
+@click.argument("model_rid", type=str, required=True)
+@click.option(
+    "--order_by",
+    type=str,
+    required=False,
+    help="""The field to sort by. Default is to sort by relevance.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of results to return. Default 50, maximum of 100.""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""PageToken to identify the next page to retrieve. Leave empty for the first request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--where",
+    type=str,
+    required=False,
+    help="""Optional search filter for filtering experiments. If not provided, all experiments for the model are returned.""",
+)
+@click.pass_obj
+def models_model_experiment_op_search(
+    client: FoundryClient,
+    model_rid: str,
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    Search experiments using complex nested queries on experiment metadata, parameters, series,
+    and summary metrics. Supports AND/OR/NOT combinations and various predicates.
+    Returns a maximum of 100 results per page.
+
+    """
+    result = client.models.Model.Experiment.search(
+        model_rid=model_rid,
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment.group("experiment_artifact_table")
+def models_model_experiment_experiment_artifact_table():
+    pass
+
+
+@models_model_experiment_experiment_artifact_table.command("json")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_artifact_table_name", type=str, required=True)
+@click.option(
+    "--offset",
+    type=int,
+    required=False,
+    help="""Number of rows to skip from the beginning. Defaults to 0.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""Maximum number of rows to return. Default is 10, maximum is 100.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_artifact_table_op_json(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_artifact_table_name: str,
+    offset: typing.Optional[int],
+    page_size: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Read table data from an experiment artifact as a streamed binary response containing JSON.
+    The response body is a JSON array of row objects, where each object maps column names to values.
+    Results are paginated by row count with a default page size of 10 and a maximum of 100.
+
+    """
+    result = client.models.Model.Experiment.ArtifactTable.json(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_artifact_table_name=experiment_artifact_table_name,
+        offset=offset,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models_model_experiment_experiment_artifact_table.command("parquet")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_artifact_table_name", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_artifact_table_op_parquet(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_artifact_table_name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Read raw table data from experiment artifacts in Parquet format.
+
+    """
+    result = client.models.Model.Experiment.ArtifactTable.parquet(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_artifact_table_name=experiment_artifact_table_name,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models_model_experiment.group("experiment_series")
+def models_model_experiment_experiment_series():
+    pass
+
+
+@models_model_experiment_experiment_series.command("json")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_series_name", type=str, required=True)
+@click.option(
+    "--offset",
+    type=int,
+    required=False,
+    help="""Number of values to skip from the beginning. Defaults to 0.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""Maximum number of values to return per page. Default is 200, maximum is 1000.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_series_op_json(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_series_name: str,
+    offset: typing.Optional[int],
+    page_size: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve raw time-series data for a single series in JSON format.
+    Results are paginated with a default page size of 200 and a maximum of 1000.
+
+    """
+    result = client.models.Model.Experiment.Series.json(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_series_name=experiment_series_name,
+        offset=offset,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment_experiment_series.command("parquet")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_series_name", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_series_op_parquet(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_series_name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve raw time-series data for a single series as a streamed binary response in Apache Parquet format.
+
+    """
+    result = client.models.Model.Experiment.Series.parquet(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_series_name=experiment_series_name,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models.group("live_deployment")
+def models_live_deployment():
+    pass
+
+
+@models_live_deployment.command("transform_json")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--input",
+    type=str,
+    required=True,
+    help="""The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_transform_json(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    input: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Performs inference on the live deployment.
+
+    """
+    result = client.models.LiveDeployment.transform_json(
+        live_deployment_rid=live_deployment_rid,
+        input=json.loads(input),
         preview=preview,
     )
     click.echo(repr(result))
