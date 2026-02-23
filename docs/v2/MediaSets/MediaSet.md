@@ -6,12 +6,16 @@ Method | HTTP request | Release Stage |
 [**calculate**](#calculate) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/calculate | Private Beta |
 [**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit | Public Beta |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
+[**get_result**](#get_result) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId}/result | Public Beta |
 [**get_rid_by_path**](#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath | Public Beta |
+[**get_status**](#get_status) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId} | Public Beta |
 [**info**](#info) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid} | Public Beta |
+[**metadata**](#metadata) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/metadata | Public Beta |
 [**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
 [**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
+[**transform**](#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
 [**upload_media**](#upload_media) | **PUT** /v2/mediasets/media/upload | Public Beta |
 
@@ -238,6 +242,69 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_result**
+Gets the result of a completed transformation job. Returns the transformed media content as binary data.
+This endpoint will return an error if the transformation job has not completed successfully.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**transformation_job_id** | TransformationJobId | The ID of the transformation job.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# TransformationJobId | The ID of the transformation job.
+transformation_job_id = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.get_result(
+        media_set_rid, media_item_rid, transformation_job_id, preview=preview, token=token
+    )
+    print("The get_result response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.get_result: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  | The transformed media content. | */* |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **get_rid_by_path**
 Returns the media item RID for the media item with the specified path.
 
@@ -308,6 +375,68 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_status**
+Gets the status of a transformation job.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**transformation_job_id** | TransformationJobId | The ID of the transformation job.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**GetTransformationJobStatusResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# TransformationJobId | The ID of the transformation job.
+transformation_job_id = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.get_status(
+        media_set_rid, media_item_rid, transformation_job_id, preview=preview, token=token
+    )
+    print("The get_status response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.get_status: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetTransformationJobStatusResponse  | The status of the transformation job. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **info**
 Gets information about the media item.
 
@@ -364,6 +493,66 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetMediaItemInfoResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **metadata**
+Gets detailed metadata about the media item, including type-specific information
+such as dimensions for images, duration for audio/video, page count for documents, etc.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**read_token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**MediaItemMetadata**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+read_token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.metadata(
+        media_set_rid, media_item_rid, preview=preview, read_token=read_token
+    )
+    print("The metadata response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.metadata: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | MediaItemMetadata  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -605,6 +794,76 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **transform**
+Initiates a transformation on a media item. Returns a job ID that can be used to check the status and retrieve 
+the result of the transformation.
+
+Transforming a media item requires that you are able to read the media item, either via `api:mediasets-read` or
+via a `MediaItemReadToken`
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_rid** | MediaItemRid | The RID of the media item.  |  |
+**transformation** | Transformation |  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**token** | Optional[MediaItemReadToken] |  | [optional] |
+
+### Return type
+**TransformMediaItemResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemRid | The RID of the media item.
+media_item_rid = None
+# Transformation
+transformation = {
+    "type": "image",
+    "encoding": {"type": "webp"},
+    "operations": [{"type": "resize", "width": 800, "height": 600}],
+}
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[MediaItemReadToken]
+token = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.transform(
+        media_set_rid, media_item_rid, transformation=transformation, preview=preview, token=token
+    )
+    print("The transform response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.transform: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | TransformMediaItemResponse  | The transformation was initiated successfully. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **upload**
 Uploads a media item to an existing media set.
 The body of the request must contain the binary content of the file and the `Content-Type` header must be `application/octet-stream`.
@@ -699,8 +958,9 @@ Third-party applications using this endpoint via OAuth2 must request the followi
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | bytes | Body of the request |  |
-**filename** | MediaItemPath | The path to write the media item to. Required if the backing media set requires paths.  |  |
+**filename** | MediaItemPath | A user-defined label for a media item within a media set. Required if the backing media set requires paths.  Uploading multiple files to the same path will result in only the most recent file being associated with the  path.  |  |
 **attribution** | Optional[Attribution] | used for passing through usage attribution | [optional] |
+**media_item_rid** | Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
@@ -717,17 +977,23 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # bytes | Body of the request
 body = None
-# MediaItemPath | The path to write the media item to. Required if the backing media set requires paths.
+# MediaItemPath | A user-defined label for a media item within a media set. Required if the backing media set requires paths.  Uploading multiple files to the same path will result in only the most recent file being associated with the  path.
 filename = "my-file.png"
 # Optional[Attribution] | used for passing through usage attribution
 attribution = None
+# Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 
 
 try:
     api_response = client.media_sets.MediaSet.upload_media(
-        body, filename=filename, attribution=attribution, preview=preview
+        body,
+        filename=filename,
+        attribution=attribution,
+        media_item_rid=media_item_rid,
+        preview=preview,
     )
     print("The upload_media response:\n")
     pprint(api_response)

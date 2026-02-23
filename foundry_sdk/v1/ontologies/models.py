@@ -202,7 +202,7 @@ class AnyTermQuery(core.ModelBase):
 
 
 ApplyActionMode = typing.Literal["VALIDATE_ONLY", "VALIDATE_AND_EXECUTE"]
-"""ApplyActionMode"""
+"""If not specified, defaults to `VALIDATE_AND_EXECUTE`."""
 
 
 class ApplyActionRequest(core.ModelBase):
@@ -403,7 +403,11 @@ class EntrySetType(core.ModelBase):
 
 
 class EqualsQuery(core.ModelBase):
-    """Returns objects where the specified field is equal to a value."""
+    """
+    Returns objects where the specified field is equal to a value.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
+    """
 
     field: FieldNameV1
     value: PropertyValue
@@ -1028,7 +1032,7 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyTypeRid = core.RID
-"""PropertyTypeRid"""
+"""The unique resource identifier of a property."""
 
 
 PropertyValue = typing.Any
@@ -1051,6 +1055,7 @@ Represents the value of a property in the following format.
 | Integer                                                                                                                   | number                                                      | `238940`                                                                                           |
 | Long                                                                                                                      | string                                                      | `"58319870951433"`                                                                                 |
 | [MediaReference](https://palantir.com/docs/foundry/api/v2/ontologies-v2-resources/media-reference-properties/media-reference-property-basics/)| JSON encoded `MediaReference` object                        | `{"mimeType":"application/pdf","reference":{"type":"mediaSetViewItem","mediaSetViewItem":{"mediaSetRid":"ri.mio.main.media-set.4153d42f-ca4b-4e42-8ca5-8e6aa7edb642","mediaSetViewRid":"ri.mio.main.view.82a798ad-d637-4595-acc6-987bcf16629b","mediaItemRid":"ri.mio.main.media-item.001ec98b-1620-4814-9e17-8e9c4e536225"}}}`                       |
+| Secured Property Value                                                                                                    | JSON encoded `SecuredPropertyValue` object                  | `{"value": 10, "propertySecurityIndex" : 5}`                                                       |
 | Short                                                                                                                     | number                                                      | `8739`                                                                                             |
 | String                                                                                                                    | string                                                      | `"Call me Ishmael"`                                                                                |
 | Struct                                                                                                                    | JSON object of struct field API name -> value               | {"firstName": "Alex", "lastName": "Karp"}                                                          |
@@ -1211,7 +1216,7 @@ class RangeConstraint(core.ModelBase):
 
 
 ReturnEditsMode = typing.Literal["ALL", "ALL_V2_WITH_DELETIONS", "NONE"]
-"""ReturnEditsMode"""
+"""If not specified, defaults to `NONE`."""
 
 
 SdkPackageName = str

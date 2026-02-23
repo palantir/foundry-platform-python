@@ -15,6 +15,7 @@ object type that implements the interface, or whether it is optional.
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 **value_formatting** | Optional[PropertyValueFormattingRule] | No |  |
 **required** | bool | Yes | Whether each implementing object type must declare an implementation for this property.  |
+**type_classes** | Optional[List[TypeClass]] | No |  |
 **type** | Literal["interfaceSharedPropertyType"] | Yes | None |
 
 

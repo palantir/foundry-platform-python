@@ -29,7 +29,7 @@ from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_V
 from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
 from foundry_sdk._core.utils import AnyCallableT
 from foundry_sdk._core.utils import remove_prefixes
-from foundry_sdk._versions import __version__
+from foundry_sdk._version import __version__
 
 
 def type_safe_cache(func: AnyCallableT) -> AnyCallableT:

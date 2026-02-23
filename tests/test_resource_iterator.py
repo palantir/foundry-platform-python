@@ -13,16 +13,16 @@
 #  limitations under the License.
 
 
-from typing import Any
 from typing import Optional
 
 import pytest
 
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
-from tests.test_page_iterator import alist
-from tests.test_page_iterator import create_async_page_func
-from tests.test_page_iterator import create_page_func
+
+from .test_page_iterator import alist
+from .test_page_iterator import create_async_page_func
+from .test_page_iterator import create_page_func
 
 
 def create_iterator(total_items: int, default_page_size: int):

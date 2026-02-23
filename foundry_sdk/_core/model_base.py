@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 
-import json
 import warnings
 from typing import Any
 from typing import Dict
@@ -34,7 +33,7 @@ class ModelBase(pydantic.BaseModel):
 
     model_config = {"extra": "allow", "populate_by_name": True}
 
-    def __init__(self, **data):
+    def __init__(self, **data) -> None:
         super().__init__(**data)
         self._hash_called = False
         self._hash_value: Optional[int] = None

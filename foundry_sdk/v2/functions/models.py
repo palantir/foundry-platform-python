@@ -93,11 +93,26 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
-class GetByRidQueriesRequest(core.ModelBase):
-    """GetByRidQueriesRequest"""
+class GetByRidQueriesBatchRequestElement(core.ModelBase):
+    """GetByRidQueriesBatchRequestElement"""
+
+    include_prerelease: typing.Optional[bool] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
+    """
+    When no version is specified and this flag is set to true, the latest version resolution will consider
+    prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable
+    versions are considered when determining the latest version.
+
+    Defaults to false.
+    """
 
     rid: FunctionRid
     version: typing.Optional[FunctionVersion] = None
+
+
+class GetByRidQueriesBatchResponse(core.ModelBase):
+    """GetByRidQueriesBatchResponse"""
+
+    data: typing.List[Query]
 
 
 class LengthConstraint(core.ModelBase):
@@ -588,7 +603,8 @@ __all__ = [
     "ExecuteQueryResponse",
     "FunctionRid",
     "FunctionVersion",
-    "GetByRidQueriesRequest",
+    "GetByRidQueriesBatchRequestElement",
+    "GetByRidQueriesBatchResponse",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",

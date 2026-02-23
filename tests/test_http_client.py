@@ -30,7 +30,7 @@ from httpx._utils import URLPattern
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
-from foundry_sdk._versions import __version__
+from foundry_sdk._version import __version__
 
 
 def assert_http_transport(transport: Optional[httpx.BaseTransport]) -> httpx.HTTPTransport:
@@ -127,7 +127,7 @@ def test_ssl_cert_file_env_var(temp_os_env, patch_ssl_verify, tmp_cert: str):
 
 def test_verify_false_env_var(temp_os_env, patch_ssl_verify, tmp_cert: str):
     temp_os_env["REQUESTS_CA_BUNDLE"] = tmp_cert
-    assert create_client(Config(verify=False))._verify == False
+    assert not create_client(Config(verify=False))._verify
 
 
 def test_cert_path_takes_precedence(temp_os_env, patch_ssl_verify, tmp_cert: str, tmp_cert_dupe):

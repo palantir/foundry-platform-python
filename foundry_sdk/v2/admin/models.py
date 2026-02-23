@@ -135,12 +135,28 @@ class CreateGroupRequest(core.ModelBase):
     """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
 
+class CreateMarkingCategoryRequest(core.ModelBase):
+    """CreateMarkingCategoryRequest"""
+
+    initial_permissions: MarkingCategoryPermissions = pydantic.Field(alias=str("initialPermissions"))  # type: ignore[literal-required]
+    """
+    The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations.
+    The provided permissions must include at least one ADMINISTER role assignment.
+
+    WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an
+    ADMINISTER, you will create a Marking Category that you cannot administer.
+    """
+
+    name: MarkingCategoryName
+    description: MarkingCategoryDescription
+
+
 class CreateMarkingRequest(core.ModelBase):
     """CreateMarkingRequest"""
 
     initial_role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("initialRoleAssignments"))  # type: ignore[literal-required]
     """
-    The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be
+    The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be
     provided. This can be changed later through the MarkingRoleAssignment operations.
 
     WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of,
@@ -438,12 +454,16 @@ class MarkingCategory(core.ModelBase):
 
     id: MarkingCategoryId
     name: MarkingCategoryName
-    description: typing.Optional[str] = None
+    description: MarkingCategoryDescription
     category_type: MarkingCategoryType = pydantic.Field(alias=str("categoryType"))  # type: ignore[literal-required]
     marking_type: MarkingType = pydantic.Field(alias=str("markingType"))  # type: ignore[literal-required]
     markings: typing.List[core_models.MarkingId]
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: typing.Optional[core_models.CreatedBy] = pydantic.Field(alias=str("createdBy"), default=None)  # type: ignore[literal-required]
+
+
+MarkingCategoryDescription = str
+"""MarkingCategoryDescription"""
 
 
 MarkingCategoryId = str
@@ -455,6 +475,38 @@ Organizations are placed in a category with ID "Organization".
 
 MarkingCategoryName = str
 """MarkingCategoryName"""
+
+
+class MarkingCategoryPermissions(core.ModelBase):
+    """MarkingCategoryPermissions"""
+
+    organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+    """Users must be members of at least one of the Organizations in this list to view Markings in the category, regardless of their assigned roles."""
+
+    roles: typing.List[MarkingCategoryRoleAssignment]
+    is_public: MarkingCategoryPermissionsIsPublic = pydantic.Field(alias=str("isPublic"))  # type: ignore[literal-required]
+    """If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
+
+
+MarkingCategoryPermissionsIsPublic = bool
+"""If true, all users who are members of at least one of the Organizations from organizationRids can view the Markings in the category. If false, only users who are explicitly granted the VIEW role can view the Markings in the category."""
+
+
+MarkingCategoryRole = typing.Literal["ADMINISTER", "VIEW"]
+"""
+Represents the operations that a user can perform with regards to a Marking Category.
+  * ADMINISTER: The user can update a Marking Category's metadata and permissions
+  * VIEW: The user can view the Marking Category and the Markings within it.
+
+NOTE: Permissions to administer or view a Marking Category do not confer any permissions to administer or view data protected by the Markings within that category.
+"""
+
+
+class MarkingCategoryRoleAssignment(core.ModelBase):
+    """MarkingCategoryRoleAssignment"""
+
+    role: MarkingCategoryRole
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
 MarkingCategoryType = typing.Literal["CONJUNCTIVE", "DISJUNCTIVE"]
@@ -619,6 +671,13 @@ class ReplaceGroupProviderInfoRequest(core.ModelBase):
     The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
     At most one Group can have a given provider ID in a given Realm.
     """
+
+
+class ReplaceMarkingCategoryRequest(core.ModelBase):
+    """ReplaceMarkingCategoryRequest"""
+
+    name: MarkingCategoryName
+    description: MarkingCategoryDescription
 
 
 class ReplaceMarkingRequest(core.ModelBase):
@@ -802,6 +861,7 @@ __all__ = [
     "CertificateInfo",
     "CertificateUsageType",
     "CreateGroupRequest",
+    "CreateMarkingCategoryRequest",
     "CreateMarkingRequest",
     "CreateOrganizationRequest",
     "Enrollment",
@@ -841,8 +901,13 @@ __all__ = [
     "ListUsersResponse",
     "Marking",
     "MarkingCategory",
+    "MarkingCategoryDescription",
     "MarkingCategoryId",
     "MarkingCategoryName",
+    "MarkingCategoryPermissions",
+    "MarkingCategoryPermissionsIsPublic",
+    "MarkingCategoryRole",
+    "MarkingCategoryRoleAssignment",
     "MarkingCategoryType",
     "MarkingMember",
     "MarkingName",
@@ -865,6 +930,7 @@ __all__ = [
     "RemoveOrganizationRoleAssignmentsRequest",
     "ReplaceGroupMembershipExpirationPolicyRequest",
     "ReplaceGroupProviderInfoRequest",
+    "ReplaceMarkingCategoryRequest",
     "ReplaceMarkingRequest",
     "ReplaceOrganizationRequest",
     "ReplaceUserProviderInfoRequest",

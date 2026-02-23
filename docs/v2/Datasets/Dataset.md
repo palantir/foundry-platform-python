@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/datasets | Stable |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
+[**get_health_check_reports**](#get_health_check_reports) | **GET** /v2/datasets/{datasetRid}/getHealthCheckReports | Public Beta |
 [**get_health_checks**](#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks | Public Beta |
 [**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
 [**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
@@ -111,6 +112,68 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_health_check_reports**
+Get the most recent Data Health Check report for each check configured on the given Dataset.
+Returns one report per check, representing the current health status of the dataset.
+
+To get the list of checks configured on a Dataset, use
+[Get Dataset Health Checks](https://palantir.com/docs/foundry/api/datasets/get-dataset-health-checks/).
+For the full report history of a specific check, use
+[Get Latest Check Reports](https://palantir.com/docs/foundry/api/v2/data-health-v2-resources/checks/get-latest-check-reports).
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**dataset_rid** | DatasetRid |  |  |
+**branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**GetHealthCheckReportsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# DatasetRid
+dataset_rid = None
+# Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.
+branch_name = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.datasets.Dataset.get_health_check_reports(
+        dataset_rid, branch_name=branch_name, preview=preview
+    )
+    print("The get_health_check_reports response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Dataset.get_health_check_reports: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetHealthCheckReportsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **get_health_checks**
 Get the RIDs of the Data Health Checks that are configured for the given Dataset.
 
@@ -168,7 +231,11 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_schedules**
-Get the RIDs of the Schedules that target the given Dataset
+Get the RIDs of the Schedules that target the given Dataset.
+
+Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+especially for schedules managed by Marketplace. This operation will return outdated results in the
+meantime.
 
 
 ### Parameters

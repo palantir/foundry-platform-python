@@ -221,6 +221,26 @@ class AggregationMemoryExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class AggregationMetricNotSupportedParameters(typing_extensions.TypedDict):
+    """
+    The requested aggregation metric is not supported by the storage backend.
+    Consider migrating queried object types to Object Storage V2. See
+    https://www.palantir.com/docs/foundry/object-backend/osv1-osv2-migration
+    for more details.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    metricType: str
+
+
+@dataclass
+class AggregationMetricNotSupported(errors.BadRequestError):
+    name: typing.Literal["AggregationMetricNotSupported"]
+    parameters: AggregationMetricNotSupportedParameters
+    error_instance_id: str
+
+
 class AggregationNestedObjectSetSizeExceededLimitParameters(typing_extensions.TypedDict):
     """
     A nested object set within the aggregation exceeded the allowed limit.
@@ -492,6 +512,22 @@ class HighScaleComputationNotEnabledParameters(typing_extensions.TypedDict):
 class HighScaleComputationNotEnabled(errors.InternalServerError):
     name: typing.Literal["HighScaleComputationNotEnabled"]
     parameters: HighScaleComputationNotEnabledParameters
+    error_instance_id: str
+
+
+class IncompatibleNestedObjectSetParameters(typing_extensions.TypedDict):
+    """
+    A wrapper object set type is incompatible with one or more of the nested object set types.
+    For example, an interfaceLinkSearchAround object set wrapping a non-interface object set.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class IncompatibleNestedObjectSet(errors.BadRequestError):
+    name: typing.Literal["IncompatibleNestedObjectSet"]
+    parameters: IncompatibleNestedObjectSetParameters
     error_instance_id: str
 
 
@@ -2352,6 +2388,7 @@ __all__ = [
     "AggregationAccuracyNotSupported",
     "AggregationGroupCountExceededLimit",
     "AggregationMemoryExceededLimit",
+    "AggregationMetricNotSupported",
     "AggregationNestedObjectSetSizeExceededLimit",
     "ApplyActionFailed",
     "AttachmentNotFound",
@@ -2369,6 +2406,7 @@ __all__ = [
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
     "HighScaleComputationNotEnabled",
+    "IncompatibleNestedObjectSet",
     "InterfaceBasedObjectSetNotSupported",
     "InterfaceLinkTypeNotFound",
     "InterfacePropertiesHaveDifferentIds",

@@ -54,9 +54,9 @@ class BranchClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
-        name: datasets_models.BranchName,
+        name: core_models.BranchName,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -120,8 +120,8 @@ class BranchClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -172,8 +172,8 @@ class BranchClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -222,7 +222,7 @@ class BranchClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -279,8 +279,8 @@ class BranchClient:
     @errors.handle_unexpected
     def transactions(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -396,9 +396,9 @@ class AsyncBranchClient:
     @errors.handle_unexpected
     def create(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
-        name: datasets_models.BranchName,
+        name: core_models.BranchName,
         transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -462,8 +462,8 @@ class AsyncBranchClient:
     @errors.handle_unexpected
     def delete(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -514,8 +514,8 @@ class AsyncBranchClient:
     @errors.handle_unexpected
     def get(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -564,7 +564,7 @@ class AsyncBranchClient:
     @errors.handle_unexpected
     def list(
         self,
-        dataset_rid: datasets_models.DatasetRid,
+        dataset_rid: core_models.DatasetRid,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
@@ -621,8 +621,8 @@ class AsyncBranchClient:
     @errors.handle_unexpected
     def transactions(
         self,
-        dataset_rid: datasets_models.DatasetRid,
-        branch_name: datasets_models.BranchName,
+        dataset_rid: core_models.DatasetRid,
+        branch_name: core_models.BranchName,
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,

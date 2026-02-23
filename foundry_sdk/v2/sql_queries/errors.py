@@ -29,13 +29,26 @@ class CancelSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
 class CancelSqlQueryPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["CancelSqlQueryPermissionDenied"]
     parameters: CancelSqlQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ExecuteOntologySqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not executeOntology the SqlQuery."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ExecuteOntologySqlQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ExecuteOntologySqlQueryPermissionDenied"]
+    parameters: ExecuteOntologySqlQueryPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -58,7 +71,7 @@ class GetResultsSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
@@ -74,13 +87,28 @@ class GetStatusSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     sqlQueryId: sql_queries_models.SqlQueryId
-    """The id of a query."""
+    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
 class GetStatusSqlQueryPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["GetStatusSqlQueryPermissionDenied"]
     parameters: GetStatusSqlQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
+class OntologyQueryFailedParameters(typing_extensions.TypedDict):
+    """The Ontology query failed."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    errorMessage: str
+
+
+@dataclass
+class OntologyQueryFailed(errors.InternalServerError):
+    name: typing.Literal["OntologyQueryFailed"]
+    parameters: OntologyQueryFailedParameters
     error_instance_id: str
 
 
@@ -178,9 +206,11 @@ class ReadQueryInputsPermissionDenied(errors.PermissionDeniedError):
 
 __all__ = [
     "CancelSqlQueryPermissionDenied",
+    "ExecuteOntologySqlQueryPermissionDenied",
     "ExecuteSqlQueryPermissionDenied",
     "GetResultsSqlQueryPermissionDenied",
     "GetStatusSqlQueryPermissionDenied",
+    "OntologyQueryFailed",
     "QueryCanceled",
     "QueryFailed",
     "QueryParseError",

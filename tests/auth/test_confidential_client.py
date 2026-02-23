@@ -18,13 +18,11 @@ import contextlib
 import httpx
 import pytest
 from mockito import any
-from mockito import spy
 from mockito import unstub
 from mockito import verify
 from mockito import when
 
 from foundry_sdk._core.confidential_client_auth import ConfidentialClientAuth
-from foundry_sdk._core.oauth_utils import SignInResponse
 
 RESPONSE = {
     "access_token": "access_token",
@@ -69,9 +67,9 @@ def test_confidential_client_instantiate():
     assert auth._client_id == "client_id"
     assert auth._client_secret == "client_secret"
     assert auth._hostname == "https://a.b.c.com"
-    assert auth._token == None
+    assert auth._token is None
     assert auth.url == "a.b.c.com"
-    assert auth._should_refresh == True
+    assert auth._should_refresh
 
 
 def test_confidential_client_url():
@@ -100,7 +98,7 @@ def test_confidential_client_sign_out():
         assert auth._token is not None
         auth.sign_out()
         assert auth._token is None
-        assert auth._stop_refresh_event._flag == True  # type: ignore
+        assert auth._stop_refresh_event._flag
 
 
 def test_confidential_client_execute_with_token_successful_method():

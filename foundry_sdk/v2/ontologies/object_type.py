@@ -99,6 +99,87 @@ class ObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_edits_history(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        filters: typing.Optional[ontologies_models.EditsHistoryFilter] = None,
+        include_all_previous_properties: typing.Optional[bool] = None,
+        object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
+        page_size: typing.Optional[int] = None,
+        page_token: typing.Optional[str] = None,
+        sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.ObjectTypeEditsHistoryResponse:
+        """
+        Returns the history of edits (additions, modifications, deletions) for objects of a
+        specific object type. This endpoint provides visibility into all actions that have
+        modified objects of this type.
+
+        The edits are returned in reverse chronological order (most recent first) by default.
+
+        Note that filters are ignored for OSv1 object types.
+
+        :param ontology: The ontology RID or API name
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type
+        :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param filters:
+        :type filters: Optional[EditsHistoryFilter]
+        :param include_all_previous_properties:
+        :type include_all_previous_properties: Optional[bool]
+        :param object_primary_key:
+        :type object_primary_key: Optional[ObjectPrimaryKeyV2]
+        :param page_size: The maximum number of edits to return per page. Defaults to 100.
+        :type page_size: Optional[int]
+        :param page_token: Token for retrieving the next page of results
+        :type page_token: Optional[str]
+        :param sort_order:
+        :type sort_order: Optional[EditsHistorySortOrder]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.ObjectTypeEditsHistoryResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
+                query_params={
+                    "branch": branch,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.ObjectTypeEditsHistoryRequest(
+                    object_primary_key=object_primary_key,
+                    filters=filters,
+                    sort_order=sort_order,
+                    include_all_previous_properties=include_all_previous_properties,
+                    page_size=page_size,
+                    page_token=page_token,
+                ),
+                response_type=ontologies_models.ObjectTypeEditsHistoryResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get_full_metadata(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -328,12 +409,14 @@ class ObjectTypeClient:
 class _ObjectTypeClientRaw:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
+        self.get_edits_history = core.with_raw_response(get_edits_history, client.get_edits_history)
         self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
         self.get_outgoing_link_type = core.with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
@@ -347,12 +430,16 @@ class _ObjectTypeClientRaw:
 class _ObjectTypeClientStreaming:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
+        self.get_edits_history = core.with_streaming_response(
+            get_edits_history, client.get_edits_history
+        )
         self.get_full_metadata = core.with_streaming_response(
             get_full_metadata, client.get_full_metadata
         )
@@ -431,6 +518,87 @@ class AsyncObjectTypeClient:
                 },
                 body=None,
                 response_type=ontologies_models.ObjectTypeV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_edits_history(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        object_type: ontologies_models.ObjectTypeApiName,
+        *,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        filters: typing.Optional[ontologies_models.EditsHistoryFilter] = None,
+        include_all_previous_properties: typing.Optional[bool] = None,
+        object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
+        page_size: typing.Optional[int] = None,
+        page_token: typing.Optional[str] = None,
+        sort_order: typing.Optional[ontologies_models.EditsHistorySortOrder] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.ObjectTypeEditsHistoryResponse]:
+        """
+        Returns the history of edits (additions, modifications, deletions) for objects of a
+        specific object type. This endpoint provides visibility into all actions that have
+        modified objects of this type.
+
+        The edits are returned in reverse chronological order (most recent first) by default.
+
+        Note that filters are ignored for OSv1 object types.
+
+        :param ontology: The ontology RID or API name
+        :type ontology: OntologyIdentifier
+        :param object_type: The API name of the object type
+        :type object_type: ObjectTypeApiName
+        :param branch: The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param filters:
+        :type filters: Optional[EditsHistoryFilter]
+        :param include_all_previous_properties:
+        :type include_all_previous_properties: Optional[bool]
+        :param object_primary_key:
+        :type object_primary_key: Optional[ObjectPrimaryKeyV2]
+        :param page_size: The maximum number of edits to return per page. Defaults to 100.
+        :type page_size: Optional[int]
+        :param page_token: Token for retrieving the next page of results
+        :type page_token: Optional[str]
+        :param sort_order:
+        :type sort_order: Optional[EditsHistorySortOrder]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.ObjectTypeEditsHistoryResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory",
+                query_params={
+                    "branch": branch,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "objectType": object_type,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.ObjectTypeEditsHistoryRequest(
+                    object_primary_key=object_primary_key,
+                    filters=filters,
+                    sort_order=sort_order,
+                    include_all_previous_properties=include_all_previous_properties,
+                    page_size=page_size,
+                    page_token=page_token,
+                ),
+                response_type=ontologies_models.ObjectTypeEditsHistoryResponse,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -669,12 +837,16 @@ class AsyncObjectTypeClient:
 class _AsyncObjectTypeClientRaw:
     def __init__(self, client: AsyncObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.async_with_raw_response(get, client.get)
+        self.get_edits_history = core.async_with_raw_response(
+            get_edits_history, client.get_edits_history
+        )
         self.get_full_metadata = core.async_with_raw_response(
             get_full_metadata, client.get_full_metadata
         )
@@ -690,12 +862,16 @@ class _AsyncObjectTypeClientRaw:
 class _AsyncObjectTypeClientStreaming:
     def __init__(self, client: AsyncObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
+        def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
+        self.get_edits_history = core.async_with_streaming_response(
+            get_edits_history, client.get_edits_history
+        )
         self.get_full_metadata = core.async_with_streaming_response(
             get_full_metadata, client.get_full_metadata
         )

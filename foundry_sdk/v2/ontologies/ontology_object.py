@@ -16,6 +16,7 @@
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
@@ -349,7 +350,6 @@ class OntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -357,6 +357,7 @@ class OntologyObjectClient:
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -393,8 +394,6 @@ class OntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -409,6 +408,8 @@ class OntologyObjectClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param where:
@@ -810,7 +811,6 @@ class AsyncOntologyObjectClient:
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         select: typing.List[ontologies_models.PropertyApiName],
-        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         exclude_rid: typing.Optional[bool] = None,
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
@@ -818,6 +818,7 @@ class AsyncOntologyObjectClient:
         page_token: typing.Optional[core_models.PageToken] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
         where: typing.Optional[ontologies_models.SearchJsonQueryV2] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -854,8 +855,6 @@ class AsyncOntologyObjectClient:
         :type object_type: ObjectTypeApiName
         :param select: The API names of the object type properties to include in the response.
         :type select: List[PropertyApiName]
-        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
-        :type select_v2: Optional[List[PropertyIdentifier]]
         :param branch: The Foundry branch to search objects from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param exclude_rid: A flag to exclude the retrieval of the `__rid` property. Setting this to true may improve performance of this endpoint for object types in OSV2.
@@ -870,6 +869,8 @@ class AsyncOntologyObjectClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param select_v2: The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.
+        :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
         :param where:

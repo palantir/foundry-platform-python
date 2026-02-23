@@ -15,12 +15,12 @@ test:
 format:
 	@echo
 	@echo === Formatting the Generator ===
-	@isort foundry tests --profile black --multi-line NOQA -sl --project foundry
-	@python -m black foundry tests
+	@isort foundry_sdk tests --profile black --multi-line NOQA -sl --project foundry_sdk
+	@python -m black foundry_sdk tests
 
 lint:
 	@echo === Linting the SDK ===
-	@python -m pyright foundry
+	@python -m pyright foundry_sdk
 
 reset:
 	@echo === Resetting the git state ===

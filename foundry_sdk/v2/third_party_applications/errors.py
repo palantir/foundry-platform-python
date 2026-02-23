@@ -125,6 +125,51 @@ class InvalidVersion(errors.BadRequestError):
     error_instance_id: str
 
 
+class ScanningErroredParameters(typing_extensions.TypedDict):
+    """An error occurred while scanning the website files for vulnerabilities. Please check the Website Hosting page in Developer Console for more information and try uploading again."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    version: third_party_applications_models.VersionVersion
+
+
+@dataclass
+class ScanningErrored(errors.BadRequestError):
+    name: typing.Literal["ScanningErrored"]
+    parameters: ScanningErroredParameters
+    error_instance_id: str
+
+
+class ScanningInProgressParameters(typing_extensions.TypedDict):
+    """The website files are currently being scanned for vulnerabilities. Please wait for the scan to complete and confirm no vulnerabilities first."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    version: third_party_applications_models.VersionVersion
+
+
+@dataclass
+class ScanningInProgress(errors.BadRequestError):
+    name: typing.Literal["ScanningInProgress"]
+    parameters: ScanningInProgressParameters
+    error_instance_id: str
+
+
+class SiteAssetHasVulnerabilitiesParameters(typing_extensions.TypedDict):
+    """Vulnerabilities were detected in these website files. Please check the Website Hosting page in Developer Console for more information and address these vulnerabilities before uploading again."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    version: third_party_applications_models.VersionVersion
+
+
+@dataclass
+class SiteAssetHasVulnerabilities(errors.BadRequestError):
+    name: typing.Literal["SiteAssetHasVulnerabilities"]
+    parameters: SiteAssetHasVulnerabilitiesParameters
+    error_instance_id: str
+
+
 class ThirdPartyApplicationNotFoundParameters(typing_extensions.TypedDict):
     """The given ThirdPartyApplication could not be found."""
 
@@ -264,6 +309,9 @@ __all__ = [
     "FileCountLimitExceeded",
     "FileSizeLimitExceeded",
     "InvalidVersion",
+    "ScanningErrored",
+    "ScanningInProgress",
+    "SiteAssetHasVulnerabilities",
     "ThirdPartyApplicationNotFound",
     "UndeployWebsitePermissionDenied",
     "UploadSnapshotVersionPermissionDenied",

@@ -144,8 +144,47 @@ class CreateGroupPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class CreateMarkingCategoryMissingInitialAdminRoleParameters(typing_extensions.TypedDict):
+    """At least one ADMINISTER role assignment must be provided when creating a marking category."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateMarkingCategoryMissingInitialAdminRole(errors.BadRequestError):
+    name: typing.Literal["CreateMarkingCategoryMissingInitialAdminRole"]
+    parameters: CreateMarkingCategoryMissingInitialAdminRoleParameters
+    error_instance_id: str
+
+
+class CreateMarkingCategoryMissingOrganizationParameters(typing_extensions.TypedDict):
+    """At least one organization must be provided when creating a marking category."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateMarkingCategoryMissingOrganization(errors.BadRequestError):
+    name: typing.Literal["CreateMarkingCategoryMissingOrganization"]
+    parameters: CreateMarkingCategoryMissingOrganizationParameters
+    error_instance_id: str
+
+
+class CreateMarkingCategoryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the MarkingCategory."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateMarkingCategoryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateMarkingCategoryPermissionDenied"]
+    parameters: CreateMarkingCategoryPermissionDeniedParameters
+    error_instance_id: str
+
+
 class CreateMarkingMissingInitialAdminRoleParameters(typing_extensions.TypedDict):
-    """At least one ADMIN role assignment must be provided when creating a marking."""
+    """At least one ADMINISTER role assignment must be provided when creating a marking."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -868,6 +907,21 @@ class ReplaceGroupProviderInfoPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceMarkingCategoryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the MarkingCategory."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    markingCategoryId: admin_models.MarkingCategoryId
+
+
+@dataclass
+class ReplaceMarkingCategoryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceMarkingCategoryPermissionDenied"]
+    parameters: ReplaceMarkingCategoryPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceMarkingPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Marking."""
 
@@ -1038,6 +1092,9 @@ __all__ = [
     "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CreateGroupPermissionDenied",
+    "CreateMarkingCategoryMissingInitialAdminRole",
+    "CreateMarkingCategoryMissingOrganization",
+    "CreateMarkingCategoryPermissionDenied",
     "CreateMarkingMissingInitialAdminRole",
     "CreateMarkingPermissionDenied",
     "CreateOrganizationMissingInitialAdminRole",
@@ -1087,6 +1144,7 @@ __all__ = [
     "RemoveOrganizationRoleAssignmentsPermissionDenied",
     "ReplaceGroupMembershipExpirationPolicyPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
+    "ReplaceMarkingCategoryPermissionDenied",
     "ReplaceMarkingPermissionDenied",
     "ReplaceOrganizationPermissionDenied",
     "ReplaceUserProviderInfoPermissionDenied",

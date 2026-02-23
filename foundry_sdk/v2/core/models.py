@@ -64,6 +64,10 @@ class BranchMetadata(core.ModelBase):
     rid: FoundryBranch
 
 
+BranchName = str
+"""The name of a Branch."""
+
+
 BuildRid = core.RID
 """The RID of a Build."""
 
@@ -89,6 +93,10 @@ class CipherTextType(core.ModelBase):
     """An optional Cipher Channel RID which can be used for encryption updates to empty values."""
 
     type: typing.Literal["cipherText"] = "cipherText"
+
+
+ColumnName = str
+"""The name of a column in a dataset."""
 
 
 ComputeSeconds = float
@@ -144,6 +152,10 @@ class DatasetFieldSchema(core.ModelBase):
 
     sub_schemas: typing.Optional[typing.List[DatasetFieldSchema]] = pydantic.Field(alias=str("subSchemas"), default=None)  # type: ignore[literal-required]
     """Only used when field type is struct."""
+
+
+DatasetRid = core.RID
+"""The Resource Identifier (RID) of a Dataset."""
 
 
 class DatasetSchema(core.ModelBase):
@@ -271,7 +283,10 @@ class FieldSchema(core.ModelBase):
 
 
 FilePath = str
-"""The path to a File within Foundry. Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`."""
+"""
+The path to a File within Foundry. Paths are relative and must not start with a leading slash.
+Examples: `my-file.txt`, `path/to/my-file.jpg`, `dataframe.snappy.parquet`.
+"""
 
 
 Filename = str
@@ -830,7 +845,16 @@ class UnsupportedType(core.ModelBase):
     """UnsupportedType"""
 
     unsupported_type: str = pydantic.Field(alias=str("unsupportedType"))  # type: ignore[literal-required]
+    params: typing.Dict[UnsupportedTypeParamKey, UnsupportedTypeParamValue]
     type: typing.Literal["unsupported"] = "unsupported"
+
+
+UnsupportedTypeParamKey = str
+"""UnsupportedTypeParamKey"""
+
+
+UnsupportedTypeParamValue = str
+"""UnsupportedTypeParamValue"""
 
 
 UpdatedTime = core.AwareDatetime
@@ -915,12 +939,14 @@ __all__ = [
     "BinaryType",
     "BooleanType",
     "BranchMetadata",
+    "BranchName",
     "BuildRid",
     "ByteType",
     "ChangeDataCaptureConfiguration",
     "CheckReportRid",
     "CheckRid",
     "CipherTextType",
+    "ColumnName",
     "ComputeSeconds",
     "ContentLength",
     "ContentType",
@@ -928,6 +954,7 @@ __all__ = [
     "CreatedTime",
     "CustomMetadata",
     "DatasetFieldSchema",
+    "DatasetRid",
     "DatasetSchema",
     "DateType",
     "DecimalType",
@@ -1025,6 +1052,8 @@ __all__ = [
     "TraceParent",
     "TraceState",
     "UnsupportedType",
+    "UnsupportedTypeParamKey",
+    "UnsupportedTypeParamValue",
     "UpdatedBy",
     "UpdatedTime",
     "UserId",

@@ -23,6 +23,7 @@ implementations of both properties backed by SharedPropertyTypes as well as prop
 **interface_to_object_type_mappings** | Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappings] | Yes |  |
 **interface_to_object_type_mappings_v2** | Dict[InterfaceTypeApiName, InterfaceToObjectTypeMappingsV2] | Yes |  |
 **compute_usage** | Optional[ComputeSeconds] | No |  |
+**property_securities** | Optional[List[PropertySecurities]] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

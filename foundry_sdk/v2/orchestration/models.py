@@ -36,7 +36,7 @@ class Action(core.ModelBase):
     """Action"""
 
     target: BuildTarget
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     """The target branch the schedule should run on."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
@@ -66,7 +66,7 @@ class Build(core.ModelBase):
     rid: core_models.BuildRid
     """The RID of a Build."""
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     """The branch that the build is running on."""
 
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
@@ -81,6 +81,9 @@ class Build(core.ModelBase):
     retry_backoff_duration: RetryBackoffDuration = pydantic.Field(alias=str("retryBackoffDuration"))  # type: ignore[literal-required]
     abort_on_failure: AbortOnFailure = pydantic.Field(alias=str("abortOnFailure"))  # type: ignore[literal-required]
     status: BuildStatus
+    finished_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("finishedTime"), default=None)  # type: ignore[literal-required]
+    """The time the build finished processing. Will be empty while the build is still running."""
+
     schedule_rid: typing.Optional[core_models.ScheduleRid] = pydantic.Field(alias=str("scheduleRid"), default=None)  # type: ignore[literal-required]
     """Schedule RID of the Schedule that triggered this build. If a user triggered the build, Schedule RID will be empty."""
 
@@ -127,7 +130,7 @@ class CreateBuildRequest(core.ModelBase):
     target: BuildTarget
     """The targets of the schedule."""
 
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The target branch the build should run on."""
 
     fallback_branches: FallbackBranches = pydantic.Field(alias=str("fallbackBranches"))  # type: ignore[literal-required]
@@ -163,7 +166,7 @@ class CreateScheduleRequestAction(core.ModelBase):
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The target branch the schedule should run on."""
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
@@ -245,7 +248,7 @@ and day of week.
 class DatasetJobOutput(core.ModelBase):
     """DatasetJobOutput"""
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     output_transaction_rid: typing.Optional[datasets_models.TransactionRid] = pydantic.Field(alias=str("outputTransactionRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["datasetJobOutput"] = "datasetJobOutput"
 
@@ -256,12 +259,12 @@ class DatasetUpdatedTrigger(core.ModelBase):
     dataset on the target branch.
     """
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["datasetUpdated"] = "datasetUpdated"
 
 
-FallbackBranches = typing.List[datasets_models.BranchName]
+FallbackBranches = typing.List[core_models.BranchName]
 """
 The branches to retrieve JobSpecs from if no JobSpec is found on the
 target branch.
@@ -357,8 +360,8 @@ class JobSucceededTrigger(core.ModelBase):
     branch.
     """
 
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["jobSucceeded"] = "jobSucceeded"
 
 
@@ -398,7 +401,7 @@ class MediaSetUpdatedTrigger(core.ModelBase):
     """
 
     media_set_rid: core_models.MediaSetRid = pydantic.Field(alias=str("mediaSetRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["mediaSetUpdated"] = "mediaSetUpdated"
 
 
@@ -408,8 +411,8 @@ class NewLogicTrigger(core.ModelBase):
     that branch.
     """
 
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
-    dataset_rid: datasets_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
     type: typing.Literal["newLogic"] = "newLogic"
 
 
@@ -458,7 +461,7 @@ class ReplaceScheduleRequestAction(core.ModelBase):
     retry_backoff_duration: typing.Optional[RetryBackoffDuration] = pydantic.Field(alias=str("retryBackoffDuration"), default=None)  # type: ignore[literal-required]
     retry_count: typing.Optional[RetryCount] = pydantic.Field(alias=str("retryCount"), default=None)  # type: ignore[literal-required]
     fallback_branches: typing.Optional[FallbackBranches] = pydantic.Field(alias=str("fallbackBranches"), default=None)  # type: ignore[literal-required]
-    branch_name: typing.Optional[datasets_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
+    branch_name: typing.Optional[core_models.BranchName] = pydantic.Field(alias=str("branchName"), default=None)  # type: ignore[literal-required]
     """The target branch the schedule should run on."""
 
     notifications_enabled: typing.Optional[NotificationsEnabled] = pydantic.Field(alias=str("notificationsEnabled"), default=None)  # type: ignore[literal-required]
@@ -787,7 +790,7 @@ class TableUpdatedTrigger(core.ModelBase):
     """
 
     table_rid: core_models.TableRid = pydantic.Field(alias=str("tableRid"))  # type: ignore[literal-required]
-    branch_name: datasets_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
     type: typing.Literal["tableUpdated"] = "tableUpdated"
 
 

@@ -74,6 +74,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**object_type_api_names** | Optional[List[ObjectTypeApiName]] | An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -93,6 +94,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 ontology = "palantir"
 # Optional[FoundryBranch] | The Foundry branch to list the action types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[List[ObjectTypeApiName]] | An set of object type api names that can be used to filter which actions are returned. Currently this only works for one object type, specifying more will cause the request to fail.
+object_type_api_names = None
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
@@ -101,7 +104,11 @@ page_token = None
 
 try:
     for action_type_full_metadata in client.ontologies.ActionTypeFullMetadata.list(
-        ontology, branch=branch, page_size=page_size, page_token=page_token
+        ontology,
+        branch=branch,
+        object_type_api_names=object_type_api_names,
+        page_size=page_size,
+        page_token=page_token,
     ):
         pprint(action_type_full_metadata)
 except foundry_sdk.PalantirRPCException as e:
