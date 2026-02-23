@@ -90,7 +90,7 @@ class TestGetOpenaiBaseUrl:
         token = HOSTNAME_VAR.set("test.palantirfoundry.com")
         try:
             result = get_openai_base_url(preview=True)
-            assert result == "https://test.palantirfoundry.com/api/v1/models/openai"
+            assert result == "https://test.palantirfoundry.com/api/v2/llm/proxy/openai"
         finally:
             HOSTNAME_VAR.reset(token)
 
@@ -106,7 +106,7 @@ class TestGetAnthropicBaseUrl:
         token = HOSTNAME_VAR.set("test.palantirfoundry.com")
         try:
             result = get_anthropic_base_url(preview=True)
-            assert result == "https://test.palantirfoundry.com/api/v1/models/anthropic"
+            assert result == "https://test.palantirfoundry.com/api/v2/llm/proxy/anthropic"
         finally:
             HOSTNAME_VAR.reset(token)
 
