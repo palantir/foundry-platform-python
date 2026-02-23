@@ -86,16 +86,16 @@ class FunctionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
-class GetByRidQueriesPermissionDeniedParameters(typing_extensions.TypedDict):
+class GetByRidPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getByRid the Query."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class GetByRidQueriesPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetByRidQueriesPermissionDenied"]
-    parameters: GetByRidQueriesPermissionDeniedParameters
+class GetByRidPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetByRidPermissionDenied"]
+    parameters: GetByRidPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -330,7 +330,7 @@ __all__ = [
     "ExecuteQueryPermissionDenied",
     "FunctionHasNoPublishedVersion",
     "FunctionNotFound",
-    "GetByRidQueriesPermissionDenied",
+    "GetByRidPermissionDenied",
     "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",
     "MissingParameter",

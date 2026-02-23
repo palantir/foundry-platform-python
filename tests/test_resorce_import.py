@@ -140,6 +140,14 @@ def test_admin_v2_marking_category_import():
     assert MarkingCategoryClient is not None
 
 
+def test_admin_v2_marking_category_permissions_import():
+    from foundry_sdk.v2.admin.marking_category_permissions import (
+        MarkingCategoryPermissionsClient,
+    )  # NOQA
+
+    assert MarkingCategoryPermissionsClient is not None
+
+
 def test_admin_v2_marking_member_import():
     from foundry_sdk.v2.admin.marking_member import MarkingMemberClient
 
@@ -362,6 +370,32 @@ def test_models_v2_model_import():
     from foundry_sdk.v2.models.model import ModelClient
 
     assert ModelClient is not None
+
+
+def test_models_v2_model_studio_import():
+    from foundry_sdk.v2.models.model_studio import ModelStudioClient
+
+    assert ModelStudioClient is not None
+
+
+def test_models_v2_model_studio_config_version_import():
+    from foundry_sdk.v2.models.model_studio_config_version import (
+        ModelStudioConfigVersionClient,
+    )  # NOQA
+
+    assert ModelStudioConfigVersionClient is not None
+
+
+def test_models_v2_model_studio_run_import():
+    from foundry_sdk.v2.models.model_studio_run import ModelStudioRunClient
+
+    assert ModelStudioRunClient is not None
+
+
+def test_models_v2_model_studio_trainer_import():
+    from foundry_sdk.v2.models.model_studio_trainer import ModelStudioTrainerClient
+
+    assert ModelStudioTrainerClient is not None
 
 
 def test_models_v2_model_version_import():

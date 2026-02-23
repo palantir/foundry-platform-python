@@ -91,7 +91,7 @@ class MarkingClient:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
-        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
         :type initial_role_assignments: List[MarkingRoleUpdate]
         :param name:
         :type name: MarkingName
@@ -102,7 +102,7 @@ class MarkingClient:
         :return: Returns the result object.
         :rtype: admin_models.Marking
 
-        :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
+        :raises CreateMarkingMissingInitialAdminRole: At least one ADMINISTER role assignment must be provided when creating a marking.
         :raises CreateMarkingPermissionDenied: Could not create the Marking.
         :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
@@ -437,7 +437,7 @@ class AsyncMarkingClient:
         :type category_id: MarkingCategoryId
         :param initial_members: Users and Groups that will be able to view resources protected by this Marking. This can be changed later through the MarkingMember operations.
         :type initial_members: List[PrincipalId]
-        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMIN role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
+        :param initial_role_assignments: The initial roles that will be assigned when the Marking is created. At least one ADMINISTER role must be provided. This can be changed later through the MarkingRoleAssignment operations.  WARNING: If you do not include your own principal ID or the ID of a Group that you are a member of, you will create a Marking that you cannot administer.
         :type initial_role_assignments: List[MarkingRoleUpdate]
         :param name:
         :type name: MarkingName
@@ -448,7 +448,7 @@ class AsyncMarkingClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[admin_models.Marking]
 
-        :raises CreateMarkingMissingInitialAdminRole: At least one ADMIN role assignment must be provided when creating a marking.
+        :raises CreateMarkingMissingInitialAdminRole: At least one ADMINISTER role assignment must be provided when creating a marking.
         :raises CreateMarkingPermissionDenied: Could not create the Marking.
         :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
         :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.

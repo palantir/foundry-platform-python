@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import typing
+from datetime import date
 
 import pydantic
 import typing_extensions
@@ -106,6 +107,7 @@ class ActionParameterV2(core.ModelBase):
     description: typing.Optional[str] = None
     data_type: ActionParameterType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     required: bool
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 ActionResults = typing_extensions.Annotated[
@@ -191,7 +193,7 @@ class AddObjectEdit(core.ModelBase):
     """AddObjectEdit"""
 
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
-    properties: typing.Dict[PropertyApiName, DataValue]
+    properties: typing.Dict[PropertyApiName, typing.Optional[DataValue]]
     type: typing.Literal["addObject"] = "addObject"
 
 
@@ -609,6 +611,13 @@ class BlueprintIcon(core.ModelBase):
     type: typing.Literal["blueprint"] = "blueprint"
 
 
+class BooleanValue(core.ModelBase):
+    """BooleanValue"""
+
+    value: bool
+    type: typing.Literal["booleanValue"] = "booleanValue"
+
+
 class BoundingBoxValue(core.ModelBase):
     """The top left and bottom right coordinate points that make up the bounding box."""
 
@@ -735,6 +744,18 @@ class CountObjectsResponseV2(core.ModelBase):
     """CountObjectsResponseV2"""
 
     count: typing.Optional[int] = None
+
+
+class CreateEdit(core.ModelBase):
+    """CreateEdit"""
+
+    properties: typing.Dict[PropertyApiName, PropertyValue]
+    """
+    The property values of the object at the time of creation.
+    Maps property API names to their values.
+    """
+
+    type: typing.Literal["createEdit"] = "createEdit"
 
 
 class CreateInterfaceLinkLogicRule(core.ModelBase):
@@ -874,6 +895,13 @@ Represents the value of data in the following format. Note that these values can
 """
 
 
+class DateValue(core.ModelBase):
+    """DateValue"""
+
+    value: date
+    type: typing.Literal["dateValue"] = "dateValue"
+
+
 DatetimeFormat = typing_extensions.Annotated[
     typing.Union["DatetimeStringFormat", "DatetimeLocalizedFormat"],
     pydantic.Field(discriminator="type"),
@@ -933,6 +961,13 @@ class DecryptionResult(core.ModelBase):
     """The result of a CipherText decryption. If successful, the plaintext decrypted value will be returned. Otherwise, an error will be thrown."""
 
     plaintext: typing.Optional[Plaintext] = None
+
+
+class DeleteEdit(core.ModelBase):
+    """DeleteEdit"""
+
+    previous_properties: typing.Dict[PropertyApiName, PropertyValue] = pydantic.Field(alias=str("previousProperties"))  # type: ignore[literal-required]
+    type: typing.Literal["deleteEdit"] = "deleteEdit"
 
 
 class DeleteInterfaceLinkLogicRule(core.ModelBase):
@@ -1100,6 +1135,13 @@ class DoesNotIntersectPolygonQuery(core.ModelBase):
     type: typing.Literal["doesNotIntersectPolygon"] = "doesNotIntersectPolygon"
 
 
+class DoubleValue(core.ModelBase):
+    """DoubleValue"""
+
+    value: float
+    type: typing.Literal["doubleValue"] = "doubleValue"
+
+
 class DoubleVector(core.ModelBase):
     """
     The vector to search with. The vector must be of the same dimension as the vectors stored in the provided
@@ -1124,6 +1166,48 @@ DurationPrecision = typing.Literal["DAYS", "HOURS", "MINUTES", "SECONDS", "AUTO"
 """Specifies the maximum precision to apply when formatting a duration."""
 
 
+EditHistoryEdit = typing_extensions.Annotated[
+    typing.Union["CreateEdit", "DeleteEdit", "ModifyEdit"], pydantic.Field(discriminator="type")
+]
+"""EditHistoryEdit"""
+
+
+EditsHistoryFilter = typing_extensions.Annotated[
+    typing.Union["EditsHistoryTimestampFilter", "EditsHistoryOperationIdsFilter"],
+    pydantic.Field(discriminator="type"),
+]
+"""EditsHistoryFilter"""
+
+
+class EditsHistoryOperationIdsFilter(core.ModelBase):
+    """EditsHistoryOperationIdsFilter"""
+
+    operation_ids: typing.List[ActionRid] = pydantic.Field(alias=str("operationIds"))  # type: ignore[literal-required]
+    type: typing.Literal["operationIdsFilter"] = "operationIdsFilter"
+
+
+EditsHistorySortOrder = typing.Literal["newest_first", "oldest_first"]
+"""EditsHistorySortOrder"""
+
+
+class EditsHistoryTimestampFilter(core.ModelBase):
+    """EditsHistoryTimestampFilter"""
+
+    start_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("startTime"), default=None)  # type: ignore[literal-required]
+    """
+    Filter edits to only those that occurred after this timestamp (inclusive).
+    ISO 8601 format. Example: "2024-01-01T00:00:00Z"
+    """
+
+    end_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("endTime"), default=None)  # type: ignore[literal-required]
+    """
+    Filter edits to only those that occurred before this timestamp (inclusive).
+    ISO 8601 format. Example: "2024-12-31T23:59:59Z"
+    """
+
+    type: typing.Literal["timestampFilter"] = "timestampFilter"
+
+
 class EntrySetType(core.ModelBase):
     """EntrySetType"""
 
@@ -1143,6 +1227,8 @@ class EqualsQueryV2(core.ModelBase):
     """
     Returns objects where the specified field is equal to a value. Allows you to specify a property to query on
     by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
     """
 
     field: typing.Optional[PropertyApiName] = None
@@ -1258,6 +1344,22 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
+class FuzzyRule(core.ModelBase):
+    """
+    Matches intervals containing terms that are similar to the provided term, within an edit distance
+    defined by fuzziness. An edit is a single character change needed to make a term match, including
+    character insertion, deletion, substitution, or transposition of two adjacent characters.
+    """
+
+    term: str
+    """The term to match."""
+
+    fuzziness: typing.Optional[int] = None
+    """Maximum edit distance allowed for matching. Valid values are 0, 1, or 2. Defaults to 2."""
+
+    type: typing.Literal["fuzzy"] = "fuzzy"
+
+
 FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
 
@@ -1342,12 +1444,21 @@ class InQuery(core.ModelBase):
     Returns objects where the specified field equals any of the provided values. Allows you to
     specify a property to query on by a variety of means. If an empty array is provided as the value, then the filter will match all objects
     in the object set. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
     """
 
     field: typing.Optional[PropertyApiName] = None
     property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: typing.List[PropertyValue]
     type: typing.Literal["in"] = "in"
+
+
+class IntegerValue(core.ModelBase):
+    """IntegerValue"""
+
+    value: int
+    type: typing.Literal["integerValue"] = "integerValue"
 
 
 class InterfaceDefinedPropertyType(core.ModelBase):
@@ -1367,6 +1478,7 @@ class InterfaceDefinedPropertyType(core.ModelBase):
     require_implementation: bool = pydantic.Field(alias=str("requireImplementation"))  # type: ignore[literal-required]
     """Whether each implementing object type must declare an implementation for this property."""
 
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceDefinedPropertyType"] = "interfaceDefinedPropertyType"
 
 
@@ -1513,6 +1625,7 @@ class InterfaceSharedPropertyType(core.ModelBase):
     required: bool
     """Whether each implementing object type must declare an implementation for this property."""
 
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["interfaceSharedPropertyType"] = "interfaceSharedPropertyType"
 
 
@@ -1645,7 +1758,7 @@ class IntervalQuery(core.ModelBase):
 
 
 IntervalQueryRule = typing_extensions.Annotated[
-    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule"],
+    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule", "FuzzyRule"],
     pydantic.Field(discriminator="type"),
 ]
 """Sub-rule used for evaluating an IntervalQuery"""
@@ -2046,6 +2159,7 @@ class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    transaction_id: typing.Optional[OntologyTransactionId] = pydantic.Field(alias=str("transactionId"), default=None)  # type: ignore[literal-required]
 
 
 class LoadOntologyMetadataRequest(core.ModelBase):
@@ -2088,6 +2202,13 @@ LogicRuleArgument = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """Represents an argument for a logic rule operation. An argument can be passed in via the action parameters, as a static value, or as some other value."""
+
+
+class LongValue(core.ModelBase):
+    """LongValue"""
+
+    value: core.Long
+    type: typing.Literal["longValue"] = "longValue"
 
 
 class LtQueryV2(core.ModelBase):
@@ -2160,6 +2281,21 @@ class MinAggregationV2(core.ModelBase):
     type: typing.Literal["min"] = "min"
 
 
+class ModifyEdit(core.ModelBase):
+    """ModifyEdit"""
+
+    includes_all_previous_values: typing.Optional[bool] = pydantic.Field(alias=str("includesAllPreviousValues"), default=None)  # type: ignore[literal-required]
+    previous_properties: typing.Dict[PropertyApiName, PropertyValue] = pydantic.Field(alias=str("previousProperties"))  # type: ignore[literal-required]
+    """
+    The property values before the modification.
+    Only includes properties that were changed.
+    Maps property API names to their previous values.
+    """
+
+    properties: typing.Dict[PropertyApiName, PropertyValue]
+    type: typing.Literal["modifyEdit"] = "modifyEdit"
+
+
 class ModifyInterfaceLogicRule(core.ModelBase):
     """ModifyInterfaceLogicRule"""
 
@@ -2189,7 +2325,7 @@ class ModifyObjectEdit(core.ModelBase):
 
     object_type: ObjectTypeApiName = pydantic.Field(alias=str("objectType"))  # type: ignore[literal-required]
     primary_key: PropertyValue = pydantic.Field(alias=str("primaryKey"))  # type: ignore[literal-required]
-    properties: typing.Dict[PropertyApiName, DataValue]
+    properties: typing.Dict[PropertyApiName, typing.Optional[DataValue]]
     type: typing.Literal["modifyObject"] = "modifyObject"
 
 
@@ -2451,6 +2587,24 @@ ObjectEdit = typing_extensions.Annotated[
 """ObjectEdit"""
 
 
+class ObjectEditHistoryEntry(core.ModelBase):
+    """
+    Represents a single object edit operation in the history. This captures when an object was
+    created, modified, or deleted as part of an action execution.
+    """
+
+    object_primary_key: ObjectPrimaryKeyV2 = pydantic.Field(alias=str("objectPrimaryKey"))  # type: ignore[literal-required]
+    operation_id: ActionRid = pydantic.Field(alias=str("operationId"))  # type: ignore[literal-required]
+    action_type_rid: ActionTypeRid = pydantic.Field(alias=str("actionTypeRid"))  # type: ignore[literal-required]
+    user_id: str = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
+    """The user ID or principal that performed the action"""
+
+    timestamp: core.AwareDatetime
+    """When this edit occurred (ISO 8601 format)"""
+
+    edit: EditHistoryEdit
+
+
 class ObjectEdits(core.ModelBase):
     """ObjectEdits"""
 
@@ -2483,6 +2637,10 @@ class ObjectParameterPropertyArgument(core.ModelBase):
 
 ObjectPrimaryKey = typing.Dict["PropertyApiName", "PropertyValue"]
 """ObjectPrimaryKey"""
+
+
+ObjectPrimaryKeyV2 = typing.Dict["PropertyApiName", "PrimaryKeyValueV2"]
+"""ObjectPrimaryKeyV2"""
 
 
 ObjectPropertyType = typing_extensions.Annotated[
@@ -2792,6 +2950,41 @@ class ObjectTypeEdits(core.ModelBase):
 
     edited_object_types: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("editedObjectTypes"))  # type: ignore[literal-required]
     type: typing.Literal["largeScaleEdits"] = "largeScaleEdits"
+
+
+class ObjectTypeEditsHistoryRequest(core.ModelBase):
+    """
+    Request object for querying object type edits history, containing both filters and pagination parameters
+
+    If objectPrimaryKey property is set, the method will return edits history for the particular object.
+    Otherwise, the method will return edits history for all objects of this object type.
+    """
+
+    object_primary_key: typing.Optional[ObjectPrimaryKeyV2] = pydantic.Field(alias=str("objectPrimaryKey"), default=None)  # type: ignore[literal-required]
+    filters: typing.Optional[EditsHistoryFilter] = None
+    sort_order: typing.Optional[EditsHistorySortOrder] = pydantic.Field(alias=str("sortOrder"), default=None)  # type: ignore[literal-required]
+    include_all_previous_properties: typing.Optional[bool] = pydantic.Field(alias=str("includeAllPreviousProperties"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[int] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+    """The maximum number of edits to return per page. Defaults to 100."""
+
+    page_token: typing.Optional[str] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    """Token for retrieving the next page of results"""
+
+
+class ObjectTypeEditsHistoryResponse(core.ModelBase):
+    """
+    Response containing the history of edits for objects of a specific object type.
+    Only contains object edits (create, modify, delete) - link edits are not included.
+    """
+
+    data: typing.List[ObjectEditHistoryEntry]
+    """List of historical edits for this object type"""
+
+    total_count: typing.Optional[int] = pydantic.Field(alias=str("totalCount"), default=None)  # type: ignore[literal-required]
+    """Count of items in the data array above"""
+
+    next_page_token: typing.Optional[str] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+    """Token for retrieving the next page of results"""
 
 
 class ObjectTypeFullMetadata(core.ModelBase):
@@ -3201,6 +3394,21 @@ PrimaryKeyValue = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
 
+PrimaryKeyValueV2 = typing_extensions.Annotated[
+    typing.Union[
+        "DateValue",
+        "StringValue",
+        "TimestampValue",
+        "BooleanValue",
+        "IntegerValue",
+        "DoubleValue",
+        "LongValue",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""PrimaryKeyValueV2"""
+
+
 PropertyApiName = str
 """
 The name of the property in the API. To find the API name for your property, use the `Get object type`
@@ -3390,7 +3598,7 @@ PropertyTypeReferenceOrStringConstant = typing_extensions.Annotated[
 
 
 PropertyTypeRid = core.RID
-"""PropertyTypeRid"""
+"""The unique resource identifier of a property."""
 
 
 PropertyTypeStatus = typing_extensions.Annotated[
@@ -3420,6 +3628,7 @@ class PropertyV2(core.ModelBase):
     visibility: typing.Optional[PropertyTypeVisibility] = None
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 PropertyValue = typing.Any
@@ -4161,6 +4370,7 @@ class SharedPropertyType(core.ModelBase):
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
     value_type_api_name: typing.Optional[ValueTypeApiName] = pydantic.Field(alias=str("valueTypeApiName"), default=None)  # type: ignore[literal-required]
     value_formatting: typing.Optional[PropertyValueFormattingRule] = pydantic.Field(alias=str("valueFormatting"), default=None)  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 SharedPropertyTypeApiName = str
@@ -4272,6 +4482,13 @@ class StringRegexMatchConstraint(core.ModelBase):
     type: typing.Literal["stringRegexMatch"] = "stringRegexMatch"
 
 
+class StringValue(core.ModelBase):
+    """StringValue"""
+
+    value: str
+    type: typing.Literal["stringValue"] = "stringValue"
+
+
 class StructConstraint(core.ModelBase):
     """StructConstraint"""
 
@@ -4361,6 +4578,7 @@ class StructFieldType(core.ModelBase):
     api_name: StructFieldApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
     rid: StructFieldTypeRid
     data_type: ObjectPropertyType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    type_classes: typing.Optional[typing.List[TypeClass]] = pydantic.Field(alias=str("typeClasses"), default=None)  # type: ignore[literal-required]
 
 
 StructFieldTypeRid = core.RID
@@ -4624,6 +4842,13 @@ class TimeseriesEntry(core.ModelBase):
     """An object which is either an enum String, double number, or a geopoint."""
 
 
+class TimestampValue(core.ModelBase):
+    """TimestampValue"""
+
+    value: core.AwareDatetime
+    type: typing.Literal["timestampValue"] = "timestampValue"
+
+
 TransactionEdit = typing_extensions.Annotated[
     typing.Union[
         "ModifyObjectEdit", "DeleteObjectEdit", "AddObjectEdit", "DeleteLinkEdit", "AddLinkEdit"
@@ -4639,6 +4864,16 @@ class TwoDimensionalAggregation(core.ModelBase):
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
     value_type: QueryAggregationValueType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
+
+
+class TypeClass(core.ModelBase):
+    """Additional metadata that can be interpreted by user applications that interact with the Ontology"""
+
+    kind: str
+    """A namespace for the type class."""
+
+    name: str
+    """The value of the type class."""
 
 
 class UnevaluableConstraint(core.ModelBase):
@@ -4949,6 +5184,8 @@ core.resolve_forward_references(DatetimeTimezone, globalns=globals(), localns=lo
 core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), localns=locals())
 core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
 core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
+core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
+core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
@@ -4976,6 +5213,7 @@ core.resolve_forward_references(
 )
 core.resolve_forward_references(ObjectEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectPrimaryKey, globalns=globals(), localns=locals())
+core.resolve_forward_references(ObjectPrimaryKeyV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectPropertyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectSet, globalns=globals(), localns=locals())
 core.resolve_forward_references(ObjectSetSubscribeResponse, globalns=globals(), localns=locals())
@@ -4983,6 +5221,7 @@ core.resolve_forward_references(ObjectSetUpdate, globalns=globals(), localns=loc
 core.resolve_forward_references(OntologyDataType, globalns=globals(), localns=locals())
 core.resolve_forward_references(OntologyObjectV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterEvaluatedConstraint, globalns=globals(), localns=locals())
+core.resolve_forward_references(PrimaryKeyValueV2, globalns=globals(), localns=locals())
 core.resolve_forward_references(PropertyIdentifier, globalns=globals(), localns=locals())
 core.resolve_forward_references(PropertyLoadLevel, globalns=globals(), localns=locals())
 core.resolve_forward_references(
@@ -5089,6 +5328,7 @@ __all__ = [
     "BatchReturnEditsMode",
     "BatchedFunctionLogicRule",
     "BlueprintIcon",
+    "BooleanValue",
     "BoundingBoxValue",
     "CenterPoint",
     "CenterPointTypes",
@@ -5102,6 +5342,7 @@ __all__ = [
     "ContainsQueryV2",
     "CountAggregationV2",
     "CountObjectsResponseV2",
+    "CreateEdit",
     "CreateInterfaceLinkLogicRule",
     "CreateInterfaceLogicRule",
     "CreateInterfaceObjectRule",
@@ -5116,6 +5357,7 @@ __all__ = [
     "CurrentTimeArgument",
     "CurrentUserArgument",
     "DataValue",
+    "DateValue",
     "DatetimeFormat",
     "DatetimeLocalizedFormat",
     "DatetimeLocalizedFormatType",
@@ -5124,6 +5366,7 @@ __all__ = [
     "DatetimeTimezoneStatic",
     "DatetimeTimezoneUser",
     "DecryptionResult",
+    "DeleteEdit",
     "DeleteInterfaceLinkLogicRule",
     "DeleteInterfaceObjectRule",
     "DeleteLink",
@@ -5141,10 +5384,16 @@ __all__ = [
     "DividePropertyExpression",
     "DoesNotIntersectBoundingBoxQuery",
     "DoesNotIntersectPolygonQuery",
+    "DoubleValue",
     "DoubleVector",
     "DurationBaseValue",
     "DurationFormatStyle",
     "DurationPrecision",
+    "EditHistoryEdit",
+    "EditsHistoryFilter",
+    "EditsHistoryOperationIdsFilter",
+    "EditsHistorySortOrder",
+    "EditsHistoryTimestampFilter",
     "EntrySetType",
     "EnumConstraint",
     "EqualsQueryV2",
@@ -5165,6 +5414,7 @@ __all__ = [
     "FunctionParameterName",
     "FunctionRid",
     "FunctionVersion",
+    "FuzzyRule",
     "FuzzyV2",
     "GeotemporalSeriesEntry",
     "GeotimeSeriesValue",
@@ -5176,6 +5426,7 @@ __all__ = [
     "HumanReadableFormat",
     "Icon",
     "InQuery",
+    "IntegerValue",
     "InterfaceDefinedPropertyType",
     "InterfaceLinkType",
     "InterfaceLinkTypeApiName",
@@ -5243,6 +5494,7 @@ __all__ = [
     "LoadOntologyMetadataRequest",
     "LogicRule",
     "LogicRuleArgument",
+    "LongValue",
     "LtQueryV2",
     "LteQueryV2",
     "MarkingId",
@@ -5251,6 +5503,7 @@ __all__ = [
     "MediaMetadata",
     "MethodObjectSet",
     "MinAggregationV2",
+    "ModifyEdit",
     "ModifyInterfaceLogicRule",
     "ModifyInterfaceObjectRule",
     "ModifyObject",
@@ -5280,10 +5533,12 @@ __all__ = [
     "NumberRoundingMode",
     "NumberScaleType",
     "ObjectEdit",
+    "ObjectEditHistoryEntry",
     "ObjectEdits",
     "ObjectLoadingResponseOptions",
     "ObjectParameterPropertyArgument",
     "ObjectPrimaryKey",
+    "ObjectPrimaryKeyV2",
     "ObjectPropertyType",
     "ObjectPropertyValueConstraint",
     "ObjectQueryResultConstraint",
@@ -5314,6 +5569,8 @@ __all__ = [
     "ObjectState",
     "ObjectTypeApiName",
     "ObjectTypeEdits",
+    "ObjectTypeEditsHistoryRequest",
+    "ObjectTypeEditsHistoryResponse",
     "ObjectTypeFullMetadata",
     "ObjectTypeId",
     "ObjectTypeInterfaceImplementation",
@@ -5360,6 +5617,7 @@ __all__ = [
     "PreciseTimeUnit",
     "PrefixOnLastTokenRule",
     "PrimaryKeyValue",
+    "PrimaryKeyValueV2",
     "PropertyApiName",
     "PropertyApiNameSelector",
     "PropertyBooleanFormattingRule",
@@ -5464,6 +5722,7 @@ __all__ = [
     "StringConstant",
     "StringLengthConstraint",
     "StringRegexMatchConstraint",
+    "StringValue",
     "StructConstraint",
     "StructEvaluatedConstraint",
     "StructFieldApiName",
@@ -5502,8 +5761,10 @@ __all__ = [
     "TimeSeriesWindowType",
     "TimeUnit",
     "TimeseriesEntry",
+    "TimestampValue",
     "TransactionEdit",
     "TwoDimensionalAggregation",
+    "TypeClass",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
     "UniqueIdentifierLinkId",

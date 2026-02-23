@@ -16,6 +16,8 @@ Name | Type | Description  | Notes |
 **transaction_id** | OntologyTransactionId | The ID of the transaction to apply edits to. Transactions are an experimental feature and all workflows may not be supported.  |  |
 **edits** | List[TransactionEdit] |  |  |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
+**sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 
 ### Return type
 **PostTransactionEditsResponse**
@@ -37,11 +39,20 @@ transaction_id = None
 edits = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[SdkPackageRid] | The package rid of the generated SDK.
+sdk_package_rid = None
+# Optional[SdkVersion] | The version of the generated SDK.
+sdk_version = None
 
 
 try:
     api_response = client.ontologies.OntologyTransaction.post_edits(
-        ontology, transaction_id, edits=edits, preview=preview
+        ontology,
+        transaction_id,
+        edits=edits,
+        preview=preview,
+        sdk_package_rid=sdk_package_rid,
+        sdk_version=sdk_version,
     )
     print("The post_edits response:\n")
     pprint(api_response)

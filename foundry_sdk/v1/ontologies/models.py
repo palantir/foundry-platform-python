@@ -403,7 +403,11 @@ class EntrySetType(core.ModelBase):
 
 
 class EqualsQuery(core.ModelBase):
-    """Returns objects where the specified field is equal to a value."""
+    """
+    Returns objects where the specified field is equal to a value.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
+    """
 
     field: FieldNameV1
     value: PropertyValue
@@ -1028,7 +1032,7 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyTypeRid = core.RID
-"""PropertyTypeRid"""
+"""The unique resource identifier of a property."""
 
 
 PropertyValue = typing.Any

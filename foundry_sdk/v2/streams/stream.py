@@ -197,8 +197,8 @@ class StreamClient:
         dataset_rid: core_models.DatasetRid,
         stream_branch_name: core_models.BranchName,
         *,
-        view_rid: streams_models.ViewRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> streams_models.GetEndOffsetsResponse:
@@ -209,10 +209,10 @@ class StreamClient:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param view_rid: The RID from the view to retrieve end offsets for.
-        :type view_rid: ViewRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param view_rid: If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -226,8 +226,8 @@ class StreamClient:
                 method="GET",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets",
                 query_params={
-                    "viewRid": view_rid,
                     "preview": preview,
+                    "viewRid": view_rid,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -256,9 +256,9 @@ class StreamClient:
         *,
         limit: int,
         partition_id: streams_models.PartitionId,
-        view_rid: streams_models.ViewRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
         start_offset: typing.Optional[core.Long] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> streams_models.GetRecordsResponse:
@@ -274,12 +274,12 @@ class StreamClient:
         :type limit: int
         :param partition_id: The ID of the partition to retrieve records from.
         :type partition_id: PartitionId
-        :param view_rid: The Rid from the view to retrieve records from.
-        :type view_rid: ViewRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param start_offset: The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
         :type start_offset: Optional[Long]
+        :param view_rid: If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -295,9 +295,9 @@ class StreamClient:
                 query_params={
                     "limit": limit,
                     "partitionId": partition_id,
-                    "viewRid": view_rid,
                     "preview": preview,
                     "startOffset": start_offset,
+                    "viewRid": view_rid,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -341,7 +341,7 @@ class StreamClient:
         :type body: bytes
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -798,8 +798,8 @@ class AsyncStreamClient:
         dataset_rid: core_models.DatasetRid,
         stream_branch_name: core_models.BranchName,
         *,
-        view_rid: streams_models.ViewRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[streams_models.GetEndOffsetsResponse]:
@@ -810,10 +810,10 @@ class AsyncStreamClient:
         :type dataset_rid: DatasetRid
         :param stream_branch_name:
         :type stream_branch_name: BranchName
-        :param view_rid: The RID from the view to retrieve end offsets for.
-        :type view_rid: ViewRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param view_rid: If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -827,8 +827,8 @@ class AsyncStreamClient:
                 method="GET",
                 resource_path="/v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets",
                 query_params={
-                    "viewRid": view_rid,
                     "preview": preview,
+                    "viewRid": view_rid,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -857,9 +857,9 @@ class AsyncStreamClient:
         *,
         limit: int,
         partition_id: streams_models.PartitionId,
-        view_rid: streams_models.ViewRid,
         preview: typing.Optional[core_models.PreviewMode] = None,
         start_offset: typing.Optional[core.Long] = None,
+        view_rid: typing.Optional[streams_models.ViewRid] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[streams_models.GetRecordsResponse]:
@@ -875,12 +875,12 @@ class AsyncStreamClient:
         :type limit: int
         :param partition_id: The ID of the partition to retrieve records from.
         :type partition_id: PartitionId
-        :param view_rid: The Rid from the view to retrieve records from.
-        :type view_rid: ViewRid
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param start_offset: The inclusive beginning of the range to be retrieved. Leave empty when reading from the beginning of the partition.
         :type start_offset: Optional[Long]
+        :param view_rid: If provided, this endpoint will only read from the stream corresponding to the specified view RID. If not provided, this endpoint will read from the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -896,9 +896,9 @@ class AsyncStreamClient:
                 query_params={
                     "limit": limit,
                     "partitionId": partition_id,
-                    "viewRid": view_rid,
                     "preview": preview,
                     "startOffset": start_offset,
+                    "viewRid": view_rid,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -942,7 +942,7 @@ class AsyncStreamClient:
         :type body: bytes
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
-        :param view_rid: If provided, this operation will only write to the stream corresponding to the specified view RID. If not provided, this operation will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
+        :param view_rid: If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
         :type view_rid: Optional[ViewRid]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]

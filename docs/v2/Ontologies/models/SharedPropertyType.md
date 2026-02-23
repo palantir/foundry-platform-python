@@ -12,6 +12,7 @@ A property type that can be shared across object types.
 **data_type** | ObjectPropertyType | Yes |  |
 **value_type_api_name** | Optional[ValueTypeApiName] | No |  |
 **value_formatting** | Optional[PropertyValueFormattingRule] | No |  |
+**type_classes** | Optional[List[TypeClass]] | No |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -191,6 +192,7 @@ class QueryClient:
         self,
         *,
         rid: functions_models.FunctionRid,
+        include_prerelease: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -201,6 +203,8 @@ class QueryClient:
 
         :param rid:
         :type rid: FunctionRid
+        :param include_prerelease: When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.
+        :type include_prerelease: Optional[bool]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -210,13 +214,68 @@ class QueryClient:
         :return: Returns the result object.
         :rtype: functions_models.Query
 
-        :raises GetByRidQueriesPermissionDenied: Could not getByRid the Query.
+        :raises GetByRidPermissionDenied: Could not getByRid the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/functions/queries/getByRid",
+                query_params={
+                    "rid": rid,
+                    "includePrerelease": include_prerelease,
+                    "preview": preview,
+                    "version": version,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=functions_models.Query,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByRidPermissionDenied": functions_errors.GetByRidPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[functions_models.GetByRidQueriesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> functions_models.GetByRidQueriesBatchResponse:
+        """
+        Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
+
+        Queries are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+        :param body: Body of the request
+        :type body: List[GetByRidQueriesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: functions_models.GetByRidQueriesBatchResponse
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/functions/queries/getByRid",
+                resource_path="/v2/functions/queries/getByRidBatch",
                 query_params={
                     "preview": preview,
                 },
@@ -225,15 +284,10 @@ class QueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body=functions_models.GetByRidQueriesRequest(
-                    rid=rid,
-                    version=version,
-                ),
-                response_type=functions_models.Query,
+                body=body,
+                response_type=functions_models.GetByRidQueriesBatchResponse,
                 request_timeout=request_timeout,
-                throwable_errors={
-                    "GetByRidQueriesPermissionDenied": functions_errors.GetByRidQueriesPermissionDenied,
-                },
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -349,11 +403,13 @@ class _QueryClientRaw:
         def execute(_: functions_models.ExecuteQueryResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
+        def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.with_raw_response(execute, client.execute)
         self.get = core.with_raw_response(get, client.get)
         self.get_by_rid = core.with_raw_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.streaming_execute = core.with_raw_response(streaming_execute, client.streaming_execute)
 
 
@@ -362,11 +418,15 @@ class _QueryClientStreaming:
         def execute(_: functions_models.ExecuteQueryResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
+        def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.with_streaming_response(execute, client.execute)
         self.get = core.with_streaming_response(get, client.get)
         self.get_by_rid = core.with_streaming_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.streaming_execute = core.with_streaming_response(
             streaming_execute, client.streaming_execute
         )
@@ -537,6 +597,7 @@ class AsyncQueryClient:
         self,
         *,
         rid: functions_models.FunctionRid,
+        include_prerelease: typing.Optional[bool] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         version: typing.Optional[functions_models.FunctionVersion] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -547,6 +608,8 @@ class AsyncQueryClient:
 
         :param rid:
         :type rid: FunctionRid
+        :param include_prerelease: When no version is specified and this flag is set to true, the latest version resolution will consider prerelease versions (e.g., 1.2.3-beta could be returned as the latest). When false, only stable versions are considered when determining the latest version.  Defaults to false.
+        :type include_prerelease: Optional[bool]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param version:
@@ -556,13 +619,68 @@ class AsyncQueryClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[functions_models.Query]
 
-        :raises GetByRidQueriesPermissionDenied: Could not getByRid the Query.
+        :raises GetByRidPermissionDenied: Could not getByRid the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="GET",
+                resource_path="/v2/functions/queries/getByRid",
+                query_params={
+                    "rid": rid,
+                    "includePrerelease": include_prerelease,
+                    "preview": preview,
+                    "version": version,
+                },
+                path_params={},
+                header_params={
+                    "Accept": "application/json",
+                },
+                body=None,
+                response_type=functions_models.Query,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetByRidPermissionDenied": functions_errors.GetByRidPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        body: typing_extensions.Annotated[
+            typing.List[functions_models.GetByRidQueriesBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[functions_models.GetByRidQueriesBatchResponse]:
+        """
+        Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
+
+        Queries are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+        :param body: Body of the request
+        :type body: List[GetByRidQueriesBatchRequestElement]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[functions_models.GetByRidQueriesBatchResponse]
         """
 
         return self._api_client.call_api(
             core.RequestInfo(
                 method="POST",
-                resource_path="/v2/functions/queries/getByRid",
+                resource_path="/v2/functions/queries/getByRidBatch",
                 query_params={
                     "preview": preview,
                 },
@@ -571,15 +689,10 @@ class AsyncQueryClient:
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body=functions_models.GetByRidQueriesRequest(
-                    rid=rid,
-                    version=version,
-                ),
-                response_type=functions_models.Query,
+                body=body,
+                response_type=functions_models.GetByRidQueriesBatchResponse,
                 request_timeout=request_timeout,
-                throwable_errors={
-                    "GetByRidQueriesPermissionDenied": functions_errors.GetByRidQueriesPermissionDenied,
-                },
+                throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
             ),
         )
@@ -695,11 +808,15 @@ class _AsyncQueryClientRaw:
         def execute(_: functions_models.ExecuteQueryResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
+        def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.async_with_raw_response(execute, client.execute)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_by_rid = core.async_with_raw_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.async_with_raw_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.streaming_execute = core.async_with_raw_response(
             streaming_execute, client.streaming_execute
         )
@@ -710,11 +827,15 @@ class _AsyncQueryClientStreaming:
         def execute(_: functions_models.ExecuteQueryResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
+        def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.async_with_streaming_response(execute, client.execute)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_by_rid = core.async_with_streaming_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.async_with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.streaming_execute = core.async_with_streaming_response(
             streaming_execute, client.streaming_execute
         )

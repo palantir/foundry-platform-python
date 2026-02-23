@@ -95,6 +95,10 @@ class CipherTextType(core.ModelBase):
     type: typing.Literal["cipherText"] = "cipherText"
 
 
+ColumnName = str
+"""The name of a column in a dataset."""
+
+
 ComputeSeconds = float
 """A measurement of compute usage expressed in [compute-seconds](https://palantir.com/docs/foundry/resource-management/usage-types#compute-second). For more information, please refer to the [Usage types](https://palantir.com/docs/foundry/resource-management/usage-types) documentation."""
 
@@ -942,6 +946,7 @@ __all__ = [
     "CheckReportRid",
     "CheckRid",
     "CipherTextType",
+    "ColumnName",
     "ComputeSeconds",
     "ContentLength",
     "ContentType",

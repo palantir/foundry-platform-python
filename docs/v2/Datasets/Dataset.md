@@ -231,7 +231,11 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_schedules**
-Get the RIDs of the Schedules that target the given Dataset
+Get the RIDs of the Schedules that target the given Dataset.
+
+Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+especially for schedules managed by Marketplace. This operation will return outdated results in the
+meantime.
 
 
 ### Parameters

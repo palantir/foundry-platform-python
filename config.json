@@ -216,6 +216,12 @@
     "LoadObjectSetV2ObjectsOrInterfacesRequest.selectV2",
     "SearchObjectsRequestV2.selectV2",
     "LoadObjectSetResponseV2.propertySecurities",
-    "LoadObjectSetV2MultipleObjectTypesResponse.propertySecurities"
+    "LoadObjectSetV2MultipleObjectTypesResponse.propertySecurities",
+    "ActionParameterV2.typeClasses",
+    "InterfaceDefinedPropertyType.typeClasses",
+    "InterfaceSharedPropertyType.typeClasses",
+    "PropertyV2.typeClasses",
+    "SharedPropertyType.typeClasses",
+    "StructFieldType.typeClasses"
   ]
 }

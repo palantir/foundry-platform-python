@@ -373,6 +373,12 @@ class ViewBackingDataset(core.ModelBase):
     """The branch of the backing dataset. If not specified, defaults to the branch of the View."""
 
     dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    stop_propagating_marking_ids: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("stopPropagatingMarkingIds"))  # type: ignore[literal-required]
+    """
+    Markings listed here will not be inherited from this backing dataset. The caller must have the DECLASSIFY 
+    permission on each marking listed here. If multiple backing datasets have the same marking applied,
+    the marking must be listed for each backing dataset or it will still be inherited.
+    """
 
 
 class ViewPrimaryKey(core.ModelBase):

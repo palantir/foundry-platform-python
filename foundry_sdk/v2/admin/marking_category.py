@@ -52,6 +52,69 @@ class MarkingCategoryClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def create(
+        self,
+        *,
+        description: admin_models.MarkingCategoryDescription,
+        initial_permissions: admin_models.MarkingCategoryPermissions,
+        name: admin_models.MarkingCategoryName,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.MarkingCategory:
+        """
+        Creates a new MarkingCategory.
+        :param description:
+        :type description: MarkingCategoryDescription
+        :param initial_permissions: The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations. The provided permissions must include at least one ADMINISTER role assignment.  WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an ADMINISTER, you will create a Marking Category that you cannot administer.
+        :type initial_permissions: MarkingCategoryPermissions
+        :param name:
+        :type name: MarkingCategoryName
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.MarkingCategory
+
+        :raises CreateMarkingCategoryMissingInitialAdminRole: At least one ADMINISTER role assignment must be provided when creating a marking category.
+        :raises CreateMarkingCategoryMissingOrganization: At least one organization must be provided when creating a marking category.
+        :raises CreateMarkingCategoryPermissionDenied: Could not create the MarkingCategory.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markingCategories",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.CreateMarkingCategoryRequest(
+                    initial_permissions=initial_permissions,
+                    name=name,
+                    description=description,
+                ),
+                response_type=admin_models.MarkingCategory,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateMarkingCategoryMissingInitialAdminRole": admin_errors.CreateMarkingCategoryMissingInitialAdminRole,
+                    "CreateMarkingCategoryMissingOrganization": admin_errors.CreateMarkingCategoryMissingOrganization,
+                    "CreateMarkingCategoryPermissionDenied": admin_errors.CreateMarkingCategoryPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         marking_category_id: admin_models.MarkingCategoryId,
@@ -150,23 +213,93 @@ class MarkingCategoryClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        marking_category_id: admin_models.MarkingCategoryId,
+        *,
+        description: admin_models.MarkingCategoryDescription,
+        name: admin_models.MarkingCategoryName,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> admin_models.MarkingCategory:
+        """
+        Replace the MarkingCategory with the specified id.
+        :param marking_category_id:
+        :type marking_category_id: MarkingCategoryId
+        :param description:
+        :type description: MarkingCategoryDescription
+        :param name:
+        :type name: MarkingCategoryName
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: admin_models.MarkingCategory
+
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
+        :raises ReplaceMarkingCategoryPermissionDenied: Could not replace the MarkingCategory.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/admin/markingCategories/{markingCategoryId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingCategoryId": marking_category_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.ReplaceMarkingCategoryRequest(
+                    name=name,
+                    description=description,
+                ),
+                response_type=admin_models.MarkingCategory,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                    "ReplaceMarkingCategoryPermissionDenied": admin_errors.ReplaceMarkingCategoryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _MarkingCategoryClientRaw:
     def __init__(self, client: MarkingCategoryClient) -> None:
+        def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
+        def replace(_: admin_models.MarkingCategory): ...
 
+        self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
+        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _MarkingCategoryClientStreaming:
     def __init__(self, client: MarkingCategoryClient) -> None:
+        def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
+        def replace(_: admin_models.MarkingCategory): ...
 
+        self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
+        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncMarkingCategoryClient:
@@ -191,6 +324,69 @@ class AsyncMarkingCategoryClient:
 
         self.with_streaming_response = _AsyncMarkingCategoryClientStreaming(self)
         self.with_raw_response = _AsyncMarkingCategoryClientRaw(self)
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def create(
+        self,
+        *,
+        description: admin_models.MarkingCategoryDescription,
+        initial_permissions: admin_models.MarkingCategoryPermissions,
+        name: admin_models.MarkingCategoryName,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.MarkingCategory]:
+        """
+        Creates a new MarkingCategory.
+        :param description:
+        :type description: MarkingCategoryDescription
+        :param initial_permissions: The initial permissions for the Marking Category. This can be changed later through MarkingCategoryPermission operations. The provided permissions must include at least one ADMINISTER role assignment.  WARNING: If you do not list your own principal ID or the ID of a Group that you are a member of as an ADMINISTER, you will create a Marking Category that you cannot administer.
+        :type initial_permissions: MarkingCategoryPermissions
+        :param name:
+        :type name: MarkingCategoryName
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.MarkingCategory]
+
+        :raises CreateMarkingCategoryMissingInitialAdminRole: At least one ADMINISTER role assignment must be provided when creating a marking category.
+        :raises CreateMarkingCategoryMissingOrganization: At least one organization must be provided when creating a marking category.
+        :raises CreateMarkingCategoryPermissionDenied: Could not create the MarkingCategory.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/markingCategories",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.CreateMarkingCategoryRequest(
+                    initial_permissions=initial_permissions,
+                    name=name,
+                    description=description,
+                ),
+                response_type=admin_models.MarkingCategory,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CreateMarkingCategoryMissingInitialAdminRole": admin_errors.CreateMarkingCategoryMissingInitialAdminRole,
+                    "CreateMarkingCategoryMissingOrganization": admin_errors.CreateMarkingCategoryMissingOrganization,
+                    "CreateMarkingCategoryPermissionDenied": admin_errors.CreateMarkingCategoryPermissionDenied,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -293,20 +489,90 @@ class AsyncMarkingCategoryClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        marking_category_id: admin_models.MarkingCategoryId,
+        *,
+        description: admin_models.MarkingCategoryDescription,
+        name: admin_models.MarkingCategoryName,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[admin_models.MarkingCategory]:
+        """
+        Replace the MarkingCategory with the specified id.
+        :param marking_category_id:
+        :type marking_category_id: MarkingCategoryId
+        :param description:
+        :type description: MarkingCategoryDescription
+        :param name:
+        :type name: MarkingCategoryName
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[admin_models.MarkingCategory]
+
+        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
+        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
+        :raises ReplaceMarkingCategoryPermissionDenied: Could not replace the MarkingCategory.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/admin/markingCategories/{markingCategoryId}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "markingCategoryId": marking_category_id,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=admin_models.ReplaceMarkingCategoryRequest(
+                    name=name,
+                    description=description,
+                ),
+                response_type=admin_models.MarkingCategory,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
+                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
+                    "ReplaceMarkingCategoryPermissionDenied": admin_errors.ReplaceMarkingCategoryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncMarkingCategoryClientRaw:
     def __init__(self, client: AsyncMarkingCategoryClient) -> None:
+        def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
+        def replace(_: admin_models.MarkingCategory): ...
 
+        self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
+        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncMarkingCategoryClientStreaming:
     def __init__(self, client: AsyncMarkingCategoryClient) -> None:
+        def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
+        def replace(_: admin_models.MarkingCategory): ...
 
+        self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.list = core.async_with_streaming_response(list, client.list)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

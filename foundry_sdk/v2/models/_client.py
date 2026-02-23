@@ -48,6 +48,26 @@ class ModelsClient:
             config=self._config,
         )
 
+    @cached_property
+    def ModelStudio(self):
+        from foundry_sdk.v2.models.model_studio import ModelStudioClient
+
+        return ModelStudioClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
+    @cached_property
+    def ModelStudioTrainer(self):
+        from foundry_sdk.v2.models.model_studio_trainer import ModelStudioTrainerClient
+
+        return ModelStudioTrainerClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
+
 
 class AsyncModelsClient:
     """
@@ -65,5 +85,13 @@ class AsyncModelsClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.models.model import AsyncModelClient
+        from foundry_sdk.v2.models.model_studio import AsyncModelStudioClient
+        from foundry_sdk.v2.models.model_studio_trainer import AsyncModelStudioTrainerClient  # NOQA
 
         self.Model = AsyncModelClient(auth=auth, hostname=hostname, config=config)
+
+        self.ModelStudio = AsyncModelStudioClient(auth=auth, hostname=hostname, config=config)
+
+        self.ModelStudioTrainer = AsyncModelStudioTrainerClient(
+            auth=auth, hostname=hostname, config=config
+        )
