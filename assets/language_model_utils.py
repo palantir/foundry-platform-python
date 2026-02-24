@@ -87,7 +87,7 @@ def get_openai_base_url(*, preview: bool = False) -> str:
             "Please set the preview parameter to True to use it."
         )
     hostname = _get_api_gateway_base_url(preview=True)
-    return f"https://{hostname}/api/v2/llm/proxy/openai"
+    return f"https://{hostname}/api/v2/llm/proxy/openai/v1"
 
 
 def get_anthropic_base_url(*, preview: bool = False) -> str:
@@ -109,7 +109,7 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
             "Please set the preview parameter to True to use it."
         )
     hostname = _get_api_gateway_base_url(preview=True)
-    return f"https://{hostname}/api/v2/llm/proxy/anthropic"
+    return f"https://{hostname}/api/v2/llm/proxy/anthropic/v1"
 
 
 def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -> HttpClient:
