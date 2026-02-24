@@ -119,13 +119,61 @@ class TestGetHttpClient:
     """Test get_http_client function."""
 
     def test_returns_http_client(self):
-        token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        auth_token = TOKEN_VAR.set("test-token-12345")
         try:
             result = get_http_client(preview=True)
             assert isinstance(result, HttpClient)
         finally:
-            HOSTNAME_VAR.reset(token)
+            HOSTNAME_VAR.reset(hostname_token)
+            TOKEN_VAR.reset(auth_token)
 
-    def test_raises_runtime_error_when_not_in_context(self):
+    def test_injects_auth_header(self):
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        auth_token = TOKEN_VAR.set("test-token-12345")
+        try:
+            client = get_http_client(preview=True)
+            assert client.headers["Authorization"] == "Bearer test-token-12345"
+        finally:
+            HOSTNAME_VAR.reset(hostname_token)
+            TOKEN_VAR.reset(auth_token)
+
+    def test_merges_auth_header_with_custom_headers(self):
+        from foundry_sdk._core.config import Config
+
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        auth_token = TOKEN_VAR.set("test-token-12345")
+        try:
+            config = Config(default_headers={"X-Custom-Header": "custom-value"})
+            client = get_http_client(preview=True, config=config)
+            assert client.headers["Authorization"] == "Bearer test-token-12345"
+            assert client.headers["X-Custom-Header"] == "custom-value"
+        finally:
+            HOSTNAME_VAR.reset(hostname_token)
+            TOKEN_VAR.reset(auth_token)
+
+    def test_user_headers_override_auth_header(self):
+        from foundry_sdk._core.config import Config
+
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        auth_token = TOKEN_VAR.set("test-token-12345")
+        try:
+            config = Config(default_headers={"Authorization": "Bearer custom-token"})
+            client = get_http_client(preview=True, config=config)
+            # User-provided auth header should override the auto-injected one
+            assert client.headers["Authorization"] == "Bearer custom-token"
+        finally:
+            HOSTNAME_VAR.reset(hostname_token)
+            TOKEN_VAR.reset(auth_token)
+
+    def test_raises_runtime_error_when_hostname_not_in_context(self):
         with pytest.raises(RuntimeError, match="not available"):
             get_http_client(preview=True)
+
+    def test_raises_runtime_error_when_token_not_in_context(self):
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        try:
+            with pytest.raises(RuntimeError, match="not available"):
+                get_http_client(preview=True)
+        finally:
+            HOSTNAME_VAR.reset(hostname_token)

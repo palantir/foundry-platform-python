@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+from dataclasses import replace
 from typing import Optional
 
 from foundry_sdk._core.config import Config
@@ -109,7 +110,7 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
             "Please set the preview parameter to True to use it."
         )
     hostname = _get_api_gateway_base_url(preview=True)
-    return f"https://{hostname}/api/v2/llm/proxy/anthropic/v1"
+    return f"https://{hostname}/api/v2/llm/proxy/anthropic"
 
 
 def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -> HttpClient:
@@ -120,15 +121,25 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         config: Optional configuration for the HTTP client.
 
     Returns:
-        An HttpClient instance configured with the Foundry hostname.
+        An HttpClient instance configured with the Foundry hostname and authentication.
 
     Raises:
         ValueError: If preview is not set to True.
-        RuntimeError: If the Foundry API gateway base URL is not available in the current context.
+        RuntimeError: If the Foundry API gateway base URL or token is not available in the current context.
     """
     if not preview:
         raise ValueError(
             "get_http_client() is in beta. " "Please set the preview parameter to True to use it."
         )
     hostname = _get_api_gateway_base_url(preview=True)
+    token = get_foundry_token(preview=True)
+
+    # Merge auth header with any user-provided headers
+    auth_header = {"Authorization": f"Bearer {token}"}
+    if config is None:
+        config = Config(default_headers=auth_header)
+    else:
+        merged_headers = {**auth_header, **(config.default_headers or {})}
+        config = replace(config, default_headers=merged_headers)
+
     return HttpClient(hostname=hostname, config=config)
