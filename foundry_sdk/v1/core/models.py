@@ -158,6 +158,12 @@ class MarkingType(core.ModelBase):
     type: typing.Literal["marking"] = "marking"
 
 
+class MediaReferenceType(core.ModelBase):
+    """MediaReferenceType"""
+
+    type: typing.Literal["mediaReference"] = "mediaReference"
+
+
 MediaType = str
 """
 The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
@@ -272,6 +278,7 @@ __all__ = [
     "IntegerType",
     "LongType",
     "MarkingType",
+    "MediaReferenceType",
     "MediaType",
     "NullType",
     "OperationScope",

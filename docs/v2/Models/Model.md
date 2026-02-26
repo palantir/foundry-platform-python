@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models | Private Beta |
-[**get**](#get) | **GET** /v2/models/{modelRid} | Private Beta |
+[**create**](#create) | **POST** /v2/models | Public Beta |
+[**get**](#get) | **GET** /v2/models/{modelRid} | Public Beta |
 
 # **create**
 Creates a new Model with no versions.

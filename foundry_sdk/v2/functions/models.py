@@ -236,6 +236,7 @@ QueryDataType = typing_extensions.Annotated[
         core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
+        core_models.MediaReferenceType,
         core_models.NullType,
         "QueryArrayType",
         "TwoDimensionalAggregation",

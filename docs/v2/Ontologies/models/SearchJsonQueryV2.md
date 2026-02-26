@@ -35,6 +35,7 @@ RegexQuery | regex
 IsNullQueryV2 | isNull
 ContainsAnyTermQuery | containsAnyTerm
 IntervalQuery | interval
+GeoShapeV2Query | geoShapeV2
 StartsWithQuery | startsWith
 
 

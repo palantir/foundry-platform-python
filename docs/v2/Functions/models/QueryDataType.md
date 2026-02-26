@@ -23,6 +23,7 @@ LongType | long
 BooleanType | boolean
 UnsupportedType | unsupported
 AttachmentType | attachment
+MediaReferenceType | mediaReference
 NullType | null
 QueryArrayType | array
 TwoDimensionalAggregation | twoDimensionalAggregation

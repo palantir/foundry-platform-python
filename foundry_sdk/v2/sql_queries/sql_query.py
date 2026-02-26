@@ -289,7 +289,7 @@ class SqlQueryClient:
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode", "TABLE"),
+                response_mode=_sdk_internal.get("response_mode", "ARROW_TABLE"),
             ),
         )
 
@@ -644,7 +644,7 @@ class AsyncSqlQueryClient:
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
                 },
-                response_mode=_sdk_internal.get("response_mode", "TABLE"),
+                response_mode=_sdk_internal.get("response_mode", "ARROW_TABLE"),
             ),
         )
 

@@ -623,6 +623,7 @@ class BoundingBoxValue(core.ModelBase):
 
     top_left: WithinBoundingBoxPoint = pydantic.Field(alias=str("topLeft"))  # type: ignore[literal-required]
     bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
+    type: typing.Literal["envelope"] = "envelope"
 
 
 class CenterPoint(core.ModelBase):
@@ -1362,6 +1363,38 @@ class FuzzyRule(core.ModelBase):
 
 FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
+
+
+class GeoJsonString(core.ModelBase):
+    """A GeoJSON geometry specification."""
+
+    geo_json: str = pydantic.Field(alias=str("geoJson"))  # type: ignore[literal-required]
+    """
+    A GeoJSON geometry string. Supported geometry types include Point, MultiPoint, LineString,
+    MultiLineString, Polygon, MultiPolygon, and GeometryCollection.
+    """
+
+    type: typing.Literal["geoJson"] = "geoJson"
+
+
+GeoShapeV2Geometry = typing_extensions.Annotated[
+    typing.Union["BoundingBoxValue", "GeoJsonString"], pydantic.Field(discriminator="type")
+]
+"""Geometry specification for a GeoShapeV2Query. Supports bounding box envelopes and arbitrary GeoJSON geometries."""
+
+
+class GeoShapeV2Query(core.ModelBase):
+    """
+    Returns objects where the specified field satisfies the provided geometry query with the given spatial operator.
+    Supports both envelope (bounding box) and GeoJSON geometries for filtering geopoint or geoshape properties.
+    Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    geometry: GeoShapeV2Geometry
+    spatial_filter_mode: SpatialFilterMode = pydantic.Field(alias=str("spatialFilterMode"))  # type: ignore[literal-required]
+    type: typing.Literal["geoShapeV2"] = "geoShapeV2"
 
 
 class GeotemporalSeriesEntry(core.ModelBase):
@@ -3094,6 +3127,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
+        core_models.MediaReferenceType,
         "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
@@ -3784,6 +3818,7 @@ QueryDataType = typing_extensions.Annotated[
         core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
+        core_models.MediaReferenceType,
         core_models.NullType,
         "QueryArrayType",
         "OntologyObjectSetType",
@@ -4095,6 +4130,7 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
         "IsNullQueryV2",
         "ContainsAnyTermQuery",
         "IntervalQuery",
+        "GeoShapeV2Query",
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -4382,6 +4418,14 @@ shared property type, use the `List shared property types` endpoint or check the
 
 SharedPropertyTypeRid = core.RID
 """The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs."""
+
+
+SpatialFilterMode = typing.Literal["INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"]
+"""
+The spatial relation operator for a GeoShapeV2Query. INTERSECTS matches objects that intersect the provided
+geometry, DISJOINT matches objects that do not intersect the provided geometry, WITHIN matches objects that
+lie within the provided geometry, and CONTAINS matches objects that contain the provided geometry.
+"""
 
 
 class StartsWithQuery(core.ModelBase):
@@ -5186,6 +5230,7 @@ core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), l
 core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
@@ -5416,6 +5461,9 @@ __all__ = [
     "FunctionVersion",
     "FuzzyRule",
     "FuzzyV2",
+    "GeoJsonString",
+    "GeoShapeV2Geometry",
+    "GeoShapeV2Query",
     "GeotemporalSeriesEntry",
     "GeotimeSeriesValue",
     "GetSelectedPropertyOperation",
@@ -5712,6 +5760,7 @@ __all__ = [
     "SharedPropertyType",
     "SharedPropertyTypeApiName",
     "SharedPropertyTypeRid",
+    "SpatialFilterMode",
     "StartsWithQuery",
     "StaticArgument",
     "StreamGeotemporalSeriesValuesRequest",

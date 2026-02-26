@@ -145,6 +145,16 @@ AnthropicDocumentSource = typing_extensions.Annotated[
 """AnthropicDocumentSource"""
 
 
+AnthropicEffort = typing.Literal["LOW", "MEDIUM", "HIGH", "MAX"]
+"""
+https://docs.anthropic.com/en/docs/build-with-claude/extended-thinking#effort
+
+Controls how many tokens Claude uses when responding.
+Supported by Claude models beginning with Opus 4.5.
+Setting effort to HIGH produces the same behavior as omitting the parameter entirely.
+"""
+
+
 class AnthropicEnabledThinking(core.ModelBase):
     """AnthropicEnabledThinking"""
 
@@ -176,6 +186,13 @@ class AnthropicImageBase64Source(core.ModelBase):
     """This can include image/jpeg, image/png, image/gif or image/webp."""
 
     type: typing.Literal["base64"] = "base64"
+
+
+class AnthropicJsonSchemaOutputFormat(core.ModelBase):
+    """AnthropicJsonSchemaOutputFormat"""
+
+    schema_: JsonSchema = pydantic.Field(alias=str("schema"))  # type: ignore[literal-required]
+    type: typing.Literal["jsonSchema"] = "jsonSchema"
 
 
 AnthropicMediaType = typing.Literal["IMAGE_JPEG", "IMAGE_PNG", "IMAGE_GIF", "IMAGE_WEBP"]
@@ -250,6 +267,9 @@ class AnthropicMessagesRequest(core.ModelBase):
     top_p: typing.Optional[float] = pydantic.Field(alias=str("topP"), default=None)  # type: ignore[literal-required]
     """Use nucleus sampling. You should either alter temperature or top_p, but not both"""
 
+    output_config: typing.Optional[AnthropicOutputConfig] = pydantic.Field(alias=str("outputConfig"), default=None)  # type: ignore[literal-required]
+    """Configuration to control the shape of the model's output"""
+
 
 class AnthropicMessagesResponse(core.ModelBase):
     """AnthropicMessagesResponse"""
@@ -267,6 +287,13 @@ class AnthropicNoneToolChoice(core.ModelBase):
     """AnthropicNoneToolChoice"""
 
     type: typing.Literal["none"] = "none"
+
+
+class AnthropicOutputConfig(core.ModelBase):
+    """AnthropicOutputConfig"""
+
+    format: typing.Optional[AnthropicOutputFormat] = None
+    effort: typing.Optional[AnthropicEffort] = None
 
 
 class AnthropicRedactedThinking(core.ModelBase):
@@ -423,6 +450,10 @@ AnthropicImageSource = AnthropicImageBase64Source
 """AnthropicImageSource"""
 
 
+AnthropicOutputFormat = AnthropicJsonSchemaOutputFormat
+"""AnthropicOutputFormat"""
+
+
 AnthropicSystemMessage = AnthropicText
 """AnthropicSystemMessage"""
 
@@ -461,11 +492,13 @@ __all__ = [
     "AnthropicDocument",
     "AnthropicDocumentCitations",
     "AnthropicDocumentSource",
+    "AnthropicEffort",
     "AnthropicEnabledThinking",
     "AnthropicEphemeralCacheControl",
     "AnthropicImage",
     "AnthropicImageBase64Source",
     "AnthropicImageSource",
+    "AnthropicJsonSchemaOutputFormat",
     "AnthropicMediaType",
     "AnthropicMessage",
     "AnthropicMessageContent",
@@ -473,6 +506,8 @@ __all__ = [
     "AnthropicMessagesRequest",
     "AnthropicMessagesResponse",
     "AnthropicNoneToolChoice",
+    "AnthropicOutputConfig",
+    "AnthropicOutputFormat",
     "AnthropicRedactedThinking",
     "AnthropicSystemMessage",
     "AnthropicText",

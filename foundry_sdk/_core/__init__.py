@@ -43,6 +43,8 @@ from foundry_sdk._core.resource_iterator import (
 )  # NOQA
 from foundry_sdk._core.resource_iterator import PageIterator as PageIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator as ResourceIterator
+from foundry_sdk._core.table import ArrowTableResponse as ArrowTableResponse
+from foundry_sdk._core.table import ParquetTableResponse as ParquetTableResponse
 from foundry_sdk._core.table import TableResponse as TableResponse
 from foundry_sdk._core.user_token_auth_client import UserTokenAuth as UserTokenAuth
 from foundry_sdk._core.utils import RID as RID

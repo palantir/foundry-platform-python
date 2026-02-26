@@ -740,7 +740,7 @@ class DatasetClient:
                     "ReadTableTimeout": datasets_errors.ReadTableTimeout,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
-                response_mode=_sdk_internal.get("response_mode", "TABLE"),
+                response_mode=_sdk_internal.get("response_mode", "ARROW_TABLE"),
             ),
         )
 
@@ -1575,7 +1575,7 @@ class AsyncDatasetClient:
                     "ReadTableTimeout": datasets_errors.ReadTableTimeout,
                     "SchemaNotFound": datasets_errors.SchemaNotFound,
                 },
-                response_mode=_sdk_internal.get("response_mode", "TABLE"),
+                response_mode=_sdk_internal.get("response_mode", "ARROW_TABLE"),
             ),
         )
 
