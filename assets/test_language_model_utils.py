@@ -90,7 +90,7 @@ class TestGetOpenaiBaseUrl:
         token = HOSTNAME_VAR.set("test.palantirfoundry.com")
         try:
             result = get_openai_base_url(preview=True)
-            assert result == "https://test.palantirfoundry.com/api/v2/llm/proxy/openai"
+            assert result == "https://test.palantirfoundry.com/api/v2/llm/proxy/openai/v1"
         finally:
             HOSTNAME_VAR.reset(token)
 
