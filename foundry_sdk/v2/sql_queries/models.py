@@ -151,13 +151,6 @@ class ParameterAnyValue(core.ModelBase):
     type: typing.Literal["any"] = "any"
 
 
-class ParameterBinaryValue(core.ModelBase):
-    """A binary parameter value."""
-
-    value: bytes
-    type: typing.Literal["binary"] = "binary"
-
-
 class ParameterBooleanValue(core.ModelBase):
     """A boolean parameter value."""
 
@@ -277,7 +270,6 @@ ParameterValue = typing_extensions.Annotated[
         "ParameterLongValue",
         "ParameterBooleanValue",
         "ParameterNullValue",
-        "ParameterBinaryValue",
         "ParameterShortValue",
         "ParameterDecimalValue",
         "ParameterMapValue",
@@ -393,7 +385,6 @@ __all__ = [
     "MapParameterKey",
     "NamedParameterMapping",
     "ParameterAnyValue",
-    "ParameterBinaryValue",
     "ParameterBooleanValue",
     "ParameterDateValue",
     "ParameterDecimalValue",

@@ -20,7 +20,6 @@ ParameterAnyValue | any
 ParameterLongValue | long
 ParameterBooleanValue | boolean
 ParameterNullValue | null
-ParameterBinaryValue | binary
 ParameterShortValue | short
 ParameterDecimalValue | decimal
 ParameterMapValue | map

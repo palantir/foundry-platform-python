@@ -14,6 +14,7 @@ DateType | date
 OntologyInterfaceObjectType | interfaceObject
 QueryStructType | struct
 QuerySetType | set
+VoidType | void
 StringType | string
 EntrySetType | entrySet
 DoubleType | double

@@ -9,7 +9,7 @@ ensuring all conditions are evaluated on the same summary metric.
 | ------------ | ------------- | ------------- | ------------- |
 **series_name** | SeriesName | Yes | The name of the series this metric belongs to. |
 **aggregation** | SummaryMetricAggregation | Yes | The aggregation type (MIN, MAX, LAST). |
-**operator** | SearchExperimentsFilterOperator | Yes | The comparison operator (EQ, GT, or LT). |
+**operator** | SearchExperimentsNumericFilterOperator | Yes | The comparison operator (EQ, GT, or LT). |
 **value** | Any | Yes | The value to compare against. |
 **type** | Literal["summaryMetricFilter"] | Yes | None |
 

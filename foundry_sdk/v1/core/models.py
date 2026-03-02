@@ -255,6 +255,12 @@ UnsupportedTypeParamValue = str
 """UnsupportedTypeParamValue"""
 
 
+class VoidType(core.ModelBase):
+    """VoidType"""
+
+    type: typing.Literal["void"] = "void"
+
+
 __all__ = [
     "AnyType",
     "AttachmentType",
@@ -297,4 +303,5 @@ __all__ = [
     "UnsupportedType",
     "UnsupportedTypeParamKey",
     "UnsupportedTypeParamValue",
+    "VoidType",
 ]

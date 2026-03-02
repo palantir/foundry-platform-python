@@ -15,6 +15,7 @@
 
 import typing
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -148,6 +149,65 @@ class ActionTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetActionTypeByRidBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.GetActionTypeByRidBatchResponse:
+        """
+        Gets a list of action types by RID in bulk.
+
+        Action types are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetActionTypeByRidBatchRequestElement]
+        :param branch: The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.GetActionTypeByRidBatchResponse
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/getByRidBatch",
+                query_params={
+                    "branch": branch,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetActionTypeByRidBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetActionTypeByRidBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -206,10 +266,12 @@ class _ActionTypeClientRaw:
     def __init__(self, client: ActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
         def get_by_rid(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetActionTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
         self.get_by_rid = core.with_raw_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.list = core.with_raw_response(list, client.list)
 
 
@@ -217,10 +279,14 @@ class _ActionTypeClientStreaming:
     def __init__(self, client: ActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
         def get_by_rid(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetActionTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
         self.get_by_rid = core.with_streaming_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.with_streaming_response(list, client.list)
 
 
@@ -348,6 +414,65 @@ class AsyncActionTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def get_by_rid_batch(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        *,
+        requests: typing_extensions.Annotated[
+            typing.List[ontologies_models.GetActionTypeByRidBatchRequestElement],
+            annotated_types.Len(min_length=1, max_length=100),
+        ],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.GetActionTypeByRidBatchResponse]:
+        """
+        Gets a list of action types by RID in bulk.
+
+        Action types are filtered from the response if they don't exist or the requesting token lacks the required
+        permissions.
+
+        The maximum batch size for this endpoint is 100.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param requests:
+        :type requests: List[GetActionTypeByRidBatchRequestElement]
+        :param branch: The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.GetActionTypeByRidBatchResponse]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actionTypes/getByRidBatch",
+                query_params={
+                    "branch": branch,
+                },
+                path_params={
+                    "ontology": ontology,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.GetActionTypeByRidBatchRequest(
+                    requests=requests,
+                ),
+                response_type=ontologies_models.GetActionTypeByRidBatchResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -406,10 +531,14 @@ class _AsyncActionTypeClientRaw:
     def __init__(self, client: AsyncActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
         def get_by_rid(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetActionTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.async_with_raw_response(get, client.get)
         self.get_by_rid = core.async_with_raw_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.async_with_raw_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.async_with_raw_response(list, client.list)
 
 
@@ -417,8 +546,12 @@ class _AsyncActionTypeClientStreaming:
     def __init__(self, client: AsyncActionTypeClient) -> None:
         def get(_: ontologies_models.ActionTypeV2): ...
         def get_by_rid(_: ontologies_models.ActionTypeV2): ...
+        def get_by_rid_batch(_: ontologies_models.GetActionTypeByRidBatchResponse): ...
         def list(_: ontologies_models.ListActionTypesResponseV2): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_by_rid = core.async_with_streaming_response(get_by_rid, client.get_by_rid)
+        self.get_by_rid_batch = core.async_with_streaming_response(
+            get_by_rid_batch, client.get_by_rid_batch
+        )
         self.list = core.async_with_streaming_response(list, client.list)

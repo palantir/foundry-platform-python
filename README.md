@@ -811,6 +811,7 @@ Namespace | Resource | Operation | HTTP request |
 **MediaSets** | MediaSet | [**abort**](docs/v2/MediaSets/MediaSet.md#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort |
 **MediaSets** | MediaSet | [**commit**](docs/v2/MediaSets/MediaSet.md#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit |
 **MediaSets** | MediaSet | [**create**](docs/v2/MediaSets/MediaSet.md#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions |
+**MediaSets** | MediaSet | [**get**](docs/v2/MediaSets/MediaSet.md#get) | **GET** /v2/mediasets/{mediaSetRid} |
 **MediaSets** | MediaSet | [**get_result**](docs/v2/MediaSets/MediaSet.md#get_result) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId}/result |
 **MediaSets** | MediaSet | [**get_rid_by_path**](docs/v2/MediaSets/MediaSet.md#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath |
 **MediaSets** | MediaSet | [**get_status**](docs/v2/MediaSets/MediaSet.md#get_status) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId} |
@@ -819,6 +820,7 @@ Namespace | Resource | Operation | HTTP request |
 **MediaSets** | MediaSet | [**read**](docs/v2/MediaSets/MediaSet.md#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content |
 **MediaSets** | MediaSet | [**read_original**](docs/v2/MediaSets/MediaSet.md#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original |
 **MediaSets** | MediaSet | [**reference**](docs/v2/MediaSets/MediaSet.md#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference |
+**MediaSets** | MediaSet | [**register**](docs/v2/MediaSets/MediaSet.md#register) | **POST** /v2/mediasets/{mediaSetRid}/items/register |
 **MediaSets** | MediaSet | [**transform**](docs/v2/MediaSets/MediaSet.md#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform |
 **MediaSets** | MediaSet | [**upload**](docs/v2/MediaSets/MediaSet.md#upload) | **POST** /v2/mediasets/{mediaSetRid}/items |
 **MediaSets** | MediaSet | [**upload_media**](docs/v2/MediaSets/MediaSet.md#upload_media) | **PUT** /v2/mediasets/media/upload |
@@ -831,6 +833,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | Action | [**apply_batch**](docs/v2/Ontologies/Action.md#apply_batch) | **POST** /v2/ontologies/{ontology}/actions/{action}/applyBatch |
 **Ontologies** | ActionType | [**get**](docs/v2/Ontologies/ActionType.md#get) | **GET** /v2/ontologies/{ontology}/actionTypes/{actionType} |
 **Ontologies** | ActionType | [**get_by_rid**](docs/v2/Ontologies/ActionType.md#get_by_rid) | **GET** /v2/ontologies/{ontology}/actionTypes/byRid/{actionTypeRid} |
+**Ontologies** | ActionType | [**get_by_rid_batch**](docs/v2/Ontologies/ActionType.md#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/actionTypes/getByRidBatch |
 **Ontologies** | ActionType | [**list**](docs/v2/Ontologies/ActionType.md#list) | **GET** /v2/ontologies/{ontology}/actionTypes |
 **Ontologies** | Attachment | [**get**](docs/v2/Ontologies/Attachment.md#get) | **GET** /v2/ontologies/attachments/{attachmentRid} |
 **Ontologies** | Attachment | [**read**](docs/v2/Ontologies/Attachment.md#read) | **GET** /v2/ontologies/attachments/{attachmentRid}/content |
@@ -1414,6 +1417,7 @@ Namespace | Name | Import |
 **Core** | [VectorSimilarityFunctionValue](docs/v2/Core/models/VectorSimilarityFunctionValue.md) | `from foundry_sdk.v2.core.models import VectorSimilarityFunctionValue` |
 **Core** | [VectorType](docs/v2/Core/models/VectorType.md) | `from foundry_sdk.v2.core.models import VectorType` |
 **Core** | [VersionId](docs/v2/Core/models/VersionId.md) | `from foundry_sdk.v2.core.models import VersionId` |
+**Core** | [VoidType](docs/v2/Core/models/VoidType.md) | `from foundry_sdk.v2.core.models import VoidType` |
 **Core** | [ZoneId](docs/v2/Core/models/ZoneId.md) | `from foundry_sdk.v2.core.models import ZoneId` |
 **DataHealth** | [AllowedColumnValuesCheckConfig](docs/v2/DataHealth/models/AllowedColumnValuesCheckConfig.md) | `from foundry_sdk.v2.data_health.models import AllowedColumnValuesCheckConfig` |
 **DataHealth** | [ApproximateUniquePercentageCheckConfig](docs/v2/DataHealth/models/ApproximateUniquePercentageCheckConfig.md) | `from foundry_sdk.v2.data_health.models import ApproximateUniquePercentageCheckConfig` |
@@ -1761,6 +1765,7 @@ Namespace | Name | Import |
 **MediaSets** | [AudioTransformation](docs/v2/MediaSets/models/AudioTransformation.md) | `from foundry_sdk.v2.media_sets.models import AudioTransformation` |
 **MediaSets** | [AvailableEmbeddingModelIds](docs/v2/MediaSets/models/AvailableEmbeddingModelIds.md) | `from foundry_sdk.v2.media_sets.models import AvailableEmbeddingModelIds` |
 **MediaSets** | [BandInfo](docs/v2/MediaSets/models/BandInfo.md) | `from foundry_sdk.v2.media_sets.models import BandInfo` |
+**MediaSets** | [BatchTransactionsTransactionPolicy](docs/v2/MediaSets/models/BatchTransactionsTransactionPolicy.md) | `from foundry_sdk.v2.media_sets.models import BatchTransactionsTransactionPolicy` |
 **MediaSets** | [BoundingBox](docs/v2/MediaSets/models/BoundingBox.md) | `from foundry_sdk.v2.media_sets.models import BoundingBox` |
 **MediaSets** | [BoundingBoxGeometry](docs/v2/MediaSets/models/BoundingBoxGeometry.md) | `from foundry_sdk.v2.media_sets.models import BoundingBoxGeometry` |
 **MediaSets** | [BranchName](docs/v2/MediaSets/models/BranchName.md) | `from foundry_sdk.v2.media_sets.models import BranchName` |
@@ -1825,6 +1830,7 @@ Namespace | Name | Import |
 **MediaSets** | [GetEmailBodyOperation](docs/v2/MediaSets/models/GetEmailBodyOperation.md) | `from foundry_sdk.v2.media_sets.models import GetEmailBodyOperation` |
 **MediaSets** | [GetMediaItemInfoResponse](docs/v2/MediaSets/models/GetMediaItemInfoResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemInfoResponse` |
 **MediaSets** | [GetMediaItemRidByPathResponse](docs/v2/MediaSets/models/GetMediaItemRidByPathResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaItemRidByPathResponse` |
+**MediaSets** | [GetMediaSetResponse](docs/v2/MediaSets/models/GetMediaSetResponse.md) | `from foundry_sdk.v2.media_sets.models import GetMediaSetResponse` |
 **MediaSets** | [GetPdfPageDimensionsOperation](docs/v2/MediaSets/models/GetPdfPageDimensionsOperation.md) | `from foundry_sdk.v2.media_sets.models import GetPdfPageDimensionsOperation` |
 **MediaSets** | [GetTimestampsForSceneFramesOperation](docs/v2/MediaSets/models/GetTimestampsForSceneFramesOperation.md) | `from foundry_sdk.v2.media_sets.models import GetTimestampsForSceneFramesOperation` |
 **MediaSets** | [GetTransformationJobStatusResponse](docs/v2/MediaSets/models/GetTransformationJobStatusResponse.md) | `from foundry_sdk.v2.media_sets.models import GetTransformationJobStatusResponse` |
@@ -1859,6 +1865,7 @@ Namespace | Name | Import |
 **MediaSets** | [MediaAttribution](docs/v2/MediaSets/models/MediaAttribution.md) | `from foundry_sdk.v2.media_sets.models import MediaAttribution` |
 **MediaSets** | [MediaItemMetadata](docs/v2/MediaSets/models/MediaItemMetadata.md) | `from foundry_sdk.v2.media_sets.models import MediaItemMetadata` |
 **MediaSets** | [MediaItemXmlFormat](docs/v2/MediaSets/models/MediaItemXmlFormat.md) | `from foundry_sdk.v2.media_sets.models import MediaItemXmlFormat` |
+**MediaSets** | [MediaSchema](docs/v2/MediaSets/models/MediaSchema.md) | `from foundry_sdk.v2.media_sets.models import MediaSchema` |
 **MediaSets** | [MkvVideoContainerFormat](docs/v2/MediaSets/models/MkvVideoContainerFormat.md) | `from foundry_sdk.v2.media_sets.models import MkvVideoContainerFormat` |
 **MediaSets** | [Modality](docs/v2/MediaSets/models/Modality.md) | `from foundry_sdk.v2.media_sets.models import Modality` |
 **MediaSets** | [Model3dDecodeFormat](docs/v2/MediaSets/models/Model3dDecodeFormat.md) | `from foundry_sdk.v2.media_sets.models import Model3dDecodeFormat` |
@@ -1867,6 +1874,7 @@ Namespace | Name | Import |
 **MediaSets** | [MovVideoContainerFormat](docs/v2/MediaSets/models/MovVideoContainerFormat.md) | `from foundry_sdk.v2.media_sets.models import MovVideoContainerFormat` |
 **MediaSets** | [Mp3Format](docs/v2/MediaSets/models/Mp3Format.md) | `from foundry_sdk.v2.media_sets.models import Mp3Format` |
 **MediaSets** | [Mp4VideoContainerFormat](docs/v2/MediaSets/models/Mp4VideoContainerFormat.md) | `from foundry_sdk.v2.media_sets.models import Mp4VideoContainerFormat` |
+**MediaSets** | [NoTransactionsTransactionPolicy](docs/v2/MediaSets/models/NoTransactionsTransactionPolicy.md) | `from foundry_sdk.v2.media_sets.models import NoTransactionsTransactionPolicy` |
 **MediaSets** | [NumberOfChannels](docs/v2/MediaSets/models/NumberOfChannels.md) | `from foundry_sdk.v2.media_sets.models import NumberOfChannels` |
 **MediaSets** | [OcrHocrOutputFormat](docs/v2/MediaSets/models/OcrHocrOutputFormat.md) | `from foundry_sdk.v2.media_sets.models import OcrHocrOutputFormat` |
 **MediaSets** | [OcrLanguage](docs/v2/MediaSets/models/OcrLanguage.md) | `from foundry_sdk.v2.media_sets.models import OcrLanguage` |
@@ -1887,6 +1895,8 @@ Namespace | Name | Import |
 **MediaSets** | [PngFormat](docs/v2/MediaSets/models/PngFormat.md) | `from foundry_sdk.v2.media_sets.models import PngFormat` |
 **MediaSets** | [Pttml](docs/v2/MediaSets/models/Pttml.md) | `from foundry_sdk.v2.media_sets.models import Pttml` |
 **MediaSets** | [PutMediaItemResponse](docs/v2/MediaSets/models/PutMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import PutMediaItemResponse` |
+**MediaSets** | [RegisterMediaItemRequest](docs/v2/MediaSets/models/RegisterMediaItemRequest.md) | `from foundry_sdk.v2.media_sets.models import RegisterMediaItemRequest` |
+**MediaSets** | [RegisterMediaItemResponse](docs/v2/MediaSets/models/RegisterMediaItemResponse.md) | `from foundry_sdk.v2.media_sets.models import RegisterMediaItemResponse` |
 **MediaSets** | [RenderImageLayerOperation](docs/v2/MediaSets/models/RenderImageLayerOperation.md) | `from foundry_sdk.v2.media_sets.models import RenderImageLayerOperation` |
 **MediaSets** | [RenderPageOperation](docs/v2/MediaSets/models/RenderPageOperation.md) | `from foundry_sdk.v2.media_sets.models import RenderPageOperation` |
 **MediaSets** | [RenderPageToFitBoundingBoxOperation](docs/v2/MediaSets/models/RenderPageToFitBoundingBoxOperation.md) | `from foundry_sdk.v2.media_sets.models import RenderPageToFitBoundingBoxOperation` |
@@ -1908,6 +1918,7 @@ Namespace | Name | Import |
 **MediaSets** | [TrackedTransformationResponse](docs/v2/MediaSets/models/TrackedTransformationResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationResponse` |
 **MediaSets** | [TrackedTransformationSuccessfulResponse](docs/v2/MediaSets/models/TrackedTransformationSuccessfulResponse.md) | `from foundry_sdk.v2.media_sets.models import TrackedTransformationSuccessfulResponse` |
 **MediaSets** | [TransactionId](docs/v2/MediaSets/models/TransactionId.md) | `from foundry_sdk.v2.media_sets.models import TransactionId` |
+**MediaSets** | [TransactionPolicy](docs/v2/MediaSets/models/TransactionPolicy.md) | `from foundry_sdk.v2.media_sets.models import TransactionPolicy` |
 **MediaSets** | [TranscodeOperation](docs/v2/MediaSets/models/TranscodeOperation.md) | `from foundry_sdk.v2.media_sets.models import TranscodeOperation` |
 **MediaSets** | [TranscribeJson](docs/v2/MediaSets/models/TranscribeJson.md) | `from foundry_sdk.v2.media_sets.models import TranscribeJson` |
 **MediaSets** | [TranscribeOperation](docs/v2/MediaSets/models/TranscribeOperation.md) | `from foundry_sdk.v2.media_sets.models import TranscribeOperation` |
@@ -1961,7 +1972,6 @@ Namespace | Name | Import |
 **Models** | [ExperimentAuthoringSource](docs/v2/Models/models/ExperimentAuthoringSource.md) | `from foundry_sdk.v2.models.models import ExperimentAuthoringSource` |
 **Models** | [ExperimentBranch](docs/v2/Models/models/ExperimentBranch.md) | `from foundry_sdk.v2.models.models import ExperimentBranch` |
 **Models** | [ExperimentCodeWorkspaceSource](docs/v2/Models/models/ExperimentCodeWorkspaceSource.md) | `from foundry_sdk.v2.models.models import ExperimentCodeWorkspaceSource` |
-**Models** | [ExperimentName](docs/v2/Models/models/ExperimentName.md) | `from foundry_sdk.v2.models.models import ExperimentName` |
 **Models** | [ExperimentRid](docs/v2/Models/models/ExperimentRid.md) | `from foundry_sdk.v2.models.models import ExperimentRid` |
 **Models** | [ExperimentSdkSource](docs/v2/Models/models/ExperimentSdkSource.md) | `from foundry_sdk.v2.models.models import ExperimentSdkSource` |
 **Models** | [ExperimentSource](docs/v2/Models/models/ExperimentSource.md) | `from foundry_sdk.v2.models.models import ExperimentSource` |
@@ -2025,12 +2035,13 @@ Namespace | Name | Import |
 **Models** | [SearchExperimentsEqualsFilter](docs/v2/Models/models/SearchExperimentsEqualsFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsEqualsFilter` |
 **Models** | [SearchExperimentsEqualsFilterField](docs/v2/Models/models/SearchExperimentsEqualsFilterField.md) | `from foundry_sdk.v2.models.models import SearchExperimentsEqualsFilterField` |
 **Models** | [SearchExperimentsFilter](docs/v2/Models/models/SearchExperimentsFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsFilter` |
-**Models** | [SearchExperimentsFilterOperator](docs/v2/Models/models/SearchExperimentsFilterOperator.md) | `from foundry_sdk.v2.models.models import SearchExperimentsFilterOperator` |
 **Models** | [SearchExperimentsNotFilter](docs/v2/Models/models/SearchExperimentsNotFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsNotFilter` |
+**Models** | [SearchExperimentsNumericFilterOperator](docs/v2/Models/models/SearchExperimentsNumericFilterOperator.md) | `from foundry_sdk.v2.models.models import SearchExperimentsNumericFilterOperator` |
 **Models** | [SearchExperimentsOrderBy](docs/v2/Models/models/SearchExperimentsOrderBy.md) | `from foundry_sdk.v2.models.models import SearchExperimentsOrderBy` |
 **Models** | [SearchExperimentsOrderByField](docs/v2/Models/models/SearchExperimentsOrderByField.md) | `from foundry_sdk.v2.models.models import SearchExperimentsOrderByField` |
 **Models** | [SearchExperimentsOrFilter](docs/v2/Models/models/SearchExperimentsOrFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsOrFilter` |
 **Models** | [SearchExperimentsParameterFilter](docs/v2/Models/models/SearchExperimentsParameterFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsParameterFilter` |
+**Models** | [SearchExperimentsParameterFilterOperator](docs/v2/Models/models/SearchExperimentsParameterFilterOperator.md) | `from foundry_sdk.v2.models.models import SearchExperimentsParameterFilterOperator` |
 **Models** | [SearchExperimentsRequest](docs/v2/Models/models/SearchExperimentsRequest.md) | `from foundry_sdk.v2.models.models import SearchExperimentsRequest` |
 **Models** | [SearchExperimentsResponse](docs/v2/Models/models/SearchExperimentsResponse.md) | `from foundry_sdk.v2.models.models import SearchExperimentsResponse` |
 **Models** | [SearchExperimentsSeriesFilter](docs/v2/Models/models/SearchExperimentsSeriesFilter.md) | `from foundry_sdk.v2.models.models import SearchExperimentsSeriesFilter` |
@@ -2223,6 +2234,9 @@ Namespace | Name | Import |
 **Ontologies** | [GeoShapeV2Query](docs/v2/Ontologies/models/GeoShapeV2Query.md) | `from foundry_sdk.v2.ontologies.models import GeoShapeV2Query` |
 **Ontologies** | [GeotemporalSeriesEntry](docs/v2/Ontologies/models/GeotemporalSeriesEntry.md) | `from foundry_sdk.v2.ontologies.models import GeotemporalSeriesEntry` |
 **Ontologies** | [GeotimeSeriesValue](docs/v2/Ontologies/models/GeotimeSeriesValue.md) | `from foundry_sdk.v2.ontologies.models import GeotimeSeriesValue` |
+**Ontologies** | [GetActionTypeByRidBatchRequest](docs/v2/Ontologies/models/GetActionTypeByRidBatchRequest.md) | `from foundry_sdk.v2.ontologies.models import GetActionTypeByRidBatchRequest` |
+**Ontologies** | [GetActionTypeByRidBatchRequestElement](docs/v2/Ontologies/models/GetActionTypeByRidBatchRequestElement.md) | `from foundry_sdk.v2.ontologies.models import GetActionTypeByRidBatchRequestElement` |
+**Ontologies** | [GetActionTypeByRidBatchResponse](docs/v2/Ontologies/models/GetActionTypeByRidBatchResponse.md) | `from foundry_sdk.v2.ontologies.models import GetActionTypeByRidBatchResponse` |
 **Ontologies** | [GetSelectedPropertyOperation](docs/v2/Ontologies/models/GetSelectedPropertyOperation.md) | `from foundry_sdk.v2.ontologies.models import GetSelectedPropertyOperation` |
 **Ontologies** | [GreatestPropertyExpression](docs/v2/Ontologies/models/GreatestPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import GreatestPropertyExpression` |
 **Ontologies** | [GroupMemberConstraint](docs/v2/Ontologies/models/GroupMemberConstraint.md) | `from foundry_sdk.v2.ontologies.models import GroupMemberConstraint` |
@@ -2700,7 +2714,6 @@ Namespace | Name | Import |
 **SqlQueries** | [MapParameterKey](docs/v2/SqlQueries/models/MapParameterKey.md) | `from foundry_sdk.v2.sql_queries.models import MapParameterKey` |
 **SqlQueries** | [NamedParameterMapping](docs/v2/SqlQueries/models/NamedParameterMapping.md) | `from foundry_sdk.v2.sql_queries.models import NamedParameterMapping` |
 **SqlQueries** | [ParameterAnyValue](docs/v2/SqlQueries/models/ParameterAnyValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterAnyValue` |
-**SqlQueries** | [ParameterBinaryValue](docs/v2/SqlQueries/models/ParameterBinaryValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterBinaryValue` |
 **SqlQueries** | [ParameterBooleanValue](docs/v2/SqlQueries/models/ParameterBooleanValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterBooleanValue` |
 **SqlQueries** | [ParameterDateValue](docs/v2/SqlQueries/models/ParameterDateValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterDateValue` |
 **SqlQueries** | [ParameterDecimalValue](docs/v2/SqlQueries/models/ParameterDecimalValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterDecimalValue` |
@@ -2824,6 +2837,7 @@ Namespace | Name | Import |
 **Core** | [UnsupportedType](docs/v1/Core/models/UnsupportedType.md) | `from foundry_sdk.v1.core.models import UnsupportedType` |
 **Core** | [UnsupportedTypeParamKey](docs/v1/Core/models/UnsupportedTypeParamKey.md) | `from foundry_sdk.v1.core.models import UnsupportedTypeParamKey` |
 **Core** | [UnsupportedTypeParamValue](docs/v1/Core/models/UnsupportedTypeParamValue.md) | `from foundry_sdk.v1.core.models import UnsupportedTypeParamValue` |
+**Core** | [VoidType](docs/v1/Core/models/VoidType.md) | `from foundry_sdk.v1.core.models import VoidType` |
 **Datasets** | [Branch](docs/v1/Datasets/models/Branch.md) | `from foundry_sdk.v1.datasets.models import Branch` |
 **Datasets** | [BranchId](docs/v1/Datasets/models/BranchId.md) | `from foundry_sdk.v1.datasets.models import BranchId` |
 **Datasets** | [CreateBranchRequest](docs/v1/Datasets/models/CreateBranchRequest.md) | `from foundry_sdk.v1.datasets.models import CreateBranchRequest` |
@@ -3392,6 +3406,7 @@ Namespace | Name | Import |
 **Models** | InferenceFailure | `from foundry_sdk.v2.models.errors import InferenceFailure` |
 **Models** | InferenceInvalidInput | `from foundry_sdk.v2.models.errors import InferenceInvalidInput` |
 **Models** | InferenceTimeout | `from foundry_sdk.v2.models.errors import InferenceTimeout` |
+**Models** | InvalidExperimentSearchFilter | `from foundry_sdk.v2.models.errors import InvalidExperimentSearchFilter` |
 **Models** | InvalidModelApi | `from foundry_sdk.v2.models.errors import InvalidModelApi` |
 **Models** | InvalidModelStudioCreateRequest | `from foundry_sdk.v2.models.errors import InvalidModelStudioCreateRequest` |
 **Models** | JsonExperimentArtifactTablePermissionDenied | `from foundry_sdk.v2.models.errors import JsonExperimentArtifactTablePermissionDenied` |

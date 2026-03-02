@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 from datetime import date
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -1412,6 +1413,27 @@ class GeotimeSeriesValue(core.ModelBase):
     position: geo_models.Position
     timestamp: core.AwareDatetime
     type: typing.Literal["geotimeSeriesValue"] = "geotimeSeriesValue"
+
+
+class GetActionTypeByRidBatchRequest(core.ModelBase):
+    """GetActionTypeByRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetActionTypeByRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetActionTypeByRidBatchRequestElement(core.ModelBase):
+    """GetActionTypeByRidBatchRequestElement"""
+
+    action_type_rid: ActionTypeRid = pydantic.Field(alias=str("actionTypeRid"))  # type: ignore[literal-required]
+
+
+class GetActionTypeByRidBatchResponse(core.ModelBase):
+    """GetActionTypeByRidBatchResponse"""
+
+    data: typing.List[ActionTypeV2]
 
 
 class GetSelectedPropertyOperation(core.ModelBase):
@@ -3807,6 +3829,7 @@ QueryDataType = typing_extensions.Annotated[
         "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
+        core_models.VoidType,
         core_models.StringType,
         "EntrySetType",
         core_models.DoubleType,
@@ -3965,7 +3988,26 @@ class RegexConstraint(core.ModelBase):
 class RegexQuery(core.ModelBase):
     """
     Returns objects where the specified field matches the regex pattern provided. This applies to the non-analyzed
-    form of text fields and supports standard regex syntax of dot (.), star(*) and question mark(?).
+    form of text fields. Supported operators:
+      - `.` matches any character.
+      - `?` repeats the previous character 0 or 1 times.
+      - `+` repeats the previous character 1 or more times.
+      - `*` repeats the previous character 0 or more times.
+      - `{}` defines the minimum and maximum number of times the preceding character can repeat. `{2}` means the
+        previous character must repeat only twice, `{2,}` means the previous character must repeat at least twice,
+        and `{2,4}` means the previous character must repeat between 2-4 times.
+      - `|` is the OR operator.
+      - `()` forms a group within an expression such that the group can be treated as a single character.
+      - `[]` matches a single one of the characters contained inside the brackets, meaning [abc] matches `a`, `b` or
+        `c`. Unless `-` is the first character or escaped with `\\` (in which case it is treated as a normal character),
+        `-` can be used inside the bracket to create a range of characters, meaning [a-c] matches `a`, `b`, or `c`.
+        If the character sequence inside the brackets begins with `^`, the set of characters is negated, meaning
+        [^abc] does not match `a`, `b`, or `c`. Otherwise, `^` is treated as a normal character.
+      - `"` creates groups of string literals.
+      - `\\` is used as an escape character. However, \\d and \\D match digit and non-digit characters respectively, \\s
+      and \\S match whitespace and non whitespace characters respectively, and \\w and \\W match word and non word
+      characters respectively.
+
     Either `field` or `propertyIdentifier` can be supplied, but not both.
     """
 
@@ -5466,6 +5508,9 @@ __all__ = [
     "GeoShapeV2Query",
     "GeotemporalSeriesEntry",
     "GeotimeSeriesValue",
+    "GetActionTypeByRidBatchRequest",
+    "GetActionTypeByRidBatchRequestElement",
+    "GetActionTypeByRidBatchResponse",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",

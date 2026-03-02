@@ -161,6 +161,7 @@ class ExperimentClient:
         :return: Returns the result object.
         :rtype: models_models.SearchExperimentsResponse
 
+        :raises InvalidExperimentSearchFilter: The search filter is invalid. This can occur when using an unsupported operator and value type combination in a parameter filter, filtering by an unsupported status, or providing a malformed filter.
         :raises SearchExperimentsPermissionDenied: Could not search the Experiment.
         """
 
@@ -187,6 +188,7 @@ class ExperimentClient:
                 response_type=models_models.SearchExperimentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidExperimentSearchFilter": models_errors.InvalidExperimentSearchFilter,
                     "SearchExperimentsPermissionDenied": models_errors.SearchExperimentsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -347,6 +349,7 @@ class AsyncExperimentClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.SearchExperimentsResponse]
 
+        :raises InvalidExperimentSearchFilter: The search filter is invalid. This can occur when using an unsupported operator and value type combination in a parameter filter, filtering by an unsupported status, or providing a malformed filter.
         :raises SearchExperimentsPermissionDenied: Could not search the Experiment.
         """
 
@@ -373,6 +376,7 @@ class AsyncExperimentClient:
                 response_type=models_models.SearchExperimentsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "InvalidExperimentSearchFilter": models_errors.InvalidExperimentSearchFilter,
                     "SearchExperimentsPermissionDenied": models_errors.SearchExperimentsPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),

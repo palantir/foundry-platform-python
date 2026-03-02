@@ -123,14 +123,14 @@ class DoubleParameter(core.ModelBase):
 class DoubleSeriesAggregations(core.ModelBase):
     """Aggregated statistics for numeric series."""
 
-    min: float
-    """Minimum value in the series"""
+    min: typing.Optional[float] = None
+    """Minimum value in the series. Absent if the metric has not been computed."""
 
-    max: float
-    """Maximum value in the series"""
+    max: typing.Optional[float] = None
+    """Maximum value in the series. Absent if the metric has not been computed."""
 
-    last: float
-    """Most recent value in the series"""
+    last: typing.Optional[float] = None
+    """Most recent value in the series. Absent if the metric has not been computed."""
 
     type: typing.Literal["double"] = "double"
 
@@ -164,8 +164,13 @@ class Experiment(core.ModelBase):
 
     rid: ExperimentRid
     model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
-    name: ExperimentName
-    created_at: core_models.CreatedTime = pydantic.Field(alias=str("createdAt"))  # type: ignore[literal-required]
+    name: typing.Optional[str] = None
+    """
+    The display name of the experiment. Present in search results but not available when
+    retrieving a single experiment via the get endpoint.
+    """
+
+    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
     source: ExperimentSource
     status: ExperimentStatus
@@ -210,10 +215,6 @@ class ExperimentCodeWorkspaceSource(core.ModelBase):
     container_rid: core.RID = pydantic.Field(alias=str("containerRid"))  # type: ignore[literal-required]
     deployment_rid: typing.Optional[core.RID] = pydantic.Field(alias=str("deploymentRid"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["codeWorkspace"] = "codeWorkspace"
-
-
-ExperimentName = str
-"""ExperimentName"""
 
 
 ExperimentRid = core.RID
@@ -751,15 +752,15 @@ Example filters:
 """
 
 
-SearchExperimentsFilterOperator = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
-"""Comparison operator for compound filter predicates."""
-
-
 class SearchExperimentsNotFilter(core.ModelBase):
     """Returns experiments where the filter is not satisfied."""
 
     value: SearchExperimentsFilter
     type: typing.Literal["not"] = "not"
+
+
+SearchExperimentsNumericFilterOperator = typing.Literal["EQ", "GT", "LT"]
+"""Comparison operator for numeric filter predicates (series and summary metrics)."""
 
 
 class SearchExperimentsOrFilter(core.ModelBase):
@@ -776,7 +777,7 @@ class SearchExperimentsOrderBy(core.ModelBase):
     direction: core_models.OrderByDirection
 
 
-SearchExperimentsOrderByField = typing.Literal["EXPERIMENT_NAME", "CREATED_AT"]
+SearchExperimentsOrderByField = typing.Literal["EXPERIMENT_NAME", "CREATED_TIME"]
 """Fields to order experiment search results by."""
 
 
@@ -785,21 +786,25 @@ class SearchExperimentsParameterFilter(core.ModelBase):
     Filter that atomically binds a parameter name to a value comparison,
     ensuring both conditions are evaluated on the same parameter.
     Supported combinations:
-    - EQ: boolean, double, integer, datetime, or string value
+    - EQ: boolean, double, integer, or datetime value
     - GT/LT: double, integer, or datetime value
-    - CONTAINS: string value (matches the parameter's string value)
+    - CONTAINS: string value (substring match on the parameter's string value)
     """
 
     parameter_name: ParameterName = pydantic.Field(alias=str("parameterName"))  # type: ignore[literal-required]
     """The exact name of the parameter to filter on."""
 
-    operator: SearchExperimentsFilterOperator
+    operator: SearchExperimentsParameterFilterOperator
     """The comparison operator to apply."""
 
     value: typing.Any
     """The value to compare against."""
 
     type: typing.Literal["parameterFilter"] = "parameterFilter"
+
+
+SearchExperimentsParameterFilterOperator = typing.Literal["EQ", "GT", "LT", "CONTAINS"]
+"""Comparison operator for parameter filter predicates."""
 
 
 class SearchExperimentsRequest(core.ModelBase):
@@ -840,7 +845,7 @@ class SearchExperimentsSeriesFilter(core.ModelBase):
     field: SearchExperimentsSeriesFilterField
     """The series metric to compare."""
 
-    operator: SearchExperimentsFilterOperator
+    operator: SearchExperimentsNumericFilterOperator
     """The comparison operator (EQ, GT, or LT)."""
 
     value: typing.Any
@@ -881,7 +886,7 @@ class SearchExperimentsSummaryMetricFilter(core.ModelBase):
     aggregation: SummaryMetricAggregation
     """The aggregation type (MIN, MAX, LAST)."""
 
-    operator: SearchExperimentsFilterOperator
+    operator: SearchExperimentsNumericFilterOperator
     """The comparison operator (EQ, GT, or LT)."""
 
     value: typing.Any
@@ -896,8 +901,8 @@ class SeriesAggregations(core.ModelBase):
     name: SeriesName
     """The series name"""
 
-    length: core.Long
-    """Number of values in the series"""
+    length: typing.Optional[core.Long] = None
+    """Number of values in the series. This field may be absent when series aggregations are derived from summary metrics rather than the full series data."""
 
     value: SeriesAggregationsValue
     """Aggregated values for this series"""
@@ -1082,7 +1087,6 @@ __all__ = [
     "ExperimentAuthoringSource",
     "ExperimentBranch",
     "ExperimentCodeWorkspaceSource",
-    "ExperimentName",
     "ExperimentRid",
     "ExperimentSdkSource",
     "ExperimentSource",
@@ -1146,12 +1150,13 @@ __all__ = [
     "SearchExperimentsEqualsFilter",
     "SearchExperimentsEqualsFilterField",
     "SearchExperimentsFilter",
-    "SearchExperimentsFilterOperator",
     "SearchExperimentsNotFilter",
+    "SearchExperimentsNumericFilterOperator",
     "SearchExperimentsOrFilter",
     "SearchExperimentsOrderBy",
     "SearchExperimentsOrderByField",
     "SearchExperimentsParameterFilter",
+    "SearchExperimentsParameterFilterOperator",
     "SearchExperimentsRequest",
     "SearchExperimentsResponse",
     "SearchExperimentsSeriesFilter",
