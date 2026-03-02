@@ -1130,6 +1130,7 @@ QueryDataType = typing_extensions.Annotated[
         "OntologyInterfaceObjectType",
         "QueryStructType",
         "QuerySetType",
+        core_models.VoidType,
         core_models.StringType,
         "EntrySetType",
         core_models.DoubleType,

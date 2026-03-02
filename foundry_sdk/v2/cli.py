@@ -5495,6 +5495,15 @@ def functions_query():
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option("--trace_parent", type=str, required=False, help="""""")
@@ -5505,13 +5514,20 @@ def functions_query():
     required=False,
     help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
 )
-@click.option("--version", type=str, required=False, help="""""")
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
 @click.pass_obj
 def functions_query_op_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5531,6 +5547,7 @@ def functions_query_op_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5634,6 +5651,15 @@ def functions_query_op_get_by_rid_batch(
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
     "--ontology",
     type=str,
     required=False,
@@ -5652,13 +5678,20 @@ function. When omitted, executes a global function.
     required=False,
     help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
 )
-@click.option("--version", type=str, required=False, help="""""")
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
 @click.pass_obj
 def functions_query_op_streaming_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
@@ -5698,6 +5731,7 @@ def functions_query_op_streaming_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -6026,6 +6060,32 @@ def media_sets_media_set_op_create(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("get")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def media_sets_media_set_op_get(
+    client: FoundryClient,
+    media_set_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets information about the media set.
+
+    """
+    result = client.media_sets.MediaSet.get(
+        media_set_rid=media_set_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("get_result")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
@@ -6313,6 +6373,68 @@ def media_sets_media_set_op_reference(
         media_item_rid=media_item_rid,
         preview=preview,
         read_token=read_token,
+    )
+    click.echo(repr(result))
+
+
+@media_sets_media_set.command("register")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--physical_item_name",
+    type=str,
+    required=True,
+    help="""The relative path within the federated media store where the media item exists.""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name to which this media item will be registered.""",
+)
+@click.option("--media_item_path", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The id of the transaction associated with this request. Required for transactional media sets.""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid to which this media item will be registered.""",
+)
+@click.pass_obj
+def media_sets_media_set_op_register(
+    client: FoundryClient,
+    media_set_rid: str,
+    physical_item_name: str,
+    branch_name: typing.Optional[str],
+    media_item_path: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
+    view_rid: typing.Optional[str],
+):
+    """
+    Registers a media item that currently resides in a federated media store. Registration will validate the item
+    against the media set's schema and perform initial metadata extraction.
+    This endpoint is only applicable for federated media sets.
+
+    """
+    result = client.media_sets.MediaSet.register(
+        media_set_rid=media_set_rid,
+        physical_item_name=physical_item_name,
+        branch_name=branch_name,
+        media_item_path=media_item_path,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
     )
     click.echo(repr(result))
 
@@ -7548,6 +7670,16 @@ def ontologies_query():
 """,
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+When provided without `version`, the latest version on this branch is used, including pre-release versions.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -7587,7 +7719,7 @@ Transactions are an experimental feature and all workflows may not be supported.
     "--version",
     type=str,
     required=False,
-    help="""The version of the Query to execute.
+    help="""The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
 """,
 )
 @click.pass_obj
@@ -7597,6 +7729,7 @@ def ontologies_query_op_execute(
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -7615,6 +7748,7 @@ def ontologies_query_op_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -9900,6 +10034,41 @@ def ontologies_ontology_action_type_op_get_by_rid(
     result = client.ontologies.Ontology.ActionType.get_by_rid(
         ontology=ontology,
         action_type_rid=action_type_rid,
+        branch=branch,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_action_type.command("get_by_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_action_type_op_get_by_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+):
+    """
+    Gets a list of action types by RID in bulk.
+
+    Action types are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ActionType.get_by_rid_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
         branch=branch,
     )
     click.echo(repr(result))

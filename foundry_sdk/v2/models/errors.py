@@ -218,6 +218,25 @@ class InferenceTimeout(errors.InternalServerError):
     error_instance_id: str
 
 
+class InvalidExperimentSearchFilterParameters(typing_extensions.TypedDict):
+    """
+    The search filter is invalid. This can occur when using an unsupported operator and value type
+    combination in a parameter filter, filtering by an unsupported status, or providing a malformed filter.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    reason: str
+    """A human-readable description of why the filter is invalid."""
+
+
+@dataclass
+class InvalidExperimentSearchFilter(errors.BadRequestError):
+    name: typing.Literal["InvalidExperimentSearchFilter"]
+    parameters: InvalidExperimentSearchFilterParameters
+    error_instance_id: str
+
+
 class InvalidModelApiParameters(typing_extensions.TypedDict):
     """The model api failed validations"""
 
@@ -511,6 +530,7 @@ __all__ = [
     "InferenceFailure",
     "InferenceInvalidInput",
     "InferenceTimeout",
+    "InvalidExperimentSearchFilter",
     "InvalidModelApi",
     "InvalidModelStudioCreateRequest",
     "JsonExperimentArtifactTablePermissionDenied",

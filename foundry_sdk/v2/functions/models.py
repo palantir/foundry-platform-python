@@ -74,6 +74,14 @@ class ExecuteQueryRequest(core.ModelBase):
 
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
     version: typing.Optional[FunctionVersion] = None
+    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
+
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """
+    The Foundry branch to execute the query from. If not specified, the default branch is used.
+    When provided without `version`, the latest version on this branch is used.
+    When provided with `version`, the specified version must exist on the branch.
+    """
 
 
 class ExecuteQueryResponse(core.ModelBase):
@@ -226,6 +234,7 @@ QueryDataType = typing_extensions.Annotated[
         core_models.DateType,
         "QueryStructType",
         "QuerySetType",
+        core_models.VoidType,
         core_models.StringType,
         core_models.DoubleType,
         core_models.IntegerType,
@@ -313,6 +322,14 @@ class StreamingExecuteQueryRequest(core.ModelBase):
 
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
     version: typing.Optional[FunctionVersion] = None
+    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
+
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """
+    The Foundry branch to execute the query from. If not specified, the default branch is used.
+    When provided without `version`, the latest version on this branch is used.
+    When provided with `version`, the specified version must exist on the branch.
+    """
 
 
 class StructConstraint(core.ModelBase):

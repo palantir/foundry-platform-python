@@ -9,7 +9,7 @@ ensuring all conditions are evaluated on the same series.
 | ------------ | ------------- | ------------- | ------------- |
 **series_name** | SeriesName | Yes | The name of the series to filter on. |
 **field** | SearchExperimentsSeriesFilterField | Yes | The series metric to compare. |
-**operator** | SearchExperimentsFilterOperator | Yes | The comparison operator (EQ, GT, or LT). |
+**operator** | SearchExperimentsNumericFilterOperator | Yes | The comparison operator (EQ, GT, or LT). |
 **value** | Any | Yes | The value to compare against. |
 **type** | Literal["seriesFilter"] | Yes | None |
 

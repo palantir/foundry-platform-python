@@ -5,9 +5,9 @@ Aggregated statistics for numeric series.
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**min** | float | Yes | Minimum value in the series |
-**max** | float | Yes | Maximum value in the series |
-**last** | float | Yes | Most recent value in the series |
+**min** | Optional[float] | No | Minimum value in the series. Absent if the metric has not been computed. |
+**max** | Optional[float] | No | Maximum value in the series. Absent if the metric has not been computed. |
+**last** | Optional[float] | No | Most recent value in the series. Absent if the metric has not been computed. |
 **type** | Literal["double"] | Yes | None |
 
 

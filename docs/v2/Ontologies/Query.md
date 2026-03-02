@@ -18,12 +18,13 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName | The API name of the Query to execute.  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] | The Attribution to be used when executing this request.  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
 **trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
-**version** | Optional[FunctionVersion] | The version of the Query to execute.  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -45,6 +46,8 @@ query_api_name = "getEmployeesInCity"
 parameters = {"city": "New York"}
 # Optional[Attribution] | The Attribution to be used when executing this request.
 attribution = None
+# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.
+branch = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -55,7 +58,7 @@ trace_parent = None
 trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion] | The version of the Query to execute.
+# Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
 
 
@@ -65,6 +68,7 @@ try:
         query_api_name,
         parameters=parameters,
         attribution=attribution,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,

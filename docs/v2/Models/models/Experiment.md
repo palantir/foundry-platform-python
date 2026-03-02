@@ -7,8 +7,8 @@ Experiment
 | ------------ | ------------- | ------------- | ------------- |
 **rid** | ExperimentRid | Yes |  |
 **model_rid** | ModelRid | Yes |  |
-**name** | ExperimentName | Yes |  |
-**created_at** | CreatedTime | Yes |  |
+**name** | Optional[str] | No | The display name of the experiment. Present in search results but not available when retrieving a single experiment via the get endpoint.  |
+**created_time** | CreatedTime | Yes |  |
 **created_by** | CreatedBy | Yes |  |
 **source** | ExperimentSource | Yes |  |
 **status** | ExperimentStatus | Yes |  |

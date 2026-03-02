@@ -61,6 +61,7 @@ class QueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -83,6 +84,8 @@ class QueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -91,7 +94,7 @@ class QueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[TransactionId]
-        :param version:
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -122,6 +125,7 @@ class QueryClient:
                 body=functions_models.ExecuteQueryRequest(
                     parameters=parameters,
                     version=version,
+                    branch=branch,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -303,6 +307,7 @@ class QueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -345,6 +350,8 @@ class QueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -355,7 +362,7 @@ class QueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[TransactionId]
-        :param version:
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -387,6 +394,7 @@ class QueryClient:
                     ontology=ontology,
                     parameters=parameters,
                     version=version,
+                    branch=branch,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,
@@ -466,6 +474,7 @@ class AsyncQueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
         trace_state: typing.Optional[core_models.TraceState] = None,
@@ -488,6 +497,8 @@ class AsyncQueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param trace_parent:
@@ -496,7 +507,7 @@ class AsyncQueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[TransactionId]
-        :param version:
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -527,6 +538,7 @@ class AsyncQueryClient:
                 body=functions_models.ExecuteQueryRequest(
                     parameters=parameters,
                     version=version,
+                    branch=branch,
                 ),
                 response_type=functions_models.ExecuteQueryResponse,
                 request_timeout=request_timeout,
@@ -708,6 +720,7 @@ class AsyncQueryClient:
             functions_models.ParameterId, typing.Optional[functions_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -750,6 +763,8 @@ class AsyncQueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
         :type ontology: Optional[OntologyIdentifier]
         :param preview: Enables the use of preview functionality.
@@ -760,7 +775,7 @@ class AsyncQueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[TransactionId]
-        :param version:
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -792,6 +807,7 @@ class AsyncQueryClient:
                     ontology=ontology,
                     parameters=parameters,
                     version=version,
+                    branch=branch,
                 ),
                 response_type=bytes,
                 request_timeout=request_timeout,

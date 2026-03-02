@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**calculate**](#calculate) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/calculate | Private Beta |
 [**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit | Public Beta |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
+[**get**](#get) | **GET** /v2/mediasets/{mediaSetRid} | Public Beta |
 [**get_result**](#get_result) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId}/result | Public Beta |
 [**get_rid_by_path**](#get_rid_by_path) | **GET** /v2/mediasets/{mediaSetRid}/items/getRidByPath | Public Beta |
 [**get_status**](#get_status) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transformationJobs/{transformationJobId} | Public Beta |
@@ -14,6 +15,7 @@ Method | HTTP request | Release Stage |
 [**read**](#read) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/content | Public Beta |
 [**read_original**](#read_original) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/original | Public Beta |
 [**reference**](#reference) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/reference | Public Beta |
+[**register**](#register) | **POST** /v2/mediasets/{mediaSetRid}/items/register | Public Beta |
 [**retrieve**](#retrieve) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/retrieve | Private Beta |
 [**transform**](#transform) | **POST** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform | Public Beta |
 [**upload**](#upload) | **POST** /v2/mediasets/{mediaSetRid}/items | Public Beta |
@@ -239,6 +241,57 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | TransactionId  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get**
+Gets information about the media set.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid |  |  |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**GetMediaSetResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid
+media_set_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.get(media_set_rid, preview=preview)
+    print("The get response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.get: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetMediaSetResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -730,6 +783,82 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | MediaReference  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **register**
+Registers a media item that currently resides in a federated media store. Registration will validate the item
+against the media set's schema and perform initial metadata extraction.
+This endpoint is only applicable for federated media sets.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid |  |  |
+**physical_item_name** | str | The relative path within the federated media store where the media item exists. |  |
+**branch_name** | Optional[BranchName] | Specifies the specific branch by name to which this media item will be registered. | [optional] |
+**media_item_path** | Optional[MediaItemPath] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode. | [optional] |
+**transaction_id** | Optional[TransactionId] | The id of the transaction associated with this request. Required for transactional media sets. | [optional] |
+**view_rid** | Optional[MediaSetViewRid] | Specifies the specific view by rid to which this media item will be registered. | [optional] |
+
+### Return type
+**RegisterMediaItemResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid
+media_set_rid = None
+# str | The relative path within the federated media store where the media item exists.
+physical_item_name = None
+# Optional[BranchName] | Specifies the specific branch by name to which this media item will be registered.
+branch_name = None
+# Optional[MediaItemPath]
+media_item_path = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[TransactionId] | The id of the transaction associated with this request. Required for transactional media sets.
+transaction_id = None
+# Optional[MediaSetViewRid] | Specifies the specific view by rid to which this media item will be registered.
+view_rid = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.register(
+        media_set_rid,
+        physical_item_name=physical_item_name,
+        branch_name=branch_name,
+        media_item_path=media_item_path,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    print("The register response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.register: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | RegisterMediaItemResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

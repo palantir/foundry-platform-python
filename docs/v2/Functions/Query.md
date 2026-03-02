@@ -13,7 +13,7 @@ Executes a Query using the given parameters. By default, this executes the lates
 
 This endpoint is maintained for backward compatibility only.
 
-For all new implementations, use the `streamingExecute` endpoint, which supports all function types 
+For all new implementations, use the `streamingExecute` endpoint, which supports all function types
 and provides enhanced functionality.
 
 
@@ -24,11 +24,12 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
 **transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
-**version** | Optional[FunctionVersion] |  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -48,6 +49,8 @@ query_api_name = None
 parameters = None
 # Optional[Attribution]
 attribution = None
+# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[TraceParent]
@@ -56,7 +59,7 @@ trace_parent = None
 trace_state = None
 # Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion]
+# Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
 
 
@@ -65,6 +68,7 @@ try:
         query_api_name,
         parameters=parameters,
         attribution=attribution,
+        branch=branch,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -294,12 +298,13 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
+**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
 **transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
-**version** | Optional[FunctionVersion] |  | [optional] |
+**version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
 **bytes**
@@ -319,6 +324,8 @@ query_api_name = None
 parameters = None
 # Optional[Attribution]
 attribution = None
+# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -329,7 +336,7 @@ trace_parent = None
 trace_state = None
 # Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion]
+# Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
 
 
@@ -338,6 +345,7 @@ try:
         query_api_name,
         parameters=parameters,
         attribution=attribution,
+        branch=branch,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,

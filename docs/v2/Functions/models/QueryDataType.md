@@ -13,6 +13,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 DateType | date
 QueryStructType | struct
 QuerySetType | set
+VoidType | void
 StringType | string
 DoubleType | double
 IntegerType | integer

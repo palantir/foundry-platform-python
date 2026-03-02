@@ -157,6 +157,15 @@ class BandInfo(core.ModelBase):
     unit_interpretation: typing.Optional[UnitInterpretation] = pydantic.Field(alias=str("unitInterpretation"), default=None)  # type: ignore[literal-required]
 
 
+class BatchTransactionsTransactionPolicy(core.ModelBase):
+    """
+    All writes must be part of a transaction. Transactions are branch-scoped and created by calling
+    create transaction. Writes are not visible until commit transaction is called.
+    """
+
+    type: typing.Literal["batchTransactions"] = "batchTransactions"
+
+
 class BoundingBox(core.ModelBase):
     """A rectangular bounding box for annotations."""
 
@@ -759,6 +768,17 @@ class GetMediaItemRidByPathResponse(core.ModelBase):
     media_item_rid: typing.Optional[core_models.MediaItemRid] = pydantic.Field(alias=str("mediaItemRid"), default=None)  # type: ignore[literal-required]
 
 
+class GetMediaSetResponse(core.ModelBase):
+    """Information about a media set."""
+
+    rid: core_models.MediaSetRid
+    media_schema: MediaSchema = pydantic.Field(alias=str("mediaSchema"))  # type: ignore[literal-required]
+    default_branch_name: BranchName = pydantic.Field(alias=str("defaultBranchName"))  # type: ignore[literal-required]
+    transaction_policy: TransactionPolicy = pydantic.Field(alias=str("transactionPolicy"))  # type: ignore[literal-required]
+    paths_required: bool = pydantic.Field(alias=str("pathsRequired"))  # type: ignore[literal-required]
+    """Whether media items in this media set require paths."""
+
+
 class GetPdfPageDimensionsOperation(core.ModelBase):
     """Returns the dimensions of each page in a PDF document as JSON (in points)."""
 
@@ -1048,6 +1068,20 @@ MediaItemXmlFormat = typing.Literal["DOCX", "XLSX", "PPTX"]
 """Format of the media item attempted to be decoded based on the XML structure."""
 
 
+MediaSchema = typing.Literal[
+    "AUDIO",
+    "DICOM",
+    "DOCUMENT",
+    "IMAGERY",
+    "MODEL_3D",
+    "MULTIMODAL",
+    "SPREADSHEET",
+    "VIDEO",
+    "EMAIL",
+]
+"""The schema type of a media set, indicating what type of media items it can contain."""
+
+
 class MkvVideoContainerFormat(core.ModelBase):
     """MKV (Matroska) video container format."""
 
@@ -1185,6 +1219,15 @@ class Mp4VideoContainerFormat(core.ModelBase):
     """MP4 video container format."""
 
     type: typing.Literal["mp4"] = "mp4"
+
+
+class NoTransactionsTransactionPolicy(core.ModelBase):
+    """
+    Writes are not part of a transaction and are immediately visible.
+    Calls to create transaction or commit transaction will error.
+    """
+
+    type: typing.Literal["noTransactions"] = "noTransactions"
 
 
 class NumberOfChannels(core.ModelBase):
@@ -1480,6 +1523,22 @@ class PutMediaItemResponse(core.ModelBase):
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
 
 
+class RegisterMediaItemRequest(core.ModelBase):
+    """Request to register a media item from a federated store."""
+
+    physical_item_name: str = pydantic.Field(alias=str("physicalItemName"))  # type: ignore[literal-required]
+    """The relative path within the federated media store where the media item exists."""
+
+    media_item_path: typing.Optional[core_models.MediaItemPath] = pydantic.Field(alias=str("mediaItemPath"), default=None)  # type: ignore[literal-required]
+
+
+class RegisterMediaItemResponse(core.ModelBase):
+    """Response after successfully registering a media item."""
+
+    media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
+
+
 class RenderImageLayerOperation(core.ModelBase):
     """
     Renders a frame of a DICOM file as an image.
@@ -1685,6 +1744,13 @@ class TrackedTransformationSuccessfulResponse(core.ModelBase):
 
 TransactionId = core.UUID
 """An identifier which represents a transaction on a media set."""
+
+
+TransactionPolicy = typing_extensions.Annotated[
+    typing.Union["BatchTransactionsTransactionPolicy", "NoTransactionsTransactionPolicy"],
+    pydantic.Field(discriminator="type"),
+]
+"""The transaction policy for a media set, determining how writes are handled."""
 
 
 class TranscodeOperation(core.ModelBase):
@@ -2224,6 +2290,7 @@ core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=l
 core.resolve_forward_references(OcrLanguageOrScript, globalns=globals(), localns=locals())
 core.resolve_forward_references(OcrOutputFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(TransactionPolicy, globalns=globals(), localns=locals())
 core.resolve_forward_references(TranscribeTextEncodeFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(Transformation, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
@@ -2249,6 +2316,7 @@ __all__ = [
     "AudioTransformation",
     "AvailableEmbeddingModelIds",
     "BandInfo",
+    "BatchTransactionsTransactionPolicy",
     "BoundingBox",
     "BoundingBoxGeometry",
     "BranchName",
@@ -2313,6 +2381,7 @@ __all__ = [
     "GetEmailBodyOperation",
     "GetMediaItemInfoResponse",
     "GetMediaItemRidByPathResponse",
+    "GetMediaSetResponse",
     "GetPdfPageDimensionsOperation",
     "GetTimestampsForSceneFramesOperation",
     "GetTransformationJobStatusResponse",
@@ -2347,6 +2416,7 @@ __all__ = [
     "MediaAttribution",
     "MediaItemMetadata",
     "MediaItemXmlFormat",
+    "MediaSchema",
     "MkvVideoContainerFormat",
     "Modality",
     "Model3dDecodeFormat",
@@ -2355,6 +2425,7 @@ __all__ = [
     "MovVideoContainerFormat",
     "Mp3Format",
     "Mp4VideoContainerFormat",
+    "NoTransactionsTransactionPolicy",
     "NumberOfChannels",
     "OcrHocrOutputFormat",
     "OcrLanguage",
@@ -2375,6 +2446,8 @@ __all__ = [
     "PngFormat",
     "Pttml",
     "PutMediaItemResponse",
+    "RegisterMediaItemRequest",
+    "RegisterMediaItemResponse",
     "RenderImageLayerOperation",
     "RenderPageOperation",
     "RenderPageToFitBoundingBoxOperation",
@@ -2396,6 +2469,7 @@ __all__ = [
     "TrackedTransformationResponse",
     "TrackedTransformationSuccessfulResponse",
     "TransactionId",
+    "TransactionPolicy",
     "TranscodeOperation",
     "TranscribeJson",
     "TranscribeOperation",

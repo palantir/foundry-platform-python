@@ -899,6 +899,12 @@ VersionId = core.UUID
 """The version identifier of a dataset schema."""
 
 
+class VoidType(core.ModelBase):
+    """VoidType"""
+
+    type: typing.Literal["void"] = "void"
+
+
 ZoneId = str
 """A string representation of a java.time.ZoneId"""
 
@@ -1062,5 +1068,6 @@ __all__ = [
     "VectorSimilarityFunctionValue",
     "VectorType",
     "VersionId",
+    "VoidType",
     "ZoneId",
 ]
