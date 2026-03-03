@@ -59,6 +59,15 @@ class Annotation(core.ModelBase):
     """The font size for the label text."""
 
 
+class ApiNameLocatorWrapper(core.ModelBase):
+    """Wrapper for API name-based model locator."""
+
+    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    """The API name of the language model."""
+
+    type: typing.Literal["apiName"] = "apiName"
+
+
 class AudioChannelOperation(core.ModelBase):
     """Selects a specific channel from multi-channel audio."""
 
@@ -200,6 +209,27 @@ BranchRid = core.RID
 """A resource identifier that identifies a branch of a media set."""
 
 
+class ChatLlmSpec(core.ModelBase):
+    """Standard chat-based LLM specification with system and user prompts."""
+
+    model_locator: LanguageModelLocator = pydantic.Field(alias=str("modelLocator"))  # type: ignore[literal-required]
+    system_prompt: str = pydantic.Field(alias=str("systemPrompt"))  # type: ignore[literal-required]
+    """System prompt for the LLM."""
+
+    user_prompt: str = pydantic.Field(alias=str("userPrompt"))  # type: ignore[literal-required]
+    """User prompt for the LLM."""
+
+    max_tokens: typing.Optional[int] = pydantic.Field(alias=str("maxTokens"), default=None)  # type: ignore[literal-required]
+    """Maximum number of tokens per request to generate."""
+
+
+class ChatLlmSpecWrapper(core.ModelBase):
+    """Wrapper for chat-based LLM specification."""
+
+    chat: ChatLlmSpec
+    type: typing.Literal["chat"] = "chat"
+
+
 class Color(core.ModelBase):
     """An RGBA color value."""
 
@@ -338,6 +368,13 @@ class CreatePdfOperation(core.ModelBase):
     """Converts an image to a PDF document."""
 
     type: typing.Literal["createPdf"] = "createPdf"
+
+
+class CropConfig(core.ModelBase):
+    """Configuration for table cropping."""
+
+    table_prompt: str = pydantic.Field(alias=str("tablePrompt"))  # type: ignore[literal-required]
+    """Prompt for table extraction."""
 
 
 class CropImageOperation(core.ModelBase):
@@ -520,9 +557,12 @@ DocumentToTextOperation = typing_extensions.Annotated[
         "ExtractTableOfContentsOperation",
         "GetPdfPageDimensionsOperation",
         "ExtractAllTextOperation",
+        "ExtractVlmTextOperation",
         "ExtractTextFromPagesToArrayOperation",
         "OcrOnPageOperation",
         "ExtractFormFieldsOperation",
+        "ExtractDocumentLayoutAwareTextV2Operation",
+        "ExtractDocumentTextV2Operation",
         "ExtractUnstructuredTextFromPageOperation",
         "DocumentExtractLayoutAwareContentOperation",
         "OcrOnPagesOperation",
@@ -632,6 +672,46 @@ class ExtractAudioOperation(core.ModelBase):
     type: typing.Literal["extractAudio"] = "extractAudio"
 
 
+class ExtractDocumentLayoutAwareTextV2Config(core.ModelBase):
+    """Configuration for v2 layout-aware document text extraction."""
+
+    format: typing.Optional[TextOutputFormat] = None
+    mode: typing.Optional[OcrMode] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+
+class ExtractDocumentLayoutAwareTextV2Operation(core.ModelBase):
+    """
+    Extract layout aware text with bounding boxes across all pages using the v2 text extraction endpoint.
+    This only supports PDFs.
+    """
+
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    config: ExtractDocumentLayoutAwareTextV2Config
+    type: typing.Literal["extractLayoutAwareTextV2"] = "extractLayoutAwareTextV2"
+
+
+class ExtractDocumentTextV2Config(core.ModelBase):
+    """Configuration for v2 document text extraction."""
+
+    format: typing.Optional[TextOutputFormat] = None
+    mode: typing.Optional[OcrMode] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+
+class ExtractDocumentTextV2Operation(core.ModelBase):
+    """
+    Extract text across all pages using the v2 text extraction endpoint with per page text.
+    This only supports PDFs.
+    """
+
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    config: ExtractDocumentTextV2Config
+    type: typing.Literal["extractTextV2"] = "extractTextV2"
+
+
 class ExtractFirstFrameOperation(core.ModelBase):
     """
     Extracts the first full scene frame from the video.
@@ -698,6 +778,13 @@ class ExtractTextFromPagesToArrayOperation(core.ModelBase):
     type: typing.Literal["extractTextFromPagesToArray"] = "extractTextFromPagesToArray"
 
 
+class ExtractTextPreprocessingWrapper(core.ModelBase):
+    """Wrapper for text extraction preprocessing."""
+
+    extract_text: ExtractDocumentTextV2Config = pydantic.Field(alias=str("extractText"))  # type: ignore[literal-required]
+    type: typing.Literal["extractText"] = "extractText"
+
+
 class ExtractUnstructuredTextFromPageOperation(core.ModelBase):
     """Extracts unstructured text from a specified page."""
 
@@ -705,6 +792,20 @@ class ExtractUnstructuredTextFromPageOperation(core.ModelBase):
     """The page number."""
 
     type: typing.Literal["extractUnstructuredTextFromPage"] = "extractUnstructuredTextFromPage"
+
+
+class ExtractVlmTextOperation(core.ModelBase):
+    """
+    Extract text from a document using vision language models (VLMs).
+    VLMs can understand document layout and structure more intelligently than traditional OCR.
+    """
+
+    llm_spec: LlmSpec = pydantic.Field(alias=str("llmSpec"))  # type: ignore[literal-required]
+    preprocessing_configuration: typing.Optional[VlmPreprocessingConfig] = pydantic.Field(alias=str("preprocessingConfiguration"), default=None)  # type: ignore[literal-required]
+    image_spec: typing.Optional[ImageSpec] = pydantic.Field(alias=str("imageSpec"), default=None)  # type: ignore[literal-required]
+    output_format: TextOutputFormat = pydantic.Field(alias=str("outputFormat"))  # type: ignore[literal-required]
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["extractVlmText"] = "extractVlmText"
 
 
 FlipAxis = typing.Literal["HORIZONTAL", "VERTICAL", "UNKNOWN"]
@@ -907,6 +1008,22 @@ Used to define regions in an image for operations like encryption/decryption.
 """
 
 
+class ImageSpec(core.ModelBase):
+    """
+    Specification for image processing parameters used in vision-based extraction.
+    Controls how document pages are converted to images before being sent to vision models.
+    """
+
+    resizing_mode: ResizingMode = pydantic.Field(alias=str("resizingMode"))  # type: ignore[literal-required]
+    height: typing.Optional[int] = None
+    """Target height in pixels."""
+
+    width: typing.Optional[int] = None
+    """Target width in pixels."""
+
+    mime_type: ImageryDecodeFormat = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
+
+
 class ImageToDocumentTransformation(core.ModelBase):
     """Converts images to documents."""
 
@@ -1001,6 +1118,20 @@ class LayoutAwareExtractionParameters(core.ModelBase):
 
     languages: typing.List[OcrLanguage]
     """The languages to use for extraction."""
+
+
+class LayoutAwareExtractionPreprocessingConfig(core.ModelBase):
+    """Configuration for layout-aware extraction preprocessing."""
+
+    transformation_config: ExtractDocumentLayoutAwareTextV2Config = pydantic.Field(alias=str("transformationConfig"))  # type: ignore[literal-required]
+    crop_config: typing.Optional[CropConfig] = pydantic.Field(alias=str("cropConfig"), default=None)  # type: ignore[literal-required]
+
+
+class LayoutAwarePreprocessingWrapper(core.ModelBase):
+    """Wrapper for layout-aware preprocessing."""
+
+    layout_aware: LayoutAwareExtractionPreprocessingConfig = pydantic.Field(alias=str("layoutAware"))  # type: ignore[literal-required]
+    type: typing.Literal["layoutAware"] = "layoutAware"
 
 
 LogicalTimestamp = core.Long
@@ -1386,6 +1517,10 @@ class OcrLanguageWrapper(core.ModelBase):
     type: typing.Literal["language"] = "language"
 
 
+OcrMode = typing.Literal["AUTO", "ELECTRONIC", "SCAN"]
+"""OCR mode for document extraction."""
+
+
 class OcrOnPageOperation(core.ModelBase):
     """Performs OCR (Optical Character Recognition) on a specific page of a document."""
 
@@ -1480,6 +1615,16 @@ class Orientation(core.ModelBase):
 
     rotation_angle: typing.Optional[RotationAngle] = pydantic.Field(alias=str("rotationAngle"), default=None)  # type: ignore[literal-required]
     flip_axis: typing.Optional[FlipAxis] = pydantic.Field(alias=str("flipAxis"), default=None)  # type: ignore[literal-required]
+
+
+class PageRange(core.ModelBase):
+    """Page range for document extraction."""
+
+    start_page_inclusive: typing.Optional[int] = pydantic.Field(alias=str("startPageInclusive"), default=None)  # type: ignore[literal-required]
+    """Start page index (0-based, inclusive). If not provided, defaults to start of document."""
+
+    end_page_exclusive: typing.Optional[int] = pydantic.Field(alias=str("endPageExclusive"), default=None)  # type: ignore[literal-required]
+    """End page index (0-based, exclusive). If not provided, defaults to end of document."""
 
 
 PaletteInterpretation = typing.Literal["GRAY", "RGB", "RGBA", "CMYK", "HLS"]
@@ -1620,6 +1765,10 @@ class ResizeToFitBoundingBoxOperation(core.ModelBase):
     type: typing.Literal["resizeToFitBoundingBox"] = "resizeToFitBoundingBox"
 
 
+ResizingMode = typing.Literal["RESIZING", "FIT_INTO_BOUNDING_BOX"]
+"""Image resizing strategy."""
+
+
 class RotateImageOperation(core.ModelBase):
     """Rotates an image clockwise by the specified angle."""
 
@@ -1687,6 +1836,10 @@ class TarFormat(core.ModelBase):
     """TAR archive format."""
 
     type: typing.Literal["tar"] = "tar"
+
+
+TextOutputFormat = typing.Literal["TEXT", "MARKDOWN", "HTML"]
+"""Format in which to return extracted text."""
 
 
 class TiffFormat(core.ModelBase):
@@ -2190,6 +2343,13 @@ class VideoTransformation(core.ModelBase):
     type: typing.Literal["video"] = "video"
 
 
+VlmPreprocessingConfig = typing_extensions.Annotated[
+    typing.Union["LayoutAwarePreprocessingWrapper", "ExtractTextPreprocessingWrapper"],
+    pydantic.Field(discriminator="type"),
+]
+"""Preprocessing configuration for VLM extraction."""
+
+
 class WavEncodeFormat(core.ModelBase):
     """WAV audio format with optional sample rate and channel layout."""
 
@@ -2258,6 +2418,14 @@ ImageToEmbeddingOperation = GenerateEmbeddingOperation
 """The operation to perform for image to embedding conversion."""
 
 
+LanguageModelLocator = ApiNameLocatorWrapper
+"""Locator for identifying a language model."""
+
+
+LlmSpec = ChatLlmSpecWrapper
+"""Specification for language model requests."""
+
+
 SpreadsheetToTextOperation = ConvertSheetToJsonOperation
 """The operation to perform for spreadsheet to text conversion."""
 
@@ -2296,12 +2464,14 @@ core.resolve_forward_references(Transformation, globalns=globals(), localns=loca
 core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoOperation, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoToImageOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(VlmPreprocessingConfig, globalns=globals(), localns=locals())
 
 __all__ = [
     "AffineTransform",
     "AnnotateGeometry",
     "AnnotateImageOperation",
     "Annotation",
+    "ApiNameLocatorWrapper",
     "ArchiveEncodeFormat",
     "AudioChannelLayout",
     "AudioChannelOperation",
@@ -2321,6 +2491,8 @@ __all__ = [
     "BoundingBoxGeometry",
     "BranchName",
     "BranchRid",
+    "ChatLlmSpec",
+    "ChatLlmSpecWrapper",
     "Color",
     "ColorInterpretation",
     "CommonDicomDataElements",
@@ -2334,6 +2506,7 @@ __all__ = [
     "ConvertSheetToJsonOperation",
     "CoordinateReferenceSystem",
     "CreatePdfOperation",
+    "CropConfig",
     "CropImageOperation",
     "DataType",
     "DecryptImageOperation",
@@ -2366,13 +2539,19 @@ __all__ = [
     "EncryptImageOperation",
     "ExtractAllTextOperation",
     "ExtractAudioOperation",
+    "ExtractDocumentLayoutAwareTextV2Config",
+    "ExtractDocumentLayoutAwareTextV2Operation",
+    "ExtractDocumentTextV2Config",
+    "ExtractDocumentTextV2Operation",
     "ExtractFirstFrameOperation",
     "ExtractFormFieldsOperation",
     "ExtractFramesAtTimestampsOperation",
     "ExtractSceneFramesOperation",
     "ExtractTableOfContentsOperation",
     "ExtractTextFromPagesToArrayOperation",
+    "ExtractTextPreprocessingWrapper",
     "ExtractUnstructuredTextFromPageOperation",
+    "ExtractVlmTextOperation",
     "FlipAxis",
     "GcpList",
     "GenerateEmbeddingOperation",
@@ -2397,6 +2576,7 @@ __all__ = [
     "ImageOperation",
     "ImagePixelCoordinate",
     "ImageRegionPolygon",
+    "ImageSpec",
     "ImageToDocumentOperation",
     "ImageToDocumentTransformation",
     "ImageToEmbeddingOperation",
@@ -2408,7 +2588,11 @@ __all__ = [
     "ImageryEncodeFormat",
     "ImageryMediaItemMetadata",
     "JpgFormat",
+    "LanguageModelLocator",
     "LayoutAwareExtractionParameters",
+    "LayoutAwareExtractionPreprocessingConfig",
+    "LayoutAwarePreprocessingWrapper",
+    "LlmSpec",
     "LogicalTimestamp",
     "Mailbox",
     "MailboxOrGroup",
@@ -2431,6 +2615,7 @@ __all__ = [
     "OcrLanguage",
     "OcrLanguageOrScript",
     "OcrLanguageWrapper",
+    "OcrMode",
     "OcrOnPageOperation",
     "OcrOnPagesOperation",
     "OcrOutputFormat",
@@ -2439,6 +2624,7 @@ __all__ = [
     "OcrScriptWrapper",
     "OcrTextOutputFormat",
     "Orientation",
+    "PageRange",
     "PaletteInterpretation",
     "PdfFormat",
     "PerformanceMode",
@@ -2453,6 +2639,7 @@ __all__ = [
     "RenderPageToFitBoundingBoxOperation",
     "ResizeImageOperation",
     "ResizeToFitBoundingBoxOperation",
+    "ResizingMode",
     "RotateImageOperation",
     "RotationAngle",
     "SceneScore",
@@ -2462,6 +2649,7 @@ __all__ = [
     "SpreadsheetToTextOperation",
     "SpreadsheetToTextTransformation",
     "TarFormat",
+    "TextOutputFormat",
     "TiffFormat",
     "TileImageOperation",
     "TrackedTransformationFailedResponse",
@@ -2499,6 +2687,7 @@ __all__ = [
     "VideoToTextOperation",
     "VideoToTextTransformation",
     "VideoTransformation",
+    "VlmPreprocessingConfig",
     "WavEncodeFormat",
     "WaveformOperation",
     "WebpFormat",

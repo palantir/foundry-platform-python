@@ -2,13 +2,13 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/connectivity/connections | Public Beta |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Public Beta |
-[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Public Beta |
-[**get_configuration_batch**](#get_configuration_batch) | **POST** /v2/connectivity/connections/getConfigurationBatch | Public Beta |
-[**update_export_settings**](#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings | Public Beta |
+[**create**](#create) | **POST** /v2/connectivity/connections | Stable |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid} | Stable |
+[**get_configuration**](#get_configuration) | **GET** /v2/connectivity/connections/{connectionRid}/getConfiguration | Stable |
+[**get_configuration_batch**](#get_configuration_batch) | **POST** /v2/connectivity/connections/getConfigurationBatch | Stable |
+[**update_export_settings**](#update_export_settings) | **POST** /v2/connectivity/connections/{connectionRid}/updateExportSettings | Stable |
 [**update_secrets**](#update_secrets) | **POST** /v2/connectivity/connections/{connectionRid}/updateSecrets | Stable |
-[**upload_custom_jdbc_drivers**](#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers | Public Beta |
+[**upload_custom_jdbc_drivers**](#upload_custom_jdbc_drivers) | **POST** /v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers | Stable |
 
 # **create**
 Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
@@ -30,7 +30,6 @@ Name | Type | Description  | Notes |
 **display_name** | ConnectionDisplayName | The display name of the Connection. The display name must not be blank. |  |
 **parent_folder_rid** | FolderRid |  |  |
 **worker** | CreateConnectionRequestConnectionWorker |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Connection**
@@ -56,8 +55,6 @@ display_name = "Connection to my external system"
 parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # CreateConnectionRequestConnectionWorker
 worker = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
@@ -66,7 +63,6 @@ try:
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
         worker=worker,
-        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -96,7 +92,6 @@ Get the Connection with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Connection**
@@ -112,12 +107,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ConnectionRid
 connection_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.get(connection_rid, preview=preview)
+    api_response = client.connectivity.Connection.get(connection_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -148,7 +141,6 @@ This operation is intended for use when other Connection data is not required, p
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ConnectionConfiguration**
@@ -164,12 +156,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ConnectionRid
 connection_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.get_configuration(connection_rid, preview=preview)
+    api_response = client.connectivity.Connection.get_configuration(connection_rid)
     print("The get_configuration response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -202,7 +192,6 @@ The maximum batch size for this endpoint is 200.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[GetConfigurationConnectionsBatchRequestElement] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetConfigurationConnectionsBatchResponse**
@@ -218,12 +207,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # List[GetConfigurationConnectionsBatchRequestElement] | Body of the request
 body = [{"connectionRid": "ri.magritte..source.c078b71b-92f9-41b6-b0df-3760f411120b"}]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.get_configuration_batch(body, preview=preview)
+    api_response = client.connectivity.Connection.get_configuration_batch(body)
     print("The get_configuration_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -255,7 +242,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **export_settings** | ConnectionExportSettings |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -273,13 +259,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # ConnectionExportSettings
 export_settings = {"exportsEnabled": True, "exportEnabledWithoutMarkingsValidation": False}
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.connectivity.Connection.update_export_settings(
-        connection_rid, export_settings=export_settings, preview=preview
+        connection_rid, export_settings=export_settings
     )
     print("The update_export_settings response:\n")
     pprint(api_response)
@@ -374,7 +358,6 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **body** | bytes | Body of the request |  |
 **file_name** | str | The file name of the uploaded JDBC driver. Must end with .jar  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Connection**
@@ -394,13 +377,11 @@ connection_rid = None
 body = None
 # str | The file name of the uploaded JDBC driver. Must end with .jar
 file_name = "cdata.jdbc.oracle.jar"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.connectivity.Connection.upload_custom_jdbc_drivers(
-        connection_rid, body, file_name=file_name, preview=preview
+        connection_rid, body, file_name=file_name
     )
     print("The upload_custom_jdbc_drivers response:\n")
     pprint(api_response)

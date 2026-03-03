@@ -433,6 +433,7 @@ Name | Type | Description  | Notes |
 **order_by** | Optional[OrderBy] |  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 1,000. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **select** | Optional[List[SelectedPropertyApiName]] | The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
 
@@ -462,6 +463,8 @@ order_by = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 # Optional[List[SelectedPropertyApiName]] | The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.
 select = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
@@ -477,6 +480,7 @@ try:
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
         select=select,
         snapshot=snapshot,
     ):

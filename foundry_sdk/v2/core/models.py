@@ -602,6 +602,10 @@ Examples: `application/json`, `application/pdf`, `application/octet-stream`, `im
 """
 
 
+NetworkEgressPolicyRid = core.RID
+"""The Resource Identifier (RID) of a Network Egress Policy."""
+
+
 class NullType(core.ModelBase):
     """NullType"""
 
@@ -1022,6 +1026,7 @@ __all__ = [
     "MediaSetViewItemWrapper",
     "MediaSetViewRid",
     "MediaType",
+    "NetworkEgressPolicyRid",
     "NullType",
     "NumericOrNonNumericType",
     "Operation",

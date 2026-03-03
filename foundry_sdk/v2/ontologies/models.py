@@ -259,7 +259,15 @@ AggregationAccuracy = typing.Literal["ACCURATE", "APPROXIMATE"]
 
 
 AggregationAccuracyRequest = typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]
-"""AggregationAccuracyRequest"""
+"""
+Specifies the accuracy requirement for aggregation results.
+
+- `REQUIRE_ACCURATE`: Only return results if they are guaranteed to be accurate. If accuracy cannot be
+  guaranteed (e.g., due to a low `maxGroupCount` relative to distinct values), the request will fail
+  with an `AggregationAccuracyNotSupported` error.
+- `ALLOW_APPROXIMATE`: Allow approximate results when exact computation is not feasible. This is the
+  default behavior if not specified.
+"""
 
 
 class AggregationDurationGroupingV2(core.ModelBase):
@@ -279,6 +287,20 @@ class AggregationExactGroupingV2(core.ModelBase):
 
     field: PropertyApiName
     max_group_count: typing.Optional[int] = pydantic.Field(alias=str("maxGroupCount"), default=None)  # type: ignore[literal-required]
+    """
+    The maximum number of groups to return. If omitted, defaults to 10,000.
+
+    The server allocates resources based on the specified `maxGroupCount`. When the number of distinct
+    values in your data is within this limit, results are accurate and the top N values are returned
+    correctly. When distinct values exceed what the allocated resources can handle, results may become
+    approximate.
+
+    If you need accurate results with high-cardinality properties, set `maxGroupCount` high enough to
+    cover your distinct values. Items exceeding the limit are excluded from results and counted in
+    `excludedItems`. The response `accuracy` field indicates whether the results are `ACCURATE` or
+    `APPROXIMATE`.
+    """
+
     default_value: typing.Optional[str] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
     """
     Includes a group with the specified default value that includes all objects where the specified field's value is null.

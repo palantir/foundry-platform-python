@@ -171,6 +171,7 @@
         "Admin": true,
         "AipAgents": true,
         "Audit": true,
+        "Checkpoints": true,
         "Connectivity": true,
         "Core": true,
         "DataHealth": true,

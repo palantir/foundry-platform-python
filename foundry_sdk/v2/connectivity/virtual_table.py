@@ -60,7 +60,6 @@ class VirtualTableClient:
         name: connectivity_models.TableName,
         parent_rid: filesystem_models.FolderRid,
         markings: typing.Optional[typing.List[core_models.MarkingId]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.VirtualTable:
@@ -78,8 +77,6 @@ class VirtualTableClient:
         :type parent_rid: FolderRid
         :param markings:
         :type markings: Optional[List[MarkingId]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -96,9 +93,7 @@ class VirtualTableClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/virtualTables",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -174,7 +169,6 @@ class AsyncVirtualTableClient:
         name: connectivity_models.TableName,
         parent_rid: filesystem_models.FolderRid,
         markings: typing.Optional[typing.List[core_models.MarkingId]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.VirtualTable]:
@@ -192,8 +186,6 @@ class AsyncVirtualTableClient:
         :type parent_rid: FolderRid
         :param markings:
         :type markings: Optional[List[MarkingId]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -210,9 +202,7 @@ class AsyncVirtualTableClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/virtualTables",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
