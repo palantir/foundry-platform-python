@@ -249,6 +249,12 @@ def test_audit_v2_organization_import():
     assert OrganizationClient is not None
 
 
+def test_checkpoints_v2_record_import():
+    from foundry_sdk.v2.checkpoints.record import RecordClient
+
+    assert RecordClient is not None
+
+
 def test_connectivity_v2_connection_import():
     from foundry_sdk.v2.connectivity.connection import ConnectionClient
 

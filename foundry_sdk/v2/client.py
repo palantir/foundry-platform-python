@@ -47,6 +47,7 @@ class FoundryClient:
         from foundry_sdk.v2.admin._client import AdminClient
         from foundry_sdk.v2.aip_agents._client import AipAgentsClient
         from foundry_sdk.v2.audit._client import AuditClient
+        from foundry_sdk.v2.checkpoints._client import CheckpointsClient
         from foundry_sdk.v2.connectivity._client import ConnectivityClient
         from foundry_sdk.v2.data_health._client import DataHealthClient
         from foundry_sdk.v2.datasets._client import DatasetsClient
@@ -67,6 +68,7 @@ class FoundryClient:
         self.admin = AdminClient(auth=auth, hostname=hostname, config=config)
         self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname, config=config)
         self.audit = AuditClient(auth=auth, hostname=hostname, config=config)
+        self.checkpoints = CheckpointsClient(auth=auth, hostname=hostname, config=config)
         self.connectivity = ConnectivityClient(auth=auth, hostname=hostname, config=config)
         self.data_health = DataHealthClient(auth=auth, hostname=hostname, config=config)
         self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
@@ -114,6 +116,7 @@ class AsyncFoundryClient:
         from foundry_sdk.v2.admin._client import AsyncAdminClient
         from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient
         from foundry_sdk.v2.audit._client import AsyncAuditClient
+        from foundry_sdk.v2.checkpoints._client import AsyncCheckpointsClient
         from foundry_sdk.v2.connectivity._client import AsyncConnectivityClient
         from foundry_sdk.v2.data_health._client import AsyncDataHealthClient
         from foundry_sdk.v2.datasets._client import AsyncDatasetsClient
@@ -134,6 +137,7 @@ class AsyncFoundryClient:
         self.admin = AsyncAdminClient(auth=auth, hostname=hostname, config=config)
         self.aip_agents = AsyncAipAgentsClient(auth=auth, hostname=hostname, config=config)
         self.audit = AsyncAuditClient(auth=auth, hostname=hostname, config=config)
+        self.checkpoints = AsyncCheckpointsClient(auth=auth, hostname=hostname, config=config)
         self.connectivity = AsyncConnectivityClient(auth=auth, hostname=hostname, config=config)
         self.data_health = AsyncDataHealthClient(auth=auth, hostname=hostname, config=config)
         self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)

@@ -2398,6 +2398,104 @@ def audit_organization_log_file_op_list(
     click.echo(repr(result))
 
 
+@cli.group("checkpoints")
+def checkpoints():
+    pass
+
+
+@checkpoints.group("record")
+def checkpoints_record():
+    pass
+
+
+@checkpoints_record.command("get")
+@click.argument("record_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def checkpoints_record_op_get(
+    client: FoundryClient,
+    record_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve a single checkpoint record by id.
+    """
+    result = client.checkpoints.Record.get(
+        record_rid=record_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@checkpoints_record.command("get_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def checkpoints_record_op_get_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Fetch multiple checkpoint records in a single request. Records not found
+    or inaccessible to the user will be omitted from the response.
+
+
+    The maximum batch size for this endpoint is 100.
+    """
+    result = client.checkpoints.Record.get_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@checkpoints_record.command("search")
+@click.option("--where", type=str, required=True, help="""""")
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The page size for the search request. If no value is provided, a default of `100` will be used.
+""",
+)
+@click.option("--page_token", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--sort_direction",
+    type=click.Choice(["ASC", "DESC"]),
+    required=False,
+    help="""Chronological order of creation time for records to be returned in. Defaults to reverse chronological order (DESC).
+""",
+)
+@click.pass_obj
+def checkpoints_record_op_search(
+    client: FoundryClient,
+    where: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    sort_direction: typing.Optional[typing.Literal["ASC", "DESC"]],
+):
+    """
+    Search for checkpoint records.
+    """
+    result = client.checkpoints.Record.search(
+        where=json.loads(where),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        sort_direction=sort_direction,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("connectivity")
 def connectivity():
     pass
@@ -2418,9 +2516,6 @@ def connectivity_connection():
 )
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.option("--worker", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_create(
     client: FoundryClient,
@@ -2428,7 +2523,6 @@ def connectivity_connection_op_create(
     display_name: str,
     parent_folder_rid: str,
     worker: str,
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
@@ -2447,42 +2541,32 @@ def connectivity_connection_op_create(
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
         worker=json.loads(worker),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get")
 @click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get(
     client: FoundryClient,
     connection_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Connection with the specified rid.
     """
     result = client.connectivity.Connection.get(
         connection_rid=connection_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get_configuration")
 @click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get_configuration(
     client: FoundryClient,
     connection_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
@@ -2491,21 +2575,16 @@ def connectivity_connection_op_get_configuration(
     """
     result = client.connectivity.Connection.get_configuration(
         connection_rid=connection_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get_configuration_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get_configuration_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Returns a map of Connection RIDs to their corresponding configurations.
@@ -2516,7 +2595,6 @@ def connectivity_connection_op_get_configuration_batch(
     """
     result = client.connectivity.Connection.get_configuration_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2524,15 +2602,11 @@ def connectivity_connection_op_get_configuration_batch(
 @connectivity_connection.command("update_export_settings")
 @click.argument("connection_rid", type=str, required=True)
 @click.option("--export_settings", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_update_export_settings(
     client: FoundryClient,
     connection_rid: str,
     export_settings: str,
-    preview: typing.Optional[bool],
 ):
     """
     Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
@@ -2542,7 +2616,6 @@ def connectivity_connection_op_update_export_settings(
     result = client.connectivity.Connection.update_export_settings(
         connection_rid=connection_rid,
         export_settings=json.loads(export_settings),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2593,16 +2666,12 @@ def connectivity_connection_op_update_secrets(
     help="""The file name of the uploaded JDBC driver. Must end with .jar
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_upload_custom_jdbc_drivers(
     client: FoundryClient,
     connection_rid: str,
     body: io.BufferedReader,
     file_name: str,
-    preview: typing.Optional[bool],
 ):
     """
     Upload custom jdbc drivers to an existing JDBC connection.
@@ -2613,7 +2682,6 @@ def connectivity_connection_op_upload_custom_jdbc_drivers(
         connection_rid=connection_rid,
         body=body.read(),
         file_name=file_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2629,9 +2697,6 @@ def connectivity_connection_virtual_table():
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--parent_rid", type=str, required=True, help="""""")
 @click.option("--markings", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_virtual_table_op_create(
     client: FoundryClient,
@@ -2640,7 +2705,6 @@ def connectivity_connection_virtual_table_op_create(
     name: str,
     parent_rid: str,
     markings: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
@@ -2653,7 +2717,6 @@ def connectivity_connection_virtual_table_op_create(
         name=name,
         parent_rid=parent_rid,
         markings=None if markings is None else json.loads(markings),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2688,9 +2751,6 @@ def connectivity_connection_table_import():
     required=False,
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_create(
     client: FoundryClient,
@@ -2701,7 +2761,6 @@ def connectivity_connection_table_import_op_create(
     import_mode: typing.Literal["SNAPSHOT", "APPEND"],
     allow_schema_changes: typing.Optional[bool],
     branch_name: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new TableImport.
@@ -2714,7 +2773,6 @@ def connectivity_connection_table_import_op_create(
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
         branch_name=branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2722,15 +2780,11 @@ def connectivity_connection_table_import_op_create(
 @connectivity_connection_table_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_delete(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Delete the TableImport with the specified RID.
@@ -2741,7 +2795,6 @@ def connectivity_connection_table_import_op_delete(
     result = client.connectivity.Connection.TableImport.delete(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2749,15 +2802,11 @@ def connectivity_connection_table_import_op_delete(
 @connectivity_connection_table_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_execute(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Executes the TableImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
@@ -2767,7 +2816,6 @@ def connectivity_connection_table_import_op_execute(
     result = client.connectivity.Connection.TableImport.execute(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2775,15 +2823,11 @@ def connectivity_connection_table_import_op_execute(
 @connectivity_connection_table_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_get(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the TableImport with the specified rid.
@@ -2791,7 +2835,6 @@ def connectivity_connection_table_import_op_get(
     result = client.connectivity.Connection.TableImport.get(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2809,16 +2852,12 @@ def connectivity_connection_table_import_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_list(
     client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Lists all table imports defined for this connection.
@@ -2829,7 +2868,6 @@ def connectivity_connection_table_import_op_list(
         connection_rid=connection_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2848,9 +2886,6 @@ def connectivity_connection_table_import_op_list(
     required=False,
     help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_replace(
     client: FoundryClient,
@@ -2860,7 +2895,6 @@ def connectivity_connection_table_import_op_replace(
     display_name: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND"],
     allow_schema_changes: typing.Optional[bool],
-    preview: typing.Optional[bool],
 ):
     """
     Replace the TableImport with the specified rid.
@@ -2872,7 +2906,6 @@ def connectivity_connection_table_import_op_replace(
         display_name=display_name,
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2907,9 +2940,6 @@ def connectivity_connection_file_import():
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.""",
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--subfolder",
     type=str,
     required=False,
@@ -2924,7 +2954,6 @@ def connectivity_connection_file_import_op_create(
     file_import_filters: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
     branch_name: typing.Optional[str],
-    preview: typing.Optional[bool],
     subfolder: typing.Optional[str],
 ):
     """
@@ -2937,7 +2966,6 @@ def connectivity_connection_file_import_op_create(
         file_import_filters=json.loads(file_import_filters),
         import_mode=import_mode,
         branch_name=branch_name,
-        preview=preview,
         subfolder=subfolder,
     )
     click.echo(repr(result))
@@ -2946,15 +2974,11 @@ def connectivity_connection_file_import_op_create(
 @connectivity_connection_file_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_delete(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Delete the FileImport with the specified RID.
@@ -2965,7 +2989,6 @@ def connectivity_connection_file_import_op_delete(
     result = client.connectivity.Connection.FileImport.delete(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2973,15 +2996,11 @@ def connectivity_connection_file_import_op_delete(
 @connectivity_connection_file_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_execute(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
@@ -2991,7 +3010,6 @@ def connectivity_connection_file_import_op_execute(
     result = client.connectivity.Connection.FileImport.execute(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2999,15 +3017,11 @@ def connectivity_connection_file_import_op_execute(
 @connectivity_connection_file_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_get(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the FileImport with the specified rid.
@@ -3015,7 +3029,6 @@ def connectivity_connection_file_import_op_get(
     result = client.connectivity.Connection.FileImport.get(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3033,16 +3046,12 @@ def connectivity_connection_file_import_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_list(
     client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Lists all file imports defined for this connection.
@@ -3053,7 +3062,6 @@ def connectivity_connection_file_import_op_list(
         connection_rid=connection_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3072,9 +3080,6 @@ def connectivity_connection_file_import_op_list(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--subfolder",
     type=str,
     required=False,
@@ -3088,7 +3093,6 @@ def connectivity_connection_file_import_op_replace(
     display_name: str,
     file_import_filters: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    preview: typing.Optional[bool],
     subfolder: typing.Optional[str],
 ):
     """
@@ -3100,7 +3104,6 @@ def connectivity_connection_file_import_op_replace(
         display_name=display_name,
         file_import_filters=json.loads(file_import_filters),
         import_mode=import_mode,
-        preview=preview,
         subfolder=subfolder,
     )
     click.echo(repr(result))
@@ -3290,16 +3293,12 @@ def datasets_view():
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_add_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds one or more backing datasets to a View. Any duplicates with the same dataset RID and branch name are
@@ -3310,7 +3309,6 @@ def datasets_view_op_add_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3319,16 +3317,12 @@ def datasets_view_op_add_backing_datasets(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--primary_key", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_add_primary_key(
     client: FoundryClient,
     view_dataset_rid: str,
     primary_key: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds a primary key to a View that does not already have one. Primary keys are treated as
@@ -3339,7 +3333,6 @@ def datasets_view_op_add_primary_key(
         view_dataset_rid=view_dataset_rid,
         primary_key=json.loads(primary_key),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3354,9 +3347,6 @@ def datasets_view_op_add_primary_key(
     required=False,
     help="""The branch name of the View. If not specified, defaults to `master` for most enrollments.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.option("--primary_key", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_view_op_create(
@@ -3365,7 +3355,6 @@ def datasets_view_op_create(
     parent_folder_rid: str,
     view_name: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
     primary_key: typing.Optional[str],
 ):
     """
@@ -3376,7 +3365,6 @@ def datasets_view_op_create(
         parent_folder_rid=parent_folder_rid,
         view_name=view_name,
         branch=branch,
-        preview=preview,
         primary_key=None if primary_key is None else json.loads(primary_key),
     )
     click.echo(repr(result))
@@ -3385,15 +3373,11 @@ def datasets_view_op_create(
 @datasets_view.command("get")
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_get(
     client: FoundryClient,
     view_dataset_rid: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Get metadata for a View.
@@ -3401,7 +3385,6 @@ def datasets_view_op_get(
     result = client.datasets.View.get(
         view_dataset_rid=view_dataset_rid,
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3410,16 +3393,12 @@ def datasets_view_op_get(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_remove_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Removes specified backing datasets from a View. Removing a dataset triggers a
@@ -3431,7 +3410,6 @@ def datasets_view_op_remove_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3440,16 +3418,12 @@ def datasets_view_op_remove_backing_datasets(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_replace_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Replaces the backing datasets for a View. Removing any backing dataset triggers a
@@ -3460,7 +3434,6 @@ def datasets_view_op_replace_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3585,9 +3558,6 @@ def datasets_dataset_op_get_health_checks(
 )
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_get_schedules(
     client: FoundryClient,
@@ -3595,7 +3565,6 @@ def datasets_dataset_op_get_schedules(
     branch_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Get the RIDs of the Schedules that target the given Dataset.
@@ -3610,7 +3579,6 @@ def datasets_dataset_op_get_schedules(
         branch_name=branch_name,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3626,9 +3594,6 @@ def datasets_dataset_op_get_schedules(
 """,
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--version_id",
     type=str,
     required=False,
@@ -3641,7 +3606,6 @@ def datasets_dataset_op_get_schema(
     dataset_rid: str,
     branch_name: typing.Optional[str],
     end_transaction_rid: typing.Optional[str],
-    preview: typing.Optional[bool],
     version_id: typing.Optional[str],
 ):
     """
@@ -3652,7 +3616,6 @@ def datasets_dataset_op_get_schema(
         dataset_rid=dataset_rid,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         version_id=version_id,
     )
     click.echo(repr(result))
@@ -3660,14 +3623,10 @@ def datasets_dataset_op_get_schema(
 
 @datasets_dataset.command("get_schema_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_get_schema_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Fetch schemas for multiple datasets in a single request. Datasets not found
@@ -3678,7 +3637,6 @@ def datasets_dataset_op_get_schema_batch(
     """
     result = client.datasets.Dataset.get_schema_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3755,9 +3713,6 @@ def datasets_dataset_op_jobs(
     help="""The Resource Identifier (RID) of the end Transaction.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_put_schema(
     client: FoundryClient,
@@ -3766,7 +3721,6 @@ def datasets_dataset_op_put_schema(
     branch_name: typing.Optional[str],
     dataframe_reader: typing.Optional[typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]],
     end_transaction_rid: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds a schema on an existing dataset using a PUT request.
@@ -3778,7 +3732,6 @@ def datasets_dataset_op_put_schema(
         branch_name=branch_name,
         dataframe_reader=dataframe_reader,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -9256,6 +9209,13 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
     "--select",
     type=str,
     required=False,
@@ -9283,6 +9243,7 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
     select: typing.Optional[str],
     snapshot: typing.Optional[bool],
 ):
@@ -9310,6 +9271,7 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
         select=None if select is None else json.loads(select),
         snapshot=snapshot,
     )
