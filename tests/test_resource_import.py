@@ -381,6 +381,26 @@ def test_language_models_v2_open_ai_model_import():
     assert OpenAiModelClient is not None
 
 
+def test_language_models_v2_utils_exported():
+    """Test that language model utils are exported from the namespace __init__.py.
+
+    These exports are defined in config.json under additionalExports and must be
+    applied by the SDK generator. If this test fails after SDK regeneration,
+    the generator may not be properly applying the additionalExports config.
+    """
+    from foundry_sdk.v2.language_models import (
+        get_anthropic_base_url,
+        get_foundry_token,
+        get_http_client,
+        get_openai_base_url,
+    )
+
+    assert callable(get_foundry_token)
+    assert callable(get_openai_base_url)
+    assert callable(get_anthropic_base_url)
+    assert callable(get_http_client)
+
+
 def test_media_sets_v2_media_set_import():
     from foundry_sdk.v2.media_sets.media_set import MediaSetClient
 
