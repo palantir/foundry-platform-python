@@ -105,7 +105,7 @@ def _prepare_client_data(
     for scheme in ("http://", "https://"):
         if hostname.startswith(scheme):
             config = dataclasses.replace(config, scheme=scheme[:-3])
-            hostname = hostname[len(scheme):]
+            hostname = hostname[len(scheme) :]
             break
     verify = config.verify
 
