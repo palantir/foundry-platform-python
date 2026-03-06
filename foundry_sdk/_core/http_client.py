@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 
+import dataclasses
 import functools
 import os
 import ssl
@@ -28,7 +29,6 @@ from foundry_sdk._core.config import Config
 from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_VARS
 from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
 from foundry_sdk._core.utils import AnyCallableT
-from foundry_sdk._core.utils import remove_prefixes
 from foundry_sdk._version import __version__
 
 
@@ -98,7 +98,15 @@ def _prepare_client_data(
 ) -> Tuple[Config, str, Union[bool, str], dict]:
     """Prepare common data for HttpClient and AsyncHttpClient."""
     config = config or Config()
-    hostname = remove_prefixes(hostname.strip("/"), ["https://", "http://"])
+    hostname = hostname.strip("/")
+    # If the hostname includes an explicit scheme, use it rather than the
+    # config default so that e.g. "http://localhost:8080" isn't silently
+    # upgraded to https.
+    for scheme in ("http://", "https://"):
+        if hostname.startswith(scheme):
+            config = dataclasses.replace(config, scheme=scheme[:-3])
+            hostname = hostname[len(scheme):]
+            break
     verify = config.verify
 
     # If verity is set to True, then merge with env vars
