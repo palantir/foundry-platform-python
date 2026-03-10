@@ -3,7 +3,7 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} | Stable |
-[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Private Beta |
+[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Public Beta |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |

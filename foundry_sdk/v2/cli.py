@@ -11256,6 +11256,13 @@ def orchestration_schedule_op_create(
 ):
     """
     Creates a new Schedule.
+
+    :::callout{theme=warning title=Warning}
+    If the schedule is created in user-scoped mode, outputs to build will be discovered based on resources
+    that the user has access to. If the user's permissions change later, this could change the outputs that
+    will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+    :::
+
     """
     result = client.orchestration.Schedule.create(
         action=json.loads(action),
@@ -11392,7 +11399,14 @@ def orchestration_schedule_op_replace(
     trigger: typing.Optional[str],
 ):
     """
-    Replace the Schedule with the specified rid.
+    Replaces the Schedule with the specified rid.
+
+    :::callout{theme=warning title=Warning}
+    If the schedule is configured in user-scoped mode, outputs to build will be discovered based on resources
+    that the user has access to. If the user's permissions change later, this could change the outputs that
+    will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+    :::
+
     """
     result = client.orchestration.Schedule.replace(
         schedule_rid=schedule_rid,
@@ -12343,6 +12357,301 @@ def streams_dataset_stream_op_reset(
         preview=preview,
         schema=None if schema is None else json.loads(schema),
         stream_type=stream_type,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.group("subscriber")
+def streams_dataset_stream_subscriber():
+    pass
+
+
+@streams_dataset_stream_subscriber.command("commit_offsets")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--offsets",
+    type=str,
+    required=True,
+    help="""The last processed offset for each partition. The server will store these as
+read positions (offset + 1), so the next read starts after the committed offset.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to commit offsets for. If not provided, uses the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_commit_offsets(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    offsets: str,
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Explicitly commit offsets for a subscriber. Required when `autoCommit` is false.
+
+    Pass the last offset you processed for each partition.
+
+    For example, if you processed a record at offset 50, commit `{"0": 50}` and the next
+    read from partition "0" will start at offset 51.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.commit_offsets(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        offsets=json.loads(offsets),
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("create")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option("--subscriber_id", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--read_position",
+    type=str,
+    required=False,
+    help="""Where to start reading from. Defaults to `earliest` if not specified.
+
+The `readPosition` determines where the subscriber will start reading:
+- `earliest`: Start from the beginning of each partition (offset 0). Use this to process
+  all historical data.
+- `latest`: Start from the current end of each partition. Use this to skip historical data
+  and only process new records arriving after registration.
+- `specific`: Start from explicit offsets for each partition. Use this to resume from a
+  known checkpoint.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_create(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_id: str,
+    preview: typing.Optional[bool],
+    read_position: typing.Optional[str],
+):
+    """
+    Register a new subscriber for a stream. Subscribers maintain server-side offset tracking,
+    allowing reliable consumption without client-side state management.
+
+    If a subscriber with the same ID already exists for this stream, the existing registration
+    is returned. If a subscriber with the same ID exists for a different stream, an error is returned.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.create(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_id=subscriber_id,
+        preview=preview,
+        read_position=None if read_position is None else json.loads(read_position),
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("delete")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_delete(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Delete a subscriber and all its committed offset state. After deletion, the subscriber ID
+    can be reused to create a new subscriber.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.delete(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("get_read_position")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to get positions for. If not provided, uses the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_get_read_position(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Get the current read position for a subscriber. Returns the offset per partition where the next read
+    will begin.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.get_read_position(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("read_records")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--auto_commit",
+    type=bool,
+    required=False,
+    help="""If true, the read position is automatically committed after reading records.
+The committed position will be the offset after the last record read.
+If false, you must call the `commitOffsets` endpoint to commit offsets.
+Defaults to false.
+""",
+)
+@click.option(
+    "--limit",
+    type=int,
+    required=False,
+    help="""Maximum number of records to return across all partitions. Defaults to 100, max 1000. If a value 
+greater than 1000 is requested, only 1000 records will be returned.
+""",
+)
+@click.option(
+    "--partition_ids",
+    type=str,
+    required=False,
+    help="""If specified, only read from these partitions. Otherwise, read from all partitions.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to read from. If not provided, reads from the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_read_records(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    auto_commit: typing.Optional[bool],
+    limit: typing.Optional[int],
+    partition_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Fetch records for a subscriber starting from their committed offset. Returns records
+    grouped by partition.
+
+    If `autoCommit` is true, offsets are automatically committed after the records are
+    fetched, so the next read will start from where this one left off.
+
+    If `autoCommit` is false, you must call `commitOffsets` to update the read position.
+    Use manual commits for at-least-once processing where you need to ensure records are
+    processed before acknowledging them.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.read_records(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        auto_commit=auto_commit,
+        limit=limit,
+        partition_ids=None if partition_ids is None else json.loads(partition_ids),
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("reset_offsets")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--position",
+    type=str,
+    required=True,
+    help="""The position to reset offsets to.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_reset_offsets(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    position: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Reset subscriber offsets to a specific position. Use this to replay data from the
+    beginning, skip to the latest records, or jump to specific offsets.
+
+    The `position` parameter determines where reading will resume:
+    - `earliest`: Reset to the beginning of each partition (offset 0)
+    - `latest`: Reset to the current end of each partition
+    - `specific`: Reset to explicit offsets for each partition
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.reset_offsets(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        position=json.loads(position),
+        preview=preview,
     )
     click.echo(repr(result))
 
