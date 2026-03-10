@@ -18,6 +18,7 @@ from dataclasses import dataclass
 
 import typing_extensions
 
+from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.language_models import models as language_models_models
 
@@ -34,6 +35,84 @@ class AnthropicMessagesPermissionDeniedParameters(typing_extensions.TypedDict):
 class AnthropicMessagesPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["AnthropicMessagesPermissionDenied"]
     parameters: AnthropicMessagesPermissionDeniedParameters
+    error_instance_id: str
+
+
+class InvalidRequestParameters(typing_extensions.TypedDict):
+    """
+    The request was unable to be deserialized as a valid request to this endpoint. This may be either due to
+    missing a required field or including a field which is not supported.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    message: str
+    params: typing.Dict[str, str]
+
+
+@dataclass
+class InvalidRequest(errors.BadRequestError):
+    name: typing.Literal["InvalidRequest"]
+    parameters: InvalidRequestParameters
+    error_instance_id: str
+
+
+class LanguageModelInferenceErrorParameters(typing_extensions.TypedDict):
+    """An error was thrown by the underlying model provider during inference."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    code: int
+    message: typing_extensions.NotRequired[str]
+
+
+@dataclass
+class LanguageModelInferenceError(errors.BadRequestError):
+    name: typing.Literal["LanguageModelInferenceError"]
+    parameters: LanguageModelInferenceErrorParameters
+    error_instance_id: str
+
+
+class LanguageModelNotAvailableParameters(typing_extensions.TypedDict):
+    """The language model requested is not available in this environment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class LanguageModelNotAvailable(errors.BadRequestError):
+    name: typing.Literal["LanguageModelNotAvailable"]
+    parameters: LanguageModelNotAvailableParameters
+    error_instance_id: str
+
+
+class LanguageModelNotFoundParameters(typing_extensions.TypedDict):
+    """No known language model exists with the specified ID."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelId: str
+
+
+@dataclass
+class LanguageModelNotFound(errors.NotFoundError):
+    name: typing.Literal["LanguageModelNotFound"]
+    parameters: LanguageModelNotFoundParameters
+    error_instance_id: str
+
+
+class LanguageModelPermissionDeniedParameters(typing_extensions.TypedDict):
+    """The token provided does not have permission to use this language model."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    languageModelRid: core.RID
+
+
+@dataclass
+class LanguageModelPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["LanguageModelPermissionDenied"]
+    parameters: LanguageModelPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -84,6 +163,11 @@ class OpenAiEmbeddingsPermissionDenied(errors.PermissionDeniedError):
 
 __all__ = [
     "AnthropicMessagesPermissionDenied",
+    "InvalidRequest",
+    "LanguageModelInferenceError",
+    "LanguageModelNotAvailable",
+    "LanguageModelNotFound",
+    "LanguageModelPermissionDenied",
     "MultipleSystemPromptsNotSupported",
     "MultipleToolResultContentsNotSupported",
     "OpenAiEmbeddingsPermissionDenied",

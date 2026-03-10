@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -49,6 +50,16 @@ class StreamClient:
 
         self.with_streaming_response = _StreamClientStreaming(self)
         self.with_raw_response = _StreamClientRaw(self)
+
+    @cached_property
+    def Subscriber(self):
+        from foundry_sdk.v2.streams.subscriber import SubscriberClient
+
+        return SubscriberClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -650,6 +661,16 @@ class AsyncStreamClient:
 
         self.with_streaming_response = _AsyncStreamClientStreaming(self)
         self.with_raw_response = _AsyncStreamClientRaw(self)
+
+    @cached_property
+    def Subscriber(self):
+        from foundry_sdk.v2.streams.subscriber import AsyncSubscriberClient
+
+        return AsyncSubscriberClient(
+            auth=self._auth,
+            hostname=self._hostname,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call

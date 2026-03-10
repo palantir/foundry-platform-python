@@ -627,6 +627,12 @@ def test_streams_v2_stream_import():
     assert StreamClient is not None
 
 
+def test_streams_v2_subscriber_import():
+    from foundry_sdk.v2.streams.subscriber import SubscriberClient
+
+    assert SubscriberClient is not None
+
+
 def test_third_party_applications_v2_third_party_application_import():
     from foundry_sdk.v2.third_party_applications.third_party_application import (
         ThirdPartyApplicationClient,

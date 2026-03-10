@@ -22,6 +22,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.filesystem import errors as filesystem_errors
 from foundry_sdk.v2.filesystem import models as filesystem_models
 from foundry_sdk.v2.models import errors as models_errors
 from foundry_sdk.v2.models import models as models_models
@@ -96,6 +97,8 @@ class ModelClient:
         :rtype: models_models.Model
 
         :raises CreateModelPermissionDenied: Could not create the Model.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -118,6 +121,8 @@ class ModelClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelPermissionDenied": models_errors.CreateModelPermissionDenied,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -259,6 +264,8 @@ class AsyncModelClient:
         :rtype: typing.Awaitable[models_models.Model]
 
         :raises CreateModelPermissionDenied: Could not create the Model.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
         """
 
         return self._api_client.call_api(
@@ -281,6 +288,8 @@ class AsyncModelClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelPermissionDenied": models_errors.CreateModelPermissionDenied,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

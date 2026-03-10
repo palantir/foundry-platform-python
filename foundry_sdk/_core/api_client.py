@@ -84,6 +84,8 @@ from foundry_sdk._errors import UnauthorizedError
 from foundry_sdk._errors import UnprocessableEntityError
 from foundry_sdk._errors import WriteTimeout
 from foundry_sdk._errors import deserialize_error
+from foundry_sdk._errors.palantir_qos_exception import QoSDueTo
+from foundry_sdk._errors.palantir_qos_exception import QoSRetryHint
 
 QueryParameters = Dict[str, Union[Any, List[Any]]]
 
@@ -229,7 +231,7 @@ class RequestInfo:
             body=self.body,
             request_timeout=self.request_timeout,
             throwable_errors=self.throwable_errors,
-            response_mode=response_mode if response_mode is not None else self.response_mode,
+            response_mode=(response_mode if response_mode is not None else self.response_mode),
         )
 
     @classmethod
@@ -499,9 +501,19 @@ class BaseApiClient:
             )
 
         if res.status_code == 429:
-            raise RateLimitError(res.text)
+            raise RateLimitError(
+                res.text,
+                reason="client-qos-response",
+                retry_hint=QoSRetryHint.from_headers(res.headers),
+                due_to=QoSDueTo.from_headers(res.headers),
+            )
         elif res.status_code == 503:
-            raise ServiceUnavailable(res.text)
+            raise ServiceUnavailable(
+                res.text,
+                reason="client-qos-response",
+                retry_hint=QoSRetryHint.from_headers(res.headers),
+                due_to=QoSDueTo.from_headers(res.headers),
+            )
 
         try:
             error_json = res.json()
@@ -628,7 +640,8 @@ class RetryingMiddleware(ApiMiddleware):
         https://github.com/palantir/dialogue/blob/ae875833ad3b6e7a1d6786b77a853a114f73ffee/dialogue-core/src/main/java/com/palantir/dialogue/core/RetryingChannel.java#L383
         """
         if self._propagate_qos == "AUTOMATIC_RETRY":
-            return isinstance(exception, (RateLimitError, ServiceUnavailable))
+            if isinstance(exception, (RateLimitError, ServiceUnavailable)):
+                return exception.retry_hint != QoSRetryHint.DO_NOT_RETRY
         return False
 
     def _get_backoff_ms(
@@ -792,7 +805,8 @@ class AsyncApiClient(BaseApiClient):
 
         if response_mode == "STREAMING":
             return AsyncStreamingContextManager(
-                request_info, self._async_call_api(request_info, response_mode="STREAMING")
+                request_info,
+                self._async_call_api(request_info, response_mode="STREAMING"),
             )
         else:
             return self._async_call_api(request_info, response_mode)
