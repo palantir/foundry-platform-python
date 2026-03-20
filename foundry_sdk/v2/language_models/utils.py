@@ -22,7 +22,7 @@ from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
 from foundry_sdk._core.http_client import HttpClient
 
 
-def get_api_gateway_base_url(*, preview: bool = False) -> str:
+def _get_api_gateway_base_url(*, preview: bool = False) -> str:
     """Get the Foundry hostname from the current execution context.
 
     Args:
@@ -43,8 +43,6 @@ def get_api_gateway_base_url(*, preview: bool = False) -> str:
     hostname = HOSTNAME_VAR.get()
     if hostname is None:
         raise RuntimeError("Foundry API gateway base URL is not available in the current context.")
-    if hostname.startswith("https://"):
-        hostname = hostname[len("https://"):]
     return hostname
 
 
@@ -74,9 +72,6 @@ def get_foundry_token(*, preview: bool = False) -> str:
 def get_openai_base_url(*, preview: bool = False) -> str:
     """Get the OpenAI proxy base URL for the current Foundry environment.
 
-    This URL is formatted for use with the official OpenAI Python SDK. If you need
-    a URL in another format, use get_api_gateway_base_url() instead.
-
     Args:
         preview: Must be set to True to use this beta feature.
 
@@ -92,15 +87,12 @@ def get_openai_base_url(*, preview: bool = False) -> str:
             "get_openai_base_url() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     return f"https://{hostname}/api/v2/llm/proxy/openai/v1"
 
 
 def get_anthropic_base_url(*, preview: bool = False) -> str:
     """Get the Anthropic proxy base URL for the current Foundry environment.
-
-    This URL is formatted for use with the official Anthropic Python SDK. If you need
-    a URL in another format, use get_api_gateway_base_url() instead.
 
     Args:
         preview: Must be set to True to use this beta feature.
@@ -117,7 +109,7 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
             "get_anthropic_base_url() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     return f"https://{hostname}/api/v2/llm/proxy/anthropic"
 
 
@@ -139,7 +131,7 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         raise ValueError(
             "get_http_client() is in beta. " "Please set the preview parameter to True to use it."
         )
-    hostname = get_api_gateway_base_url(preview=True)
+    hostname = _get_api_gateway_base_url(preview=True)
     token = get_foundry_token(preview=True)
 
     # Merge auth header with any user-provided headers
