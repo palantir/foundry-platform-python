@@ -16,6 +16,7 @@
 from foundry_sdk.v2.language_models._client import AsyncLanguageModelsClient
 from foundry_sdk.v2.language_models._client import LanguageModelsClient
 from foundry_sdk.v2.language_models.utils import get_anthropic_base_url
+from foundry_sdk.v2.language_models.utils import get_api_gateway_base_url
 from foundry_sdk.v2.language_models.utils import get_foundry_token
 from foundry_sdk.v2.language_models.utils import get_http_client
 from foundry_sdk.v2.language_models.utils import get_openai_base_url
@@ -23,6 +24,7 @@ from foundry_sdk.v2.language_models.utils import get_openai_base_url
 __all__ = [
     "LanguageModelsClient",
     "AsyncLanguageModelsClient",
+    "get_api_gateway_base_url",
     "get_foundry_token",
     "get_openai_base_url",
     "get_anthropic_base_url",
