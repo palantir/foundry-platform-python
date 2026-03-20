@@ -129,7 +129,7 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
     """
     if not preview:
         raise ValueError(
-            get_http_client() is in beta. Please set the preview parameter to True to use it.
+            "get_http_client() is in beta. Please set the preview parameter to True to use it."
         )
     hostname = _get_api_gateway_base_url(preview=True)
     token = get_foundry_token(preview=True)
