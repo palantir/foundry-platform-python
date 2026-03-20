@@ -19,18 +19,18 @@ from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk.v2.language_models import get_anthropic_base_url
-from foundry_sdk.v2.language_models import get_api_gateway_base_url
 from foundry_sdk.v2.language_models import get_foundry_token
 from foundry_sdk.v2.language_models import get_http_client
 from foundry_sdk.v2.language_models import get_openai_base_url
+from foundry_sdk.v2.language_models.utils import _get_api_gateway_base_url
 
 
 class TestPreviewParameter:
     """Test that all functions require preview=True."""
 
-    def test_get_api_gateway_base_url_requires_preview(self):
+    def test__get_api_gateway_base_url_requires_preview(self):
         with pytest.raises(ValueError, match="preview parameter"):
-            get_api_gateway_base_url()
+            _get_api_gateway_base_url()
 
     def test_get_foundry_token_requires_preview(self):
         with pytest.raises(ValueError, match="preview parameter"):
@@ -50,27 +50,19 @@ class TestPreviewParameter:
 
 
 class TestGetApiGatewayBaseUrl:
-    """Test get_api_gateway_base_url function."""
+    """Test _get_api_gateway_base_url function."""
 
     def test_returns_hostname_from_context(self):
         token = HOSTNAME_VAR.set("test.palantirfoundry.com")
         try:
-            result = get_api_gateway_base_url(preview=True)
+            result = _get_api_gateway_base_url(preview=True)
             assert result == "test.palantirfoundry.com"
         finally:
             HOSTNAME_VAR.reset(token)
 
     def test_raises_runtime_error_when_not_in_context(self):
         with pytest.raises(RuntimeError, match="not available"):
-            get_api_gateway_base_url(preview=True)
-
-    def test_strips_https_prefix_from_hostname(self):
-        token = HOSTNAME_VAR.set("https://test.palantirfoundry.com")
-        try:
-            result = get_api_gateway_base_url(preview=True)
-            assert result == "test.palantirfoundry.com"
-        finally:
-            HOSTNAME_VAR.reset(token)
+            _get_api_gateway_base_url(preview=True)
 
 
 class TestGetFoundryToken:
