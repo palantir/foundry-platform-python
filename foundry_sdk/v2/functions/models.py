@@ -175,6 +175,7 @@ class Query(core.ModelBase):
     output: QueryDataType
     rid: FunctionRid
     version: FunctionVersion
+    type_references: typing.Optional[typing.Dict[TypeReferenceIdentifier, QueryDataType]] = pydantic.Field(alias=str("typeReferences"), default=None)  # type: ignore[literal-required]
 
 
 QueryAggregationKeyType = typing_extensions.Annotated[
@@ -250,6 +251,7 @@ QueryDataType = typing_extensions.Annotated[
         "QueryArrayType",
         "TwoDimensionalAggregation",
         "ValueTypeReference",
+        "QueryTypeReferenceType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -280,6 +282,16 @@ class QueryStructType(core.ModelBase):
 
     fields: typing.List[QueryStructField]
     type: typing.Literal["struct"] = "struct"
+
+
+class QueryTypeReferenceType(core.ModelBase):
+    """
+    A reference to a type that is defined in the `typeReferences` map of the enclosing Query.
+    This enables support for recursive type definitions where a type may reference itself.
+    """
+
+    type_id: TypeReferenceIdentifier = pydantic.Field(alias=str("typeId"))  # type: ignore[literal-required]
+    type: typing.Literal["typeReference"] = "typeReference"
 
 
 class QueryUnionType(core.ModelBase):
@@ -372,6 +384,13 @@ class TwoDimensionalAggregation(core.ModelBase):
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
     value_type: QueryAggregationValueType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
+
+
+TypeReferenceIdentifier = str
+"""
+The unique identifier of a type reference. This identifier is used to look up the
+type definition in the `typeReferences` map of the enclosing Query.
+"""
 
 
 class UuidConstraint(core.ModelBase):
@@ -641,6 +660,7 @@ __all__ = [
     "QuerySetType",
     "QueryStructField",
     "QueryStructType",
+    "QueryTypeReferenceType",
     "QueryUnionType",
     "RangesConstraint",
     "RegexConstraint",
@@ -653,6 +673,7 @@ __all__ = [
     "ThreeDimensionalAggregation",
     "TransactionId",
     "TwoDimensionalAggregation",
+    "TypeReferenceIdentifier",
     "UuidConstraint",
     "ValueType",
     "ValueTypeApiName",

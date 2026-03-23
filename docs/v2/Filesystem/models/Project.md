@@ -16,6 +16,7 @@ Project
 **updated_time** | UpdatedTime | Yes |  |
 **trash_status** | TrashStatus | Yes | The trash status of the Project. |
 **space_rid** | SpaceRid | Yes | The Space Resource Identifier (RID) that the Project lives in. |
+**resource_level_role_grants_allowed** | ProjectResourceLevelRoleGrantsAllowed | Yes | Whether role grants are allowed on individual resources within the Project. |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

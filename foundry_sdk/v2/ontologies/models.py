@@ -274,18 +274,24 @@ class AggregationDurationGroupingV2(core.ModelBase):
     """
     Divides objects into groups according to an interval. Note that this grouping applies only on date and timestamp types.
     When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be set to `1`.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
     """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: int
     unit: TimeUnit
     type: typing.Literal["duration"] = "duration"
 
 
 class AggregationExactGroupingV2(core.ModelBase):
-    """Divides objects into groups according to an exact value."""
+    """
+    Divides objects into groups according to an exact value.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     max_group_count: typing.Optional[int] = pydantic.Field(alias=str("maxGroupCount"), default=None)  # type: ignore[literal-required]
     """
     The maximum number of groups to return. If omitted, defaults to 10,000.
@@ -317,9 +323,13 @@ class AggregationExactGroupingV2(core.ModelBase):
 
 
 class AggregationFixedWidthGroupingV2(core.ModelBase):
-    """Divides objects into groups with the specified width."""
+    """
+    Divides objects into groups with the specified width.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     fixed_width: int = pydantic.Field(alias=str("fixedWidth"))  # type: ignore[literal-required]
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
@@ -370,9 +380,13 @@ class AggregationRangeV2(core.ModelBase):
 
 
 class AggregationRangesGroupingV2(core.ModelBase):
-    """Divides objects into groups according to specified ranges."""
+    """
+    Divides objects into groups according to specified ranges.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     ranges: typing.List[AggregationRangeV2]
     type: typing.Literal["ranges"] = "ranges"
 
@@ -465,18 +479,26 @@ class ApplyReducersLoadLevel(core.ModelBase):
 
 
 class ApproximateDistinctAggregationV2(core.ModelBase):
-    """Computes an approximate number of distinct values for the provided field."""
+    """
+    Computes an approximate number of distinct values for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["approximateDistinct"] = "approximateDistinct"
 
 
 class ApproximatePercentileAggregationV2(core.ModelBase):
-    """Computes the approximate percentile value for the provided field. Requires Object Storage V2."""
+    """
+    Computes the approximate percentile value for the provided field. Requires Object Storage V2.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     approximate_percentile: float = pydantic.Field(alias=str("approximatePercentile"))  # type: ignore[literal-required]
     direction: typing.Optional[OrderByDirection] = None
@@ -550,9 +572,13 @@ class AttachmentV2(core.ModelBase):
 
 
 class AvgAggregationV2(core.ModelBase):
-    """Computes the average value for the provided field."""
+    """
+    Computes the average value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["avg"] = "avg"
@@ -1280,9 +1306,14 @@ ErrorName = str
 
 
 class ExactDistinctAggregationV2(core.ModelBase):
-    """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation. Requires Object Storage V2."""
+    """
+    Computes an exact number of distinct values for the provided field. May be slower than an approximate
+    distinct aggregation. Requires Object Storage V2.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["exactDistinct"] = "exactDistinct"
@@ -1456,6 +1487,27 @@ class GetActionTypeByRidBatchResponse(core.ModelBase):
     """GetActionTypeByRidBatchResponse"""
 
     data: typing.List[ActionTypeV2]
+
+
+class GetObjectTypeByRidBatchRequest(core.ModelBase):
+    """GetObjectTypeByRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetObjectTypeByRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetObjectTypeByRidBatchRequestElement(core.ModelBase):
+    """GetObjectTypeByRidBatchRequestElement"""
+
+    object_type_rid: ObjectTypeRid = pydantic.Field(alias=str("objectTypeRid"))  # type: ignore[literal-required]
+
+
+class GetObjectTypeByRidBatchResponse(core.ModelBase):
+    """GetObjectTypeByRidBatchResponse"""
+
+    data: typing.List[ObjectTypeV2]
 
 
 class GetSelectedPropertyOperation(core.ModelBase):
@@ -2333,9 +2385,13 @@ class MatchRule(core.ModelBase):
 
 
 class MaxAggregationV2(core.ModelBase):
-    """Computes the maximum value for the provided field."""
+    """
+    Computes the maximum value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["max"] = "max"
@@ -2350,9 +2406,13 @@ class MediaMetadata(core.ModelBase):
 
 
 class MinAggregationV2(core.ModelBase):
-    """Computes the minimum value for the provided field."""
+    """
+    Computes the minimum value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["min"] = "min"
@@ -3850,27 +3910,28 @@ QueryDataType = typing_extensions.Annotated[
         core_models.DateType,
         "OntologyInterfaceObjectType",
         "QueryStructType",
-        "QuerySetType",
-        core_models.VoidType,
         core_models.StringType,
-        "EntrySetType",
-        core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
-        "QueryUnionType",
         core_models.FloatType,
         core_models.LongType,
-        core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
-        core_models.MediaReferenceType,
-        core_models.NullType,
         "QueryArrayType",
         "OntologyObjectSetType",
         "TwoDimensionalAggregation",
+        "QueryTypeReferenceType",
+        core_models.TimestampType,
+        "QuerySetType",
+        core_models.VoidType,
+        "EntrySetType",
+        core_models.DoubleType,
+        "QueryUnionType",
+        core_models.BooleanType,
+        core_models.MediaReferenceType,
+        core_models.NullType,
         "OntologyInterfaceObjectSetType",
         "OntologyObjectType",
-        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3921,6 +3982,16 @@ class QueryTwoDimensionalAggregation(core.ModelBase):
     groups: typing.List[QueryAggregation]
 
 
+class QueryTypeReferenceType(core.ModelBase):
+    """
+    A reference to a type that is defined in the `typeReferences` map of the enclosing Query.
+    This enables support for recursive type definitions where a type may reference itself.
+    """
+
+    type_id: TypeReferenceIdentifier = pydantic.Field(alias=str("typeId"))  # type: ignore[literal-required]
+    type: typing.Literal["typeReference"] = "typeReference"
+
+
 class QueryTypeV2(core.ModelBase):
     """Represents a query type in the Ontology."""
 
@@ -3931,6 +4002,7 @@ class QueryTypeV2(core.ModelBase):
     output: QueryDataType
     rid: FunctionRid
     version: FunctionVersion
+    type_references: typing.Dict[TypeReferenceIdentifier, QueryDataType] = pydantic.Field(alias=str("typeReferences"))  # type: ignore[literal-required]
 
 
 class QueryUnionType(core.ModelBase):
@@ -4786,9 +4858,13 @@ class SubtractPropertyExpression(core.ModelBase):
 
 
 class SumAggregationV2(core.ModelBase):
-    """Computes the sum of values for the provided field."""
+    """
+    Computes the sum of values for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["sum"] = "sum"
@@ -4982,6 +5058,13 @@ class TypeClass(core.ModelBase):
 
     name: str
     """The value of the type class."""
+
+
+TypeReferenceIdentifier = str
+"""
+The unique identifier of a type reference. This identifier is used to look up the
+type definition in the `typeReferences` map of the enclosing Query.
+"""
 
 
 class UnevaluableConstraint(core.ModelBase):
@@ -5533,6 +5616,9 @@ __all__ = [
     "GetActionTypeByRidBatchRequest",
     "GetActionTypeByRidBatchRequestElement",
     "GetActionTypeByRidBatchResponse",
+    "GetObjectTypeByRidBatchRequest",
+    "GetObjectTypeByRidBatchRequestElement",
+    "GetObjectTypeByRidBatchResponse",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",
@@ -5777,6 +5863,7 @@ __all__ = [
     "QueryStructType",
     "QueryThreeDimensionalAggregation",
     "QueryTwoDimensionalAggregation",
+    "QueryTypeReferenceType",
     "QueryTypeV2",
     "QueryUnionType",
     "RangeConstraint",
@@ -5881,6 +5968,7 @@ __all__ = [
     "TransactionEdit",
     "TwoDimensionalAggregation",
     "TypeClass",
+    "TypeReferenceIdentifier",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
     "UniqueIdentifierLinkId",

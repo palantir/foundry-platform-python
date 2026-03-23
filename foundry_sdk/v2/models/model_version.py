@@ -83,6 +83,7 @@ class ModelVersionClient:
         :rtype: models_models.ModelVersion
 
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -109,6 +110,7 @@ class ModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -140,6 +142,7 @@ class ModelVersionClient:
         :rtype: models_models.ModelVersion
 
         :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -161,6 +164,7 @@ class ModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -193,6 +197,8 @@ class ModelVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[models_models.ModelVersion]
+
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -213,7 +219,9 @@ class ModelVersionClient:
                 body=None,
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -299,6 +307,7 @@ class AsyncModelVersionClient:
         :rtype: typing.Awaitable[models_models.ModelVersion]
 
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -325,6 +334,7 @@ class AsyncModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -356,6 +366,7 @@ class AsyncModelVersionClient:
         :rtype: typing.Awaitable[models_models.ModelVersion]
 
         :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -377,6 +388,7 @@ class AsyncModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -409,6 +421,8 @@ class AsyncModelVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[models_models.ModelVersion]
+
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -429,7 +443,9 @@ class AsyncModelVersionClient:
                 body=None,
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

@@ -84,6 +84,7 @@ Name | Type | Description  | Notes |
 **space_rid** | SpaceRid |  |  |
 **description** | Optional[str] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**resource_level_role_grants_allowed** | Optional[bool] | Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.  | [optional] |
 
 ### Return type
 **Project**
@@ -115,6 +116,8 @@ space_rid = "ri.compass.main.folder.a86ad5f5-3db5-48e4-9fdd-00aa3e5731ca"
 description = "project description"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
+# Optional[bool] | Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
+resource_level_role_grants_allowed = None
 
 
 try:
@@ -126,6 +129,7 @@ try:
         space_rid=space_rid,
         description=description,
         preview=preview,
+        resource_level_role_grants_allowed=resource_level_role_grants_allowed,
     )
     print("The create response:\n")
     pprint(api_response)

@@ -11,6 +11,7 @@ ModelStudioRun
 **config_version** | ModelStudioConfigVersionNumber | Yes | The configuration version used for this run. |
 **started_by** | CreatedBy | Yes | The user who started this run. |
 **started_time** | CreatedTime | Yes | When this run was started. |
+**build_status** | Optional[BuildStatus] | No | Status of the build. |
 **resolved_outputs** | Dict[OutputAlias, ModelStudioRunOutput] | Yes | Map of alias to resolved output details (e.g., for models, contains the version RID and experiment). |
 
 

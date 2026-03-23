@@ -28,9 +28,22 @@ import httpx
 
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_VARS
+from foundry_sdk._core.context_and_environment_vars import SAMPLED_CONTEXT_VARS
+from foundry_sdk._core.context_and_environment_vars import SAMPLED_ENV_VARS
+from foundry_sdk._core.context_and_environment_vars import SPAN_ID_CONTEXT_VARS
+from foundry_sdk._core.context_and_environment_vars import SPAN_ID_ENV_VARS
+from foundry_sdk._core.context_and_environment_vars import TRACE_ID_CONTEXT_VARS
+from foundry_sdk._core.context_and_environment_vars import TRACE_ID_ENV_VARS
 from foundry_sdk._core.context_and_environment_vars import maybe_get_context_var
+from foundry_sdk._core.context_and_environment_vars import (
+    maybe_get_value_from_context_or_environment_vars,
+)  # NOQA
 from foundry_sdk._core.utils import AnyCallableT
 from foundry_sdk._version import __version__
+
+TRACE_ID_HEADER: str = "X-B3-TraceId"
+SPAN_ID_HEADER: str = "X-B3-SpanId"
+SAMPLED_HEADER: str = "X-B3-Sampled"
 
 
 def type_safe_cache(func: AnyCallableT) -> AnyCallableT:
@@ -136,6 +149,18 @@ def _prepare_client_data(
 
     if attribution_header is not None:
         headers["attribution"] = attribution_header
+
+    for header_key, context_vars, env_vars in [
+        (TRACE_ID_HEADER, TRACE_ID_CONTEXT_VARS, TRACE_ID_ENV_VARS),
+        (SPAN_ID_HEADER, SPAN_ID_CONTEXT_VARS, SPAN_ID_ENV_VARS),
+        (SAMPLED_HEADER, SAMPLED_CONTEXT_VARS, SAMPLED_ENV_VARS),
+    ]:
+        if headers.get(header_key) is None and (
+            header_value := maybe_get_value_from_context_or_environment_vars(
+                context_vars=context_vars, env_vars=env_vars
+            )
+        ):
+            headers[header_key] = header_value
 
     return config, hostname, verify, headers
 

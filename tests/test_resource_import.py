@@ -91,6 +91,18 @@ def test_admin_v2_authentication_provider_import():
     assert AuthenticationProviderClient is not None
 
 
+def test_admin_v2_cbac_banner_import():
+    from foundry_sdk.v2.admin.cbac_banner import CbacBannerClient
+
+    assert CbacBannerClient is not None
+
+
+def test_admin_v2_cbac_marking_restrictions_import():
+    from foundry_sdk.v2.admin.cbac_marking_restrictions import CbacMarkingRestrictionsClient  # NOQA
+
+    assert CbacMarkingRestrictionsClient is not None
+
+
 def test_admin_v2_enrollment_import():
     from foundry_sdk.v2.admin.enrollment import EnrollmentClient
 
@@ -179,6 +191,12 @@ def test_admin_v2_organization_import():
     from foundry_sdk.v2.admin.organization import OrganizationClient
 
     assert OrganizationClient is not None
+
+
+def test_admin_v2_organization_guest_member_import():
+    from foundry_sdk.v2.admin.organization_guest_member import OrganizationGuestMemberClient  # NOQA
+
+    assert OrganizationGuestMemberClient is not None
 
 
 def test_admin_v2_organization_role_assignment_import():

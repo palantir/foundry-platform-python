@@ -38,6 +38,20 @@ HOSTNAME_ENV_VARS: list[str] = [HOSTNAME_ENV_VAR]
 ATTRIBUTION_VAR: ContextVar[Optional[list[str]]] = ContextVar("ATTRIBUTION_RESOURCES", default=None)
 ATTRIBUTION_CONTEXT_VARS: list[ContextVar[Optional[list[str]]]] = [ATTRIBUTION_VAR]
 
+# Trace and Span context variables
+TRACE_ID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_TRACE_ID", default=None)
+SPAN_ID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_SPAN_ID", default=None)
+SAMPLED_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_SAMPLED", default=None)
+TRACE_ID_CONTEXT_VARS: list[ContextVar[Optional[str]]] = [TRACE_ID_VAR]
+SPAN_ID_CONTEXT_VARS: list[ContextVar[Optional[str]]] = [SPAN_ID_VAR]
+SAMPLED_CONTEXT_VARS: list[ContextVar[Optional[str]]] = [SAMPLED_VAR]
+
+TRACE_ID_ENV_VAR: str = "FOUNDRY_TRACE_ID"
+SPAN_ID_ENV_VAR: str = "FOUNDRY_SPAN_ID"
+SAMPLED_ENV_VAR: str = "FOUNDRY_SAMPLED"
+TRACE_ID_ENV_VARS: list[str] = [TRACE_ID_ENV_VAR]
+SPAN_ID_ENV_VARS: list[str] = [SPAN_ID_ENV_VAR]
+SAMPLED_ENV_VARS: list[str] = [SAMPLED_ENV_VAR]
 
 T = TypeVar("T")
 

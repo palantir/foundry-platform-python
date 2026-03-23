@@ -83,6 +83,11 @@ class CreateProjectRequest(core.ModelBase):
     role_grants: typing.Dict[core_models.RoleId, typing.List[PrincipalWithId]] = pydantic.Field(alias=str("roleGrants"))  # type: ignore[literal-required]
     default_roles: typing.List[core_models.RoleId] = pydantic.Field(alias=str("defaultRoles"))  # type: ignore[literal-required]
     organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+    resource_level_role_grants_allowed: typing.Optional[bool] = pydantic.Field(alias=str("resourceLevelRoleGrantsAllowed"), default=None)  # type: ignore[literal-required]
+    """
+    Whether role grants should be allowed on individual resources within the Project.
+    When not specified, defaults to true.
+    """
 
 
 class CreateSpaceRequest(core.ModelBase):
@@ -319,6 +324,13 @@ class Project(core.ModelBase):
     space_rid: SpaceRid = pydantic.Field(alias=str("spaceRid"))  # type: ignore[literal-required]
     """The Space Resource Identifier (RID) that the Project lives in."""
 
+    resource_level_role_grants_allowed: ProjectResourceLevelRoleGrantsAllowed = pydantic.Field(alias=str("resourceLevelRoleGrantsAllowed"))  # type: ignore[literal-required]
+    """Whether role grants are allowed on individual resources within the Project."""
+
+
+ProjectResourceLevelRoleGrantsAllowed = bool
+"""Whether role grants are allowed on individual resources within the Project."""
+
 
 ProjectRid = core.RID
 """The unique resource identifier (RID) of a Project."""
@@ -352,6 +364,18 @@ class RemoveResourceRolesRequest(core.ModelBase):
     """RemoveResourceRolesRequest"""
 
     roles: typing.List[ResourceRoleIdentifier]
+
+
+class ReplaceFolderRequest(core.ModelBase):
+    """ReplaceFolderRequest"""
+
+    parent_folder_rid: FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+    """
+    The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+    this value will be the root folder (`ri.compass.main.folder.0`).
+    """
+
+    display_name: ResourceDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
 
 class ReplaceProjectRequest(core.ModelBase):
@@ -642,6 +666,7 @@ __all__ = [
     "PrincipalIdOnly",
     "PrincipalWithId",
     "Project",
+    "ProjectResourceLevelRoleGrantsAllowed",
     "ProjectRid",
     "ProjectTemplateRid",
     "ProjectTemplateVariableId",
@@ -649,6 +674,7 @@ __all__ = [
     "RemoveMarkingsRequest",
     "RemoveOrganizationsRequest",
     "RemoveResourceRolesRequest",
+    "ReplaceFolderRequest",
     "ReplaceProjectRequest",
     "ReplaceSpaceRequest",
     "Resource",
