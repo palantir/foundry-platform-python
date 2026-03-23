@@ -63,6 +63,11 @@ class PublicClientAuth(OAuth):
     def get_token(self) -> OAuthToken:
         if self._token is None:
             raise NotAuthenticated("Client has not been authenticated.")
+        if self._token.expired:
+            if not self._try_refresh_token():
+                raise NotAuthenticated("Token expired and refresh failed.")
+            if self._should_refresh:
+                self._start_auto_refresh()
         return self._token
 
     def _revoke_token(self) -> None:

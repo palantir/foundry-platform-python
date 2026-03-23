@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**abort**](#abort) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/abort | Public Beta |
 [**calculate**](#calculate) | **GET** /v2/mediasets/{mediaSetRid}/items/{mediaItemRid}/transform/imagery/thumbnail/calculate | Private Beta |
+[**clear**](#clear) | **DELETE** /v2/mediasets/{mediaSetRid}/items/clearAtPath | Public Beta |
 [**commit**](#commit) | **POST** /v2/mediasets/{mediaSetRid}/transactions/{transactionId}/commit | Public Beta |
 [**create**](#create) | **POST** /v2/mediasets/{mediaSetRid}/transactions | Public Beta |
 [**get**](#get) | **GET** /v2/mediasets/{mediaSetRid} | Public Beta |
@@ -131,6 +132,87 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | TrackedTransformationResponse  | Status of the thumbnail calculation. Type will be 'successful' if the thumbnail is available,  'pending' if the thumbnail is being calculated, and 'failed' if there was an error.  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **clear**
+Clears (soft-deletes) the media item at the specified path within a media set, making it and all older
+media items at that path un-retrievable.
+
+A branch name, branch RID, or view RID may optionally be specified. If none is specified,
+the item will be cleared from the default branch. If more than one is specified, an error is thrown.
+
+For transactional media sets, a transaction ID must be provided. The deletion will not be
+visible until the transaction is committed.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**media_set_rid** | MediaSetRid | The RID of the media set.  |  |
+**media_item_path** | MediaItemPath | The path of the media item to clear.  |  |
+**branch_name** | Optional[BranchName] | Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided. | [optional] |
+**branch_rid** | Optional[BranchRid] | Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided. | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**transaction_id** | Optional[TransactionId] | The ID of the transaction associated with this request. Required if this is a transactional media set.  | [optional] |
+**view_rid** | Optional[MediaSetViewRid] | Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided. | [optional] |
+
+### Return type
+**None**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# MediaSetRid | The RID of the media set.
+media_set_rid = None
+# MediaItemPath | The path of the media item to clear.
+media_item_path = "q3-data%2fmy-file.png"
+# Optional[BranchName] | Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided.
+branch_name = None
+# Optional[BranchRid] | Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided.
+branch_rid = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+# Optional[TransactionId] | The ID of the transaction associated with this request. Required if this is a transactional media set.
+transaction_id = None
+# Optional[MediaSetViewRid] | Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided.
+view_rid = None
+
+
+try:
+    api_response = client.media_sets.MediaSet.clear(
+        media_set_rid,
+        media_item_path=media_item_path,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    print("The clear response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling MediaSet.clear: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**204** | None  | Media item cleared successfully. | None |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -1008,6 +1090,7 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | Specifies the specific branch by name to which this media item will be uploaded. May not be provided if branch rid or view rid are provided. | [optional] |
 **branch_rid** | Optional[BranchRid] | Specifies the specific branch by rid to which this media item will be uploaded. May not be provided if branch name or view rid are provided. | [optional] |
 **media_item_path** | Optional[MediaItemPath] | An identifier for a media item within a media set. Necessary if the backing media set requires paths. | [optional] |
+**media_item_rid** | Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **transaction_id** | Optional[TransactionId] | The id of the transaction associated with this request.  Required if this is a transactional media set.  | [optional] |
 **view_rid** | Optional[MediaSetViewRid] | Specifies the specific view by rid to which this media item will be uploaded. May not be provided if branch name or branch rid are provided. | [optional] |
@@ -1034,6 +1117,8 @@ branch_name = None
 branch_rid = None
 # Optional[MediaItemPath] | An identifier for a media item within a media set. Necessary if the backing media set requires paths.
 media_item_path = "q3-data%2fmy-file.png"
+# Optional[MediaItemRid] | An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+media_item_rid = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[TransactionId] | The id of the transaction associated with this request.  Required if this is a transactional media set.
@@ -1049,6 +1134,7 @@ try:
         branch_name=branch_name,
         branch_rid=branch_rid,
         media_item_path=media_item_path,
+        media_item_rid=media_item_rid,
         preview=preview,
         transaction_id=transaction_id,
         view_rid=view_rid,

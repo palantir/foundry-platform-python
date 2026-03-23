@@ -95,6 +95,10 @@ class CipherTextType(core.ModelBase):
     type: typing.Literal["cipherText"] = "cipherText"
 
 
+Color = str
+"""The hex value of a color."""
+
+
 ColumnName = str
 """The name of a column in a dataset."""
 
@@ -956,6 +960,7 @@ __all__ = [
     "CheckReportRid",
     "CheckRid",
     "CipherTextType",
+    "Color",
     "ColumnName",
     "ComputeSeconds",
     "ContentLength",

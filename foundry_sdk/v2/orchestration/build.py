@@ -175,6 +175,9 @@ class BuildClient:
     ) -> orchestration_models.Build:
         """
         Get the Build with the specified rid.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
         :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -221,6 +224,9 @@ class BuildClient:
     ) -> orchestration_models.GetBuildsBatchResponse:
         """
         Execute multiple get requests on Build.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request
@@ -540,6 +546,9 @@ class AsyncBuildClient:
     ) -> typing.Awaitable[orchestration_models.Build]:
         """
         Get the Build with the specified rid.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
         :param build_rid: The RID of a Build.
         :type build_rid: BuildRid
         :param request_timeout: timeout setting for this request in seconds.
@@ -586,6 +595,9 @@ class AsyncBuildClient:
     ) -> typing.Awaitable[orchestration_models.GetBuildsBatchResponse]:
         """
         Execute multiple get requests on Build.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
         The maximum batch size for this endpoint is 100.
         :param body: Body of the request

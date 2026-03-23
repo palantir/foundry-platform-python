@@ -69,12 +69,10 @@ class ConfidentialClientAuth(OAuth):
         return self._server_oauth_flow_provider.scopes or []
 
     def get_token(self) -> OAuthToken:
-        if self._token is None:
+        if self._token is None or self._token.expired:
             self._token = self._server_oauth_flow_provider.get_token(self._get_client())
-
             if self._should_refresh:
                 self._start_auto_refresh()
-
         return self._token
 
     def _revoke_token(self) -> None:
