@@ -55,7 +55,6 @@ class GroupProviderInfoClient:
         self,
         group_id: core_models.GroupId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.GroupProviderInfo:
@@ -63,8 +62,6 @@ class GroupProviderInfoClient:
         Get the GroupProviderInfo.
         :param group_id:
         :type group_id: GroupId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -79,9 +76,7 @@ class GroupProviderInfoClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -108,7 +103,6 @@ class GroupProviderInfoClient:
         group_id: core_models.GroupId,
         *,
         provider_id: admin_models.ProviderId,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.GroupProviderInfo:
@@ -118,8 +112,6 @@ class GroupProviderInfoClient:
         :type group_id: GroupId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -136,9 +128,7 @@ class GroupProviderInfoClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -211,7 +201,6 @@ class AsyncGroupProviderInfoClient:
         self,
         group_id: core_models.GroupId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.GroupProviderInfo]:
@@ -219,8 +208,6 @@ class AsyncGroupProviderInfoClient:
         Get the GroupProviderInfo.
         :param group_id:
         :type group_id: GroupId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -235,9 +222,7 @@ class AsyncGroupProviderInfoClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },
@@ -264,7 +249,6 @@ class AsyncGroupProviderInfoClient:
         group_id: core_models.GroupId,
         *,
         provider_id: admin_models.ProviderId,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.GroupProviderInfo]:
@@ -274,8 +258,6 @@ class AsyncGroupProviderInfoClient:
         :type group_id: GroupId
         :param provider_id: The ID of the Group in the external authentication provider. This value is determined by the authentication provider. At most one Group can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -292,9 +274,7 @@ class AsyncGroupProviderInfoClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/groups/{groupId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "groupId": group_id,
                 },

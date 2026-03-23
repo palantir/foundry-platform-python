@@ -2,12 +2,14 @@
 
 Divides objects into groups according to an interval. Note that this grouping applies only on date and timestamp types.
 When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be set to `1`.
+Either `field` or `propertyIdentifier` must be supplied, but not both.
 
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **value** | int | Yes |  |
 **unit** | TimeUnit | Yes |  |
 **type** | Literal["duration"] | Yes | None |

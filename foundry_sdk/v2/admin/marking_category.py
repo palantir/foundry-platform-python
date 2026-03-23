@@ -119,7 +119,6 @@ class MarkingCategoryClient:
         self,
         marking_category_id: admin_models.MarkingCategoryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.MarkingCategory:
@@ -127,8 +126,6 @@ class MarkingCategoryClient:
         Get the MarkingCategory with the specified id.
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -142,9 +139,7 @@ class MarkingCategoryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingCategoryId": marking_category_id,
                 },
@@ -170,7 +165,6 @@ class MarkingCategoryClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[admin_models.MarkingCategory]:
@@ -180,8 +174,6 @@ class MarkingCategoryClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -197,7 +189,6 @@ class MarkingCategoryClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -395,7 +386,6 @@ class AsyncMarkingCategoryClient:
         self,
         marking_category_id: admin_models.MarkingCategoryId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.MarkingCategory]:
@@ -403,8 +393,6 @@ class AsyncMarkingCategoryClient:
         Get the MarkingCategory with the specified id.
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -418,9 +406,7 @@ class AsyncMarkingCategoryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "markingCategoryId": marking_category_id,
                 },
@@ -446,7 +432,6 @@ class AsyncMarkingCategoryClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[admin_models.MarkingCategory]:
@@ -456,8 +441,6 @@ class AsyncMarkingCategoryClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -473,7 +456,6 @@ class AsyncMarkingCategoryClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={

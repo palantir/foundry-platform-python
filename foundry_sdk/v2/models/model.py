@@ -176,23 +176,88 @@ class ModelClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def promote_version(
+        self,
+        model_rid: models_models.ModelRid,
+        *,
+        source_model_version_rid: models_models.ModelVersionRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> models_models.ModelVersion:
+        """
+        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+
+        :param model_rid:
+        :type model_rid: ModelRid
+        :param source_model_version_rid:
+        :type source_model_version_rid: ModelVersionRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: models_models.ModelVersion
+
+        :raises ModelNotFound: The given Model could not be found.
+        :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises PromoteVersionModelPermissionDenied: Could not promoteVersion the Model.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/{modelRid}/promoteVersion",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "modelRid": model_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=models_models.PromoteVersionModelRequest(
+                    source_model_version_rid=source_model_version_rid,
+                ),
+                response_type=models_models.ModelVersion,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "PromoteVersionModelPermissionDenied": models_errors.PromoteVersionModelPermissionDenied,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _ModelClientRaw:
     def __init__(self, client: ModelClient) -> None:
         def create(_: models_models.Model): ...
         def get(_: models_models.Model): ...
+        def promote_version(_: models_models.ModelVersion): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
+        self.promote_version = core.with_raw_response(promote_version, client.promote_version)
 
 
 class _ModelClientStreaming:
     def __init__(self, client: ModelClient) -> None:
         def create(_: models_models.Model): ...
         def get(_: models_models.Model): ...
+        def promote_version(_: models_models.ModelVersion): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
+        self.promote_version = core.with_streaming_response(promote_version, client.promote_version)
 
 
 class AsyncModelClient:
@@ -343,20 +408,87 @@ class AsyncModelClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def promote_version(
+        self,
+        model_rid: models_models.ModelRid,
+        *,
+        source_model_version_rid: models_models.ModelVersionRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[models_models.ModelVersion]:
+        """
+        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+
+        :param model_rid:
+        :type model_rid: ModelRid
+        :param source_model_version_rid:
+        :type source_model_version_rid: ModelVersionRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[models_models.ModelVersion]
+
+        :raises ModelNotFound: The given Model could not be found.
+        :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises PromoteVersionModelPermissionDenied: Could not promoteVersion the Model.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/models/{modelRid}/promoteVersion",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "modelRid": model_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=models_models.PromoteVersionModelRequest(
+                    source_model_version_rid=source_model_version_rid,
+                ),
+                response_type=models_models.ModelVersion,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "PromoteVersionModelPermissionDenied": models_errors.PromoteVersionModelPermissionDenied,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncModelClientRaw:
     def __init__(self, client: AsyncModelClient) -> None:
         def create(_: models_models.Model): ...
         def get(_: models_models.Model): ...
+        def promote_version(_: models_models.ModelVersion): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
+        self.promote_version = core.async_with_raw_response(promote_version, client.promote_version)
 
 
 class _AsyncModelClientStreaming:
     def __init__(self, client: AsyncModelClient) -> None:
         def create(_: models_models.Model): ...
         def get(_: models_models.Model): ...
+        def promote_version(_: models_models.ModelVersion): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
+        self.promote_version = core.async_with_streaming_response(
+            promote_version, client.promote_version
+        )

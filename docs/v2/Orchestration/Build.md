@@ -143,6 +143,9 @@ See [README](../../../README.md#authorization)
 # **get**
 Get the Build with the specified rid.
 
+Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
+
 ### Parameters
 
 Name | Type | Description  | Notes |
@@ -189,6 +192,9 @@ See [README](../../../README.md#authorization)
 
 # **get_batch**
 Execute multiple get requests on Build.
+
+Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
 The maximum batch size for this endpoint is 100.
 

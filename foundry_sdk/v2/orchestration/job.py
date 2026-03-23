@@ -62,6 +62,9 @@ class JobClient:
     ) -> orchestration_models.Job:
         """
         Get the Job with the specified rid.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
         :param job_rid: The RID of a Job.
         :type job_rid: JobRid
         :param preview: Enables the use of preview functionality.
@@ -113,6 +116,9 @@ class JobClient:
     ) -> orchestration_models.GetJobsBatchResponse:
         """
         Execute multiple get requests on Job.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request
@@ -200,6 +206,9 @@ class AsyncJobClient:
     ) -> typing.Awaitable[orchestration_models.Job]:
         """
         Get the Job with the specified rid.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
         :param job_rid: The RID of a Job.
         :type job_rid: JobRid
         :param preview: Enables the use of preview functionality.
@@ -251,6 +260,9 @@ class AsyncJobClient:
     ) -> typing.Awaitable[orchestration_models.GetJobsBatchResponse]:
         """
         Execute multiple get requests on Job.
+
+        Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
         The maximum batch size for this endpoint is 500.
         :param body: Body of the request

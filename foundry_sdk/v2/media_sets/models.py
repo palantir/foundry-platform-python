@@ -492,7 +492,7 @@ class Dimensions(core.ModelBase):
     """The height of the image in pixels."""
 
 
-DocumentDecodeFormat = typing.Literal["PDF", "DOCX", "TXT", "PPTX"]
+DocumentDecodeFormat = typing.Literal["PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"]
 """The format of a document media item."""
 
 
@@ -1207,6 +1207,7 @@ MediaSchema = typing.Literal[
     "MODEL_3D",
     "MULTIMODAL",
     "SPREADSHEET",
+    "STREAMING_VIDEO",
     "VIDEO",
     "EMAIL",
 ]
@@ -1666,6 +1667,7 @@ class PutMediaItemResponse(core.ModelBase):
     """PutMediaItemResponse"""
 
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_set_view_rid: core_models.MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
 
 
 class RegisterMediaItemRequest(core.ModelBase):

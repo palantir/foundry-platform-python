@@ -20,16 +20,12 @@ import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
-from foundry_sdk.v2.sql_queries import models as sql_queries_models
 
 
 class CancelSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not cancel the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    sqlQueryId: sql_queries_models.SqlQueryId
-    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
@@ -70,9 +66,6 @@ class GetResultsSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    sqlQueryId: sql_queries_models.SqlQueryId
-    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
-
 
 @dataclass
 class GetResultsSqlQueryPermissionDenied(errors.PermissionDeniedError):
@@ -85,9 +78,6 @@ class GetStatusSqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getStatus the SqlQuery."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    sqlQueryId: sql_queries_models.SqlQueryId
-    """The unique identifier for a query. Note that query IDs are not URL-safe and must be URL-encoded when used in API endpoints."""
 
 
 @dataclass
@@ -117,8 +107,6 @@ class QueryCanceledParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.SqlQueryId
-
 
 @dataclass
 class QueryCanceled(errors.BadRequestError):
@@ -132,7 +120,6 @@ class QueryFailedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.SqlQueryId
     errorMessage: str
 
 
@@ -163,8 +150,6 @@ class QueryPermissionDeniedParameters(typing_extensions.TypedDict):
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
-    queryId: sql_queries_models.SqlQueryId
-
 
 @dataclass
 class QueryPermissionDenied(errors.PermissionDeniedError):
@@ -177,8 +162,6 @@ class QueryRunningParameters(typing_extensions.TypedDict):
     """The query is running."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    queryId: sql_queries_models.SqlQueryId
 
 
 @dataclass

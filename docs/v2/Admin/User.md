@@ -6,10 +6,10 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/users/{userId} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/admin/users/getBatch | Stable |
 [**get_current**](#get_current) | **GET** /v2/admin/users/getCurrent | Stable |
-[**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings | Public Beta |
+[**get_markings**](#get_markings) | **GET** /v2/admin/users/{userId}/getMarkings | Stable |
 [**list**](#list) | **GET** /v2/admin/users | Stable |
 [**profile_picture**](#profile_picture) | **GET** /v2/admin/users/{userId}/profilePicture | Stable |
-[**revoke_all_tokens**](#revoke_all_tokens) | **POST** /v2/admin/users/{userId}/revokeAllTokens | Public Beta |
+[**revoke_all_tokens**](#revoke_all_tokens) | **POST** /v2/admin/users/{userId}/revokeAllTokens | Stable |
 [**search**](#search) | **POST** /v2/admin/users/search | Stable |
 
 # **delete**
@@ -209,7 +209,6 @@ Retrieve Markings that the user is currently a member of.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | UserId |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetUserMarkingsResponse**
@@ -225,12 +224,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # UserId
 user_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.User.get_markings(user_id, preview=preview)
+    api_response = client.admin.User.get_markings(user_id)
     print("The get_markings response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -364,7 +361,6 @@ The caller must have permission to manage users for the target user's organizati
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | UserId |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -380,12 +376,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # UserId
 user_id = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.User.revoke_all_tokens(user_id, preview=preview)
+    api_response = client.admin.User.revoke_all_tokens(user_id)
     print("The revoke_all_tokens response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -407,7 +401,8 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **search**
-Perform a case-insensitive prefix search for users based on username, given name and family name.
+Perform a case-insensitive prefix search for active users based on username, given name and family name.
+Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
 
 
 ### Parameters

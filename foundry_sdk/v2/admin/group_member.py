@@ -114,6 +114,7 @@ class GroupMemberClient:
         self,
         group_id: core_models.GroupId,
         *,
+        include_expirations: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         transitive: typing.Optional[bool] = None,
@@ -131,17 +132,20 @@ class GroupMemberClient:
 
         :param group_id:
         :type group_id: GroupId
+        :param include_expirations: When true, includes the expiration time of any temporary members of this group. `includeExpirations`  cannot be set to true if `transitive` is also set to true.  Defaults to false.
+        :type include_expirations: Optional[bool]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  If `transitive` is true, `includeExpirations` cannot also be set to true.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[admin_models.GroupMember]
 
+        :raises ExpirationForTransitiveGroupMembersNotSupported: You cannot pass includeExpirations if transitive is true.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
@@ -151,6 +155,7 @@ class GroupMemberClient:
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
+                    "includeExpirations": include_expirations,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "transitive": transitive,
@@ -165,6 +170,7 @@ class GroupMemberClient:
                 response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExpirationForTransitiveGroupMembersNotSupported": admin_errors.ExpirationForTransitiveGroupMembersNotSupported,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidPageSize": core_errors.InvalidPageSize,
                 },
@@ -331,6 +337,7 @@ class AsyncGroupMemberClient:
         self,
         group_id: core_models.GroupId,
         *,
+        include_expirations: typing.Optional[bool] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         transitive: typing.Optional[bool] = None,
@@ -348,17 +355,20 @@ class AsyncGroupMemberClient:
 
         :param group_id:
         :type group_id: GroupId
+        :param include_expirations: When true, includes the expiration time of any temporary members of this group. `includeExpirations`  cannot be set to true if `transitive` is also set to true.  Defaults to false.
+        :type include_expirations: Optional[bool]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
+        :param transitive: When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  If `transitive` is true, `includeExpirations` cannot also be set to true.  Defaults to false.
         :type transitive: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[admin_models.GroupMember]
 
+        :raises ExpirationForTransitiveGroupMembersNotSupported: You cannot pass includeExpirations if transitive is true.
         :raises GroupNotFound: The given Group could not be found.
         :raises InvalidPageSize: The provided page size was zero or negative. Page sizes must be greater than zero.
         """
@@ -368,6 +378,7 @@ class AsyncGroupMemberClient:
                 method="GET",
                 resource_path="/v2/admin/groups/{groupId}/groupMembers",
                 query_params={
+                    "includeExpirations": include_expirations,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "transitive": transitive,
@@ -382,6 +393,7 @@ class AsyncGroupMemberClient:
                 response_type=admin_models.ListGroupMembersResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExpirationForTransitiveGroupMembersNotSupported": admin_errors.ExpirationForTransitiveGroupMembersNotSupported,
                     "GroupNotFound": admin_errors.GroupNotFound,
                     "InvalidPageSize": core_errors.InvalidPageSize,
                 },
