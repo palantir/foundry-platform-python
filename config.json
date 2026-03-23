@@ -184,6 +184,7 @@
           "exclude": [],
           "additionalExports": [
             "from foundry_sdk.v2.language_models.utils import get_foundry_token",
+            "from foundry_sdk.v2.language_models.utils import get_api_gateway_base_url",
             "from foundry_sdk.v2.language_models.utils import get_openai_base_url",
             "from foundry_sdk.v2.language_models.utils import get_anthropic_base_url",
             "from foundry_sdk.v2.language_models.utils import get_http_client"
