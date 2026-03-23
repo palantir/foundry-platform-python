@@ -2,10 +2,10 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/admin/organizations | Private Beta |
-[**get**](#get) | **GET** /v2/admin/organizations/{organizationRid} | Public Beta |
-[**list_available_roles**](#list_available_roles) | **GET** /v2/admin/organizations/{organizationRid}/listAvailableRoles | Public Beta |
-[**replace**](#replace) | **PUT** /v2/admin/organizations/{organizationRid} | Public Beta |
+[**create**](#create) | **POST** /v2/admin/organizations | Public Beta |
+[**get**](#get) | **GET** /v2/admin/organizations/{organizationRid} | Stable |
+[**list_available_roles**](#list_available_roles) | **GET** /v2/admin/organizations/{organizationRid}/listAvailableRoles | Stable |
+[**replace**](#replace) | **PUT** /v2/admin/organizations/{organizationRid} | Stable |
 
 # **create**
 Creates a new Organization.
@@ -84,7 +84,6 @@ Get the Organization with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Organization**
@@ -100,12 +99,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OrganizationRid
 organization_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Organization.get(organization_rid, preview=preview)
+    api_response = client.admin.Organization.get(organization_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -135,7 +132,6 @@ List all roles that can be assigned to a principal for the given Organization.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListAvailableOrganizationRolesResponse**
@@ -151,12 +147,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OrganizationRid
 organization_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.admin.Organization.list_available_roles(organization_rid, preview=preview)
+    api_response = client.admin.Organization.list_available_roles(organization_rid)
     print("The list_available_roles response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -188,7 +182,6 @@ Name | Type | Description  | Notes |
 **name** | OrganizationName |  |  |
 **description** | Optional[str] |  | [optional] |
 **host** | Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Organization**
@@ -210,13 +203,11 @@ name = "Example Organization"
 description = None
 # Optional[HostName] | The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
 host = "example.palantirfoundry.com"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.admin.Organization.replace(
-        organization_rid, name=name, description=description, host=host, preview=preview
+        organization_rid, name=name, description=description, host=host
     )
     print("The replace response:\n")
     pprint(api_response)

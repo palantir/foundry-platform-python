@@ -122,6 +122,7 @@ class ProjectClient:
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Project:
@@ -146,6 +147,8 @@ class ProjectClient:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
+        :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -182,6 +185,7 @@ class ProjectClient:
                     role_grants=role_grants,
                     default_roles=default_roles,
                     organization_rids=organization_rids,
+                    resource_level_role_grants_allowed=resource_level_role_grants_allowed,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -669,6 +673,7 @@ class AsyncProjectClient:
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Project]:
@@ -693,6 +698,8 @@ class AsyncProjectClient:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
+        :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -729,6 +736,7 @@ class AsyncProjectClient:
                     role_grants=role_grants,
                     default_roles=default_roles,
                     organization_rids=organization_rids,
+                    resource_level_role_grants_allowed=resource_level_role_grants_allowed,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,

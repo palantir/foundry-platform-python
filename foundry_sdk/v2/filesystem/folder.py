@@ -285,6 +285,80 @@ class FolderClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        folder_rid: filesystem_models.FolderRid,
+        *,
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> filesystem_models.Folder:
+        """
+        Replace the Folder with the specified rid.
+        :param folder_rid:
+        :type folder_rid: FolderRid
+        :param display_name:
+        :type display_name: ResourceDisplayName
+        :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
+        :type parent_folder_rid: FolderRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: filesystem_models.Folder
+
+        :raises CircularDependency: The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants.
+        :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidParentFolder: The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc.
+        :raises MissingDisplayName: A Display Name must be provided.
+        :raises ReplaceFolderPermissionDenied: Could not replace the Folder.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/filesystem/folders/{folderRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "folderRid": folder_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=filesystem_models.ReplaceFolderRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    display_name=display_name,
+                ),
+                response_type=filesystem_models.Folder,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CircularDependency": filesystem_errors.CircularDependency,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
+                    "InvalidParentFolder": filesystem_errors.InvalidParentFolder,
+                    "MissingDisplayName": filesystem_errors.MissingDisplayName,
+                    "ReplaceFolderPermissionDenied": filesystem_errors.ReplaceFolderPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _FolderClientRaw:
     def __init__(self, client: FolderClient) -> None:
@@ -292,11 +366,13 @@ class _FolderClientRaw:
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
         def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
+        def replace(_: filesystem_models.Folder): ...
 
         self.children = core.with_raw_response(children, client.children)
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
+        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _FolderClientStreaming:
@@ -305,11 +381,13 @@ class _FolderClientStreaming:
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
         def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
+        def replace(_: filesystem_models.Folder): ...
 
         self.children = core.with_streaming_response(children, client.children)
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
+        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncFolderClient:
@@ -571,6 +649,80 @@ class AsyncFolderClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def replace(
+        self,
+        folder_rid: filesystem_models.FolderRid,
+        *,
+        display_name: filesystem_models.ResourceDisplayName,
+        parent_folder_rid: filesystem_models.FolderRid,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[filesystem_models.Folder]:
+        """
+        Replace the Folder with the specified rid.
+        :param folder_rid:
+        :type folder_rid: FolderRid
+        :param display_name:
+        :type display_name: ResourceDisplayName
+        :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
+        :type parent_folder_rid: FolderRid
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[filesystem_models.Folder]
+
+        :raises CircularDependency: The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants.
+        :raises FolderNotFound: The given Folder could not be found.
+        :raises GetRootFolderNotSupported: Getting the root folder as a resource is not supported.
+        :raises InvalidDisplayName: The display name of a Resource should not be exactly `.` or `..`, contain a forward slash `/` and must be less than or equal to 700 characters.
+        :raises InvalidFolder: The given Resource is not a Folder.
+        :raises InvalidParentFolder: The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc.
+        :raises MissingDisplayName: A Display Name must be provided.
+        :raises ReplaceFolderPermissionDenied: Could not replace the Folder.
+        :raises ResourceNameAlreadyExists: The provided resource name is already in use by another resource in the same folder.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="PUT",
+                resource_path="/v2/filesystem/folders/{folderRid}",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "folderRid": folder_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=filesystem_models.ReplaceFolderRequest(
+                    parent_folder_rid=parent_folder_rid,
+                    display_name=display_name,
+                ),
+                response_type=filesystem_models.Folder,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "CircularDependency": filesystem_errors.CircularDependency,
+                    "FolderNotFound": filesystem_errors.FolderNotFound,
+                    "GetRootFolderNotSupported": filesystem_errors.GetRootFolderNotSupported,
+                    "InvalidDisplayName": filesystem_errors.InvalidDisplayName,
+                    "InvalidFolder": filesystem_errors.InvalidFolder,
+                    "InvalidParentFolder": filesystem_errors.InvalidParentFolder,
+                    "MissingDisplayName": filesystem_errors.MissingDisplayName,
+                    "ReplaceFolderPermissionDenied": filesystem_errors.ReplaceFolderPermissionDenied,
+                    "ResourceNameAlreadyExists": filesystem_errors.ResourceNameAlreadyExists,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncFolderClientRaw:
     def __init__(self, client: AsyncFolderClient) -> None:
@@ -578,11 +730,13 @@ class _AsyncFolderClientRaw:
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
         def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
+        def replace(_: filesystem_models.Folder): ...
 
         self.children = core.async_with_raw_response(children, client.children)
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
+        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncFolderClientStreaming:
@@ -591,8 +745,10 @@ class _AsyncFolderClientStreaming:
         def create(_: filesystem_models.Folder): ...
         def get(_: filesystem_models.Folder): ...
         def get_batch(_: filesystem_models.GetFoldersBatchResponse): ...
+        def replace(_: filesystem_models.Folder): ...
 
         self.children = core.async_with_streaming_response(children, client.children)
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
+        self.replace = core.async_with_streaming_response(replace, client.replace)

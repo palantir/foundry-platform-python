@@ -83,6 +83,19 @@ class AddResourceRolesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class CircularDependencyParameters(typing_extensions.TypedDict):
+    """The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CircularDependency(errors.BadRequestError):
+    name: typing.Literal["CircularDependency"]
+    parameters: CircularDependencyParameters
+    error_instance_id: str
+
+
 class CreateFolderOutsideProjectNotSupportedParameters(typing_extensions.TypedDict):
     """The given Resource is not a folder."""
 
@@ -431,6 +444,21 @@ class InvalidOrganizations(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidParentFolderParameters(typing_extensions.TypedDict):
+    """The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    parentFolderRid: filesystem_models.FolderRid
+
+
+@dataclass
+class InvalidParentFolder(errors.BadRequestError):
+    name: typing.Literal["InvalidParentFolder"]
+    parameters: InvalidParentFolderParameters
+    error_instance_id: str
+
+
 class InvalidPathParameters(typing_extensions.TypedDict):
     """
     The given path is invalid.
@@ -774,6 +802,21 @@ class RemoveResourceRolesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceFolderPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Folder."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    folderRid: filesystem_models.FolderRid
+
+
+@dataclass
+class ReplaceFolderPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceFolderPermissionDenied"]
+    parameters: ReplaceFolderPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ReplaceProjectPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the Project."""
 
@@ -1070,6 +1113,7 @@ __all__ = [
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
     "AddResourceRolesPermissionDenied",
+    "CircularDependency",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
     "CreateGroupPermissionDenied",
@@ -1094,6 +1138,7 @@ __all__ = [
     "InvalidFolder",
     "InvalidOrganizationHierarchy",
     "InvalidOrganizations",
+    "InvalidParentFolder",
     "InvalidPath",
     "InvalidPrincipalIdsForGroupTemplate",
     "InvalidRoleIds",
@@ -1116,6 +1161,7 @@ __all__ = [
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
+    "ReplaceFolderPermissionDenied",
     "ReplaceProjectPermissionDenied",
     "ReplaceSpacePermissionDenied",
     "ReservedSpaceCannotBeReplaced",

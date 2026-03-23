@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/admin/enrollments/{enrollmentRid} | Private Beta |
-[**get_current**](#get_current) | **GET** /v2/admin/enrollments/getCurrent | Private Beta |
+[**get**](#get) | **GET** /v2/admin/enrollments/{enrollmentRid} | Public Beta |
+[**get_current**](#get_current) | **GET** /v2/admin/enrollments/getCurrent | Public Beta |
 
 # **get**
 Get the Enrollment with the specified rid.

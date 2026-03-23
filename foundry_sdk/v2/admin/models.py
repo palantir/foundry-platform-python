@@ -104,6 +104,46 @@ AuthenticationProviderRid = core.RID
 """AuthenticationProviderRid"""
 
 
+class CbacBanner(core.ModelBase):
+    """CbacBanner"""
+
+    classification_string: CbacBannerClassificationString = pydantic.Field(alias=str("classificationString"))  # type: ignore[literal-required]
+    markings: typing.List[core_models.MarkingId]
+    text_color: core_models.Color = pydantic.Field(alias=str("textColor"))  # type: ignore[literal-required]
+    background_colors: typing.List[core_models.Color] = pydantic.Field(alias=str("backgroundColors"))  # type: ignore[literal-required]
+
+
+CbacBannerClassificationString = str
+"""CbacBannerClassificationString"""
+
+
+class CbacMarkingRestrictions(core.ModelBase):
+    """CbacMarkingRestrictions"""
+
+    disallowed_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("disallowedMarkings"))  # type: ignore[literal-required]
+    """The union of all markings that are disallowed for each of the provided markings. This includes all disallowed markings, not just those present in the provided set."""
+
+    implied_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("impliedMarkings"))  # type: ignore[literal-required]
+    """The union of all markings implied by each of the provided markings. If marking A implies marking B, then membership in A grants membership in B."""
+
+    required_markings: typing.List[typing.List[core_models.MarkingId]] = pydantic.Field(alias=str("requiredMarkings"))  # type: ignore[literal-required]
+    """The required markings for the provided markings. At least one marking from each inner list must be added to the provided markingIds to form a valid classification."""
+
+    user_satisfies_markings: CbacMarkingRestrictionsUserSatisfiesMarkings = pydantic.Field(alias=str("userSatisfiesMarkings"))  # type: ignore[literal-required]
+    """True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
+
+    is_valid: CbacMarkingRestrictionsIsValid = pydantic.Field(alias=str("isValid"))  # type: ignore[literal-required]
+    """True if the provided markings contain no disallowed markings and each list of required markings is satisfied by the provided markings."""
+
+
+CbacMarkingRestrictionsIsValid = bool
+"""True if the provided markings contain no disallowed markings and each list of required markings is satisfied by the provided markings."""
+
+
+CbacMarkingRestrictionsUserSatisfiesMarkings = bool
+"""True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
+
+
 class CertificateInfo(core.ModelBase):
     """CertificateInfo"""
 
@@ -117,6 +157,10 @@ class CertificateInfo(core.ModelBase):
 
 CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
 """CertificateUsageType"""
+
+
+ClassificationBannerDisplayType = typing.Literal["BANNER_LINE", "PORTION_MARKING"]
+"""The display type of the classification banner. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs"""
 
 
 class CreateGroupRequest(core.ModelBase):
@@ -292,6 +336,11 @@ class GroupMember(core.ModelBase):
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
+    expiration: typing.Optional[GroupMembershipExpiration] = None
+    """
+    The time at which this member's membership in the group will expire. This field will always be
+    empty unless the `includeExpirations` query parameter is set to true in the list operation.
+    """
 
 
 class GroupMembership(core.ModelBase):
@@ -418,6 +467,13 @@ class ListMarkingsResponse(core.ModelBase):
     """ListMarkingsResponse"""
 
     data: typing.List[Marking]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class ListOrganizationGuestMembersResponse(core.ModelBase):
+    """ListOrganizationGuestMembersResponse"""
+
+    data: typing.List[OrganizationGuestMember]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
@@ -575,6 +631,13 @@ class Organization(core.ModelBase):
     The primary host name of the Organization. This should be used when constructing URLs for users of this
     Organization.
     """
+
+
+class OrganizationGuestMember(core.ModelBase):
+    """OrganizationGuestMember"""
+
+    principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
+    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
 
 
 OrganizationName = str
@@ -858,8 +921,14 @@ __all__ = [
     "AuthenticationProviderEnabled",
     "AuthenticationProviderName",
     "AuthenticationProviderRid",
+    "CbacBanner",
+    "CbacBannerClassificationString",
+    "CbacMarkingRestrictions",
+    "CbacMarkingRestrictionsIsValid",
+    "CbacMarkingRestrictionsUserSatisfiesMarkings",
     "CertificateInfo",
     "CertificateUsageType",
+    "ClassificationBannerDisplayType",
     "CreateGroupRequest",
     "CreateMarkingCategoryRequest",
     "CreateMarkingRequest",
@@ -897,6 +966,7 @@ __all__ = [
     "ListMarkingMembersResponse",
     "ListMarkingRoleAssignmentsResponse",
     "ListMarkingsResponse",
+    "ListOrganizationGuestMembersResponse",
     "ListOrganizationRoleAssignmentsResponse",
     "ListUsersResponse",
     "Marking",
@@ -917,6 +987,7 @@ __all__ = [
     "MarkingType",
     "OidcAuthenticationProtocol",
     "Organization",
+    "OrganizationGuestMember",
     "OrganizationName",
     "OrganizationRoleAssignment",
     "PreregisterGroupRequest",

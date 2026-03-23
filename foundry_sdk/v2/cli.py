@@ -128,21 +128,16 @@ def admin_user_op_get_current(
 
 @admin_user.command("get_markings")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_op_get_markings(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Retrieve Markings that the user is currently a member of.
     """
     result = client.admin.User.get_markings(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -196,14 +191,10 @@ def admin_user_op_profile_picture(
 
 @admin_user.command("revoke_all_tokens")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_op_revoke_all_tokens(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Revoke all active authentication tokens for the user including active browser sessions and long-lived
@@ -214,7 +205,6 @@ def admin_user_op_revoke_all_tokens(
     """
     result = client.admin.User.revoke_all_tokens(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -231,7 +221,8 @@ def admin_user_op_search(
     page_token: typing.Optional[str],
 ):
     """
-    Perform a case-insensitive prefix search for users based on username, given name and family name.
+    Perform a case-insensitive prefix search for active users based on username, given name and family name.
+    Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
 
     """
     result = client.admin.User.search(
@@ -306,21 +297,16 @@ def admin_user_user_provider_info():
 
 @admin_user_user_provider_info.command("get")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_user_provider_info_op_get(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the UserProviderInfo.
     """
     result = client.admin.User.ProviderInfo.get(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -335,15 +321,11 @@ def admin_user_user_provider_info_op_get(
 At most one User can have a given provider ID in a given Realm.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_user_provider_info_op_replace(
     client: FoundryClient,
     user_id: str,
     provider_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Replace the UserProviderInfo.
@@ -351,7 +333,6 @@ def admin_user_user_provider_info_op_replace(
     result = client.admin.User.ProviderInfo.replace(
         user_id=user_id,
         provider_id=provider_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -464,35 +445,26 @@ def admin_organization_op_create(
 
 @admin_organization.command("get")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_get(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Organization with the specified rid.
     """
     result = client.admin.Organization.get(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_organization.command("list_available_roles")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_list_available_roles(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     List all roles that can be assigned to a principal for the given Organization.
@@ -500,7 +472,6 @@ def admin_organization_op_list_available_roles(
     """
     result = client.admin.Organization.list_available_roles(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -517,9 +488,6 @@ def admin_organization_op_list_available_roles(
 Organization.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_replace(
     client: FoundryClient,
@@ -527,7 +495,6 @@ def admin_organization_op_replace(
     name: str,
     description: typing.Optional[str],
     host: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Replace the Organization with the specified rid.
@@ -537,6 +504,32 @@ def admin_organization_op_replace(
         name=name,
         description=description,
         host=host,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization.group("organization_guest_member")
+def admin_organization_organization_guest_member():
+    pass
+
+
+@admin_organization_organization_guest_member.command("list")
+@click.argument("organization_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_list(
+    client: FoundryClient,
+    organization_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all guest members of an Organization.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.list(
+        organization_rid=organization_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -550,15 +543,11 @@ def admin_organization_organization_role_assignment():
 @admin_organization_organization_role_assignment.command("add")
 @click.argument("organization_rid", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_add(
     client: FoundryClient,
     organization_rid: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """
     Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
@@ -567,21 +556,16 @@ def admin_organization_organization_role_assignment_op_add(
     result = client.admin.Organization.OrganizationRoleAssignment.add(
         organization_rid=organization_rid,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_organization_organization_role_assignment.command("list")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_list(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     List all principals who are assigned a role for the given Organization.
@@ -589,7 +573,6 @@ def admin_organization_organization_role_assignment_op_list(
     """
     result = client.admin.Organization.OrganizationRoleAssignment.list(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -597,15 +580,11 @@ def admin_organization_organization_role_assignment_op_list(
 @admin_organization_organization_role_assignment.command("remove")
 @click.argument("organization_rid", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_remove(
     client: FoundryClient,
     organization_rid: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """
     Remove roles from principals for the given Organization. At most 100 role assignments can be removed in a single request.
@@ -614,7 +593,6 @@ def admin_organization_organization_role_assignment_op_remove(
     result = client.admin.Organization.OrganizationRoleAssignment.remove(
         organization_rid=organization_rid,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -668,21 +646,16 @@ def admin_marking_category_op_create(
 
 @admin_marking_category.command("get")
 @click.argument("marking_category_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_category_op_get(
     client: FoundryClient,
     marking_category_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the MarkingCategory with the specified id.
     """
     result = client.admin.MarkingCategory.get(
         marking_category_id=marking_category_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -699,15 +672,11 @@ def admin_marking_category_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_category_op_list(
     client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -715,7 +684,6 @@ def admin_marking_category_op_list(
     result = client.admin.MarkingCategory.list(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -894,7 +862,11 @@ def admin_marking_marking_role_assignment_op_add(
     marking_id: str,
     role_assignments: str,
 ):
-    """ """
+    """
+    Adds role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+    roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
+
+    """
     result = client.admin.Marking.MarkingRoleAssignment.add(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
@@ -943,7 +915,11 @@ def admin_marking_marking_role_assignment_op_remove(
     marking_id: str,
     role_assignments: str,
 ):
-    """ """
+    """
+    Removes role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+    roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
+
+    """
     result = client.admin.Marking.MarkingRoleAssignment.remove(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
@@ -1273,6 +1249,16 @@ def admin_group_group_member_op_add(
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
 @click.option(
+    "--include_expirations",
+    type=bool,
+    required=False,
+    help="""When true, includes the expiration time of any temporary members of this group. `includeExpirations` 
+cannot be set to true if `transitive` is also set to true.
+
+Defaults to false.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -1292,6 +1278,8 @@ Group has member Group A, and Group A has member User B. If `transitive=false` o
 be returned, but if `transitive=true` then Group A and User B will be returned. This
 will recursively resolve Groups through all layers of nesting.
 
+If `transitive` is true, `includeExpirations` cannot also be set to true.
+
 Defaults to false.
 """,
 )
@@ -1299,6 +1287,7 @@ Defaults to false.
 def admin_group_group_member_op_list(
     client: FoundryClient,
     group_id: str,
+    include_expirations: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     transitive: typing.Optional[bool],
@@ -1315,6 +1304,7 @@ def admin_group_group_member_op_list(
     """
     result = client.admin.Group.GroupMember.list(
         group_id=group_id,
+        include_expirations=include_expirations,
         page_size=page_size,
         page_token=page_token,
         transitive=transitive,
@@ -1346,21 +1336,16 @@ def admin_group_group_provider_info():
 
 @admin_group_group_provider_info.command("get")
 @click.argument("group_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_group_group_provider_info_op_get(
     client: FoundryClient,
     group_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the GroupProviderInfo.
     """
     result = client.admin.Group.ProviderInfo.get(
         group_id=group_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1375,15 +1360,11 @@ def admin_group_group_provider_info_op_get(
 At most one Group can have a given provider ID in a given Realm.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_group_group_provider_info_op_replace(
     client: FoundryClient,
     group_id: str,
     provider_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Replace the GroupProviderInfo.
@@ -1391,7 +1372,6 @@ def admin_group_group_provider_info_op_replace(
     result = client.admin.Group.ProviderInfo.replace(
         group_id=group_id,
         provider_id=provider_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1702,6 +1682,76 @@ def admin_enrollment_enrollment_role_assignment_op_remove(
     result = client.admin.Enrollment.EnrollmentRoleAssignment.remove(
         enrollment_rid=enrollment_rid,
         role_assignments=json.loads(role_assignments),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("cbac_marking_restrictions")
+def admin_cbac_marking_restrictions():
+    pass
+
+
+@admin_cbac_marking_restrictions.command("get")
+@click.option(
+    "--marking_ids",
+    type=str,
+    required=False,
+    help="""The marking IDs for which to get restrictions.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_cbac_marking_restrictions_op_get(
+    client: FoundryClient,
+    marking_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns disallowed, implied, and required markings for the given set of marking IDs.
+    """
+    result = client.admin.CbacMarkingRestrictions.get(
+        marking_ids=None if marking_ids is None else json.loads(marking_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("cbac_banner")
+def admin_cbac_banner():
+    pass
+
+
+@admin_cbac_banner.command("get")
+@click.option(
+    "--display_type",
+    type=click.Choice(["BANNER_LINE", "PORTION_MARKING"]),
+    required=False,
+    help="""The display type of the banner. Defaults to PORTION_MARKING.""",
+)
+@click.option(
+    "--marking_ids",
+    type=str,
+    required=False,
+    help="""The marking IDs for which to generate a banner.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_cbac_banner_op_get(
+    client: FoundryClient,
+    display_type: typing.Optional[typing.Literal["BANNER_LINE", "PORTION_MARKING"]],
+    marking_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns a classification banner string and colors for the given set of marking IDs.
+    """
+    result = client.admin.CbacBanner.get(
+        display_type=display_type,
+        marking_ids=None if marking_ids is None else json.loads(marking_ids),
         preview=preview,
     )
     click.echo(repr(result))
@@ -5076,6 +5126,14 @@ def filesystem_project_op_add_organizations(
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option(
+    "--resource_level_role_grants_allowed",
+    type=bool,
+    required=False,
+    help="""Whether role grants should be allowed on individual resources within the Project.
+When not specified, defaults to true.
+""",
+)
 @click.pass_obj
 def filesystem_project_op_create(
     client: FoundryClient,
@@ -5086,6 +5144,7 @@ def filesystem_project_op_create(
     space_rid: str,
     description: typing.Optional[str],
     preview: typing.Optional[bool],
+    resource_level_role_grants_allowed: typing.Optional[bool],
 ):
     """
     Creates a new Project.
@@ -5103,6 +5162,7 @@ def filesystem_project_op_create(
         space_rid=space_rid,
         description=description,
         preview=preview,
+        resource_level_role_grants_allowed=resource_level_role_grants_allowed,
     )
     click.echo(repr(result))
 
@@ -5371,6 +5431,40 @@ def filesystem_folder_op_get_batch(
     """
     result = client.filesystem.Folder.get_batch(
         body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_folder.command("replace")
+@click.argument("folder_rid", type=str, required=True)
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--parent_folder_rid",
+    type=str,
+    required=True,
+    help="""The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+this value will be the root folder (`ri.compass.main.folder.0`).
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_folder_op_replace(
+    client: FoundryClient,
+    folder_rid: str,
+    display_name: str,
+    parent_folder_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the Folder with the specified rid.
+    """
+    result = client.filesystem.Folder.replace(
+        folder_rid=folder_rid,
+        display_name=display_name,
+        parent_folder_rid=parent_folder_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -5949,6 +6043,81 @@ def media_sets_media_set_op_calculate(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("clear")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=True,
+    help="""The path of the media item to clear.
+""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided.""",
+)
+@click.option(
+    "--branch_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided.""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of the transaction associated with this request. Required if this is a transactional media set.
+""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided.""",
+)
+@click.pass_obj
+def media_sets_media_set_op_clear(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_path: str,
+    branch_name: typing.Optional[str],
+    branch_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
+    view_rid: typing.Optional[str],
+):
+    """
+    Clears (soft-deletes) the media item at the specified path within a media set, making it and all older
+    media items at that path un-retrievable.
+
+    A branch name, branch RID, or view RID may optionally be specified. If none is specified,
+    the item will be cleared from the default branch. If more than one is specified, an error is thrown.
+
+    For transactional media sets, a transaction ID must be provided. The deletion will not be
+    visible until the transaction is committed.
+
+    """
+    result = client.media_sets.MediaSet.clear(
+        media_set_rid=media_set_rid,
+        media_item_path=media_item_path,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("commit")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
@@ -6487,6 +6656,19 @@ def media_sets_media_set_op_transform(
     help="""An identifier for a media item within a media set. Necessary if the backing media set requires paths.""",
 )
 @click.option(
+    "--media_item_rid",
+    type=str,
+    required=False,
+    help="""An optional RID to use for the media item to create. If omitted, the server will automatically generate a
+RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your
+workflow strictly requires deterministic or client-controlled identifiers.
+The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as 
+the instance part of the media set RID, and `<UUID>` is a UUID.
+An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format.
+A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -6514,6 +6696,7 @@ def media_sets_media_set_op_upload(
     branch_name: typing.Optional[str],
     branch_rid: typing.Optional[str],
     media_item_path: typing.Optional[str],
+    media_item_rid: typing.Optional[str],
     preview: typing.Optional[bool],
     transaction_id: typing.Optional[str],
     view_rid: typing.Optional[str],
@@ -6530,6 +6713,7 @@ def media_sets_media_set_op_upload(
         branch_name=branch_name,
         branch_rid=branch_rid,
         media_item_path=media_item_path,
+        media_item_rid=media_item_rid,
         preview=preview,
         transaction_id=transaction_id,
         view_rid=view_rid,
@@ -6970,6 +7154,31 @@ def models_model_op_get(
     """
     result = client.models.Model.get(
         model_rid=model_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.command("promote_version")
+@click.argument("model_rid", type=str, required=True)
+@click.option("--source_model_version_rid", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_op_promote_version(
+    client: FoundryClient,
+    model_rid: str,
+    source_model_version_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+
+    """
+    result = client.models.Model.promote_version(
+        model_rid=model_rid,
+        source_model_version_rid=source_model_version_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -9698,6 +9907,41 @@ def ontologies_ontology_object_type_op_get(
     click.echo(repr(result))
 
 
+@ontologies_ontology_object_type.command("get_by_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_get_by_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+):
+    """
+    Gets a list of object types by RID in bulk.
+
+    Object types are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_by_rid_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_object_type.command("get_edits_history")
 @click.argument("ontology", type=str, required=True)
 @click.argument("object_type", type=str, required=True)
@@ -10996,6 +11240,20 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -11013,6 +11271,8 @@ def ontologies_action_op_apply(
     options: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -11036,6 +11296,8 @@ def ontologies_action_op_apply(
         options=None if options is None else json.loads(options),
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -11498,6 +11760,9 @@ def orchestration_job_op_get(
 ):
     """
     Get the Job with the specified rid.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
     """
     result = client.orchestration.Job.get(
         job_rid=job_rid,
@@ -11519,6 +11784,9 @@ def orchestration_job_op_get_batch(
 ):
     """
     Execute multiple get requests on Job.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
     The maximum batch size for this endpoint is 500.
     """
@@ -11604,6 +11872,9 @@ def orchestration_build_op_get(
 ):
     """
     Get the Build with the specified rid.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
     """
     result = client.orchestration.Build.get(
         build_rid=build_rid,
@@ -11620,6 +11891,9 @@ def orchestration_build_op_get_batch(
 ):
     """
     Execute multiple get requests on Build.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
     The maximum batch size for this endpoint is 100.
     """

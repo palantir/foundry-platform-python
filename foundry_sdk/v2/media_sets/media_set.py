@@ -150,6 +150,76 @@ class MediaSetClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def clear(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        *,
+        media_item_path: core_models.MediaItemPath,
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Clears (soft-deletes) the media item at the specified path within a media set, making it and all older
+        media items at that path un-retrievable.
+
+        A branch name, branch RID, or view RID may optionally be specified. If none is specified,
+        the item will be cleared from the default branch. If more than one is specified, an error is thrown.
+
+        For transactional media sets, a transaction ID must be provided. The deletion will not be
+        visible until the transaction is committed.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_path: The path of the media item to clear.
+        :type media_item_path: MediaItemPath
+        :param branch_name: Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided.
+        :type branch_name: Optional[BranchName]
+        :param branch_rid: Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided.
+        :type branch_rid: Optional[BranchRid]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param transaction_id: The ID of the transaction associated with this request. Required if this is a transactional media set.
+        :type transaction_id: Optional[TransactionId]
+        :param view_rid: Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided.
+        :type view_rid: Optional[MediaSetViewRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="DELETE",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/clearAtPath",
+                query_params={
+                    "mediaItemPath": media_item_path,
+                    "branchName": branch_name,
+                    "branchRid": branch_rid,
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                    "viewRid": view_rid,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def commit(
         self,
         media_set_rid: core_models.MediaSetRid,
@@ -928,6 +998,7 @@ class MediaSetClient:
         branch_name: typing.Optional[media_sets_models.BranchName] = None,
         branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
         media_item_path: typing.Optional[core_models.MediaItemPath] = None,
+        media_item_rid: typing.Optional[core_models.MediaItemRid] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
         view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
@@ -949,6 +1020,8 @@ class MediaSetClient:
         :type branch_rid: Optional[BranchRid]
         :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
+        :param media_item_rid: An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+        :type media_item_rid: Optional[MediaItemRid]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
@@ -969,6 +1042,7 @@ class MediaSetClient:
                     "branchName": branch_name,
                     "branchRid": branch_rid,
                     "mediaItemPath": media_item_path,
+                    "mediaItemRid": media_item_rid,
                     "preview": preview,
                     "transactionId": transaction_id,
                     "viewRid": view_rid,
@@ -1054,6 +1128,7 @@ class _MediaSetClientRaw:
     def __init__(self, client: MediaSetClient) -> None:
         def abort(_: None): ...
         def calculate(_: media_sets_models.TrackedTransformationResponse): ...
+        def clear(_: None): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
         def get(_: media_sets_models.GetMediaSetResponse): ...
@@ -1073,6 +1148,7 @@ class _MediaSetClientRaw:
 
         self.abort = core.with_raw_response(abort, client.abort)
         self.calculate = core.with_raw_response(calculate, client.calculate)
+        self.clear = core.with_raw_response(clear, client.clear)
         self.commit = core.with_raw_response(commit, client.commit)
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
@@ -1245,6 +1321,76 @@ class AsyncMediaSetClient:
                 },
                 body=None,
                 response_type=media_sets_models.TrackedTransformationResponse,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def clear(
+        self,
+        media_set_rid: core_models.MediaSetRid,
+        *,
+        media_item_path: core_models.MediaItemPath,
+        branch_name: typing.Optional[media_sets_models.BranchName] = None,
+        branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
+        view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Clears (soft-deletes) the media item at the specified path within a media set, making it and all older
+        media items at that path un-retrievable.
+
+        A branch name, branch RID, or view RID may optionally be specified. If none is specified,
+        the item will be cleared from the default branch. If more than one is specified, an error is thrown.
+
+        For transactional media sets, a transaction ID must be provided. The deletion will not be
+        visible until the transaction is committed.
+
+        :param media_set_rid: The RID of the media set.
+        :type media_set_rid: MediaSetRid
+        :param media_item_path: The path of the media item to clear.
+        :type media_item_path: MediaItemPath
+        :param branch_name: Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided.
+        :type branch_name: Optional[BranchName]
+        :param branch_rid: Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided.
+        :type branch_rid: Optional[BranchRid]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
+        :param transaction_id: The ID of the transaction associated with this request. Required if this is a transactional media set.
+        :type transaction_id: Optional[TransactionId]
+        :param view_rid: Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided.
+        :type view_rid: Optional[MediaSetViewRid]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="DELETE",
+                resource_path="/v2/mediasets/{mediaSetRid}/items/clearAtPath",
+                query_params={
+                    "mediaItemPath": media_item_path,
+                    "branchName": branch_name,
+                    "branchRid": branch_rid,
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                    "viewRid": view_rid,
+                },
+                path_params={
+                    "mediaSetRid": media_set_rid,
+                },
+                header_params={},
+                body=None,
+                response_type=None,
                 request_timeout=request_timeout,
                 throwable_errors={},
                 response_mode=_sdk_internal.get("response_mode"),
@@ -2032,6 +2178,7 @@ class AsyncMediaSetClient:
         branch_name: typing.Optional[media_sets_models.BranchName] = None,
         branch_rid: typing.Optional[media_sets_models.BranchRid] = None,
         media_item_path: typing.Optional[core_models.MediaItemPath] = None,
+        media_item_rid: typing.Optional[core_models.MediaItemRid] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         transaction_id: typing.Optional[media_sets_models.TransactionId] = None,
         view_rid: typing.Optional[core_models.MediaSetViewRid] = None,
@@ -2053,6 +2200,8 @@ class AsyncMediaSetClient:
         :type branch_rid: Optional[BranchRid]
         :param media_item_path: An identifier for a media item within a media set. Necessary if the backing media set requires paths.
         :type media_item_path: Optional[MediaItemPath]
+        :param media_item_rid: An optional RID to use for the media item to create. If omitted, the server will automatically generate a RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your workflow strictly requires deterministic or client-controlled identifiers. The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as  the instance part of the media set RID, and `<UUID>` is a UUID. An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format. A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+        :type media_item_rid: Optional[MediaItemRid]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param transaction_id: The id of the transaction associated with this request.  Required if this is a transactional media set.
@@ -2073,6 +2222,7 @@ class AsyncMediaSetClient:
                     "branchName": branch_name,
                     "branchRid": branch_rid,
                     "mediaItemPath": media_item_path,
+                    "mediaItemRid": media_item_rid,
                     "preview": preview,
                     "transactionId": transaction_id,
                     "viewRid": view_rid,
@@ -2158,6 +2308,7 @@ class _AsyncMediaSetClientRaw:
     def __init__(self, client: AsyncMediaSetClient) -> None:
         def abort(_: None): ...
         def calculate(_: media_sets_models.TrackedTransformationResponse): ...
+        def clear(_: None): ...
         def commit(_: None): ...
         def create(_: media_sets_models.TransactionId): ...
         def get(_: media_sets_models.GetMediaSetResponse): ...
@@ -2177,6 +2328,7 @@ class _AsyncMediaSetClientRaw:
 
         self.abort = core.async_with_raw_response(abort, client.abort)
         self.calculate = core.async_with_raw_response(calculate, client.calculate)
+        self.clear = core.async_with_raw_response(clear, client.clear)
         self.commit = core.async_with_raw_response(commit, client.commit)
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
