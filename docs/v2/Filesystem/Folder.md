@@ -6,6 +6,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/filesystem/folders | Public Beta |
 [**get**](#get) | **GET** /v2/filesystem/folders/{folderRid} | Public Beta |
 [**get_batch**](#get_batch) | **POST** /v2/filesystem/folders/getBatch | Public Beta |
+[**replace**](#replace) | **PUT** /v2/filesystem/folders/{folderRid} | Private Beta |
 
 # **children**
 List all child Resources of the Folder.
@@ -223,6 +224,64 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | GetFoldersBatchResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+Replace the Folder with the specified rid.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**folder_rid** | FolderRid |  |  |
+**display_name** | ResourceDisplayName |  |  |
+**parent_folder_rid** | FolderRid | The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**Folder**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# FolderRid
+folder_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
+# ResourceDisplayName
+display_name = "My Folder"
+# FolderRid | The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
+parent_folder_rid = "ri.compass.main.folder.4cae7c13-b59f-48f6-9ef2-dbde603e4e33"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.filesystem.Folder.replace(
+        folder_rid, display_name=display_name, parent_folder_rid=parent_folder_rid, preview=preview
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Folder.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Folder  | The replaced Folder | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

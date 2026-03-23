@@ -45,7 +45,7 @@ class CreateConfigValidationErrorParameters(typing_extensions.TypedDict):
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
     studioRid: models_models.ModelStudioRid
-    validationFailures: str
+    validationFailures: typing.List[models_models.CreateConfigValidationFailureReason]
 
 
 @dataclass
@@ -472,6 +472,21 @@ class ParquetExperimentSeriesPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class PromoteVersionModelPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not promoteVersion the Model."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    modelRid: models_models.ModelRid
+
+
+@dataclass
+class PromoteVersionModelPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["PromoteVersionModelPermissionDenied"]
+    parameters: PromoteVersionModelPermissionDeniedParameters
+    error_instance_id: str
+
+
 class SearchExperimentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not search the Experiment."""
 
@@ -517,6 +532,19 @@ class TransformJsonLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class UnsupportedModelSourceParameters(typing_extensions.TypedDict):
+    """The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnsupportedModelSource(errors.BadRequestError):
+    name: typing.Literal["UnsupportedModelSource"]
+    parameters: UnsupportedModelSourceParameters
+    error_instance_id: str
+
+
 __all__ = [
     "CondaSolveFailureForProvidedPackages",
     "CreateConfigValidationError",
@@ -546,7 +574,9 @@ __all__ = [
     "ModelVersionNotFound",
     "ParquetExperimentArtifactTablePermissionDenied",
     "ParquetExperimentSeriesPermissionDenied",
+    "PromoteVersionModelPermissionDenied",
     "SearchExperimentsPermissionDenied",
     "TrainerNotFound",
     "TransformJsonLiveDeploymentPermissionDenied",
+    "UnsupportedModelSource",
 ]

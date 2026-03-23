@@ -1652,6 +1652,25 @@ class OntologyApiNameNotUnique(errors.BadRequestError):
     error_instance_id: str
 
 
+class OntologyDefinitionOutOfSyncParameters(typing_extensions.TypedDict):
+    """
+    The ontology definition is temporarily out of sync. The indexed definition does not yet
+    reflect the latest saved definition for this type. This is typically a transient condition that
+    resolves as indexing completes.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectTypeRid: ontologies_models.ObjectTypeRid
+
+
+@dataclass
+class OntologyDefinitionOutOfSync(errors.ConflictError):
+    name: typing.Literal["OntologyDefinitionOutOfSync"]
+    parameters: OntologyDefinitionOutOfSyncParameters
+    error_instance_id: str
+
+
 class OntologyEditsExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of edits to the Ontology exceeded the allowed limit.
@@ -2474,6 +2493,7 @@ __all__ = [
     "ObjectsExceededLimit",
     "ObjectsModifiedConcurrently",
     "OntologyApiNameNotUnique",
+    "OntologyDefinitionOutOfSync",
     "OntologyEditsExceededLimit",
     "OntologyNotFound",
     "OntologySyncing",

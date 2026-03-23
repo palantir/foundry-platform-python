@@ -29,6 +29,7 @@ NullType | null
 QueryArrayType | array
 TwoDimensionalAggregation | twoDimensionalAggregation
 ValueTypeReference | valueTypeReference
+QueryTypeReferenceType | typeReference
 TimestampType | timestamp
 
 

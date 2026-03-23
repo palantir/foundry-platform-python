@@ -8,6 +8,9 @@ Method | HTTP request | Release Stage |
 # **get**
 Get the Job with the specified rid.
 
+Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
+
 ### Parameters
 
 Name | Type | Description  | Notes |
@@ -57,6 +60,9 @@ See [README](../../../README.md#authorization)
 
 # **get_batch**
 Execute multiple get requests on Job.
+
+Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
 The maximum batch size for this endpoint is 500.
 

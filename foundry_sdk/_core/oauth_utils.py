@@ -80,9 +80,14 @@ class OAuthTokenResponse(pydantic.BaseModel):
         super().__init__(**token_response)
 
 
+REFRESH_LIFETIME_FRACTION = 0.75
+TOKEN_EXPIRED_PADDING_MS = 60 * 1000
+
+
 class OAuthToken(Token):
     def __init__(self, token: OAuthTokenResponse):
         self._token = token
+        self._expires_at = int((time.time() + token.expires_in) * 1000)
 
     @property
     def access_token(self) -> str:
@@ -100,16 +105,14 @@ class OAuthToken(Token):
     def token_type(self) -> str:
         return self._token.token_type
 
-    def _calculate_expiration(self) -> int:
-        return int(self._token.expires_in * 1000 + self.current_time())
-
     @property
     def expires_at(self) -> int:
-        return self._calculate_expiration()
+        return self._expires_at
 
-    @staticmethod
-    def current_time() -> int:
-        return int(time.time() * 1000)
+    @property
+    def expired(self) -> bool:
+        """Token is considered expired 60s before actual expiry."""
+        return int(time.time() * 1000) >= self._expires_at - TOKEN_EXPIRED_PADDING_MS
 
 
 class AuthorizeRequest(pydantic.BaseModel):
@@ -172,16 +175,22 @@ class OAuth(Auth, ABC):
         pass
 
     def _start_auto_refresh(self) -> None:
-        def _auto_refresh_token() -> None:
-            while True:
-                timeout = self._token.expires_in - 60 if self._token else 10
-                if self._stop_refresh_event.wait(timeout):
-                    return
-                if self._token:
-                    self._try_refresh_token()
+        # Stop any existing auto-refresh thread before starting a new one
+        self._stop_refresh_event.set()
+        self._stop_refresh_event = threading.Event()
+        stop = self._stop_refresh_event
 
-        refresh_thread = threading.Thread(target=_auto_refresh_token, daemon=True)
-        refresh_thread.start()
+        def _auto_refresh_token() -> None:
+            while not stop.wait(
+                self._token.expires_in * REFRESH_LIFETIME_FRACTION if self._token else 10
+            ):
+                if self._token:
+                    try:
+                        self._try_refresh_token()
+                    except Exception:
+                        pass
+
+        threading.Thread(target=_auto_refresh_token, daemon=True).start()
 
     def _run_with_attempted_refresh(self, func: Callable[[OAuthToken], T]) -> T:
         """

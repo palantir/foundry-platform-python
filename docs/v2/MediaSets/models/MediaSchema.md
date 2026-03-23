@@ -11,6 +11,7 @@ The schema type of a media set, indicating what type of media items it can conta
 | `"MODEL_3D"` |
 | `"MULTIMODAL"` |
 | `"SPREADSHEET"` |
+| `"STREAMING_VIDEO"` |
 | `"VIDEO"` |
 | `"EMAIL"` |
 

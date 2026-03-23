@@ -23,6 +23,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
+from foundry_sdk.v2.orchestration import models as orchestration_models
 
 
 class BooleanParameter(core.ModelBase):
@@ -32,8 +33,44 @@ class BooleanParameter(core.ModelBase):
     type: typing.Literal["boolean"] = "boolean"
 
 
+class ChangelogTooLongError(core.ModelBase):
+    """The provided changelog exceeds the maximum allowed length."""
+
+    max_length: int = pydantic.Field(alias=str("maxLength"))  # type: ignore[literal-required]
+    """The maximum allowed changelog length."""
+
+    actual_length: int = pydantic.Field(alias=str("actualLength"))  # type: ignore[literal-required]
+    """The actual length of the provided changelog."""
+
+    type: typing.Literal["changelogTooLong"] = "changelogTooLong"
+
+
 ColumnTypeSpecId = str
 """An identifier for a column type specification."""
+
+
+CreateConfigValidationFailureReason = typing_extensions.Annotated[
+    typing.Union[
+        "JsonSchemaValidationError",
+        "OutputResourceInDifferentProjectError",
+        "OtherValidationError",
+        "MissingWorkerConfigOutputError",
+        "MissingRequiredDatasetColumnError",
+        "MultiplePropertiesNotAllowedForTrainerError",
+        "FieldValidationError",
+        "ChangelogTooLongError",
+        "UnknownColumnSpecIdInConfigColumnMappingError",
+        "MultipleColumnsNotAllowedForTrainerError",
+        "MissingWorkerConfigInputDatasetColumnMappingError",
+        "DatasetSchemaNotFoundError",
+        "MissingWorkerConfigInputError",
+        "MissingWorkerConfigInputObjectSetPropertyMappingError",
+        "OutputResourceNotFoundError",
+        "InvalidResourceConfigurationError",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""A specific reason why configuration validation failed."""
 
 
 class CreateModelRequest(core.ModelBase):
@@ -97,6 +134,15 @@ class DatasetInput(core.ModelBase):
     """Columns to select from the dataset. If empty, all columns not in ignoreColumns will be used."""
 
     type: typing.Literal["dataset"] = "dataset"
+
+
+class DatasetSchemaNotFoundError(core.ModelBase):
+    """A schema could not be found for the specified dataset."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset whose schema was not found."""
+
+    type: typing.Literal["datasetSchemaNotFound"] = "datasetSchemaNotFound"
 
 
 class DatetimeParameter(core.ModelBase):
@@ -164,12 +210,6 @@ class Experiment(core.ModelBase):
 
     rid: ExperimentRid
     model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
-    name: typing.Optional[str] = None
-    """
-    The display name of the experiment. Present in search results but not available when
-    retrieving a single experiment via the get endpoint.
-    """
-
     created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
     created_by: core_models.CreatedBy = pydantic.Field(alias=str("createdBy"))  # type: ignore[literal-required]
     source: ExperimentSource
@@ -244,6 +284,25 @@ ExperimentTagText = str
 """A tag associated with an experiment."""
 
 
+class FieldValidationError(core.ModelBase):
+    """A dataset column type is not compatible with the trainer's supported column types."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset containing the invalid field."""
+
+    field_name: typing.Optional[str] = pydantic.Field(alias=str("fieldName"), default=None)  # type: ignore[literal-required]
+    """The name of the dataset column or field that failed validation."""
+
+    field_type: str = pydantic.Field(alias=str("fieldType"))  # type: ignore[literal-required]
+    """The type of the dataset field."""
+
+    type: typing.Literal["fieldValidationFailure"] = "fieldValidationFailure"
+
+
+GpuType = typing.Literal["V100", "T4", "A10G", "A100", "H100", "H200", "L4", "A16", "L40S"]
+"""The specific type of GPU to use."""
+
+
 class InconsistentArrayDimensionsError(core.ModelBase):
     """Array elements have inconsistent dimensions."""
 
@@ -304,6 +363,18 @@ class InvalidMapFormatError(core.ModelBase):
     type: typing.Literal["invalidMapFormat"] = "invalidMapFormat"
 
 
+class InvalidResourceConfigurationError(core.ModelBase):
+    """A resource configuration field has an invalid format."""
+
+    field: str
+    """The name of the invalid field (e.g. "cpu", "memory")."""
+
+    message: str
+    """A description of why the value is invalid."""
+
+    type: typing.Literal["invalidResourceConfiguration"] = "invalidResourceConfiguration"
+
+
 class InvalidTabularFormatError(core.ModelBase):
     """Tabular input has incorrect JSON structure."""
 
@@ -311,6 +382,18 @@ class InvalidTabularFormatError(core.ModelBase):
     """The name of the tabular input field with incorrect format"""
 
     type: typing.Literal["invalidTabularFormat"] = "invalidTabularFormat"
+
+
+class JsonSchemaValidationError(core.ModelBase):
+    """The custom configuration failed JSON schema validation."""
+
+    field: str
+    """The field in the provided JSON that is invalid."""
+
+    message: str
+    """A description of the validation failure."""
+
+    type: typing.Literal["jsonSchemaValidationFailure"] = "jsonSchemaValidationFailure"
 
 
 class ListModelStudioConfigVersionsResponse(core.ModelBase):
@@ -343,6 +426,67 @@ class ListModelVersionsResponse(core.ModelBase):
 
 LiveDeploymentRid = core.RID
 """The Resource Identifier (RID) of a Live Deployment."""
+
+
+class MissingRequiredDatasetColumnError(core.ModelBase):
+    """The user-provided dataset is missing a column required by the trainer."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset missing the required column."""
+
+    column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
+    """The trainer column type spec ID for the required column."""
+
+    column_names: typing.List[core_models.ColumnName] = pydantic.Field(alias=str("columnNames"))  # type: ignore[literal-required]
+    """The valid dataset column names that could map to this trainer column."""
+
+    type: typing.Literal["missingRequiredDatasetColumn"] = "missingRequiredDatasetColumn"
+
+
+class MissingWorkerConfigInputDatasetColumnMappingError(core.ModelBase):
+    """The provided worker config input dataset is missing a column mapping required by the trainer."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset with the missing column mapping."""
+
+    column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
+    """The column type spec ID for the missing column."""
+
+    type: typing.Literal["missingWorkerConfigInputDatasetColumnMapping"] = (
+        "missingWorkerConfigInputDatasetColumnMapping"
+    )
+
+
+class MissingWorkerConfigInputError(core.ModelBase):
+    """The worker configuration is missing an input required by the trainer."""
+
+    input_alias: InputAlias = pydantic.Field(alias=str("inputAlias"))  # type: ignore[literal-required]
+    """The alias of the missing input."""
+
+    type: typing.Literal["missingWorkerConfigInput"] = "missingWorkerConfigInput"
+
+
+class MissingWorkerConfigInputObjectSetPropertyMappingError(core.ModelBase):
+    """The provided worker config input object set is missing a property mapping required by the trainer."""
+
+    object_set_rid: core.RID = pydantic.Field(alias=str("objectSetRid"))  # type: ignore[literal-required]
+    """The RID of the object set with the missing property mapping."""
+
+    property_type_spec_id: str = pydantic.Field(alias=str("propertyTypeSpecId"))  # type: ignore[literal-required]
+    """The property type spec ID for the missing property."""
+
+    type: typing.Literal["missingWorkerConfigInputObjectSetPropertyMapping"] = (
+        "missingWorkerConfigInputObjectSetPropertyMapping"
+    )
+
+
+class MissingWorkerConfigOutputError(core.ModelBase):
+    """The worker configuration is missing an output required by the trainer."""
+
+    output_alias: OutputAlias = pydantic.Field(alias=str("outputAlias"))  # type: ignore[literal-required]
+    """The alias of the missing output."""
+
+    type: typing.Literal["missingWorkerConfigOutput"] = "missingWorkerConfigOutput"
 
 
 class Model(core.ModelBase):
@@ -540,6 +684,9 @@ class ModelStudioRun(core.ModelBase):
     started_time: core_models.CreatedTime = pydantic.Field(alias=str("startedTime"))  # type: ignore[literal-required]
     """When this run was started."""
 
+    build_status: typing.Optional[orchestration_models.BuildStatus] = pydantic.Field(alias=str("buildStatus"), default=None)  # type: ignore[literal-required]
+    """Status of the build."""
+
     resolved_outputs: typing.Dict[OutputAlias, ModelStudioRunOutput] = pydantic.Field(alias=str("resolvedOutputs"))  # type: ignore[literal-required]
     """Map of alias to resolved output details (e.g., for models, contains the version RID and experiment)."""
 
@@ -620,14 +767,143 @@ class ModelVersion(core.ModelBase):
     model_api: ModelApi = pydantic.Field(alias=str("modelApi"))  # type: ignore[literal-required]
     conda_requirements: typing.List[str] = pydantic.Field(alias=str("condaRequirements"))  # type: ignore[literal-required]
     backing_repositories: typing.List[core.RID] = pydantic.Field(alias=str("backingRepositories"))  # type: ignore[literal-required]
+    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    source: typing.Optional[ModelVersionSource] = None
+    linked_experiment: typing.Optional[ExperimentRid] = pydantic.Field(alias=str("linkedExperiment"), default=None)  # type: ignore[literal-required]
+    """The Experiment linked to this Model Version, if one exists."""
+
+
+class ModelVersionCodeRepositorySource(core.ModelBase):
+    """Model version created from a code repository."""
+
+    repository_rid: core.RID = pydantic.Field(alias=str("repositoryRid"))  # type: ignore[literal-required]
+    branch: str
+    type: typing.Literal["codeRepository"] = "codeRepository"
+
+
+class ModelVersionCodeWorkspaceSource(core.ModelBase):
+    """Model version created from a code workspace."""
+
+    code_workspace_rid: core.RID = pydantic.Field(alias=str("codeWorkspaceRid"))  # type: ignore[literal-required]
+    branch: str
+    type: typing.Literal["codeWorkspace"] = "codeWorkspace"
+
+
+class ModelVersionContainerizedSource(core.ModelBase):
+    """Model version imported from a containerized model."""
+
+    type: typing.Literal["importedContainerizedModel"] = "importedContainerizedModel"
+
+
+class ModelVersionExternalSource(core.ModelBase):
+    """Model version backed by an external model."""
+
+    type: typing.Literal["external"] = "external"
+
+
+class ModelVersionModelStudioSource(core.ModelBase):
+    """Model version created from Model Studio."""
+
+    model_studio_rid: core.RID = pydantic.Field(alias=str("modelStudioRid"))  # type: ignore[literal-required]
+    type: typing.Literal["modelStudio"] = "modelStudio"
+
+
+class ModelVersionPromotedSource(core.ModelBase):
+    """Model version promoted from another model version."""
+
+    previous_model_rid: ModelRid = pydantic.Field(alias=str("previousModelRid"))  # type: ignore[literal-required]
+    previous_model_version_rid: ModelVersionRid = pydantic.Field(alias=str("previousModelVersionRid"))  # type: ignore[literal-required]
+    type: typing.Literal["promoted"] = "promoted"
 
 
 ModelVersionRid = core.RID
 """The Resource Identifier (RID) of a Model Version."""
 
 
+class ModelVersionSdkSource(core.ModelBase):
+    """Model version created via the SDK."""
+
+    type: typing.Literal["sdk"] = "sdk"
+
+
+ModelVersionSource = typing_extensions.Annotated[
+    typing.Union[
+        "ModelVersionContainerizedSource",
+        "ModelVersionExternalSource",
+        "ModelVersionCodeWorkspaceSource",
+        "ModelVersionModelStudioSource",
+        "ModelVersionCodeRepositorySource",
+        "ModelVersionSdkSource",
+        "ModelVersionPromotedSource",
+    ],
+    pydantic.Field(discriminator="type"),
+]
+"""The source from which this model version was created."""
+
+
+class MultipleColumnsNotAllowedForTrainerError(core.ModelBase):
+    """Multiple columns were mapped but the trainer only allows a single column for this spec."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset with multiple columns mapped."""
+
+    column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
+    """The column type spec ID that does not allow multiple columns."""
+
+    type: typing.Literal["multipleColumnsNotAllowedForTrainer"] = (
+        "multipleColumnsNotAllowedForTrainer"
+    )
+
+
+class MultiplePropertiesNotAllowedForTrainerError(core.ModelBase):
+    """Multiple properties were mapped but the trainer only allows a single property for this spec."""
+
+    object_set_rid: core.RID = pydantic.Field(alias=str("objectSetRid"))  # type: ignore[literal-required]
+    """The RID of the object set with multiple properties mapped."""
+
+    property_type_spec_id: str = pydantic.Field(alias=str("propertyTypeSpecId"))  # type: ignore[literal-required]
+    """The property type spec ID that does not allow multiple properties."""
+
+    type: typing.Literal["multiplePropertiesNotAllowedForTrainer"] = (
+        "multiplePropertiesNotAllowedForTrainer"
+    )
+
+
+class OtherValidationError(core.ModelBase):
+    """A validation error that does not match any specific known type."""
+
+    message: str
+    """A description of the validation failure."""
+
+    type: typing.Literal["other"] = "other"
+
+
 OutputAlias = str
 """A string alias used to identify outputs in a Model Studio configuration."""
+
+
+class OutputResourceInDifferentProjectError(core.ModelBase):
+    """The output resource is in a different project than the Model Studio."""
+
+    resource_rid: core.RID = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    """The RID of the resource in a different project."""
+
+    output_alias: OutputAlias = pydantic.Field(alias=str("outputAlias"))  # type: ignore[literal-required]
+    """The alias of the output referencing the resource."""
+
+    type: typing.Literal["outputResourceInDifferentProject"] = "outputResourceInDifferentProject"
+
+
+class OutputResourceNotFoundError(core.ModelBase):
+    """The output resource does not exist or is in the trash."""
+
+    resource_rid: core.RID = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    """The RID of the resource that was not found."""
+
+    output_alias: OutputAlias = pydantic.Field(alias=str("outputAlias"))  # type: ignore[literal-required]
+    """The alias of the output referencing the missing resource."""
+
+    type: typing.Literal["outputResourceNotFound"] = "outputResourceNotFound"
 
 
 class Parameter(core.ModelBase):
@@ -657,6 +933,12 @@ ParameterValue = typing_extensions.Annotated[
 """A parameter value logged for an experiment."""
 
 
+class PromoteVersionModelRequest(core.ModelBase):
+    """PromoteVersionModelRequest"""
+
+    source_model_version_rid: ModelVersionRid = pydantic.Field(alias=str("sourceModelVersionRid"))  # type: ignore[literal-required]
+
+
 class RequiredValueMissingError(core.ModelBase):
     """Required input field is null or missing."""
 
@@ -670,10 +952,13 @@ class ResourceConfiguration(core.ModelBase):
     """Compute resource configuration for training runs."""
 
     memory: str
-    """Memory allocation (e.g., "4Gi")."""
+    """Memory allocation (e.g., "4G")."""
 
     cpu: str
     """CPU allocation (e.g., "2")."""
+
+    gpu: typing.Optional[GpuType] = None
+    """GPU allocation (must be available in the project's resource queue)."""
 
 
 RunId = str
@@ -1008,6 +1293,20 @@ class TypeMismatchError(core.ModelBase):
     type: typing.Literal["typeMismatch"] = "typeMismatch"
 
 
+class UnknownColumnSpecIdInConfigColumnMappingError(core.ModelBase):
+    """The worker config column mapping contains an unknown column spec ID not found in the trainer's column specification."""
+
+    dataset_rid: core.RID = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset containing the unknown column mapping."""
+
+    column_type_spec_id: ColumnTypeSpecId = pydantic.Field(alias=str("columnTypeSpecId"))  # type: ignore[literal-required]
+    """The unknown column type spec ID."""
+
+    type: typing.Literal["unknownColumnSpecIdInConfigColumnMapping"] = (
+        "unknownColumnSpecIdInConfigColumnMapping"
+    )
+
+
 class UnknownInputNameError(core.ModelBase):
     """Provided input name not found in model API specification."""
 
@@ -1057,22 +1356,29 @@ SeriesAggregationsValue = DoubleSeriesAggregations
 """Union of aggregation values by series type."""
 
 
+core.resolve_forward_references(
+    CreateConfigValidationFailureReason, globalns=globals(), localns=locals()
+)
 core.resolve_forward_references(ExperimentSource, globalns=globals(), localns=locals())
 core.resolve_forward_references(InferenceInputErrorType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiDataType, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiInput, globalns=globals(), localns=locals())
 core.resolve_forward_references(ModelApiOutput, globalns=globals(), localns=locals())
+core.resolve_forward_references(ModelVersionSource, globalns=globals(), localns=locals())
 core.resolve_forward_references(ParameterValue, globalns=globals(), localns=locals())
 core.resolve_forward_references(SearchExperimentsFilter, globalns=globals(), localns=locals())
 
 __all__ = [
     "BooleanParameter",
+    "ChangelogTooLongError",
     "ColumnTypeSpecId",
+    "CreateConfigValidationFailureReason",
     "CreateModelRequest",
     "CreateModelStudioConfigVersionRequest",
     "CreateModelStudioRequest",
     "CreateModelVersionRequest",
     "DatasetInput",
+    "DatasetSchemaNotFoundError",
     "DatetimeParameter",
     "DillModelFiles",
     "DoubleParameter",
@@ -1092,18 +1398,27 @@ __all__ = [
     "ExperimentSource",
     "ExperimentStatus",
     "ExperimentTagText",
+    "FieldValidationError",
+    "GpuType",
     "InconsistentArrayDimensionsError",
     "InferenceInputErrorType",
     "InputAlias",
     "IntegerParameter",
     "InvalidArrayShapeError",
     "InvalidMapFormatError",
+    "InvalidResourceConfigurationError",
     "InvalidTabularFormatError",
+    "JsonSchemaValidationError",
     "ListModelStudioConfigVersionsResponse",
     "ListModelStudioRunsResponse",
     "ListModelStudioTrainersResponse",
     "ListModelVersionsResponse",
     "LiveDeploymentRid",
+    "MissingRequiredDatasetColumnError",
+    "MissingWorkerConfigInputDatasetColumnMappingError",
+    "MissingWorkerConfigInputError",
+    "MissingWorkerConfigInputObjectSetPropertyMappingError",
+    "MissingWorkerConfigOutputError",
     "Model",
     "ModelApi",
     "ModelApiAnyType",
@@ -1136,11 +1451,25 @@ __all__ = [
     "ModelStudioTrainerExperimental",
     "ModelStudioWorkerConfig",
     "ModelVersion",
+    "ModelVersionCodeRepositorySource",
+    "ModelVersionCodeWorkspaceSource",
+    "ModelVersionContainerizedSource",
+    "ModelVersionExternalSource",
+    "ModelVersionModelStudioSource",
+    "ModelVersionPromotedSource",
     "ModelVersionRid",
+    "ModelVersionSdkSource",
+    "ModelVersionSource",
+    "MultipleColumnsNotAllowedForTrainerError",
+    "MultiplePropertiesNotAllowedForTrainerError",
+    "OtherValidationError",
     "OutputAlias",
+    "OutputResourceInDifferentProjectError",
+    "OutputResourceNotFoundError",
     "Parameter",
     "ParameterName",
     "ParameterValue",
+    "PromoteVersionModelRequest",
     "RequiredValueMissingError",
     "ResourceConfiguration",
     "RunId",
@@ -1184,6 +1513,7 @@ __all__ = [
     "TransformJsonLiveDeploymentRequest",
     "TransformLiveDeploymentResponse",
     "TypeMismatchError",
+    "UnknownColumnSpecIdInConfigColumnMappingError",
     "UnknownInputNameError",
     "UnsupportedTypeError",
 ]

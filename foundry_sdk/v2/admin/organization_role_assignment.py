@@ -56,7 +56,6 @@ class OrganizationRoleAssignmentClient:
         organization_rid: core_models.OrganizationRid,
         *,
         role_assignments: typing.List[core_models.RoleAssignmentUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -67,8 +66,6 @@ class OrganizationRoleAssignmentClient:
         :type organization_rid: OrganizationRid
         :param role_assignments:
         :type role_assignments: List[RoleAssignmentUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -83,9 +80,7 @@ class OrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -113,7 +108,6 @@ class OrganizationRoleAssignmentClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.ListOrganizationRoleAssignmentsResponse:
@@ -122,8 +116,6 @@ class OrganizationRoleAssignmentClient:
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -137,9 +129,7 @@ class OrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -165,7 +155,6 @@ class OrganizationRoleAssignmentClient:
         organization_rid: core_models.OrganizationRid,
         *,
         role_assignments: typing.List[core_models.RoleAssignmentUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -176,8 +165,6 @@ class OrganizationRoleAssignmentClient:
         :type organization_rid: OrganizationRid
         :param role_assignments:
         :type role_assignments: List[RoleAssignmentUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -192,9 +179,7 @@ class OrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -265,7 +250,6 @@ class AsyncOrganizationRoleAssignmentClient:
         organization_rid: core_models.OrganizationRid,
         *,
         role_assignments: typing.List[core_models.RoleAssignmentUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -276,8 +260,6 @@ class AsyncOrganizationRoleAssignmentClient:
         :type organization_rid: OrganizationRid
         :param role_assignments:
         :type role_assignments: List[RoleAssignmentUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -292,9 +274,7 @@ class AsyncOrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -322,7 +302,6 @@ class AsyncOrganizationRoleAssignmentClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.ListOrganizationRoleAssignmentsResponse]:
@@ -331,8 +310,6 @@ class AsyncOrganizationRoleAssignmentClient:
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -346,9 +323,7 @@ class AsyncOrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -374,7 +349,6 @@ class AsyncOrganizationRoleAssignmentClient:
         organization_rid: core_models.OrganizationRid,
         *,
         role_assignments: typing.List[core_models.RoleAssignmentUpdate],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -385,8 +359,6 @@ class AsyncOrganizationRoleAssignmentClient:
         :type organization_rid: OrganizationRid
         :param role_assignments:
         :type role_assignments: List[RoleAssignmentUpdate]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -401,9 +373,7 @@ class AsyncOrganizationRoleAssignmentClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/organizations/{organizationRid}/roleAssignments/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
