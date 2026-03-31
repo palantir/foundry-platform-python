@@ -28,6 +28,9 @@ from foundry_sdk._core.api_client import (
 from foundry_sdk._core.api_client import with_raw_response as with_raw_response
 from foundry_sdk._core.api_client import with_streaming_response as with_streaming_response  # NOQA
 from foundry_sdk._core.auth_utils import Auth as Auth
+from foundry_sdk._core.client_init_helpers import (
+    create_hostname_supplier as create_hostname_supplier,
+)  # NOQA
 from foundry_sdk._core.compute_module_pipeline_auth import (
     ComputeModulePipelineAuth as ComputeModulePipelineAuth,
 )  # NOQA
@@ -35,6 +38,8 @@ from foundry_sdk._core.confidential_client_auth import (
     ConfidentialClientAuth as ConfidentialClientAuth,
 )  # NOQA
 from foundry_sdk._core.config import Config as Config
+from foundry_sdk._core.hostname_supplier import EndpointType as EndpointType
+from foundry_sdk._core.hostname_supplier import HostnameSupplier as HostnameSupplier
 from foundry_sdk._core.model_base import ModelBase as ModelBase
 from foundry_sdk._core.public_client_auth import PublicClientAuth as PublicClientAuth
 from foundry_sdk._core.resource_iterator import AsyncPageIterator as AsyncPageIterator

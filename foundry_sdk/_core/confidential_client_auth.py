@@ -70,7 +70,10 @@ class ConfidentialClientAuth(OAuth):
 
     def get_token(self) -> OAuthToken:
         if self._token is None or self._token.expired:
-            self._token = self._server_oauth_flow_provider.get_token(self._get_client())
+            self._token = self._server_oauth_flow_provider.get_token(
+                self._get_client(), self._get_base_url()
+            )
+
             if self._should_refresh:
                 self._start_auto_refresh()
         return self._token
@@ -80,12 +83,19 @@ class ConfidentialClientAuth(OAuth):
             self._server_oauth_flow_provider.revoke_token(
                 self._get_client(),
                 self._token.access_token,
+                self._get_base_url(),
             )
 
     @property
     def url(self) -> str:
-        return self._get_client().base_url.host
+        base_url = self._get_base_url()
+        # Parse host from the base URL (e.g., "https://a.b.c.com" -> "a.b.c.com")
+        from urllib.parse import urlparse
+
+        return urlparse(base_url).hostname or base_url
 
     def _try_refresh_token(self) -> bool:
-        self._token = self._server_oauth_flow_provider.get_token(self._get_client())
+        self._token = self._server_oauth_flow_provider.get_token(
+            self._get_client(), self._get_base_url()
+        )
         return True

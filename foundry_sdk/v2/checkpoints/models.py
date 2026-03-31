@@ -146,6 +146,7 @@ CheckpointType = typing.Literal[
     "PEER_MANAGER_CDS_PAYLOAD_EXPORT",
     "PEER_MANAGER_OBJECT_TYPE_SCHEMAS_EXPORT",
     "AIP_ANALYST_EXPORT",
+    "OBJECT_EXPLORER_SEARCH",
 ]
 """
 Checkpoint type identifier. See the [Checkpoints documentation](https://palantir.com/docs/foundry/checkpoints/overview)
@@ -405,6 +406,9 @@ class CheckpointedPeeringJob(core.ModelBase):
     job_id: str = pydantic.Field(alias=str("jobId"))  # type: ignore[literal-required]
     """Identifier of the peering job."""
 
+    relationship_rid: core.RID = pydantic.Field(alias=str("relationshipRid"))  # type: ignore[literal-required]
+    """Resource identifier of the peering relationship."""
+
     type: typing.Literal["checkpointedPeeringJob"] = "checkpointedPeeringJob"
 
 
@@ -412,6 +416,9 @@ class CheckpointedPeeringJobId(core.ModelBase):
     """Peering job identifier for a checkpointed peering job."""
 
     id: str
+    relationship_rid: core.RID = pydantic.Field(alias=str("relationshipRid"))  # type: ignore[literal-required]
+    """Resource identifier of the peering relationship."""
+
     type: typing.Literal["checkpointedPeeringJobId"] = "checkpointedPeeringJobId"
 
 

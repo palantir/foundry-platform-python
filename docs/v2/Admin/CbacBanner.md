@@ -11,7 +11,7 @@ Returns a classification banner string and colors for the given set of marking I
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**display_type** | Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING. | [optional] |
+**display_type** | Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs | [optional] |
 **marking_ids** | Optional[List[MarkingId]] | The marking IDs for which to generate a banner. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
@@ -27,10 +27,10 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING.
+# Optional[ClassificationBannerDisplayType] | The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
 display_type = None
 # Optional[List[MarkingId]] | The marking IDs for which to generate a banner.
-marking_ids = None
+marking_ids = ["MTS", "MNF"]
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 

@@ -24,18 +24,22 @@ class OntologiesClient:
     The API client for the Ontologies Namespace.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
+
         self._config = config
 
     @cached_property
@@ -44,7 +48,7 @@ class OntologiesClient:
 
         return ActionClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -56,7 +60,7 @@ class OntologiesClient:
 
         return ActionTypeFullMetadataClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -66,7 +70,7 @@ class OntologiesClient:
 
         return AttachmentClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -76,7 +80,7 @@ class OntologiesClient:
 
         return AttachmentPropertyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -86,7 +90,7 @@ class OntologiesClient:
 
         return CipherTextPropertyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -98,7 +102,7 @@ class OntologiesClient:
 
         return GeotemporalSeriesPropertyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -108,7 +112,7 @@ class OntologiesClient:
 
         return LinkedObjectClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -120,7 +124,7 @@ class OntologiesClient:
 
         return MediaReferencePropertyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -130,7 +134,7 @@ class OntologiesClient:
 
         return OntologyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -140,7 +144,7 @@ class OntologiesClient:
 
         return OntologyInterfaceClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -150,7 +154,7 @@ class OntologiesClient:
 
         return OntologyObjectClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -160,7 +164,7 @@ class OntologiesClient:
 
         return OntologyObjectSetClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -170,7 +174,7 @@ class OntologiesClient:
 
         return OntologyTransactionClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -180,7 +184,7 @@ class OntologiesClient:
 
         return OntologyValueTypeClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -190,7 +194,7 @@ class OntologiesClient:
 
         return QueryClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -202,7 +206,7 @@ class OntologiesClient:
 
         return TimeSeriesPropertyV2Client(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -214,7 +218,7 @@ class OntologiesClient:
 
         return TimeSeriesValueBankPropertyClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -224,14 +228,14 @@ class AsyncOntologiesClient:
     The Async API client for the Ontologies Namespace.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.ontologies.action import AsyncActionClient

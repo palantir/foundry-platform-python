@@ -30,23 +30,86 @@ class OrganizationGuestMemberClient:
     The API client for the OrganizationGuestMember Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _OrganizationGuestMemberClientStreaming(self)
         self.with_raw_response = _OrganizationGuestMemberClientRaw(self)
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def add(
+        self,
+        organization_rid: core_models.OrganizationRid,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+        :param organization_rid:
+        :type organization_rid: OrganizationRid
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises AddOrganizationGuestMembersPermissionDenied: Could not add the OrganizationGuestMember.
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations/{organizationRid}/guestMembers/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "organizationRid": organization_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body=admin_models.AddOrganizationGuestMembersRequest(
+                    principal_ids=principal_ids,
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AddOrganizationGuestMembersPermissionDenied": admin_errors.AddOrganizationGuestMembersPermissionDenied,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -99,12 +162,74 @@ class OrganizationGuestMemberClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def remove(
+        self,
+        organization_rid: core_models.OrganizationRid,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> None:
+        """
+        Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+        :param organization_rid:
+        :type organization_rid: OrganizationRid
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: None
+
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveOrganizationGuestMembersPermissionDenied: Could not remove the OrganizationGuestMember.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations/{organizationRid}/guestMembers/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "organizationRid": organization_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body=admin_models.RemoveOrganizationGuestMembersRequest(
+                    principal_ids=principal_ids,
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveOrganizationGuestMembersPermissionDenied": admin_errors.RemoveOrganizationGuestMembersPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _OrganizationGuestMemberClientRaw:
     def __init__(self, client: OrganizationGuestMemberClient) -> None:
+        def add(_: None): ...
         def list(_: admin_models.ListOrganizationGuestMembersResponse): ...
+        def remove(_: None): ...
 
+        self.add = core.with_raw_response(add, client.add)
         self.list = core.with_raw_response(list, client.list)
+        self.remove = core.with_raw_response(remove, client.remove)
 
 
 class _OrganizationGuestMemberClientStreaming:
@@ -119,23 +244,86 @@ class AsyncOrganizationGuestMemberClient:
     The API client for the OrganizationGuestMember Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncOrganizationGuestMemberClientStreaming(self)
         self.with_raw_response = _AsyncOrganizationGuestMemberClientRaw(self)
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def add(
+        self,
+        organization_rid: core_models.OrganizationRid,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+        :param organization_rid:
+        :type organization_rid: OrganizationRid
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises AddOrganizationGuestMembersPermissionDenied: Could not add the OrganizationGuestMember.
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations/{organizationRid}/guestMembers/add",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "organizationRid": organization_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body=admin_models.AddOrganizationGuestMembersRequest(
+                    principal_ids=principal_ids,
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "AddOrganizationGuestMembersPermissionDenied": admin_errors.AddOrganizationGuestMembersPermissionDenied,
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -188,12 +376,74 @@ class AsyncOrganizationGuestMemberClient:
             ),
         )
 
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def remove(
+        self,
+        organization_rid: core_models.OrganizationRid,
+        *,
+        principal_ids: typing.List[core_models.PrincipalId],
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[None]:
+        """
+        Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+        :param organization_rid:
+        :type organization_rid: OrganizationRid
+        :param principal_ids:
+        :type principal_ids: List[PrincipalId]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[None]
+
+        :raises OrganizationNotFound: The given Organization could not be found.
+        :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
+        :raises RemoveOrganizationGuestMembersPermissionDenied: Could not remove the OrganizationGuestMember.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/admin/organizations/{organizationRid}/guestMembers/remove",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={
+                    "organizationRid": organization_rid,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                },
+                body=admin_models.RemoveOrganizationGuestMembersRequest(
+                    principal_ids=principal_ids,
+                ),
+                response_type=None,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "OrganizationNotFound": admin_errors.OrganizationNotFound,
+                    "PrincipalNotFound": admin_errors.PrincipalNotFound,
+                    "RemoveOrganizationGuestMembersPermissionDenied": admin_errors.RemoveOrganizationGuestMembersPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
 
 class _AsyncOrganizationGuestMemberClientRaw:
     def __init__(self, client: AsyncOrganizationGuestMemberClient) -> None:
+        def add(_: None): ...
         def list(_: admin_models.ListOrganizationGuestMembersResponse): ...
+        def remove(_: None): ...
 
+        self.add = core.async_with_raw_response(add, client.add)
         self.list = core.async_with_raw_response(list, client.list)
+        self.remove = core.async_with_raw_response(remove, client.remove)
 
 
 class _AsyncOrganizationGuestMemberClientStreaming:

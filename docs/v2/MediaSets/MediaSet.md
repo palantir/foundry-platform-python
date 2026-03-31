@@ -1020,6 +1020,7 @@ Name | Type | Description  | Notes |
 **media_set_rid** | MediaSetRid | The RID of the media set.  |  |
 **media_item_rid** | MediaItemRid | The RID of the media item.  |  |
 **transformation** | Transformation |  |  |
+**attribution** | Optional[Attribution] | Optional resource to attribute LLM calls on behalf of. | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **token** | Optional[MediaItemReadToken] |  | [optional] |
 
@@ -1045,6 +1046,8 @@ transformation = {
     "encoding": {"type": "webp"},
     "operations": [{"type": "resize", "width": 800, "height": 600}],
 }
+# Optional[Attribution] | Optional resource to attribute LLM calls on behalf of.
+attribution = None
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
 # Optional[MediaItemReadToken]
@@ -1053,7 +1056,12 @@ token = None
 
 try:
     api_response = client.media_sets.MediaSet.transform(
-        media_set_rid, media_item_rid, transformation=transformation, preview=preview, token=token
+        media_set_rid,
+        media_item_rid,
+        transformation=transformation,
+        attribution=attribution,
+        preview=preview,
+        token=token,
     )
     print("The transform response:\n")
     pprint(api_response)

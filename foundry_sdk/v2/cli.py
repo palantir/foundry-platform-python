@@ -513,6 +513,31 @@ def admin_organization_organization_guest_member():
     pass
 
 
+@admin_organization_organization_guest_member.command("add")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_add(
+    client: FoundryClient,
+    organization_rid: str,
+    principal_ids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.add(
+        organization_rid=organization_rid,
+        principal_ids=json.loads(principal_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @admin_organization_organization_guest_member.command("list")
 @click.argument("organization_rid", type=str, required=True)
 @click.option(
@@ -530,6 +555,31 @@ def admin_organization_organization_guest_member_op_list(
     """
     result = client.admin.Organization.OrganizationGuestMember.list(
         organization_rid=organization_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization_organization_guest_member.command("remove")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_remove(
+    client: FoundryClient,
+    organization_rid: str,
+    principal_ids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.remove(
+        organization_rid=organization_rid,
+        principal_ids=json.loads(principal_ids),
         preview=preview,
     )
     click.echo(repr(result))
@@ -1134,6 +1184,68 @@ def admin_group_op_list(
     click.echo(repr(result))
 
 
+@admin_group.command("list_current")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_group_op_list_current(
+    client: FoundryClient,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns all Groups which contain the current user as a direct or transitive member. For example if the current user is a member of Group A and Group A is a member of Group B, this endpoint will return Group A and Group B.
+
+    Unlike the list Group Memberships endpoint which requires the `api:admin-read` scope, this endpoint
+    does not require any particular scopes and can be used by any authenticated user to retrieve their own
+    group memberships.
+
+    """
+    result = client.admin.Group.list_current(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("replace")
+@click.argument("group_id", type=str, required=True)
+@click.option(
+    "--attributes",
+    type=str,
+    required=True,
+    help="""A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.""",
+)
+@click.option("--name", type=str, required=True, help="""The name of the Group.""")
+@click.option(
+    "--organizations",
+    type=str,
+    required=True,
+    help="""The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
+""",
+)
+@click.option("--description", type=str, required=False, help="""A description of the Group.""")
+@click.pass_obj
+def admin_group_op_replace(
+    client: FoundryClient,
+    group_id: str,
+    attributes: str,
+    name: str,
+    organizations: str,
+    description: typing.Optional[str],
+):
+    """
+    When replacing groups, you must send all attributes that begin with `multipass:` exactly as they appear when calling the Get Group endpoint.
+    """
+    result = client.admin.Group.replace(
+        group_id=group_id,
+        attributes=json.loads(attributes),
+        name=name,
+        organizations=json.loads(organizations),
+        description=description,
+    )
+    click.echo(repr(result))
+
+
 @admin_group.command("search")
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
@@ -1728,7 +1840,7 @@ def admin_cbac_banner():
     "--display_type",
     type=click.Choice(["BANNER_LINE", "PORTION_MARKING"]),
     required=False,
-    help="""The display type of the banner. Defaults to PORTION_MARKING.""",
+    help="""The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs""",
 )
 @click.option(
     "--marking_ids",
@@ -6600,6 +6712,12 @@ def media_sets_media_set_op_retrieve(
 @click.argument("media_item_rid", type=str, required=True)
 @click.option("--transformation", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""Optional resource to attribute LLM calls on behalf of.""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -6613,6 +6731,7 @@ def media_sets_media_set_op_transform(
     media_set_rid: str,
     media_item_rid: str,
     transformation: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     token: typing.Optional[str],
 ):
@@ -6628,6 +6747,7 @@ def media_sets_media_set_op_transform(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
         transformation=json.loads(transformation),
+        attribution=attribution,
         preview=preview,
         token=token,
     )
@@ -8076,6 +8196,20 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -8095,6 +8229,8 @@ def ontologies_ontology_object_set_op_aggregate(
     include_compute_usage: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -8111,6 +8247,8 @@ def ontologies_ontology_object_set_op_aggregate(
         include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -8141,6 +8279,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""The package version of the generated SDK.
 """,
 )
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_create_temporary(
     client: FoundryClient,
@@ -8149,6 +8301,8 @@ def ontologies_ontology_object_set_op_create_temporary(
     branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
@@ -8160,6 +8314,8 @@ def ontologies_ontology_object_set_op_create_temporary(
         branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -8252,6 +8408,20 @@ This defaults to false if not specified, which means you will always get the lat
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -8276,6 +8446,8 @@ def ontologies_ontology_object_set_op_load(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -8304,6 +8476,8 @@ def ontologies_ontology_object_set_op_load(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -8344,6 +8518,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""The package version of the generated SDK.
 """,
 )
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_load_links(
     client: FoundryClient,
@@ -8356,6 +8544,8 @@ def ontologies_ontology_object_set_op_load_links(
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Loads the specified links from the defined object set.
@@ -8384,6 +8574,8 @@ def ontologies_ontology_object_set_op_load_links(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -8463,6 +8655,20 @@ This defaults to false if not specified, which means you will always get the lat
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -8488,6 +8694,8 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -8522,6 +8730,8 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -8590,6 +8800,20 @@ This defaults to false if not specified, which means you will always get the lat
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -8613,6 +8837,8 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -8647,6 +8873,8 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -12293,15 +12521,11 @@ def streams_dataset_stream_op_create(
 @streams_dataset_stream.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("stream_branch_name", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def streams_dataset_stream_op_get(
     client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
@@ -12311,7 +12535,6 @@ def streams_dataset_stream_op_get(
     result = client.streams.Dataset.Stream.get(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -12425,9 +12648,6 @@ def streams_dataset_stream_op_get_records(
 @click.argument("stream_branch_name", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--view_rid",
     type=str,
     required=False,
@@ -12444,7 +12664,6 @@ def streams_dataset_stream_op_publish_binary_record(
     dataset_rid: str,
     stream_branch_name: str,
     body: io.BufferedReader,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -12455,7 +12674,6 @@ def streams_dataset_stream_op_publish_binary_record(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         body=body.read(),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))
@@ -12470,9 +12688,6 @@ def streams_dataset_stream_op_publish_binary_record(
     required=True,
     help="""The record to publish to the stream
 """,
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
     "--view_rid",
@@ -12491,7 +12706,6 @@ def streams_dataset_stream_op_publish_record(
     dataset_rid: str,
     stream_branch_name: str,
     record: str,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -12503,7 +12717,6 @@ def streams_dataset_stream_op_publish_record(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         record=json.loads(record),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))
@@ -12518,9 +12731,6 @@ def streams_dataset_stream_op_publish_record(
     required=True,
     help="""The records to publish to the stream
 """,
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
     "--view_rid",
@@ -12539,7 +12749,6 @@ def streams_dataset_stream_op_publish_records(
     dataset_rid: str,
     stream_branch_name: str,
     records: str,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -12551,7 +12760,6 @@ def streams_dataset_stream_op_publish_records(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         records=json.loads(records),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))

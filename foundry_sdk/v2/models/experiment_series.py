@@ -30,20 +30,25 @@ class ExperimentSeriesClient:
     The API client for the ExperimentSeries Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ExperimentSeriesClientStreaming(self)
         self.with_raw_response = _ExperimentSeriesClientRaw(self)
@@ -84,7 +89,9 @@ class ExperimentSeriesClient:
         :return: Returns the result object.
         :rtype: models_models.Series
 
+        :raises ExperimentSeriesNotFound: The requested series was not found in the experiment.
         :raises JsonExperimentSeriesPermissionDenied: Could not json the ExperimentSeries.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -108,7 +115,9 @@ class ExperimentSeriesClient:
                 response_type=models_models.Series,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentSeriesNotFound": models_errors.ExperimentSeriesNotFound,
                     "JsonExperimentSeriesPermissionDenied": models_errors.JsonExperimentSeriesPermissionDenied,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -144,6 +153,8 @@ class ExperimentSeriesClient:
         :rtype: core.TableResponse
 
 
+        :raises ExperimentSeriesNotFound: The requested series was not found in the experiment.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         :raises ParquetExperimentSeriesPermissionDenied: Could not parquet the ExperimentSeries.
         """
 
@@ -166,6 +177,8 @@ class ExperimentSeriesClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentSeriesNotFound": models_errors.ExperimentSeriesNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                     "ParquetExperimentSeriesPermissionDenied": models_errors.ParquetExperimentSeriesPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "PARQUET_TABLE"),
@@ -196,20 +209,25 @@ class AsyncExperimentSeriesClient:
     The API client for the ExperimentSeries Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncExperimentSeriesClientStreaming(self)
         self.with_raw_response = _AsyncExperimentSeriesClientRaw(self)
@@ -250,7 +268,9 @@ class AsyncExperimentSeriesClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.Series]
 
+        :raises ExperimentSeriesNotFound: The requested series was not found in the experiment.
         :raises JsonExperimentSeriesPermissionDenied: Could not json the ExperimentSeries.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -274,7 +294,9 @@ class AsyncExperimentSeriesClient:
                 response_type=models_models.Series,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentSeriesNotFound": models_errors.ExperimentSeriesNotFound,
                     "JsonExperimentSeriesPermissionDenied": models_errors.JsonExperimentSeriesPermissionDenied,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -310,6 +332,8 @@ class AsyncExperimentSeriesClient:
                 :rtype: typing.Awaitable[core.TableResponse
         ]
 
+                :raises ExperimentSeriesNotFound: The requested series was not found in the experiment.
+                :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
                 :raises ParquetExperimentSeriesPermissionDenied: Could not parquet the ExperimentSeries.
         """
 
@@ -332,6 +356,8 @@ class AsyncExperimentSeriesClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentSeriesNotFound": models_errors.ExperimentSeriesNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                     "ParquetExperimentSeriesPermissionDenied": models_errors.ParquetExperimentSeriesPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "PARQUET_TABLE"),

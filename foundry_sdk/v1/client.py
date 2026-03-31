@@ -16,9 +16,7 @@
 import typing
 
 from foundry_sdk import _core as core
-from foundry_sdk._core.client_init_helpers import (
-    get_hostname_from_context_or_environment_vars,
-)  # NOQA
+from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.client_init_helpers import (
     get_user_token_auth_from_context_or_environment_vars,
 )  # NOQA
@@ -41,14 +39,14 @@ class FoundryClient:
     ):
         if auth is None:
             auth = get_user_token_auth_from_context_or_environment_vars()
-        if hostname is None:
-            hostname = get_hostname_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v1.datasets._client import DatasetsClient
         from foundry_sdk.v1.ontologies._client import OntologiesClient
 
-        self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
-        self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
+        self.datasets = DatasetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.ontologies = OntologiesClient(auth=auth, hostname=hostname_supplier, config=config)
 
 
 class AsyncFoundryClient:
@@ -74,11 +72,13 @@ class AsyncFoundryClient:
             )
         if auth is None:
             auth = get_user_token_auth_from_context_or_environment_vars()
-        if hostname is None:
-            hostname = get_hostname_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v1.datasets._client import AsyncDatasetsClient
         from foundry_sdk.v1.ontologies._client import AsyncOntologiesClient
 
-        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
-        self.ontologies = AsyncOntologiesClient(auth=auth, hostname=hostname, config=config)
+        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.ontologies = AsyncOntologiesClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )

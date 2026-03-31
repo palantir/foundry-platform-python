@@ -29,20 +29,25 @@ class QueryTypeClient:
     The API client for the QueryType Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _QueryTypeClientStreaming(self)
         self.with_raw_response = _QueryTypeClientRaw(self)
@@ -167,20 +172,25 @@ class AsyncQueryTypeClient:
     The API client for the QueryType Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncQueryTypeClientStreaming(self)
         self.with_raw_response = _AsyncQueryTypeClientRaw(self)

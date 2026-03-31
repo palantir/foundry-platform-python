@@ -4873,6 +4873,7 @@ class SumAggregationV2(core.ModelBase):
 class SyncApplyActionResponseV2(core.ModelBase):
     """SyncApplyActionResponseV2"""
 
+    operation_id: typing.Optional[core.RID] = pydantic.Field(alias=str("operationId"), default=None)  # type: ignore[literal-required]
     validation: typing.Optional[ValidateActionResponseV2] = None
     edits: typing.Optional[ActionResults] = None
 

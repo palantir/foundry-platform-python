@@ -6,6 +6,7 @@ Peering job identifier for a checkpointed peering job.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **id** | str | Yes |  |
+**relationship_rid** | RID | Yes | Resource identifier of the peering relationship. |
 **type** | Literal["checkpointedPeeringJobId"] | Yes | None |
 
 

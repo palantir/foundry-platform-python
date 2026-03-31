@@ -84,6 +84,21 @@ class AddMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddOrganizationGuestMembersPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the OrganizationGuestMember."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class AddOrganizationGuestMembersPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddOrganizationGuestMembersPermissionDenied"]
+    parameters: AddOrganizationGuestMembersPermissionDeniedParameters
+    error_instance_id: str
+
+
 class AddOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the OrganizationRoleAssignment."""
 
@@ -96,6 +111,21 @@ class AddOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions
 class AddOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["AddOrganizationRoleAssignmentsPermissionDenied"]
     parameters: AddOrganizationRoleAssignmentsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class AttributesNotEditableParameters(typing_extensions.TypedDict):
+    """One or more attributes are not editable. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are not editable."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    attributeNames: typing.List[str]
+
+
+@dataclass
+class AttributesNotEditable(errors.BadRequestError):
+    name: typing.Literal["AttributesNotEditable"]
+    parameters: AttributesNotEditableParameters
     error_instance_id: str
 
 
@@ -627,6 +657,19 @@ class ListAvailableRolesOrganizationPermissionDenied(errors.PermissionDeniedErro
     error_instance_id: str
 
 
+class ListCurrentGroupsPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not listCurrent the Group."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ListCurrentGroupsPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ListCurrentGroupsPermissionDenied"]
+    parameters: ListCurrentGroupsPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ListEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to list assigned roles for this enrollment."""
 
@@ -979,6 +1022,21 @@ class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(errors.BadRe
     error_instance_id: str
 
 
+class RemoveOrganizationGuestMembersPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the OrganizationGuestMember."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    organizationRid: core_models.OrganizationRid
+
+
+@dataclass
+class RemoveOrganizationGuestMembersPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveOrganizationGuestMembersPermissionDenied"]
+    parameters: RemoveOrganizationGuestMembersPermissionDeniedParameters
+    error_instance_id: str
+
+
 class RemoveOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not remove the OrganizationRoleAssignment."""
 
@@ -1006,6 +1064,21 @@ class ReplaceGroupMembershipExpirationPolicyPermissionDeniedParameters(typing_ex
 class ReplaceGroupMembershipExpirationPolicyPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["ReplaceGroupMembershipExpirationPolicyPermissionDenied"]
     parameters: ReplaceGroupMembershipExpirationPolicyPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ReplaceGroupPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Group."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    groupId: core_models.GroupId
+
+
+@dataclass
+class ReplaceGroupPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceGroupPermissionDenied"]
+    parameters: ReplaceGroupPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -1220,7 +1293,9 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
+    "AddOrganizationGuestMembersPermissionDenied",
     "AddOrganizationRoleAssignmentsPermissionDenied",
+    "AttributesNotEditable",
     "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
     "CbacBannerNotFound",
@@ -1258,6 +1333,7 @@ __all__ = [
     "InvalidHostName",
     "InvalidProfilePicture",
     "ListAvailableRolesOrganizationPermissionDenied",
+    "ListCurrentGroupsPermissionDenied",
     "ListEnrollmentRoleAssignmentsPermissionDenied",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
@@ -1281,8 +1357,10 @@ __all__ = [
     "RemoveMarkingMembersPermissionDenied",
     "RemoveMarkingRoleAssignmentsPermissionDenied",
     "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
+    "RemoveOrganizationGuestMembersPermissionDenied",
     "RemoveOrganizationRoleAssignmentsPermissionDenied",
     "ReplaceGroupMembershipExpirationPolicyPermissionDenied",
+    "ReplaceGroupPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
     "ReplaceMarkingCategoryPermissionDenied",
     "ReplaceMarkingPermissionDenied",

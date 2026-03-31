@@ -407,6 +407,21 @@ class DerivedPropertyApiNamesNotUnique(errors.BadRequestError):
     error_instance_id: str
 
 
+class DistinctEnumValuesExceededLimitParameters(typing_extensions.TypedDict):
+    """An enum time series contained too many distinct enum values. Check that the time series sync is using the correct value column."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    maxDistinctValues: typing_extensions.NotRequired[int]
+
+
+@dataclass
+class DistinctEnumValuesExceededLimit(errors.BadRequestError):
+    name: typing.Literal["DistinctEnumValuesExceededLimit"]
+    parameters: DistinctEnumValuesExceededLimitParameters
+    error_instance_id: str
+
+
 class DuplicateOrderByParameters(typing_extensions.TypedDict):
     """The requested sort order includes duplicate properties."""
 
@@ -499,6 +514,23 @@ class FunctionInvalidInputParameters(typing_extensions.TypedDict):
 class FunctionInvalidInput(errors.BadRequestError):
     name: typing.Literal["FunctionInvalidInput"]
     parameters: FunctionInvalidInputParameters
+    error_instance_id: str
+
+
+class FunctionNotSupportedWithTransactionParameters(typing_extensions.TypedDict):
+    """The function runtime does not support execution with a transaction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+    message: str
+
+
+@dataclass
+class FunctionNotSupportedWithTransaction(errors.BadRequestError):
+    name: typing.Literal["FunctionNotSupportedWithTransaction"]
+    parameters: FunctionNotSupportedWithTransactionParameters
     error_instance_id: str
 
 
@@ -2418,12 +2450,14 @@ __all__ = [
     "ConsistentSnapshotError",
     "DefaultAndNullGroupsNotSupported",
     "DerivedPropertyApiNamesNotUnique",
+    "DistinctEnumValuesExceededLimit",
     "DuplicateOrderBy",
     "EditObjectPermissionDenied",
     "FunctionEncounteredUserFacingError",
     "FunctionExecutionFailed",
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
+    "FunctionNotSupportedWithTransaction",
     "HighScaleComputationNotEnabled",
     "IncompatibleNestedObjectSet",
     "InterfaceBasedObjectSetNotSupported",

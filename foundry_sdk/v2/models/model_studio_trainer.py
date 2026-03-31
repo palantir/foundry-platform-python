@@ -30,20 +30,25 @@ class ModelStudioTrainerClient:
     The API client for the ModelStudioTrainer Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ModelStudioTrainerClientStreaming(self)
         self.with_raw_response = _ModelStudioTrainerClientRaw(self)
@@ -74,6 +79,7 @@ class ModelStudioTrainerClient:
         :rtype: models_models.ModelStudioTrainer
 
         :raises ModelStudioTrainerNotFound: The given ModelStudioTrainer could not be found.
+        :raises TrainerNotFound: The specified trainer does not exist.
         """
 
         return self._api_client.call_api(
@@ -95,6 +101,7 @@ class ModelStudioTrainerClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelStudioTrainerNotFound": models_errors.ModelStudioTrainerNotFound,
+                    "TrainerNotFound": models_errors.TrainerNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -163,20 +170,25 @@ class AsyncModelStudioTrainerClient:
     The API client for the ModelStudioTrainer Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncModelStudioTrainerClientStreaming(self)
         self.with_raw_response = _AsyncModelStudioTrainerClientRaw(self)
@@ -207,6 +219,7 @@ class AsyncModelStudioTrainerClient:
         :rtype: typing.Awaitable[models_models.ModelStudioTrainer]
 
         :raises ModelStudioTrainerNotFound: The given ModelStudioTrainer could not be found.
+        :raises TrainerNotFound: The specified trainer does not exist.
         """
 
         return self._api_client.call_api(
@@ -228,6 +241,7 @@ class AsyncModelStudioTrainerClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelStudioTrainerNotFound": models_errors.ModelStudioTrainerNotFound,
+                    "TrainerNotFound": models_errors.TrainerNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),

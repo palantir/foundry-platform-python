@@ -24,18 +24,22 @@ class FunctionsClient:
     The API client for the Functions Namespace.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
+
         self._config = config
 
     @cached_property
@@ -44,7 +48,7 @@ class FunctionsClient:
 
         return QueryClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -54,7 +58,7 @@ class FunctionsClient:
 
         return ValueTypeClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -64,14 +68,14 @@ class AsyncFunctionsClient:
     The Async API client for the Functions Namespace.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.functions.query import AsyncQueryClient

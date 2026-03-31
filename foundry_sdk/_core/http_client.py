@@ -13,12 +13,10 @@
 #  limitations under the License.
 
 
-import dataclasses
 import functools
 import os
 import ssl
 import sys
-from typing import Literal
 from typing import Optional
 from typing import Tuple
 from typing import Union
@@ -107,21 +105,10 @@ def _get_async_transport(
 
 
 def _prepare_client_data(
-    hostname: str,
     config: Optional[Config],
-) -> Tuple[Config, str, Union[bool, str], dict]:
+) -> Tuple[Config, Union[bool, str], dict]:
     """Prepare common data for HttpClient and AsyncHttpClient."""
     config = config or Config()
-    hostname = hostname.strip("/")
-    # If the hostname includes an explicit scheme, use it rather than the
-    # config default so that e.g. "http://localhost:8080" isn't silently
-    # upgraded to https.
-    for prefix in ("http://", "https://"):
-        if hostname.startswith(prefix):
-            scheme: Literal["http", "https"] = "http" if prefix == "http://" else "https"
-            config = dataclasses.replace(config, scheme=scheme)
-            hostname = hostname[len(prefix) :]
-            break
     verify = config.verify
 
     # If verity is set to True, then merge with env vars
@@ -162,12 +149,12 @@ def _prepare_client_data(
         ):
             headers[header_key] = header_value
 
-    return config, hostname, verify, headers
+    return config, verify, headers
 
 
 class HttpClient(httpx.Client):
-    def __init__(self, hostname: str, config: Optional[Config] = None):
-        config, hostname, verify, headers = _prepare_client_data(hostname, config)
+    def __init__(self, config: Optional[Config] = None):
+        config, verify, headers = _prepare_client_data(config)
 
         # Expose this for testing, otherwise it is hard to access
         self._verify = verify
@@ -185,14 +172,13 @@ class HttpClient(httpx.Client):
             # the user to the URL with the trailing slash. For example, accessing `/example` might
             # redirect to `/example/`.
             follow_redirects=True,
-            base_url=f"{config.scheme}://{hostname}",
             timeout=config.timeout,
         )
 
 
 class AsyncHttpClient(httpx.AsyncClient):
-    def __init__(self, hostname: str, config: Optional[Config] = None):
-        config, hostname, verify, headers = _prepare_client_data(hostname, config)
+    def __init__(self, config: Optional[Config] = None):
+        config, verify, headers = _prepare_client_data(config)
 
         # Expose this for testing, otherwise it is hard to access
         self._verify = verify
@@ -210,6 +196,5 @@ class AsyncHttpClient(httpx.AsyncClient):
             # the user to the URL with the trailing slash. For example, accessing `/example` might
             # redirect to `/example/`.
             follow_redirects=True,
-            base_url=f"{config.scheme}://{hostname}",
             timeout=config.timeout,
         )

@@ -328,6 +328,19 @@ class UnexpectedMetadataType(errors.InternalServerError):
     error_instance_id: str
 
 
+class UnsupportedMetadataParameters(typing_extensions.TypedDict):
+    """A media item has an unsupported metadata type"""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnsupportedMetadata(errors.InternalServerError):
+    name: typing.Literal["UnsupportedMetadata"]
+    parameters: UnsupportedMetadataParameters
+    error_instance_id: str
+
+
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
@@ -349,4 +362,5 @@ __all__ = [
     "TransformationUnavailable",
     "TransformedMediaItemNotFound",
     "UnexpectedMetadataType",
+    "UnsupportedMetadata",
 ]

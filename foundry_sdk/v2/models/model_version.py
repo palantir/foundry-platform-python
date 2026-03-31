@@ -30,20 +30,25 @@ class ModelVersionClient:
     The API client for the ModelVersion Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ModelVersionClientStreaming(self)
         self.with_raw_response = _ModelVersionClientRaw(self)
@@ -82,7 +87,10 @@ class ModelVersionClient:
         :return: Returns the result object.
         :rtype: models_models.ModelVersion
 
+        :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises InvalidModelApi: The model api failed validations
+        :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
@@ -109,7 +117,10 @@ class ModelVersionClient:
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "InvalidModelApi": models_errors.InvalidModelApi,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -198,6 +209,7 @@ class ModelVersionClient:
         :return: Returns the result object.
         :rtype: core.ResourceIterator[models_models.ModelVersion]
 
+        :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
@@ -220,6 +232,7 @@ class ModelVersionClient:
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
@@ -254,20 +267,25 @@ class AsyncModelVersionClient:
     The API client for the ModelVersion Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncModelVersionClientStreaming(self)
         self.with_raw_response = _AsyncModelVersionClientRaw(self)
@@ -306,7 +324,10 @@ class AsyncModelVersionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.ModelVersion]
 
+        :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises InvalidModelApi: The model api failed validations
+        :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
@@ -333,7 +354,10 @@ class AsyncModelVersionClient:
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "InvalidModelApi": models_errors.InvalidModelApi,
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -422,6 +446,7 @@ class AsyncModelVersionClient:
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[models_models.ModelVersion]
 
+        :raises ModelNotFound: The given Model could not be found.
         :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
@@ -444,6 +469,7 @@ class AsyncModelVersionClient:
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
                     "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),

@@ -1,6 +1,6 @@
 # CbacMarkingRestrictionsIsValid
 
-True if the provided markings contain no disallowed markings and each list of required markings is satisfied by the provided markings.
+True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints.
 
 ## Type
 ```python

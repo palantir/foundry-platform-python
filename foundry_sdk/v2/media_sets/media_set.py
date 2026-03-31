@@ -29,20 +29,25 @@ class MediaSetClient:
     The API client for the MediaSet Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _MediaSetClientStreaming(self)
         self.with_raw_response = _MediaSetClientRaw(self)
@@ -933,6 +938,7 @@ class MediaSetClient:
         media_item_rid: core_models.MediaItemRid,
         *,
         transformation: media_sets_models.Transformation,
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -951,6 +957,8 @@ class MediaSetClient:
         :type media_item_rid: MediaItemRid
         :param transformation:
         :type transformation: Transformation
+        :param attribution: Optional resource to attribute LLM calls on behalf of.
+        :type attribution: Optional[Attribution]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param token:
@@ -973,6 +981,7 @@ class MediaSetClient:
                     "mediaItemRid": media_item_rid,
                 },
                 header_params={
+                    "Attribution": attribution,
                     "Token": token,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
@@ -1209,20 +1218,25 @@ class AsyncMediaSetClient:
     The API client for the MediaSet Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncMediaSetClientStreaming(self)
         self.with_raw_response = _AsyncMediaSetClientRaw(self)
@@ -2113,6 +2127,7 @@ class AsyncMediaSetClient:
         media_item_rid: core_models.MediaItemRid,
         *,
         transformation: media_sets_models.Transformation,
+        attribution: typing.Optional[core_models.Attribution] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         token: typing.Optional[core_models.MediaItemReadToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -2131,6 +2146,8 @@ class AsyncMediaSetClient:
         :type media_item_rid: MediaItemRid
         :param transformation:
         :type transformation: Transformation
+        :param attribution: Optional resource to attribute LLM calls on behalf of.
+        :type attribution: Optional[Attribution]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
         :param token:
@@ -2153,6 +2170,7 @@ class AsyncMediaSetClient:
                     "mediaItemRid": media_item_rid,
                 },
                 header_params={
+                    "Attribution": attribution,
                     "Token": token,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
