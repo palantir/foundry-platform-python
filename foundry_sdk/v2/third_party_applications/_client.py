@@ -39,6 +39,7 @@ class ThirdPartyApplicationsClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
+        self._hostname = self._hostname_supplier.get_hostname()
 
         self._config = config
 

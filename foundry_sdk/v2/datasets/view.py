@@ -48,6 +48,7 @@ class ViewClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
+        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.ApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config
@@ -520,6 +521,7 @@ class AsyncViewClient:
             self._hostname_supplier = hostname
         else:
             self._hostname_supplier = core.create_hostname_supplier(hostname, config)
+        self._hostname = self._hostname_supplier.get_hostname()
         self._config = config
         self._api_client = core.AsyncApiClient(
             auth=auth, hostname=self._hostname_supplier, config=config

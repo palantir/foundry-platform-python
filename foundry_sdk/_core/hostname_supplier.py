@@ -16,6 +16,8 @@
 from abc import ABC
 from abc import abstractmethod
 from enum import Enum
+from functools import cache
+from typing import Optional
 
 
 class EndpointType(Enum):
@@ -26,18 +28,25 @@ class EndpointType(Enum):
 
 class HostnameSupplier(ABC):
     @abstractmethod
-    def get_hostname(self, endpoint_type: EndpointType) -> str:
-        """Return the full base URL including scheme (e.g., 'https://example.com')."""
+    def get_hostname(self, endpoint_type: Optional[EndpointType] = None) -> str:
+        """Return a base URL including scheme.
+
+        If endpoint_type is None, returns the base hostname (e.g., 'https://example.com').
+        If endpoint_type is provided, returns the endpoint-specific URL.
+        """
         ...
 
 
 class StaticHostnameSupplier(HostnameSupplier):
     def __init__(self, base_url: str) -> None:
+        self._base_url = base_url
         self._api_gateway_url = base_url + "/api"
         self._multipass_url = base_url + "/multipass/api"
         self._stream_proxy_url = base_url + "/stream-proxy/api"
 
-    def get_hostname(self, endpoint_type: EndpointType) -> str:
+    def get_hostname(self, endpoint_type: Optional[EndpointType] = None) -> str:
+        if endpoint_type is None:
+            return self._base_url
         if endpoint_type == EndpointType.GENERIC:
             return self._api_gateway_url
         elif endpoint_type == EndpointType.AUTH:
@@ -51,23 +60,22 @@ class StaticHostnameSupplier(HostnameSupplier):
 class ServiceDiscoveryHostnameSupplier(HostnameSupplier):
     def __init__(self, services: dict[str, list[str]]) -> None:
         self._services = services
-        self._url_cache: dict[EndpointType, str] = {}
 
-    def get_hostname(self, endpoint_type: EndpointType) -> str:
-        if endpoint_type in self._url_cache:
-            return self._url_cache[endpoint_type]
+    @cache
+    def get_hostname(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, endpoint_type: Optional[EndpointType] = None
+    ) -> str:
+        if endpoint_type is None:
+            raise ValueError("ServiceDiscoveryHostnameSupplier requires an endpoint_type.")
 
         if endpoint_type == EndpointType.GENERIC:
-            url = self._find_service_url("api-gateway")
+            return self._find_service_url("api-gateway")
         elif endpoint_type == EndpointType.AUTH:
-            url = self._find_service_url("multipass")
+            return self._find_service_url("multipass")
         elif endpoint_type == EndpointType.HIGH_SCALE:
-            url = self._find_service_url("stream-proxy")
+            return self._find_service_url("stream-proxy")
         else:
             raise ValueError(f"Unsupported endpoint type: {endpoint_type}")
-
-        self._url_cache[endpoint_type] = url
-        return url
 
     def _find_service_url(self, service_name: str) -> str:
         if service_name not in self._services:
