@@ -6,6 +6,7 @@ A peering job that was captured as part of a checkpoint.
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **job_id** | str | Yes | Identifier of the peering job. |
+**relationship_rid** | RID | Yes | Resource identifier of the peering relationship. |
 **type** | Literal["checkpointedPeeringJob"] | Yes | None |
 
 

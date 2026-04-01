@@ -56,14 +56,16 @@ from typing_extensions import TypedDict
 
 from foundry_sdk._core.auth_utils import Auth
 from foundry_sdk._core.auth_utils import Token
+from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.config import Config
+from foundry_sdk._core.hostname_supplier import EndpointType
+from foundry_sdk._core.hostname_supplier import HostnameSupplier
 from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk._core.resource_iterator import AsyncResourceIterator
 from foundry_sdk._core.resource_iterator import ResourceIterator
 from foundry_sdk._core.table import ArrowTableResponse
 from foundry_sdk._core.table import ParquetTableResponse
-from foundry_sdk._core.utils import assert_non_empty_string
 from foundry_sdk._errors import ApiNotFoundError
 from foundry_sdk._errors import BadRequestError
 from foundry_sdk._errors import ConflictError
@@ -214,6 +216,7 @@ class RequestInfo:
     request_timeout: Optional[int]
     throwable_errors: Dict[str, Type[PalantirRPCException]]
     response_mode: Optional[ResponseMode] = None
+    endpoint_type: EndpointType = EndpointType.GENERIC
 
     def update(
         self,
@@ -232,6 +235,7 @@ class RequestInfo:
             request_timeout=self.request_timeout,
             throwable_errors=self.throwable_errors,
             response_mode=(response_mode if response_mode is not None else self.response_mode),
+            endpoint_type=self.endpoint_type,
         )
 
     @classmethod
@@ -247,6 +251,7 @@ class RequestInfo:
         request_timeout: Optional[int] = None,
         throwable_errors: Dict[str, Type[PalantirRPCException]] = {},
         response_mode: Optional[ResponseMode] = None,
+        endpoint_type: EndpointType = EndpointType.GENERIC,
     ):
         return cls(
             method=method,
@@ -259,6 +264,7 @@ class RequestInfo:
             request_timeout=request_timeout,
             throwable_errors=throwable_errors,
             response_mode=response_mode,
+            endpoint_type=endpoint_type,
         )
 
 
@@ -413,7 +419,7 @@ class BaseApiClient:
     def __init__(
         self,
         auth: Auth,
-        hostname: str,
+        hostname: Union[str, HostnameSupplier],
         config: Optional[Config] = None,
     ):
         if isinstance(auth, str):
@@ -430,13 +436,17 @@ class BaseApiClient:
                 f"PublicClientAuth, not an instance of {type(auth).__name__}."
             )
 
-        assert_non_empty_string(hostname, "hostname")
-
         if config is not None and not isinstance(config, Config):
             raise TypeError(f"config must be an instance of Config, not {type(config)}.")
 
+        if isinstance(hostname, HostnameSupplier):
+            hostname_supplier = hostname
+        else:
+            hostname_supplier = create_hostname_supplier(hostname, config)
+
         self._auth = auth
-        self._auth._parameterize(hostname, config)
+        self._hostname_supplier = hostname_supplier
+        self._auth._parameterize(hostname_supplier, config)
 
     def _get_timeout(self, request_info: RequestInfo):
         return (
@@ -471,7 +481,8 @@ class BaseApiClient:
             # this does not work with the backend which expects "/" characters to be encoded
             resource_path = resource_path.replace(f"{{{k}}}", quote(v, safe=""))
 
-        return f"/api{resource_path}"
+        base_url = self._hostname_supplier.get_hostname(request_info.endpoint_type)
+        return f"{base_url}{resource_path}"
 
     def _create_headers(self, request_info: RequestInfo, token: Token) -> Dict[str, Any]:
         return {
@@ -662,11 +673,11 @@ class ApiClient(BaseApiClient):
     def __init__(
         self,
         auth: Auth,
-        hostname: str,
+        hostname: Union[str, HostnameSupplier],
         config: Optional[Config] = None,
     ):
         super().__init__(auth, hostname, config)
-        self._session = HttpClient(hostname, config)
+        self._session = HttpClient(config)
         self._middleware: List[ApiMiddleware] = [
             RetryingMiddleware(
                 max_retries=config.max_retries if config else None,
@@ -762,11 +773,11 @@ class AsyncApiClient(BaseApiClient):
     def __init__(
         self,
         auth: Auth,
-        hostname: str,
+        hostname: Union[str, HostnameSupplier],
         config: Optional[Config] = None,
     ):
         super().__init__(auth, hostname, config)
-        self._client = AsyncHttpClient(hostname, config)
+        self._client = AsyncHttpClient(config)
         self._middleware: List[ApiMiddleware] = [
             RetryingMiddleware(
                 max_retries=config.max_retries if config else None,

@@ -86,6 +86,23 @@ class FunctionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class FunctionNotSupportedWithTransactionParameters(typing_extensions.TypedDict):
+    """The function runtime does not support execution with a transaction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: functions_models.FunctionRid
+    functionVersion: functions_models.FunctionVersion
+    message: str
+
+
+@dataclass
+class FunctionNotSupportedWithTransaction(errors.BadRequestError):
+    name: typing.Literal["FunctionNotSupportedWithTransaction"]
+    parameters: FunctionNotSupportedWithTransactionParameters
+    error_instance_id: str
+
+
 class GetByRidPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not getByRid the Query."""
 
@@ -330,6 +347,7 @@ __all__ = [
     "ExecuteQueryPermissionDenied",
     "FunctionHasNoPublishedVersion",
     "FunctionNotFound",
+    "FunctionNotSupportedWithTransaction",
     "GetByRidPermissionDenied",
     "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",

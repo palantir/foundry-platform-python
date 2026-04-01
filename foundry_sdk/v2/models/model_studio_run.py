@@ -21,6 +21,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
+from foundry_sdk.v2.models import errors as models_errors
 from foundry_sdk.v2.models import models as models_models
 
 
@@ -29,20 +30,25 @@ class ModelStudioRunClient:
     The API client for the ModelStudioRun Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ModelStudioRunClientStreaming(self)
         self.with_raw_response = _ModelStudioRunClientRaw(self)
@@ -77,6 +83,9 @@ class ModelStudioRunClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[models_models.ModelStudioRun]
+
+        :raises ModelStudioConfigVersionNotFound: The requested Model Studio configuration version was not found.
+        :raises ModelStudioNotFound: The requested Model Studio was not found.
         """
 
         return self._api_client.call_api(
@@ -98,7 +107,10 @@ class ModelStudioRunClient:
                 body=None,
                 response_type=models_models.ListModelStudioRunsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ModelStudioConfigVersionNotFound": models_errors.ModelStudioConfigVersionNotFound,
+                    "ModelStudioNotFound": models_errors.ModelStudioNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -123,20 +135,25 @@ class AsyncModelStudioRunClient:
     The API client for the ModelStudioRun Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncModelStudioRunClientStreaming(self)
         self.with_raw_response = _AsyncModelStudioRunClientRaw(self)
@@ -171,6 +188,9 @@ class AsyncModelStudioRunClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[models_models.ModelStudioRun]
+
+        :raises ModelStudioConfigVersionNotFound: The requested Model Studio configuration version was not found.
+        :raises ModelStudioNotFound: The requested Model Studio was not found.
         """
 
         return self._api_client.call_api(
@@ -192,7 +212,10 @@ class AsyncModelStudioRunClient:
                 body=None,
                 response_type=models_models.ListModelStudioRunsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ModelStudioConfigVersionNotFound": models_errors.ModelStudioConfigVersionNotFound,
+                    "ModelStudioNotFound": models_errors.ModelStudioNotFound,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

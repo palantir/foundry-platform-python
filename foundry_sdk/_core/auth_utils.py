@@ -15,11 +15,15 @@
 
 from abc import ABC
 from abc import abstractmethod
+from typing import TYPE_CHECKING
 from typing import Callable
 from typing import Optional
 from typing import TypeVar
 
 from foundry_sdk._core.config import Config
+
+if TYPE_CHECKING:
+    from foundry_sdk._core.hostname_supplier import HostnameSupplier
 
 
 class Token(ABC):
@@ -37,7 +41,9 @@ class Auth(ABC):
     def get_token(self) -> "Token":
         pass
 
-    def _parameterize(self, hostname: str, config: Optional[Config]) -> None:
+    def _parameterize(
+        self, hostname_supplier: "HostnameSupplier", config: Optional[Config]
+    ) -> None:
         pass
 
     @abstractmethod

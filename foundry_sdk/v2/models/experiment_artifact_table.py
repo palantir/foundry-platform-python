@@ -30,20 +30,25 @@ class ExperimentArtifactTableClient:
     The API client for the ExperimentArtifactTable Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ExperimentArtifactTableClientStreaming(self)
         self.with_raw_response = _ExperimentArtifactTableClientRaw(self)
@@ -85,7 +90,9 @@ class ExperimentArtifactTableClient:
         :return: Returns the result object.
         :rtype: bytes
 
+        :raises ExperimentArtifactNotFound: The requested artifact was not found in the experiment.
         :raises JsonExperimentArtifactTablePermissionDenied: Could not json the ExperimentArtifactTable.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -109,7 +116,9 @@ class ExperimentArtifactTableClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentArtifactNotFound": models_errors.ExperimentArtifactNotFound,
                     "JsonExperimentArtifactTablePermissionDenied": models_errors.JsonExperimentArtifactTablePermissionDenied,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -145,6 +154,8 @@ class ExperimentArtifactTableClient:
         :rtype: core.TableResponse
 
 
+        :raises ExperimentArtifactNotFound: The requested artifact was not found in the experiment.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         :raises ParquetExperimentArtifactTablePermissionDenied: Could not parquet the ExperimentArtifactTable.
         """
 
@@ -167,6 +178,8 @@ class ExperimentArtifactTableClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentArtifactNotFound": models_errors.ExperimentArtifactNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                     "ParquetExperimentArtifactTablePermissionDenied": models_errors.ParquetExperimentArtifactTablePermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "PARQUET_TABLE"),
@@ -197,20 +210,25 @@ class AsyncExperimentArtifactTableClient:
     The API client for the ExperimentArtifactTable Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncExperimentArtifactTableClientStreaming(self)
         self.with_raw_response = _AsyncExperimentArtifactTableClientRaw(self)
@@ -252,7 +270,9 @@ class AsyncExperimentArtifactTableClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[bytes]
 
+        :raises ExperimentArtifactNotFound: The requested artifact was not found in the experiment.
         :raises JsonExperimentArtifactTablePermissionDenied: Could not json the ExperimentArtifactTable.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -276,7 +296,9 @@ class AsyncExperimentArtifactTableClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentArtifactNotFound": models_errors.ExperimentArtifactNotFound,
                     "JsonExperimentArtifactTablePermissionDenied": models_errors.JsonExperimentArtifactTablePermissionDenied,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -312,6 +334,8 @@ class AsyncExperimentArtifactTableClient:
                 :rtype: typing.Awaitable[core.TableResponse
         ]
 
+                :raises ExperimentArtifactNotFound: The requested artifact was not found in the experiment.
+                :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
                 :raises ParquetExperimentArtifactTablePermissionDenied: Could not parquet the ExperimentArtifactTable.
         """
 
@@ -334,6 +358,8 @@ class AsyncExperimentArtifactTableClient:
                 response_type=bytes,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ExperimentArtifactNotFound": models_errors.ExperimentArtifactNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                     "ParquetExperimentArtifactTablePermissionDenied": models_errors.ParquetExperimentArtifactTablePermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode", "PARQUET_TABLE"),

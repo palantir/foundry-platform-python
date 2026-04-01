@@ -49,6 +49,12 @@ class AddMarkingRoleAssignmentsRequest(core.ModelBase):
     role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
 
 
+class AddOrganizationGuestMembersRequest(core.ModelBase):
+    """AddOrganizationGuestMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+
+
 class AddOrganizationRoleAssignmentsRequest(core.ModelBase):
     """AddOrganizationRoleAssignmentsRequest"""
 
@@ -121,23 +127,23 @@ class CbacMarkingRestrictions(core.ModelBase):
     """CbacMarkingRestrictions"""
 
     disallowed_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("disallowedMarkings"))  # type: ignore[literal-required]
-    """The union of all markings that are disallowed for each of the provided markings. This includes all disallowed markings, not just those present in the provided set."""
+    """Markings that cannot appear in conjunction with the provided markings. This includes all such markings, not just those present in the provided set."""
 
     implied_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("impliedMarkings"))  # type: ignore[literal-required]
-    """The union of all markings implied by each of the provided markings. If marking A implies marking B, then membership in A grants membership in B."""
+    """Markings that are automatically granted when a user has membership in any of the provided markings."""
 
     required_markings: typing.List[typing.List[core_models.MarkingId]] = pydantic.Field(alias=str("requiredMarkings"))  # type: ignore[literal-required]
-    """The required markings for the provided markings. At least one marking from each inner list must be added to the provided markingIds to form a valid classification."""
+    """Markings that must appear in conjunction with the provided markings. Each list contains the requirements for one of the provided markings, and at least one marking from each must be included in the provided markingIds to constitute a valid classification."""
 
     user_satisfies_markings: CbacMarkingRestrictionsUserSatisfiesMarkings = pydantic.Field(alias=str("userSatisfiesMarkings"))  # type: ignore[literal-required]
     """True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
 
     is_valid: CbacMarkingRestrictionsIsValid = pydantic.Field(alias=str("isValid"))  # type: ignore[literal-required]
-    """True if the provided markings contain no disallowed markings and each list of required markings is satisfied by the provided markings."""
+    """True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
 
 
 CbacMarkingRestrictionsIsValid = bool
-"""True if the provided markings contain no disallowed markings and each list of required markings is satisfied by the provided markings."""
+"""True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
 
 
 CbacMarkingRestrictionsUserSatisfiesMarkings = bool
@@ -405,6 +411,12 @@ class ListAvailableOrganizationRolesResponse(core.ModelBase):
     """ListAvailableOrganizationRolesResponse"""
 
     data: typing.List[core_models.Role]
+
+
+class ListCurrentGroupsResponse(core.ModelBase):
+    """ListCurrentGroupsResponse"""
+
+    data: typing.List[Group]
 
 
 class ListEnrollmentRoleAssignmentsResponse(core.ModelBase):
@@ -710,6 +722,12 @@ class RemoveMarkingRoleAssignmentsRequest(core.ModelBase):
     role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
 
 
+class RemoveOrganizationGuestMembersRequest(core.ModelBase):
+    """RemoveOrganizationGuestMembersRequest"""
+
+    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
+
+
 class RemoveOrganizationRoleAssignmentsRequest(core.ModelBase):
     """RemoveOrganizationRoleAssignmentsRequest"""
 
@@ -734,6 +752,22 @@ class ReplaceGroupProviderInfoRequest(core.ModelBase):
     The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
     At most one Group can have a given provider ID in a given Realm.
     """
+
+
+class ReplaceGroupRequest(core.ModelBase):
+    """ReplaceGroupRequest"""
+
+    name: GroupName
+    """The name of the Group."""
+
+    organizations: typing.List[core_models.OrganizationRid]
+    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
+
+    description: typing.Optional[str] = None
+    """A description of the Group."""
+
+    attributes: typing.Dict[AttributeName, AttributeValues]
+    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
 
 
 class ReplaceMarkingCategoryRequest(core.ModelBase):
@@ -912,6 +946,7 @@ __all__ = [
     "AddGroupMembersRequest",
     "AddMarkingMembersRequest",
     "AddMarkingRoleAssignmentsRequest",
+    "AddOrganizationGuestMembersRequest",
     "AddOrganizationRoleAssignmentsRequest",
     "AttributeName",
     "AttributeValue",
@@ -957,6 +992,7 @@ __all__ = [
     "HostName",
     "ListAuthenticationProvidersResponse",
     "ListAvailableOrganizationRolesResponse",
+    "ListCurrentGroupsResponse",
     "ListEnrollmentRoleAssignmentsResponse",
     "ListGroupMembersResponse",
     "ListGroupMembershipsResponse",
@@ -998,9 +1034,11 @@ __all__ = [
     "RemoveGroupMembersRequest",
     "RemoveMarkingMembersRequest",
     "RemoveMarkingRoleAssignmentsRequest",
+    "RemoveOrganizationGuestMembersRequest",
     "RemoveOrganizationRoleAssignmentsRequest",
     "ReplaceGroupMembershipExpirationPolicyRequest",
     "ReplaceGroupProviderInfoRequest",
+    "ReplaceGroupRequest",
     "ReplaceMarkingCategoryRequest",
     "ReplaceMarkingRequest",
     "ReplaceOrganizationRequest",

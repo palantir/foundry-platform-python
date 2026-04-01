@@ -27,6 +27,8 @@ Name | Type | Description  | Notes |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
@@ -69,6 +71,10 @@ include_compute_usage = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
@@ -84,6 +90,8 @@ try:
         include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     print("The aggregate response:\n")
@@ -119,6 +127,8 @@ Name | Type | Description  | Notes |
 **branch** | Optional[FoundryBranch] | The Foundry branch to reference. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 
 ### Return type
 **CreateTemporaryObjectSetResponseV2**
@@ -142,6 +152,10 @@ branch = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 
 
 try:
@@ -151,6 +165,8 @@ try:
         branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     print("The create_temporary response:\n")
     pprint(api_response)
@@ -252,6 +268,8 @@ Name | Type | Description  | Notes |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
@@ -294,6 +312,10 @@ sdk_version = None
 select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
@@ -314,6 +336,8 @@ try:
         sdk_version=sdk_version,
         select_v2=select_v2,
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     print("The load response:\n")
@@ -366,6 +390,8 @@ Name | Type | Description  | Notes |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 
 ### Return type
 **LoadObjectSetLinksResponseV2**
@@ -397,6 +423,10 @@ preview = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
 sdk_version = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 
 
 try:
@@ -410,6 +440,8 @@ try:
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     print("The load_links response:\n")
     pprint(api_response)
@@ -466,6 +498,8 @@ Name | Type | Description  | Notes |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
@@ -510,6 +544,10 @@ sdk_version = None
 select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
@@ -531,6 +569,8 @@ try:
         sdk_version=sdk_version,
         select_v2=select_v2,
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     print("The load_multiple_object_types response:\n")
@@ -588,6 +628,8 @@ Name | Type | Description  | Notes |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
 **snapshot** | Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
@@ -628,6 +670,10 @@ sdk_version = None
 select_v2 = None
 # Optional[bool] | A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
 snapshot = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
@@ -647,6 +693,8 @@ try:
         sdk_version=sdk_version,
         select_v2=select_v2,
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     print("The load_objects_or_interfaces response:\n")

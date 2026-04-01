@@ -7,6 +7,8 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/admin/groups/{groupId} | Stable |
 [**get_batch**](#get_batch) | **POST** /v2/admin/groups/getBatch | Stable |
 [**list**](#list) | **GET** /v2/admin/groups | Stable |
+[**list_current**](#list_current) | **GET** /v2/admin/groups/listCurrent | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/groups/{groupId} | Stable |
 [**search**](#search) | **POST** /v2/admin/groups/search | Stable |
 
 # **create**
@@ -268,6 +270,133 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ListGroupsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **list_current**
+Returns all Groups which contain the current user as a direct or transitive member. For example if the current user is a member of Group A and Group A is a member of Group B, this endpoint will return Group A and Group B.
+
+Unlike the list Group Memberships endpoint which requires the `api:admin-read` scope, this endpoint
+does not require any particular scopes and can be used by any authenticated user to retrieve their own
+group memberships.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+
+### Return type
+**ListCurrentGroupsResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+
+
+try:
+    api_response = client.admin.Group.list_current(preview=preview)
+    print("The list_current response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Group.list_current: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | ListCurrentGroupsResponse  |  | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **replace**
+When replacing groups, you must send all attributes that begin with `multipass:` exactly as they appear when calling the Get Group endpoint.
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**group_id** | GroupId |  |  |
+**attributes** | Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change. |  |
+**name** | GroupName | The name of the Group. |  |
+**organizations** | List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.  |  |
+**description** | Optional[str] | A description of the Group. | [optional] |
+
+### Return type
+**Group**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# GroupId
+group_id = None
+# Dict[AttributeName, AttributeValues] | A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
+attributes = {
+    "multipass:givenName": ["John"],
+    "multipass:familyName": ["Smith"],
+    "multipass:email:primary": ["jsmith@example.com"],
+    "multipass:realm": ["eab0a251-ca1a-4a84-a482-200edfb8026f"],
+    "multipass:organization-rid": [
+        "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
+    ],
+    "department": ["Finance"],
+    "jobTitle": ["Accountant"],
+}
+# GroupName | The name of the Group.
+name = "Data Source Admins"
+# List[OrganizationRid] | The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
+organizations = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
+# Optional[str] | A description of the Group.
+description = "Create and modify data sources in the platform"
+
+
+try:
+    api_response = client.admin.Group.replace(
+        group_id,
+        attributes=attributes,
+        name=name,
+        organizations=organizations,
+        description=description,
+    )
+    print("The replace response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling Group.replace: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | Group  | The replaced Group | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

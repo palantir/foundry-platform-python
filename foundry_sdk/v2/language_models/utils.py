@@ -131,7 +131,6 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         raise ValueError(
             "get_http_client() is in beta. " "Please set the preview parameter to True to use it."
         )
-    hostname = _get_api_gateway_base_url(preview=True)
     token = get_foundry_token(preview=True)
 
     # Merge auth header with any user-provided headers
@@ -142,4 +141,4 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         merged_headers = {**auth_header, **(config.default_headers or {})}
         config = replace(config, default_headers=merged_headers)
 
-    return HttpClient(hostname=hostname, config=config)
+    return HttpClient(config=config)

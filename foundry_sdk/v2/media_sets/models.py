@@ -861,6 +861,9 @@ class GetMediaItemInfoResponse(core.ModelBase):
     logical_timestamp: LogicalTimestamp = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
     attribution: typing.Optional[MediaAttribution] = None
     originally_uploaded_file_mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("originallyUploadedFileMimeType"), default=None)  # type: ignore[literal-required]
+    mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("mimeType"), default=None)  # type: ignore[literal-required]
+    size_bytes: typing.Optional[int] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
+    """The size of the media item in bytes."""
 
 
 class GetMediaItemRidByPathResponse(core.ModelBase):

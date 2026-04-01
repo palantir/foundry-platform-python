@@ -29,20 +29,25 @@ class OntologyObjectSetClient:
     The API client for the OntologyObjectSet Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _OntologyObjectSetClientStreaming(self)
         self.with_raw_response = _OntologyObjectSetClientRaw(self)
@@ -62,6 +67,8 @@ class OntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -87,6 +94,10 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -109,6 +120,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -137,6 +150,8 @@ class OntologyObjectSetClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.CreateTemporaryObjectSetResponseV2:
@@ -153,6 +168,10 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -172,6 +191,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -249,6 +270,8 @@ class OntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -291,6 +314,10 @@ class OntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -313,6 +340,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -350,6 +379,8 @@ class OntologyObjectSetClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.LoadObjectSetLinksResponseV2:
@@ -387,6 +418,10 @@ class OntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -407,6 +442,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -444,6 +481,8 @@ class OntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -493,6 +532,10 @@ class OntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -516,6 +559,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -557,6 +602,8 @@ class OntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -604,6 +651,10 @@ class OntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -627,6 +678,8 @@ class OntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -709,20 +762,25 @@ class AsyncOntologyObjectSetClient:
     The API client for the OntologyObjectSet Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncOntologyObjectSetClientStreaming(self)
         self.with_raw_response = _AsyncOntologyObjectSetClientRaw(self)
@@ -742,6 +800,8 @@ class AsyncOntologyObjectSetClient:
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -767,6 +827,10 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -789,6 +853,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -817,6 +883,8 @@ class AsyncOntologyObjectSetClient:
         branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.CreateTemporaryObjectSetResponseV2]:
@@ -833,6 +901,10 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -852,6 +924,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -929,6 +1003,8 @@ class AsyncOntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -971,6 +1047,10 @@ class AsyncOntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -993,6 +1073,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -1030,6 +1112,8 @@ class AsyncOntologyObjectSetClient:
         preview: typing.Optional[core_models.PreviewMode] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.LoadObjectSetLinksResponseV2]:
@@ -1067,6 +1151,10 @@ class AsyncOntologyObjectSetClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1087,6 +1175,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -1124,6 +1214,8 @@ class AsyncOntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1173,6 +1265,10 @@ class AsyncOntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1196,6 +1292,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -1237,6 +1335,8 @@ class AsyncOntologyObjectSetClient:
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
         snapshot: typing.Optional[bool] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1284,6 +1384,10 @@ class AsyncOntologyObjectSetClient:
         :type select_v2: Optional[List[PropertyIdentifier]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
         :type snapshot: Optional[bool]
+        :param trace_parent: The W3C trace parent header included in the request.
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state: The W3C trace state header included in the request.
+        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1307,6 +1411,8 @@ class AsyncOntologyObjectSetClient:
                     "ontology": ontology,
                 },
                 header_params={
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

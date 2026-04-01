@@ -75,6 +75,7 @@ class PublicClientAuth(OAuth):
             self._server_oauth_flow_provider.revoke_token(
                 self._get_client(),
                 self._token.access_token,
+                self._get_base_url(),
             )
 
     def _try_refresh_token(self) -> bool:
@@ -82,17 +83,22 @@ class PublicClientAuth(OAuth):
             self._token = self._server_oauth_flow_provider.refresh_token(
                 self._get_client(),
                 refresh_token=self._token.refresh_token,
+                base_url=self._get_base_url(),
             )
             return True
         return False
 
     @property
     def url(self) -> str:
-        return self._get_client().base_url.host
+        base_url = self._get_base_url()
+        # Parse host from the base URL (e.g., "https://a.b.c.com" -> "a.b.c.com")
+        from urllib.parse import urlparse
+
+        return urlparse(base_url).hostname or base_url
 
     def sign_in(self) -> str:
         self._auth_request = self._server_oauth_flow_provider.generate_auth_request(
-            self._get_client()
+            self._get_client(), self._get_base_url()
         )
         return self._auth_request.url
 
@@ -107,6 +113,7 @@ class PublicClientAuth(OAuth):
             self._get_client(),
             code=code,
             code_verifier=self._auth_request.code_verifier,
+            base_url=self._get_base_url(),
         )
 
         if self._should_refresh:

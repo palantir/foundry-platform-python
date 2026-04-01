@@ -33,20 +33,25 @@ class ModelClient:
     The API client for the Model Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ModelClientStreaming(self)
         self.with_raw_response = _ModelClientRaw(self)
@@ -57,7 +62,7 @@ class ModelClient:
 
         return ExperimentClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -67,7 +72,7 @@ class ModelClient:
 
         return ModelVersionClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -265,20 +270,25 @@ class AsyncModelClient:
     The API client for the Model Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncModelClientStreaming(self)
         self.with_raw_response = _AsyncModelClientRaw(self)
@@ -289,7 +299,7 @@ class AsyncModelClient:
 
         return AsyncExperimentClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -299,7 +309,7 @@ class AsyncModelClient:
 
         return AsyncModelVersionClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 

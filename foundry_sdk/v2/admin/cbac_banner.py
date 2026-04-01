@@ -30,20 +30,25 @@ class CbacBannerClient:
     The API client for the CbacBanner Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _CbacBannerClientStreaming(self)
         self.with_raw_response = _CbacBannerClientRaw(self)
@@ -62,7 +67,7 @@ class CbacBannerClient:
     ) -> admin_models.CbacBanner:
         """
         Returns a classification banner string and colors for the given set of marking IDs.
-        :param display_type: The display type of the banner. Defaults to PORTION_MARKING.
+        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
         :type display_type: Optional[ClassificationBannerDisplayType]
         :param marking_ids: The marking IDs for which to generate a banner.
         :type marking_ids: Optional[List[MarkingId]]
@@ -125,20 +130,25 @@ class AsyncCbacBannerClient:
     The API client for the CbacBanner Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncCbacBannerClientStreaming(self)
         self.with_raw_response = _AsyncCbacBannerClientRaw(self)
@@ -157,7 +167,7 @@ class AsyncCbacBannerClient:
     ) -> typing.Awaitable[admin_models.CbacBanner]:
         """
         Returns a classification banner string and colors for the given set of marking IDs.
-        :param display_type: The display type of the banner. Defaults to PORTION_MARKING.
+        :param display_type: The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs
         :type display_type: Optional[ClassificationBannerDisplayType]
         :param marking_ids: The marking IDs for which to generate a banner.
         :type marking_ids: Optional[List[MarkingId]]

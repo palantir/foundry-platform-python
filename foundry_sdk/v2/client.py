@@ -16,9 +16,7 @@
 import typing
 
 from foundry_sdk import _core as core
-from foundry_sdk._core.client_init_helpers import (
-    get_hostname_from_context_or_environment_vars,
-)  # NOQA
+from foundry_sdk._core.client_init_helpers import create_hostname_supplier
 from foundry_sdk._core.client_init_helpers import (
     get_user_token_auth_from_context_or_environment_vars,
 )  # NOQA
@@ -41,8 +39,8 @@ class FoundryClient:
     ):
         if auth is None:
             auth = get_user_token_auth_from_context_or_environment_vars()
-        if hostname is None:
-            hostname = get_hostname_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v2.admin._client import AdminClient
         from foundry_sdk.v2.aip_agents._client import AipAgentsClient
@@ -65,26 +63,30 @@ class FoundryClient:
         )  # NOQA
         from foundry_sdk.v2.widgets._client import WidgetsClient
 
-        self.admin = AdminClient(auth=auth, hostname=hostname, config=config)
-        self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname, config=config)
-        self.audit = AuditClient(auth=auth, hostname=hostname, config=config)
-        self.checkpoints = CheckpointsClient(auth=auth, hostname=hostname, config=config)
-        self.connectivity = ConnectivityClient(auth=auth, hostname=hostname, config=config)
-        self.data_health = DataHealthClient(auth=auth, hostname=hostname, config=config)
-        self.datasets = DatasetsClient(auth=auth, hostname=hostname, config=config)
-        self.filesystem = FilesystemClient(auth=auth, hostname=hostname, config=config)
-        self.functions = FunctionsClient(auth=auth, hostname=hostname, config=config)
-        self.language_models = LanguageModelsClient(auth=auth, hostname=hostname, config=config)
-        self.media_sets = MediaSetsClient(auth=auth, hostname=hostname, config=config)
-        self.models = ModelsClient(auth=auth, hostname=hostname, config=config)
-        self.ontologies = OntologiesClient(auth=auth, hostname=hostname, config=config)
-        self.orchestration = OrchestrationClient(auth=auth, hostname=hostname, config=config)
-        self.sql_queries = SqlQueriesClient(auth=auth, hostname=hostname, config=config)
-        self.streams = StreamsClient(auth=auth, hostname=hostname, config=config)
-        self.third_party_applications = ThirdPartyApplicationsClient(
-            auth=auth, hostname=hostname, config=config
+        self.admin = AdminClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.aip_agents = AipAgentsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.audit = AuditClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.checkpoints = CheckpointsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.connectivity = ConnectivityClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.data_health = DataHealthClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.datasets = DatasetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.filesystem = FilesystemClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.functions = FunctionsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.language_models = LanguageModelsClient(
+            auth=auth, hostname=hostname_supplier, config=config
         )
-        self.widgets = WidgetsClient(auth=auth, hostname=hostname, config=config)
+        self.media_sets = MediaSetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.models = ModelsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.ontologies = OntologiesClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.orchestration = OrchestrationClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.sql_queries = SqlQueriesClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.streams = StreamsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.third_party_applications = ThirdPartyApplicationsClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.widgets = WidgetsClient(auth=auth, hostname=hostname_supplier, config=config)
 
 
 class AsyncFoundryClient:
@@ -110,8 +112,8 @@ class AsyncFoundryClient:
             )
         if auth is None:
             auth = get_user_token_auth_from_context_or_environment_vars()
-        if hostname is None:
-            hostname = get_hostname_from_context_or_environment_vars()
+
+        hostname_supplier = create_hostname_supplier(hostname, config)
 
         from foundry_sdk.v2.admin._client import AsyncAdminClient
         from foundry_sdk.v2.aip_agents._client import AsyncAipAgentsClient
@@ -134,25 +136,39 @@ class AsyncFoundryClient:
         )  # NOQA
         from foundry_sdk.v2.widgets._client import AsyncWidgetsClient
 
-        self.admin = AsyncAdminClient(auth=auth, hostname=hostname, config=config)
-        self.aip_agents = AsyncAipAgentsClient(auth=auth, hostname=hostname, config=config)
-        self.audit = AsyncAuditClient(auth=auth, hostname=hostname, config=config)
-        self.checkpoints = AsyncCheckpointsClient(auth=auth, hostname=hostname, config=config)
-        self.connectivity = AsyncConnectivityClient(auth=auth, hostname=hostname, config=config)
-        self.data_health = AsyncDataHealthClient(auth=auth, hostname=hostname, config=config)
-        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname, config=config)
-        self.filesystem = AsyncFilesystemClient(auth=auth, hostname=hostname, config=config)
-        self.functions = AsyncFunctionsClient(auth=auth, hostname=hostname, config=config)
+        self.admin = AsyncAdminClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.aip_agents = AsyncAipAgentsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.audit = AsyncAuditClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.checkpoints = AsyncCheckpointsClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.connectivity = AsyncConnectivityClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.data_health = AsyncDataHealthClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.datasets = AsyncDatasetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.filesystem = AsyncFilesystemClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.functions = AsyncFunctionsClient(auth=auth, hostname=hostname_supplier, config=config)
         self.language_models = AsyncLanguageModelsClient(
-            auth=auth, hostname=hostname, config=config
+            auth=auth, hostname=hostname_supplier, config=config
         )
-        self.media_sets = AsyncMediaSetsClient(auth=auth, hostname=hostname, config=config)
-        self.models = AsyncModelsClient(auth=auth, hostname=hostname, config=config)
-        self.ontologies = AsyncOntologiesClient(auth=auth, hostname=hostname, config=config)
-        self.orchestration = AsyncOrchestrationClient(auth=auth, hostname=hostname, config=config)
-        self.sql_queries = AsyncSqlQueriesClient(auth=auth, hostname=hostname, config=config)
-        self.streams = AsyncStreamsClient(auth=auth, hostname=hostname, config=config)
+        self.media_sets = AsyncMediaSetsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.models = AsyncModelsClient(auth=auth, hostname=hostname_supplier, config=config)
+        self.ontologies = AsyncOntologiesClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.orchestration = AsyncOrchestrationClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.sql_queries = AsyncSqlQueriesClient(
+            auth=auth, hostname=hostname_supplier, config=config
+        )
+        self.streams = AsyncStreamsClient(auth=auth, hostname=hostname_supplier, config=config)
         self.third_party_applications = AsyncThirdPartyApplicationsClient(
-            auth=auth, hostname=hostname, config=config
+            auth=auth, hostname=hostname_supplier, config=config
         )
-        self.widgets = AsyncWidgetsClient(auth=auth, hostname=hostname, config=config)
+        self.widgets = AsyncWidgetsClient(auth=auth, hostname=hostname_supplier, config=config)

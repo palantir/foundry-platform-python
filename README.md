@@ -677,6 +677,8 @@ Namespace | Resource | Operation | HTTP request |
 **Admin** | Group | [**get**](docs/v2/Admin/Group.md#get) | **GET** /v2/admin/groups/{groupId} |
 **Admin** | Group | [**get_batch**](docs/v2/Admin/Group.md#get_batch) | **POST** /v2/admin/groups/getBatch |
 **Admin** | Group | [**list**](docs/v2/Admin/Group.md#list) | **GET** /v2/admin/groups |
+**Admin** | Group | [**list_current**](docs/v2/Admin/Group.md#list_current) | **GET** /v2/admin/groups/listCurrent |
+**Admin** | Group | [**replace**](docs/v2/Admin/Group.md#replace) | **PUT** /v2/admin/groups/{groupId} |
 **Admin** | Group | [**search**](docs/v2/Admin/Group.md#search) | **POST** /v2/admin/groups/search |
 **Admin** | GroupMember | [**add**](docs/v2/Admin/GroupMember.md#add) | **POST** /v2/admin/groups/{groupId}/groupMembers/add |
 **Admin** | GroupMember | [**list**](docs/v2/Admin/GroupMember.md#list) | **GET** /v2/admin/groups/{groupId}/groupMembers |
@@ -989,6 +991,7 @@ Namespace | Name | Import |
 **Admin** | [AddGroupMembersRequest](docs/v2/Admin/models/AddGroupMembersRequest.md) | `from foundry_sdk.v2.admin.models import AddGroupMembersRequest` |
 **Admin** | [AddMarkingMembersRequest](docs/v2/Admin/models/AddMarkingMembersRequest.md) | `from foundry_sdk.v2.admin.models import AddMarkingMembersRequest` |
 **Admin** | [AddMarkingRoleAssignmentsRequest](docs/v2/Admin/models/AddMarkingRoleAssignmentsRequest.md) | `from foundry_sdk.v2.admin.models import AddMarkingRoleAssignmentsRequest` |
+**Admin** | [AddOrganizationGuestMembersRequest](docs/v2/Admin/models/AddOrganizationGuestMembersRequest.md) | `from foundry_sdk.v2.admin.models import AddOrganizationGuestMembersRequest` |
 **Admin** | [AddOrganizationRoleAssignmentsRequest](docs/v2/Admin/models/AddOrganizationRoleAssignmentsRequest.md) | `from foundry_sdk.v2.admin.models import AddOrganizationRoleAssignmentsRequest` |
 **Admin** | [AttributeName](docs/v2/Admin/models/AttributeName.md) | `from foundry_sdk.v2.admin.models import AttributeName` |
 **Admin** | [AttributeValue](docs/v2/Admin/models/AttributeValue.md) | `from foundry_sdk.v2.admin.models import AttributeValue` |
@@ -1034,6 +1037,7 @@ Namespace | Name | Import |
 **Admin** | [HostName](docs/v2/Admin/models/HostName.md) | `from foundry_sdk.v2.admin.models import HostName` |
 **Admin** | [ListAuthenticationProvidersResponse](docs/v2/Admin/models/ListAuthenticationProvidersResponse.md) | `from foundry_sdk.v2.admin.models import ListAuthenticationProvidersResponse` |
 **Admin** | [ListAvailableOrganizationRolesResponse](docs/v2/Admin/models/ListAvailableOrganizationRolesResponse.md) | `from foundry_sdk.v2.admin.models import ListAvailableOrganizationRolesResponse` |
+**Admin** | [ListCurrentGroupsResponse](docs/v2/Admin/models/ListCurrentGroupsResponse.md) | `from foundry_sdk.v2.admin.models import ListCurrentGroupsResponse` |
 **Admin** | [ListEnrollmentRoleAssignmentsResponse](docs/v2/Admin/models/ListEnrollmentRoleAssignmentsResponse.md) | `from foundry_sdk.v2.admin.models import ListEnrollmentRoleAssignmentsResponse` |
 **Admin** | [ListGroupMembershipsResponse](docs/v2/Admin/models/ListGroupMembershipsResponse.md) | `from foundry_sdk.v2.admin.models import ListGroupMembershipsResponse` |
 **Admin** | [ListGroupMembersResponse](docs/v2/Admin/models/ListGroupMembersResponse.md) | `from foundry_sdk.v2.admin.models import ListGroupMembersResponse` |
@@ -1075,9 +1079,11 @@ Namespace | Name | Import |
 **Admin** | [RemoveGroupMembersRequest](docs/v2/Admin/models/RemoveGroupMembersRequest.md) | `from foundry_sdk.v2.admin.models import RemoveGroupMembersRequest` |
 **Admin** | [RemoveMarkingMembersRequest](docs/v2/Admin/models/RemoveMarkingMembersRequest.md) | `from foundry_sdk.v2.admin.models import RemoveMarkingMembersRequest` |
 **Admin** | [RemoveMarkingRoleAssignmentsRequest](docs/v2/Admin/models/RemoveMarkingRoleAssignmentsRequest.md) | `from foundry_sdk.v2.admin.models import RemoveMarkingRoleAssignmentsRequest` |
+**Admin** | [RemoveOrganizationGuestMembersRequest](docs/v2/Admin/models/RemoveOrganizationGuestMembersRequest.md) | `from foundry_sdk.v2.admin.models import RemoveOrganizationGuestMembersRequest` |
 **Admin** | [RemoveOrganizationRoleAssignmentsRequest](docs/v2/Admin/models/RemoveOrganizationRoleAssignmentsRequest.md) | `from foundry_sdk.v2.admin.models import RemoveOrganizationRoleAssignmentsRequest` |
 **Admin** | [ReplaceGroupMembershipExpirationPolicyRequest](docs/v2/Admin/models/ReplaceGroupMembershipExpirationPolicyRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceGroupMembershipExpirationPolicyRequest` |
 **Admin** | [ReplaceGroupProviderInfoRequest](docs/v2/Admin/models/ReplaceGroupProviderInfoRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceGroupProviderInfoRequest` |
+**Admin** | [ReplaceGroupRequest](docs/v2/Admin/models/ReplaceGroupRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceGroupRequest` |
 **Admin** | [ReplaceMarkingCategoryRequest](docs/v2/Admin/models/ReplaceMarkingCategoryRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceMarkingCategoryRequest` |
 **Admin** | [ReplaceMarkingRequest](docs/v2/Admin/models/ReplaceMarkingRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceMarkingRequest` |
 **Admin** | [ReplaceOrganizationRequest](docs/v2/Admin/models/ReplaceOrganizationRequest.md) | `from foundry_sdk.v2.admin.models import ReplaceOrganizationRequest` |
@@ -3225,7 +3231,9 @@ Namespace | Name | Import |
 **Admin** | AddGroupMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import AddGroupMembersPermissionDenied` |
 **Admin** | AddMarkingMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import AddMarkingMembersPermissionDenied` |
 **Admin** | AddMarkingRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import AddMarkingRoleAssignmentsPermissionDenied` |
+**Admin** | AddOrganizationGuestMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import AddOrganizationGuestMembersPermissionDenied` |
 **Admin** | AddOrganizationRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import AddOrganizationRoleAssignmentsPermissionDenied` |
+**Admin** | AttributesNotEditable | `from foundry_sdk.v2.admin.errors import AttributesNotEditable` |
 **Admin** | AuthenticationProviderNotFound | `from foundry_sdk.v2.admin.errors import AuthenticationProviderNotFound` |
 **Admin** | CannotReplaceProviderInfoForPrincipalInProtectedRealm | `from foundry_sdk.v2.admin.errors import CannotReplaceProviderInfoForPrincipalInProtectedRealm` |
 **Admin** | CbacBannerNotFound | `from foundry_sdk.v2.admin.errors import CbacBannerNotFound` |
@@ -3263,6 +3271,7 @@ Namespace | Name | Import |
 **Admin** | InvalidHostName | `from foundry_sdk.v2.admin.errors import InvalidHostName` |
 **Admin** | InvalidProfilePicture | `from foundry_sdk.v2.admin.errors import InvalidProfilePicture` |
 **Admin** | ListAvailableRolesOrganizationPermissionDenied | `from foundry_sdk.v2.admin.errors import ListAvailableRolesOrganizationPermissionDenied` |
+**Admin** | ListCurrentGroupsPermissionDenied | `from foundry_sdk.v2.admin.errors import ListCurrentGroupsPermissionDenied` |
 **Admin** | ListEnrollmentRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import ListEnrollmentRoleAssignmentsPermissionDenied` |
 **Admin** | ListHostsPermissionDenied | `from foundry_sdk.v2.admin.errors import ListHostsPermissionDenied` |
 **Admin** | ListMarkingMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import ListMarkingMembersPermissionDenied` |
@@ -3286,8 +3295,10 @@ Namespace | Name | Import |
 **Admin** | RemoveMarkingMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveMarkingMembersPermissionDenied` |
 **Admin** | RemoveMarkingRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveMarkingRoleAssignmentsPermissionDenied` |
 **Admin** | RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed | `from foundry_sdk.v2.admin.errors import RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed` |
+**Admin** | RemoveOrganizationGuestMembersPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveOrganizationGuestMembersPermissionDenied` |
 **Admin** | RemoveOrganizationRoleAssignmentsPermissionDenied | `from foundry_sdk.v2.admin.errors import RemoveOrganizationRoleAssignmentsPermissionDenied` |
 **Admin** | ReplaceGroupMembershipExpirationPolicyPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceGroupMembershipExpirationPolicyPermissionDenied` |
+**Admin** | ReplaceGroupPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceGroupPermissionDenied` |
 **Admin** | ReplaceGroupProviderInfoPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceGroupProviderInfoPermissionDenied` |
 **Admin** | ReplaceMarkingCategoryPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceMarkingCategoryPermissionDenied` |
 **Admin** | ReplaceMarkingPermissionDenied | `from foundry_sdk.v2.admin.errors import ReplaceMarkingPermissionDenied` |
@@ -3560,6 +3571,7 @@ Namespace | Name | Import |
 **Functions** | ExecuteQueryPermissionDenied | `from foundry_sdk.v2.functions.errors import ExecuteQueryPermissionDenied` |
 **Functions** | FunctionHasNoPublishedVersion | `from foundry_sdk.v2.functions.errors import FunctionHasNoPublishedVersion` |
 **Functions** | FunctionNotFound | `from foundry_sdk.v2.functions.errors import FunctionNotFound` |
+**Functions** | FunctionNotSupportedWithTransaction | `from foundry_sdk.v2.functions.errors import FunctionNotSupportedWithTransaction` |
 **Functions** | GetByRidPermissionDenied | `from foundry_sdk.v2.functions.errors import GetByRidPermissionDenied` |
 **Functions** | InvalidQueryOutputValue | `from foundry_sdk.v2.functions.errors import InvalidQueryOutputValue` |
 **Functions** | InvalidQueryParameterValue | `from foundry_sdk.v2.functions.errors import InvalidQueryParameterValue` |
@@ -3603,6 +3615,7 @@ Namespace | Name | Import |
 **MediaSets** | TransformationUnavailable | `from foundry_sdk.v2.media_sets.errors import TransformationUnavailable` |
 **MediaSets** | TransformedMediaItemNotFound | `from foundry_sdk.v2.media_sets.errors import TransformedMediaItemNotFound` |
 **MediaSets** | UnexpectedMetadataType | `from foundry_sdk.v2.media_sets.errors import UnexpectedMetadataType` |
+**MediaSets** | UnsupportedMetadata | `from foundry_sdk.v2.media_sets.errors import UnsupportedMetadata` |
 **Models** | CondaSolveFailureForProvidedPackages | `from foundry_sdk.v2.models.errors import CondaSolveFailureForProvidedPackages` |
 **Models** | CreateConfigValidationError | `from foundry_sdk.v2.models.errors import CreateConfigValidationError` |
 **Models** | CreateModelPermissionDenied | `from foundry_sdk.v2.models.errors import CreateModelPermissionDenied` |
@@ -3659,12 +3672,14 @@ Namespace | Name | Import |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v2.ontologies.errors import ConsistentSnapshotError` |
 **Ontologies** | DefaultAndNullGroupsNotSupported | `from foundry_sdk.v2.ontologies.errors import DefaultAndNullGroupsNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry_sdk.v2.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
+**Ontologies** | DistinctEnumValuesExceededLimit | `from foundry_sdk.v2.ontologies.errors import DistinctEnumValuesExceededLimit` |
 **Ontologies** | DuplicateOrderBy | `from foundry_sdk.v2.ontologies.errors import DuplicateOrderBy` |
 **Ontologies** | EditObjectPermissionDenied | `from foundry_sdk.v2.ontologies.errors import EditObjectPermissionDenied` |
 **Ontologies** | FunctionEncounteredUserFacingError | `from foundry_sdk.v2.ontologies.errors import FunctionEncounteredUserFacingError` |
 **Ontologies** | FunctionExecutionFailed | `from foundry_sdk.v2.ontologies.errors import FunctionExecutionFailed` |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry_sdk.v2.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry_sdk.v2.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | FunctionNotSupportedWithTransaction | `from foundry_sdk.v2.ontologies.errors import FunctionNotSupportedWithTransaction` |
 **Ontologies** | HighScaleComputationNotEnabled | `from foundry_sdk.v2.ontologies.errors import HighScaleComputationNotEnabled` |
 **Ontologies** | IncompatibleNestedObjectSet | `from foundry_sdk.v2.ontologies.errors import IncompatibleNestedObjectSet` |
 **Ontologies** | InterfaceBasedObjectSetNotSupported | `from foundry_sdk.v2.ontologies.errors import InterfaceBasedObjectSetNotSupported` |
@@ -3978,12 +3993,14 @@ Namespace | Name | Import |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v1.ontologies.errors import ConsistentSnapshotError` |
 **Ontologies** | DefaultAndNullGroupsNotSupported | `from foundry_sdk.v1.ontologies.errors import DefaultAndNullGroupsNotSupported` |
 **Ontologies** | DerivedPropertyApiNamesNotUnique | `from foundry_sdk.v1.ontologies.errors import DerivedPropertyApiNamesNotUnique` |
+**Ontologies** | DistinctEnumValuesExceededLimit | `from foundry_sdk.v1.ontologies.errors import DistinctEnumValuesExceededLimit` |
 **Ontologies** | DuplicateOrderBy | `from foundry_sdk.v1.ontologies.errors import DuplicateOrderBy` |
 **Ontologies** | EditObjectPermissionDenied | `from foundry_sdk.v1.ontologies.errors import EditObjectPermissionDenied` |
 **Ontologies** | FunctionEncounteredUserFacingError | `from foundry_sdk.v1.ontologies.errors import FunctionEncounteredUserFacingError` |
 **Ontologies** | FunctionExecutionFailed | `from foundry_sdk.v1.ontologies.errors import FunctionExecutionFailed` |
 **Ontologies** | FunctionExecutionTimedOut | `from foundry_sdk.v1.ontologies.errors import FunctionExecutionTimedOut` |
 **Ontologies** | FunctionInvalidInput | `from foundry_sdk.v1.ontologies.errors import FunctionInvalidInput` |
+**Ontologies** | FunctionNotSupportedWithTransaction | `from foundry_sdk.v1.ontologies.errors import FunctionNotSupportedWithTransaction` |
 **Ontologies** | HighScaleComputationNotEnabled | `from foundry_sdk.v1.ontologies.errors import HighScaleComputationNotEnabled` |
 **Ontologies** | IncompatibleNestedObjectSet | `from foundry_sdk.v1.ontologies.errors import IncompatibleNestedObjectSet` |
 **Ontologies** | InterfaceBasedObjectSetNotSupported | `from foundry_sdk.v1.ontologies.errors import InterfaceBasedObjectSetNotSupported` |

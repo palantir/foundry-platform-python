@@ -31,20 +31,25 @@ class ExperimentClient:
     The API client for the Experiment Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.ApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.ApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _ExperimentClientStreaming(self)
         self.with_raw_response = _ExperimentClientRaw(self)
@@ -55,7 +60,7 @@ class ExperimentClient:
 
         return ExperimentSeriesClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -67,7 +72,7 @@ class ExperimentClient:
 
         return ExperimentArtifactTableClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -98,6 +103,7 @@ class ExperimentClient:
         :rtype: models_models.Experiment
 
         :raises ExperimentNotFound: The given Experiment could not be found.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -119,6 +125,7 @@ class ExperimentClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExperimentNotFound": models_errors.ExperimentNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -219,20 +226,25 @@ class AsyncExperimentClient:
     The API client for the Experiment Resource.
 
     :param auth: Your auth configuration.
-    :param hostname: Your Foundry hostname (for example, "myfoundry.palantirfoundry.com"). This can also include your API gateway service URI.
+    :param hostname: The hostname supplier for resolving base URLs.
     :param config: Optionally specify the configuration for the HTTP session.
     """
 
     def __init__(
         self,
         auth: core.Auth,
-        hostname: str,
+        hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
         self._auth = auth
-        self._hostname = hostname
+        if isinstance(hostname, core.HostnameSupplier):
+            self._hostname_supplier = hostname
+        else:
+            self._hostname_supplier = core.create_hostname_supplier(hostname, config)
         self._config = config
-        self._api_client = core.AsyncApiClient(auth=auth, hostname=hostname, config=config)
+        self._api_client = core.AsyncApiClient(
+            auth=auth, hostname=self._hostname_supplier, config=config
+        )
 
         self.with_streaming_response = _AsyncExperimentClientStreaming(self)
         self.with_raw_response = _AsyncExperimentClientRaw(self)
@@ -243,7 +255,7 @@ class AsyncExperimentClient:
 
         return AsyncExperimentSeriesClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -255,7 +267,7 @@ class AsyncExperimentClient:
 
         return AsyncExperimentArtifactTableClient(
             auth=self._auth,
-            hostname=self._hostname,
+            hostname=self._hostname_supplier,
             config=self._config,
         )
 
@@ -286,6 +298,7 @@ class AsyncExperimentClient:
         :rtype: typing.Awaitable[models_models.Experiment]
 
         :raises ExperimentNotFound: The given Experiment could not be found.
+        :raises ModelExperimentNotFound: The requested experiment was not found or the user lacks permission to access it.
         """
 
         return self._api_client.call_api(
@@ -307,6 +320,7 @@ class AsyncExperimentClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExperimentNotFound": models_errors.ExperimentNotFound,
+                    "ModelExperimentNotFound": models_errors.ModelExperimentNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
