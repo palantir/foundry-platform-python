@@ -64,11 +64,16 @@ def _clean_hostname(hostname: str, config: Optional[Config] = None) -> str:
 def maybe_create_hostname_supplier(
     base_url: Optional[str] = None, config: Optional[Config] = None
 ) -> Optional[HostnameSupplier]:
+    """Resolve hostname supplier with priority: explicit base_url > context/env vars > service discovery YAML."""
     config = config or Config()
 
     if base_url is not None:
         assert_non_empty_string(base_url, "hostname")
         return StaticHostnameSupplier(_clean_hostname(base_url, config))
+
+    env_hostname = maybe_get_hostname_from_context_or_environment_vars()
+    if env_hostname is not None:
+        return StaticHostnameSupplier(_clean_hostname(env_hostname, config))
 
     service_discovery_path = os.environ.get("FOUNDRY_SERVICE_DISCOVERY_V2", None)
     if service_discovery_path is not None:
@@ -77,10 +82,6 @@ def maybe_create_hostname_supplier(
         with open(service_discovery_path, "r") as f:
             services = yaml.safe_load(f)
             return ServiceDiscoveryHostnameSupplier(services)
-
-    env_hostname = maybe_get_hostname_from_context_or_environment_vars()
-    if env_hostname is not None:
-        return StaticHostnameSupplier(_clean_hostname(env_hostname, config))
 
     return None
 

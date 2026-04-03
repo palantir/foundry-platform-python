@@ -69,20 +69,18 @@ class ServiceDiscoveryHostnameSupplier(HostnameSupplier):
             raise ValueError("ServiceDiscoveryHostnameSupplier requires an endpoint_type.")
 
         if endpoint_type == EndpointType.GENERIC:
-            return self._find_service_url("api-gateway")
+            return self._find_service_url("api-gateway", "api_gateway")
         elif endpoint_type == EndpointType.AUTH:
             return self._find_service_url("multipass")
         elif endpoint_type == EndpointType.HIGH_SCALE:
-            return self._find_service_url("stream-proxy")
+            return self._find_service_url("stream-proxy", "stream_proxy")
         else:
             raise ValueError(f"Unsupported endpoint type: {endpoint_type}")
 
-    def _find_service_url(self, service_name: str) -> str:
-        if service_name not in self._services:
-            raise ValueError(f"Unable to discover service '{service_name}'.")
+    def _find_service_url(self, *service_names: str) -> str:
+        for name in service_names:
+            urls = self._services.get(name)
+            if urls:
+                return urls[0]
 
-        urls = self._services[service_name]
-        if not urls:
-            raise ValueError(f"Unable to discover URLs for service '{service_name}'.")
-
-        return urls[0]
+        raise ValueError(f"Unable to discover service '{service_names[0]}'.")
