@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -53,6 +54,18 @@ class ProjectClient:
 
         self.with_streaming_response = _ProjectClientStreaming(self)
         self.with_raw_response = _ProjectClientRaw(self)
+
+    @cached_property
+    def Reference(self):
+        from foundry_sdk.v2.filesystem.project_resource_reference import (
+            ProjectResourceReferenceClient,
+        )  # NOQA
+
+        return ProjectResourceReferenceClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -610,6 +623,18 @@ class AsyncProjectClient:
 
         self.with_streaming_response = _AsyncProjectClientStreaming(self)
         self.with_raw_response = _AsyncProjectClientRaw(self)
+
+    @cached_property
+    def Reference(self):
+        from foundry_sdk.v2.filesystem.project_resource_reference import (
+            AsyncProjectResourceReferenceClient,
+        )  # NOQA
+
+        return AsyncProjectResourceReferenceClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call

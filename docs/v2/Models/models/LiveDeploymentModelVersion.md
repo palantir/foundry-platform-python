@@ -1,12 +1,12 @@
-# PromoteVersionModelRequest
+# LiveDeploymentModelVersion
 
-PromoteVersionModelRequest
+Identifies the model and model version associated with a live deployment.
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**source_model_version_rid** | ModelVersionRid | Yes |  |
-**branch** | Optional[BranchName] | No | The branch to promote the version to. Defaults to master on most enrollments.  |
+**model_rid** | ModelRid | Yes |  |
+**model_version_rid** | ModelVersionRid | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

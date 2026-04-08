@@ -1,12 +1,12 @@
-# PromoteVersionModelRequest
+# AddFilesystemResourceReferenceRequest
 
-PromoteVersionModelRequest
+A request to add a resource from the filesystem as a reference to a project
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**source_model_version_rid** | ModelVersionRid | Yes |  |
-**branch** | Optional[BranchName] | No | The branch to promote the version to. Defaults to master on most enrollments.  |
+**resource_rid** | ResourceRid | Yes |  |
+**type** | Literal["filesystem"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

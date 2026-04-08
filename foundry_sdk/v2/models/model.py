@@ -190,17 +190,20 @@ class ModelClient:
         model_rid: models_models.ModelRid,
         *,
         source_model_version_rid: models_models.ModelVersionRid,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> models_models.ModelVersion:
         """
-        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the specified branch, but will have a new Model Version RID.
 
         :param model_rid:
         :type model_rid: ModelRid
         :param source_model_version_rid:
         :type source_model_version_rid: ModelVersionRid
+        :param branch: The branch to promote the version to. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -230,6 +233,7 @@ class ModelClient:
                 },
                 body=models_models.PromoteVersionModelRequest(
                     source_model_version_rid=source_model_version_rid,
+                    branch=branch,
                 ),
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,
@@ -428,17 +432,20 @@ class AsyncModelClient:
         model_rid: models_models.ModelRid,
         *,
         source_model_version_rid: models_models.ModelVersionRid,
+        branch: typing.Optional[core_models.BranchName] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[models_models.ModelVersion]:
         """
-        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+        Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the specified branch, but will have a new Model Version RID.
 
         :param model_rid:
         :type model_rid: ModelRid
         :param source_model_version_rid:
         :type source_model_version_rid: ModelVersionRid
+        :param branch: The branch to promote the version to. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
@@ -468,6 +475,7 @@ class AsyncModelClient:
                 },
                 body=models_models.PromoteVersionModelRequest(
                     source_model_version_rid=source_model_version_rid,
+                    branch=branch,
                 ),
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,

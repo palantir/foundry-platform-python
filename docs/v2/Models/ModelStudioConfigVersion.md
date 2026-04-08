@@ -39,7 +39,7 @@ model_studio_rid = None
 # ModelStudioConfigVersionName | Human readable name of the configuration version and experiment.
 name = None
 # ResourceConfiguration | The compute resources allocated for training runs.
-resources = {"gpu": "V100"}
+resources = {"gpu": "A100"}
 # TrainerId | The identifier of the trainer to use for this configuration.
 trainer_id = "autogluon"
 # ModelStudioWorkerConfig | The worker configuration including inputs, outputs, and custom settings.

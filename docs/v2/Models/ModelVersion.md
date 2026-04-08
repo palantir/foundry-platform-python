@@ -161,6 +161,7 @@ Lists all Model Versions for a given Model.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_rid** | ModelRid |  |  |
+**branch** | Optional[BranchName] | The branch to list versions from. Defaults to master on most enrollments.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -179,6 +180,8 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelRid
 model_rid = None
+# Optional[BranchName] | The branch to list versions from. Defaults to master on most enrollments.
+branch = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -189,7 +192,7 @@ preview = None
 
 try:
     for model_version in client.models.Model.Version.list(
-        model_rid, page_size=page_size, page_token=page_token, preview=preview
+        model_rid, branch=branch, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(model_version)
 except foundry_sdk.PalantirRPCException as e:

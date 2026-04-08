@@ -64,25 +64,41 @@ def _clean_hostname(hostname: str, config: Optional[Config] = None) -> str:
 def maybe_create_hostname_supplier(
     base_url: Optional[str] = None, config: Optional[Config] = None
 ) -> Optional[HostnameSupplier]:
-    """Resolve hostname supplier with priority: explicit base_url > context/env vars > service discovery YAML."""
+    """Resolve hostname supplier with priority: explicit base_url > service discovery YAML > context/env vars."""
     config = config or Config()
 
     if base_url is not None:
         assert_non_empty_string(base_url, "hostname")
-        return StaticHostnameSupplier(_clean_hostname(base_url, config))
+        return StaticHostnameSupplier(_clean_hostname(base_url, config), is_user_supplied=True)
 
+    env_hostname_supplier = maybe_get_env_hostname_supplier(config)
+    service_discovery_supplier = maybe_get_service_discovery_hostname_supplier(
+        config, env_hostname_supplier
+    )
+
+    if service_discovery_supplier is not None:
+        return service_discovery_supplier
+
+    return env_hostname_supplier
+
+
+def maybe_get_env_hostname_supplier(config: Optional[Config]) -> Optional[HostnameSupplier]:
     env_hostname = maybe_get_hostname_from_context_or_environment_vars()
     if env_hostname is not None:
-        return StaticHostnameSupplier(_clean_hostname(env_hostname, config))
+        return StaticHostnameSupplier(_clean_hostname(env_hostname, config), is_user_supplied=False)
+    return None
 
+
+def maybe_get_service_discovery_hostname_supplier(
+    config: Optional[Config], fallback: Optional[HostnameSupplier]
+) -> Optional[HostnameSupplier]:
     service_discovery_path = os.environ.get("FOUNDRY_SERVICE_DISCOVERY_V2", None)
     if service_discovery_path is not None:
         import yaml
 
         with open(service_discovery_path, "r") as f:
             services = yaml.safe_load(f)
-            return ServiceDiscoveryHostnameSupplier(services)
-
+            return ServiceDiscoveryHostnameSupplier(services, fallback_supplier=fallback)
     return None
 
 

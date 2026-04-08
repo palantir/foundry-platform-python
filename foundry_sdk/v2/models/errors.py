@@ -55,6 +55,34 @@ class CreateConfigValidationError(errors.BadRequestError):
     error_instance_id: str
 
 
+class CreateLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the LiveDeployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CreateLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateLiveDeploymentPermissionDenied"]
+    parameters: CreateLiveDeploymentPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CreateModelFunctionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not create the ModelFunction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class CreateModelFunctionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CreateModelFunctionPermissionDenied"]
+    parameters: CreateModelFunctionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class CreateModelPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Model."""
 
@@ -161,6 +189,43 @@ class ExperimentSeriesNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class FunctionAlreadyExistsParameters(typing_extensions.TypedDict):
+    """A function already exists for this live deployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class FunctionAlreadyExists(errors.ConflictError):
+    name: typing.Literal["FunctionAlreadyExists"]
+    parameters: FunctionAlreadyExistsParameters
+    error_instance_id: str
+
+
+class GpuTypeNotAvailableParameters(typing_extensions.TypedDict):
+    """
+    The requested GPU type is not available. Use a GPU type that is available in
+    the deployment's resource queue.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    requestedGpuType: models_models.GpuType
+    """The GPU type that was requested."""
+
+    availableGpuTypes: typing.List[models_models.GpuType]
+    """The GPU types available in the resource queue."""
+
+
+@dataclass
+class GpuTypeNotAvailable(errors.BadRequestError):
+    name: typing.Literal["GpuTypeNotAvailable"]
+    parameters: GpuTypeNotAvailableParameters
+    error_instance_id: str
+
+
 class InferenceFailureParameters(typing_extensions.TypedDict):
     """
     The inference request failed due to a model execution error or unexpected internal issue.
@@ -234,6 +299,43 @@ class InvalidExperimentSearchFilterParameters(typing_extensions.TypedDict):
 class InvalidExperimentSearchFilter(errors.BadRequestError):
     name: typing.Literal["InvalidExperimentSearchFilter"]
     parameters: InvalidExperimentSearchFilterParameters
+    error_instance_id: str
+
+
+class InvalidFunctionApiNameParameters(typing_extensions.TypedDict):
+    """The provided API name for the function is invalid."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    apiName: str
+
+
+@dataclass
+class InvalidFunctionApiName(errors.BadRequestError):
+    name: typing.Literal["InvalidFunctionApiName"]
+    parameters: InvalidFunctionApiNameParameters
+    error_instance_id: str
+
+
+class InvalidGpuCountParameters(typing_extensions.TypedDict):
+    """
+    The GPU count is invalid. The GPU count must be between 1 and the maximum allowed
+    for the requested GPU type.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    providedGpuCount: int
+    """The GPU count that was provided in the request."""
+
+    maxGpuCount: int
+    """The maximum allowed GPU count for the requested GPU type."""
+
+
+@dataclass
+class InvalidGpuCount(errors.BadRequestError):
+    name: typing.Literal["InvalidGpuCount"]
+    parameters: InvalidGpuCountParameters
     error_instance_id: str
 
 
@@ -345,6 +447,22 @@ class LiveDeploymentNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class ModelApiTypeUnsupportedForFunctionParameters(typing_extensions.TypedDict):
+    """The model API contains a data type that is not supported for Ontology function creation."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    fieldName: str
+    unsupportedType: str
+
+
+@dataclass
+class ModelApiTypeUnsupportedForFunction(errors.BadRequestError):
+    name: typing.Literal["ModelApiTypeUnsupportedForFunction"]
+    parameters: ModelApiTypeUnsupportedForFunctionParameters
+    error_instance_id: str
+
+
 class ModelExperimentNotFoundParameters(typing_extensions.TypedDict):
     """The requested experiment was not found or the user lacks permission to access it."""
 
@@ -358,6 +476,21 @@ class ModelExperimentNotFoundParameters(typing_extensions.TypedDict):
 class ModelExperimentNotFound(errors.NotFoundError):
     name: typing.Literal["ModelExperimentNotFound"]
     parameters: ModelExperimentNotFoundParameters
+    error_instance_id: str
+
+
+class ModelFunctionNotFoundParameters(typing_extensions.TypedDict):
+    """The given ModelFunction could not be found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class ModelFunctionNotFound(errors.NotFoundError):
+    name: typing.Literal["ModelFunctionNotFound"]
+    parameters: ModelFunctionNotFoundParameters
     error_instance_id: str
 
 
@@ -438,6 +571,21 @@ class ModelVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class OntologyNotFoundParameters(typing_extensions.TypedDict):
+    """The specified ontology was not found."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    ontologyRid: core.RID
+
+
+@dataclass
+class OntologyNotFound(errors.NotFoundError):
+    name: typing.Literal["OntologyNotFound"]
+    parameters: OntologyNotFoundParameters
+    error_instance_id: str
+
+
 class ParquetExperimentArtifactTablePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not parquet the ExperimentArtifactTable."""
 
@@ -487,6 +635,36 @@ class PromoteVersionModelPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ReplaceLiveDeploymentPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the LiveDeployment."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class ReplaceLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceLiveDeploymentPermissionDenied"]
+    parameters: ReplaceLiveDeploymentPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ReplaceModelFunctionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the ModelFunction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    liveDeploymentRid: models_models.LiveDeploymentRid
+
+
+@dataclass
+class ReplaceModelFunctionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceModelFunctionPermissionDenied"]
+    parameters: ReplaceModelFunctionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class SearchExperimentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not search the Experiment."""
 
@@ -499,6 +677,25 @@ class SearchExperimentsPermissionDeniedParameters(typing_extensions.TypedDict):
 class SearchExperimentsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["SearchExperimentsPermissionDenied"]
     parameters: SearchExperimentsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ThreadCountTooHighParameters(typing_extensions.TypedDict):
+    """The specified thread count exceeds the maximum allowed value."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    maxThreadCount: int
+    """The maximum allowed thread count."""
+
+    providedThreadCount: int
+    """The thread count that was provided in the request."""
+
+
+@dataclass
+class ThreadCountTooHigh(errors.BadRequestError):
+    name: typing.Literal["ThreadCountTooHigh"]
+    parameters: ThreadCountTooHighParameters
     error_instance_id: str
 
 
@@ -532,6 +729,19 @@ class TransformJsonLiveDeploymentPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class UnsupportedLiveDeploymentParameters(typing_extensions.TypedDict):
+    """The Live Deployment type is not supported by the API."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class UnsupportedLiveDeployment(errors.BadRequestError):
+    name: typing.Literal["UnsupportedLiveDeployment"]
+    parameters: UnsupportedLiveDeploymentParameters
+    error_instance_id: str
+
+
 class UnsupportedModelSourceParameters(typing_extensions.TypedDict):
     """The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API."""
 
@@ -548,6 +758,8 @@ class UnsupportedModelSource(errors.BadRequestError):
 __all__ = [
     "CondaSolveFailureForProvidedPackages",
     "CreateConfigValidationError",
+    "CreateLiveDeploymentPermissionDenied",
+    "CreateModelFunctionPermissionDenied",
     "CreateModelPermissionDenied",
     "CreateModelStudioConfigVersionPermissionDenied",
     "CreateModelStudioPermissionDenied",
@@ -555,10 +767,14 @@ __all__ = [
     "ExperimentArtifactNotFound",
     "ExperimentNotFound",
     "ExperimentSeriesNotFound",
+    "FunctionAlreadyExists",
+    "GpuTypeNotAvailable",
     "InferenceFailure",
     "InferenceInvalidInput",
     "InferenceTimeout",
     "InvalidExperimentSearchFilter",
+    "InvalidFunctionApiName",
+    "InvalidGpuCount",
     "InvalidModelApi",
     "InvalidModelStudioCreateRequest",
     "JsonExperimentArtifactTablePermissionDenied",
@@ -566,17 +782,24 @@ __all__ = [
     "LatestModelStudioConfigVersionsPermissionDenied",
     "LaunchModelStudioPermissionDenied",
     "LiveDeploymentNotFound",
+    "ModelApiTypeUnsupportedForFunction",
     "ModelExperimentNotFound",
+    "ModelFunctionNotFound",
     "ModelNotFound",
     "ModelStudioConfigVersionNotFound",
     "ModelStudioNotFound",
     "ModelStudioTrainerNotFound",
     "ModelVersionNotFound",
+    "OntologyNotFound",
     "ParquetExperimentArtifactTablePermissionDenied",
     "ParquetExperimentSeriesPermissionDenied",
     "PromoteVersionModelPermissionDenied",
+    "ReplaceLiveDeploymentPermissionDenied",
+    "ReplaceModelFunctionPermissionDenied",
     "SearchExperimentsPermissionDenied",
+    "ThreadCountTooHigh",
     "TrainerNotFound",
     "TransformJsonLiveDeploymentPermissionDenied",
+    "UnsupportedLiveDeployment",
     "UnsupportedModelSource",
 ]

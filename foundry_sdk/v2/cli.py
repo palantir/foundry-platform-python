@@ -5427,6 +5427,111 @@ def filesystem_project_op_replace(
     click.echo(repr(result))
 
 
+@filesystem_project.group("project_resource_reference")
+def filesystem_project_project_resource_reference():
+    pass
+
+
+@filesystem_project_project_resource_reference.command("add")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--resources", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_add(
+    client: FoundryClient,
+    project_rid: str,
+    resources: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Add references to the given project
+
+    """
+    result = client.filesystem.Project.Reference.add(
+        project_rid=project_rid,
+        resources=json.loads(resources),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project_project_resource_reference.command("list")
+@click.argument("project_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--reference_type",
+    type=click.Choice(["EXTERNAL", "FILESYSTEM"]),
+    required=False,
+    help="""Filter references by type. If not provided, all references are returned.""",
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_list(
+    client: FoundryClient,
+    project_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    reference_type: typing.Optional[typing.Literal["EXTERNAL", "FILESYSTEM"]],
+):
+    """
+    List all references in the given project
+
+    """
+    result = client.filesystem.Project.Reference.list(
+        project_rid=project_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        reference_type=reference_type,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project_project_resource_reference.command("remove")
+@click.argument("project_rid", type=str, required=True)
+@click.option(
+    "--resources",
+    type=str,
+    required=True,
+    help="""The resource identifiers to remove as references. These may be either filesystem or external resource identifiers.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_remove(
+    client: FoundryClient,
+    project_rid: str,
+    resources: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Remove references from the given project
+
+    """
+    result = client.filesystem.Project.Reference.remove(
+        project_rid=project_rid,
+        resources=json.loads(resources),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("folder")
 def filesystem_folder():
     pass
@@ -7283,6 +7388,13 @@ def models_model_op_get(
 @click.argument("model_rid", type=str, required=True)
 @click.option("--source_model_version_rid", type=str, required=True, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The branch to promote the version to. Defaults to master on most enrollments.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
@@ -7290,15 +7402,17 @@ def models_model_op_promote_version(
     client: FoundryClient,
     model_rid: str,
     source_model_version_rid: str,
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
-    Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the master branch, but will have a new Model Version RID.
+    Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the specified branch, but will have a new Model Version RID.
 
     """
     result = client.models.Model.promote_version(
         model_rid=model_rid,
         source_model_version_rid=source_model_version_rid,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -7369,6 +7483,13 @@ def models_model_model_version_op_get(
 @models_model_model_version.command("list")
 @click.argument("model_rid", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The branch to list versions from. Defaults to master on most enrollments.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -7386,6 +7507,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def models_model_model_version_op_list(
     client: FoundryClient,
     model_rid: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -7395,6 +7517,7 @@ def models_model_model_version_op_list(
     """
     result = client.models.Model.Version.list(
         model_rid=model_rid,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
         preview=preview,
@@ -7650,6 +7773,94 @@ def models_live_deployment():
     pass
 
 
+@models_live_deployment.command("create")
+@click.option(
+    "--deployment_type",
+    type=str,
+    required=True,
+    help="""The target model source for the live deployment. Determines which model and version selection strategy to use when creating the deployment.
+""",
+)
+@click.option(
+    "--runtime_configuration",
+    type=str,
+    required=True,
+    help="""The compute resource configuration for the deployment.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_create(
+    client: FoundryClient,
+    deployment_type: str,
+    runtime_configuration: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new live deployment for a model version with the specified runtime configuration. The deployment will begin provisioning compute resources and deploying the target model version.
+
+    """
+    result = client.models.LiveDeployment.create(
+        deployment_type=json.loads(deployment_type),
+        runtime_configuration=json.loads(runtime_configuration),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("get")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_get(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieves a live deployment by its Resource Identifier (RID), including its deployed model version and runtime configuration.
+
+    """
+    result = client.models.LiveDeployment.get(
+        live_deployment_rid=live_deployment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("replace")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--runtime_configuration",
+    type=str,
+    required=True,
+    help="""The compute resource configuration for the deployment.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_replace(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    runtime_configuration: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Updates the runtime configuration of the live deployment. The deployment will apply the new configuration to the running replicas.
+
+    """
+    result = client.models.LiveDeployment.replace(
+        live_deployment_rid=live_deployment_rid,
+        runtime_configuration=json.loads(runtime_configuration),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @models_live_deployment.command("transform_json")
 @click.argument("live_deployment_rid", type=str, required=True)
 @click.option(
@@ -7676,6 +7887,95 @@ def models_live_deployment_op_transform_json(
     result = client.models.LiveDeployment.transform_json(
         live_deployment_rid=live_deployment_rid,
         input=json.loads(input),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.group("model_function")
+def models_live_deployment_model_function():
+    pass
+
+
+@models_live_deployment_model_function.command("create")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_create(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    api_name: str,
+    display_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.create(
+        live_deployment_rid=live_deployment_rid,
+        api_name=api_name,
+        display_name=display_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment_model_function.command("get")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_get(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.get(
+        live_deployment_rid=live_deployment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment_model_function.command("replace")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_replace(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    api_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replaces the function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.replace(
+        live_deployment_rid=live_deployment_rid,
+        api_name=api_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
         preview=preview,
     )
     click.echo(repr(result))

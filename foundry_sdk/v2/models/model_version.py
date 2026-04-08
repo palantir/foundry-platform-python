@@ -189,6 +189,7 @@ class ModelVersionClient:
         self,
         model_rid: models_models.ModelRid,
         *,
+        branch: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -199,6 +200,8 @@ class ModelVersionClient:
         Lists all Model Versions for a given Model.
         :param model_rid:
         :type model_rid: ModelRid
+        :param branch: The branch to list versions from. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -219,6 +222,7 @@ class ModelVersionClient:
                 method="GET",
                 resource_path="/v2/models/{modelRid}/versions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -427,6 +431,7 @@ class AsyncModelVersionClient:
         self,
         model_rid: models_models.ModelRid,
         *,
+        branch: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -437,6 +442,8 @@ class AsyncModelVersionClient:
         Lists all Model Versions for a given Model.
         :param model_rid:
         :type model_rid: ModelRid
+        :param branch: The branch to list versions from. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -457,6 +464,7 @@ class AsyncModelVersionClient:
                 method="GET",
                 resource_path="/v2/models/{modelRid}/versions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,

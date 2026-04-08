@@ -23,6 +23,7 @@ import typing_extensions
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
+from foundry_sdk.v2.ontologies import models as ontologies_models
 from foundry_sdk.v2.orchestration import models as orchestration_models
 
 
@@ -71,6 +72,25 @@ CreateConfigValidationFailureReason = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """A specific reason why configuration validation failed."""
+
+
+class CreateLiveDeploymentRequest(core.ModelBase):
+    """CreateLiveDeploymentRequest"""
+
+    deployment_type: CreateLiveDeploymentTarget = pydantic.Field(alias=str("deploymentType"))  # type: ignore[literal-required]
+    """The target model source for the live deployment. Determines which model and version selection strategy to use when creating the deployment."""
+
+    runtime_configuration: LiveDeploymentRuntimeConfiguration = pydantic.Field(alias=str("runtimeConfiguration"))  # type: ignore[literal-required]
+    """The compute resource configuration for the deployment."""
+
+
+class CreateModelFunctionRequest(core.ModelBase):
+    """CreateModelFunctionRequest"""
+
+    api_name: ModelFunctionApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    ontology_binding: typing.Optional[ontologies_models.OntologyRid] = pydantic.Field(alias=str("ontologyBinding"), default=None)  # type: ignore[literal-required]
+    is_row_wise: ModelFunctionIsRowWise = pydantic.Field(alias=str("isRowWise"))  # type: ignore[literal-required]
+    display_name: ModelFunctionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
 
 
 class CreateModelRequest(core.ModelBase):
@@ -157,6 +177,16 @@ class DillModelFiles(core.ModelBase):
 
     serialized_model_function: str = pydantic.Field(alias=str("serializedModelFunction"))  # type: ignore[literal-required]
     type: typing.Literal["dill"] = "dill"
+
+
+class DirectCreateLiveDeploymentTarget(core.ModelBase):
+    """Creates a live deployment that tracks the latest model version on a branch."""
+
+    model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
+    branch: str
+    """The model branch for the deployment."""
+
+    type: typing.Literal["direct"] = "direct"
 
 
 class DoubleParameter(core.ModelBase):
@@ -299,8 +329,8 @@ class FieldValidationError(core.ModelBase):
     type: typing.Literal["fieldValidationFailure"] = "fieldValidationFailure"
 
 
-GpuType = typing.Literal["V100", "T4", "A10G", "A100", "H100", "H200", "L4", "A16", "L40S"]
-"""The specific type of GPU to use."""
+GpuType = typing.Literal["A100", "A10G", "A16", "H100", "H200", "L4", "L40S", "T4", "V100"]
+"""The specific type of GPU hardware to use."""
 
 
 class InconsistentArrayDimensionsError(core.ModelBase):
@@ -424,8 +454,101 @@ class ListModelVersionsResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class LiveDeployment(core.ModelBase):
+    """LiveDeployment"""
+
+    rid: LiveDeploymentRid
+    model_version: LiveDeploymentModelVersion = pydantic.Field(alias=str("modelVersion"))  # type: ignore[literal-required]
+    """The currently deployed model version."""
+
+    runtime_configuration: LiveDeploymentRuntimeConfiguration = pydantic.Field(alias=str("runtimeConfiguration"))  # type: ignore[literal-required]
+    """The compute resource configuration for the deployment."""
+
+    status: LiveDeploymentStatus
+    """The current operational status of the deployment."""
+
+
+class LiveDeploymentGpu(core.ModelBase):
+    """GPU resource configuration for a live deployment."""
+
+    count: int
+    """The number of GPU units requested (e.g. 1)."""
+
+    type: typing.Optional[GpuType] = None
+    """The specific type of GPU to use. Not setting a type means any type is acceptable."""
+
+
+class LiveDeploymentModelVersion(core.ModelBase):
+    """Identifies the model and model version associated with a live deployment."""
+
+    model_rid: ModelRid = pydantic.Field(alias=str("modelRid"))  # type: ignore[literal-required]
+    model_version_rid: ModelVersionRid = pydantic.Field(alias=str("modelVersionRid"))  # type: ignore[literal-required]
+
+
 LiveDeploymentRid = core.RID
 """The Resource Identifier (RID) of a Live Deployment."""
+
+
+class LiveDeploymentRuntimeConfiguration(core.ModelBase):
+    """The compute resource configuration for a live deployment, controlling replica scaling, CPU, memory, and GPU resources."""
+
+    min_replicas: int = pydantic.Field(alias=str("minReplicas"))  # type: ignore[literal-required]
+    """The minimum number of replicas to keep running."""
+
+    max_replicas: int = pydantic.Field(alias=str("maxReplicas"))  # type: ignore[literal-required]
+    """The maximum number of replicas to scale to under load."""
+
+    cpu: typing.Optional[float] = None
+    """The number of CPU units requested. This is also set as the limit."""
+
+    memory: typing.Optional[str] = None
+    """The amount of memory requested in human-readable format (e.g. "256MiB", "1GiB"). This is also set as the limit."""
+
+    gpu: typing.Optional[LiveDeploymentGpu] = None
+    """Optional GPU resources for the deployment."""
+
+    thread_count: typing.Optional[int] = pydantic.Field(alias=str("threadCount"), default=None)  # type: ignore[literal-required]
+    """The number of threads used for query handling. Defaults to 32 if not specified. Also affects how many concurrent requests will be sent to a single replica."""
+
+    scaling_configuration: typing.Optional[LiveDeploymentScalingConfiguration] = pydantic.Field(alias=str("scalingConfiguration"), default=None)  # type: ignore[literal-required]
+    """Autoscaling configuration for the deployment. Controls how the deployment scales replicas up and down based on load."""
+
+
+class LiveDeploymentScalingConfiguration(core.ModelBase):
+    """Autoscaling configuration that controls how the deployment scales replicas based on load thresholds and cooldown delays."""
+
+    scale_up_load_threshold: float = pydantic.Field(alias=str("scaleUpLoadThreshold"))  # type: ignore[literal-required]
+    """A threshold between 0.0 and 1.0. If the ratio of running jobs to job capacity exceeds this threshold for the duration of the scale-up delay, the deployment will scale up. Job capacity is the number of running replicas multiplied by the thread count (concurrency limit)."""
+
+    scale_up_delay: core_models.Duration = pydantic.Field(alias=str("scaleUpDelay"))  # type: ignore[literal-required]
+    """The duration that load must exceed the scale-up threshold before scaling up."""
+
+    scale_down_delay: core_models.Duration = pydantic.Field(alias=str("scaleDownDelay"))  # type: ignore[literal-required]
+    """The duration that load must be below the scale-down threshold before scaling down."""
+
+
+LiveDeploymentState = typing.Literal["ACTIVE", "STARTING", "DEGRADED", "DISABLED", "FAILED"]
+"""
+The operational state of a live deployment.
+
+| Value | Description |
+| --- | --- |
+| ACTIVE | The deployment is active. It may have zero replicas due to autoscaling and still not be ready. |
+| STARTING | The deployment is starting up. |
+| DEGRADED | At least one replica is ready, but not all replicas are healthy. |
+| DISABLED | The deployment is disabled. |
+| FAILED | The deployment has failed. No healthy replicas are available. |
+"""
+
+
+class LiveDeploymentStatus(core.ModelBase):
+    """The current operational status of a live deployment."""
+
+    state: LiveDeploymentState
+    """The current operational state of the deployment."""
+
+    is_ready: bool = pydantic.Field(alias=str("isReady"))  # type: ignore[literal-required]
+    """Whether the deployment is ready to serve inference requests. A deployment may be active but not ready if it has been autoscaled to zero replicas."""
 
 
 class MissingRequiredDatasetColumnError(core.ModelBase):
@@ -594,6 +717,37 @@ class ModelApiTabularType(core.ModelBase):
     """Dataframe format the model will receive or is expected to return for this input or output. PANDAS is the default."""
 
     type: typing.Literal["tabular"] = "tabular"
+
+
+class ModelFunction(core.ModelBase):
+    """ModelFunction"""
+
+    function_rid: ModelFunctionFunctionRid = pydantic.Field(alias=str("functionRid"))  # type: ignore[literal-required]
+    function_version: ModelFunctionFunctionVersion = pydantic.Field(alias=str("functionVersion"))  # type: ignore[literal-required]
+    display_name: ModelFunctionDisplayName = pydantic.Field(alias=str("displayName"))  # type: ignore[literal-required]
+    api_name: ModelFunctionApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    is_row_wise: ModelFunctionIsRowWise = pydantic.Field(alias=str("isRowWise"))  # type: ignore[literal-required]
+    ontology_binding: typing.Optional[ontologies_models.OntologyRid] = pydantic.Field(alias=str("ontologyBinding"), default=None)  # type: ignore[literal-required]
+
+
+ModelFunctionApiName = str
+"""ModelFunctionApiName"""
+
+
+ModelFunctionDisplayName = str
+"""ModelFunctionDisplayName"""
+
+
+ModelFunctionFunctionRid = core.RID
+"""ModelFunctionFunctionRid"""
+
+
+ModelFunctionFunctionVersion = str
+"""ModelFunctionFunctionVersion"""
+
+
+ModelFunctionIsRowWise = bool
+"""ModelFunctionIsRowWise"""
 
 
 ModelName = str
@@ -937,6 +1091,23 @@ class PromoteVersionModelRequest(core.ModelBase):
     """PromoteVersionModelRequest"""
 
     source_model_version_rid: ModelVersionRid = pydantic.Field(alias=str("sourceModelVersionRid"))  # type: ignore[literal-required]
+    branch: typing.Optional[core_models.BranchName] = None
+    """The branch to promote the version to. Defaults to master on most enrollments."""
+
+
+class ReplaceLiveDeploymentRequest(core.ModelBase):
+    """ReplaceLiveDeploymentRequest"""
+
+    runtime_configuration: LiveDeploymentRuntimeConfiguration = pydantic.Field(alias=str("runtimeConfiguration"))  # type: ignore[literal-required]
+    """The compute resource configuration for the deployment."""
+
+
+class ReplaceModelFunctionRequest(core.ModelBase):
+    """ReplaceModelFunctionRequest"""
+
+    api_name: ModelFunctionApiName = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    ontology_binding: typing.Optional[ontologies_models.OntologyRid] = pydantic.Field(alias=str("ontologyBinding"), default=None)  # type: ignore[literal-required]
+    is_row_wise: ModelFunctionIsRowWise = pydantic.Field(alias=str("isRowWise"))  # type: ignore[literal-required]
 
 
 class RequiredValueMissingError(core.ModelBase):
@@ -1325,6 +1496,10 @@ class UnsupportedTypeError(core.ModelBase):
     type: typing.Literal["unsupportedType"] = "unsupportedType"
 
 
+CreateLiveDeploymentTarget = DirectCreateLiveDeploymentTarget
+"""The target model source for the live deployment. Determines which model and version selection strategy to use when creating the deployment."""
+
+
 ExperimentArtifactDetails = TableArtifactDetails
 """Details about an experiment artifact."""
 
@@ -1373,6 +1548,9 @@ __all__ = [
     "ChangelogTooLongError",
     "ColumnTypeSpecId",
     "CreateConfigValidationFailureReason",
+    "CreateLiveDeploymentRequest",
+    "CreateLiveDeploymentTarget",
+    "CreateModelFunctionRequest",
     "CreateModelRequest",
     "CreateModelStudioConfigVersionRequest",
     "CreateModelStudioRequest",
@@ -1381,6 +1559,7 @@ __all__ = [
     "DatasetSchemaNotFoundError",
     "DatetimeParameter",
     "DillModelFiles",
+    "DirectCreateLiveDeploymentTarget",
     "DoubleParameter",
     "DoubleSeriesAggregations",
     "DoubleSeriesV1",
@@ -1413,7 +1592,14 @@ __all__ = [
     "ListModelStudioRunsResponse",
     "ListModelStudioTrainersResponse",
     "ListModelVersionsResponse",
+    "LiveDeployment",
+    "LiveDeploymentGpu",
+    "LiveDeploymentModelVersion",
     "LiveDeploymentRid",
+    "LiveDeploymentRuntimeConfiguration",
+    "LiveDeploymentScalingConfiguration",
+    "LiveDeploymentState",
+    "LiveDeploymentStatus",
     "MissingRequiredDatasetColumnError",
     "MissingWorkerConfigInputDatasetColumnMappingError",
     "MissingWorkerConfigInputError",
@@ -1432,6 +1618,12 @@ __all__ = [
     "ModelApiTabularFormat",
     "ModelApiTabularType",
     "ModelFiles",
+    "ModelFunction",
+    "ModelFunctionApiName",
+    "ModelFunctionDisplayName",
+    "ModelFunctionFunctionRid",
+    "ModelFunctionFunctionVersion",
+    "ModelFunctionIsRowWise",
     "ModelName",
     "ModelOutput",
     "ModelRid",
@@ -1470,6 +1662,8 @@ __all__ = [
     "ParameterName",
     "ParameterValue",
     "PromoteVersionModelRequest",
+    "ReplaceLiveDeploymentRequest",
+    "ReplaceModelFunctionRequest",
     "RequiredValueMissingError",
     "ResourceConfiguration",
     "RunId",

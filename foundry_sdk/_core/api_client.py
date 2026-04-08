@@ -481,7 +481,7 @@ class BaseApiClient:
             # this does not work with the backend which expects "/" characters to be encoded
             resource_path = resource_path.replace(f"{{{k}}}", quote(v, safe=""))
 
-        base_url = self._hostname_supplier.get_hostname(request_info.endpoint_type)
+        base_url = self._hostname_supplier.get_endpoint(request_info.endpoint_type)
         return f"{base_url}{resource_path}"
 
     def _create_headers(self, request_info: RequestInfo, token: Token) -> Dict[str, Any]:

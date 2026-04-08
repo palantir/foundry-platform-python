@@ -351,6 +351,14 @@ def test_filesystem_v2_project_import():
     assert ProjectClient is not None
 
 
+def test_filesystem_v2_project_resource_reference_import():
+    from foundry_sdk.v2.filesystem.project_resource_reference import (
+        ProjectResourceReferenceClient,
+    )  # NOQA
+
+    assert ProjectResourceReferenceClient is not None
+
+
 def test_filesystem_v2_resource_import():
     from foundry_sdk.v2.filesystem.resource import ResourceClient
 
@@ -435,6 +443,12 @@ def test_models_v2_model_import():
     from foundry_sdk.v2.models.model import ModelClient
 
     assert ModelClient is not None
+
+
+def test_models_v2_model_function_import():
+    from foundry_sdk.v2.models.model_function import ModelFunctionClient
+
+    assert ModelFunctionClient is not None
 
 
 def test_models_v2_model_studio_import():

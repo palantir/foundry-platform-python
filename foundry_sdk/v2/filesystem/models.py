@@ -34,6 +34,25 @@ class AccessRequirements(core.ModelBase):
     markings: typing.List[Marking]
 
 
+class AddExternalResourceReferenceRequest(core.ModelBase):
+    """A request to add an external resource as a reference to a project"""
+
+    resource_rid: core.RID = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    """The resource identifier of the external resource to add as a reference. Note that this is not a Foundry filesystem resource."""
+
+    import_name: str = pydantic.Field(alias=str("importName"))  # type: ignore[literal-required]
+    """A user-provided label for this reference, used to identify the import within the project."""
+
+    type: typing.Literal["external"] = "external"
+
+
+class AddFilesystemResourceReferenceRequest(core.ModelBase):
+    """A request to add a resource from the filesystem as a reference to a project"""
+
+    resource_rid: ResourceRid = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    type: typing.Literal["filesystem"] = "filesystem"
+
+
 class AddMarkingsRequest(core.ModelBase):
     """AddMarkingsRequest"""
 
@@ -44,6 +63,19 @@ class AddOrganizationsRequest(core.ModelBase):
     """AddOrganizationsRequest"""
 
     organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+
+
+class AddProjectResourceReferencesRequest(core.ModelBase):
+    """AddProjectResourceReferencesRequest"""
+
+    resources: typing.List[AddResourceReferenceRequest]
+
+
+AddResourceReferenceRequest = typing_extensions.Annotated[
+    typing.Union["AddExternalResourceReferenceRequest", "AddFilesystemResourceReferenceRequest"],
+    pydantic.Field(discriminator="type"),
+]
+"""A request to add a resource as a reference to a project"""
 
 
 class AddResourceRolesRequest(core.ModelBase):
@@ -245,6 +277,13 @@ class ListOrganizationsOfProjectResponse(core.ModelBase):
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
+class ListProjectResourceReferencesResponse(core.ModelBase):
+    """ListProjectResourceReferencesResponse"""
+
+    data: typing.List[ProjectResourceReference]
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
 class ListResourceRolesResponse(core.ModelBase):
     """ListResourceRolesResponse"""
 
@@ -328,8 +367,58 @@ class Project(core.ModelBase):
     """Whether role grants are allowed on individual resources within the Project."""
 
 
+class ProjectExternalResourceReference(core.ModelBase):
+    """A reference to a resource that exists outside of the Foundry filesystem such as a spark profile or an LLM model."""
+
+    resource_rid: core.RID = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    """The resource identifier of the external resource."""
+
+    name: str
+    """The user-provided label for this reference, used to identify the import within the project."""
+
+    imported_at: core.AwareDatetime = pydantic.Field(alias=str("importedAt"))  # type: ignore[literal-required]
+    imported_by: core_models.UserId = pydantic.Field(alias=str("importedBy"))  # type: ignore[literal-required]
+    type: typing.Literal["external"] = "external"
+
+
+class ProjectFilesystemResourceReference(core.ModelBase):
+    """A reference to a resource that exists within another project"""
+
+    resource_rid: ResourceRid = pydantic.Field(alias=str("resourceRid"))  # type: ignore[literal-required]
+    name: str
+    """The display name of the referenced resource."""
+
+    imported_at: core.AwareDatetime = pydantic.Field(alias=str("importedAt"))  # type: ignore[literal-required]
+    imported_by: core_models.UserId = pydantic.Field(alias=str("importedBy"))  # type: ignore[literal-required]
+    type: typing.Literal["filesystem"] = "filesystem"
+
+
 ProjectResourceLevelRoleGrantsAllowed = bool
 """Whether role grants are allowed on individual resources within the Project."""
+
+
+class ProjectResourceReference(core.ModelBase):
+    """ProjectResourceReference"""
+
+    reference: ProjectResourceReferenceUnion
+
+
+ProjectResourceReferenceType = typing.Literal["EXTERNAL", "FILESYSTEM"]
+"""
+A type of resource that has been referenced. A FILESYSTEM resource is anything that you can find in a Foundry
+file tree within a project. An EXTERNAL resource exists outside of the Foundry filesystem, such as a spark
+profile or an LLM model.
+"""
+
+
+ProjectResourceReferenceUnion = typing_extensions.Annotated[
+    typing.Union["ProjectExternalResourceReference", "ProjectFilesystemResourceReference"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+A [reference](https://palantir.com/docs/foundry/security/projects-and-roles/#references) represents a resource from outside of 
+the current project that has been imported to the given project.
+"""
 
 
 ProjectRid = core.RID
@@ -358,6 +447,13 @@ class RemoveOrganizationsRequest(core.ModelBase):
     """RemoveOrganizationsRequest"""
 
     organization_rids: typing.List[core_models.OrganizationRid] = pydantic.Field(alias=str("organizationRids"))  # type: ignore[literal-required]
+
+
+class RemoveProjectResourceReferencesRequest(core.ModelBase):
+    """RemoveProjectResourceReferencesRequest"""
+
+    resources: typing.List[core.RID]
+    """The resource identifiers to remove as references. These may be either filesystem or external resource identifiers."""
 
 
 class RemoveResourceRolesRequest(core.ModelBase):
@@ -630,6 +726,8 @@ UsageAccountRid = core.RID
 """The unique resource identifier (RID) of the usage account that will be used as a default on project creation."""
 
 
+core.resolve_forward_references(AddResourceReferenceRequest, globalns=globals(), localns=locals())
+core.resolve_forward_references(ProjectResourceReferenceUnion, globalns=globals(), localns=locals())
 core.resolve_forward_references(ResourceRolePrincipal, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     ResourceRolePrincipalIdentifier, globalns=globals(), localns=locals()
@@ -637,8 +735,12 @@ core.resolve_forward_references(
 
 __all__ = [
     "AccessRequirements",
+    "AddExternalResourceReferenceRequest",
+    "AddFilesystemResourceReferenceRequest",
     "AddMarkingsRequest",
     "AddOrganizationsRequest",
+    "AddProjectResourceReferencesRequest",
+    "AddResourceReferenceRequest",
     "AddResourceRolesRequest",
     "CreateFolderRequest",
     "CreateProjectFromTemplateRequest",
@@ -659,6 +761,7 @@ __all__ = [
     "ListChildrenOfFolderResponse",
     "ListMarkingsOfResourceResponse",
     "ListOrganizationsOfProjectResponse",
+    "ListProjectResourceReferencesResponse",
     "ListResourceRolesResponse",
     "ListSpacesResponse",
     "Marking",
@@ -666,13 +769,19 @@ __all__ = [
     "PrincipalIdOnly",
     "PrincipalWithId",
     "Project",
+    "ProjectExternalResourceReference",
+    "ProjectFilesystemResourceReference",
     "ProjectResourceLevelRoleGrantsAllowed",
+    "ProjectResourceReference",
+    "ProjectResourceReferenceType",
+    "ProjectResourceReferenceUnion",
     "ProjectRid",
     "ProjectTemplateRid",
     "ProjectTemplateVariableId",
     "ProjectTemplateVariableValue",
     "RemoveMarkingsRequest",
     "RemoveOrganizationsRequest",
+    "RemoveProjectResourceReferencesRequest",
     "RemoveResourceRolesRequest",
     "ReplaceFolderRequest",
     "ReplaceProjectRequest",
