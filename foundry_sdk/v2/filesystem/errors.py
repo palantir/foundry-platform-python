@@ -68,6 +68,21 @@ class AddOrganizationsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddProjectResourceReferencesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the ProjectResourceReference."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class AddProjectResourceReferencesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddProjectResourceReferencesPermissionDenied"]
+    parameters: AddProjectResourceReferencesPermissionDeniedParameters
+    error_instance_id: str
+
+
 class AddResourceRolesPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the ResourceRole."""
 
@@ -493,6 +508,39 @@ class InvalidPrincipalIdsForGroupTemplate(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidProjectParameters(typing_extensions.TypedDict):
+    """The provided resource identifier does not refer to a valid project."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class InvalidProject(errors.BadRequestError):
+    name: typing.Literal["InvalidProject"]
+    parameters: InvalidProjectParameters
+    error_instance_id: str
+
+
+class InvalidResourceReferenceParameters(typing_extensions.TypedDict):
+    """
+    The resource reference is invalid. This can occur when the resource identifier is malformed,
+    the resource type does not match the reference type, or the resource cannot be added as a reference.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    resourceRid: filesystem_models.ResourceRid
+
+
+@dataclass
+class InvalidResourceReference(errors.BadRequestError):
+    name: typing.Literal["InvalidResourceReference"]
+    parameters: InvalidResourceReferenceParameters
+    error_instance_id: str
+
+
 class InvalidRoleIdsParameters(typing_extensions.TypedDict):
     """A roleId referenced in either default roles or role grants does not exist in the project role set for the space."""
 
@@ -784,6 +832,21 @@ class RemoveOrganizationsPermissionDeniedParameters(typing_extensions.TypedDict)
 class RemoveOrganizationsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["RemoveOrganizationsPermissionDenied"]
     parameters: RemoveOrganizationsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class RemoveProjectResourceReferencesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the ProjectResourceReference."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class RemoveProjectResourceReferencesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveProjectResourceReferencesPermissionDenied"]
+    parameters: RemoveProjectResourceReferencesPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -1112,6 +1175,7 @@ __all__ = [
     "AddGroupToParentGroupPermissionDenied",
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
+    "AddProjectResourceReferencesPermissionDenied",
     "AddResourceRolesPermissionDenied",
     "CircularDependency",
     "CreateFolderOutsideProjectNotSupported",
@@ -1141,6 +1205,8 @@ __all__ = [
     "InvalidParentFolder",
     "InvalidPath",
     "InvalidPrincipalIdsForGroupTemplate",
+    "InvalidProject",
+    "InvalidResourceReference",
     "InvalidRoleIds",
     "InvalidVariable",
     "InvalidVariableEnumOption",
@@ -1160,6 +1226,7 @@ __all__ = [
     "ProjectTemplateNotFound",
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
+    "RemoveProjectResourceReferencesPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
     "ReplaceFolderPermissionDenied",
     "ReplaceProjectPermissionDenied",

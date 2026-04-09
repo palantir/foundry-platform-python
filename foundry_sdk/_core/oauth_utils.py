@@ -211,12 +211,13 @@ class OAuth(Auth, ABC):
                     stacklevel=2,
                 )
 
-        if self._hostname_supplier is None:
+        # If the user did not explicitly set a hostname, use the supplier from the client
+        if self._hostname_supplier is None or not self._hostname_supplier.is_user_supplied:
             self._hostname_supplier = hostname_supplier
         else:
-            if self._hostname_supplier.get_hostname(
+            if self._hostname_supplier.get_endpoint(
                 EndpointType.AUTH
-            ) == hostname_supplier.get_hostname(EndpointType.AUTH):
+            ) == hostname_supplier.get_endpoint(EndpointType.AUTH):
                 warnings.warn(
                     f"When a {self.__class__.__name__} instance is given to a FoundryClient, if a hostname "
                     "is not set it will be provided by the FoundryClient. You are using the same hostname "
@@ -236,7 +237,7 @@ class OAuth(Auth, ABC):
             raise ValueError(
                 f"The hostname must be provided to {self.__class__.__name__} when fetching a token."
             )
-        return self._hostname_supplier.get_hostname(EndpointType.AUTH)
+        return self._hostname_supplier.get_endpoint(EndpointType.AUTH)
 
     def _get_client(self) -> HttpClient:
         if self._client is None:

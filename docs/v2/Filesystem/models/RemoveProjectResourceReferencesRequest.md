@@ -1,12 +1,11 @@
-# PromoteVersionModelRequest
+# RemoveProjectResourceReferencesRequest
 
-PromoteVersionModelRequest
+RemoveProjectResourceReferencesRequest
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**source_model_version_rid** | ModelVersionRid | Yes |  |
-**branch** | Optional[BranchName] | No | The branch to promote the version to. Defaults to master on most enrollments.  |
+**resources** | List[RID] | Yes | The resource identifiers to remove as references. These may be either filesystem or external resource identifiers. |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

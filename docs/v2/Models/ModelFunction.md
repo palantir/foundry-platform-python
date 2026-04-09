@@ -1,24 +1,27 @@
-# Model
+# ModelFunction
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/models | Public Beta |
-[**get**](#get) | **GET** /v2/models/{modelRid} | Public Beta |
-[**promote_version**](#promote_version) | **POST** /v2/models/{modelRid}/promoteVersion | Public Beta |
+[**create**](#create) | **POST** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
+[**get**](#get) | **GET** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
+[**replace**](#replace) | **PUT** /v2/models/liveDeployments/{liveDeploymentRid}/function | Private Beta |
 
 # **create**
-Creates a new Model with no versions.
+Creates a function for the live deployment.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**name** | ModelName |  |  |
-**parent_folder_rid** | FolderRid |  |  |
+**live_deployment_rid** | LiveDeploymentRid |  |  |
+**api_name** | ModelFunctionApiName |  |  |
+**display_name** | ModelFunctionDisplayName |  |  |
+**is_row_wise** | ModelFunctionIsRowWise |  |  |
+**ontology_binding** | Optional[OntologyRid] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**Model**
+**ModelFunction**
 
 ### Example
 
@@ -29,22 +32,33 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# ModelName
-name = "House Pricing Model"
-# FolderRid
-parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
+# LiveDeploymentRid
+live_deployment_rid = None
+# ModelFunctionApiName
+api_name = "myModelFunction"
+# ModelFunctionDisplayName
+display_name = "Core.DisplayName"
+# ModelFunctionIsRowWise
+is_row_wise = False
+# Optional[OntologyRid]
+ontology_binding = "ri.ontology.main.ontology.a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.Model.create(
-        name=name, parent_folder_rid=parent_folder_rid, preview=preview
+    api_response = client.models.LiveDeployment.Function.create(
+        live_deployment_rid,
+        api_name=api_name,
+        display_name=display_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
-    print("HTTP error when calling Model.create: %s\n" % e)
+    print("HTTP error when calling Function.create: %s\n" % e)
 
 ```
 
@@ -57,22 +71,22 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Model  | The created Model | application/json |
+**200** | ModelFunction  | The created ModelFunction | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get**
-Retrieves a Model by its Resource Identifier (RID).
+Gets the function for the live deployment.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**model_rid** | ModelRid |  |  |
+**live_deployment_rid** | LiveDeploymentRid |  |  |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**Model**
+**ModelFunction**
 
 ### Example
 
@@ -83,18 +97,18 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# ModelRid
-model_rid = None
+# LiveDeploymentRid
+live_deployment_rid = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.Model.get(model_rid, preview=preview)
+    api_response = client.models.LiveDeployment.Function.get(live_deployment_rid, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
-    print("HTTP error when calling Model.get: %s\n" % e)
+    print("HTTP error when calling Function.get: %s\n" % e)
 
 ```
 
@@ -107,25 +121,25 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | Model  |  | application/json |
+**200** | ModelFunction  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-# **promote_version**
-Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the specified branch, but will have a new Model Version RID.
-
+# **replace**
+Replaces the function for the live deployment.
 
 ### Parameters
 
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
-**model_rid** | ModelRid |  |  |
-**source_model_version_rid** | ModelVersionRid |  |  |
-**branch** | Optional[BranchName] | The branch to promote the version to. Defaults to master on most enrollments.  | [optional] |
+**live_deployment_rid** | LiveDeploymentRid |  |  |
+**api_name** | ModelFunctionApiName |  |  |
+**is_row_wise** | ModelFunctionIsRowWise |  |  |
+**ontology_binding** | Optional[OntologyRid] |  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
-**ModelVersion**
+**ModelFunction**
 
 ### Example
 
@@ -136,24 +150,30 @@ from pprint import pprint
 
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
-# ModelRid
-model_rid = None
-# ModelVersionRid
-source_model_version_rid = "ri.models.main.model-version.adf94926-c3ac-41ea-beb2-4946699d08ee"
-# Optional[BranchName] | The branch to promote the version to. Defaults to master on most enrollments.
-branch = "master"
+# LiveDeploymentRid
+live_deployment_rid = None
+# ModelFunctionApiName
+api_name = "myModelFunction"
+# ModelFunctionIsRowWise
+is_row_wise = False
+# Optional[OntologyRid]
+ontology_binding = "ri.ontology.main.ontology.a1b2c3d4-e5f6-7890-abcd-ef1234567890"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
 
 try:
-    api_response = client.models.Model.promote_version(
-        model_rid, source_model_version_rid=source_model_version_rid, branch=branch, preview=preview
+    api_response = client.models.LiveDeployment.Function.replace(
+        live_deployment_rid,
+        api_name=api_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
     )
-    print("The promote_version response:\n")
+    print("The replace response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
-    print("HTTP error when calling Model.promote_version: %s\n" % e)
+    print("HTTP error when calling Function.replace: %s\n" % e)
 
 ```
 
@@ -166,7 +186,7 @@ See [README](../../../README.md#authorization)
 ### HTTP response details
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
-**200** | ModelVersion  |  | application/json |
+**200** | ModelFunction  | The replaced ModelFunction | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
