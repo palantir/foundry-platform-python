@@ -119,7 +119,10 @@ class OAuth(Auth, ABC):
         config: Optional[Config] = None,
     ) -> None:
         self._config = config
-        self._hostname_supplier = maybe_create_hostname_supplier(hostname, config)
+        if hostname is not None:
+            self._hostname_supplier = maybe_create_hostname_supplier(hostname, config)
+        else:
+            self._hostname_supplier = None
         self._client: Optional[HttpClient] = None
         self._should_refresh = should_refresh
         self._stop_refresh_event = threading.Event()
@@ -233,6 +236,8 @@ class OAuth(Auth, ABC):
 
     def _get_base_url(self) -> str:
         if self._hostname_supplier is None:
+            self._hostname_supplier = maybe_create_hostname_supplier(None, self._config)
+        if self._hostname_supplier is None:
             raise ValueError(
                 f"The hostname must be provided to {self.__class__.__name__} when fetching a token."
             )
@@ -240,6 +245,8 @@ class OAuth(Auth, ABC):
 
     def _get_client(self) -> HttpClient:
         if self._client is None:
+            if self._hostname_supplier is None:
+                self._hostname_supplier = maybe_create_hostname_supplier(None, self._config)
             if self._hostname_supplier is None:
                 raise ValueError(
                     f"The hostname must be provided to {self.__class__.__name__} when fetching a token."
