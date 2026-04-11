@@ -131,17 +131,8 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
         raise ValueError(
             "get_http_client() is in beta. " "Please set the preview parameter to True to use it."
         )
-    token = get_foundry_token(preview=True)
 
-    # Merge auth header with any user-provided headers
-    auth_header = {"Authorization": f"Bearer {token}"}
-    if config is None:
-        config = Config(default_headers=auth_header)
-    else:
-        merged_headers = {**auth_header, **(config.default_headers or {})}
-        config = replace(config, default_headers=merged_headers)
-
-    return HttpClient(config=config)
+    return HttpClient(config=_create_http_client_config(config))
 
 
 def get_async_http_client(
@@ -165,14 +156,24 @@ def get_async_http_client(
             "get_async_http_client() is in beta. "
             "Please set the preview parameter to True to use it."
         )
-    token = get_foundry_token(preview=True)
 
-    # Merge auth header with any user-provided headers
+    return AsyncHttpClient(config=_create_http_client_config(config))
+
+
+def _create_http_client_config(config: Optional[Config]) -> Config:
+    """Create a Config object for the HTTP client, ensuring that the Foundry token is included in the headers.
+
+    Args:
+        config: An optional Config object provided by the user.
+
+    Returns:
+        A Config object with the Foundry token included in the default headers.
+    """
+    token = get_foundry_token(preview=True)
     auth_header = {"Authorization": f"Bearer {token}"}
+
     if config is None:
-        config = Config(default_headers=auth_header)
+        return Config(default_headers=auth_header)
     else:
         merged_headers = {**auth_header, **(config.default_headers or {})}
-        config = replace(config, default_headers=merged_headers)
-
-    return AsyncHttpClient(config=config)
+        return replace(config, default_headers=merged_headers)
