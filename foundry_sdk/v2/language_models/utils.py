@@ -125,7 +125,7 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
 
     Raises:
         ValueError: If preview is not set to True.
-        RuntimeError: If the Foundry API gateway base URL or token is not available in the current context.
+        RuntimeError: If the Foundry token is not available in the current context.
     """
     if not preview:
         raise ValueError(
@@ -149,7 +149,7 @@ def get_async_http_client(
 
     Raises:
         ValueError: If preview is not set to True.
-        RuntimeError: If the Foundry API gateway base URL or token is not available in the current context.
+        RuntimeError: If the Foundry token is not available in the current context.
     """
     if not preview:
         raise ValueError(
@@ -168,6 +168,9 @@ def _create_http_client_config(config: Optional[Config]) -> Config:
 
     Returns:
         A Config object with the Foundry token included in the default headers.
+
+    Raises:
+        RuntimeError: If the Foundry token is not available in the current context.
     """
     token = get_foundry_token(preview=True)
     auth_header = {"Authorization": f"Bearer {token}"}
