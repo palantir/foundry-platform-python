@@ -144,7 +144,9 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
     return HttpClient(config=config)
 
 
-def get_async_http_client(*, preview: bool = False, config: Optional[Config] = None) -> AsyncHttpClient:
+def get_async_http_client(
+    *, preview: bool = False, config: Optional[Config] = None
+) -> AsyncHttpClient:
     """Get an async HTTP client configured for the current Foundry environment.
 
     Args:
@@ -160,7 +162,8 @@ def get_async_http_client(*, preview: bool = False, config: Optional[Config] = N
     """
     if not preview:
         raise ValueError(
-            "get_async_http_client() is in beta. " "Please set the preview parameter to True to use it."
+            "get_async_http_client() is in beta. "
+            "Please set the preview parameter to True to use it."
         )
     token = get_foundry_token(preview=True)
 
