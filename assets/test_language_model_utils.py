@@ -183,7 +183,7 @@ class TestGetHttpClient:
 class TestGetAsyncHttpClient:
     """Test get_async_http_client function."""
 
-    def test_returns_http_client(self):
+    def test_returns_async_http_client(self):
         hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
         auth_token = TOKEN_VAR.set("test-token-12345")
         try:
