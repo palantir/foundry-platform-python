@@ -31,6 +31,31 @@ class DevModeSettings(core.ModelBase):
     """The dev mode settings for each widget set, keyed by widget set RID."""
 
 
+class DevModeSettingsV2(core.ModelBase):
+    """DevModeSettingsV2"""
+
+    status: DevModeStatus
+    snapshot: typing.Optional[DevModeSnapshot] = None
+    """The content-addressed snapshot of the current dev mode settings, if any."""
+
+
+class DevModeSnapshot(core.ModelBase):
+    """
+    A content-addressed snapshot of the dev mode settings. Snapshots are immutable
+    and identified by their content-addressed ID.
+    """
+
+    snapshot_id: DevModeSnapshotId = pydantic.Field(alias=str("snapshotId"))  # type: ignore[literal-required]
+    """The content-addressed identifier for this snapshot."""
+
+    widget_set_settings: typing.Dict[WidgetSetRid, WidgetSetDevModeSettingsV2] = pydantic.Field(alias=str("widgetSetSettings"))  # type: ignore[literal-required]
+    """The dev mode settings for each widget set, keyed by widget set RID."""
+
+
+DevModeSnapshotId = str
+"""A content-addressed identifier for a dev mode settings snapshot."""
+
+
 DevModeStatus = typing.Literal["ENABLED", "PAUSED", "DISABLED"]
 """The user's global development mode status for widget sets."""
 
@@ -44,6 +69,24 @@ class ListReleasesResponse(core.ModelBase):
 
     data: typing.List[Release]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class OntologySdkInputSpec(core.ModelBase):
+    """A specification of an Ontology SDK used by a widget set."""
+
+    sdk_package_rid: OntologySdkPackageRid = pydantic.Field(alias=str("sdkPackageRid"))  # type: ignore[literal-required]
+    """The RID of the Ontology SDK package."""
+
+    sdk_version: OntologySdkVersion = pydantic.Field(alias=str("sdkVersion"))  # type: ignore[literal-required]
+    """The version of the Ontology SDK."""
+
+
+OntologySdkPackageRid = core.RID
+"""A Resource Identifier (RID) identifying an Ontology SDK package."""
+
+
+OntologySdkVersion = str
+"""A limited semver version string of the format major.minor.patch."""
 
 
 class Release(core.ModelBase):
@@ -126,11 +169,11 @@ class SetWidgetSetDevModeSettingsByIdRequest(core.ModelBase):
     settings: WidgetSetDevModeSettingsById
 
 
-class SetWidgetSetDevModeSettingsRequest(core.ModelBase):
-    """SetWidgetSetDevModeSettingsRequest"""
+class SetWidgetSetManifestDevModeSettingsV2Request(core.ModelBase):
+    """SetWidgetSetManifestDevModeSettingsV2Request"""
 
     widget_set_rid: WidgetSetRid = pydantic.Field(alias=str("widgetSetRid"))  # type: ignore[literal-required]
-    settings: WidgetSetDevModeSettings
+    manifest: typing.Any
 
 
 class StylesheetEntrypoint(core.ModelBase):
@@ -148,6 +191,22 @@ class StylesheetEntrypoint(core.ModelBase):
 
 class WidgetDevModeSettings(core.ModelBase):
     """The settings for a given widget in development mode."""
+
+    script_entrypoints: typing.List[ScriptEntrypoint] = pydantic.Field(alias=str("scriptEntrypoints"))  # type: ignore[literal-required]
+    """The entrypoint JavaScript files for the widget."""
+
+    stylesheet_entrypoints: typing.List[StylesheetEntrypoint] = pydantic.Field(alias=str("stylesheetEntrypoints"))  # type: ignore[literal-required]
+    """The entrypoint CSS files for the widget."""
+
+
+class WidgetDevModeSettingsV2(core.ModelBase):
+    """The settings for a given widget in development mode (v2)."""
+
+    name: typing.Optional[str] = None
+    """The display name of the widget."""
+
+    description: typing.Optional[str] = None
+    """A description of the widget."""
 
     script_entrypoints: typing.List[ScriptEntrypoint] = pydantic.Field(alias=str("scriptEntrypoints"))  # type: ignore[literal-required]
     """The entrypoint JavaScript files for the widget."""
@@ -205,15 +264,44 @@ class WidgetSetDevModeSettingsById(core.ModelBase):
     """The dev mode settings for each widget in the widget set, keyed by widget IDs."""
 
 
+class WidgetSetDevModeSettingsV2(core.ModelBase):
+    """The settings for a widget set in development mode (v2), keyed by widget ID."""
+
+    base_href: str = pydantic.Field(alias=str("baseHref"))  # type: ignore[literal-required]
+    """The base path for the HTML file used to render the widget in dev mode."""
+
+    input_spec: typing.Optional[WidgetSetInputSpec] = pydantic.Field(alias=str("inputSpec"), default=None)  # type: ignore[literal-required]
+    """The input spec for the widget set in dev mode."""
+
+    widget_settings: typing.Dict[WidgetId, WidgetDevModeSettingsV2] = pydantic.Field(alias=str("widgetSettings"))  # type: ignore[literal-required]
+    """The dev mode settings for each widget in the widget set, keyed by widget IDs."""
+
+
+class WidgetSetInputSpec(core.ModelBase):
+    """
+    A specification of the Foundry data inputs that a widget set uses. This restricts
+    the data access that a widget set has at runtime.
+    """
+
+    sdks: typing.List[OntologySdkInputSpec]
+    """The Ontology SDK specifications used by the widget set."""
+
+
 WidgetSetRid = core.RID
 """A Resource Identifier (RID) identifying a widget set."""
 
 
 __all__ = [
     "DevModeSettings",
+    "DevModeSettingsV2",
+    "DevModeSnapshot",
+    "DevModeSnapshotId",
     "DevModeStatus",
     "FilePath",
     "ListReleasesResponse",
+    "OntologySdkInputSpec",
+    "OntologySdkPackageRid",
+    "OntologySdkVersion",
     "Release",
     "ReleaseLocator",
     "ReleaseVersion",
@@ -223,13 +311,16 @@ __all__ = [
     "ScriptEntrypoint",
     "ScriptType",
     "SetWidgetSetDevModeSettingsByIdRequest",
-    "SetWidgetSetDevModeSettingsRequest",
+    "SetWidgetSetManifestDevModeSettingsV2Request",
     "StylesheetEntrypoint",
     "WidgetDevModeSettings",
+    "WidgetDevModeSettingsV2",
     "WidgetId",
     "WidgetRid",
     "WidgetSet",
     "WidgetSetDevModeSettings",
     "WidgetSetDevModeSettingsById",
+    "WidgetSetDevModeSettingsV2",
+    "WidgetSetInputSpec",
     "WidgetSetRid",
 ]

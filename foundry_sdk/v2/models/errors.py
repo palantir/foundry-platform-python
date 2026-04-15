@@ -571,6 +571,19 @@ class ModelVersionNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
+class OntologyBindingRequiredParameters(typing_extensions.TypedDict):
+    """An ontologyBinding is required when creating or replacing a model function."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class OntologyBindingRequired(errors.BadRequestError):
+    name: typing.Literal["OntologyBindingRequired"]
+    parameters: OntologyBindingRequiredParameters
+    error_instance_id: str
+
+
 class OntologyNotFoundParameters(typing_extensions.TypedDict):
     """The specified ontology was not found."""
 
@@ -790,6 +803,7 @@ __all__ = [
     "ModelStudioNotFound",
     "ModelStudioTrainerNotFound",
     "ModelVersionNotFound",
+    "OntologyBindingRequired",
     "OntologyNotFound",
     "ParquetExperimentArtifactTablePermissionDenied",
     "ParquetExperimentSeriesPermissionDenied",

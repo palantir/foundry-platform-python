@@ -10626,6 +10626,54 @@ def ontologies_ontology_object_type_op_get_outgoing_link_type(
     click.echo(repr(result))
 
 
+@ontologies_ontology_object_type.command("get_outgoing_link_types_by_object_type_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--filter_link_type_rids",
+    type=str,
+    required=True,
+    help="""If provided, only return outgoing link types with RIDs in this list.
+If omitted, all outgoing link types for each requested object type are returned.
+""",
+)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_get_outgoing_link_types_by_object_type_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    filter_link_type_rids: str,
+    requests: str,
+    branch: typing.Optional[str],
+):
+    """
+    Gets outgoing link types for a batch of object types, identified by their RIDs.
+
+    For each requested object type, returns the list of outgoing link types visible to the
+    requesting token. Optionally, results can be filtered to only include specific link type RIDs.
+
+    Object types that don't exist or that the requesting token lacks permissions for are
+    silently omitted from the response.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(
+        ontology=ontology,
+        filter_link_type_rids=json.loads(filter_link_type_rids),
+        requests=json.loads(requests),
+        branch=branch,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology_object_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
@@ -13837,27 +13885,71 @@ def widgets_repository_op_publish(
     click.echo(repr(result))
 
 
-@widgets.group("dev_mode_settings")
-def widgets_dev_mode_settings():
+@widgets.group("dev_mode_settings_v2")
+def widgets_dev_mode_settings_v2():
     pass
 
 
-@widgets_dev_mode_settings.command("disable")
+@widgets_dev_mode_settings_v2.command("enable")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def widgets_dev_mode_settings_op_disable(
+def widgets_dev_mode_settings_v2_op_enable(
     client: FoundryClient,
     preview: typing.Optional[bool],
 ):
     """
-    Disable dev mode for the user associated with the provided token.
+    Enable dev mode for the user associated with the provided token.
     """
-    result = client.widgets.DevModeSettings.disable(
+    result = client.widgets.DevModeSettingsV2.enable(
         preview=preview,
     )
     click.echo(repr(result))
+
+
+@widgets_dev_mode_settings_v2.command("set_widget_set_manifest")
+@click.option("--manifest", type=str, required=True, help="""""")
+@click.option("--widget_set_rid", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def widgets_dev_mode_settings_v2_op_set_widget_set_manifest(
+    client: FoundryClient,
+    manifest: str,
+    widget_set_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Set the dev mode settings for the given widget set using the manifest format.
+    The request body is a dev settings manifest JSON object with the following
+    structure:
+
+      {
+        "manifestVersion": "1.0.0",
+        "devSettings": {
+          "baseHref": "...",
+          "widgets": { ... },
+          "inputSpec": { ... }
+        }
+      }
+
+    See https://github.com/palantir/osdk-ts for the widget library API types for the
+    dev settings manifest.
+
+    """
+    result = client.widgets.DevModeSettingsV2.set_widget_set_manifest(
+        manifest=json.loads(manifest),
+        widget_set_rid=widget_set_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@widgets.group("dev_mode_settings")
+def widgets_dev_mode_settings():
+    pass
 
 
 @widgets_dev_mode_settings.command("enable")
@@ -13873,66 +13965,6 @@ def widgets_dev_mode_settings_op_enable(
     Enable dev mode for the user associated with the provided token.
     """
     result = client.widgets.DevModeSettings.enable(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("get")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_get(
-    client: FoundryClient,
-    preview: typing.Optional[bool],
-):
-    """
-    Get the dev mode settings for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.get(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("pause")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_pause(
-    client: FoundryClient,
-    preview: typing.Optional[bool],
-):
-    """
-    Pause dev mode for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.pause(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("set_widget_set")
-@click.option("--settings", type=str, required=True, help="""""")
-@click.option("--widget_set_rid", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_set_widget_set(
-    client: FoundryClient,
-    settings: str,
-    widget_set_rid: str,
-    preview: typing.Optional[bool],
-):
-    """
-    Set the dev mode settings for the given widget set for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.set_widget_set(
-        settings=json.loads(settings),
-        widget_set_rid=widget_set_rid,
         preview=preview,
     )
     click.echo(repr(result))

@@ -156,6 +156,7 @@ class Parameter(core.ModelBase):
 
     description: typing.Optional[str] = None
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    required: bool
 
 
 ParameterId = str

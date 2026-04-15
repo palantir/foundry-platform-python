@@ -94,6 +94,7 @@ class ModelFunctionClient:
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
+        :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
@@ -126,6 +127,7 @@ class ModelFunctionClient:
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
+                    "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
@@ -220,6 +222,7 @@ class ModelFunctionClient:
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
+        :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises ReplaceModelFunctionPermissionDenied: Could not replace the ModelFunction.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
@@ -251,6 +254,7 @@ class ModelFunctionClient:
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
+                    "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "ReplaceModelFunctionPermissionDenied": models_errors.ReplaceModelFunctionPermissionDenied,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
@@ -350,6 +354,7 @@ class AsyncModelFunctionClient:
         :raises InvalidFunctionApiName: The provided API name for the function is invalid.
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
+        :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
         """
@@ -382,6 +387,7 @@ class AsyncModelFunctionClient:
                     "InvalidFunctionApiName": models_errors.InvalidFunctionApiName,
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
+                    "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,
                 },
@@ -476,6 +482,7 @@ class AsyncModelFunctionClient:
         :raises LiveDeploymentNotFound: The specified live deployment was not found.
         :raises ModelApiTypeUnsupportedForFunction: The model API contains a data type that is not supported for Ontology function creation.
         :raises ModelFunctionNotFound: The given ModelFunction could not be found.
+        :raises OntologyBindingRequired: An ontologyBinding is required when creating or replacing a model function.
         :raises OntologyNotFound: The specified ontology was not found.
         :raises ReplaceModelFunctionPermissionDenied: Could not replace the ModelFunction.
         :raises UnsupportedLiveDeployment: The Live Deployment type is not supported by the API.
@@ -507,6 +514,7 @@ class AsyncModelFunctionClient:
                     "LiveDeploymentNotFound": models_errors.LiveDeploymentNotFound,
                     "ModelApiTypeUnsupportedForFunction": models_errors.ModelApiTypeUnsupportedForFunction,
                     "ModelFunctionNotFound": models_errors.ModelFunctionNotFound,
+                    "OntologyBindingRequired": models_errors.OntologyBindingRequired,
                     "OntologyNotFound": models_errors.OntologyNotFound,
                     "ReplaceModelFunctionPermissionDenied": models_errors.ReplaceModelFunctionPermissionDenied,
                     "UnsupportedLiveDeployment": models_errors.UnsupportedLiveDeployment,

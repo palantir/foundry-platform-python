@@ -7,6 +7,7 @@ Method | HTTP request | Release Stage |
 [**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Public Beta |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
+[**get_outgoing_link_types_by_object_type_rid_batch**](#get_outgoing_link_types_by_object_type_rid_batch) | **POST** /v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch | Public Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
 [**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes | Stable |
 
@@ -339,6 +340,78 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | LinkTypeSideV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_outgoing_link_types_by_object_type_rid_batch**
+Gets outgoing link types for a batch of object types, identified by their RIDs.
+
+For each requested object type, returns the list of outgoing link types visible to the
+requesting token. Optionally, results can be filtered to only include specific link type RIDs.
+
+Object types that don't exist or that the requesting token lacks permissions for are
+silently omitted from the response.
+
+The maximum batch size for this endpoint is 100.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**filter_link_type_rids** | List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.  |  |
+**requests** | List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+
+### Return type
+**GetOutgoingLinkTypesByObjectTypeRidBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.
+filter_link_type_rids = None
+# List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
+requests = None
+# Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+
+
+try:
+    api_response = (
+        client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(
+            ontology, filter_link_type_rids=filter_link_type_rids, requests=requests, branch=branch
+        )
+    )
+    print("The get_outgoing_link_types_by_object_type_rid_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print(
+        "HTTP error when calling ObjectType.get_outgoing_link_types_by_object_type_rid_batch: %s\n"
+        % e
+    )
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetOutgoingLinkTypesByObjectTypeRidBatchResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 

@@ -1510,6 +1510,32 @@ class GetObjectTypeByRidBatchResponse(core.ModelBase):
     data: typing.List[ObjectTypeV2]
 
 
+class GetOutgoingLinkTypesByObjectTypeRidBatchRequest(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+    filter_link_type_rids: typing.List[LinkTypeRid] = pydantic.Field(alias=str("filterLinkTypeRids"))  # type: ignore[literal-required]
+    """
+    If provided, only return outgoing link types with RIDs in this list.
+    If omitted, all outgoing link types for each requested object type are returned.
+    """
+
+
+class GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement"""
+
+    object_type_rid: ObjectTypeRid = pydantic.Field(alias=str("objectTypeRid"))  # type: ignore[literal-required]
+
+
+class GetOutgoingLinkTypesByObjectTypeRidBatchResponse(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchResponse"""
+
+    data: typing.Dict[ObjectTypeRid, typing.List[LinkTypeSideV2]]
+
+
 class GetSelectedPropertyOperation(core.ModelBase):
     """
     Gets a single value of a property. Throws if the target object set is on the MANY side of the link and could
@@ -3943,6 +3969,7 @@ class QueryParameterV2(core.ModelBase):
 
     description: typing.Optional[str] = None
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    required: bool
 
 
 QueryRuntimeErrorParameter = str
@@ -5620,6 +5647,9 @@ __all__ = [
     "GetObjectTypeByRidBatchRequest",
     "GetObjectTypeByRidBatchRequestElement",
     "GetObjectTypeByRidBatchResponse",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchRequest",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchResponse",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",

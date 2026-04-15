@@ -873,6 +873,7 @@ Namespace | Resource | Operation | HTTP request |
 **Ontologies** | ObjectType | [**get_edits_history**](docs/v2/Ontologies/ObjectType.md#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory |
 **Ontologies** | ObjectType | [**get_full_metadata**](docs/v2/Ontologies/ObjectType.md#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata |
 **Ontologies** | ObjectType | [**get_outgoing_link_type**](docs/v2/Ontologies/ObjectType.md#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} |
+**Ontologies** | ObjectType | [**get_outgoing_link_types_by_object_type_rid_batch**](docs/v2/Ontologies/ObjectType.md#get_outgoing_link_types_by_object_type_rid_batch) | **POST** /v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch |
 **Ontologies** | ObjectType | [**list**](docs/v2/Ontologies/ObjectType.md#list) | **GET** /v2/ontologies/{ontology}/objectTypes |
 **Ontologies** | ObjectType | [**list_outgoing_link_types**](docs/v2/Ontologies/ObjectType.md#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes |
 **Ontologies** | Ontology | [**get**](docs/v2/Ontologies/Ontology.md#get) | **GET** /v2/ontologies/{ontology} |
@@ -2447,6 +2448,9 @@ Namespace | Name | Import |
 **Ontologies** | [GetObjectTypeByRidBatchRequest](docs/v2/Ontologies/models/GetObjectTypeByRidBatchRequest.md) | `from foundry_sdk.v2.ontologies.models import GetObjectTypeByRidBatchRequest` |
 **Ontologies** | [GetObjectTypeByRidBatchRequestElement](docs/v2/Ontologies/models/GetObjectTypeByRidBatchRequestElement.md) | `from foundry_sdk.v2.ontologies.models import GetObjectTypeByRidBatchRequestElement` |
 **Ontologies** | [GetObjectTypeByRidBatchResponse](docs/v2/Ontologies/models/GetObjectTypeByRidBatchResponse.md) | `from foundry_sdk.v2.ontologies.models import GetObjectTypeByRidBatchResponse` |
+**Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchRequest](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchRequest.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchRequest` |
+**Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement` |
+**Ontologies** | [GetOutgoingLinkTypesByObjectTypeRidBatchResponse](docs/v2/Ontologies/models/GetOutgoingLinkTypesByObjectTypeRidBatchResponse.md) | `from foundry_sdk.v2.ontologies.models import GetOutgoingLinkTypesByObjectTypeRidBatchResponse` |
 **Ontologies** | [GetSelectedPropertyOperation](docs/v2/Ontologies/models/GetSelectedPropertyOperation.md) | `from foundry_sdk.v2.ontologies.models import GetSelectedPropertyOperation` |
 **Ontologies** | [GreatestPropertyExpression](docs/v2/Ontologies/models/GreatestPropertyExpression.md) | `from foundry_sdk.v2.ontologies.models import GreatestPropertyExpression` |
 **Ontologies** | [GroupMemberConstraint](docs/v2/Ontologies/models/GroupMemberConstraint.md) | `from foundry_sdk.v2.ontologies.models import GroupMemberConstraint` |
@@ -2994,9 +2998,15 @@ Namespace | Name | Import |
 **ThirdPartyApplications** | [VersionVersion](docs/v2/ThirdPartyApplications/models/VersionVersion.md) | `from foundry_sdk.v2.third_party_applications.models import VersionVersion` |
 **ThirdPartyApplications** | [Website](docs/v2/ThirdPartyApplications/models/Website.md) | `from foundry_sdk.v2.third_party_applications.models import Website` |
 **Widgets** | [DevModeSettings](docs/v2/Widgets/models/DevModeSettings.md) | `from foundry_sdk.v2.widgets.models import DevModeSettings` |
+**Widgets** | [DevModeSettingsV2](docs/v2/Widgets/models/DevModeSettingsV2.md) | `from foundry_sdk.v2.widgets.models import DevModeSettingsV2` |
+**Widgets** | [DevModeSnapshot](docs/v2/Widgets/models/DevModeSnapshot.md) | `from foundry_sdk.v2.widgets.models import DevModeSnapshot` |
+**Widgets** | [DevModeSnapshotId](docs/v2/Widgets/models/DevModeSnapshotId.md) | `from foundry_sdk.v2.widgets.models import DevModeSnapshotId` |
 **Widgets** | [DevModeStatus](docs/v2/Widgets/models/DevModeStatus.md) | `from foundry_sdk.v2.widgets.models import DevModeStatus` |
 **Widgets** | [FilePath](docs/v2/Widgets/models/FilePath.md) | `from foundry_sdk.v2.widgets.models import FilePath` |
 **Widgets** | [ListReleasesResponse](docs/v2/Widgets/models/ListReleasesResponse.md) | `from foundry_sdk.v2.widgets.models import ListReleasesResponse` |
+**Widgets** | [OntologySdkInputSpec](docs/v2/Widgets/models/OntologySdkInputSpec.md) | `from foundry_sdk.v2.widgets.models import OntologySdkInputSpec` |
+**Widgets** | [OntologySdkPackageRid](docs/v2/Widgets/models/OntologySdkPackageRid.md) | `from foundry_sdk.v2.widgets.models import OntologySdkPackageRid` |
+**Widgets** | [OntologySdkVersion](docs/v2/Widgets/models/OntologySdkVersion.md) | `from foundry_sdk.v2.widgets.models import OntologySdkVersion` |
 **Widgets** | [Release](docs/v2/Widgets/models/Release.md) | `from foundry_sdk.v2.widgets.models import Release` |
 **Widgets** | [ReleaseLocator](docs/v2/Widgets/models/ReleaseLocator.md) | `from foundry_sdk.v2.widgets.models import ReleaseLocator` |
 **Widgets** | [ReleaseVersion](docs/v2/Widgets/models/ReleaseVersion.md) | `from foundry_sdk.v2.widgets.models import ReleaseVersion` |
@@ -3006,14 +3016,17 @@ Namespace | Name | Import |
 **Widgets** | [ScriptEntrypoint](docs/v2/Widgets/models/ScriptEntrypoint.md) | `from foundry_sdk.v2.widgets.models import ScriptEntrypoint` |
 **Widgets** | [ScriptType](docs/v2/Widgets/models/ScriptType.md) | `from foundry_sdk.v2.widgets.models import ScriptType` |
 **Widgets** | [SetWidgetSetDevModeSettingsByIdRequest](docs/v2/Widgets/models/SetWidgetSetDevModeSettingsByIdRequest.md) | `from foundry_sdk.v2.widgets.models import SetWidgetSetDevModeSettingsByIdRequest` |
-**Widgets** | [SetWidgetSetDevModeSettingsRequest](docs/v2/Widgets/models/SetWidgetSetDevModeSettingsRequest.md) | `from foundry_sdk.v2.widgets.models import SetWidgetSetDevModeSettingsRequest` |
+**Widgets** | [SetWidgetSetManifestDevModeSettingsV2Request](docs/v2/Widgets/models/SetWidgetSetManifestDevModeSettingsV2Request.md) | `from foundry_sdk.v2.widgets.models import SetWidgetSetManifestDevModeSettingsV2Request` |
 **Widgets** | [StylesheetEntrypoint](docs/v2/Widgets/models/StylesheetEntrypoint.md) | `from foundry_sdk.v2.widgets.models import StylesheetEntrypoint` |
 **Widgets** | [WidgetDevModeSettings](docs/v2/Widgets/models/WidgetDevModeSettings.md) | `from foundry_sdk.v2.widgets.models import WidgetDevModeSettings` |
+**Widgets** | [WidgetDevModeSettingsV2](docs/v2/Widgets/models/WidgetDevModeSettingsV2.md) | `from foundry_sdk.v2.widgets.models import WidgetDevModeSettingsV2` |
 **Widgets** | [WidgetId](docs/v2/Widgets/models/WidgetId.md) | `from foundry_sdk.v2.widgets.models import WidgetId` |
 **Widgets** | [WidgetRid](docs/v2/Widgets/models/WidgetRid.md) | `from foundry_sdk.v2.widgets.models import WidgetRid` |
 **Widgets** | [WidgetSet](docs/v2/Widgets/models/WidgetSet.md) | `from foundry_sdk.v2.widgets.models import WidgetSet` |
 **Widgets** | [WidgetSetDevModeSettings](docs/v2/Widgets/models/WidgetSetDevModeSettings.md) | `from foundry_sdk.v2.widgets.models import WidgetSetDevModeSettings` |
 **Widgets** | [WidgetSetDevModeSettingsById](docs/v2/Widgets/models/WidgetSetDevModeSettingsById.md) | `from foundry_sdk.v2.widgets.models import WidgetSetDevModeSettingsById` |
+**Widgets** | [WidgetSetDevModeSettingsV2](docs/v2/Widgets/models/WidgetSetDevModeSettingsV2.md) | `from foundry_sdk.v2.widgets.models import WidgetSetDevModeSettingsV2` |
+**Widgets** | [WidgetSetInputSpec](docs/v2/Widgets/models/WidgetSetInputSpec.md) | `from foundry_sdk.v2.widgets.models import WidgetSetInputSpec` |
 **Widgets** | [WidgetSetRid](docs/v2/Widgets/models/WidgetSetRid.md) | `from foundry_sdk.v2.widgets.models import WidgetSetRid` |
 
 <a id="models-v1-link"></a>
@@ -3687,6 +3700,7 @@ Namespace | Name | Import |
 **Models** | ModelStudioNotFound | `from foundry_sdk.v2.models.errors import ModelStudioNotFound` |
 **Models** | ModelStudioTrainerNotFound | `from foundry_sdk.v2.models.errors import ModelStudioTrainerNotFound` |
 **Models** | ModelVersionNotFound | `from foundry_sdk.v2.models.errors import ModelVersionNotFound` |
+**Models** | OntologyBindingRequired | `from foundry_sdk.v2.models.errors import OntologyBindingRequired` |
 **Models** | OntologyNotFound | `from foundry_sdk.v2.models.errors import OntologyNotFound` |
 **Models** | ParquetExperimentArtifactTablePermissionDenied | `from foundry_sdk.v2.models.errors import ParquetExperimentArtifactTablePermissionDenied` |
 **Models** | ParquetExperimentSeriesPermissionDenied | `from foundry_sdk.v2.models.errors import ParquetExperimentSeriesPermissionDenied` |
@@ -3933,12 +3947,10 @@ Namespace | Name | Import |
 **ThirdPartyApplications** | VersionNotFound | `from foundry_sdk.v2.third_party_applications.errors import VersionNotFound` |
 **ThirdPartyApplications** | WebsiteNotFound | `from foundry_sdk.v2.third_party_applications.errors import WebsiteNotFound` |
 **Widgets** | DeleteReleasePermissionDenied | `from foundry_sdk.v2.widgets.errors import DeleteReleasePermissionDenied` |
-**Widgets** | DevModeSettingsNotFound | `from foundry_sdk.v2.widgets.errors import DevModeSettingsNotFound` |
-**Widgets** | DisableDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import DisableDevModeSettingsPermissionDenied` |
 **Widgets** | EnableDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import EnableDevModeSettingsPermissionDenied` |
+**Widgets** | EnableDevModeSettingsV2PermissionDenied | `from foundry_sdk.v2.widgets.errors import EnableDevModeSettingsV2PermissionDenied` |
 **Widgets** | FileCountLimitExceeded | `from foundry_sdk.v2.widgets.errors import FileCountLimitExceeded` |
 **Widgets** | FileSizeLimitExceeded | `from foundry_sdk.v2.widgets.errors import FileSizeLimitExceeded` |
-**Widgets** | GetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import GetDevModeSettingsPermissionDenied` |
 **Widgets** | InvalidDevModeBaseHref | `from foundry_sdk.v2.widgets.errors import InvalidDevModeBaseHref` |
 **Widgets** | InvalidDevModeEntrypointCssCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeEntrypointCssCount` |
 **Widgets** | InvalidDevModeEntrypointJsCount | `from foundry_sdk.v2.widgets.errors import InvalidDevModeEntrypointJsCount` |
@@ -3968,12 +3980,11 @@ Namespace | Name | Import |
 **Widgets** | InvalidWidgetId | `from foundry_sdk.v2.widgets.errors import InvalidWidgetId` |
 **Widgets** | InvalidWidgetName | `from foundry_sdk.v2.widgets.errors import InvalidWidgetName` |
 **Widgets** | OntologySdkNotFound | `from foundry_sdk.v2.widgets.errors import OntologySdkNotFound` |
-**Widgets** | PauseDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import PauseDevModeSettingsPermissionDenied` |
 **Widgets** | PublishReleasePermissionDenied | `from foundry_sdk.v2.widgets.errors import PublishReleasePermissionDenied` |
 **Widgets** | ReleaseNotFound | `from foundry_sdk.v2.widgets.errors import ReleaseNotFound` |
 **Widgets** | RepositoryNotFound | `from foundry_sdk.v2.widgets.errors import RepositoryNotFound` |
 **Widgets** | SetWidgetSetDevModeSettingsByIdPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsByIdPermissionDenied` |
-**Widgets** | SetWidgetSetDevModeSettingsPermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetDevModeSettingsPermissionDenied` |
+**Widgets** | SetWidgetSetManifestDevModeSettingsV2PermissionDenied | `from foundry_sdk.v2.widgets.errors import SetWidgetSetManifestDevModeSettingsV2PermissionDenied` |
 **Widgets** | VersionAlreadyExists | `from foundry_sdk.v2.widgets.errors import VersionAlreadyExists` |
 **Widgets** | VersionLimitExceeded | `from foundry_sdk.v2.widgets.errors import VersionLimitExceeded` |
 **Widgets** | WidgetIdNotFound | `from foundry_sdk.v2.widgets.errors import WidgetIdNotFound` |

@@ -19,6 +19,7 @@ from typing import Optional
 from foundry_sdk._core.config import Config
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
+from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 
 
@@ -125,20 +126,58 @@ def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -
 
     Raises:
         ValueError: If preview is not set to True.
-        RuntimeError: If the Foundry API gateway base URL or token is not available in the current context.
+        RuntimeError: If the Foundry token is not available in the current context.
     """
     if not preview:
         raise ValueError(
             "get_http_client() is in beta. " "Please set the preview parameter to True to use it."
         )
-    token = get_foundry_token(preview=True)
 
-    # Merge auth header with any user-provided headers
+    return HttpClient(config=_create_http_client_config(config))
+
+
+def get_async_http_client(
+    *, preview: bool = False, config: Optional[Config] = None
+) -> AsyncHttpClient:
+    """Get an async HTTP client configured for the current Foundry environment.
+
+    Args:
+        preview: Must be set to True to use this beta feature.
+        config: Optional configuration for the async HTTP client.
+
+    Returns:
+        An AsyncHttpClient instance configured with the Foundry hostname and authentication.
+
+    Raises:
+        ValueError: If preview is not set to True.
+        RuntimeError: If the Foundry token is not available in the current context.
+    """
+    if not preview:
+        raise ValueError(
+            "get_async_http_client() is in beta. "
+            "Please set the preview parameter to True to use it."
+        )
+
+    return AsyncHttpClient(config=_create_http_client_config(config))
+
+
+def _create_http_client_config(config: Optional[Config]) -> Config:
+    """Create a Config object for the HTTP client, ensuring that the Foundry token is included in the headers.
+
+    Args:
+        config: An optional Config object provided by the user.
+
+    Returns:
+        A Config object with the Foundry token included in the default headers.
+
+    Raises:
+        RuntimeError: If the Foundry token is not available in the current context.
+    """
+    token = get_foundry_token(preview=True)
     auth_header = {"Authorization": f"Bearer {token}"}
+
     if config is None:
-        config = Config(default_headers=auth_header)
+        return Config(default_headers=auth_header)
     else:
         merged_headers = {**auth_header, **(config.default_headers or {})}
-        config = replace(config, default_headers=merged_headers)
-
-    return HttpClient(config=config)
+        return replace(config, default_headers=merged_headers)

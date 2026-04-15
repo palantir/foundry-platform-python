@@ -42,32 +42,6 @@ class DeleteReleasePermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class DevModeSettingsNotFoundParameters(typing_extensions.TypedDict):
-    """The given DevModeSettings could not be found."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class DevModeSettingsNotFound(errors.NotFoundError):
-    name: typing.Literal["DevModeSettingsNotFound"]
-    parameters: DevModeSettingsNotFoundParameters
-    error_instance_id: str
-
-
-class DisableDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not disable the DevModeSettings."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class DisableDevModeSettingsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["DisableDevModeSettingsPermissionDenied"]
-    parameters: DisableDevModeSettingsPermissionDeniedParameters
-    error_instance_id: str
-
-
 class EnableDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not enable the DevModeSettings."""
 
@@ -78,6 +52,19 @@ class EnableDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDic
 class EnableDevModeSettingsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["EnableDevModeSettingsPermissionDenied"]
     parameters: EnableDevModeSettingsPermissionDeniedParameters
+    error_instance_id: str
+
+
+class EnableDevModeSettingsV2PermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not enable the DevModeSettingsV2."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class EnableDevModeSettingsV2PermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["EnableDevModeSettingsV2PermissionDenied"]
+    parameters: EnableDevModeSettingsV2PermissionDeniedParameters
     error_instance_id: str
 
 
@@ -113,19 +100,6 @@ class FileSizeLimitExceededParameters(typing_extensions.TypedDict):
 class FileSizeLimitExceeded(errors.BadRequestError):
     name: typing.Literal["FileSizeLimitExceeded"]
     parameters: FileSizeLimitExceededParameters
-    error_instance_id: str
-
-
-class GetDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """The provided token does not have permission to access dev mode settings."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class GetDevModeSettingsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetDevModeSettingsPermissionDenied"]
-    parameters: GetDevModeSettingsPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -390,10 +364,7 @@ class InvalidFilePath(errors.BadRequestError):
 
 
 class InvalidManifestParameters(typing_extensions.TypedDict):
-    """
-    The manifest file in the .zip archive at the path `.palantir/widgets.config.json`
-    could not be found or is not well formed.
-    """
+    """The provided manifest could not be parsed or is not well formed."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
@@ -617,19 +588,6 @@ class OntologySdkNotFound(errors.NotFoundError):
     error_instance_id: str
 
 
-class PauseDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not pause the DevModeSettings."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class PauseDevModeSettingsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["PauseDevModeSettingsPermissionDenied"]
-    parameters: PauseDevModeSettingsPermissionDeniedParameters
-    error_instance_id: str
-
-
 class PublishReleasePermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not publish the Repository."""
 
@@ -694,16 +652,16 @@ class SetWidgetSetDevModeSettingsByIdPermissionDenied(errors.PermissionDeniedErr
     error_instance_id: str
 
 
-class SetWidgetSetDevModeSettingsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not setWidgetSet the DevModeSettings."""
+class SetWidgetSetManifestDevModeSettingsV2PermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not setWidgetSetManifest the DevModeSettingsV2."""
 
     __pydantic_config__ = {"extra": "allow"}  # type: ignore
 
 
 @dataclass
-class SetWidgetSetDevModeSettingsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["SetWidgetSetDevModeSettingsPermissionDenied"]
-    parameters: SetWidgetSetDevModeSettingsPermissionDeniedParameters
+class SetWidgetSetManifestDevModeSettingsV2PermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["SetWidgetSetManifestDevModeSettingsV2PermissionDenied"]
+    parameters: SetWidgetSetManifestDevModeSettingsV2PermissionDeniedParameters
     error_instance_id: str
 
 
@@ -795,12 +753,10 @@ class WidgetSetNotFound(errors.NotFoundError):
 
 __all__ = [
     "DeleteReleasePermissionDenied",
-    "DevModeSettingsNotFound",
-    "DisableDevModeSettingsPermissionDenied",
     "EnableDevModeSettingsPermissionDenied",
+    "EnableDevModeSettingsV2PermissionDenied",
     "FileCountLimitExceeded",
     "FileSizeLimitExceeded",
-    "GetDevModeSettingsPermissionDenied",
     "InvalidDevModeBaseHref",
     "InvalidDevModeEntrypointCssCount",
     "InvalidDevModeEntrypointJsCount",
@@ -830,12 +786,11 @@ __all__ = [
     "InvalidWidgetId",
     "InvalidWidgetName",
     "OntologySdkNotFound",
-    "PauseDevModeSettingsPermissionDenied",
     "PublishReleasePermissionDenied",
     "ReleaseNotFound",
     "RepositoryNotFound",
     "SetWidgetSetDevModeSettingsByIdPermissionDenied",
-    "SetWidgetSetDevModeSettingsPermissionDenied",
+    "SetWidgetSetManifestDevModeSettingsV2PermissionDenied",
     "VersionAlreadyExists",
     "VersionLimitExceeded",
     "WidgetIdNotFound",
