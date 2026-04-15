@@ -1,13 +1,11 @@
-# QueryParameterV2
+# GetOutgoingLinkTypesByObjectTypeRidBatchResponse
 
-Details about a parameter of a query.
+GetOutgoingLinkTypesByObjectTypeRidBatchResponse
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**description** | Optional[str] | No |  |
-**data_type** | QueryDataType | Yes |  |
-**required** | bool | Yes |  |
+**data** | Dict[ObjectTypeRid, List[LinkTypeSideV2]] | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

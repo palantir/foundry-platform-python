@@ -17,8 +17,10 @@ import pytest
 
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
 from foundry_sdk._core.context_and_environment_vars import TOKEN_VAR
+from foundry_sdk._core.http_client import AsyncHttpClient
 from foundry_sdk._core.http_client import HttpClient
 from foundry_sdk.v2.language_models import get_anthropic_base_url
+from foundry_sdk.v2.language_models import get_async_http_client
 from foundry_sdk.v2.language_models import get_foundry_token
 from foundry_sdk.v2.language_models import get_http_client
 from foundry_sdk.v2.language_models import get_openai_base_url
@@ -175,3 +177,17 @@ class TestGetHttpClient:
                 get_http_client(preview=True)
         finally:
             HOSTNAME_VAR.reset(hostname_token)
+
+
+class TestGetAsyncHttpClient:
+    """Test get_async_http_client function."""
+
+    def test_returns_async_http_client(self):
+        hostname_token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        auth_token = TOKEN_VAR.set("test-token-12345")
+        try:
+            result = get_async_http_client(preview=True)
+            assert isinstance(result, AsyncHttpClient)
+        finally:
+            HOSTNAME_VAR.reset(hostname_token)
+            TOKEN_VAR.reset(auth_token)

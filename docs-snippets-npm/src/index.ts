@@ -1563,6 +1563,11 @@ export const PYTHON_PLATFORM_SNIPPETS: SdkSnippets<typeof PLATFORM_API_DOCS_SPEC
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# OntologyIdentifier\nontology = \"palantir\"\n# ObjectTypeApiName | The API name of the object type. To find the API name, use the **List object types** endpoint or check the **Ontology Manager** application.\nobject_type = \"Employee\"\n# LinkTypeApiName | The API name of the outgoing link. To find the API name for your link type, check the **Ontology Manager**.\nlink_type = \"directReport\"\n# Optional[FoundryBranch] | The Foundry branch to get the outgoing link types for an object type from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.\nbranch = None\n\n\ntry:\n    api_response = client.ontologies.Ontology.ObjectType.get_outgoing_link_type(\n        ontology, object_type, link_type, branch=branch\n    )\n    print(\"The get_outgoing_link_type response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling ObjectType.get_outgoing_link_type: %s\\n\" % e)"
           }
         ],
+        "v2.getOutgoingLinkTypesByObjectTypeRidBatch": [
+          {
+            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# OntologyIdentifier\nontology = \"palantir\"\n# List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.\nfilter_link_type_rids = None\n# List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]\nrequests = None\n# Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.\nbranch = None\n\n\ntry:\n    api_response = (\n        client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(\n            ontology, filter_link_type_rids=filter_link_type_rids, requests=requests, branch=branch\n        )\n    )\n    print(\"The get_outgoing_link_types_by_object_type_rid_batch response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\n        \"HTTP error when calling ObjectType.get_outgoing_link_types_by_object_type_rid_batch: %s\\n\"\n        % e\n    )"
+          }
+        ],
         "v2.listObjectTypesV2": [
           {
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# OntologyIdentifier\nontology = \"palantir\"\n# Optional[FoundryBranch] | The Foundry branch to list the object types from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.\nbranch = None\n# Optional[PageSize] | The desired size of the page to be returned. Defaults to 500. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.\npage_size = None\n# Optional[PageToken]\npage_token = None\n\n\ntry:\n    for object_type in client.ontologies.Ontology.ObjectType.list(\n        ontology, branch=branch, page_size=page_size, page_token=page_token\n    ):\n        pprint(object_type)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling ObjectType.list: %s\\n\" % e)"
@@ -1993,34 +1998,24 @@ export const PYTHON_PLATFORM_SNIPPETS: SdkSnippets<typeof PLATFORM_API_DOCS_SPEC
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# ThirdPartyApplicationRid | An RID identifying a third-party application created in Developer Console.\nthird_party_application_rid = (\n    \"ri.third-party-applications.main.application.292db3b2-b653-4de6-971c-7e97a7b881d6\"\n)\n\n\ntry:\n    api_response = client.third_party_applications.ThirdPartyApplication.Website.undeploy(\n        third_party_application_rid\n    )\n    print(\"The undeploy response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling Website.undeploy: %s\\n\" % e)"
           }
         ],
-        "v2.disableDevModeSettings": [
-          {
-            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.disable(preview=preview)\n    print(\"The disable response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.disable: %s\\n\" % e)"
-          }
-        ],
         "v2.enableDevModeSettings": [
           {
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.enable(preview=preview)\n    print(\"The enable response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.enable: %s\\n\" % e)"
           }
         ],
-        "v2.getDevModeSettings": [
-          {
-            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.get(preview=preview)\n    print(\"The get response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.get: %s\\n\" % e)"
-          }
-        ],
-        "v2.pauseDevModeSettings": [
-          {
-            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.pause(preview=preview)\n    print(\"The pause response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.pause: %s\\n\" % e)"
-          }
-        ],
-        "v2.setWidgetSetDevModeSettings": [
-          {
-            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# WidgetSetDevModeSettings\nsettings = {\n    \"widgetSettings\": {\n        \"ri.widgetregistry..widget.21dt2c42-b7df-4b23-880b-1436a3dred2e\": {\n            \"stylesheetEntrypoints\": [{\"filePath\": \"dist/app.js\"}],\n            \"scriptEntrypoints\": [{\"filePath\": \"dist/app.js\", \"scriptType\": \"DEFAULT\"}],\n        }\n    }\n}\n# WidgetSetRid\nwidget_set_rid = \"ri.widgetregistry..widget-set.21dt2c42-b7df-4b23-880b-1436a3dred2e\"\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.set_widget_set(\n        settings=settings, widget_set_rid=widget_set_rid, preview=preview\n    )\n    print(\"The set_widget_set response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.set_widget_set: %s\\n\" % e)"
-          }
-        ],
         "v2.setWidgetSetDevModeSettingsById": [
           {
             "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# WidgetSetDevModeSettingsById\nsettings = {\n    \"widgetSettings\": {\n        \"myCustomWidget\": {\n            \"stylesheetEntrypoints\": [{\"filePath\": \"dist/app.js\"}],\n            \"scriptEntrypoints\": [{\"filePath\": \"dist/app.js\", \"scriptType\": \"DEFAULT\"}],\n        }\n    }\n}\n# WidgetSetRid\nwidget_set_rid = \"ri.widgetregistry..widget-set.21dt2c42-b7df-4b23-880b-1436a3dred2e\"\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettings.set_widget_set_by_id(\n        settings=settings, widget_set_rid=widget_set_rid, preview=preview\n    )\n    print(\"The set_widget_set_by_id response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettings.set_widget_set_by_id: %s\\n\" % e)"
+          }
+        ],
+        "v2.enableDevModeSettingsV2": [
+          {
+            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettingsV2.enable(preview=preview)\n    print(\"The enable response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettingsV2.enable: %s\\n\" % e)"
+          }
+        ],
+        "v2.setWidgetSetManifestDevModeSettingsV2": [
+          {
+            "template": "from foundry_sdk import FoundryClient\nimport foundry_sdk\nfrom pprint import pprint\n\nclient = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname=\"example.palantirfoundry.com\")\n\n# Any\nmanifest = None\n# WidgetSetRid\nwidget_set_rid = \"ri.widgetregistry..widget-set.21dt2c42-b7df-4b23-880b-1436a3dred2e\"\n# Optional[PreviewMode] | Enables the use of preview functionality.\npreview = None\n\n\ntry:\n    api_response = client.widgets.DevModeSettingsV2.set_widget_set_manifest(\n        manifest=manifest, widget_set_rid=widget_set_rid, preview=preview\n    )\n    print(\"The set_widget_set_manifest response:\\n\")\n    pprint(api_response)\nexcept foundry_sdk.PalantirRPCException as e:\n    print(\"HTTP error when calling DevModeSettingsV2.set_widget_set_manifest: %s\\n\" % e)"
           }
         ],
         "v2.deleteRelease": [

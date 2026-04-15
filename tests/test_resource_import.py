@@ -691,6 +691,12 @@ def test_widgets_v2_dev_mode_settings_import():
     assert DevModeSettingsClient is not None
 
 
+def test_widgets_v2_dev_mode_settings_v2_import():
+    from foundry_sdk.v2.widgets.dev_mode_settings_v2 import DevModeSettingsV2Client
+
+    assert DevModeSettingsV2Client is not None
+
+
 def test_widgets_v2_release_import():
     from foundry_sdk.v2.widgets.release import ReleaseClient
 
