@@ -79,14 +79,14 @@ jobs:
 
   npm-publish:
     docker:
-      - image: cimg/node:22.14
+      - image: cimg/node:23
     steps:
       - setup-npm-project
       - run:
           name: Publish npm package
           command: |
             cd docs-snippets-npm
-            npm set //registry.npmjs.org/:_authToken=$NPM_TOKEN
+            export NPM_ID_TOKEN=$(circleci run oidc get --claims '{"aud": "npm:registry.npmjs.org"}')
             npm publish --access=public
 
   circle-all:
