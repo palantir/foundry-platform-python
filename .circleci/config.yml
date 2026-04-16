@@ -8,6 +8,9 @@ palantir_aliases:
 
 version: 2.1
 
+orbs:
+  node: circleci/node@7.2.1
+
 commands:
   setup-npm-project:
     description: "Setup npm project - checkout code, set version, install dependencies and build"
@@ -79,9 +82,11 @@ jobs:
 
   npm-publish:
     docker:
-      - image: cimg/node:23
+      - image: cimg/node:22.14
     steps:
       - setup-npm-project
+      - node/install:
+          node-version: '25.8.1'
       - run:
           name: Publish npm package
           command: |
