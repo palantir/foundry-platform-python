@@ -114,13 +114,13 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
 
 
 def get_google_base_url(*, preview: bool = False) -> str:
-    """Get the Google proxy base URL for the current Foundry environment.
+    """Get the Google proxy base URL for use with the google-genai SDK.
 
     Args:
         preview: Must be set to True to use this beta feature.
 
     Returns:
-        The Google proxy base URL.
+        The Google proxy base URL for the current Foundry environment.
 
     Raises:
         ValueError: If preview is not set to True.
