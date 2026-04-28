@@ -81,6 +81,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **requests** | List[GetObjectTypeByRidBatchRequestElement] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **GetObjectTypeByRidBatchResponse**
@@ -100,11 +101,13 @@ ontology = "palantir"
 requests = None
 # Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.Ontology.ObjectType.get_by_rid_batch(
-        ontology, requests=requests, branch=branch
+        ontology, requests=requests, branch=branch, preview=preview
     )
     print("The get_by_rid_batch response:\n")
     pprint(api_response)
@@ -363,6 +366,7 @@ Name | Type | Description  | Notes |
 **filter_link_type_rids** | List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.  |  |
 **requests** | List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **GetOutgoingLinkTypesByObjectTypeRidBatchResponse**
@@ -384,12 +388,18 @@ filter_link_type_rids = None
 requests = None
 # Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = (
         client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(
-            ontology, filter_link_type_rids=filter_link_type_rids, requests=requests, branch=branch
+            ontology,
+            filter_link_type_rids=filter_link_type_rids,
+            requests=requests,
+            branch=branch,
+            preview=preview,
         )
     )
     print("The get_outgoing_link_types_by_object_type_rid_batch response:\n")

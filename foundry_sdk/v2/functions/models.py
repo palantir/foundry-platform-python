@@ -35,6 +35,12 @@ class ArrayConstraint(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
+class CancelExecutionResponse(core.ModelBase):
+    """CancelExecutionResponse"""
+
+    id: ExecutionId
+
+
 DataValue = typing.Any
 """
 Represents the value of data in the following format. Note that these values can be nested, for example an array of structs.
@@ -69,6 +75,33 @@ class EnumConstraint(core.ModelBase):
     type: typing.Literal["enum"] = "enum"
 
 
+class ExecuteAsyncQueryRequest(core.ModelBase):
+    """ExecuteAsyncQueryRequest"""
+
+    ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
+    """
+    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+    function. When omitted, executes a global function.
+    """
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    version: typing.Optional[FunctionVersion] = None
+    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
+
+    branch: typing.Optional[core_models.FoundryBranch] = None
+    """
+    The Foundry branch to execute the query from. If not specified, the default branch is used.
+    When provided without `version`, the latest version on this branch is used.
+    When provided with `version`, the specified version must exist on the branch.
+    """
+
+
+ExecuteQueryAsyncResponse = typing_extensions.Annotated[
+    typing.Union["ExecutionSubmitted", "ExecutionCompleted"], pydantic.Field(discriminator="type")
+]
+"""Response from submitting a query for async execution."""
+
+
 class ExecuteQueryRequest(core.ModelBase):
     """ExecuteQueryRequest"""
 
@@ -88,6 +121,27 @@ class ExecuteQueryResponse(core.ModelBase):
     """ExecuteQueryResponse"""
 
     value: DataValue
+
+
+class ExecutionCompleted(core.ModelBase):
+    """The query completed immediately. No polling needed."""
+
+    value: DataValue
+    type: typing.Literal["completed"] = "completed"
+
+
+ExecutionId = str
+"""Unique identifier for an async query execution."""
+
+
+class ExecutionSubmitted(core.ModelBase):
+    """
+    The query was submitted for async processing.
+    Use the executionId to poll for results via getResult or to cancel via cancel.
+    """
+
+    execution_id: ExecutionId = pydantic.Field(alias=str("executionId"))  # type: ignore[literal-required]
+    type: typing.Literal["submitted"] = "submitted"
 
 
 FunctionRid = core.RID
@@ -121,6 +175,23 @@ class GetByRidQueriesBatchResponse(core.ModelBase):
     """GetByRidQueriesBatchResponse"""
 
     data: typing.List[Query]
+
+
+GetExecutionResultResponse = typing_extensions.Annotated[
+    typing.Union["RunningExecution", "SucceededExecution"], pydantic.Field(discriminator="type")
+]
+"""Poll response for an async query execution."""
+
+
+class GetResultExecutionRequest(core.ModelBase):
+    """GetResultExecutionRequest"""
+
+    timeout: typing.Optional[int] = None
+    """
+    Maximum time in seconds to hold the connection open while waiting
+    for execution to complete. Default: 0 (immediate status check).
+    Values above 280 are clamped to 280.
+    """
 
 
 class LengthConstraint(core.ModelBase):
@@ -324,6 +395,12 @@ class RidConstraint(core.ModelBase):
     type: typing.Literal["rid"] = "rid"
 
 
+class RunningExecution(core.ModelBase):
+    """The query execution is still in progress."""
+
+    type: typing.Literal["running"] = "running"
+
+
 class StreamingExecuteQueryRequest(core.ModelBase):
     """StreamingExecuteQueryRequest"""
 
@@ -365,6 +442,13 @@ class StructV1Constraint(core.ModelBase):
 
     fields: typing.Dict[StructFieldApiName, ValueTypeConstraint]
     type: typing.Literal["structV1"] = "structV1"
+
+
+class SucceededExecution(core.ModelBase):
+    """The query execution completed successfully."""
+
+    value: DataValue
+    type: typing.Literal["succeeded"] = "succeeded"
 
 
 class ThreeDimensionalAggregation(core.ModelBase):
@@ -626,6 +710,8 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
+core.resolve_forward_references(ExecuteQueryAsyncResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(GetExecutionResultResponse, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
@@ -635,14 +721,22 @@ core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=l
 
 __all__ = [
     "ArrayConstraint",
+    "CancelExecutionResponse",
     "DataValue",
     "EnumConstraint",
+    "ExecuteAsyncQueryRequest",
+    "ExecuteQueryAsyncResponse",
     "ExecuteQueryRequest",
     "ExecuteQueryResponse",
+    "ExecutionCompleted",
+    "ExecutionId",
+    "ExecutionSubmitted",
     "FunctionRid",
     "FunctionVersion",
     "GetByRidQueriesBatchRequestElement",
     "GetByRidQueriesBatchResponse",
+    "GetExecutionResultResponse",
+    "GetResultExecutionRequest",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",
@@ -666,11 +760,13 @@ __all__ = [
     "RangesConstraint",
     "RegexConstraint",
     "RidConstraint",
+    "RunningExecution",
     "StreamingExecuteQueryRequest",
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",
     "StructV1Constraint",
+    "SucceededExecution",
     "ThreeDimensionalAggregation",
     "TransactionId",
     "TwoDimensionalAggregation",

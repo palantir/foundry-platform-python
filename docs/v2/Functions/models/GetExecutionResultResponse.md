@@ -1,6 +1,6 @@
-# ParameterValue
+# GetExecutionResultResponse
 
-The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/chatbot-studio/application-state/) of an Agent.
+Poll response for an async query execution.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union
@@ -10,8 +10,8 @@ This discriminator class uses the `type` field to differentiate between classes.
 
 | Class | Value
 | ------------ | -------------
-StringParameterValue | string
-ObjectSetParameterValue | objectSet
+RunningExecution | running
+SucceededExecution | succeeded
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

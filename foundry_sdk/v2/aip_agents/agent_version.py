@@ -67,8 +67,8 @@ class AgentVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.AgentVersion:
         """
-        Get version details for an AIP Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        Get version details for an Agent.
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
@@ -82,7 +82,7 @@ class AgentVersionClient:
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.call_api(
@@ -126,10 +126,10 @@ class AgentVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[aip_agents_models.AgentVersion]:
         """
-        List all versions for an AIP Agent.
+        List all versions for an Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -231,8 +231,8 @@ class AsyncAgentVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.AgentVersion]:
         """
-        Get version details for an AIP Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        Get version details for an Agent.
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version_string: The semantic version of the Agent, formatted as "majorVersion.minorVersion".
         :type agent_version_string: AgentVersionString
@@ -246,7 +246,7 @@ class AsyncAgentVersionClient:
         :raises AgentNotFound: The given Agent could not be found.
         :raises AgentVersionNotFound: The given AgentVersion could not be found.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
         """
 
         return self._api_client.call_api(
@@ -290,10 +290,10 @@ class AsyncAgentVersionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[aip_agents_models.AgentVersion]:
         """
-        List all versions for an AIP Agent.
+        List all versions for an Agent.
         Versions are returned in descending order, by most recent versions first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]

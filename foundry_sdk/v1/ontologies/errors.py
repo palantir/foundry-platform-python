@@ -842,6 +842,25 @@ class InvalidDerivedPropertyDefinition(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidDerivedPropertyDefinitionOnInterfaceParameters(typing_extensions.TypedDict):
+    """
+    Derived property definition on an interface-typed object set was invalid due to shape of query or type
+    checking.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    derivedProperty: ontologies_models.DerivedPropertyApiName
+
+
+@dataclass
+class InvalidDerivedPropertyDefinitionOnInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidDerivedPropertyDefinitionOnInterface"]
+    parameters: InvalidDerivedPropertyDefinitionOnInterfaceParameters
+    error_instance_id: str
+
+
 class InvalidDurationGroupByPropertyTypeParameters(typing_extensions.TypedDict):
     """Invalid property type for duration groupBy."""
 
@@ -2478,6 +2497,7 @@ __all__ = [
     "InvalidContentLength",
     "InvalidContentType",
     "InvalidDerivedPropertyDefinition",
+    "InvalidDerivedPropertyDefinitionOnInterface",
     "InvalidDurationGroupByPropertyType",
     "InvalidDurationGroupByPropertyTypeForInterface",
     "InvalidDurationGroupByValue",

@@ -145,6 +145,95 @@ class QueryClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def execute_async(
+        self,
+        query_api_name: functions_models.QueryApiName,
+        *,
+        parameters: typing.Dict[
+            functions_models.ParameterId, typing.Optional[functions_models.DataValue]
+        ],
+        attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> functions_models.ExecuteQueryAsyncResponse:
+        """
+        Submits a Query for asynchronous execution. Returns either an execution ID
+        for polling, or the complete result if execution finished immediately.
+
+        Use the Execution resource's getResult endpoint to poll for the
+        result of a submitted execution.
+
+        :param query_api_name:
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
+        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :type ontology: Optional[OntologyIdentifier]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+        :type version: Optional[FunctionVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: functions_models.ExecuteQueryAsyncResponse
+
+        :raises ExecuteAsyncQueryPermissionDenied: Could not executeAsync the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/functions/queries/{queryApiName}/executeAsync",
+                query_params={
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                },
+                path_params={
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=functions_models.ExecuteAsyncQueryRequest(
+                    ontology=ontology,
+                    parameters=parameters,
+                    version=version,
+                    branch=branch,
+                ),
+                response_type=functions_models.ExecuteQueryAsyncResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteAsyncQueryPermissionDenied": functions_errors.ExecuteAsyncQueryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def get(
         self,
         query_api_name: functions_models.QueryApiName,
@@ -415,12 +504,14 @@ class QueryClient:
 class _QueryClientRaw:
     def __init__(self, client: QueryClient) -> None:
         def execute(_: functions_models.ExecuteQueryResponse): ...
+        def execute_async(_: functions_models.ExecuteQueryAsyncResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.with_raw_response(execute, client.execute)
+        self.execute_async = core.with_raw_response(execute_async, client.execute_async)
         self.get = core.with_raw_response(get, client.get)
         self.get_by_rid = core.with_raw_response(get_by_rid, client.get_by_rid)
         self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
@@ -430,12 +521,14 @@ class _QueryClientRaw:
 class _QueryClientStreaming:
     def __init__(self, client: QueryClient) -> None:
         def execute(_: functions_models.ExecuteQueryResponse): ...
+        def execute_async(_: functions_models.ExecuteQueryAsyncResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.with_streaming_response(execute, client.execute)
+        self.execute_async = core.with_streaming_response(execute_async, client.execute_async)
         self.get = core.with_streaming_response(get, client.get)
         self.get_by_rid = core.with_streaming_response(get_by_rid, client.get_by_rid)
         self.get_by_rid_batch = core.with_streaming_response(
@@ -556,6 +649,95 @@ class AsyncQueryClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ExecuteQueryPermissionDenied": functions_errors.ExecuteQueryPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def execute_async(
+        self,
+        query_api_name: functions_models.QueryApiName,
+        *,
+        parameters: typing.Dict[
+            functions_models.ParameterId, typing.Optional[functions_models.DataValue]
+        ],
+        attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        trace_parent: typing.Optional[core_models.TraceParent] = None,
+        trace_state: typing.Optional[core_models.TraceState] = None,
+        transaction_id: typing.Optional[functions_models.TransactionId] = None,
+        version: typing.Optional[functions_models.FunctionVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[functions_models.ExecuteQueryAsyncResponse]:
+        """
+        Submits a Query for asynchronous execution. Returns either an execution ID
+        for polling, or the complete result if execution finished immediately.
+
+        Use the Execution resource's getResult endpoint to poll for the
+        result of a submitted execution.
+
+        :param query_api_name:
+        :type query_api_name: QueryApiName
+        :param parameters:
+        :type parameters: Dict[ParameterId, Optional[DataValue]]
+        :param attribution:
+        :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
+        :param ontology: Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
+        :type ontology: Optional[OntologyIdentifier]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param trace_parent:
+        :type trace_parent: Optional[TraceParent]
+        :param trace_state:
+        :type trace_state: Optional[TraceState]
+        :param transaction_id: The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
+        :type transaction_id: Optional[TransactionId]
+        :param version: The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+        :type version: Optional[FunctionVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[functions_models.ExecuteQueryAsyncResponse]
+
+        :raises ExecuteAsyncQueryPermissionDenied: Could not executeAsync the Query.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/functions/queries/{queryApiName}/executeAsync",
+                query_params={
+                    "preview": preview,
+                    "transactionId": transaction_id,
+                },
+                path_params={
+                    "queryApiName": query_api_name,
+                },
+                header_params={
+                    "attribution": attribution,
+                    "traceParent": trace_parent,
+                    "traceState": trace_state,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=functions_models.ExecuteAsyncQueryRequest(
+                    ontology=ontology,
+                    parameters=parameters,
+                    version=version,
+                    branch=branch,
+                ),
+                response_type=functions_models.ExecuteQueryAsyncResponse,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteAsyncQueryPermissionDenied": functions_errors.ExecuteAsyncQueryPermissionDenied,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -834,12 +1016,14 @@ class AsyncQueryClient:
 class _AsyncQueryClientRaw:
     def __init__(self, client: AsyncQueryClient) -> None:
         def execute(_: functions_models.ExecuteQueryResponse): ...
+        def execute_async(_: functions_models.ExecuteQueryAsyncResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.async_with_raw_response(execute, client.execute)
+        self.execute_async = core.async_with_raw_response(execute_async, client.execute_async)
         self.get = core.async_with_raw_response(get, client.get)
         self.get_by_rid = core.async_with_raw_response(get_by_rid, client.get_by_rid)
         self.get_by_rid_batch = core.async_with_raw_response(
@@ -853,12 +1037,14 @@ class _AsyncQueryClientRaw:
 class _AsyncQueryClientStreaming:
     def __init__(self, client: AsyncQueryClient) -> None:
         def execute(_: functions_models.ExecuteQueryResponse): ...
+        def execute_async(_: functions_models.ExecuteQueryAsyncResponse): ...
         def get(_: functions_models.Query): ...
         def get_by_rid(_: functions_models.Query): ...
         def get_by_rid_batch(_: functions_models.GetByRidQueriesBatchResponse): ...
         def streaming_execute(_: bytes): ...
 
         self.execute = core.async_with_streaming_response(execute, client.execute)
+        self.execute_async = core.async_with_streaming_response(execute_async, client.execute_async)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_by_rid = core.async_with_streaming_response(get_by_rid, client.get_by_rid)
         self.get_by_rid_batch = core.async_with_streaming_response(

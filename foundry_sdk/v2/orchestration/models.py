@@ -602,13 +602,13 @@ class ScheduleRunError(core.ModelBase):
 
 
 ScheduleRunErrorName = typing.Literal[
-    "TargetResolutionFailure",
-    "CyclicDependency",
-    "IncompatibleTargets",
-    "PermissionDenied",
-    "JobSpecNotFound",
-    "ScheduleOwnerNotFound",
-    "Internal",
+    "TARGETRESOLUTIONFAILURE",
+    "CYCLICDEPENDENCY",
+    "INCOMPATIBLETARGETS",
+    "PERMISSIONDENIED",
+    "JOBSPECNOTFOUND",
+    "SCHEDULEOWNERNOTFOUND",
+    "INTERNAL",
 ]
 """ScheduleRunErrorName"""
 

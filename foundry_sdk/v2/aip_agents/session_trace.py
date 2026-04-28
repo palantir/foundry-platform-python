@@ -72,7 +72,7 @@ class SessionTraceClient:
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -179,7 +179,7 @@ class AsyncSessionTraceClient:
         an answer. For example, a trace may include steps such as context retrieval and tool calls. Clients should
         poll this endpoint to check the realtime progress of a response until the trace is completed.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid

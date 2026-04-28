@@ -133,6 +133,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier |  |  |
 **requests** | List[GetActionTypeByRidBatchRequestElement] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
 
 ### Return type
 **GetActionTypeByRidBatchResponse**
@@ -152,11 +153,13 @@ ontology = "palantir"
 requests = None
 # Optional[FoundryBranch] | The Foundry branch to load the action type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
 
 
 try:
     api_response = client.ontologies.Ontology.ActionType.get_by_rid_batch(
-        ontology, requests=requests, branch=branch
+        ontology, requests=requests, branch=branch, preview=preview
     )
     print("The get_by_rid_batch response:\n")
     pprint(api_response)

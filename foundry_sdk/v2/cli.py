@@ -1932,7 +1932,7 @@ def aip_agents_agent_op_get(
     version: typing.Optional[str],
 ):
     """
-    Get details for an AIP Agent.
+    Get details for an Agent.
     """
     result = client.aip_agents.Agent.get(
         agent_rid=agent_rid,
@@ -1954,7 +1954,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1967,7 +1967,7 @@ def aip_agents_agent_session():
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -2174,7 +2174,7 @@ def aip_agents_agent_session_op_list(
     """
     List all conversation sessions between the calling user and an Agent that was created by this client.
     This does not list sessions for the user created by other clients.
-    For example, any sessions created by the user in AIP Agent Studio will not be listed here.
+    For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -2194,7 +2194,7 @@ def aip_agents_agent_session_op_list(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+    help="""Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
 """,
 )
 @click.option(
@@ -2216,7 +2216,7 @@ def aip_agents_agent_session_op_rag_context(
     preview: typing.Optional[bool],
 ):
     """
-    Retrieve relevant [context](https://palantir.com/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+    Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
     This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
     """
@@ -2237,7 +2237,7 @@ def aip_agents_agent_session_op_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -2250,7 +2250,7 @@ def aip_agents_agent_session_op_rag_context(
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -2429,7 +2429,7 @@ def aip_agents_agent_agent_version_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get version details for an AIP Agent.
+    Get version details for an Agent.
     """
     result = client.aip_agents.Agent.AgentVersion.get(
         agent_rid=agent_rid,
@@ -2464,7 +2464,7 @@ def aip_agents_agent_agent_version_op_list(
     preview: typing.Optional[bool],
 ):
     """
-    List all versions for an AIP Agent.
+    List all versions for an Agent.
     Versions are returned in descending order, by most recent versions first.
 
     """
@@ -5821,6 +5821,82 @@ def functions_query_op_execute(
     click.echo(repr(result))
 
 
+@functions_query.command("execute_async")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
+    "--ontology",
+    type=str,
+    required=False,
+    help="""Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+function. When omitted, executes a global function.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
+@click.pass_obj
+def functions_query_op_execute_async(
+    client: FoundryClient,
+    query_api_name: str,
+    parameters: str,
+    attribution: typing.Optional[str],
+    branch: typing.Optional[str],
+    ontology: typing.Optional[str],
+    preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
+    version: typing.Optional[str],
+):
+    """
+    Submits a Query for asynchronous execution. Returns either an execution ID
+    for polling, or the complete result if execution finished immediately.
+
+    Use the Execution resource's getResult endpoint to poll for the
+    result of a submitted execution.
+
+    """
+    result = client.functions.Query.execute_async(
+        query_api_name=query_api_name,
+        parameters=json.loads(parameters),
+        attribution=attribution,
+        branch=branch,
+        ontology=ontology,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        transaction_id=transaction_id,
+        version=version,
+    )
+    click.echo(repr(result))
+
+
 @functions_query.command("get")
 @click.argument("query_api_name", type=str, required=True)
 @click.option(
@@ -6004,6 +6080,77 @@ def functions_query_op_streaming_execute(
         version=version,
     )
     click.echo(result)
+
+
+@functions.group("execution")
+def functions_execution():
+    pass
+
+
+@functions_execution.command("cancel")
+@click.argument("execution_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def functions_execution_op_cancel(
+    client: FoundryClient,
+    execution_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Cancel a running async query execution. This endpoint is idempotent.
+
+    """
+    result = client.functions.Execution.cancel(
+        execution_id=execution_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@functions_execution.command("get_result")
+@click.argument("execution_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--timeout",
+    type=int,
+    required=False,
+    help="""Maximum time in seconds to hold the connection open while waiting
+for execution to complete. Default: 0 (immediate status check).
+Values above 280 are clamped to 280.
+""",
+)
+@click.pass_obj
+def functions_execution_op_get_result(
+    client: FoundryClient,
+    execution_id: str,
+    preview: typing.Optional[bool],
+    timeout: typing.Optional[int],
+):
+    """
+    Poll for the result of an async query execution.
+
+    Returns a discriminated union:
+    - running: execution is still in progress.
+    - succeeded: execution completed successfully with a return value.
+
+    If the execution failed, a service error is thrown.
+
+    Use the timeout parameter for long-polling: the server holds the
+    connection open for up to the specified number of seconds. If the
+    execution completes within that window, the result is returned
+    immediately. Otherwise, the running variant is returned.
+
+    """
+    result = client.functions.Execution.get_result(
+        execution_id=execution_id,
+        preview=preview,
+        timeout=timeout,
+    )
+    click.echo(repr(result))
 
 
 @cli.group("geo")
@@ -10370,6 +10517,14 @@ def ontologies_ontology_query_type_op_get(
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list queries from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -10382,6 +10537,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 def ontologies_ontology_query_type_op_list(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -10394,6 +10550,7 @@ def ontologies_ontology_query_type_op_list(
     """
     result = client.ontologies.Ontology.QueryType.list(
         ontology=ontology,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
     )
@@ -10446,12 +10603,20 @@ def ontologies_ontology_object_type_op_get(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_op_get_by_rid_batch(
     client: FoundryClient,
     ontology: str,
     requests: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a list of object types by RID in bulk.
@@ -10466,6 +10631,7 @@ def ontologies_ontology_object_type_op_get_by_rid_batch(
         ontology=ontology,
         requests=json.loads(requests),
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10645,6 +10811,13 @@ If omitted, all outgoing link types for each requested object type are returned.
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_type_op_get_outgoing_link_types_by_object_type_rid_batch(
     client: FoundryClient,
@@ -10652,6 +10825,7 @@ def ontologies_ontology_object_type_op_get_outgoing_link_types_by_object_type_ri
     filter_link_type_rids: str,
     requests: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Gets outgoing link types for a batch of object types, identified by their RIDs.
@@ -10670,6 +10844,7 @@ def ontologies_ontology_object_type_op_get_outgoing_link_types_by_object_type_ri
         filter_link_type_rids=json.loads(filter_link_type_rids),
         requests=json.loads(requests),
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10832,12 +11007,20 @@ def ontologies_ontology_action_type_op_get_by_rid(
 Branches are an experimental feature and not all workflows are supported.
 """,
 )
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_action_type_op_get_by_rid_batch(
     client: FoundryClient,
     ontology: str,
     requests: str,
     branch: typing.Optional[str],
+    preview: typing.Optional[bool],
 ):
     """
     Gets a list of action types by RID in bulk.
@@ -10852,6 +11035,7 @@ def ontologies_ontology_action_type_op_get_by_rid_batch(
         ontology=ontology,
         requests=json.loads(requests),
         branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
