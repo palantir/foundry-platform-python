@@ -22,6 +22,165 @@ from foundry_sdk import _errors as errors
 from foundry_sdk.v2.functions import models as functions_models
 
 
+class AsyncConsistentSnapshotErrorParameters(typing_extensions.TypedDict):
+    """
+    The async query failed because the Ontology snapshot used for consistent reads became stale. Retrying the
+    request typically resolves this.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncConsistentSnapshotError(errors.ConflictError):
+    name: typing.Literal["AsyncConsistentSnapshotError"]
+    parameters: AsyncConsistentSnapshotErrorParameters
+    error_instance_id: str
+
+
+class AsyncFunctionNotSupportedWithTransactionParameters(typing_extensions.TypedDict):
+    """The function runtime does not support async execution with a transaction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+    message: str
+
+
+@dataclass
+class AsyncFunctionNotSupportedWithTransaction(errors.BadRequestError):
+    name: typing.Literal["AsyncFunctionNotSupportedWithTransaction"]
+    parameters: AsyncFunctionNotSupportedWithTransactionParameters
+    error_instance_id: str
+
+
+class AsyncInvalidQueryOutputValueParameters(typing_extensions.TypedDict):
+    """
+    The value of the async query's output is invalid. This may be because the return value did not match the
+    specified output type or constraints.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    outputDataType: typing_extensions.NotRequired[functions_models.QueryDataType]
+    outputValue: typing_extensions.NotRequired[functions_models.DataValue]
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncInvalidQueryOutputValue(errors.BadRequestError):
+    name: typing.Literal["AsyncInvalidQueryOutputValue"]
+    parameters: AsyncInvalidQueryOutputValueParameters
+    error_instance_id: str
+
+
+class AsyncQueryEncounteredUserFacingErrorParameters(typing_extensions.TypedDict):
+    """
+    The authored `Query` failed during async execution because of a user induced error. The message argument
+    is meant to be displayed to the user.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+    message: str
+
+
+@dataclass
+class AsyncQueryEncounteredUserFacingError(errors.ConflictError):
+    name: typing.Literal["AsyncQueryEncounteredUserFacingError"]
+    parameters: AsyncQueryEncounteredUserFacingErrorParameters
+    error_instance_id: str
+
+
+class AsyncQueryMemoryExceededLimitParameters(typing_extensions.TypedDict):
+    """Memory limits were exceeded during async `Query` execution."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncQueryMemoryExceededLimit(errors.InternalServerError):
+    name: typing.Literal["AsyncQueryMemoryExceededLimit"]
+    parameters: AsyncQueryMemoryExceededLimitParameters
+    error_instance_id: str
+
+
+class AsyncQueryRuntimeErrorParameters(typing_extensions.TypedDict):
+    """The authored `Query` failed to execute because of a runtime error during async execution."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+    message: typing_extensions.NotRequired[str]
+    stacktrace: typing_extensions.NotRequired[str]
+    parameters: typing.Dict[functions_models.QueryRuntimeErrorParameter, str]
+
+
+@dataclass
+class AsyncQueryRuntimeError(errors.BadRequestError):
+    name: typing.Literal["AsyncQueryRuntimeError"]
+    parameters: AsyncQueryRuntimeErrorParameters
+    error_instance_id: str
+
+
+class AsyncQueryTimeExceededLimitParameters(typing_extensions.TypedDict):
+    """Time limits were exceeded during async `Query` execution."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class AsyncQueryTimeExceededLimit(errors.InternalServerError):
+    name: typing.Literal["AsyncQueryTimeExceededLimit"]
+    parameters: AsyncQueryTimeExceededLimitParameters
+    error_instance_id: str
+
+
+class CancelExecutionNotSupportedParameters(typing_extensions.TypedDict):
+    """The function runtime does not support cancelling executions."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: typing_extensions.NotRequired[functions_models.FunctionRid]
+    functionVersion: typing_extensions.NotRequired[functions_models.FunctionVersion]
+
+
+@dataclass
+class CancelExecutionNotSupported(errors.InternalServerError):
+    name: typing.Literal["CancelExecutionNotSupported"]
+    parameters: CancelExecutionNotSupportedParameters
+    error_instance_id: str
+
+
+class CancelExecutionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not cancel the Execution."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    executionId: functions_models.ExecutionId
+
+
+@dataclass
+class CancelExecutionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["CancelExecutionPermissionDenied"]
+    parameters: CancelExecutionPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ConsistentSnapshotErrorParameters(typing_extensions.TypedDict):
     """
     The query failed because the Ontology snapshot used for consistent reads became stale. Retrying the request
@@ -41,6 +200,21 @@ class ConsistentSnapshotError(errors.ConflictError):
     error_instance_id: str
 
 
+class ExecuteAsyncQueryPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not executeAsync the Query."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    queryApiName: functions_models.QueryApiName
+
+
+@dataclass
+class ExecuteAsyncQueryPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ExecuteAsyncQueryPermissionDenied"]
+    parameters: ExecuteAsyncQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
 class ExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not execute the Query."""
 
@@ -53,6 +227,21 @@ class ExecuteQueryPermissionDeniedParameters(typing_extensions.TypedDict):
 class ExecuteQueryPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["ExecuteQueryPermissionDenied"]
     parameters: ExecuteQueryPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ExecutionNotFoundParameters(typing_extensions.TypedDict):
+    """No async query execution found with the given ID."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    executionId: functions_models.ExecutionId
+
+
+@dataclass
+class ExecutionNotFound(errors.NotFoundError):
+    name: typing.Literal["ExecutionNotFound"]
+    parameters: ExecutionNotFoundParameters
     error_instance_id: str
 
 
@@ -113,6 +302,21 @@ class GetByRidPermissionDeniedParameters(typing_extensions.TypedDict):
 class GetByRidPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["GetByRidPermissionDenied"]
     parameters: GetByRidPermissionDeniedParameters
+    error_instance_id: str
+
+
+class GetResultExecutionPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not getResult the Execution."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    executionId: functions_models.ExecutionId
+
+
+@dataclass
+class GetResultExecutionPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["GetResultExecutionPermissionDenied"]
+    parameters: GetResultExecutionPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -343,12 +547,24 @@ class VersionIdNotFound(errors.NotFoundError):
 
 
 __all__ = [
+    "AsyncConsistentSnapshotError",
+    "AsyncFunctionNotSupportedWithTransaction",
+    "AsyncInvalidQueryOutputValue",
+    "AsyncQueryEncounteredUserFacingError",
+    "AsyncQueryMemoryExceededLimit",
+    "AsyncQueryRuntimeError",
+    "AsyncQueryTimeExceededLimit",
+    "CancelExecutionNotSupported",
+    "CancelExecutionPermissionDenied",
     "ConsistentSnapshotError",
+    "ExecuteAsyncQueryPermissionDenied",
     "ExecuteQueryPermissionDenied",
+    "ExecutionNotFound",
     "FunctionHasNoPublishedVersion",
     "FunctionNotFound",
     "FunctionNotSupportedWithTransaction",
     "GetByRidPermissionDenied",
+    "GetResultExecutionPermissionDenied",
     "InvalidQueryOutputValue",
     "InvalidQueryParameterValue",
     "MissingParameter",

@@ -30,7 +30,7 @@ class Agent(core.ModelBase):
     """Agent"""
 
     rid: AgentRid
-    """An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+    """An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     version: AgentVersionString
     """The version of this instance of the Agent."""
@@ -38,7 +38,7 @@ class Agent(core.ModelBase):
     metadata: AgentMetadata
     parameters: typing.Dict[ParameterId, Parameter]
     """
-    The types and names of variables configured for the Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/) in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/).
+    The types and names of variables configured for the Agent in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/) in the [application state](https://palantir.com/docs/foundry/chatbot-studio/application-state/).
     These variables can be used to send custom values in prompts sent to an Agent to customize and control the Agent's behavior.
     """
 
@@ -64,7 +64,7 @@ class AgentMetadata(core.ModelBase):
 
 
 AgentRid = core.RID
-"""An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+"""An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
 class AgentSessionRagContextResponse(core.ModelBase):
@@ -120,11 +120,11 @@ class BlockingContinueSessionRequest(core.ModelBase):
     """The user message for the Agent to respond to."""
 
     parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
-    """Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange."""
+    """Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange."""
 
     contexts_override: typing.Optional[typing.List[InputContext]] = pydantic.Field(alias=str("contextsOverride"), default=None)  # type: ignore[literal-required]
     """
-    If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+    If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
     If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
     """
 
@@ -216,13 +216,13 @@ class GetRagContextForSessionRequest(core.ModelBase):
     """The user message to retrieve relevant context for from the configured Agent data sources."""
 
     parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
-    """Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval."""
+    """Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval."""
 
 
 InputContext = typing_extensions.Annotated[
     typing.Union["FunctionRetrievedContext", "ObjectContext"], pydantic.Field(discriminator="type")
 ]
-"""Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session."""
+"""Custom retrieved [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) to provide to an Agent for continuing a session."""
 
 
 class ListAgentVersionsResponse(core.ModelBase):
@@ -288,7 +288,7 @@ class ObjectSetParameterValueUpdate(core.ModelBase):
 
 
 class Parameter(core.ModelBase):
-    """A variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+    """A variable configured in the application state of an Agent in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
     parameter_type: ParameterType = pydantic.Field(alias=str("parameterType"))  # type: ignore[literal-required]
     """Details of the types of values accepted and defaults for this variable."""
@@ -311,7 +311,7 @@ READ_WRITE: Allows the variable to be read and updated by the Agent.
 
 
 ParameterId = str
-"""The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/)."""
+"""The unique identifier for a variable configured in the application state of an Agent in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/)."""
 
 
 ParameterType = typing_extensions.Annotated[
@@ -324,7 +324,7 @@ ParameterValue = typing_extensions.Annotated[
     typing.Union["StringParameterValue", "ObjectSetParameterValue"],
     pydantic.Field(discriminator="type"),
 ]
-"""The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent."""
+"""The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/chatbot-studio/application-state/) of an Agent."""
 
 
 ParameterValueUpdate = typing_extensions.Annotated[
@@ -332,7 +332,7 @@ ParameterValueUpdate = typing_extensions.Annotated[
     pydantic.Field(discriminator="type"),
 ]
 """
-A value update for an [application variable](https://palantir.com/docs/foundry/agent-studio/application-state/) generated by the Agent.
+A value update for an [application variable](https://palantir.com/docs/foundry/chatbot-studio/application-state/) generated by the Agent.
 For `StringParameter` types, this will be the updated string value.
 For `ObjectSetParameter` types, this will be a Resource Identifier (RID) for the updated object set.
 """
@@ -408,7 +408,7 @@ class SessionExchangeResult(core.ModelBase):
     parameter_updates: typing.Dict[ParameterId, ParameterValueUpdate] = pydantic.Field(alias=str("parameterUpdates"))  # type: ignore[literal-required]
     """
     Any updates to application variable values which were generated by the Agent for this exchange.
-    Updates can only be generated for application variables configured with `READ_WRITE` access on the Agent in AIP Agent Studio.
+    Updates can only be generated for application variables configured with `READ_WRITE` access on the Agent in AIP Chatbot Studio.
     """
 
     total_tokens_used: typing.Optional[int] = pydantic.Field(alias=str("totalTokensUsed"), default=None)  # type: ignore[literal-required]
@@ -503,11 +503,11 @@ class StreamingContinueSessionRequest(core.ModelBase):
     """The user message for the Agent to respond to."""
 
     parameter_inputs: typing.Dict[ParameterId, ParameterValue] = pydantic.Field(alias=str("parameterInputs"))  # type: ignore[literal-required]
-    """Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange."""
+    """Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange."""
 
     contexts_override: typing.Optional[typing.List[InputContext]] = pydantic.Field(alias=str("contextsOverride"), default=None)  # type: ignore[literal-required]
     """
-    If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+    If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
     If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
     """
 

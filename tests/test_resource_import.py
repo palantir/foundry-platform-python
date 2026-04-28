@@ -377,6 +377,12 @@ def test_filesystem_v2_space_import():
     assert SpaceClient is not None
 
 
+def test_functions_v2_execution_import():
+    from foundry_sdk.v2.functions.execution import ExecutionClient
+
+    assert ExecutionClient is not None
+
+
 def test_functions_v2_query_import():
     from foundry_sdk.v2.functions.query import QueryClient
 

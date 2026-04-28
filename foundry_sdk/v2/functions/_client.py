@@ -44,6 +44,16 @@ class FunctionsClient:
         self._config = config
 
     @cached_property
+    def Execution(self):
+        from foundry_sdk.v2.functions.execution import ExecutionClient
+
+        return ExecutionClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
     def Query(self):
         from foundry_sdk.v2.functions.query import QueryClient
 
@@ -79,8 +89,11 @@ class AsyncFunctionsClient:
         hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
+        from foundry_sdk.v2.functions.execution import AsyncExecutionClient
         from foundry_sdk.v2.functions.query import AsyncQueryClient
         from foundry_sdk.v2.functions.value_type import AsyncValueTypeClient
+
+        self.Execution = AsyncExecutionClient(auth=auth, hostname=hostname, config=config)
 
         self.Query = AsyncQueryClient(auth=auth, hostname=hostname, config=config)
 

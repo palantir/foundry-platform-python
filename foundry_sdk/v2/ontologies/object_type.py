@@ -115,6 +115,7 @@ class ObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.GetObjectTypeByRidBatchResponse:
@@ -132,6 +133,8 @@ class ObjectTypeClient:
         :type requests: List[GetObjectTypeByRidBatchRequestElement]
         :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -144,6 +147,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/getByRidBatch",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -370,6 +374,7 @@ class ObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse:
@@ -392,6 +397,8 @@ class ObjectTypeClient:
         :type requests: List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
         :param branch: The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -404,6 +411,7 @@ class ObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -694,6 +702,7 @@ class AsyncObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.GetObjectTypeByRidBatchResponse]:
@@ -711,6 +720,8 @@ class AsyncObjectTypeClient:
         :type requests: List[GetObjectTypeByRidBatchRequestElement]
         :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -723,6 +734,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/objectTypes/getByRidBatch",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
@@ -949,6 +961,7 @@ class AsyncObjectTypeClient:
             annotated_types.Len(min_length=1, max_length=100),
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse]:
@@ -971,6 +984,8 @@ class AsyncObjectTypeClient:
         :type requests: List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
         :param branch: The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -983,6 +998,7 @@ class AsyncObjectTypeClient:
                 resource_path="/v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "ontology": ontology,
