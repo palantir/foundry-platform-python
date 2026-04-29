@@ -21,6 +21,7 @@ from foundry_sdk._core.http_client import HttpClient, AsyncHttpClient
 from foundry_sdk.v2.language_models import (
     get_anthropic_base_url,
     get_foundry_token,
+    get_google_base_url,
     get_http_client,
     get_async_http_client,
     get_openai_base_url,
@@ -46,6 +47,10 @@ class TestPreviewParameter:
     def test_get_anthropic_base_url_requires_preview(self):
         with pytest.raises(ValueError, match="preview parameter"):
             get_anthropic_base_url()
+
+    def test_get_google_base_url_requires_preview(self):
+        with pytest.raises(ValueError, match="preview parameter"):
+            get_google_base_url()
 
     def test_get_http_client_requires_preview(self):
         with pytest.raises(ValueError, match="preview parameter"):
@@ -114,6 +119,22 @@ class TestGetAnthropicBaseUrl:
     def test_raises_runtime_error_when_not_in_context(self):
         with pytest.raises(RuntimeError, match="not available"):
             get_anthropic_base_url(preview=True)
+
+
+class TestGetGoogleBaseUrl:
+    """Test get_google_base_url function."""
+
+    def test_returns_correct_url(self):
+        token = HOSTNAME_VAR.set("test.palantirfoundry.com")
+        try:
+            result = get_google_base_url(preview=True)
+            assert result == "https://test.palantirfoundry.com/api/v2/llm/proxy/google"
+        finally:
+            HOSTNAME_VAR.reset(token)
+
+    def test_raises_runtime_error_when_not_in_context(self):
+        with pytest.raises(RuntimeError, match="not available"):
+            get_google_base_url(preview=True)
 
 
 class TestGetHttpClient:
