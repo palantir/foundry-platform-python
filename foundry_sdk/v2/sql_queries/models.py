@@ -108,6 +108,9 @@ class ExecuteSqlQueryRequest(core.ModelBase):
     `master` for most enrollments.
     """
 
+    serialization_format: typing.Optional[SerializationFormat] = pydantic.Field(alias=str("serializationFormat"), default=None)  # type: ignore[literal-required]
+    """The format used to serialize query results. If not specified, defaults to `ARROW`."""
+
 
 class FailedQueryStatus(core.ModelBase):
     """FailedQueryStatus"""
@@ -306,6 +309,10 @@ class RunningQueryStatus(core.ModelBase):
     type: typing.Literal["running"] = "running"
 
 
+SerializationFormat = typing.Literal["ARROW", "CSV"]
+"""Format for SQL query result serialization."""
+
+
 SqlQueryId = str
 """The identifier of a SQL Query."""
 
@@ -405,6 +412,7 @@ __all__ = [
     "Parameters",
     "QueryStatus",
     "RunningQueryStatus",
+    "SerializationFormat",
     "SqlQueryId",
     "StructColumnFieldType",
     "StructColumnType",

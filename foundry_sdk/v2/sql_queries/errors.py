@@ -35,6 +35,19 @@ class CancelSqlQueryPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class ColumnTypesNotSupportedParameters(typing_extensions.TypedDict):
+    """The query result contains column types that are not supported by the requested serialization format."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ColumnTypesNotSupported(errors.BadRequestError):
+    name: typing.Literal["ColumnTypesNotSupported"]
+    parameters: ColumnTypesNotSupportedParameters
+    error_instance_id: str
+
+
 class ExecuteOntologySqlQueryPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not executeOntology the SqlQuery."""
 
@@ -189,6 +202,7 @@ class ReadQueryInputsPermissionDenied(errors.PermissionDeniedError):
 
 __all__ = [
     "CancelSqlQueryPermissionDenied",
+    "ColumnTypesNotSupported",
     "ExecuteOntologySqlQueryPermissionDenied",
     "ExecuteSqlQueryPermissionDenied",
     "GetResultsSqlQueryPermissionDenied",

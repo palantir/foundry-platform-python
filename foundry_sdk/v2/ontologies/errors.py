@@ -52,6 +52,19 @@ class ActionEditedPropertiesNotFound(errors.BadRequestError):
     error_instance_id: str
 
 
+class ActionEditsNotSupportedWithMarketplaceParameters(typing_extensions.TypedDict):
+    """Returning action edits is not supported when using marketplace bindings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ActionEditsNotSupportedWithMarketplace(errors.BadRequestError):
+    name: typing.Literal["ActionEditsNotSupportedWithMarketplace"]
+    parameters: ActionEditsNotSupportedWithMarketplaceParameters
+    error_instance_id: str
+
+
 class ActionEditsReadOnlyEntityParameters(typing_extensions.TypedDict):
     """The given action request performs edits on a type that is read-only or does not allow edits."""
 
@@ -323,6 +336,19 @@ class AttachmentSizeExceededLimitParameters(typing_extensions.TypedDict):
 class AttachmentSizeExceededLimit(errors.BadRequestError):
     name: typing.Literal["AttachmentSizeExceededLimit"]
     parameters: AttachmentSizeExceededLimitParameters
+    error_instance_id: str
+
+
+class BranchNotSupportedWithMarketplaceQueryParameters(typing_extensions.TypedDict):
+    """The branch parameter is not supported when executing queries with marketplace bindings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class BranchNotSupportedWithMarketplaceQuery(errors.BadRequestError):
+    name: typing.Literal["BranchNotSupportedWithMarketplaceQuery"]
+    parameters: BranchNotSupportedWithMarketplaceQueryParameters
     error_instance_id: str
 
 
@@ -2448,6 +2474,7 @@ class ViewObjectPermissionDenied(errors.PermissionDeniedError):
 __all__ = [
     "ActionContainsDuplicateEdits",
     "ActionEditedPropertiesNotFound",
+    "ActionEditsNotSupportedWithMarketplace",
     "ActionEditsReadOnlyEntity",
     "ActionNotFound",
     "ActionParameterInterfaceTypeNotFound",
@@ -2464,6 +2491,7 @@ __all__ = [
     "AttachmentNotFound",
     "AttachmentRidAlreadyExists",
     "AttachmentSizeExceededLimit",
+    "BranchNotSupportedWithMarketplaceQuery",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
     "ConsistentSnapshotError",

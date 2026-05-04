@@ -116,6 +116,7 @@ class SqlQueryClient:
         *,
         query: str,
         fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
+        serialization_format: typing.Optional[sql_queries_models.SerializationFormat] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
@@ -128,11 +129,14 @@ class SqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
+        :param serialization_format: The format used to serialize query results. If not specified, defaults to `ARROW`.
+        :type serialization_format: Optional[SerializationFormat]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: sql_queries_models.QueryStatus
 
+        :raises ColumnTypesNotSupported: The query result contains column types that are not supported by the requested serialization format.
         :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
@@ -155,10 +159,12 @@ class SqlQueryClient:
                 body=sql_queries_models.ExecuteSqlQueryRequest(
                     query=query,
                     fallback_branch_ids=fallback_branch_ids,
+                    serialization_format=serialization_format,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ColumnTypesNotSupported": sql_queries_errors.ColumnTypesNotSupported,
                     "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
@@ -249,8 +255,8 @@ class SqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.TableResponse:
         """
-        Gets the results of a query. The results of the query are returned in the
-        [Apache Arrow](https://arrow.apache.org/) format.
+        Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+        (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
         This endpoint implements long polling and requests will time out after one minute. They can be safely
         retried while the query is still running.
@@ -477,6 +483,7 @@ class AsyncSqlQueryClient:
         *,
         query: str,
         fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
+        serialization_format: typing.Optional[sql_queries_models.SerializationFormat] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
@@ -489,11 +496,14 @@ class AsyncSqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
+        :param serialization_format: The format used to serialize query results. If not specified, defaults to `ARROW`.
+        :type serialization_format: Optional[SerializationFormat]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[sql_queries_models.QueryStatus]
 
+        :raises ColumnTypesNotSupported: The query result contains column types that are not supported by the requested serialization format.
         :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
@@ -516,10 +526,12 @@ class AsyncSqlQueryClient:
                 body=sql_queries_models.ExecuteSqlQueryRequest(
                     query=query,
                     fallback_branch_ids=fallback_branch_ids,
+                    serialization_format=serialization_format,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ColumnTypesNotSupported": sql_queries_errors.ColumnTypesNotSupported,
                     "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
@@ -610,8 +622,8 @@ class AsyncSqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core.TableResponse]:
         """
-                Gets the results of a query. The results of the query are returned in the
-                [Apache Arrow](https://arrow.apache.org/) format.
+                Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+                (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
                 This endpoint implements long polling and requests will time out after one minute. They can be safely
                 retried while the query is still running.
