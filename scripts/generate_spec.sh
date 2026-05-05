@@ -5,8 +5,11 @@ TMP_DIR=$SCRIPT_DIR/../tmp
 MAVEN_REPO_PATH="$MAVEN_DIST_RELEASE/$(echo "$MAVEN_CONJURE_GROUP_ID" | sed 's/\./\//g')/${MAVEN_CONJURE_ARTIFACT_ID}"
 
 mkdir -p $TMP_DIR
-API_GATEWAY_VERSION=$( wget -q -O - "${MAVEN_REPO_PATH}/maven-metadata.xml" | \
-    python scripts/parse_version.py )
+
+if [ -z "$API_GATEWAY_VERSION" ]; then
+    API_GATEWAY_VERSION=$( wget -q -O - "${MAVEN_REPO_PATH}/maven-metadata.xml" | \
+        python scripts/parse_version.py )
+fi
 
 echo Downloading $API_GATEWAY_VERSION...
 mkdir -p "${TMP_DIR}"
