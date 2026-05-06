@@ -12779,11 +12779,19 @@ provided that exists. If no fallback branches are provided the default branch is
 `master` for most enrollments.
 """,
 )
+@click.option(
+    "--serialization_format",
+    type=click.Choice(["ARROW", "CSV"]),
+    required=False,
+    help="""The format used to serialize query results. If not specified, defaults to `ARROW`.
+""",
+)
 @click.pass_obj
 def sql_queries_sql_query_op_execute(
     client: FoundryClient,
     query: str,
     fallback_branch_ids: typing.Optional[str],
+    serialization_format: typing.Optional[typing.Literal["ARROW", "CSV"]],
 ):
     """
     Executes a new query. Only the user that invoked the query can operate on the query. The size of query
@@ -12796,6 +12804,7 @@ def sql_queries_sql_query_op_execute(
         fallback_branch_ids=(
             None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
         ),
+        serialization_format=serialization_format,
     )
     click.echo(repr(result))
 
@@ -12865,8 +12874,8 @@ def sql_queries_sql_query_op_get_results(
     sql_query_id: str,
 ):
     """
-    Gets the results of a query. The results of the query are returned in the
-    [Apache Arrow](https://arrow.apache.org/) format.
+    Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+    (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
     This endpoint implements long polling and requests will time out after one minute. They can be safely
     retried while the query is still running.
