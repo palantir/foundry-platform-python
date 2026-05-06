@@ -114,6 +114,28 @@ def get_anthropic_base_url(*, preview: bool = False) -> str:
     return f"https://{hostname}/api/v2/llm/proxy/anthropic"
 
 
+def get_google_base_url(*, preview: bool = False) -> str:
+    """Get the Google proxy base URL for use with the google-genai SDK.
+
+    Args:
+        preview: Must be set to True to use this beta feature.
+
+    Returns:
+        The Google proxy base URL for the current Foundry environment.
+
+    Raises:
+        ValueError: If preview is not set to True.
+        RuntimeError: If the Foundry API gateway base URL is not available in the current context.
+    """
+    if not preview:
+        raise ValueError(
+            "get_google_base_url() is in beta. "
+            "Please set the preview parameter to True to use it."
+        )
+    hostname = _get_api_gateway_base_url(preview=True)
+    return f"https://{hostname}/api/v2/llm/proxy/google"
+
+
 def get_http_client(*, preview: bool = False, config: Optional[Config] = None) -> HttpClient:
     """Get an HTTP client configured for the current Foundry environment.
 
