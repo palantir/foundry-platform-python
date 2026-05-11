@@ -31,6 +31,7 @@ from foundry_sdk._core import TableResponse
 from foundry_sdk._core import UserTokenAuth
 
 # Context and environment variables
+from foundry_sdk._core.context_and_environment_vars import ADDITIONAL_USER_AGENTS
 from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_VAR
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_ENV_VAR
 from foundry_sdk._core.context_and_environment_vars import HOSTNAME_VAR
@@ -86,6 +87,7 @@ __all__ = [
     "PublicClientAuth",
     "UserTokenAuth",
     "Config",
+    "ADDITIONAL_USER_AGENTS",
     "ATTRIBUTION_VAR",
     "HOSTNAME_VAR",
     "HOSTNAME_ENV_VAR",

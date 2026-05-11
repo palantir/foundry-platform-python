@@ -25,6 +25,7 @@ import httpcore
 import httpx
 
 from foundry_sdk._core.config import Config
+from foundry_sdk._core.context_and_environment_vars import ADDITIONAL_USER_AGENTS
 from foundry_sdk._core.context_and_environment_vars import ATTRIBUTION_CONTEXT_VARS
 from foundry_sdk._core.context_and_environment_vars import SAMPLED_CONTEXT_VARS
 from foundry_sdk._core.context_and_environment_vars import SAMPLED_ENV_VARS
@@ -129,8 +130,14 @@ def _prepare_client_data(
     # https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
     attribution_header = ", ".join(attribution) if attribution is not None else None
 
+    user_agent = f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}"
+
+    additional_user_agents = ADDITIONAL_USER_AGENTS.get()
+    if additional_user_agents:
+        user_agent += " " + " ".join(additional_user_agents)
+
     headers = {
-        "User-Agent": f"python-foundry-platform-sdk/{__version__} python/{sys.version_info.major}.{sys.version_info.minor}",
+        "User-Agent": user_agent,
         **(config.default_headers or {}),
     }
 
