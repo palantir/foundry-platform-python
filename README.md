@@ -2960,6 +2960,7 @@ Namespace | Name | Import |
 **SqlQueries** | [ParameterValue](docs/v2/SqlQueries/models/ParameterValue.md) | `from foundry_sdk.v2.sql_queries.models import ParameterValue` |
 **SqlQueries** | [QueryStatus](docs/v2/SqlQueries/models/QueryStatus.md) | `from foundry_sdk.v2.sql_queries.models import QueryStatus` |
 **SqlQueries** | [RunningQueryStatus](docs/v2/SqlQueries/models/RunningQueryStatus.md) | `from foundry_sdk.v2.sql_queries.models import RunningQueryStatus` |
+**SqlQueries** | [SerializationFormat](docs/v2/SqlQueries/models/SerializationFormat.md) | `from foundry_sdk.v2.sql_queries.models import SerializationFormat` |
 **SqlQueries** | [SqlQueryId](docs/v2/SqlQueries/models/SqlQueryId.md) | `from foundry_sdk.v2.sql_queries.models import SqlQueryId` |
 **SqlQueries** | [StructColumnFieldType](docs/v2/SqlQueries/models/StructColumnFieldType.md) | `from foundry_sdk.v2.sql_queries.models import StructColumnFieldType` |
 **SqlQueries** | [StructColumnType](docs/v2/SqlQueries/models/StructColumnType.md) | `from foundry_sdk.v2.sql_queries.models import StructColumnType` |
@@ -3738,6 +3739,7 @@ Namespace | Name | Import |
 **Models** | UnsupportedModelSource | `from foundry_sdk.v2.models.errors import UnsupportedModelSource` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v2.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v2.ontologies.errors import ActionEditedPropertiesNotFound` |
+**Ontologies** | ActionEditsNotSupportedWithMarketplace | `from foundry_sdk.v2.ontologies.errors import ActionEditsNotSupportedWithMarketplace` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v2.ontologies.errors import ActionEditsReadOnlyEntity` |
 **Ontologies** | ActionNotFound | `from foundry_sdk.v2.ontologies.errors import ActionNotFound` |
 **Ontologies** | ActionParameterInterfaceTypeNotFound | `from foundry_sdk.v2.ontologies.errors import ActionParameterInterfaceTypeNotFound` |
@@ -3754,6 +3756,7 @@ Namespace | Name | Import |
 **Ontologies** | AttachmentNotFound | `from foundry_sdk.v2.ontologies.errors import AttachmentNotFound` |
 **Ontologies** | AttachmentRidAlreadyExists | `from foundry_sdk.v2.ontologies.errors import AttachmentRidAlreadyExists` |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry_sdk.v2.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | BranchNotSupportedWithMarketplaceQuery | `from foundry_sdk.v2.ontologies.errors import BranchNotSupportedWithMarketplaceQuery` |
 **Ontologies** | CipherChannelNotFound | `from foundry_sdk.v2.ontologies.errors import CipherChannelNotFound` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry_sdk.v2.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v2.ontologies.errors import ConsistentSnapshotError` |
@@ -3917,6 +3920,7 @@ Namespace | Name | Import |
 **Orchestration** | TargetNotSupported | `from foundry_sdk.v2.orchestration.errors import TargetNotSupported` |
 **Orchestration** | UnpauseSchedulePermissionDenied | `from foundry_sdk.v2.orchestration.errors import UnpauseSchedulePermissionDenied` |
 **SqlQueries** | CancelSqlQueryPermissionDenied | `from foundry_sdk.v2.sql_queries.errors import CancelSqlQueryPermissionDenied` |
+**SqlQueries** | ColumnTypesNotSupported | `from foundry_sdk.v2.sql_queries.errors import ColumnTypesNotSupported` |
 **SqlQueries** | ExecuteOntologySqlQueryPermissionDenied | `from foundry_sdk.v2.sql_queries.errors import ExecuteOntologySqlQueryPermissionDenied` |
 **SqlQueries** | ExecuteSqlQueryPermissionDenied | `from foundry_sdk.v2.sql_queries.errors import ExecuteSqlQueryPermissionDenied` |
 **SqlQueries** | GetResultsSqlQueryPermissionDenied | `from foundry_sdk.v2.sql_queries.errors import GetResultsSqlQueryPermissionDenied` |
@@ -4057,6 +4061,7 @@ Namespace | Name | Import |
 **Datasets** | UploadFilePermissionDenied | `from foundry_sdk.v1.datasets.errors import UploadFilePermissionDenied` |
 **Ontologies** | ActionContainsDuplicateEdits | `from foundry_sdk.v1.ontologies.errors import ActionContainsDuplicateEdits` |
 **Ontologies** | ActionEditedPropertiesNotFound | `from foundry_sdk.v1.ontologies.errors import ActionEditedPropertiesNotFound` |
+**Ontologies** | ActionEditsNotSupportedWithMarketplace | `from foundry_sdk.v1.ontologies.errors import ActionEditsNotSupportedWithMarketplace` |
 **Ontologies** | ActionEditsReadOnlyEntity | `from foundry_sdk.v1.ontologies.errors import ActionEditsReadOnlyEntity` |
 **Ontologies** | ActionNotFound | `from foundry_sdk.v1.ontologies.errors import ActionNotFound` |
 **Ontologies** | ActionParameterInterfaceTypeNotFound | `from foundry_sdk.v1.ontologies.errors import ActionParameterInterfaceTypeNotFound` |
@@ -4073,6 +4078,7 @@ Namespace | Name | Import |
 **Ontologies** | AttachmentNotFound | `from foundry_sdk.v1.ontologies.errors import AttachmentNotFound` |
 **Ontologies** | AttachmentRidAlreadyExists | `from foundry_sdk.v1.ontologies.errors import AttachmentRidAlreadyExists` |
 **Ontologies** | AttachmentSizeExceededLimit | `from foundry_sdk.v1.ontologies.errors import AttachmentSizeExceededLimit` |
+**Ontologies** | BranchNotSupportedWithMarketplaceQuery | `from foundry_sdk.v1.ontologies.errors import BranchNotSupportedWithMarketplaceQuery` |
 **Ontologies** | CipherChannelNotFound | `from foundry_sdk.v1.ontologies.errors import CipherChannelNotFound` |
 **Ontologies** | CompositePrimaryKeyNotSupported | `from foundry_sdk.v1.ontologies.errors import CompositePrimaryKeyNotSupported` |
 **Ontologies** | ConsistentSnapshotError | `from foundry_sdk.v1.ontologies.errors import ConsistentSnapshotError` |

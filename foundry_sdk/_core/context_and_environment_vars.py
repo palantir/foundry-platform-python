@@ -38,6 +38,11 @@ HOSTNAME_ENV_VARS: list[str] = [HOSTNAME_ENV_VAR]
 ATTRIBUTION_VAR: ContextVar[Optional[list[str]]] = ContextVar("ATTRIBUTION_RESOURCES", default=None)
 ATTRIBUTION_CONTEXT_VARS: list[ContextVar[Optional[list[str]]]] = [ATTRIBUTION_VAR]
 
+# Additional user agent variables
+ADDITIONAL_USER_AGENTS: ContextVar[Optional[list[str]]] = ContextVar(
+    "ADDITIONAL_USER_AGENTS", default=None
+)
+
 # Trace and Span context variables
 TRACE_ID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_TRACE_ID", default=None)
 SPAN_ID_VAR: ContextVar[Optional[str]] = ContextVar("FOUNDRY_SPAN_ID", default=None)
