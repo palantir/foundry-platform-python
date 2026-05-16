@@ -24,7 +24,6 @@ BooleanType | boolean
 CipherTextType | cipherText
 MarkingType | marking
 UnsupportedType | unsupported
-MediaReferenceType | mediaReference
 OntologyArrayType | array
 OntologyObjectSetType | objectSet
 BinaryType | binary

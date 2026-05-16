@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**list**](#list) | **GET** /v2/admin/enrollments/{enrollmentRid}/hosts | Public Beta |
+[**list**](#list) | **GET** /v2/admin/enrollments/{enrollmentRid}/hosts | Private Beta |
 
 # **list**
 Lists all Hosts.

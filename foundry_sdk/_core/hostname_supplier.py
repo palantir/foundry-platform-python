@@ -51,7 +51,7 @@ class StaticHostnameSupplier(HostnameSupplier):
         self._base_url = base_url
         self._api_gateway_url = base_url + "/api"
         self._multipass_url = base_url + "/multipass/api"
-        self._stream_proxy_url = base_url + "/stream-proxy/api"
+        self._stream_proxy_url = base_url + "/api"
         self._is_user_supplied = is_user_supplied
 
     def get_hostname(self) -> str:

@@ -84,21 +84,6 @@ class AddMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class AddOrganizationGuestMembersPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not add the OrganizationGuestMember."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    organizationRid: core_models.OrganizationRid
-
-
-@dataclass
-class AddOrganizationGuestMembersPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["AddOrganizationGuestMembersPermissionDenied"]
-    parameters: AddOrganizationGuestMembersPermissionDeniedParameters
-    error_instance_id: str
-
-
 class AddOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the OrganizationRoleAssignment."""
 
@@ -111,21 +96,6 @@ class AddOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions
 class AddOrganizationRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["AddOrganizationRoleAssignmentsPermissionDenied"]
     parameters: AddOrganizationRoleAssignmentsPermissionDeniedParameters
-    error_instance_id: str
-
-
-class AttributesNotEditableParameters(typing_extensions.TypedDict):
-    """One or more attributes are not editable. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are not editable."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    attributeNames: typing.List[str]
-
-
-@dataclass
-class AttributesNotEditable(errors.BadRequestError):
-    name: typing.Literal["AttributesNotEditable"]
-    parameters: AttributesNotEditableParameters
     error_instance_id: str
 
 
@@ -158,45 +128,6 @@ class CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters(typing_ext
 class CannotReplaceProviderInfoForPrincipalInProtectedRealm(errors.BadRequestError):
     name: typing.Literal["CannotReplaceProviderInfoForPrincipalInProtectedRealm"]
     parameters: CannotReplaceProviderInfoForPrincipalInProtectedRealmParameters
-    error_instance_id: str
-
-
-class CbacBannerNotFoundParameters(typing_extensions.TypedDict):
-    """The given CbacBanner could not be found."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class CbacBannerNotFound(errors.NotFoundError):
-    name: typing.Literal["CbacBannerNotFound"]
-    parameters: CbacBannerNotFoundParameters
-    error_instance_id: str
-
-
-class CbacMarkingRestrictionsNotFoundParameters(typing_extensions.TypedDict):
-    """The given CbacMarkingRestrictions could not be found."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class CbacMarkingRestrictionsNotFound(errors.NotFoundError):
-    name: typing.Literal["CbacMarkingRestrictionsNotFound"]
-    parameters: CbacMarkingRestrictionsNotFoundParameters
-    error_instance_id: str
-
-
-class CbacUnavailableParameters(typing_extensions.TypedDict):
-    """CBAC is not available."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class CbacUnavailable(errors.BadRequestError):
-    name: typing.Literal["CbacUnavailable"]
-    parameters: CbacUnavailableParameters
     error_instance_id: str
 
 
@@ -359,49 +290,6 @@ class EnrollmentRoleNotFoundParameters(typing_extensions.TypedDict):
 class EnrollmentRoleNotFound(errors.NotFoundError):
     name: typing.Literal["EnrollmentRoleNotFound"]
     parameters: EnrollmentRoleNotFoundParameters
-    error_instance_id: str
-
-
-class ExpirationForTransitiveGroupMembersNotSupportedParameters(typing_extensions.TypedDict):
-    """You cannot pass includeExpirations if transitive is true."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class ExpirationForTransitiveGroupMembersNotSupported(errors.BadRequestError):
-    name: typing.Literal["ExpirationForTransitiveGroupMembersNotSupported"]
-    parameters: ExpirationForTransitiveGroupMembersNotSupportedParameters
-    error_instance_id: str
-
-
-class GetCbacBannerPermissionDeniedParameters(typing_extensions.TypedDict):
-    """The provided token does not have permission to get the CBAC banner for the markings."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    markingIds: typing.List[core_models.MarkingId]
-
-
-@dataclass
-class GetCbacBannerPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetCbacBannerPermissionDenied"]
-    parameters: GetCbacBannerPermissionDeniedParameters
-    error_instance_id: str
-
-
-class GetCbacMarkingRestrictionInfoPermissionDeniedParameters(typing_extensions.TypedDict):
-    """The provided token does not have permission to get the CBAC marking restrictions for the markings."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    markingIds: typing.List[core_models.MarkingId]
-
-
-@dataclass
-class GetCbacMarkingRestrictionInfoPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetCbacMarkingRestrictionInfoPermissionDenied"]
-    parameters: GetCbacMarkingRestrictionInfoPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -657,19 +545,6 @@ class ListAvailableRolesOrganizationPermissionDenied(errors.PermissionDeniedErro
     error_instance_id: str
 
 
-class ListCurrentGroupsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not listCurrent the Group."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class ListCurrentGroupsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ListCurrentGroupsPermissionDenied"]
-    parameters: ListCurrentGroupsPermissionDeniedParameters
-    error_instance_id: str
-
-
 class ListEnrollmentRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """The provided token does not have permission to list assigned roles for this enrollment."""
 
@@ -727,21 +602,6 @@ class ListMarkingRoleAssignmentsPermissionDeniedParameters(typing_extensions.Typ
 class ListMarkingRoleAssignmentsPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["ListMarkingRoleAssignmentsPermissionDenied"]
     parameters: ListMarkingRoleAssignmentsPermissionDeniedParameters
-    error_instance_id: str
-
-
-class ListOrganizationGuestMembersPermissionDeniedParameters(typing_extensions.TypedDict):
-    """The provided token does not have permission to list guest members for this organization."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    organizationRid: core_models.OrganizationRid
-
-
-@dataclass
-class ListOrganizationGuestMembersPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ListOrganizationGuestMembersPermissionDenied"]
-    parameters: ListOrganizationGuestMembersPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -816,26 +676,6 @@ class MarkingNotFoundParameters(typing_extensions.TypedDict):
 class MarkingNotFound(errors.NotFoundError):
     name: typing.Literal["MarkingNotFound"]
     parameters: MarkingNotFoundParameters
-    error_instance_id: str
-
-
-class OrganizationMarkingAdministerRoleNotSupportedParameters(typing_extensions.TypedDict):
-    """
-    The ADMINISTER role on Organization markings cannot be managed through the Marking Role Assignments
-    endpoints. To manage administrator roles for an Organization, use the Organization Role Assignment endpoints
-    instead.
-    """
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    markingId: core_models.MarkingId
-    organizationRid: core_models.OrganizationRid
-
-
-@dataclass
-class OrganizationMarkingAdministerRoleNotSupported(errors.BadRequestError):
-    name: typing.Literal["OrganizationMarkingAdministerRoleNotSupported"]
-    parameters: OrganizationMarkingAdministerRoleNotSupportedParameters
     error_instance_id: str
 
 
@@ -1022,21 +862,6 @@ class RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed(errors.BadRe
     error_instance_id: str
 
 
-class RemoveOrganizationGuestMembersPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not remove the OrganizationGuestMember."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    organizationRid: core_models.OrganizationRid
-
-
-@dataclass
-class RemoveOrganizationGuestMembersPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["RemoveOrganizationGuestMembersPermissionDenied"]
-    parameters: RemoveOrganizationGuestMembersPermissionDeniedParameters
-    error_instance_id: str
-
-
 class RemoveOrganizationRoleAssignmentsPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not remove the OrganizationRoleAssignment."""
 
@@ -1067,21 +892,6 @@ class ReplaceGroupMembershipExpirationPolicyPermissionDenied(errors.PermissionDe
     error_instance_id: str
 
 
-class ReplaceGroupPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not replace the Group."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    groupId: core_models.GroupId
-
-
-@dataclass
-class ReplaceGroupPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ReplaceGroupPermissionDenied"]
-    parameters: ReplaceGroupPermissionDeniedParameters
-    error_instance_id: str
-
-
 class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not replace the GroupProviderInfo."""
 
@@ -1094,21 +904,6 @@ class ReplaceGroupProviderInfoPermissionDeniedParameters(typing_extensions.Typed
 class ReplaceGroupProviderInfoPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["ReplaceGroupProviderInfoPermissionDenied"]
     parameters: ReplaceGroupProviderInfoPermissionDeniedParameters
-    error_instance_id: str
-
-
-class ReplaceMarkingCategoryPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not replace the MarkingCategory."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    markingCategoryId: admin_models.MarkingCategoryId
-
-
-@dataclass
-class ReplaceMarkingCategoryPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ReplaceMarkingCategoryPermissionDenied"]
-    parameters: ReplaceMarkingCategoryPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -1213,21 +1008,6 @@ class SearchUsersPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class UnknownClassificationBannerDisplayTypeParameters(typing_extensions.TypedDict):
-    """The provided classification banner display type is not recognized."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    displayType: str
-
-
-@dataclass
-class UnknownClassificationBannerDisplayType(errors.BadRequestError):
-    name: typing.Literal["UnknownClassificationBannerDisplayType"]
-    parameters: UnknownClassificationBannerDisplayTypeParameters
-    error_instance_id: str
-
-
 class UserDeletedParameters(typing_extensions.TypedDict):
     """The user is deleted."""
 
@@ -1293,14 +1073,9 @@ __all__ = [
     "AddGroupMembersPermissionDenied",
     "AddMarkingMembersPermissionDenied",
     "AddMarkingRoleAssignmentsPermissionDenied",
-    "AddOrganizationGuestMembersPermissionDenied",
     "AddOrganizationRoleAssignmentsPermissionDenied",
-    "AttributesNotEditable",
     "AuthenticationProviderNotFound",
     "CannotReplaceProviderInfoForPrincipalInProtectedRealm",
-    "CbacBannerNotFound",
-    "CbacMarkingRestrictionsNotFound",
-    "CbacUnavailable",
     "CreateGroupPermissionDenied",
     "CreateMarkingCategoryMissingInitialAdminRole",
     "CreateMarkingCategoryMissingOrganization",
@@ -1313,9 +1088,6 @@ __all__ = [
     "DeleteUserPermissionDenied",
     "EnrollmentNotFound",
     "EnrollmentRoleNotFound",
-    "ExpirationForTransitiveGroupMembersNotSupported",
-    "GetCbacBannerPermissionDenied",
-    "GetCbacMarkingRestrictionInfoPermissionDenied",
     "GetCurrentEnrollmentPermissionDenied",
     "GetCurrentUserPermissionDenied",
     "GetGroupProviderInfoPermissionDenied",
@@ -1333,18 +1105,15 @@ __all__ = [
     "InvalidHostName",
     "InvalidProfilePicture",
     "ListAvailableRolesOrganizationPermissionDenied",
-    "ListCurrentGroupsPermissionDenied",
     "ListEnrollmentRoleAssignmentsPermissionDenied",
     "ListHostsPermissionDenied",
     "ListMarkingMembersPermissionDenied",
     "ListMarkingRoleAssignmentsPermissionDenied",
-    "ListOrganizationGuestMembersPermissionDenied",
     "ListOrganizationRoleAssignmentsPermissionDenied",
     "MarkingCategoryNotFound",
     "MarkingNameInCategoryAlreadyExists",
     "MarkingNameIsEmpty",
     "MarkingNotFound",
-    "OrganizationMarkingAdministerRoleNotSupported",
     "OrganizationNameAlreadyExists",
     "OrganizationNotFound",
     "PreregisterGroupPermissionDenied",
@@ -1357,12 +1126,9 @@ __all__ = [
     "RemoveMarkingMembersPermissionDenied",
     "RemoveMarkingRoleAssignmentsPermissionDenied",
     "RemoveMarkingRoleAssignmentsRemoveAllAdministratorsNotAllowed",
-    "RemoveOrganizationGuestMembersPermissionDenied",
     "RemoveOrganizationRoleAssignmentsPermissionDenied",
     "ReplaceGroupMembershipExpirationPolicyPermissionDenied",
-    "ReplaceGroupPermissionDenied",
     "ReplaceGroupProviderInfoPermissionDenied",
-    "ReplaceMarkingCategoryPermissionDenied",
     "ReplaceMarkingPermissionDenied",
     "ReplaceOrganizationPermissionDenied",
     "ReplaceUserProviderInfoPermissionDenied",
@@ -1370,7 +1136,6 @@ __all__ = [
     "RoleNotFound",
     "SearchGroupsPermissionDenied",
     "SearchUsersPermissionDenied",
-    "UnknownClassificationBannerDisplayType",
     "UserDeleted",
     "UserIsActive",
     "UserNotFound",

@@ -7,8 +7,6 @@ Method | HTTP request | Release Stage |
 [**remove**](#remove) | **POST** /v2/admin/markings/{markingId}/roleAssignments/remove | Stable |
 
 # **add**
-Adds role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
-roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
 
 ### Parameters
@@ -116,8 +114,6 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **remove**
-Removes role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
-roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
 
 ### Parameters

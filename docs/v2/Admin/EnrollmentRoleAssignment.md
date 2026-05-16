@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add**](#add) | **POST** /v2/admin/enrollments/{enrollmentRid}/roleAssignments/add | Public Beta |
-[**list**](#list) | **GET** /v2/admin/enrollments/{enrollmentRid}/roleAssignments | Public Beta |
-[**remove**](#remove) | **POST** /v2/admin/enrollments/{enrollmentRid}/roleAssignments/remove | Public Beta |
+[**add**](#add) | **POST** /v2/admin/enrollments/{enrollmentRid}/roleAssignments/add | Private Beta |
+[**list**](#list) | **GET** /v2/admin/enrollments/{enrollmentRid}/roleAssignments | Private Beta |
+[**remove**](#remove) | **POST** /v2/admin/enrollments/{enrollmentRid}/roleAssignments/remove | Private Beta |
 
 # **add**
 Assign roles to principals for the given Enrollment. At most 100 role assignments can be added in a single request.

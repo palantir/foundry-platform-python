@@ -20,7 +20,6 @@ CheckpointedUserIntakeSubmission | checkpointedUserIntakeSubmission
 CheckpointedObjectSet | checkpointedObjectSet
 CheckpointedMarking | checkpointedMarking
 CheckpointedMarketplaceProduct | checkpointedMarketplaceProduct
-CheckpointedPeeringJob | checkpointedPeeringJob
 CheckpointedRole | checkpointedRole
 CheckpointedIntervention | checkpointedIntervention
 CheckpointedLanguageModelSession | checkpointedLanguageModelSession

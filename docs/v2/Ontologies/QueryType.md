@@ -83,7 +83,6 @@ results available, at least one result will be present in the response.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **ontology** | OntologyIdentifier |  |  |
-**branch** | Optional[FoundryBranch] | The Foundry branch to list queries from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **page_size** | Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 
@@ -101,8 +100,6 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OntologyIdentifier
 ontology = "palantir"
-# Optional[FoundryBranch] | The Foundry branch to list queries from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-branch = None
 # Optional[PageSize] | The desired size of the page to be returned. Defaults to 100. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
 page_size = None
 # Optional[PageToken]
@@ -111,7 +108,7 @@ page_token = None
 
 try:
     for query_type in client.ontologies.Ontology.QueryType.list(
-        ontology, branch=branch, page_size=page_size, page_token=page_token
+        ontology, page_size=page_size, page_token=page_token
     ):
         pprint(query_type)
 except foundry_sdk.PalantirRPCException as e:

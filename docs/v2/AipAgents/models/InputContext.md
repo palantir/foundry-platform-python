@@ -1,6 +1,6 @@
 # InputContext
 
-Custom retrieved [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) to provide to an Agent for continuing a session.
+Custom retrieved [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) to provide to an Agent for continuing a session.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union

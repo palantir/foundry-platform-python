@@ -3,12 +3,12 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/streams/datasets/{datasetRid}/streams | Public Beta |
-[**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} | Stable |
+[**get**](#get) | **GET** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName} | Public Beta |
 [**get_end_offsets**](#get_end_offsets) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getEndOffsets | Public Beta |
 [**get_records**](#get_records) | **GET** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/getRecords | Public Beta |
-[**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord | Stable |
-[**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord | Stable |
-[**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords | Stable |
+[**publish_binary_record**](#publish_binary_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishBinaryRecord | Public Beta |
+[**publish_record**](#publish_record) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecord | Public Beta |
+[**publish_records**](#publish_records) | **POST** /v2/highScale/streams/datasets/{datasetRid}/streams/{streamBranchName}/publishRecords | Public Beta |
 [**reset**](#reset) | **POST** /v2/streams/datasets/{datasetRid}/streams/{streamBranchName}/reset | Public Beta |
 
 # **create**
@@ -96,6 +96,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Stream**
@@ -113,10 +114,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 dataset_rid = None
 # BranchName
 stream_branch_name = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.streams.Dataset.Stream.get(dataset_rid, stream_branch_name)
+    api_response = client.streams.Dataset.Stream.get(
+        dataset_rid, stream_branch_name, preview=preview
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -282,6 +287,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
 **body** | bytes | The binary record to publish to the stream  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
@@ -302,13 +308,15 @@ dataset_rid = None
 stream_branch_name = None
 # bytes | The binary record to publish to the stream
 body = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = None
 
 
 try:
     api_response = client.streams.Dataset.Stream.publish_binary_record(
-        dataset_rid, stream_branch_name, body, view_rid=view_rid
+        dataset_rid, stream_branch_name, body, preview=preview, view_rid=view_rid
     )
     print("The publish_binary_record response:\n")
     pprint(api_response)
@@ -342,6 +350,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
 **record** | Record | The record to publish to the stream  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
@@ -362,13 +371,15 @@ dataset_rid = None
 stream_branch_name = None
 # Record | The record to publish to the stream
 record = {"timestamp": 1731426022784, "value": "Hello, World!"}
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
     api_response = client.streams.Dataset.Stream.publish_record(
-        dataset_rid, stream_branch_name, record=record, view_rid=view_rid
+        dataset_rid, stream_branch_name, record=record, preview=preview, view_rid=view_rid
     )
     print("The publish_record response:\n")
     pprint(api_response)
@@ -402,6 +413,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid |  |  |
 **stream_branch_name** | BranchName |  |  |
 **records** | List[Record] | The records to publish to the stream  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **view_rid** | Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.  | [optional] |
 
 ### Return type
@@ -422,13 +434,15 @@ dataset_rid = None
 stream_branch_name = None
 # List[Record] | The records to publish to the stream
 records = [{"timestamp": 1731426022784, "value": "Hello, World!"}]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 # Optional[ViewRid] | If provided, this endpoint will only write to the stream corresponding to the specified view RID. If not provided, this endpoint will write to the latest stream on the branch.  Providing this value is an advanced configuration, to be used when additional control over the underlying streaming data structures is needed.
 view_rid = "ri.foundry-streaming.main.view.ecd4f0f6-8526-4468-9eda-14939449ad79"
 
 
 try:
     api_response = client.streams.Dataset.Stream.publish_records(
-        dataset_rid, stream_branch_name, records=records, view_rid=view_rid
+        dataset_rid, stream_branch_name, records=records, preview=preview, view_rid=view_rid
     )
     print("The publish_records response:\n")
     pprint(api_response)

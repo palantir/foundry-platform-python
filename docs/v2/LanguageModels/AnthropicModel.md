@@ -15,7 +15,6 @@ Name | Type | Description  | Notes |
 **max_tokens** | int | The maximum number of tokens to generate before stopping. |  |
 **messages** | List[AnthropicMessage] | Input messages to the model. This can include a single user-role message or multiple messages with alternating user and assistant roles.  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
-**output_config** | Optional[AnthropicOutputConfig] | Configuration to control the shape of the model's output | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **stop_sequences** | Optional[List[str]] | Custom text sequences that will cause the model to stop generating. | [optional] |
 **system** | Optional[List[AnthropicSystemMessage]] | A system prompt is a way of providing context and instructions to Claude, such as specifying a  particular goal or role. As of now, sending multiple system prompts is not supported.  | [optional] |
@@ -46,8 +45,6 @@ max_tokens = None
 messages = [{"role": "USER"}]
 # Optional[Attribution]
 attribution = None
-# Optional[AnthropicOutputConfig] | Configuration to control the shape of the model's output
-output_config = {"effort": "LOW"}
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[List[str]] | Custom text sequences that will cause the model to stop generating.
@@ -74,7 +71,6 @@ try:
         max_tokens=max_tokens,
         messages=messages,
         attribution=attribution,
-        output_config=output_config,
         preview=preview,
         stop_sequences=stop_sequences,
         system=system,

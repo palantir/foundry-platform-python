@@ -72,13 +72,6 @@ class ScheduleClient:
     ) -> orchestration_models.Schedule:
         """
         Creates a new Schedule.
-
-        :::callout{theme=warning title=Warning}
-        If the schedule is created in user-scoped mode, outputs to build will be discovered based on resources
-        that the user has access to. If the user's permissions change later, this could change the outputs that
-        will be built or cause builds to fail. Consider using a project-scoped schedule instead.
-        :::
-
         :param action:
         :type action: CreateScheduleRequestAction
         :param description:
@@ -372,14 +365,7 @@ class ScheduleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> orchestration_models.Schedule:
         """
-        Replaces the Schedule with the specified rid.
-
-        :::callout{theme=warning title=Warning}
-        If the schedule is configured in user-scoped mode, outputs to build will be discovered based on resources
-        that the user has access to. If the user's permissions change later, this could change the outputs that
-        will be built or cause builds to fail. Consider using a project-scoped schedule instead.
-        :::
-
+        Replace the Schedule with the specified rid.
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:
@@ -660,13 +646,6 @@ class AsyncScheduleClient:
     ) -> typing.Awaitable[orchestration_models.Schedule]:
         """
         Creates a new Schedule.
-
-        :::callout{theme=warning title=Warning}
-        If the schedule is created in user-scoped mode, outputs to build will be discovered based on resources
-        that the user has access to. If the user's permissions change later, this could change the outputs that
-        will be built or cause builds to fail. Consider using a project-scoped schedule instead.
-        :::
-
         :param action:
         :type action: CreateScheduleRequestAction
         :param description:
@@ -960,14 +939,7 @@ class AsyncScheduleClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[orchestration_models.Schedule]:
         """
-        Replaces the Schedule with the specified rid.
-
-        :::callout{theme=warning title=Warning}
-        If the schedule is configured in user-scoped mode, outputs to build will be discovered based on resources
-        that the user has access to. If the user's permissions change later, this could change the outputs that
-        will be built or cause builds to fail. Consider using a project-scoped schedule instead.
-        :::
-
+        Replace the Schedule with the specified rid.
         :param schedule_rid:
         :type schedule_rid: ScheduleRid
         :param action:

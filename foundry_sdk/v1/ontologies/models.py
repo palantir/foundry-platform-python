@@ -403,11 +403,7 @@ class EntrySetType(core.ModelBase):
 
 
 class EqualsQuery(core.ModelBase):
-    """
-    Returns objects where the specified field is equal to a value.
-
-    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
-    """
+    """Returns objects where the specified field is equal to a value."""
 
     field: FieldNameV1
     value: PropertyValue
@@ -776,7 +772,6 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
-        core_models.MediaReferenceType,
         "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
@@ -1129,28 +1124,25 @@ QueryDataType = typing_extensions.Annotated[
         core_models.DateType,
         "OntologyInterfaceObjectType",
         "QueryStructType",
+        "QuerySetType",
         core_models.StringType,
+        "EntrySetType",
+        core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
+        "QueryUnionType",
         core_models.FloatType,
         core_models.LongType,
+        core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
+        core_models.NullType,
         "QueryArrayType",
         "OntologyObjectSetType",
         "TwoDimensionalAggregation",
-        "QueryTypeReferenceType",
-        core_models.TimestampType,
-        "QuerySetType",
-        core_models.VoidType,
-        "EntrySetType",
-        core_models.DoubleType,
-        "QueryUnionType",
-        core_models.BooleanType,
-        core_models.MediaReferenceType,
-        core_models.NullType,
         "OntologyInterfaceObjectSetType",
         "OntologyObjectType",
+        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -1192,16 +1184,6 @@ class QueryType(core.ModelBase):
     output: typing.Optional[OntologyDataType] = None
     rid: FunctionRid
     version: FunctionVersion
-
-
-class QueryTypeReferenceType(core.ModelBase):
-    """
-    A reference to a type that is defined in the `typeReferences` map of the enclosing Query.
-    This enables support for recursive type definitions where a type may reference itself.
-    """
-
-    type_id: TypeReferenceIdentifier = pydantic.Field(alias=str("typeId"))  # type: ignore[literal-required]
-    type: typing.Literal["typeReference"] = "typeReference"
 
 
 class QueryUnionType(core.ModelBase):
@@ -1462,13 +1444,6 @@ class TwoDimensionalAggregation(core.ModelBase):
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
 
 
-TypeReferenceIdentifier = str
-"""
-The unique identifier of a type reference. This identifier is used to look up the
-type definition in the `typeReferences` map of the enclosing Query.
-"""
-
-
 class UnevaluableConstraint(core.ModelBase):
     """
     The parameter cannot be evaluated because it depends on another parameter or object set that can't be evaluated.
@@ -1692,7 +1667,6 @@ __all__ = [
     "QueryStructField",
     "QueryStructType",
     "QueryType",
-    "QueryTypeReferenceType",
     "QueryUnionType",
     "RangeConstraint",
     "ReturnEditsMode",
@@ -1718,7 +1692,6 @@ __all__ = [
     "SumAggregation",
     "ThreeDimensionalAggregation",
     "TwoDimensionalAggregation",
-    "TypeReferenceIdentifier",
     "UnevaluableConstraint",
     "UniqueIdentifierLinkId",
     "ValidateActionRequest",

@@ -262,6 +262,7 @@ class UserClient:
         self,
         user_id: core_models.UserId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.GetUserMarkingsResponse:
@@ -269,6 +270,8 @@ class UserClient:
         Retrieve Markings that the user is currently a member of.
         :param user_id:
         :type user_id: UserId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -283,7 +286,9 @@ class UserClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/getMarkings",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -415,6 +420,7 @@ class UserClient:
         self,
         user_id: core_models.UserId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -426,6 +432,8 @@ class UserClient:
 
         :param user_id:
         :type user_id: UserId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -440,7 +448,9 @@ class UserClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/{userId}/revokeAllTokens",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -470,8 +480,7 @@ class UserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.SearchUsersResponse:
         """
-        Perform a case-insensitive prefix search for active users based on username, given name and family name.
-        Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
+        Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
         :type where: UserSearchFilter
@@ -790,6 +799,7 @@ class AsyncUserClient:
         self,
         user_id: core_models.UserId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.GetUserMarkingsResponse]:
@@ -797,6 +807,8 @@ class AsyncUserClient:
         Retrieve Markings that the user is currently a member of.
         :param user_id:
         :type user_id: UserId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -811,7 +823,9 @@ class AsyncUserClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/getMarkings",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -943,6 +957,7 @@ class AsyncUserClient:
         self,
         user_id: core_models.UserId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -954,6 +969,8 @@ class AsyncUserClient:
 
         :param user_id:
         :type user_id: UserId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -968,7 +985,9 @@ class AsyncUserClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/admin/users/{userId}/revokeAllTokens",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "userId": user_id,
                 },
@@ -998,8 +1017,7 @@ class AsyncUserClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.SearchUsersResponse]:
         """
-        Perform a case-insensitive prefix search for active users based on username, given name and family name.
-        Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
+        Perform a case-insensitive prefix search for users based on username, given name and family name.
 
         :param where:
         :type where: UserSearchFilter
