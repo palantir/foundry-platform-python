@@ -1,6 +1,6 @@
 # ParameterValue
 
-The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/chatbot-studio/application-state/) of an Agent.
+The value provided for a variable configured in the [application state](https://palantir.com/docs/foundry/agent-studio/application-state/) of an Agent.
 
 
 This is a discriminator type and does not contain any fields. Instead, it is a union

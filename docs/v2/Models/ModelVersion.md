@@ -3,8 +3,8 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**create**](#create) | **POST** /v2/models/{modelRid}/versions | Private Beta |
-[**get**](#get) | **GET** /v2/models/{modelRid}/versions/{modelVersionRid} | Public Beta |
-[**list**](#list) | **GET** /v2/models/{modelRid}/versions | Public Beta |
+[**get**](#get) | **GET** /v2/models/{modelRid}/versions/{modelVersionRid} | Private Beta |
+[**list**](#list) | **GET** /v2/models/{modelRid}/versions | Private Beta |
 
 # **create**
 Creates a new Model Version on an existing model.
@@ -35,9 +35,9 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 # ModelRid
 model_rid = None
 # List[RID]
-backing_repositories = ["ri.stemma.main.repository.a1b2c3d4-e5f6-7890-abcd-ef1234567890"]
+backing_repositories = None
 # List[str]
-conda_requirements = ["numpy==1.24.0", "pandas==2.0.0"]
+conda_requirements = None
 # ModelApi
 model_api = {
     "inputs": [
@@ -161,7 +161,6 @@ Lists all Model Versions for a given Model.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **model_rid** | ModelRid |  |  |
-**branch** | Optional[BranchName] | The branch to list versions from. Defaults to master on most enrollments.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
@@ -180,8 +179,6 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ModelRid
 model_rid = None
-# Optional[BranchName] | The branch to list versions from. Defaults to master on most enrollments.
-branch = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -192,7 +189,7 @@ preview = None
 
 try:
     for model_version in client.models.Model.Version.list(
-        model_rid, branch=branch, page_size=page_size, page_token=page_token, preview=preview
+        model_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(model_version)
 except foundry_sdk.PalantirRPCException as e:

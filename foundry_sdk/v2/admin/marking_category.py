@@ -125,6 +125,7 @@ class MarkingCategoryClient:
         self,
         marking_category_id: admin_models.MarkingCategoryId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.MarkingCategory:
@@ -132,6 +133,8 @@ class MarkingCategoryClient:
         Get the MarkingCategory with the specified id.
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -145,7 +148,9 @@ class MarkingCategoryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "markingCategoryId": marking_category_id,
                 },
@@ -171,6 +176,7 @@ class MarkingCategoryClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[admin_models.MarkingCategory]:
@@ -180,6 +186,8 @@ class MarkingCategoryClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -195,6 +203,7 @@ class MarkingCategoryClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -210,80 +219,16 @@ class MarkingCategoryClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def replace(
-        self,
-        marking_category_id: admin_models.MarkingCategoryId,
-        *,
-        description: admin_models.MarkingCategoryDescription,
-        name: admin_models.MarkingCategoryName,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.MarkingCategory:
-        """
-        Replace the MarkingCategory with the specified id.
-        :param marking_category_id:
-        :type marking_category_id: MarkingCategoryId
-        :param description:
-        :type description: MarkingCategoryDescription
-        :param name:
-        :type name: MarkingCategoryName
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.MarkingCategory
-
-        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
-        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
-        :raises ReplaceMarkingCategoryPermissionDenied: Could not replace the MarkingCategory.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="PUT",
-                resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "markingCategoryId": marking_category_id,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=admin_models.ReplaceMarkingCategoryRequest(
-                    name=name,
-                    description=description,
-                ),
-                response_type=admin_models.MarkingCategory,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
-                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
-                    "ReplaceMarkingCategoryPermissionDenied": admin_errors.ReplaceMarkingCategoryPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _MarkingCategoryClientRaw:
     def __init__(self, client: MarkingCategoryClient) -> None:
         def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def replace(_: admin_models.MarkingCategory): ...
 
         self.create = core.with_raw_response(create, client.create)
         self.get = core.with_raw_response(get, client.get)
         self.list = core.with_raw_response(list, client.list)
-        self.replace = core.with_raw_response(replace, client.replace)
 
 
 class _MarkingCategoryClientStreaming:
@@ -291,12 +236,10 @@ class _MarkingCategoryClientStreaming:
         def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def replace(_: admin_models.MarkingCategory): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.list = core.with_streaming_response(list, client.list)
-        self.replace = core.with_streaming_response(replace, client.replace)
 
 
 class AsyncMarkingCategoryClient:
@@ -398,6 +341,7 @@ class AsyncMarkingCategoryClient:
         self,
         marking_category_id: admin_models.MarkingCategoryId,
         *,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.MarkingCategory]:
@@ -405,6 +349,8 @@ class AsyncMarkingCategoryClient:
         Get the MarkingCategory with the specified id.
         :param marking_category_id:
         :type marking_category_id: MarkingCategoryId
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -418,7 +364,9 @@ class AsyncMarkingCategoryClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "markingCategoryId": marking_category_id,
                 },
@@ -444,6 +392,7 @@ class AsyncMarkingCategoryClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[admin_models.MarkingCategory]:
@@ -453,6 +402,8 @@ class AsyncMarkingCategoryClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -468,6 +419,7 @@ class AsyncMarkingCategoryClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
+                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -483,80 +435,16 @@ class AsyncMarkingCategoryClient:
             ),
         )
 
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def replace(
-        self,
-        marking_category_id: admin_models.MarkingCategoryId,
-        *,
-        description: admin_models.MarkingCategoryDescription,
-        name: admin_models.MarkingCategoryName,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[admin_models.MarkingCategory]:
-        """
-        Replace the MarkingCategory with the specified id.
-        :param marking_category_id:
-        :type marking_category_id: MarkingCategoryId
-        :param description:
-        :type description: MarkingCategoryDescription
-        :param name:
-        :type name: MarkingCategoryName
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[admin_models.MarkingCategory]
-
-        :raises GetMarkingCategoryPermissionDenied: The provided token does not have permission to view the marking category.
-        :raises MarkingCategoryNotFound: The given MarkingCategory could not be found.
-        :raises ReplaceMarkingCategoryPermissionDenied: Could not replace the MarkingCategory.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="PUT",
-                resource_path="/v2/admin/markingCategories/{markingCategoryId}",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={
-                    "markingCategoryId": marking_category_id,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=admin_models.ReplaceMarkingCategoryRequest(
-                    name=name,
-                    description=description,
-                ),
-                response_type=admin_models.MarkingCategory,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "GetMarkingCategoryPermissionDenied": admin_errors.GetMarkingCategoryPermissionDenied,
-                    "MarkingCategoryNotFound": admin_errors.MarkingCategoryNotFound,
-                    "ReplaceMarkingCategoryPermissionDenied": admin_errors.ReplaceMarkingCategoryPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
 
 class _AsyncMarkingCategoryClientRaw:
     def __init__(self, client: AsyncMarkingCategoryClient) -> None:
         def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def replace(_: admin_models.MarkingCategory): ...
 
         self.create = core.async_with_raw_response(create, client.create)
         self.get = core.async_with_raw_response(get, client.get)
         self.list = core.async_with_raw_response(list, client.list)
-        self.replace = core.async_with_raw_response(replace, client.replace)
 
 
 class _AsyncMarkingCategoryClientStreaming:
@@ -564,9 +452,7 @@ class _AsyncMarkingCategoryClientStreaming:
         def create(_: admin_models.MarkingCategory): ...
         def get(_: admin_models.MarkingCategory): ...
         def list(_: admin_models.ListMarkingCategoriesResponse): ...
-        def replace(_: admin_models.MarkingCategory): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.list = core.async_with_streaming_response(list, client.list)
-        self.replace = core.async_with_streaming_response(replace, client.replace)

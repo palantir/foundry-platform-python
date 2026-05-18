@@ -1,14 +1,12 @@
-# AvgAggregationV2
+# SetWidgetSetDevModeSettingsRequest
 
-Computes the average value for the provided field.
+SetWidgetSetDevModeSettingsRequest
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
-**name** | Optional[AggregationMetricName] | No |  |
-**direction** | Optional[OrderByDirection] | No |  |
-**type** | Literal["avg"] | Yes | None |
+**widget_set_rid** | WidgetSetRid | Yes |  |
+**settings** | WidgetSetDevModeSettings | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

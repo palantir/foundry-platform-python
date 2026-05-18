@@ -1,11 +1,12 @@
-# AgentRid
+# EditTypeFilter
 
-An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+EditTypeFilter
 
-## Type
-```python
-RID
-```
+| **Value** |
+| --------- |
+| `"create"` |
+| `"modify"` |
+| `"delete"` |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

@@ -158,12 +158,6 @@ class MarkingType(core.ModelBase):
     type: typing.Literal["marking"] = "marking"
 
 
-class MediaReferenceType(core.ModelBase):
-    """MediaReferenceType"""
-
-    type: typing.Literal["mediaReference"] = "mediaReference"
-
-
 MediaType = str
 """
 The [media type](https://www.iana.org/assignments/media-types/media-types.xhtml) of the file or attachment.
@@ -255,12 +249,6 @@ UnsupportedTypeParamValue = str
 """UnsupportedTypeParamValue"""
 
 
-class VoidType(core.ModelBase):
-    """VoidType"""
-
-    type: typing.Literal["void"] = "void"
-
-
 __all__ = [
     "AnyType",
     "AttachmentType",
@@ -284,7 +272,6 @@ __all__ = [
     "IntegerType",
     "LongType",
     "MarkingType",
-    "MediaReferenceType",
     "MediaType",
     "NullType",
     "OperationScope",
@@ -303,5 +290,4 @@ __all__ = [
     "UnsupportedType",
     "UnsupportedTypeParamKey",
     "UnsupportedTypeParamValue",
-    "VoidType",
 ]

@@ -35,12 +35,6 @@ class ArrayConstraint(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
-class CancelExecutionResponse(core.ModelBase):
-    """CancelExecutionResponse"""
-
-    id: ExecutionId
-
-
 DataValue = typing.Any
 """
 Represents the value of data in the following format. Note that these values can be nested, for example an array of structs.
@@ -75,73 +69,17 @@ class EnumConstraint(core.ModelBase):
     type: typing.Literal["enum"] = "enum"
 
 
-class ExecuteAsyncQueryRequest(core.ModelBase):
-    """ExecuteAsyncQueryRequest"""
-
-    ontology: typing.Optional[ontologies_models.OntologyIdentifier] = None
-    """
-    Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
-    function. When omitted, executes a global function.
-    """
-
-    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
-    version: typing.Optional[FunctionVersion] = None
-    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
-
-    branch: typing.Optional[core_models.FoundryBranch] = None
-    """
-    The Foundry branch to execute the query from. If not specified, the default branch is used.
-    When provided without `version`, the latest version on this branch is used.
-    When provided with `version`, the specified version must exist on the branch.
-    """
-
-
-ExecuteQueryAsyncResponse = typing_extensions.Annotated[
-    typing.Union["ExecutionSubmitted", "ExecutionCompleted"], pydantic.Field(discriminator="type")
-]
-"""Response from submitting a query for async execution."""
-
-
 class ExecuteQueryRequest(core.ModelBase):
     """ExecuteQueryRequest"""
 
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
     version: typing.Optional[FunctionVersion] = None
-    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
-
-    branch: typing.Optional[core_models.FoundryBranch] = None
-    """
-    The Foundry branch to execute the query from. If not specified, the default branch is used.
-    When provided without `version`, the latest version on this branch is used.
-    When provided with `version`, the specified version must exist on the branch.
-    """
 
 
 class ExecuteQueryResponse(core.ModelBase):
     """ExecuteQueryResponse"""
 
     value: DataValue
-
-
-class ExecutionCompleted(core.ModelBase):
-    """The query completed immediately. No polling needed."""
-
-    value: DataValue
-    type: typing.Literal["completed"] = "completed"
-
-
-ExecutionId = str
-"""Unique identifier for an async query execution."""
-
-
-class ExecutionSubmitted(core.ModelBase):
-    """
-    The query was submitted for async processing.
-    Use the executionId to poll for results via getResult or to cancel via cancel.
-    """
-
-    execution_id: ExecutionId = pydantic.Field(alias=str("executionId"))  # type: ignore[literal-required]
-    type: typing.Literal["submitted"] = "submitted"
 
 
 FunctionRid = core.RID
@@ -155,9 +93,11 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
-class GetByRidQueriesBatchRequestElement(core.ModelBase):
-    """GetByRidQueriesBatchRequestElement"""
+class GetByRidQueriesRequest(core.ModelBase):
+    """GetByRidQueriesRequest"""
 
+    rid: FunctionRid
+    version: typing.Optional[FunctionVersion] = None
     include_prerelease: typing.Optional[bool] = pydantic.Field(alias=str("includePrerelease"), default=None)  # type: ignore[literal-required]
     """
     When no version is specified and this flag is set to true, the latest version resolution will consider
@@ -165,32 +105,6 @@ class GetByRidQueriesBatchRequestElement(core.ModelBase):
     versions are considered when determining the latest version.
 
     Defaults to false.
-    """
-
-    rid: FunctionRid
-    version: typing.Optional[FunctionVersion] = None
-
-
-class GetByRidQueriesBatchResponse(core.ModelBase):
-    """GetByRidQueriesBatchResponse"""
-
-    data: typing.List[Query]
-
-
-GetExecutionResultResponse = typing_extensions.Annotated[
-    typing.Union["RunningExecution", "SucceededExecution"], pydantic.Field(discriminator="type")
-]
-"""Poll response for an async query execution."""
-
-
-class GetResultExecutionRequest(core.ModelBase):
-    """GetResultExecutionRequest"""
-
-    timeout: typing.Optional[int] = None
-    """
-    Maximum time in seconds to hold the connection open while waiting
-    for execution to complete. Default: 0 (immediate status check).
-    Values above 280 are clamped to 280.
     """
 
 
@@ -227,7 +141,6 @@ class Parameter(core.ModelBase):
 
     description: typing.Optional[str] = None
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
-    required: bool
 
 
 ParameterId = str
@@ -247,7 +160,6 @@ class Query(core.ModelBase):
     output: QueryDataType
     rid: FunctionRid
     version: FunctionVersion
-    type_references: typing.Optional[typing.Dict[TypeReferenceIdentifier, QueryDataType]] = pydantic.Field(alias=str("typeReferences"), default=None)  # type: ignore[literal-required]
 
 
 QueryAggregationKeyType = typing_extensions.Annotated[
@@ -307,7 +219,6 @@ QueryDataType = typing_extensions.Annotated[
         core_models.DateType,
         "QueryStructType",
         "QuerySetType",
-        core_models.VoidType,
         core_models.StringType,
         core_models.DoubleType,
         core_models.IntegerType,
@@ -318,12 +229,10 @@ QueryDataType = typing_extensions.Annotated[
         core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
-        core_models.MediaReferenceType,
         core_models.NullType,
         "QueryArrayType",
         "TwoDimensionalAggregation",
         "ValueTypeReference",
-        "QueryTypeReferenceType",
         core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
@@ -356,16 +265,6 @@ class QueryStructType(core.ModelBase):
     type: typing.Literal["struct"] = "struct"
 
 
-class QueryTypeReferenceType(core.ModelBase):
-    """
-    A reference to a type that is defined in the `typeReferences` map of the enclosing Query.
-    This enables support for recursive type definitions where a type may reference itself.
-    """
-
-    type_id: TypeReferenceIdentifier = pydantic.Field(alias=str("typeId"))  # type: ignore[literal-required]
-    type: typing.Literal["typeReference"] = "typeReference"
-
-
 class QueryUnionType(core.ModelBase):
     """QueryUnionType"""
 
@@ -395,12 +294,6 @@ class RidConstraint(core.ModelBase):
     type: typing.Literal["rid"] = "rid"
 
 
-class RunningExecution(core.ModelBase):
-    """The query execution is still in progress."""
-
-    type: typing.Literal["running"] = "running"
-
-
 class StreamingExecuteQueryRequest(core.ModelBase):
     """StreamingExecuteQueryRequest"""
 
@@ -412,14 +305,6 @@ class StreamingExecuteQueryRequest(core.ModelBase):
 
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
     version: typing.Optional[FunctionVersion] = None
-    """The version of the query to execute. When used with `branch`, the specified version must exist on the branch."""
-
-    branch: typing.Optional[core_models.FoundryBranch] = None
-    """
-    The Foundry branch to execute the query from. If not specified, the default branch is used.
-    When provided without `version`, the latest version on this branch is used.
-    When provided with `version`, the specified version must exist on the branch.
-    """
 
 
 class StructConstraint(core.ModelBase):
@@ -444,13 +329,6 @@ class StructV1Constraint(core.ModelBase):
     type: typing.Literal["structV1"] = "structV1"
 
 
-class SucceededExecution(core.ModelBase):
-    """The query execution completed successfully."""
-
-    value: DataValue
-    type: typing.Literal["succeeded"] = "succeeded"
-
-
 class ThreeDimensionalAggregation(core.ModelBase):
     """ThreeDimensionalAggregation"""
 
@@ -469,13 +347,6 @@ class TwoDimensionalAggregation(core.ModelBase):
     key_type: QueryAggregationKeyType = pydantic.Field(alias=str("keyType"))  # type: ignore[literal-required]
     value_type: QueryAggregationValueType = pydantic.Field(alias=str("valueType"))  # type: ignore[literal-required]
     type: typing.Literal["twoDimensionalAggregation"] = "twoDimensionalAggregation"
-
-
-TypeReferenceIdentifier = str
-"""
-The unique identifier of a type reference. This identifier is used to look up the
-type definition in the `typeReferences` map of the enclosing Query.
-"""
 
 
 class UuidConstraint(core.ModelBase):
@@ -710,8 +581,6 @@ class VersionId(core.ModelBase):
     constraints: typing.List[ValueTypeConstraint]
 
 
-core.resolve_forward_references(ExecuteQueryAsyncResponse, globalns=globals(), localns=locals())
-core.resolve_forward_references(GetExecutionResultResponse, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationKeyType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationRangeSubType, globalns=globals(), localns=locals())
 core.resolve_forward_references(QueryAggregationValueType, globalns=globals(), localns=locals())
@@ -721,22 +590,13 @@ core.resolve_forward_references(ValueTypeDataType, globalns=globals(), localns=l
 
 __all__ = [
     "ArrayConstraint",
-    "CancelExecutionResponse",
     "DataValue",
     "EnumConstraint",
-    "ExecuteAsyncQueryRequest",
-    "ExecuteQueryAsyncResponse",
     "ExecuteQueryRequest",
     "ExecuteQueryResponse",
-    "ExecutionCompleted",
-    "ExecutionId",
-    "ExecutionSubmitted",
     "FunctionRid",
     "FunctionVersion",
-    "GetByRidQueriesBatchRequestElement",
-    "GetByRidQueriesBatchResponse",
-    "GetExecutionResultResponse",
-    "GetResultExecutionRequest",
+    "GetByRidQueriesRequest",
     "LengthConstraint",
     "MapConstraint",
     "NullableConstraint",
@@ -755,22 +615,18 @@ __all__ = [
     "QuerySetType",
     "QueryStructField",
     "QueryStructType",
-    "QueryTypeReferenceType",
     "QueryUnionType",
     "RangesConstraint",
     "RegexConstraint",
     "RidConstraint",
-    "RunningExecution",
     "StreamingExecuteQueryRequest",
     "StructConstraint",
     "StructFieldApiName",
     "StructFieldName",
     "StructV1Constraint",
-    "SucceededExecution",
     "ThreeDimensionalAggregation",
     "TransactionId",
     "TwoDimensionalAggregation",
-    "TypeReferenceIdentifier",
     "UuidConstraint",
     "ValueType",
     "ValueTypeApiName",

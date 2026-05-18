@@ -3,10 +3,8 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**execute**](#execute) | **POST** /v2/functions/queries/{queryApiName}/execute | Private Beta |
-[**execute_async**](#execute_async) | **POST** /v2/functions/queries/{queryApiName}/executeAsync | Private Beta |
 [**get**](#get) | **GET** /v2/functions/queries/{queryApiName} | Private Beta |
-[**get_by_rid**](#get_by_rid) | **GET** /v2/functions/queries/getByRid | Private Beta |
-[**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/functions/queries/getByRidBatch | Private Beta |
+[**get_by_rid**](#get_by_rid) | **POST** /v2/functions/queries/getByRid | Private Beta |
 [**streaming_execute**](#streaming_execute) | **POST** /v2/functions/queries/{queryApiName}/streamingExecute | Private Beta |
 
 # **execute**
@@ -14,7 +12,7 @@ Executes a Query using the given parameters. By default, this executes the lates
 
 This endpoint is maintained for backward compatibility only.
 
-For all new implementations, use the `streamingExecute` endpoint, which supports all function types
+For all new implementations, use the `streamingExecute` endpoint, which supports all function types 
 and provides enhanced functionality.
 
 
@@ -25,12 +23,11 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
-**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
 **transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
-**version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
+**version** | Optional[FunctionVersion] |  | [optional] |
 
 ### Return type
 **ExecuteQueryResponse**
@@ -50,8 +47,6 @@ query_api_name = None
 parameters = None
 # Optional[Attribution]
 attribution = None
-# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
-branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[TraceParent]
@@ -60,7 +55,7 @@ trace_parent = None
 trace_state = None
 # Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+# Optional[FunctionVersion]
 version = None
 
 
@@ -69,7 +64,6 @@ try:
         query_api_name,
         parameters=parameters,
         attribution=attribution,
-        branch=branch,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -93,96 +87,6 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | ExecuteQueryResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
-# **execute_async**
-Submits a Query for asynchronous execution. Returns either an execution ID
-for polling, or the complete result if execution finished immediately.
-
-Use the Execution resource's getResult endpoint to poll for the
-result of a submitted execution.
-
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**query_api_name** | QueryApiName |  |  |
-**parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
-**attribution** | Optional[Attribution] |  | [optional] |
-**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
-**ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-**trace_parent** | Optional[TraceParent] |  | [optional] |
-**trace_state** | Optional[TraceState] |  | [optional] |
-**transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
-**version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
-
-### Return type
-**ExecuteQueryAsyncResponse**
-
-### Example
-
-```python
-from foundry_sdk import FoundryClient
-import foundry_sdk
-from pprint import pprint
-
-client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# QueryApiName
-query_api_name = None
-# Dict[ParameterId, Optional[DataValue]]
-parameters = None
-# Optional[Attribution]
-attribution = None
-# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
-branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
-# Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
-ontology = "example-ontology"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-# Optional[TraceParent]
-trace_parent = None
-# Optional[TraceState]
-trace_state = None
-# Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
-transaction_id = None
-# Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
-version = None
-
-
-try:
-    api_response = client.functions.Query.execute_async(
-        query_api_name,
-        parameters=parameters,
-        attribution=attribution,
-        branch=branch,
-        ontology=ontology,
-        preview=preview,
-        trace_parent=trace_parent,
-        trace_state=trace_state,
-        transaction_id=transaction_id,
-        version=version,
-    )
-    print("The execute_async response:\n")
-    pprint(api_response)
-except foundry_sdk.PalantirRPCException as e:
-    print("HTTP error when calling Query.execute_async: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | ExecuteQueryAsyncResponse  |  | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
@@ -299,61 +203,6 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-# **get_by_rid_batch**
-Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
-
-Queries are filtered from the response if they don't exist or the requesting token lacks the required 
-permissions.
-
-The maximum batch size for this endpoint is 100.
-
-### Parameters
-
-Name | Type | Description  | Notes |
-------------- | ------------- | ------------- | ------------- |
-**body** | List[GetByRidQueriesBatchRequestElement] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
-
-### Return type
-**GetByRidQueriesBatchResponse**
-
-### Example
-
-```python
-from foundry_sdk import FoundryClient
-import foundry_sdk
-from pprint import pprint
-
-client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
-
-# List[GetByRidQueriesBatchRequestElement] | Body of the request
-body = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
-
-
-try:
-    api_response = client.functions.Query.get_by_rid_batch(body, preview=preview)
-    print("The get_by_rid_batch response:\n")
-    pprint(api_response)
-except foundry_sdk.PalantirRPCException as e:
-    print("HTTP error when calling Query.get_by_rid_batch: %s\n" % e)
-
-```
-
-
-
-### Authorization
-
-See [README](../../../README.md#authorization)
-
-### HTTP response details
-| Status Code | Type        | Description | Content Type |
-|-------------|-------------|-------------|------------------|
-**200** | GetByRidQueriesBatchResponse  |  | application/json |
-
-[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
-
 # **streaming_execute**
 Executes a Query using the given parameters, returning results as an NDJSON stream. By default, this executes the latest version of the query.
 
@@ -389,13 +238,12 @@ Name | Type | Description  | Notes |
 **query_api_name** | QueryApiName |  |  |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] |  | [optional] |
-**branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.  | [optional] |
 **ontology** | Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.  | [optional] |
 **preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **trace_parent** | Optional[TraceParent] |  | [optional] |
 **trace_state** | Optional[TraceState] |  | [optional] |
 **transaction_id** | Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported. | [optional] |
-**version** | Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
+**version** | Optional[FunctionVersion] |  | [optional] |
 
 ### Return type
 **bytes**
@@ -415,8 +263,6 @@ query_api_name = None
 parameters = None
 # Optional[Attribution]
 attribution = None
-# Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. When provided without `version`, the latest version on this branch is used. When provided with `version`, the specified version must exist on the branch.
-branch = "ri.branch..branch.d827184f-ee0e-4351-8b70-efbe51e07252"
 # Optional[OntologyIdentifier] | Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped function. When omitted, executes a global function.
 ontology = "example-ontology"
 # Optional[PreviewMode] | Enables the use of preview functionality.
@@ -427,7 +273,7 @@ trace_parent = None
 trace_state = None
 # Optional[TransactionId] | The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
-# Optional[FunctionVersion] | The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+# Optional[FunctionVersion]
 version = None
 
 
@@ -436,7 +282,6 @@ try:
         query_api_name,
         parameters=parameters,
         attribution=attribution,
-        branch=branch,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,

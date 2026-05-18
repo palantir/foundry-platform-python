@@ -15,7 +15,6 @@
 
 import typing
 
-import annotated_types
 import pydantic
 import typing_extensions
 
@@ -106,76 +105,13 @@ class ObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_by_rid_batch(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        requests: typing_extensions.Annotated[
-            typing.List[ontologies_models.GetObjectTypeByRidBatchRequestElement],
-            annotated_types.Len(min_length=1, max_length=100),
-        ],
-        branch: typing.Optional[core_models.FoundryBranch] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.GetObjectTypeByRidBatchResponse:
-        """
-        Gets a list of object types by RID in bulk.
-
-        Object types are filtered from the response if they don't exist or the requesting token lacks the required
-        permissions.
-
-        The maximum batch size for this endpoint is 100.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param requests:
-        :type requests: List[GetObjectTypeByRidBatchRequestElement]
-        :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.GetObjectTypeByRidBatchResponse
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/objectTypes/getByRidBatch",
-                query_params={
-                    "branch": branch,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=ontologies_models.GetObjectTypeByRidBatchRequest(
-                    requests=requests,
-                ),
-                response_type=ontologies_models.GetObjectTypeByRidBatchResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def get_edits_history(
         self,
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        filters: typing.Optional[ontologies_models.EditsHistoryFilter] = None,
+        filters: typing.Optional[ontologies_models.EditsHistoryFilters] = None,
         include_all_previous_properties: typing.Optional[bool] = None,
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
@@ -189,9 +125,10 @@ class ObjectTypeClient:
         specific object type. This endpoint provides visibility into all actions that have
         modified objects of this type.
 
-        The edits are returned in reverse chronological order (most recent first) by default.
+        The edits are returned in reverse chronological order (most recent first).
 
-        Note that filters are ignored for OSv1 object types.
+        WARNING: right now this endpoint works only if you pass in an object primary key, i.e. it does not function
+        as a global object type edits history. Global object type edits history is currently under development.
 
         :param ontology: The ontology RID or API name
         :type ontology: OntologyIdentifier
@@ -200,7 +137,7 @@ class ObjectTypeClient:
         :param branch: The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param filters:
-        :type filters: Optional[EditsHistoryFilter]
+        :type filters: Optional[EditsHistoryFilters]
         :param include_all_previous_properties:
         :type include_all_previous_properties: Optional[bool]
         :param object_primary_key:
@@ -364,76 +301,6 @@ class ObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_outgoing_link_types_by_object_type_rid_batch(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        filter_link_type_rids: typing.List[ontologies_models.LinkTypeRid],
-        requests: typing_extensions.Annotated[
-            typing.List[ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement],
-            annotated_types.Len(min_length=1, max_length=100),
-        ],
-        branch: typing.Optional[core_models.FoundryBranch] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse:
-        """
-        Gets outgoing link types for a batch of object types, identified by their RIDs.
-
-        For each requested object type, returns the list of outgoing link types visible to the
-        requesting token. Optionally, results can be filtered to only include specific link type RIDs.
-
-        Object types that don't exist or that the requesting token lacks permissions for are
-        silently omitted from the response.
-
-        The maximum batch size for this endpoint is 100.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param filter_link_type_rids: If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.
-        :type filter_link_type_rids: List[LinkTypeRid]
-        :param requests:
-        :type requests: List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
-        :param branch: The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch",
-                query_params={
-                    "branch": branch,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchRequest(
-                    requests=requests,
-                    filter_link_type_rids=filter_link_type_rids,
-                ),
-                response_type=ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -549,26 +416,17 @@ class ObjectTypeClient:
 class _ObjectTypeClientRaw:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
-        def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
-        def get_outgoing_link_types_by_object_type_rid_batch(
-            _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-        ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_raw_response(get, client.get)
-        self.get_by_rid_batch = core.with_raw_response(get_by_rid_batch, client.get_by_rid_batch)
         self.get_edits_history = core.with_raw_response(get_edits_history, client.get_edits_history)
         self.get_full_metadata = core.with_raw_response(get_full_metadata, client.get_full_metadata)
         self.get_outgoing_link_type = core.with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
-        )
-        self.get_outgoing_link_types_by_object_type_rid_batch = core.with_raw_response(
-            get_outgoing_link_types_by_object_type_rid_batch,
-            client.get_outgoing_link_types_by_object_type_rid_batch,
         )
         self.list = core.with_raw_response(list, client.list)
         self.list_outgoing_link_types = core.with_raw_response(
@@ -579,20 +437,13 @@ class _ObjectTypeClientRaw:
 class _ObjectTypeClientStreaming:
     def __init__(self, client: ObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
-        def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
-        def get_outgoing_link_types_by_object_type_rid_batch(
-            _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-        ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.with_streaming_response(get, client.get)
-        self.get_by_rid_batch = core.with_streaming_response(
-            get_by_rid_batch, client.get_by_rid_batch
-        )
         self.get_edits_history = core.with_streaming_response(
             get_edits_history, client.get_edits_history
         )
@@ -601,10 +452,6 @@ class _ObjectTypeClientStreaming:
         )
         self.get_outgoing_link_type = core.with_streaming_response(
             get_outgoing_link_type, client.get_outgoing_link_type
-        )
-        self.get_outgoing_link_types_by_object_type_rid_batch = core.with_streaming_response(
-            get_outgoing_link_types_by_object_type_rid_batch,
-            client.get_outgoing_link_types_by_object_type_rid_batch,
         )
         self.list = core.with_streaming_response(list, client.list)
         self.list_outgoing_link_types = core.with_streaming_response(
@@ -693,76 +540,13 @@ class AsyncObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_by_rid_batch(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        requests: typing_extensions.Annotated[
-            typing.List[ontologies_models.GetObjectTypeByRidBatchRequestElement],
-            annotated_types.Len(min_length=1, max_length=100),
-        ],
-        branch: typing.Optional[core_models.FoundryBranch] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[ontologies_models.GetObjectTypeByRidBatchResponse]:
-        """
-        Gets a list of object types by RID in bulk.
-
-        Object types are filtered from the response if they don't exist or the requesting token lacks the required
-        permissions.
-
-        The maximum batch size for this endpoint is 100.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param requests:
-        :type requests: List[GetObjectTypeByRidBatchRequestElement]
-        :param branch: The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[ontologies_models.GetObjectTypeByRidBatchResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/objectTypes/getByRidBatch",
-                query_params={
-                    "branch": branch,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=ontologies_models.GetObjectTypeByRidBatchRequest(
-                    requests=requests,
-                ),
-                response_type=ontologies_models.GetObjectTypeByRidBatchResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def get_edits_history(
         self,
         ontology: ontologies_models.OntologyIdentifier,
         object_type: ontologies_models.ObjectTypeApiName,
         *,
         branch: typing.Optional[core_models.FoundryBranch] = None,
-        filters: typing.Optional[ontologies_models.EditsHistoryFilter] = None,
+        filters: typing.Optional[ontologies_models.EditsHistoryFilters] = None,
         include_all_previous_properties: typing.Optional[bool] = None,
         object_primary_key: typing.Optional[ontologies_models.ObjectPrimaryKeyV2] = None,
         page_size: typing.Optional[int] = None,
@@ -776,9 +560,10 @@ class AsyncObjectTypeClient:
         specific object type. This endpoint provides visibility into all actions that have
         modified objects of this type.
 
-        The edits are returned in reverse chronological order (most recent first) by default.
+        The edits are returned in reverse chronological order (most recent first).
 
-        Note that filters are ignored for OSv1 object types.
+        WARNING: right now this endpoint works only if you pass in an object primary key, i.e. it does not function
+        as a global object type edits history. Global object type edits history is currently under development.
 
         :param ontology: The ontology RID or API name
         :type ontology: OntologyIdentifier
@@ -787,7 +572,7 @@ class AsyncObjectTypeClient:
         :param branch: The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
         :param filters:
-        :type filters: Optional[EditsHistoryFilter]
+        :type filters: Optional[EditsHistoryFilters]
         :param include_all_previous_properties:
         :type include_all_previous_properties: Optional[bool]
         :param object_primary_key:
@@ -951,76 +736,6 @@ class AsyncObjectTypeClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def get_outgoing_link_types_by_object_type_rid_batch(
-        self,
-        ontology: ontologies_models.OntologyIdentifier,
-        *,
-        filter_link_type_rids: typing.List[ontologies_models.LinkTypeRid],
-        requests: typing_extensions.Annotated[
-            typing.List[ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement],
-            annotated_types.Len(min_length=1, max_length=100),
-        ],
-        branch: typing.Optional[core_models.FoundryBranch] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse]:
-        """
-        Gets outgoing link types for a batch of object types, identified by their RIDs.
-
-        For each requested object type, returns the list of outgoing link types visible to the
-        requesting token. Optionally, results can be filtered to only include specific link type RIDs.
-
-        Object types that don't exist or that the requesting token lacks permissions for are
-        silently omitted from the response.
-
-        The maximum batch size for this endpoint is 100.
-
-        :param ontology:
-        :type ontology: OntologyIdentifier
-        :param filter_link_type_rids: If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.
-        :type filter_link_type_rids: List[LinkTypeRid]
-        :param requests:
-        :type requests: List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
-        :param branch: The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse]
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="POST",
-                resource_path="/v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch",
-                query_params={
-                    "branch": branch,
-                    "preview": preview,
-                },
-                path_params={
-                    "ontology": ontology,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchRequest(
-                    requests=requests,
-                    filter_link_type_rids=filter_link_type_rids,
-                ),
-                response_type=ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-                request_timeout=request_timeout,
-                throwable_errors={},
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def list(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -1136,20 +851,13 @@ class AsyncObjectTypeClient:
 class _AsyncObjectTypeClientRaw:
     def __init__(self, client: AsyncObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
-        def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
-        def get_outgoing_link_types_by_object_type_rid_batch(
-            _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-        ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.async_with_raw_response(get, client.get)
-        self.get_by_rid_batch = core.async_with_raw_response(
-            get_by_rid_batch, client.get_by_rid_batch
-        )
         self.get_edits_history = core.async_with_raw_response(
             get_edits_history, client.get_edits_history
         )
@@ -1158,10 +866,6 @@ class _AsyncObjectTypeClientRaw:
         )
         self.get_outgoing_link_type = core.async_with_raw_response(
             get_outgoing_link_type, client.get_outgoing_link_type
-        )
-        self.get_outgoing_link_types_by_object_type_rid_batch = core.async_with_raw_response(
-            get_outgoing_link_types_by_object_type_rid_batch,
-            client.get_outgoing_link_types_by_object_type_rid_batch,
         )
         self.list = core.async_with_raw_response(list, client.list)
         self.list_outgoing_link_types = core.async_with_raw_response(
@@ -1172,20 +876,13 @@ class _AsyncObjectTypeClientRaw:
 class _AsyncObjectTypeClientStreaming:
     def __init__(self, client: AsyncObjectTypeClient) -> None:
         def get(_: ontologies_models.ObjectTypeV2): ...
-        def get_by_rid_batch(_: ontologies_models.GetObjectTypeByRidBatchResponse): ...
         def get_edits_history(_: ontologies_models.ObjectTypeEditsHistoryResponse): ...
         def get_full_metadata(_: ontologies_models.ObjectTypeFullMetadata): ...
         def get_outgoing_link_type(_: ontologies_models.LinkTypeSideV2): ...
-        def get_outgoing_link_types_by_object_type_rid_batch(
-            _: ontologies_models.GetOutgoingLinkTypesByObjectTypeRidBatchResponse,
-        ): ...
         def list(_: ontologies_models.ListObjectTypesV2Response): ...
         def list_outgoing_link_types(_: ontologies_models.ListOutgoingLinkTypesResponseV2): ...
 
         self.get = core.async_with_streaming_response(get, client.get)
-        self.get_by_rid_batch = core.async_with_streaming_response(
-            get_by_rid_batch, client.get_by_rid_batch
-        )
         self.get_edits_history = core.async_with_streaming_response(
             get_edits_history, client.get_edits_history
         )
@@ -1194,10 +891,6 @@ class _AsyncObjectTypeClientStreaming:
         )
         self.get_outgoing_link_type = core.async_with_streaming_response(
             get_outgoing_link_type, client.get_outgoing_link_type
-        )
-        self.get_outgoing_link_types_by_object_type_rid_batch = core.async_with_streaming_response(
-            get_outgoing_link_types_by_object_type_rid_batch,
-            client.get_outgoing_link_types_by_object_type_rid_batch,
         )
         self.list = core.async_with_streaming_response(list, client.list)
         self.list_outgoing_link_types = core.async_with_streaming_response(

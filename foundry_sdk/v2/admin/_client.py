@@ -44,28 +44,6 @@ class AdminClient:
         self._config = config
 
     @cached_property
-    def CbacBanner(self):
-        from foundry_sdk.v2.admin.cbac_banner import CbacBannerClient
-
-        return CbacBannerClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
-
-    @cached_property
-    def CbacMarkingRestrictions(self):
-        from foundry_sdk.v2.admin.cbac_marking_restrictions import (
-            CbacMarkingRestrictionsClient,
-        )  # NOQA
-
-        return CbacMarkingRestrictionsClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
-
-    @cached_property
     def Enrollment(self):
         from foundry_sdk.v2.admin.enrollment import EnrollmentClient
 
@@ -163,10 +141,6 @@ class AsyncAdminClient:
         hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
-        from foundry_sdk.v2.admin.cbac_banner import AsyncCbacBannerClient
-        from foundry_sdk.v2.admin.cbac_marking_restrictions import (
-            AsyncCbacMarkingRestrictionsClient,
-        )  # NOQA
         from foundry_sdk.v2.admin.enrollment import AsyncEnrollmentClient
         from foundry_sdk.v2.admin.group import AsyncGroupClient
         from foundry_sdk.v2.admin.marking import AsyncMarkingClient
@@ -177,12 +151,6 @@ class AsyncAdminClient:
         from foundry_sdk.v2.admin.organization import AsyncOrganizationClient
         from foundry_sdk.v2.admin.role import AsyncRoleClient
         from foundry_sdk.v2.admin.user import AsyncUserClient
-
-        self.CbacBanner = AsyncCbacBannerClient(auth=auth, hostname=hostname, config=config)
-
-        self.CbacMarkingRestrictions = AsyncCbacMarkingRestrictionsClient(
-            auth=auth, hostname=hostname, config=config
-        )
 
         self.Enrollment = AsyncEnrollmentClient(auth=auth, hostname=hostname, config=config)
 

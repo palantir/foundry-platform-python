@@ -2,12 +2,12 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports | Stable |
-[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Stable |
-[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Stable |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Stable |
-[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Stable |
-[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Stable |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
+[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
+[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute | Public Beta |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
+[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/tableImports | Public Beta |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid} | Public Beta |
 
 # **create**
 Creates a new TableImport.
@@ -23,6 +23,7 @@ Name | Type | Description  | Notes |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **TableImport**
@@ -50,6 +51,8 @@ import_mode = "SNAPSHOT"
 allow_schema_changes = True
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.
 branch_name = "master"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
@@ -61,6 +64,7 @@ try:
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
         branch_name=branch_name,
+        preview=preview,
     )
     print("The create response:\n")
     pprint(api_response)
@@ -94,6 +98,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -111,11 +116,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # TableImportRid
 table_import_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     api_response = client.connectivity.Connection.TableImport.delete(
-        connection_rid, table_import_rid
+        connection_rid, table_import_rid, preview=preview
     )
     print("The delete response:\n")
     pprint(api_response)
@@ -148,6 +155,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **BuildRid**
@@ -165,11 +173,13 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # TableImportRid
 table_import_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     api_response = client.connectivity.Connection.TableImport.execute(
-        connection_rid, table_import_rid
+        connection_rid, table_import_rid, preview=preview
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -200,6 +210,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **table_import_rid** | TableImportRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **TableImport**
@@ -217,10 +228,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # TableImportRid
 table_import_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.TableImport.get(connection_rid, table_import_rid)
+    api_response = client.connectivity.Connection.TableImport.get(
+        connection_rid, table_import_rid, preview=preview
+    )
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -253,6 +268,7 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListTableImportsResponse**
@@ -272,11 +288,13 @@ connection_rid = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     for table_import in client.connectivity.Connection.TableImport.list(
-        connection_rid, page_size=page_size, page_token=page_token
+        connection_rid, page_size=page_size, page_token=page_token, preview=preview
     ):
         pprint(table_import)
 except foundry_sdk.PalantirRPCException as e:
@@ -310,6 +328,7 @@ Name | Type | Description  | Notes |
 **display_name** | TableImportDisplayName |  |  |
 **import_mode** | TableImportMode |  |  |
 **allow_schema_changes** | Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports. | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **TableImport**
@@ -335,6 +354,8 @@ display_name = "My table import"
 import_mode = "SNAPSHOT"
 # Optional[TableImportAllowSchemaChanges] | Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
 allow_schema_changes = True
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
@@ -345,6 +366,7 @@ try:
         display_name=display_name,
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
+        preview=preview,
     )
     print("The replace response:\n")
     pprint(api_response)

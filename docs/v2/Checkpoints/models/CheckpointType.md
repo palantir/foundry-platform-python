@@ -85,11 +85,6 @@ for more details.
 | `"UPLOAD_DATA_TO_FLOW_CAPTURE"` |
 | `"EXPORT_FLOW_CAPTURE_ZIP"` |
 | `"INSIGHT_LOAD"` |
-| `"AIP_ANALYST_APP_LOAD"` |
-| `"PEER_MANAGER_CDS_PAYLOAD_EXPORT"` |
-| `"PEER_MANAGER_OBJECT_TYPE_SCHEMAS_EXPORT"` |
-| `"AIP_ANALYST_EXPORT"` |
-| `"OBJECT_EXPLORER_SEARCH"` |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

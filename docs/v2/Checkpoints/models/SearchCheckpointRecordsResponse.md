@@ -1,6 +1,6 @@
 # SearchCheckpointRecordsResponse
 
-Response payload for searching checkpoint records.
+SearchCheckpointRecordsResponse
 
 ## Properties
 | Name | Type | Required | Description |

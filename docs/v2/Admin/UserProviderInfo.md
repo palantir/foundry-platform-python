@@ -2,8 +2,8 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/admin/users/{userId}/providerInfo | Stable |
-[**replace**](#replace) | **PUT** /v2/admin/users/{userId}/providerInfo | Stable |
+[**get**](#get) | **GET** /v2/admin/users/{userId}/providerInfo | Public Beta |
+[**replace**](#replace) | **PUT** /v2/admin/users/{userId}/providerInfo | Public Beta |
 
 # **get**
 Get the UserProviderInfo.
@@ -13,6 +13,7 @@ Get the UserProviderInfo.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | UserId |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **UserProviderInfo**
@@ -28,10 +29,12 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # UserId
 user_id = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.admin.User.ProviderInfo.get(user_id)
+    api_response = client.admin.User.ProviderInfo.get(user_id, preview=preview)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -61,6 +64,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **user_id** | UserId |  |  |
 **provider_id** | ProviderId | The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **UserProviderInfo**
@@ -78,10 +82,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 user_id = None
 # ProviderId | The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
 provider_id = "2838c8f3-d76a-4e99-acf1-1dee537e4c48"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.admin.User.ProviderInfo.replace(user_id, provider_id=provider_id)
+    api_response = client.admin.User.ProviderInfo.replace(
+        user_id, provider_id=provider_id, preview=preview
+    )
     print("The replace response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

@@ -417,7 +417,6 @@ class OntologyInterfaceClient:
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -452,8 +451,6 @@ class OntologyInterfaceClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param select: The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
@@ -474,7 +471,6 @@ class OntologyInterfaceClient:
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "select": select,
                     "snapshot": snapshot,
                 },
@@ -1139,7 +1135,6 @@ class AsyncOntologyInterfaceClient:
         order_by: typing.Optional[ontologies_models.OrderBy] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         select: typing.Optional[typing.List[ontologies_models.SelectedPropertyApiName]] = None,
         snapshot: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -1174,8 +1169,6 @@ class AsyncOntologyInterfaceClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
-        :type preview: Optional[PreviewMode]
         :param select: The properties of the interface type that should be included in the response. Omit this parameter to get all the properties.
         :type select: Optional[List[SelectedPropertyApiName]]
         :param snapshot: A flag to use snapshot consistency when paging. Setting this to true will give you a consistent view from before you start paging through the results, ensuring you do not get duplicate or missing items. Setting this to false will let new results enter as you page, but you may encounter duplicate or missing items. This defaults to false if not specified, which means you will always get the latest results.
@@ -1196,7 +1189,6 @@ class AsyncOntologyInterfaceClient:
                     "orderBy": order_by,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "select": select,
                     "snapshot": snapshot,
                 },

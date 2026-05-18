@@ -1,6 +1,6 @@
 # ParameterId
 
-The unique identifier for a variable configured in the application state of an Agent in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
+The unique identifier for a variable configured in the application state of an Agent in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
 
 
 ## Type

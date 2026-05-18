@@ -7,7 +7,7 @@ introduce some non-zero latency at the expense of a higher throughput. This stre
 recommended if you inspect your stream metrics in-platform and observe that the average batch size is equal
 to the max match size, or if jobs using the stream are failing due to Kafka producer batches expiring. For
 additional information on inspecting stream metrics, refer to the 
-[stream monitoring](https://palantir.com/docs/foundry/data-integration/stream-monitoring/#viewing-metrics) documentation.
+(stream monitoring)[/docs/foundry/data-integration/stream-monitoring/#viewing-metrics] documentation.
 
 For more information, refer to the [stream types](https://palantir.com/docs/foundry/data-integration/streams/#stream-types)
 documentation.
