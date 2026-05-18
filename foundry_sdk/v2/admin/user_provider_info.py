@@ -61,7 +61,6 @@ class UserProviderInfoClient:
         self,
         user_id: core_models.UserId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.UserProviderInfo:
@@ -69,8 +68,6 @@ class UserProviderInfoClient:
         Get the UserProviderInfo.
         :param user_id:
         :type user_id: UserId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -86,9 +83,7 @@ class UserProviderInfoClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -116,7 +111,6 @@ class UserProviderInfoClient:
         user_id: core_models.UserId,
         *,
         provider_id: admin_models.ProviderId,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.UserProviderInfo:
@@ -126,8 +120,6 @@ class UserProviderInfoClient:
         :type user_id: UserId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -145,9 +137,7 @@ class UserProviderInfoClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/users/{userId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -227,7 +217,6 @@ class AsyncUserProviderInfoClient:
         self,
         user_id: core_models.UserId,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.UserProviderInfo]:
@@ -235,8 +224,6 @@ class AsyncUserProviderInfoClient:
         Get the UserProviderInfo.
         :param user_id:
         :type user_id: UserId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -252,9 +239,7 @@ class AsyncUserProviderInfoClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/users/{userId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },
@@ -282,7 +267,6 @@ class AsyncUserProviderInfoClient:
         user_id: core_models.UserId,
         *,
         provider_id: admin_models.ProviderId,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.UserProviderInfo]:
@@ -292,8 +276,6 @@ class AsyncUserProviderInfoClient:
         :type user_id: UserId
         :param provider_id: The ID of the User in the external authentication provider. This value is determined by the authentication provider. At most one User can have a given provider ID in a given Realm.
         :type provider_id: ProviderId
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -311,9 +293,7 @@ class AsyncUserProviderInfoClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/users/{userId}/providerInfo",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "userId": user_id,
                 },

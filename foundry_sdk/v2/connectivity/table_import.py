@@ -70,7 +70,6 @@ class TableImportClient:
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
         branch_name: typing.Optional[core_models.BranchName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.TableImport:
@@ -90,8 +89,6 @@ class TableImportClient:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.
         :type branch_name: Optional[BranchName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -109,9 +106,7 @@ class TableImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -149,7 +144,6 @@ class TableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -162,8 +156,6 @@ class TableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -177,9 +169,7 @@ class TableImportClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -204,7 +194,6 @@ class TableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.BuildRid:
@@ -216,8 +205,6 @@ class TableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -231,9 +218,7 @@ class TableImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -260,7 +245,6 @@ class TableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.TableImport:
@@ -270,8 +254,6 @@ class TableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -285,9 +267,7 @@ class TableImportClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -315,7 +295,6 @@ class TableImportClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[connectivity_models.TableImport]:
@@ -329,8 +308,6 @@ class TableImportClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -346,7 +323,6 @@ class TableImportClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,
@@ -378,7 +354,6 @@ class TableImportClient:
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.TableImport:
@@ -396,8 +371,6 @@ class TableImportClient:
         :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -415,9 +388,7 @@ class TableImportClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -523,7 +494,6 @@ class AsyncTableImportClient:
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
         branch_name: typing.Optional[core_models.BranchName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.TableImport]:
@@ -543,8 +513,6 @@ class AsyncTableImportClient:
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.
         :type branch_name: Optional[BranchName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -562,9 +530,7 @@ class AsyncTableImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -602,7 +568,6 @@ class AsyncTableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -615,8 +580,6 @@ class AsyncTableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -630,9 +593,7 @@ class AsyncTableImportClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -657,7 +618,6 @@ class AsyncTableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core_models.BuildRid]:
@@ -669,8 +629,6 @@ class AsyncTableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -684,9 +642,7 @@ class AsyncTableImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -713,7 +669,6 @@ class AsyncTableImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         table_import_rid: connectivity_models.TableImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.TableImport]:
@@ -723,8 +678,6 @@ class AsyncTableImportClient:
         :type connection_rid: ConnectionRid
         :param table_import_rid:
         :type table_import_rid: TableImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -738,9 +691,7 @@ class AsyncTableImportClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,
@@ -768,7 +719,6 @@ class AsyncTableImportClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[connectivity_models.TableImport]:
@@ -782,8 +732,6 @@ class AsyncTableImportClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -799,7 +747,6 @@ class AsyncTableImportClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,
@@ -831,7 +778,6 @@ class AsyncTableImportClient:
         allow_schema_changes: typing.Optional[
             connectivity_models.TableImportAllowSchemaChanges
         ] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.TableImport]:
@@ -849,8 +795,6 @@ class AsyncTableImportClient:
         :type import_mode: TableImportMode
         :param allow_schema_changes: Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.
         :type allow_schema_changes: Optional[TableImportAllowSchemaChanges]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -868,9 +812,7 @@ class AsyncTableImportClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/tableImports/{tableImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "tableImportRid": table_import_rid,

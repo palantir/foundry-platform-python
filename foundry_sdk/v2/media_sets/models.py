@@ -59,6 +59,15 @@ class Annotation(core.ModelBase):
     """The font size for the label text."""
 
 
+class ApiNameLocatorWrapper(core.ModelBase):
+    """Wrapper for API name-based model locator."""
+
+    api_name: str = pydantic.Field(alias=str("apiName"))  # type: ignore[literal-required]
+    """The API name of the language model."""
+
+    type: typing.Literal["apiName"] = "apiName"
+
+
 class AudioChannelOperation(core.ModelBase):
     """Selects a specific channel from multi-channel audio."""
 
@@ -157,6 +166,15 @@ class BandInfo(core.ModelBase):
     unit_interpretation: typing.Optional[UnitInterpretation] = pydantic.Field(alias=str("unitInterpretation"), default=None)  # type: ignore[literal-required]
 
 
+class BatchTransactionsTransactionPolicy(core.ModelBase):
+    """
+    All writes must be part of a transaction. Transactions are branch-scoped and created by calling
+    create transaction. Writes are not visible until commit transaction is called.
+    """
+
+    type: typing.Literal["batchTransactions"] = "batchTransactions"
+
+
 class BoundingBox(core.ModelBase):
     """A rectangular bounding box for annotations."""
 
@@ -189,6 +207,27 @@ A name for a media set branch. Valid branch names must be (a) non-empty, (b) les
 
 BranchRid = core.RID
 """A resource identifier that identifies a branch of a media set."""
+
+
+class ChatLlmSpec(core.ModelBase):
+    """Standard chat-based LLM specification with system and user prompts."""
+
+    model_locator: LanguageModelLocator = pydantic.Field(alias=str("modelLocator"))  # type: ignore[literal-required]
+    system_prompt: str = pydantic.Field(alias=str("systemPrompt"))  # type: ignore[literal-required]
+    """System prompt for the LLM."""
+
+    user_prompt: str = pydantic.Field(alias=str("userPrompt"))  # type: ignore[literal-required]
+    """User prompt for the LLM."""
+
+    max_tokens: typing.Optional[int] = pydantic.Field(alias=str("maxTokens"), default=None)  # type: ignore[literal-required]
+    """Maximum number of tokens per request to generate."""
+
+
+class ChatLlmSpecWrapper(core.ModelBase):
+    """Wrapper for chat-based LLM specification."""
+
+    chat: ChatLlmSpec
+    type: typing.Literal["chat"] = "chat"
 
 
 class Color(core.ModelBase):
@@ -331,6 +370,13 @@ class CreatePdfOperation(core.ModelBase):
     type: typing.Literal["createPdf"] = "createPdf"
 
 
+class CropConfig(core.ModelBase):
+    """Configuration for table cropping."""
+
+    table_prompt: str = pydantic.Field(alias=str("tablePrompt"))  # type: ignore[literal-required]
+    """Prompt for table extraction."""
+
+
 class CropImageOperation(core.ModelBase):
     """Crops an image to a rectangular sub-window."""
 
@@ -446,7 +492,7 @@ class Dimensions(core.ModelBase):
     """The height of the image in pixels."""
 
 
-DocumentDecodeFormat = typing.Literal["PDF", "DOCX", "TXT", "PPTX"]
+DocumentDecodeFormat = typing.Literal["PDF", "DOC", "DOCX", "TXT", "PPTX", "RTF"]
 """The format of a document media item."""
 
 
@@ -511,9 +557,12 @@ DocumentToTextOperation = typing_extensions.Annotated[
         "ExtractTableOfContentsOperation",
         "GetPdfPageDimensionsOperation",
         "ExtractAllTextOperation",
+        "ExtractVlmTextOperation",
         "ExtractTextFromPagesToArrayOperation",
         "OcrOnPageOperation",
         "ExtractFormFieldsOperation",
+        "ExtractDocumentLayoutAwareTextV2Operation",
+        "ExtractDocumentTextV2Operation",
         "ExtractUnstructuredTextFromPageOperation",
         "DocumentExtractLayoutAwareContentOperation",
         "OcrOnPagesOperation",
@@ -623,6 +672,46 @@ class ExtractAudioOperation(core.ModelBase):
     type: typing.Literal["extractAudio"] = "extractAudio"
 
 
+class ExtractDocumentLayoutAwareTextV2Config(core.ModelBase):
+    """Configuration for v2 layout-aware document text extraction."""
+
+    format: typing.Optional[TextOutputFormat] = None
+    mode: typing.Optional[OcrMode] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+
+class ExtractDocumentLayoutAwareTextV2Operation(core.ModelBase):
+    """
+    Extract layout aware text with bounding boxes across all pages using the v2 text extraction endpoint.
+    This only supports PDFs.
+    """
+
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    config: ExtractDocumentLayoutAwareTextV2Config
+    type: typing.Literal["extractLayoutAwareTextV2"] = "extractLayoutAwareTextV2"
+
+
+class ExtractDocumentTextV2Config(core.ModelBase):
+    """Configuration for v2 document text extraction."""
+
+    format: typing.Optional[TextOutputFormat] = None
+    mode: typing.Optional[OcrMode] = None
+    languages: typing.List[OcrLanguageOrScript]
+    """List of OCR languages or scripts to use."""
+
+
+class ExtractDocumentTextV2Operation(core.ModelBase):
+    """
+    Extract text across all pages using the v2 text extraction endpoint with per page text.
+    This only supports PDFs.
+    """
+
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    config: ExtractDocumentTextV2Config
+    type: typing.Literal["extractTextV2"] = "extractTextV2"
+
+
 class ExtractFirstFrameOperation(core.ModelBase):
     """
     Extracts the first full scene frame from the video.
@@ -689,6 +778,13 @@ class ExtractTextFromPagesToArrayOperation(core.ModelBase):
     type: typing.Literal["extractTextFromPagesToArray"] = "extractTextFromPagesToArray"
 
 
+class ExtractTextPreprocessingWrapper(core.ModelBase):
+    """Wrapper for text extraction preprocessing."""
+
+    extract_text: ExtractDocumentTextV2Config = pydantic.Field(alias=str("extractText"))  # type: ignore[literal-required]
+    type: typing.Literal["extractText"] = "extractText"
+
+
 class ExtractUnstructuredTextFromPageOperation(core.ModelBase):
     """Extracts unstructured text from a specified page."""
 
@@ -696,6 +792,20 @@ class ExtractUnstructuredTextFromPageOperation(core.ModelBase):
     """The page number."""
 
     type: typing.Literal["extractUnstructuredTextFromPage"] = "extractUnstructuredTextFromPage"
+
+
+class ExtractVlmTextOperation(core.ModelBase):
+    """
+    Extract text from a document using vision language models (VLMs).
+    VLMs can understand document layout and structure more intelligently than traditional OCR.
+    """
+
+    llm_spec: LlmSpec = pydantic.Field(alias=str("llmSpec"))  # type: ignore[literal-required]
+    preprocessing_configuration: typing.Optional[VlmPreprocessingConfig] = pydantic.Field(alias=str("preprocessingConfiguration"), default=None)  # type: ignore[literal-required]
+    image_spec: typing.Optional[ImageSpec] = pydantic.Field(alias=str("imageSpec"), default=None)  # type: ignore[literal-required]
+    output_format: TextOutputFormat = pydantic.Field(alias=str("outputFormat"))  # type: ignore[literal-required]
+    page_range: typing.Optional[PageRange] = pydantic.Field(alias=str("pageRange"), default=None)  # type: ignore[literal-required]
+    type: typing.Literal["extractVlmText"] = "extractVlmText"
 
 
 FlipAxis = typing.Literal["HORIZONTAL", "VERTICAL", "UNKNOWN"]
@@ -750,12 +860,27 @@ class GetMediaItemInfoResponse(core.ModelBase):
     path: typing.Optional[core_models.MediaItemPath] = None
     logical_timestamp: LogicalTimestamp = pydantic.Field(alias=str("logicalTimestamp"))  # type: ignore[literal-required]
     attribution: typing.Optional[MediaAttribution] = None
+    originally_uploaded_file_mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("originallyUploadedFileMimeType"), default=None)  # type: ignore[literal-required]
+    mime_type: typing.Optional[core_models.MediaType] = pydantic.Field(alias=str("mimeType"), default=None)  # type: ignore[literal-required]
+    size_bytes: typing.Optional[int] = pydantic.Field(alias=str("sizeBytes"), default=None)  # type: ignore[literal-required]
+    """The size of the media item in bytes."""
 
 
 class GetMediaItemRidByPathResponse(core.ModelBase):
     """GetMediaItemRidByPathResponse"""
 
     media_item_rid: typing.Optional[core_models.MediaItemRid] = pydantic.Field(alias=str("mediaItemRid"), default=None)  # type: ignore[literal-required]
+
+
+class GetMediaSetResponse(core.ModelBase):
+    """Information about a media set."""
+
+    rid: core_models.MediaSetRid
+    media_schema: MediaSchema = pydantic.Field(alias=str("mediaSchema"))  # type: ignore[literal-required]
+    default_branch_name: BranchName = pydantic.Field(alias=str("defaultBranchName"))  # type: ignore[literal-required]
+    transaction_policy: TransactionPolicy = pydantic.Field(alias=str("transactionPolicy"))  # type: ignore[literal-required]
+    paths_required: bool = pydantic.Field(alias=str("pathsRequired"))  # type: ignore[literal-required]
+    """Whether media items in this media set require paths."""
 
 
 class GetPdfPageDimensionsOperation(core.ModelBase):
@@ -886,6 +1011,22 @@ Used to define regions in an image for operations like encryption/decryption.
 """
 
 
+class ImageSpec(core.ModelBase):
+    """
+    Specification for image processing parameters used in vision-based extraction.
+    Controls how document pages are converted to images before being sent to vision models.
+    """
+
+    resizing_mode: ResizingMode = pydantic.Field(alias=str("resizingMode"))  # type: ignore[literal-required]
+    height: typing.Optional[int] = None
+    """Target height in pixels."""
+
+    width: typing.Optional[int] = None
+    """Target width in pixels."""
+
+    mime_type: ImageryDecodeFormat = pydantic.Field(alias=str("mimeType"))  # type: ignore[literal-required]
+
+
 class ImageToDocumentTransformation(core.ModelBase):
     """Converts images to documents."""
 
@@ -982,6 +1123,20 @@ class LayoutAwareExtractionParameters(core.ModelBase):
     """The languages to use for extraction."""
 
 
+class LayoutAwareExtractionPreprocessingConfig(core.ModelBase):
+    """Configuration for layout-aware extraction preprocessing."""
+
+    transformation_config: ExtractDocumentLayoutAwareTextV2Config = pydantic.Field(alias=str("transformationConfig"))  # type: ignore[literal-required]
+    crop_config: typing.Optional[CropConfig] = pydantic.Field(alias=str("cropConfig"), default=None)  # type: ignore[literal-required]
+
+
+class LayoutAwarePreprocessingWrapper(core.ModelBase):
+    """Wrapper for layout-aware preprocessing."""
+
+    layout_aware: LayoutAwareExtractionPreprocessingConfig = pydantic.Field(alias=str("layoutAware"))  # type: ignore[literal-required]
+    type: typing.Literal["layoutAware"] = "layoutAware"
+
+
 LogicalTimestamp = core.Long
 """
 A number representing a logical ordering to be used for transactions, etc.
@@ -1030,6 +1185,7 @@ MediaItemMetadata = typing_extensions.Annotated[
         "SpreadsheetMediaItemMetadata",
         "UntypedMediaItemMetadata",
         "AudioMediaItemMetadata",
+        "Model3dMediaItemMetadata",
         "VideoMediaItemMetadata",
         "DicomMediaItemMetadata",
         "EmailMediaItemMetadata",
@@ -1044,6 +1200,21 @@ duration for audio/video, page count for documents, etc.
 
 MediaItemXmlFormat = typing.Literal["DOCX", "XLSX", "PPTX"]
 """Format of the media item attempted to be decoded based on the XML structure."""
+
+
+MediaSchema = typing.Literal[
+    "AUDIO",
+    "DICOM",
+    "DOCUMENT",
+    "IMAGERY",
+    "MODEL_3D",
+    "MULTIMODAL",
+    "SPREADSHEET",
+    "STREAMING_VIDEO",
+    "VIDEO",
+    "EMAIL",
+]
+"""The schema type of a media set, indicating what type of media items it can contain."""
 
 
 class MkvVideoContainerFormat(core.ModelBase):
@@ -1148,6 +1319,25 @@ https://dicom.nema.org/medical/dicom/current/output/chtml/part03/sect_C.7.3.html
 """
 
 
+Model3dDecodeFormat = typing.Literal["LAS", "PLY", "OBJ"]
+"""The format of a 3D model media item."""
+
+
+class Model3dMediaItemMetadata(core.ModelBase):
+    """Metadata for 3D model media items."""
+
+    format: Model3dDecodeFormat
+    model_type: Model3dType = pydantic.Field(alias=str("modelType"))  # type: ignore[literal-required]
+    size_bytes: int = pydantic.Field(alias=str("sizeBytes"))  # type: ignore[literal-required]
+    """The size of the media item in bytes."""
+
+    type: typing.Literal["model3d"] = "model3d"
+
+
+Model3dType = typing.Literal["POINT_CLOUD", "MESH"]
+"""The type of 3D model representation."""
+
+
 class MovVideoContainerFormat(core.ModelBase):
     """MOV (QuickTime) video container format."""
 
@@ -1164,6 +1354,15 @@ class Mp4VideoContainerFormat(core.ModelBase):
     """MP4 video container format."""
 
     type: typing.Literal["mp4"] = "mp4"
+
+
+class NoTransactionsTransactionPolicy(core.ModelBase):
+    """
+    Writes are not part of a transaction and are immediately visible.
+    Calls to create transaction or commit transaction will error.
+    """
+
+    type: typing.Literal["noTransactions"] = "noTransactions"
 
 
 class NumberOfChannels(core.ModelBase):
@@ -1322,6 +1521,10 @@ class OcrLanguageWrapper(core.ModelBase):
     type: typing.Literal["language"] = "language"
 
 
+OcrMode = typing.Literal["AUTO", "ELECTRONIC", "SCAN"]
+"""OCR mode for document extraction."""
+
+
 class OcrOnPageOperation(core.ModelBase):
     """Performs OCR (Optical Character Recognition) on a specific page of a document."""
 
@@ -1418,6 +1621,16 @@ class Orientation(core.ModelBase):
     flip_axis: typing.Optional[FlipAxis] = pydantic.Field(alias=str("flipAxis"), default=None)  # type: ignore[literal-required]
 
 
+class PageRange(core.ModelBase):
+    """Page range for document extraction."""
+
+    start_page_inclusive: typing.Optional[int] = pydantic.Field(alias=str("startPageInclusive"), default=None)  # type: ignore[literal-required]
+    """Start page index (0-based, inclusive). If not provided, defaults to start of document."""
+
+    end_page_exclusive: typing.Optional[int] = pydantic.Field(alias=str("endPageExclusive"), default=None)  # type: ignore[literal-required]
+    """End page index (0-based, exclusive). If not provided, defaults to end of document."""
+
+
 PaletteInterpretation = typing.Literal["GRAY", "RGB", "RGBA", "CMYK", "HLS"]
 """The palette interpretation of a band."""
 
@@ -1457,6 +1670,23 @@ class PutMediaItemResponse(core.ModelBase):
     """PutMediaItemResponse"""
 
     media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_set_view_rid: core_models.MediaSetViewRid = pydantic.Field(alias=str("mediaSetViewRid"))  # type: ignore[literal-required]
+
+
+class RegisterMediaItemRequest(core.ModelBase):
+    """Request to register a media item from a federated store."""
+
+    physical_item_name: str = pydantic.Field(alias=str("physicalItemName"))  # type: ignore[literal-required]
+    """The relative path within the federated media store where the media item exists."""
+
+    media_item_path: typing.Optional[core_models.MediaItemPath] = pydantic.Field(alias=str("mediaItemPath"), default=None)  # type: ignore[literal-required]
+
+
+class RegisterMediaItemResponse(core.ModelBase):
+    """Response after successfully registering a media item."""
+
+    media_item_rid: core_models.MediaItemRid = pydantic.Field(alias=str("mediaItemRid"))  # type: ignore[literal-required]
+    media_type: core_models.MediaType = pydantic.Field(alias=str("mediaType"))  # type: ignore[literal-required]
 
 
 class RenderImageLayerOperation(core.ModelBase):
@@ -1540,6 +1770,10 @@ class ResizeToFitBoundingBoxOperation(core.ModelBase):
     type: typing.Literal["resizeToFitBoundingBox"] = "resizeToFitBoundingBox"
 
 
+ResizingMode = typing.Literal["RESIZING", "FIT_INTO_BOUNDING_BOX"]
+"""Image resizing strategy."""
+
+
 class RotateImageOperation(core.ModelBase):
     """Rotates an image clockwise by the specified angle."""
 
@@ -1609,6 +1843,10 @@ class TarFormat(core.ModelBase):
     type: typing.Literal["tar"] = "tar"
 
 
+TextOutputFormat = typing.Literal["TEXT", "MARKDOWN", "HTML"]
+"""Format in which to return extracted text."""
+
+
 class TiffFormat(core.ModelBase):
     """TIFF image format."""
 
@@ -1664,6 +1902,13 @@ class TrackedTransformationSuccessfulResponse(core.ModelBase):
 
 TransactionId = core.UUID
 """An identifier which represents a transaction on a media set."""
+
+
+TransactionPolicy = typing_extensions.Annotated[
+    typing.Union["BatchTransactionsTransactionPolicy", "NoTransactionsTransactionPolicy"],
+    pydantic.Field(discriminator="type"),
+]
+"""The transaction policy for a media set, determining how writes are handled."""
 
 
 class TranscodeOperation(core.ModelBase):
@@ -2103,6 +2348,13 @@ class VideoTransformation(core.ModelBase):
     type: typing.Literal["video"] = "video"
 
 
+VlmPreprocessingConfig = typing_extensions.Annotated[
+    typing.Union["LayoutAwarePreprocessingWrapper", "ExtractTextPreprocessingWrapper"],
+    pydantic.Field(discriminator="type"),
+]
+"""Preprocessing configuration for VLM extraction."""
+
+
 class WavEncodeFormat(core.ModelBase):
     """WAV audio format with optional sample rate and channel layout."""
 
@@ -2171,6 +2423,14 @@ ImageToEmbeddingOperation = GenerateEmbeddingOperation
 """The operation to perform for image to embedding conversion."""
 
 
+LanguageModelLocator = ApiNameLocatorWrapper
+"""Locator for identifying a language model."""
+
+
+LlmSpec = ChatLlmSpecWrapper
+"""Specification for language model requests."""
+
+
 SpreadsheetToTextOperation = ConvertSheetToJsonOperation
 """The operation to perform for spreadsheet to text conversion."""
 
@@ -2203,17 +2463,20 @@ core.resolve_forward_references(MediaItemMetadata, globalns=globals(), localns=l
 core.resolve_forward_references(OcrLanguageOrScript, globalns=globals(), localns=locals())
 core.resolve_forward_references(OcrOutputFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(TrackedTransformationResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(TransactionPolicy, globalns=globals(), localns=locals())
 core.resolve_forward_references(TranscribeTextEncodeFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(Transformation, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoEncodeFormat, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoOperation, globalns=globals(), localns=locals())
 core.resolve_forward_references(VideoToImageOperation, globalns=globals(), localns=locals())
+core.resolve_forward_references(VlmPreprocessingConfig, globalns=globals(), localns=locals())
 
 __all__ = [
     "AffineTransform",
     "AnnotateGeometry",
     "AnnotateImageOperation",
     "Annotation",
+    "ApiNameLocatorWrapper",
     "ArchiveEncodeFormat",
     "AudioChannelLayout",
     "AudioChannelOperation",
@@ -2228,10 +2491,13 @@ __all__ = [
     "AudioTransformation",
     "AvailableEmbeddingModelIds",
     "BandInfo",
+    "BatchTransactionsTransactionPolicy",
     "BoundingBox",
     "BoundingBoxGeometry",
     "BranchName",
     "BranchRid",
+    "ChatLlmSpec",
+    "ChatLlmSpecWrapper",
     "Color",
     "ColorInterpretation",
     "CommonDicomDataElements",
@@ -2245,6 +2511,7 @@ __all__ = [
     "ConvertSheetToJsonOperation",
     "CoordinateReferenceSystem",
     "CreatePdfOperation",
+    "CropConfig",
     "CropImageOperation",
     "DataType",
     "DecryptImageOperation",
@@ -2277,13 +2544,19 @@ __all__ = [
     "EncryptImageOperation",
     "ExtractAllTextOperation",
     "ExtractAudioOperation",
+    "ExtractDocumentLayoutAwareTextV2Config",
+    "ExtractDocumentLayoutAwareTextV2Operation",
+    "ExtractDocumentTextV2Config",
+    "ExtractDocumentTextV2Operation",
     "ExtractFirstFrameOperation",
     "ExtractFormFieldsOperation",
     "ExtractFramesAtTimestampsOperation",
     "ExtractSceneFramesOperation",
     "ExtractTableOfContentsOperation",
     "ExtractTextFromPagesToArrayOperation",
+    "ExtractTextPreprocessingWrapper",
     "ExtractUnstructuredTextFromPageOperation",
+    "ExtractVlmTextOperation",
     "FlipAxis",
     "GcpList",
     "GenerateEmbeddingOperation",
@@ -2292,6 +2565,7 @@ __all__ = [
     "GetEmailBodyOperation",
     "GetMediaItemInfoResponse",
     "GetMediaItemRidByPathResponse",
+    "GetMediaSetResponse",
     "GetPdfPageDimensionsOperation",
     "GetTimestampsForSceneFramesOperation",
     "GetTransformationJobStatusResponse",
@@ -2307,6 +2581,7 @@ __all__ = [
     "ImageOperation",
     "ImagePixelCoordinate",
     "ImageRegionPolygon",
+    "ImageSpec",
     "ImageToDocumentOperation",
     "ImageToDocumentTransformation",
     "ImageToEmbeddingOperation",
@@ -2318,7 +2593,11 @@ __all__ = [
     "ImageryEncodeFormat",
     "ImageryMediaItemMetadata",
     "JpgFormat",
+    "LanguageModelLocator",
     "LayoutAwareExtractionParameters",
+    "LayoutAwareExtractionPreprocessingConfig",
+    "LayoutAwarePreprocessingWrapper",
+    "LlmSpec",
     "LogicalTimestamp",
     "Mailbox",
     "MailboxOrGroup",
@@ -2326,16 +2605,22 @@ __all__ = [
     "MediaAttribution",
     "MediaItemMetadata",
     "MediaItemXmlFormat",
+    "MediaSchema",
     "MkvVideoContainerFormat",
     "Modality",
+    "Model3dDecodeFormat",
+    "Model3dMediaItemMetadata",
+    "Model3dType",
     "MovVideoContainerFormat",
     "Mp3Format",
     "Mp4VideoContainerFormat",
+    "NoTransactionsTransactionPolicy",
     "NumberOfChannels",
     "OcrHocrOutputFormat",
     "OcrLanguage",
     "OcrLanguageOrScript",
     "OcrLanguageWrapper",
+    "OcrMode",
     "OcrOnPageOperation",
     "OcrOnPagesOperation",
     "OcrOutputFormat",
@@ -2344,6 +2629,7 @@ __all__ = [
     "OcrScriptWrapper",
     "OcrTextOutputFormat",
     "Orientation",
+    "PageRange",
     "PaletteInterpretation",
     "PdfFormat",
     "PerformanceMode",
@@ -2351,11 +2637,14 @@ __all__ = [
     "PngFormat",
     "Pttml",
     "PutMediaItemResponse",
+    "RegisterMediaItemRequest",
+    "RegisterMediaItemResponse",
     "RenderImageLayerOperation",
     "RenderPageOperation",
     "RenderPageToFitBoundingBoxOperation",
     "ResizeImageOperation",
     "ResizeToFitBoundingBoxOperation",
+    "ResizingMode",
     "RotateImageOperation",
     "RotationAngle",
     "SceneScore",
@@ -2365,6 +2654,7 @@ __all__ = [
     "SpreadsheetToTextOperation",
     "SpreadsheetToTextTransformation",
     "TarFormat",
+    "TextOutputFormat",
     "TiffFormat",
     "TileImageOperation",
     "TrackedTransformationFailedResponse",
@@ -2372,6 +2662,7 @@ __all__ = [
     "TrackedTransformationResponse",
     "TrackedTransformationSuccessfulResponse",
     "TransactionId",
+    "TransactionPolicy",
     "TranscodeOperation",
     "TranscribeJson",
     "TranscribeOperation",
@@ -2401,6 +2692,7 @@ __all__ = [
     "VideoToTextOperation",
     "VideoToTextTransformation",
     "VideoTransformation",
+    "VlmPreprocessingConfig",
     "WavEncodeFormat",
     "WaveformOperation",
     "WebpFormat",

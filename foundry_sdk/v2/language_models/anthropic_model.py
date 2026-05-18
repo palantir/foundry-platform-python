@@ -64,6 +64,7 @@ class AnthropicModelClient:
         max_tokens: int,
         messages: typing.List[language_models_models.AnthropicMessage],
         attribution: typing.Optional[core_models.Attribution] = None,
+        output_config: typing.Optional[language_models_models.AnthropicOutputConfig] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stop_sequences: typing.Optional[typing.List[str]] = None,
         system: typing.Optional[typing.List[language_models_models.AnthropicSystemMessage]] = None,
@@ -86,6 +87,8 @@ class AnthropicModelClient:
         :type messages: List[AnthropicMessage]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param output_config: Configuration to control the shape of the model's output
+        :type output_config: Optional[AnthropicOutputConfig]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stop_sequences: Custom text sequences that will cause the model to stop generating.
@@ -140,6 +143,7 @@ class AnthropicModelClient:
                     tools=tools,
                     top_k=top_k,
                     top_p=top_p,
+                    output_config=output_config,
                 ),
                 response_type=language_models_models.AnthropicMessagesResponse,
                 request_timeout=request_timeout,
@@ -206,6 +210,7 @@ class AsyncAnthropicModelClient:
         max_tokens: int,
         messages: typing.List[language_models_models.AnthropicMessage],
         attribution: typing.Optional[core_models.Attribution] = None,
+        output_config: typing.Optional[language_models_models.AnthropicOutputConfig] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
         stop_sequences: typing.Optional[typing.List[str]] = None,
         system: typing.Optional[typing.List[language_models_models.AnthropicSystemMessage]] = None,
@@ -228,6 +233,8 @@ class AsyncAnthropicModelClient:
         :type messages: List[AnthropicMessage]
         :param attribution:
         :type attribution: Optional[Attribution]
+        :param output_config: Configuration to control the shape of the model's output
+        :type output_config: Optional[AnthropicOutputConfig]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
         :param stop_sequences: Custom text sequences that will cause the model to stop generating.
@@ -282,6 +289,7 @@ class AsyncAnthropicModelClient:
                     tools=tools,
                     top_k=top_k,
                     top_p=top_p,
+                    output_config=output_config,
                 ),
                 response_type=language_models_models.AnthropicMessagesResponse,
                 request_timeout=request_timeout,

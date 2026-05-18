@@ -128,21 +128,16 @@ def admin_user_op_get_current(
 
 @admin_user.command("get_markings")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_op_get_markings(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Retrieve Markings that the user is currently a member of.
     """
     result = client.admin.User.get_markings(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -196,14 +191,10 @@ def admin_user_op_profile_picture(
 
 @admin_user.command("revoke_all_tokens")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_op_revoke_all_tokens(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Revoke all active authentication tokens for the user including active browser sessions and long-lived
@@ -214,7 +205,6 @@ def admin_user_op_revoke_all_tokens(
     """
     result = client.admin.User.revoke_all_tokens(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -231,7 +221,8 @@ def admin_user_op_search(
     page_token: typing.Optional[str],
 ):
     """
-    Perform a case-insensitive prefix search for users based on username, given name and family name.
+    Perform a case-insensitive prefix search for active users based on username, given name and family name.
+    Deleted users are not included in results. To list deleted users, use the `list` endpoint with `include=DELETED`.
 
     """
     result = client.admin.User.search(
@@ -306,21 +297,16 @@ def admin_user_user_provider_info():
 
 @admin_user_user_provider_info.command("get")
 @click.argument("user_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_user_provider_info_op_get(
     client: FoundryClient,
     user_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the UserProviderInfo.
     """
     result = client.admin.User.ProviderInfo.get(
         user_id=user_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -335,15 +321,11 @@ def admin_user_user_provider_info_op_get(
 At most one User can have a given provider ID in a given Realm.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_user_user_provider_info_op_replace(
     client: FoundryClient,
     user_id: str,
     provider_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Replace the UserProviderInfo.
@@ -351,7 +333,6 @@ def admin_user_user_provider_info_op_replace(
     result = client.admin.User.ProviderInfo.replace(
         user_id=user_id,
         provider_id=provider_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -464,35 +445,26 @@ def admin_organization_op_create(
 
 @admin_organization.command("get")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_get(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Organization with the specified rid.
     """
     result = client.admin.Organization.get(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_organization.command("list_available_roles")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_list_available_roles(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     List all roles that can be assigned to a principal for the given Organization.
@@ -500,7 +472,6 @@ def admin_organization_op_list_available_roles(
     """
     result = client.admin.Organization.list_available_roles(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -517,9 +488,6 @@ def admin_organization_op_list_available_roles(
 Organization.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_op_replace(
     client: FoundryClient,
@@ -527,7 +495,6 @@ def admin_organization_op_replace(
     name: str,
     description: typing.Optional[str],
     host: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Replace the Organization with the specified rid.
@@ -537,6 +504,82 @@ def admin_organization_op_replace(
         name=name,
         description=description,
         host=host,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization.group("organization_guest_member")
+def admin_organization_organization_guest_member():
+    pass
+
+
+@admin_organization_organization_guest_member.command("add")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_add(
+    client: FoundryClient,
+    organization_rid: str,
+    principal_ids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Adds principals as guest members of an Organization. Attempting to add a primary member through this endpoint will not add the principal as a guest, but will still return a successful response.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.add(
+        organization_rid=organization_rid,
+        principal_ids=json.loads(principal_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization_organization_guest_member.command("list")
+@click.argument("organization_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_list(
+    client: FoundryClient,
+    organization_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all guest members of an Organization.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.list(
+        organization_rid=organization_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_organization_organization_guest_member.command("remove")
+@click.argument("organization_rid", type=str, required=True)
+@click.option("--principal_ids", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_organization_organization_guest_member_op_remove(
+    client: FoundryClient,
+    organization_rid: str,
+    principal_ids: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Removes principals from being guest members of an Organization. Attempting to remove a primary member through this endpoint will not remove the primary member, but will still return a successful response.
+
+    """
+    result = client.admin.Organization.OrganizationGuestMember.remove(
+        organization_rid=organization_rid,
+        principal_ids=json.loads(principal_ids),
         preview=preview,
     )
     click.echo(repr(result))
@@ -550,15 +593,11 @@ def admin_organization_organization_role_assignment():
 @admin_organization_organization_role_assignment.command("add")
 @click.argument("organization_rid", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_add(
     client: FoundryClient,
     organization_rid: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """
     Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
@@ -567,21 +606,16 @@ def admin_organization_organization_role_assignment_op_add(
     result = client.admin.Organization.OrganizationRoleAssignment.add(
         organization_rid=organization_rid,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @admin_organization_organization_role_assignment.command("list")
 @click.argument("organization_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_list(
     client: FoundryClient,
     organization_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     List all principals who are assigned a role for the given Organization.
@@ -589,7 +623,6 @@ def admin_organization_organization_role_assignment_op_list(
     """
     result = client.admin.Organization.OrganizationRoleAssignment.list(
         organization_rid=organization_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -597,15 +630,11 @@ def admin_organization_organization_role_assignment_op_list(
 @admin_organization_organization_role_assignment.command("remove")
 @click.argument("organization_rid", type=str, required=True)
 @click.option("--role_assignments", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_organization_organization_role_assignment_op_remove(
     client: FoundryClient,
     organization_rid: str,
     role_assignments: str,
-    preview: typing.Optional[bool],
 ):
     """
     Remove roles from principals for the given Organization. At most 100 role assignments can be removed in a single request.
@@ -614,7 +643,6 @@ def admin_organization_organization_role_assignment_op_remove(
     result = client.admin.Organization.OrganizationRoleAssignment.remove(
         organization_rid=organization_rid,
         role_assignments=json.loads(role_assignments),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -668,21 +696,16 @@ def admin_marking_category_op_create(
 
 @admin_marking_category.command("get")
 @click.argument("marking_category_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_category_op_get(
     client: FoundryClient,
     marking_category_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the MarkingCategory with the specified id.
     """
     result = client.admin.MarkingCategory.get(
         marking_category_id=marking_category_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -699,15 +722,11 @@ def admin_marking_category_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_marking_category_op_list(
     client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Maximum page size 100.
@@ -715,6 +734,32 @@ def admin_marking_category_op_list(
     result = client.admin.MarkingCategory.list(
         page_size=page_size,
         page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@admin_marking_category.command("replace")
+@click.argument("marking_category_id", type=str, required=True)
+@click.option("--description", type=str, required=True, help="""""")
+@click.option("--name", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_marking_category_op_replace(
+    client: FoundryClient,
+    marking_category_id: str,
+    description: str,
+    name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the MarkingCategory with the specified id.
+    """
+    result = client.admin.MarkingCategory.replace(
+        marking_category_id=marking_category_id,
+        description=description,
+        name=name,
         preview=preview,
     )
     click.echo(repr(result))
@@ -867,7 +912,11 @@ def admin_marking_marking_role_assignment_op_add(
     marking_id: str,
     role_assignments: str,
 ):
-    """ """
+    """
+    Adds role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+    roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
+
+    """
     result = client.admin.Marking.MarkingRoleAssignment.add(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
@@ -916,7 +965,11 @@ def admin_marking_marking_role_assignment_op_remove(
     marking_id: str,
     role_assignments: str,
 ):
-    """ """
+    """
+    Removes role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+    roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
+
+    """
     result = client.admin.Marking.MarkingRoleAssignment.remove(
         marking_id=marking_id,
         role_assignments=json.loads(role_assignments),
@@ -1131,6 +1184,68 @@ def admin_group_op_list(
     click.echo(repr(result))
 
 
+@admin_group.command("list_current")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_group_op_list_current(
+    client: FoundryClient,
+    preview: typing.Optional[bool],
+):
+    """
+    Returns all Groups which contain the current user as a direct or transitive member. For example if the current user is a member of Group A and Group A is a member of Group B, this endpoint will return Group A and Group B.
+
+    Unlike the list Group Memberships endpoint which requires the `api:admin-read` scope, this endpoint
+    does not require any particular scopes and can be used by any authenticated user to retrieve their own
+    group memberships.
+
+    """
+    result = client.admin.Group.list_current(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin_group.command("replace")
+@click.argument("group_id", type=str, required=True)
+@click.option(
+    "--attributes",
+    type=str,
+    required=True,
+    help="""A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.""",
+)
+@click.option("--name", type=str, required=True, help="""The name of the Group.""")
+@click.option(
+    "--organizations",
+    type=str,
+    required=True,
+    help="""The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
+""",
+)
+@click.option("--description", type=str, required=False, help="""A description of the Group.""")
+@click.pass_obj
+def admin_group_op_replace(
+    client: FoundryClient,
+    group_id: str,
+    attributes: str,
+    name: str,
+    organizations: str,
+    description: typing.Optional[str],
+):
+    """
+    When replacing groups, you must send all attributes that begin with `multipass:` exactly as they appear when calling the Get Group endpoint.
+    """
+    result = client.admin.Group.replace(
+        group_id=group_id,
+        attributes=json.loads(attributes),
+        name=name,
+        organizations=json.loads(organizations),
+        description=description,
+    )
+    click.echo(repr(result))
+
+
 @admin_group.command("search")
 @click.option("--where", type=str, required=True, help="""""")
 @click.option("--page_size", type=int, required=False, help="""""")
@@ -1246,6 +1361,16 @@ def admin_group_group_member_op_add(
 @admin_group_group_member.command("list")
 @click.argument("group_id", type=str, required=True)
 @click.option(
+    "--include_expirations",
+    type=bool,
+    required=False,
+    help="""When true, includes the expiration time of any temporary members of this group. `includeExpirations` 
+cannot be set to true if `transitive` is also set to true.
+
+Defaults to false.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -1265,6 +1390,8 @@ Group has member Group A, and Group A has member User B. If `transitive=false` o
 be returned, but if `transitive=true` then Group A and User B will be returned. This
 will recursively resolve Groups through all layers of nesting.
 
+If `transitive` is true, `includeExpirations` cannot also be set to true.
+
 Defaults to false.
 """,
 )
@@ -1272,6 +1399,7 @@ Defaults to false.
 def admin_group_group_member_op_list(
     client: FoundryClient,
     group_id: str,
+    include_expirations: typing.Optional[bool],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     transitive: typing.Optional[bool],
@@ -1288,6 +1416,7 @@ def admin_group_group_member_op_list(
     """
     result = client.admin.Group.GroupMember.list(
         group_id=group_id,
+        include_expirations=include_expirations,
         page_size=page_size,
         page_token=page_token,
         transitive=transitive,
@@ -1319,21 +1448,16 @@ def admin_group_group_provider_info():
 
 @admin_group_group_provider_info.command("get")
 @click.argument("group_id", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_group_group_provider_info_op_get(
     client: FoundryClient,
     group_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the GroupProviderInfo.
     """
     result = client.admin.Group.ProviderInfo.get(
         group_id=group_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1348,15 +1472,11 @@ def admin_group_group_provider_info_op_get(
 At most one Group can have a given provider ID in a given Realm.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def admin_group_group_provider_info_op_replace(
     client: FoundryClient,
     group_id: str,
     provider_id: str,
-    preview: typing.Optional[bool],
 ):
     """
     Replace the GroupProviderInfo.
@@ -1364,7 +1484,6 @@ def admin_group_group_provider_info_op_replace(
     result = client.admin.Group.ProviderInfo.replace(
         group_id=group_id,
         provider_id=provider_id,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -1680,6 +1799,76 @@ def admin_enrollment_enrollment_role_assignment_op_remove(
     click.echo(repr(result))
 
 
+@admin.group("cbac_marking_restrictions")
+def admin_cbac_marking_restrictions():
+    pass
+
+
+@admin_cbac_marking_restrictions.command("get")
+@click.option(
+    "--marking_ids",
+    type=str,
+    required=False,
+    help="""The marking IDs for which to get restrictions.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_cbac_marking_restrictions_op_get(
+    client: FoundryClient,
+    marking_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns disallowed, implied, and required markings for the given set of marking IDs.
+    """
+    result = client.admin.CbacMarkingRestrictions.get(
+        marking_ids=None if marking_ids is None else json.loads(marking_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@admin.group("cbac_banner")
+def admin_cbac_banner():
+    pass
+
+
+@admin_cbac_banner.command("get")
+@click.option(
+    "--display_type",
+    type=click.Choice(["BANNER_LINE", "PORTION_MARKING"]),
+    required=False,
+    help="""The display type of the banner. Defaults to PORTION_MARKING. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs""",
+)
+@click.option(
+    "--marking_ids",
+    type=str,
+    required=False,
+    help="""The marking IDs for which to generate a banner.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def admin_cbac_banner_op_get(
+    client: FoundryClient,
+    display_type: typing.Optional[typing.Literal["BANNER_LINE", "PORTION_MARKING"]],
+    marking_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Returns a classification banner string and colors for the given set of marking IDs.
+    """
+    result = client.admin.CbacBanner.get(
+        display_type=display_type,
+        marking_ids=None if marking_ids is None else json.loads(marking_ids),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("aip_agents")
 def aip_agents():
     pass
@@ -1743,7 +1932,7 @@ def aip_agents_agent_op_get(
     version: typing.Optional[str],
 ):
     """
-    Get details for an AIP Agent.
+    Get details for an Agent.
     """
     result = client.aip_agents.Agent.get(
         agent_rid=agent_rid,
@@ -1765,7 +1954,7 @@ def aip_agents_agent_session():
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -1778,7 +1967,7 @@ def aip_agents_agent_session():
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -1985,7 +2174,7 @@ def aip_agents_agent_session_op_list(
     """
     List all conversation sessions between the calling user and an Agent that was created by this client.
     This does not list sessions for the user created by other clients.
-    For example, any sessions created by the user in AIP Agent Studio will not be listed here.
+    For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
     Sessions are returned in order of most recently updated first.
 
     """
@@ -2005,7 +2194,7 @@ def aip_agents_agent_session_op_list(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+    help="""Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
 """,
 )
 @click.option(
@@ -2027,7 +2216,7 @@ def aip_agents_agent_session_op_rag_context(
     preview: typing.Optional[bool],
 ):
     """
-    Retrieve relevant [context](https://palantir.com/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+    Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
     This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
     """
@@ -2048,7 +2237,7 @@ def aip_agents_agent_session_op_rag_context(
     "--parameter_inputs",
     type=str,
     required=True,
-    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+    help="""Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
 """,
 )
 @click.option(
@@ -2061,7 +2250,7 @@ def aip_agents_agent_session_op_rag_context(
     "--contexts_override",
     type=str,
     required=False,
-    help="""If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
+    help="""If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead.
 If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
 """,
 )
@@ -2240,7 +2429,7 @@ def aip_agents_agent_agent_version_op_get(
     preview: typing.Optional[bool],
 ):
     """
-    Get version details for an AIP Agent.
+    Get version details for an Agent.
     """
     result = client.aip_agents.Agent.AgentVersion.get(
         agent_rid=agent_rid,
@@ -2275,7 +2464,7 @@ def aip_agents_agent_agent_version_op_list(
     preview: typing.Optional[bool],
 ):
     """
-    List all versions for an AIP Agent.
+    List all versions for an Agent.
     Versions are returned in descending order, by most recent versions first.
 
     """
@@ -2489,9 +2678,6 @@ def connectivity_connection():
 )
 @click.option("--parent_folder_rid", type=str, required=True, help="""""")
 @click.option("--worker", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_create(
     client: FoundryClient,
@@ -2499,7 +2685,6 @@ def connectivity_connection_op_create(
     display_name: str,
     parent_folder_rid: str,
     worker: str,
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new Connection with a [direct connection](https://palantir.com/docs/foundry/data-connection/core-concepts/#direct-connection) runtime.
@@ -2518,42 +2703,32 @@ def connectivity_connection_op_create(
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
         worker=json.loads(worker),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get")
 @click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get(
     client: FoundryClient,
     connection_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Connection with the specified rid.
     """
     result = client.connectivity.Connection.get(
         connection_rid=connection_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get_configuration")
 @click.argument("connection_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get_configuration(
     client: FoundryClient,
     connection_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Retrieves the ConnectionConfiguration of the [Connection](https://palantir.com/docs/foundry/data-connection/set-up-source/) itself.
@@ -2562,21 +2737,16 @@ def connectivity_connection_op_get_configuration(
     """
     result = client.connectivity.Connection.get_configuration(
         connection_rid=connection_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @connectivity_connection.command("get_configuration_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_get_configuration_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Returns a map of Connection RIDs to their corresponding configurations.
@@ -2587,7 +2757,6 @@ def connectivity_connection_op_get_configuration_batch(
     """
     result = client.connectivity.Connection.get_configuration_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2595,15 +2764,11 @@ def connectivity_connection_op_get_configuration_batch(
 @connectivity_connection.command("update_export_settings")
 @click.argument("connection_rid", type=str, required=True)
 @click.option("--export_settings", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_update_export_settings(
     client: FoundryClient,
     connection_rid: str,
     export_settings: str,
-    preview: typing.Optional[bool],
 ):
     """
     Updates the [export settings on the Connection.](https://palantir.com/docs/foundry/data-connection/export-overview/#enable-exports-for-source)
@@ -2613,7 +2778,6 @@ def connectivity_connection_op_update_export_settings(
     result = client.connectivity.Connection.update_export_settings(
         connection_rid=connection_rid,
         export_settings=json.loads(export_settings),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2664,16 +2828,12 @@ def connectivity_connection_op_update_secrets(
     help="""The file name of the uploaded JDBC driver. Must end with .jar
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_op_upload_custom_jdbc_drivers(
     client: FoundryClient,
     connection_rid: str,
     body: io.BufferedReader,
     file_name: str,
-    preview: typing.Optional[bool],
 ):
     """
     Upload custom jdbc drivers to an existing JDBC connection.
@@ -2684,7 +2844,6 @@ def connectivity_connection_op_upload_custom_jdbc_drivers(
         connection_rid=connection_rid,
         body=body.read(),
         file_name=file_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2700,9 +2859,6 @@ def connectivity_connection_virtual_table():
 @click.option("--name", type=str, required=True, help="""""")
 @click.option("--parent_rid", type=str, required=True, help="""""")
 @click.option("--markings", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_virtual_table_op_create(
     client: FoundryClient,
@@ -2711,7 +2867,6 @@ def connectivity_connection_virtual_table_op_create(
     name: str,
     parent_rid: str,
     markings: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
@@ -2724,7 +2879,6 @@ def connectivity_connection_virtual_table_op_create(
         name=name,
         parent_rid=parent_rid,
         markings=None if markings is None else json.loads(markings),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2759,9 +2913,6 @@ def connectivity_connection_table_import():
     required=False,
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the table import is created.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_create(
     client: FoundryClient,
@@ -2772,7 +2923,6 @@ def connectivity_connection_table_import_op_create(
     import_mode: typing.Literal["SNAPSHOT", "APPEND"],
     allow_schema_changes: typing.Optional[bool],
     branch_name: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new TableImport.
@@ -2785,7 +2935,6 @@ def connectivity_connection_table_import_op_create(
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
         branch_name=branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2793,15 +2942,11 @@ def connectivity_connection_table_import_op_create(
 @connectivity_connection_table_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_delete(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Delete the TableImport with the specified RID.
@@ -2812,7 +2957,6 @@ def connectivity_connection_table_import_op_delete(
     result = client.connectivity.Connection.TableImport.delete(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2820,15 +2964,11 @@ def connectivity_connection_table_import_op_delete(
 @connectivity_connection_table_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_execute(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Executes the TableImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
@@ -2838,7 +2978,6 @@ def connectivity_connection_table_import_op_execute(
     result = client.connectivity.Connection.TableImport.execute(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2846,15 +2985,11 @@ def connectivity_connection_table_import_op_execute(
 @connectivity_connection_table_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("table_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_get(
     client: FoundryClient,
     connection_rid: str,
     table_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the TableImport with the specified rid.
@@ -2862,7 +2997,6 @@ def connectivity_connection_table_import_op_get(
     result = client.connectivity.Connection.TableImport.get(
         connection_rid=connection_rid,
         table_import_rid=table_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2880,16 +3014,12 @@ def connectivity_connection_table_import_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_list(
     client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Lists all table imports defined for this connection.
@@ -2900,7 +3030,6 @@ def connectivity_connection_table_import_op_list(
         connection_rid=connection_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2919,9 +3048,6 @@ def connectivity_connection_table_import_op_list(
     required=False,
     help="""Allow the TableImport to succeed if the schema of imported rows does not match the existing dataset's schema. Defaults to false for new table imports.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_table_import_op_replace(
     client: FoundryClient,
@@ -2931,7 +3057,6 @@ def connectivity_connection_table_import_op_replace(
     display_name: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND"],
     allow_schema_changes: typing.Optional[bool],
-    preview: typing.Optional[bool],
 ):
     """
     Replace the TableImport with the specified rid.
@@ -2943,7 +3068,6 @@ def connectivity_connection_table_import_op_replace(
         display_name=display_name,
         import_mode=import_mode,
         allow_schema_changes=allow_schema_changes,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -2978,9 +3102,6 @@ def connectivity_connection_file_import():
     help="""The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.""",
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--subfolder",
     type=str,
     required=False,
@@ -2995,7 +3116,6 @@ def connectivity_connection_file_import_op_create(
     file_import_filters: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
     branch_name: typing.Optional[str],
-    preview: typing.Optional[bool],
     subfolder: typing.Optional[str],
 ):
     """
@@ -3008,7 +3128,6 @@ def connectivity_connection_file_import_op_create(
         file_import_filters=json.loads(file_import_filters),
         import_mode=import_mode,
         branch_name=branch_name,
-        preview=preview,
         subfolder=subfolder,
     )
     click.echo(repr(result))
@@ -3017,15 +3136,11 @@ def connectivity_connection_file_import_op_create(
 @connectivity_connection_file_import.command("delete")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_delete(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Delete the FileImport with the specified RID.
@@ -3036,7 +3151,6 @@ def connectivity_connection_file_import_op_delete(
     result = client.connectivity.Connection.FileImport.delete(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3044,15 +3158,11 @@ def connectivity_connection_file_import_op_delete(
 @connectivity_connection_file_import.command("execute")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_execute(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Executes the FileImport, which runs asynchronously as a [Foundry Build](https://palantir.com/docs/foundry/data-integration/builds/).
@@ -3062,7 +3172,6 @@ def connectivity_connection_file_import_op_execute(
     result = client.connectivity.Connection.FileImport.execute(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3070,15 +3179,11 @@ def connectivity_connection_file_import_op_execute(
 @connectivity_connection_file_import.command("get")
 @click.argument("connection_rid", type=str, required=True)
 @click.argument("file_import_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_get(
     client: FoundryClient,
     connection_rid: str,
     file_import_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the FileImport with the specified rid.
@@ -3086,7 +3191,6 @@ def connectivity_connection_file_import_op_get(
     result = client.connectivity.Connection.FileImport.get(
         connection_rid=connection_rid,
         file_import_rid=file_import_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3104,16 +3208,12 @@ def connectivity_connection_file_import_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def connectivity_connection_file_import_op_list(
     client: FoundryClient,
     connection_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Lists all file imports defined for this connection.
@@ -3124,7 +3224,6 @@ def connectivity_connection_file_import_op_list(
         connection_rid=connection_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3143,9 +3242,6 @@ def connectivity_connection_file_import_op_list(
     "--import_mode", type=click.Choice(["SNAPSHOT", "APPEND", "UPDATE"]), required=True, help=""""""
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--subfolder",
     type=str,
     required=False,
@@ -3159,7 +3255,6 @@ def connectivity_connection_file_import_op_replace(
     display_name: str,
     file_import_filters: str,
     import_mode: typing.Literal["SNAPSHOT", "APPEND", "UPDATE"],
-    preview: typing.Optional[bool],
     subfolder: typing.Optional[str],
 ):
     """
@@ -3171,7 +3266,6 @@ def connectivity_connection_file_import_op_replace(
         display_name=display_name,
         file_import_filters=json.loads(file_import_filters),
         import_mode=import_mode,
-        preview=preview,
         subfolder=subfolder,
     )
     click.echo(repr(result))
@@ -3361,16 +3455,12 @@ def datasets_view():
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_add_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds one or more backing datasets to a View. Any duplicates with the same dataset RID and branch name are
@@ -3381,7 +3471,6 @@ def datasets_view_op_add_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3390,16 +3479,12 @@ def datasets_view_op_add_backing_datasets(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--primary_key", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_add_primary_key(
     client: FoundryClient,
     view_dataset_rid: str,
     primary_key: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds a primary key to a View that does not already have one. Primary keys are treated as
@@ -3410,7 +3495,6 @@ def datasets_view_op_add_primary_key(
         view_dataset_rid=view_dataset_rid,
         primary_key=json.loads(primary_key),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3425,9 +3509,6 @@ def datasets_view_op_add_primary_key(
     required=False,
     help="""The branch name of the View. If not specified, defaults to `master` for most enrollments.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.option("--primary_key", type=str, required=False, help="""""")
 @click.pass_obj
 def datasets_view_op_create(
@@ -3436,7 +3517,6 @@ def datasets_view_op_create(
     parent_folder_rid: str,
     view_name: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
     primary_key: typing.Optional[str],
 ):
     """
@@ -3447,7 +3527,6 @@ def datasets_view_op_create(
         parent_folder_rid=parent_folder_rid,
         view_name=view_name,
         branch=branch,
-        preview=preview,
         primary_key=None if primary_key is None else json.loads(primary_key),
     )
     click.echo(repr(result))
@@ -3456,15 +3535,11 @@ def datasets_view_op_create(
 @datasets_view.command("get")
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_get(
     client: FoundryClient,
     view_dataset_rid: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Get metadata for a View.
@@ -3472,7 +3547,6 @@ def datasets_view_op_get(
     result = client.datasets.View.get(
         view_dataset_rid=view_dataset_rid,
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3481,16 +3555,12 @@ def datasets_view_op_get(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_remove_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Removes specified backing datasets from a View. Removing a dataset triggers a
@@ -3502,7 +3572,6 @@ def datasets_view_op_remove_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3511,16 +3580,12 @@ def datasets_view_op_remove_backing_datasets(
 @click.argument("view_dataset_rid", type=str, required=True)
 @click.option("--backing_datasets", type=str, required=True, help="""""")
 @click.option("--branch", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_view_op_replace_backing_datasets(
     client: FoundryClient,
     view_dataset_rid: str,
     backing_datasets: str,
     branch: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Replaces the backing datasets for a View. Removing any backing dataset triggers a
@@ -3531,7 +3596,6 @@ def datasets_view_op_replace_backing_datasets(
         view_dataset_rid=view_dataset_rid,
         backing_datasets=json.loads(backing_datasets),
         branch=branch,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3656,9 +3720,6 @@ def datasets_dataset_op_get_health_checks(
 )
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_get_schedules(
     client: FoundryClient,
@@ -3666,10 +3727,13 @@ def datasets_dataset_op_get_schedules(
     branch_name: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
-    Get the RIDs of the Schedules that target the given Dataset
+    Get the RIDs of the Schedules that target the given Dataset.
+
+    Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+    especially for schedules managed by Marketplace. This operation will return outdated results in the
+    meantime.
 
     """
     result = client.datasets.Dataset.get_schedules(
@@ -3677,7 +3741,6 @@ def datasets_dataset_op_get_schedules(
         branch_name=branch_name,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3693,9 +3756,6 @@ def datasets_dataset_op_get_schedules(
 """,
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--version_id",
     type=str,
     required=False,
@@ -3708,7 +3768,6 @@ def datasets_dataset_op_get_schema(
     dataset_rid: str,
     branch_name: typing.Optional[str],
     end_transaction_rid: typing.Optional[str],
-    preview: typing.Optional[bool],
     version_id: typing.Optional[str],
 ):
     """
@@ -3719,7 +3778,6 @@ def datasets_dataset_op_get_schema(
         dataset_rid=dataset_rid,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
         version_id=version_id,
     )
     click.echo(repr(result))
@@ -3727,14 +3785,10 @@ def datasets_dataset_op_get_schema(
 
 @datasets_dataset.command("get_schema_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_get_schema_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Fetch schemas for multiple datasets in a single request. Datasets not found
@@ -3745,7 +3799,6 @@ def datasets_dataset_op_get_schema_batch(
     """
     result = client.datasets.Dataset.get_schema_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -3822,9 +3875,6 @@ def datasets_dataset_op_jobs(
     help="""The Resource Identifier (RID) of the end Transaction.
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def datasets_dataset_op_put_schema(
     client: FoundryClient,
@@ -3833,7 +3883,6 @@ def datasets_dataset_op_put_schema(
     branch_name: typing.Optional[str],
     dataframe_reader: typing.Optional[typing.Literal["AVRO", "CSV", "PARQUET", "DATASOURCE"]],
     end_transaction_rid: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Adds a schema on an existing dataset using a PUT request.
@@ -3845,7 +3894,6 @@ def datasets_dataset_op_put_schema(
         branch_name=branch_name,
         dataframe_reader=dataframe_reader,
         end_transaction_rid=end_transaction_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5190,6 +5238,14 @@ def filesystem_project_op_add_organizations(
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
+@click.option(
+    "--resource_level_role_grants_allowed",
+    type=bool,
+    required=False,
+    help="""Whether role grants should be allowed on individual resources within the Project.
+When not specified, defaults to true.
+""",
+)
 @click.pass_obj
 def filesystem_project_op_create(
     client: FoundryClient,
@@ -5200,6 +5256,7 @@ def filesystem_project_op_create(
     space_rid: str,
     description: typing.Optional[str],
     preview: typing.Optional[bool],
+    resource_level_role_grants_allowed: typing.Optional[bool],
 ):
     """
     Creates a new Project.
@@ -5217,6 +5274,7 @@ def filesystem_project_op_create(
         space_rid=space_rid,
         description=description,
         preview=preview,
+        resource_level_role_grants_allowed=resource_level_role_grants_allowed,
     )
     click.echo(repr(result))
 
@@ -5369,6 +5427,111 @@ def filesystem_project_op_replace(
     click.echo(repr(result))
 
 
+@filesystem_project.group("project_resource_reference")
+def filesystem_project_project_resource_reference():
+    pass
+
+
+@filesystem_project_project_resource_reference.command("add")
+@click.argument("project_rid", type=str, required=True)
+@click.option("--resources", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_add(
+    client: FoundryClient,
+    project_rid: str,
+    resources: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Add references to the given project
+
+    """
+    result = client.filesystem.Project.Reference.add(
+        project_rid=project_rid,
+        resources=json.loads(resources),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project_project_resource_reference.command("list")
+@click.argument("project_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--reference_type",
+    type=click.Choice(["EXTERNAL", "FILESYSTEM"]),
+    required=False,
+    help="""Filter references by type. If not provided, all references are returned.""",
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_list(
+    client: FoundryClient,
+    project_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    reference_type: typing.Optional[typing.Literal["EXTERNAL", "FILESYSTEM"]],
+):
+    """
+    List all references in the given project
+
+    """
+    result = client.filesystem.Project.Reference.list(
+        project_rid=project_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        reference_type=reference_type,
+    )
+    click.echo(repr(result))
+
+
+@filesystem_project_project_resource_reference.command("remove")
+@click.argument("project_rid", type=str, required=True)
+@click.option(
+    "--resources",
+    type=str,
+    required=True,
+    help="""The resource identifiers to remove as references. These may be either filesystem or external resource identifiers.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_project_project_resource_reference_op_remove(
+    client: FoundryClient,
+    project_rid: str,
+    resources: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Remove references from the given project
+
+    """
+    result = client.filesystem.Project.Reference.remove(
+        project_rid=project_rid,
+        resources=json.loads(resources),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @filesystem.group("folder")
 def filesystem_folder():
     pass
@@ -5490,6 +5653,40 @@ def filesystem_folder_op_get_batch(
     click.echo(repr(result))
 
 
+@filesystem_folder.command("replace")
+@click.argument("folder_rid", type=str, required=True)
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option(
+    "--parent_folder_rid",
+    type=str,
+    required=True,
+    help="""The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces,
+this value will be the root folder (`ri.compass.main.folder.0`).
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def filesystem_folder_op_replace(
+    client: FoundryClient,
+    folder_rid: str,
+    display_name: str,
+    parent_folder_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Replace the Folder with the specified rid.
+    """
+    result = client.filesystem.Folder.replace(
+        folder_rid=folder_rid,
+        display_name=display_name,
+        parent_folder_rid=parent_folder_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @cli.group("functions")
 def functions():
     pass
@@ -5562,6 +5759,15 @@ def functions_query():
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option("--trace_parent", type=str, required=False, help="""""")
@@ -5572,13 +5778,20 @@ def functions_query():
     required=False,
     help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
 )
-@click.option("--version", type=str, required=False, help="""""")
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
 @click.pass_obj
 def functions_query_op_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
     trace_state: typing.Optional[str],
@@ -5598,6 +5811,83 @@ def functions_query_op_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
+        preview=preview,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        transaction_id=transaction_id,
+        version=version,
+    )
+    click.echo(repr(result))
+
+
+@functions_query.command("execute_async")
+@click.argument("query_api_name", type=str, required=True)
+@click.option("--parameters", type=str, required=True, help="""""")
+@click.option("--attribution", type=str, required=False, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
+    "--ontology",
+    type=str,
+    required=False,
+    help="""Optional ontology identifier (RID or API name). When provided, executes an ontology-scoped
+function. When omitted, executes a global function.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option("--trace_parent", type=str, required=False, help="""""")
+@click.option("--trace_state", type=str, required=False, help="""""")
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
+)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
+@click.pass_obj
+def functions_query_op_execute_async(
+    client: FoundryClient,
+    query_api_name: str,
+    parameters: str,
+    attribution: typing.Optional[str],
+    branch: typing.Optional[str],
+    ontology: typing.Optional[str],
+    preview: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
+    version: typing.Optional[str],
+):
+    """
+    Submits a Query for asynchronous execution. Returns either an execution ID
+    for polling, or the complete result if execution finished immediately.
+
+    Use the Execution resource's getResult endpoint to poll for the
+    result of a submitted execution.
+
+    """
+    result = client.functions.Query.execute_async(
+        query_api_name=query_api_name,
+        parameters=json.loads(parameters),
+        attribution=attribution,
+        branch=branch,
+        ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
         trace_state=trace_state,
@@ -5670,10 +5960,45 @@ def functions_query_op_get_by_rid(
     click.echo(repr(result))
 
 
+@functions_query.command("get_by_rid_batch")
+@click.argument("body", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def functions_query_op_get_by_rid_batch(
+    client: FoundryClient,
+    body: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of query types by RID in bulk. By default, this gets the latest version of each query.
+
+    Queries are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+    """
+    result = client.functions.Query.get_by_rid_batch(
+        body=json.loads(body),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
 @functions_query.command("streaming_execute")
 @click.argument("query_api_name", type=str, required=True)
 @click.option("--parameters", type=str, required=True, help="""""")
 @click.option("--attribution", type=str, required=False, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+When provided without `version`, the latest version on this branch is used.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
 @click.option(
     "--ontology",
     type=str,
@@ -5693,13 +6018,20 @@ function. When omitted, executes a global function.
     required=False,
     help="""The ID of a transaction to read from. Transactions are an experimental feature and all workflows may not be supported.""",
 )
-@click.option("--version", type=str, required=False, help="""""")
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""The version of the query to execute. When used with `branch`, the specified version must exist on the branch.
+""",
+)
 @click.pass_obj
 def functions_query_op_streaming_execute(
     client: FoundryClient,
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     ontology: typing.Optional[str],
     preview: typing.Optional[bool],
     trace_parent: typing.Optional[str],
@@ -5739,6 +6071,7 @@ def functions_query_op_streaming_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
         ontology=ontology,
         preview=preview,
         trace_parent=trace_parent,
@@ -5747,6 +6080,77 @@ def functions_query_op_streaming_execute(
         version=version,
     )
     click.echo(result)
+
+
+@functions.group("execution")
+def functions_execution():
+    pass
+
+
+@functions_execution.command("cancel")
+@click.argument("execution_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def functions_execution_op_cancel(
+    client: FoundryClient,
+    execution_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Cancel a running async query execution. This endpoint is idempotent.
+
+    """
+    result = client.functions.Execution.cancel(
+        execution_id=execution_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@functions_execution.command("get_result")
+@click.argument("execution_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--timeout",
+    type=int,
+    required=False,
+    help="""Maximum time in seconds to hold the connection open while waiting
+for execution to complete. Default: 0 (immediate status check).
+Values above 280 are clamped to 280.
+""",
+)
+@click.pass_obj
+def functions_execution_op_get_result(
+    client: FoundryClient,
+    execution_id: str,
+    preview: typing.Optional[bool],
+    timeout: typing.Optional[int],
+):
+    """
+    Poll for the result of an async query execution.
+
+    Returns a discriminated union:
+    - running: execution is still in progress.
+    - succeeded: execution completed successfully with a return value.
+
+    If the execution failed, a service error is thrown.
+
+    Use the timeout parameter for long-polling: the server holds the
+    connection open for up to the specified number of seconds. If the
+    execution completes within that window, the result is returned
+    immediately. Otherwise, the running variant is returned.
+
+    """
+    result = client.functions.Execution.get_result(
+        execution_id=execution_id,
+        preview=preview,
+        timeout=timeout,
+    )
+    click.echo(repr(result))
 
 
 @cli.group("geo")
@@ -5837,6 +6241,12 @@ alternating user and assistant roles.
 )
 @click.option("--attribution", type=str, required=False, help="""""")
 @click.option(
+    "--output_config",
+    type=str,
+    required=False,
+    help="""Configuration to control the shape of the model's output""",
+)
+@click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
@@ -5895,6 +6305,7 @@ def language_models_anthropic_model_op_messages(
     max_tokens: int,
     messages: str,
     attribution: typing.Optional[str],
+    output_config: typing.Optional[str],
     preview: typing.Optional[bool],
     stop_sequences: typing.Optional[str],
     system: typing.Optional[str],
@@ -5911,6 +6322,7 @@ def language_models_anthropic_model_op_messages(
         max_tokens=max_tokens,
         messages=json.loads(messages),
         attribution=attribution,
+        output_config=None if output_config is None else json.loads(output_config),
         preview=preview,
         stop_sequences=None if stop_sequences is None else json.loads(stop_sequences),
         system=None if system is None else json.loads(system),
@@ -5995,6 +6407,81 @@ def media_sets_media_set_op_calculate(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("clear")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--media_item_path",
+    type=str,
+    required=True,
+    help="""The path of the media item to clear.
+""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name from which this media item will be cleared. May not be provided if branch rid or view rid are provided.""",
+)
+@click.option(
+    "--branch_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by rid from which this media item will be cleared. May not be provided if branch name or view rid are provided.""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of the transaction associated with this request. Required if this is a transactional media set.
+""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid from which this media item will be cleared. May not be provided if branch name or branch rid are provided.""",
+)
+@click.pass_obj
+def media_sets_media_set_op_clear(
+    client: FoundryClient,
+    media_set_rid: str,
+    media_item_path: str,
+    branch_name: typing.Optional[str],
+    branch_rid: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
+    view_rid: typing.Optional[str],
+):
+    """
+    Clears (soft-deletes) the media item at the specified path within a media set, making it and all older
+    media items at that path un-retrievable.
+
+    A branch name, branch RID, or view RID may optionally be specified. If none is specified,
+    the item will be cleared from the default branch. If more than one is specified, an error is thrown.
+
+    For transactional media sets, a transaction ID must be provided. The deletion will not be
+    visible until the transaction is committed.
+
+    """
+    result = client.media_sets.MediaSet.clear(
+        media_set_rid=media_set_rid,
+        media_item_path=media_item_path,
+        branch_name=branch_name,
+        branch_rid=branch_rid,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("commit")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("transaction_id", type=str, required=True)
@@ -6054,6 +6541,32 @@ def media_sets_media_set_op_create(
     result = client.media_sets.MediaSet.create(
         media_set_rid=media_set_rid,
         branch_name=branch_name,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@media_sets_media_set.command("get")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def media_sets_media_set_op_get(
+    client: FoundryClient,
+    media_set_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets information about the media set.
+
+    """
+    result = client.media_sets.MediaSet.get(
+        media_set_rid=media_set_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -6350,6 +6863,68 @@ def media_sets_media_set_op_reference(
     click.echo(repr(result))
 
 
+@media_sets_media_set.command("register")
+@click.argument("media_set_rid", type=str, required=True)
+@click.option(
+    "--physical_item_name",
+    type=str,
+    required=True,
+    help="""The relative path within the federated media store where the media item exists.""",
+)
+@click.option(
+    "--branch_name",
+    type=str,
+    required=False,
+    help="""Specifies the specific branch by name to which this media item will be registered.""",
+)
+@click.option("--media_item_path", type=str, required=False, help="""""")
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The id of the transaction associated with this request. Required for transactional media sets.""",
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""Specifies the specific view by rid to which this media item will be registered.""",
+)
+@click.pass_obj
+def media_sets_media_set_op_register(
+    client: FoundryClient,
+    media_set_rid: str,
+    physical_item_name: str,
+    branch_name: typing.Optional[str],
+    media_item_path: typing.Optional[str],
+    preview: typing.Optional[bool],
+    transaction_id: typing.Optional[str],
+    view_rid: typing.Optional[str],
+):
+    """
+    Registers a media item that currently resides in a federated media store. Registration will validate the item
+    against the media set's schema and perform initial metadata extraction.
+    This endpoint is only applicable for federated media sets.
+
+    """
+    result = client.media_sets.MediaSet.register(
+        media_set_rid=media_set_rid,
+        physical_item_name=physical_item_name,
+        branch_name=branch_name,
+        media_item_path=media_item_path,
+        preview=preview,
+        transaction_id=transaction_id,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
 @media_sets_media_set.command("retrieve")
 @click.argument("media_set_rid", type=str, required=True)
 @click.argument("media_item_rid", type=str, required=True)
@@ -6389,6 +6964,12 @@ def media_sets_media_set_op_retrieve(
 @click.argument("media_item_rid", type=str, required=True)
 @click.option("--transformation", type=str, required=True, help="""""")
 @click.option(
+    "--attribution",
+    type=str,
+    required=False,
+    help="""Optional resource to attribute LLM calls on behalf of.""",
+)
+@click.option(
     "--preview",
     type=bool,
     required=False,
@@ -6402,6 +6983,7 @@ def media_sets_media_set_op_transform(
     media_set_rid: str,
     media_item_rid: str,
     transformation: str,
+    attribution: typing.Optional[str],
     preview: typing.Optional[bool],
     token: typing.Optional[str],
 ):
@@ -6417,6 +6999,7 @@ def media_sets_media_set_op_transform(
         media_set_rid=media_set_rid,
         media_item_rid=media_item_rid,
         transformation=json.loads(transformation),
+        attribution=attribution,
         preview=preview,
         token=token,
     )
@@ -6443,6 +7026,19 @@ def media_sets_media_set_op_transform(
     type=str,
     required=False,
     help="""An identifier for a media item within a media set. Necessary if the backing media set requires paths.""",
+)
+@click.option(
+    "--media_item_rid",
+    type=str,
+    required=False,
+    help="""An optional RID to use for the media item to create. If omitted, the server will automatically generate a
+RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your
+workflow strictly requires deterministic or client-controlled identifiers.
+The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as 
+the instance part of the media set RID, and `<UUID>` is a UUID.
+An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format.
+A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+""",
 )
 @click.option(
     "--preview",
@@ -6472,6 +7068,7 @@ def media_sets_media_set_op_upload(
     branch_name: typing.Optional[str],
     branch_rid: typing.Optional[str],
     media_item_path: typing.Optional[str],
+    media_item_rid: typing.Optional[str],
     preview: typing.Optional[bool],
     transaction_id: typing.Optional[str],
     view_rid: typing.Optional[str],
@@ -6488,6 +7085,7 @@ def media_sets_media_set_op_upload(
         branch_name=branch_name,
         branch_rid=branch_rid,
         media_item_path=media_item_path,
+        media_item_rid=media_item_rid,
         preview=preview,
         transaction_id=transaction_id,
         view_rid=view_rid,
@@ -6501,11 +7099,26 @@ def media_sets_media_set_op_upload(
     "--filename",
     type=str,
     required=True,
-    help="""The path to write the media item to. Required if the backing media set requires paths.
+    help="""A user-defined label for a media item within a media set. Required if the backing media set requires paths. 
+Uploading multiple files to the same path will result in only the most recent file being associated with the 
+path.
 """,
 )
 @click.option(
     "--attribution", type=str, required=False, help="""used for passing through usage attribution"""
+)
+@click.option(
+    "--media_item_rid",
+    type=str,
+    required=False,
+    help="""An optional RID to use for the media item to create. If omitted, the server will automatically generate a
+RID. In most cases, the server-generated RID should be preferred; only specify a custom RID if your
+workflow strictly requires deterministic or client-controlled identifiers.
+The RID must be in the format of `ri.mio.<instance>.media-item.<UUID>`, where `<instance>` is the same as 
+the instance part of the media set RID, and `<UUID>` is a UUID.
+An `InvalidMediaItemRid` error will be thrown if the RID is not in the expected format.
+A `MediaItemRidAlreadyExists` error will be thrown if the media set already contains a media item with the same RID.
+""",
 )
 @click.option(
     "--preview",
@@ -6520,6 +7133,7 @@ def media_sets_media_set_op_upload_media(
     body: io.BufferedReader,
     filename: str,
     attribution: typing.Optional[str],
+    media_item_rid: typing.Optional[str],
     preview: typing.Optional[bool],
 ):
     """
@@ -6535,6 +7149,7 @@ def media_sets_media_set_op_upload_media(
         body=body.read(),
         filename=filename,
         attribution=attribution,
+        media_item_rid=media_item_rid,
         preview=preview,
     )
     click.echo(repr(result))
@@ -6543,6 +7158,327 @@ def media_sets_media_set_op_upload_media(
 @cli.group("models")
 def models():
     pass
+
+
+@models.group("model_studio_trainer")
+def models_model_studio_trainer():
+    pass
+
+
+@models_model_studio_trainer.command("get")
+@click.argument("model_studio_trainer_trainer_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--version",
+    type=str,
+    required=False,
+    help="""Specific version of the trainer to retrieve. If not specified, returns the latest version.""",
+)
+@click.pass_obj
+def models_model_studio_trainer_op_get(
+    client: FoundryClient,
+    model_studio_trainer_trainer_id: str,
+    preview: typing.Optional[bool],
+    version: typing.Optional[str],
+):
+    """
+    Gets details about a specific trainer by its ID and optional version.
+    """
+    result = client.models.ModelStudioTrainer.get(
+        model_studio_trainer_trainer_id=model_studio_trainer_trainer_id,
+        preview=preview,
+        version=version,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio_trainer.command("list")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_trainer_op_list(
+    client: FoundryClient,
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all available trainers for Model Studios.
+    """
+    result = client.models.ModelStudioTrainer.list(
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models.group("model_studio")
+def models_model_studio():
+    pass
+
+
+@models_model_studio.command("create")
+@click.option("--name", type=str, required=True, help="""The name of the Model Studio.""")
+@click.option(
+    "--parent_folder_rid",
+    type=str,
+    required=True,
+    help="""The RID of the parent folder where the studio will be created.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_op_create(
+    client: FoundryClient,
+    name: str,
+    parent_folder_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new Model Studio.
+    """
+    result = client.models.ModelStudio.create(
+        name=name,
+        parent_folder_rid=parent_folder_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio.command("get")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_op_get(
+    client: FoundryClient,
+    model_studio_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets details about a Model Studio by its RID.
+    """
+    result = client.models.ModelStudio.get(
+        model_studio_rid=model_studio_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio.command("launch")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_op_launch(
+    client: FoundryClient,
+    model_studio_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Launches a new training run for the Model Studio using the latest configuration version.
+    """
+    result = client.models.ModelStudio.launch(
+        model_studio_rid=model_studio_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio.group("model_studio_config_version")
+def models_model_studio_model_studio_config_version():
+    pass
+
+
+@models_model_studio_model_studio_config_version.command("create")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--name",
+    type=str,
+    required=True,
+    help="""Human readable name of the configuration version and experiment.""",
+)
+@click.option(
+    "--resources",
+    type=str,
+    required=True,
+    help="""The compute resources allocated for training runs.""",
+)
+@click.option(
+    "--trainer_id",
+    type=str,
+    required=True,
+    help="""The identifier of the trainer to use for this configuration.""",
+)
+@click.option(
+    "--worker_config",
+    type=str,
+    required=True,
+    help="""The worker configuration including inputs, outputs, and custom settings.""",
+)
+@click.option(
+    "--changelog",
+    type=str,
+    required=False,
+    help="""Changelog describing changes in this version.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_model_studio_config_version_op_create(
+    client: FoundryClient,
+    model_studio_rid: str,
+    name: str,
+    resources: str,
+    trainer_id: str,
+    worker_config: str,
+    changelog: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new Model Studio configuration version.
+    """
+    result = client.models.ModelStudio.ConfigVersion.create(
+        model_studio_rid=model_studio_rid,
+        name=name,
+        resources=json.loads(resources),
+        trainer_id=trainer_id,
+        worker_config=json.loads(worker_config),
+        changelog=changelog,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio_model_studio_config_version.command("get")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.argument("model_studio_config_version_version", type=int, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_model_studio_config_version_op_get(
+    client: FoundryClient,
+    model_studio_rid: str,
+    model_studio_config_version_version: int,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a specific Model Studio configuration version.
+    """
+    result = client.models.ModelStudio.ConfigVersion.get(
+        model_studio_rid=model_studio_rid,
+        model_studio_config_version_version=model_studio_config_version_version,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio_model_studio_config_version.command("latest")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_model_studio_config_version_op_latest(
+    client: FoundryClient,
+    model_studio_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the latest configuration version for a Model Studio.
+    """
+    result = client.models.ModelStudio.ConfigVersion.latest(
+        model_studio_rid=model_studio_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio_model_studio_config_version.command("list")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_model_studio_config_version_op_list(
+    client: FoundryClient,
+    model_studio_rid: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all configuration versions for a Model Studio.
+    """
+    result = client.models.ModelStudio.ConfigVersion.list(
+        model_studio_rid=model_studio_rid,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_studio.group("model_studio_run")
+def models_model_studio_model_studio_run():
+    pass
+
+
+@models_model_studio_model_studio_run.command("list")
+@click.argument("model_studio_rid", type=str, required=True)
+@click.option(
+    "--config_version", type=int, required=False, help="""Filter runs by configuration version."""
+)
+@click.option(
+    "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token indicates where to start paging. This should be omitted from the first page's request.
+To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
+and use it to populate the `pageToken` field of the next request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_studio_model_studio_run_op_list(
+    client: FoundryClient,
+    model_studio_rid: str,
+    config_version: typing.Optional[int],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Lists all runs for a Model Studio.
+    """
+    result = client.models.ModelStudio.Run.list(
+        model_studio_rid=model_studio_rid,
+        config_version=config_version,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
 
 
 @models.group("model")
@@ -6590,6 +7526,40 @@ def models_model_op_get(
     """
     result = client.models.Model.get(
         model_rid=model_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.command("promote_version")
+@click.argument("model_rid", type=str, required=True)
+@click.option("--source_model_version_rid", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The branch to promote the version to. Defaults to master on most enrollments.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_op_promote_version(
+    client: FoundryClient,
+    model_rid: str,
+    source_model_version_rid: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Promotes an existing Model Version to the target Model. The promoted Model Version will be copied to the target Model as the latest version on the specified branch, but will have a new Model Version RID.
+
+    """
+    result = client.models.Model.promote_version(
+        model_rid=model_rid,
+        source_model_version_rid=source_model_version_rid,
+        branch=branch,
         preview=preview,
     )
     click.echo(repr(result))
@@ -6660,6 +7630,13 @@ def models_model_model_version_op_get(
 @models_model_model_version.command("list")
 @click.argument("model_rid", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The branch to list versions from. Defaults to master on most enrollments.
+""",
+)
+@click.option(
     "--page_size", type=int, required=False, help="""The page size to use for the endpoint."""
 )
 @click.option(
@@ -6677,6 +7654,7 @@ and use it to populate the `pageToken` field of the next request.""",
 def models_model_model_version_op_list(
     client: FoundryClient,
     model_rid: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
@@ -6686,8 +7664,465 @@ def models_model_model_version_op_list(
     """
     result = client.models.Model.Version.list(
         model_rid=model_rid,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model.group("experiment")
+def models_model_experiment():
+    pass
+
+
+@models_model_experiment.command("get")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_op_get(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve a single experiment with all metadata, parameters, series metadata, and summary metrics.
+
+    """
+    result = client.models.Model.Experiment.get(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment.command("search")
+@click.argument("model_rid", type=str, required=True)
+@click.option(
+    "--order_by",
+    type=str,
+    required=False,
+    help="""The field to sort by. Default is to sort by relevance.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of results to return. Default 50, maximum of 100.""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""PageToken to identify the next page to retrieve. Leave empty for the first request.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--where",
+    type=str,
+    required=False,
+    help="""Optional search filter for filtering experiments. If not provided, all experiments for the model are returned.""",
+)
+@click.pass_obj
+def models_model_experiment_op_search(
+    client: FoundryClient,
+    model_rid: str,
+    order_by: typing.Optional[str],
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
+    where: typing.Optional[str],
+):
+    """
+    Search experiments using complex nested queries on experiment metadata, parameters, series,
+    and summary metrics. Supports AND/OR/NOT combinations and various predicates.
+    Returns a maximum of 100 results per page.
+
+    """
+    result = client.models.Model.Experiment.search(
+        model_rid=model_rid,
+        order_by=None if order_by is None else json.loads(order_by),
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
+        where=None if where is None else json.loads(where),
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment.group("experiment_artifact_table")
+def models_model_experiment_experiment_artifact_table():
+    pass
+
+
+@models_model_experiment_experiment_artifact_table.command("json")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_artifact_table_name", type=str, required=True)
+@click.option(
+    "--offset",
+    type=int,
+    required=False,
+    help="""Number of rows to skip from the beginning. Defaults to 0.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""Maximum number of rows to return. Default is 10, maximum is 100.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_artifact_table_op_json(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_artifact_table_name: str,
+    offset: typing.Optional[int],
+    page_size: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Read table data from an experiment artifact as a streamed binary response containing JSON.
+    The response body is a JSON array of row objects, where each object maps column names to values.
+    Results are paginated by row count with a default page size of 10 and a maximum of 100.
+
+    """
+    result = client.models.Model.Experiment.ArtifactTable.json(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_artifact_table_name=experiment_artifact_table_name,
+        offset=offset,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models_model_experiment_experiment_artifact_table.command("parquet")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_artifact_table_name", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_artifact_table_op_parquet(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_artifact_table_name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Read raw table data from experiment artifacts in Parquet format.
+
+    """
+    result = client.models.Model.Experiment.ArtifactTable.parquet(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_artifact_table_name=experiment_artifact_table_name,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models_model_experiment.group("experiment_series")
+def models_model_experiment_experiment_series():
+    pass
+
+
+@models_model_experiment_experiment_series.command("json")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_series_name", type=str, required=True)
+@click.option(
+    "--offset",
+    type=int,
+    required=False,
+    help="""Number of values to skip from the beginning. Defaults to 0.""",
+)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""Maximum number of values to return per page. Default is 200, maximum is 1000.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_series_op_json(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_series_name: str,
+    offset: typing.Optional[int],
+    page_size: typing.Optional[int],
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve raw time-series data for a single series in JSON format.
+    Results are paginated with a default page size of 200 and a maximum of 1000.
+
+    """
+    result = client.models.Model.Experiment.Series.json(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_series_name=experiment_series_name,
+        offset=offset,
+        page_size=page_size,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_model_experiment_experiment_series.command("parquet")
+@click.argument("model_rid", type=str, required=True)
+@click.argument("experiment_rid", type=str, required=True)
+@click.argument("experiment_series_name", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_model_experiment_experiment_series_op_parquet(
+    client: FoundryClient,
+    model_rid: str,
+    experiment_rid: str,
+    experiment_series_name: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieve raw time-series data for a single series as a streamed binary response in Apache Parquet format.
+
+    """
+    result = client.models.Model.Experiment.Series.parquet(
+        model_rid=model_rid,
+        experiment_rid=experiment_rid,
+        experiment_series_name=experiment_series_name,
+        preview=preview,
+    )
+    click.echo(result)
+
+
+@models.group("live_deployment")
+def models_live_deployment():
+    pass
+
+
+@models_live_deployment.command("create")
+@click.option(
+    "--deployment_type",
+    type=str,
+    required=True,
+    help="""The target model source for the live deployment. Determines which model and version selection strategy to use when creating the deployment.
+""",
+)
+@click.option(
+    "--runtime_configuration",
+    type=str,
+    required=True,
+    help="""The compute resource configuration for the deployment.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_create(
+    client: FoundryClient,
+    deployment_type: str,
+    runtime_configuration: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a new live deployment for a model version with the specified runtime configuration. The deployment will begin provisioning compute resources and deploying the target model version.
+
+    """
+    result = client.models.LiveDeployment.create(
+        deployment_type=json.loads(deployment_type),
+        runtime_configuration=json.loads(runtime_configuration),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("get")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_get(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Retrieves a live deployment by its Resource Identifier (RID), including its deployed model version and runtime configuration.
+
+    """
+    result = client.models.LiveDeployment.get(
+        live_deployment_rid=live_deployment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("replace")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--runtime_configuration",
+    type=str,
+    required=True,
+    help="""The compute resource configuration for the deployment.""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_replace(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    runtime_configuration: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Updates the runtime configuration of the live deployment. The deployment will apply the new configuration to the running replicas.
+
+    """
+    result = client.models.LiveDeployment.replace(
+        live_deployment_rid=live_deployment_rid,
+        runtime_configuration=json.loads(runtime_configuration),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.command("transform_json")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--input",
+    type=str,
+    required=True,
+    help="""The input data for the model inference. The structure should match the model's transform API specification, where each key is an input name and the value is the corresponding input data.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_op_transform_json(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    input: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Performs inference on the live deployment.
+
+    """
+    result = client.models.LiveDeployment.transform_json(
+        live_deployment_rid=live_deployment_rid,
+        input=json.loads(input),
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment.group("model_function")
+def models_live_deployment_model_function():
+    pass
+
+
+@models_live_deployment_model_function.command("create")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--display_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_create(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    api_name: str,
+    display_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Creates a function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.create(
+        live_deployment_rid=live_deployment_rid,
+        api_name=api_name,
+        display_name=display_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment_model_function.command("get")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_get(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Gets the function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.get(
+        live_deployment_rid=live_deployment_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@models_live_deployment_model_function.command("replace")
+@click.argument("live_deployment_rid", type=str, required=True)
+@click.option("--api_name", type=str, required=True, help="""""")
+@click.option("--is_row_wise", type=bool, required=True, help="""""")
+@click.option("--ontology_binding", type=str, required=False, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def models_live_deployment_model_function_op_replace(
+    client: FoundryClient,
+    live_deployment_rid: str,
+    api_name: str,
+    is_row_wise: bool,
+    ontology_binding: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Replaces the function for the live deployment.
+    """
+    result = client.models.LiveDeployment.Function.replace(
+        live_deployment_rid=live_deployment_rid,
+        api_name=api_name,
+        is_row_wise=is_row_wise,
+        ontology_binding=ontology_binding,
         preview=preview,
     )
     click.echo(repr(result))
@@ -6964,6 +8399,16 @@ def ontologies_query():
 """,
 )
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to execute the query from. If not specified, the default branch is used.
+Branches are an experimental feature and not all workflows are supported.
+When provided without `version`, the latest version on this branch is used, including pre-release versions.
+When provided with `version`, the specified version must exist on the branch.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -7003,7 +8448,7 @@ Transactions are an experimental feature and all workflows may not be supported.
     "--version",
     type=str,
     required=False,
-    help="""The version of the Query to execute.
+    help="""The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
 """,
 )
 @click.pass_obj
@@ -7013,6 +8458,7 @@ def ontologies_query_op_execute(
     query_api_name: str,
     parameters: str,
     attribution: typing.Optional[str],
+    branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -7031,6 +8477,7 @@ def ontologies_query_op_execute(
         query_api_name=query_api_name,
         parameters=json.loads(parameters),
         attribution=attribution,
+        branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -7196,6 +8643,20 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -7215,6 +8676,8 @@ def ontologies_ontology_object_set_op_aggregate(
     include_compute_usage: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -7231,6 +8694,8 @@ def ontologies_ontology_object_set_op_aggregate(
         include_compute_usage=include_compute_usage,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -7261,6 +8726,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""The package version of the generated SDK.
 """,
 )
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_create_temporary(
     client: FoundryClient,
@@ -7269,6 +8748,8 @@ def ontologies_ontology_object_set_op_create_temporary(
     branch: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Creates a temporary `ObjectSet` from the given definition. This `ObjectSet` expires after one hour.
@@ -7280,6 +8761,8 @@ def ontologies_ontology_object_set_op_create_temporary(
         branch=branch,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -7372,6 +8855,20 @@ This defaults to false if not specified, which means you will always get the lat
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -7396,6 +8893,8 @@ def ontologies_ontology_object_set_op_load(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -7424,6 +8923,8 @@ def ontologies_ontology_object_set_op_load(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -7464,6 +8965,20 @@ Branches are an experimental feature and not all workflows are supported.
     help="""The package version of the generated SDK.
 """,
 )
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_load_links(
     client: FoundryClient,
@@ -7476,6 +8991,8 @@ def ontologies_ontology_object_set_op_load_links(
     preview: typing.Optional[bool],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
 ):
     """
     Loads the specified links from the defined object set.
@@ -7504,6 +9021,8 @@ def ontologies_ontology_object_set_op_load_links(
         preview=preview,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
     )
     click.echo(repr(result))
 
@@ -7583,6 +9102,20 @@ This defaults to false if not specified, which means you will always get the lat
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -7608,6 +9141,8 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -7642,6 +9177,8 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -7709,6 +9246,28 @@ Setting this to false will let new results enter as you page, but you may encoun
 This defaults to false if not specified, which means you will always get the latest results.
 """,
 )
+@click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
+    "--transaction_id",
+    type=str,
+    required=False,
+    help="""The ID of an Ontology transaction to read from.
+Transactions are an experimental feature and all workflows may not be supported.
+""",
+)
 @click.pass_obj
 def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     client: FoundryClient,
@@ -7725,6 +9284,9 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
     snapshot: typing.Optional[bool],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
+    transaction_id: typing.Optional[str],
 ):
     """
     Load the ontology objects present in the `ObjectSet` from the provided object set definition. If the requested
@@ -7758,6 +9320,9 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
         snapshot=snapshot,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
+        transaction_id=transaction_id,
     )
     click.echo(repr(result))
 
@@ -8528,6 +10093,13 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 )
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
     "--select",
     type=str,
     required=False,
@@ -8555,6 +10127,7 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    preview: typing.Optional[bool],
     select: typing.Optional[str],
     snapshot: typing.Optional[bool],
 ):
@@ -8582,6 +10155,7 @@ def ontologies_ontology_interface_op_list_objects_for_interface(
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        preview=preview,
         select=None if select is None else json.loads(select),
         snapshot=snapshot,
     )
@@ -8943,6 +10517,14 @@ def ontologies_ontology_query_type_op_get(
 @ontologies_ontology_query_type.command("list")
 @click.argument("ontology", type=str, required=True)
 @click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to list queries from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
     "--page_size",
     type=int,
     required=False,
@@ -8955,6 +10537,7 @@ See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#
 def ontologies_ontology_query_type_op_list(
     client: FoundryClient,
     ontology: str,
+    branch: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
 ):
@@ -8967,6 +10550,7 @@ def ontologies_ontology_query_type_op_list(
     """
     result = client.ontologies.Ontology.QueryType.list(
         ontology=ontology,
+        branch=branch,
         page_size=page_size,
         page_token=page_token,
     )
@@ -9004,6 +10588,50 @@ def ontologies_ontology_object_type_op_get(
         ontology=ontology,
         object_type=object_type,
         branch=branch,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("get_by_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the object type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_get_by_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of object types by RID in bulk.
+
+    Object types are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_by_rid_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -9055,10 +10683,9 @@ def ontologies_ontology_object_type_op_get_edits_history(
     specific object type. This endpoint provides visibility into all actions that have
     modified objects of this type.
 
-    The edits are returned in reverse chronological order (most recent first).
+    The edits are returned in reverse chronological order (most recent first) by default.
 
-    WARNING: right now this endpoint works only if you pass in an object primary key, i.e. it does not function
-    as a global object type edits history. Global object type edits history is currently under development.
+    Note that filters are ignored for OSv1 object types.
 
     """
     result = client.ontologies.Ontology.ObjectType.get_edits_history(
@@ -9161,6 +10788,63 @@ def ontologies_ontology_object_type_op_get_outgoing_link_type(
         object_type=object_type,
         link_type=link_type,
         branch=branch,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("get_outgoing_link_types_by_object_type_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option(
+    "--filter_link_type_rids",
+    type=str,
+    required=True,
+    help="""If provided, only return outgoing link types with RIDs in this list.
+If omitted, all outgoing link types for each requested object type are returned.
+""",
+)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_get_outgoing_link_types_by_object_type_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    filter_link_type_rids: str,
+    requests: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets outgoing link types for a batch of object types, identified by their RIDs.
+
+    For each requested object type, returns the list of outgoing link types visible to the
+    requesting token. Optionally, results can be filtered to only include specific link type RIDs.
+
+    Object types that don't exist or that the requesting token lacks permissions for are
+    silently omitted from the response.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(
+        ontology=ontology,
+        filter_link_type_rids=json.loads(filter_link_type_rids),
+        requests=json.loads(requests),
+        branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -9308,6 +10992,50 @@ def ontologies_ontology_action_type_op_get_by_rid(
         ontology=ontology,
         action_type_rid=action_type_rid,
         branch=branch,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_action_type.command("get_by_rid_batch")
+@click.argument("ontology", type=str, required=True)
+@click.option("--requests", type=str, required=True, help="""""")
+@click.option(
+    "--branch",
+    type=str,
+    required=False,
+    help="""The Foundry branch to load the action type definitions from. If not specified, the default branch will be used.
+Branches are an experimental feature and not all workflows are supported.
+""",
+)
+@click.option(
+    "--preview",
+    type=bool,
+    required=False,
+    help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_action_type_op_get_by_rid_batch(
+    client: FoundryClient,
+    ontology: str,
+    requests: str,
+    branch: typing.Optional[str],
+    preview: typing.Optional[bool],
+):
+    """
+    Gets a list of action types by RID in bulk.
+
+    Action types are filtered from the response if they don't exist or the requesting token lacks the required
+    permissions.
+
+    The maximum batch size for this endpoint is 100.
+
+    """
+    result = client.ontologies.Ontology.ActionType.get_by_rid_batch(
+        ontology=ontology,
+        requests=json.loads(requests),
+        branch=branch,
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -10272,6 +12000,20 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--trace_parent",
+    type=str,
+    required=False,
+    help="""The W3C trace parent header included in the request.
+""",
+)
+@click.option(
+    "--trace_state",
+    type=str,
+    required=False,
+    help="""The W3C trace state header included in the request.
+""",
+)
+@click.option(
     "--transaction_id",
     type=str,
     required=False,
@@ -10289,6 +12031,8 @@ def ontologies_action_op_apply(
     options: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
+    trace_parent: typing.Optional[str],
+    trace_state: typing.Optional[str],
     transaction_id: typing.Optional[str],
 ):
     """
@@ -10312,6 +12056,8 @@ def ontologies_action_op_apply(
         options=None if options is None else json.loads(options),
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     click.echo(repr(result))
@@ -10532,6 +12278,13 @@ def orchestration_schedule_op_create(
 ):
     """
     Creates a new Schedule.
+
+    :::callout{theme=warning title=Warning}
+    If the schedule is created in user-scoped mode, outputs to build will be discovered based on resources
+    that the user has access to. If the user's permissions change later, this could change the outputs that
+    will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+    :::
+
     """
     result = client.orchestration.Schedule.create(
         action=json.loads(action),
@@ -10668,7 +12421,14 @@ def orchestration_schedule_op_replace(
     trigger: typing.Optional[str],
 ):
     """
-    Replace the Schedule with the specified rid.
+    Replaces the Schedule with the specified rid.
+
+    :::callout{theme=warning title=Warning}
+    If the schedule is configured in user-scoped mode, outputs to build will be discovered based on resources
+    that the user has access to. If the user's permissions change later, this could change the outputs that
+    will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+    :::
+
     """
     result = client.orchestration.Schedule.replace(
         schedule_rid=schedule_rid,
@@ -10760,6 +12520,9 @@ def orchestration_job_op_get(
 ):
     """
     Get the Job with the specified rid.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
     """
     result = client.orchestration.Job.get(
         job_rid=job_rid,
@@ -10781,6 +12544,9 @@ def orchestration_job_op_get_batch(
 ):
     """
     Execute multiple get requests on Job.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
     The maximum batch size for this endpoint is 500.
     """
@@ -10866,6 +12632,9 @@ def orchestration_build_op_get(
 ):
     """
     Get the Build with the specified rid.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
     """
     result = client.orchestration.Build.get(
         build_rid=build_rid,
@@ -10882,6 +12651,9 @@ def orchestration_build_op_get_batch(
 ):
     """
     Execute multiple get requests on Build.
+
+    Users are allowed to make a maximum of **4 requests per second** and **25 concurrent requests**.
+
 
     The maximum batch size for this endpoint is 100.
     """
@@ -11007,11 +12779,19 @@ provided that exists. If no fallback branches are provided the default branch is
 `master` for most enrollments.
 """,
 )
+@click.option(
+    "--serialization_format",
+    type=click.Choice(["ARROW", "CSV"]),
+    required=False,
+    help="""The format used to serialize query results. If not specified, defaults to `ARROW`.
+""",
+)
 @click.pass_obj
 def sql_queries_sql_query_op_execute(
     client: FoundryClient,
     query: str,
     fallback_branch_ids: typing.Optional[str],
+    serialization_format: typing.Optional[typing.Literal["ARROW", "CSV"]],
 ):
     """
     Executes a new query. Only the user that invoked the query can operate on the query. The size of query
@@ -11024,8 +12804,66 @@ def sql_queries_sql_query_op_execute(
         fallback_branch_ids=(
             None if fallback_branch_ids is None else json.loads(fallback_branch_ids)
         ),
+        serialization_format=serialization_format,
     )
     click.echo(repr(result))
+
+
+@sql_queries_sql_query.command("execute_ontology")
+@click.option(
+    "--query",
+    type=str,
+    required=True,
+    help="""The SQL query to execute.
+""",
+)
+@click.option(
+    "--dry_run",
+    type=bool,
+    required=False,
+    help="""If true, parse and validate the query without executing it. Defaults to false.
+""",
+)
+@click.option(
+    "--parameters",
+    type=str,
+    required=False,
+    help="""Parameters for the SQL query. Can be either unnamed positional parameters
+or a named parameter mapping.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--row_limit",
+    type=int,
+    required=False,
+    help="""Maximum number of rows to return.
+""",
+)
+@click.pass_obj
+def sql_queries_sql_query_op_execute_ontology(
+    client: FoundryClient,
+    query: str,
+    dry_run: typing.Optional[bool],
+    parameters: typing.Optional[str],
+    preview: typing.Optional[bool],
+    row_limit: typing.Optional[int],
+):
+    """
+    Executes a SQL query against the Ontology. Results are returned synchronously in
+    [Apache Arrow](https://arrow.apache.org/) format.
+
+    """
+    result = client.sql_queries.SqlQuery.execute_ontology(
+        query=query,
+        dry_run=dry_run,
+        parameters=None if parameters is None else json.loads(parameters),
+        preview=preview,
+        row_limit=row_limit,
+    )
+    click.echo(result)
 
 
 @sql_queries_sql_query.command("get_results")
@@ -11036,8 +12874,8 @@ def sql_queries_sql_query_op_get_results(
     sql_query_id: str,
 ):
     """
-    Gets the results of a query. The results of the query are returned in the
-    [Apache Arrow](https://arrow.apache.org/) format.
+    Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+    (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
     This endpoint implements long polling and requests will time out after one minute. They can be safely
     retried while the query is still running.
@@ -11224,15 +13062,11 @@ def streams_dataset_stream_op_create(
 @streams_dataset_stream.command("get")
 @click.argument("dataset_rid", type=str, required=True)
 @click.argument("stream_branch_name", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def streams_dataset_stream_op_get(
     client: FoundryClient,
     dataset_rid: str,
     stream_branch_name: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get a stream by its branch name. If the branch does not exist, there is no stream on that branch, or the
@@ -11242,7 +13076,6 @@ def streams_dataset_stream_op_get(
     result = client.streams.Dataset.Stream.get(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -11356,9 +13189,6 @@ def streams_dataset_stream_op_get_records(
 @click.argument("stream_branch_name", type=str, required=True)
 @click.argument("body", type=click.File("rb"), required=True)
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--view_rid",
     type=str,
     required=False,
@@ -11375,7 +13205,6 @@ def streams_dataset_stream_op_publish_binary_record(
     dataset_rid: str,
     stream_branch_name: str,
     body: io.BufferedReader,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -11386,7 +13215,6 @@ def streams_dataset_stream_op_publish_binary_record(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         body=body.read(),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))
@@ -11401,9 +13229,6 @@ def streams_dataset_stream_op_publish_binary_record(
     required=True,
     help="""The record to publish to the stream
 """,
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
     "--view_rid",
@@ -11422,7 +13247,6 @@ def streams_dataset_stream_op_publish_record(
     dataset_rid: str,
     stream_branch_name: str,
     record: str,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -11434,7 +13258,6 @@ def streams_dataset_stream_op_publish_record(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         record=json.loads(record),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))
@@ -11449,9 +13272,6 @@ def streams_dataset_stream_op_publish_record(
     required=True,
     help="""The records to publish to the stream
 """,
-)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.option(
     "--view_rid",
@@ -11470,7 +13290,6 @@ def streams_dataset_stream_op_publish_records(
     dataset_rid: str,
     stream_branch_name: str,
     records: str,
-    preview: typing.Optional[bool],
     view_rid: typing.Optional[str],
 ):
     """
@@ -11482,7 +13301,6 @@ def streams_dataset_stream_op_publish_records(
         dataset_rid=dataset_rid,
         stream_branch_name=stream_branch_name,
         records=json.loads(records),
-        preview=preview,
         view_rid=view_rid,
     )
     click.echo(repr(result))
@@ -11562,6 +13380,301 @@ def streams_dataset_stream_op_reset(
         preview=preview,
         schema=None if schema is None else json.loads(schema),
         stream_type=stream_type,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream.group("subscriber")
+def streams_dataset_stream_subscriber():
+    pass
+
+
+@streams_dataset_stream_subscriber.command("commit_offsets")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--offsets",
+    type=str,
+    required=True,
+    help="""The last processed offset for each partition. The server will store these as
+read positions (offset + 1), so the next read starts after the committed offset.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to commit offsets for. If not provided, uses the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_commit_offsets(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    offsets: str,
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Explicitly commit offsets for a subscriber. Required when `autoCommit` is false.
+
+    Pass the last offset you processed for each partition.
+
+    For example, if you processed a record at offset 50, commit `{"0": 50}` and the next
+    read from partition "0" will start at offset 51.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.commit_offsets(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        offsets=json.loads(offsets),
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("create")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.option("--subscriber_id", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--read_position",
+    type=str,
+    required=False,
+    help="""Where to start reading from. Defaults to `earliest` if not specified.
+
+The `readPosition` determines where the subscriber will start reading:
+- `earliest`: Start from the beginning of each partition (offset 0). Use this to process
+  all historical data.
+- `latest`: Start from the current end of each partition. Use this to skip historical data
+  and only process new records arriving after registration.
+- `specific`: Start from explicit offsets for each partition. Use this to resume from a
+  known checkpoint.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_create(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_id: str,
+    preview: typing.Optional[bool],
+    read_position: typing.Optional[str],
+):
+    """
+    Register a new subscriber for a stream. Subscribers maintain server-side offset tracking,
+    allowing reliable consumption without client-side state management.
+
+    If a subscriber with the same ID already exists for this stream, the existing registration
+    is returned. If a subscriber with the same ID exists for a different stream, an error is returned.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.create(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_id=subscriber_id,
+        preview=preview,
+        read_position=None if read_position is None else json.loads(read_position),
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("delete")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_delete(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Delete a subscriber and all its committed offset state. After deletion, the subscriber ID
+    can be reused to create a new subscriber.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.delete(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("get_read_position")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to get positions for. If not provided, uses the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_get_read_position(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Get the current read position for a subscriber. Returns the offset per partition where the next read
+    will begin.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.get_read_position(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("read_records")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--auto_commit",
+    type=bool,
+    required=False,
+    help="""If true, the read position is automatically committed after reading records.
+The committed position will be the offset after the last record read.
+If false, you must call the `commitOffsets` endpoint to commit offsets.
+Defaults to false.
+""",
+)
+@click.option(
+    "--limit",
+    type=int,
+    required=False,
+    help="""Maximum number of records to return across all partitions. Defaults to 100, max 1000. If a value 
+greater than 1000 is requested, only 1000 records will be returned.
+""",
+)
+@click.option(
+    "--partition_ids",
+    type=str,
+    required=False,
+    help="""If specified, only read from these partitions. Otherwise, read from all partitions.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.option(
+    "--view_rid",
+    type=str,
+    required=False,
+    help="""The view RID to read from. If not provided, reads from the latest view for the
+dataset/branch.
+""",
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_read_records(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    auto_commit: typing.Optional[bool],
+    limit: typing.Optional[int],
+    partition_ids: typing.Optional[str],
+    preview: typing.Optional[bool],
+    view_rid: typing.Optional[str],
+):
+    """
+    Fetch records for a subscriber starting from their committed offset. Returns records
+    grouped by partition.
+
+    If `autoCommit` is true, offsets are automatically committed after the records are
+    fetched, so the next read will start from where this one left off.
+
+    If `autoCommit` is false, you must call `commitOffsets` to update the read position.
+    Use manual commits for at-least-once processing where you need to ensure records are
+    processed before acknowledging them.
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.read_records(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        auto_commit=auto_commit,
+        limit=limit,
+        partition_ids=None if partition_ids is None else json.loads(partition_ids),
+        preview=preview,
+        view_rid=view_rid,
+    )
+    click.echo(repr(result))
+
+
+@streams_dataset_stream_subscriber.command("reset_offsets")
+@click.argument("dataset_rid", type=str, required=True)
+@click.argument("stream_branch_name", type=str, required=True)
+@click.argument("subscriber_subscriber_id", type=str, required=True)
+@click.option(
+    "--position",
+    type=str,
+    required=True,
+    help="""The position to reset offsets to.
+""",
+)
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def streams_dataset_stream_subscriber_op_reset_offsets(
+    client: FoundryClient,
+    dataset_rid: str,
+    stream_branch_name: str,
+    subscriber_subscriber_id: str,
+    position: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Reset subscriber offsets to a specific position. Use this to replay data from the
+    beginning, skip to the latest records, or jump to specific offsets.
+
+    The `position` parameter determines where reading will resume:
+    - `earliest`: Reset to the beginning of each partition (offset 0)
+    - `latest`: Reset to the current end of each partition
+    - `specific`: Reset to explicit offsets for each partition
+
+    """
+    result = client.streams.Dataset.Stream.Subscriber.reset_offsets(
+        dataset_rid=dataset_rid,
+        stream_branch_name=stream_branch_name,
+        subscriber_subscriber_id=subscriber_subscriber_id,
+        position=json.loads(position),
+        preview=preview,
     )
     click.echo(repr(result))
 
@@ -11965,27 +14078,71 @@ def widgets_repository_op_publish(
     click.echo(repr(result))
 
 
-@widgets.group("dev_mode_settings")
-def widgets_dev_mode_settings():
+@widgets.group("dev_mode_settings_v2")
+def widgets_dev_mode_settings_v2():
     pass
 
 
-@widgets_dev_mode_settings.command("disable")
+@widgets_dev_mode_settings_v2.command("enable")
 @click.option(
     "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
 )
 @click.pass_obj
-def widgets_dev_mode_settings_op_disable(
+def widgets_dev_mode_settings_v2_op_enable(
     client: FoundryClient,
     preview: typing.Optional[bool],
 ):
     """
-    Disable dev mode for the user associated with the provided token.
+    Enable dev mode for the user associated with the provided token.
     """
-    result = client.widgets.DevModeSettings.disable(
+    result = client.widgets.DevModeSettingsV2.enable(
         preview=preview,
     )
     click.echo(repr(result))
+
+
+@widgets_dev_mode_settings_v2.command("set_widget_set_manifest")
+@click.option("--manifest", type=str, required=True, help="""""")
+@click.option("--widget_set_rid", type=str, required=True, help="""""")
+@click.option(
+    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
+)
+@click.pass_obj
+def widgets_dev_mode_settings_v2_op_set_widget_set_manifest(
+    client: FoundryClient,
+    manifest: str,
+    widget_set_rid: str,
+    preview: typing.Optional[bool],
+):
+    """
+    Set the dev mode settings for the given widget set using the manifest format.
+    The request body is a dev settings manifest JSON object with the following
+    structure:
+
+      {
+        "manifestVersion": "1.0.0",
+        "devSettings": {
+          "baseHref": "...",
+          "widgets": { ... },
+          "inputSpec": { ... }
+        }
+      }
+
+    See https://github.com/palantir/osdk-ts for the widget library API types for the
+    dev settings manifest.
+
+    """
+    result = client.widgets.DevModeSettingsV2.set_widget_set_manifest(
+        manifest=json.loads(manifest),
+        widget_set_rid=widget_set_rid,
+        preview=preview,
+    )
+    click.echo(repr(result))
+
+
+@widgets.group("dev_mode_settings")
+def widgets_dev_mode_settings():
+    pass
 
 
 @widgets_dev_mode_settings.command("enable")
@@ -12001,66 +14158,6 @@ def widgets_dev_mode_settings_op_enable(
     Enable dev mode for the user associated with the provided token.
     """
     result = client.widgets.DevModeSettings.enable(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("get")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_get(
-    client: FoundryClient,
-    preview: typing.Optional[bool],
-):
-    """
-    Get the dev mode settings for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.get(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("pause")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_pause(
-    client: FoundryClient,
-    preview: typing.Optional[bool],
-):
-    """
-    Pause dev mode for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.pause(
-        preview=preview,
-    )
-    click.echo(repr(result))
-
-
-@widgets_dev_mode_settings.command("set_widget_set")
-@click.option("--settings", type=str, required=True, help="""""")
-@click.option("--widget_set_rid", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.pass_obj
-def widgets_dev_mode_settings_op_set_widget_set(
-    client: FoundryClient,
-    settings: str,
-    widget_set_rid: str,
-    preview: typing.Optional[bool],
-):
-    """
-    Set the dev mode settings for the given widget set for the user associated with the provided token.
-    """
-    result = client.widgets.DevModeSettings.set_widget_set(
-        settings=json.loads(settings),
-        widget_set_rid=widget_set_rid,
         preview=preview,
     )
     click.echo(repr(result))

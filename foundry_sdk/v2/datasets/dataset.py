@@ -334,12 +334,15 @@ class DatasetClient:
         branch_name: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[core_models.ScheduleRid]:
         """
-        Get the RIDs of the Schedules that target the given Dataset
+        Get the RIDs of the Schedules that target the given Dataset.
+
+        Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+        especially for schedules managed by Marketplace. This operation will return outdated results in the
+        meantime.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -349,8 +352,6 @@ class DatasetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -369,7 +370,6 @@ class DatasetClient:
                     "branchName": branch_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -398,7 +398,6 @@ class DatasetClient:
         *,
         branch_name: typing.Optional[core_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         version_id: typing.Optional[core_models.VersionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -412,8 +411,6 @@ class DatasetClient:
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param version_id: The schema version that should be used. If none is provided, the latest version will be used.
         :type version_id: Optional[VersionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -436,7 +433,6 @@ class DatasetClient:
                 query_params={
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
-                    "preview": preview,
                     "versionId": version_id,
                 },
                 path_params={
@@ -470,7 +466,6 @@ class DatasetClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.GetSchemaDatasetsBatchResponse:
@@ -482,8 +477,6 @@ class DatasetClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetSchemaDatasetsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -494,9 +487,7 @@ class DatasetClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/getSchemaBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -596,7 +587,6 @@ class DatasetClient:
         branch_name: typing.Optional[core_models.BranchName] = None,
         dataframe_reader: typing.Optional[datasets_models.DataframeReader] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.GetDatasetSchemaResponse:
@@ -613,8 +603,6 @@ class DatasetClient:
         :type dataframe_reader: Optional[DataframeReader]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -631,9 +619,7 @@ class DatasetClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/datasets/{datasetRid}/putSchema",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                 },
@@ -1171,12 +1157,15 @@ class AsyncDatasetClient:
         branch_name: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[core_models.ScheduleRid]:
         """
-        Get the RIDs of the Schedules that target the given Dataset
+        Get the RIDs of the Schedules that target the given Dataset.
+
+        Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
+        especially for schedules managed by Marketplace. This operation will return outdated results in the
+        meantime.
 
         :param dataset_rid:
         :type dataset_rid: DatasetRid
@@ -1186,8 +1175,6 @@ class AsyncDatasetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1206,7 +1193,6 @@ class AsyncDatasetClient:
                     "branchName": branch_name,
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "datasetRid": dataset_rid,
@@ -1235,7 +1221,6 @@ class AsyncDatasetClient:
         *,
         branch_name: typing.Optional[core_models.BranchName] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         version_id: typing.Optional[core_models.VersionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -1249,8 +1234,6 @@ class AsyncDatasetClient:
         :type branch_name: Optional[BranchName]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param version_id: The schema version that should be used. If none is provided, the latest version will be used.
         :type version_id: Optional[VersionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -1273,7 +1256,6 @@ class AsyncDatasetClient:
                 query_params={
                     "branchName": branch_name,
                     "endTransactionRid": end_transaction_rid,
-                    "preview": preview,
                     "versionId": version_id,
                 },
                 path_params={
@@ -1307,7 +1289,6 @@ class AsyncDatasetClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.GetSchemaDatasetsBatchResponse]:
@@ -1319,8 +1300,6 @@ class AsyncDatasetClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetSchemaDatasetsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1331,9 +1310,7 @@ class AsyncDatasetClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/getSchemaBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -1433,7 +1410,6 @@ class AsyncDatasetClient:
         branch_name: typing.Optional[core_models.BranchName] = None,
         dataframe_reader: typing.Optional[datasets_models.DataframeReader] = None,
         end_transaction_rid: typing.Optional[datasets_models.TransactionRid] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.GetDatasetSchemaResponse]:
@@ -1450,8 +1426,6 @@ class AsyncDatasetClient:
         :type dataframe_reader: Optional[DataframeReader]
         :param end_transaction_rid: The Resource Identifier (RID) of the end Transaction.
         :type end_transaction_rid: Optional[TransactionRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1468,9 +1442,7 @@ class AsyncDatasetClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/datasets/{datasetRid}/putSchema",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "datasetRid": dataset_rid,
                 },

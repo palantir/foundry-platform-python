@@ -88,7 +88,11 @@ class ModelVersionClient:
         :return: Returns the result object.
         :rtype: models_models.ModelVersion
 
+        :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises InvalidModelApi: The model api failed validations
+        :raises ModelNotFound: The given Model could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -114,7 +118,11 @@ class ModelVersionClient:
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "InvalidModelApi": models_errors.InvalidModelApi,
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -146,6 +154,7 @@ class ModelVersionClient:
         :rtype: models_models.ModelVersion
 
         :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -167,6 +176,7 @@ class ModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -179,6 +189,7 @@ class ModelVersionClient:
         self,
         model_rid: models_models.ModelRid,
         *,
+        branch: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -189,6 +200,8 @@ class ModelVersionClient:
         Lists all Model Versions for a given Model.
         :param model_rid:
         :type model_rid: ModelRid
+        :param branch: The branch to list versions from. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -199,6 +212,9 @@ class ModelVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.ResourceIterator[models_models.ModelVersion]
+
+        :raises ModelNotFound: The given Model could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -206,6 +222,7 @@ class ModelVersionClient:
                 method="GET",
                 resource_path="/v2/models/{modelRid}/versions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -219,7 +236,10 @@ class ModelVersionClient:
                 body=None,
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )
@@ -310,7 +330,11 @@ class AsyncModelVersionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[models_models.ModelVersion]
 
+        :raises CondaSolveFailureForProvidedPackages: Thrown when conda solve fails for the provided input packages.
         :raises CreateModelVersionPermissionDenied: Could not create the ModelVersion.
+        :raises InvalidModelApi: The model api failed validations
+        :raises ModelNotFound: The given Model could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -336,7 +360,11 @@ class AsyncModelVersionClient:
                 response_type=models_models.ModelVersion,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "CondaSolveFailureForProvidedPackages": models_errors.CondaSolveFailureForProvidedPackages,
                     "CreateModelVersionPermissionDenied": models_errors.CreateModelVersionPermissionDenied,
+                    "InvalidModelApi": models_errors.InvalidModelApi,
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -368,6 +396,7 @@ class AsyncModelVersionClient:
         :rtype: typing.Awaitable[models_models.ModelVersion]
 
         :raises ModelVersionNotFound: The given ModelVersion could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -389,6 +418,7 @@ class AsyncModelVersionClient:
                 request_timeout=request_timeout,
                 throwable_errors={
                     "ModelVersionNotFound": models_errors.ModelVersionNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -401,6 +431,7 @@ class AsyncModelVersionClient:
         self,
         model_rid: models_models.ModelRid,
         *,
+        branch: typing.Optional[core_models.BranchName] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
@@ -411,6 +442,8 @@ class AsyncModelVersionClient:
         Lists all Model Versions for a given Model.
         :param model_rid:
         :type model_rid: ModelRid
+        :param branch: The branch to list versions from. Defaults to master on most enrollments.
+        :type branch: Optional[BranchName]
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
@@ -421,6 +454,9 @@ class AsyncModelVersionClient:
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: core.AsyncResourceIterator[models_models.ModelVersion]
+
+        :raises ModelNotFound: The given Model could not be found.
+        :raises UnsupportedModelSource: The Model Version has a source type that is not supported by the API. This can occur when the model was created through a legacy or internal workflow that is not exposed through the public API.
         """
 
         return self._api_client.call_api(
@@ -428,6 +464,7 @@ class AsyncModelVersionClient:
                 method="GET",
                 resource_path="/v2/models/{modelRid}/versions",
                 query_params={
+                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                     "preview": preview,
@@ -441,7 +478,10 @@ class AsyncModelVersionClient:
                 body=None,
                 response_type=models_models.ListModelVersionsResponse,
                 request_timeout=request_timeout,
-                throwable_errors={},
+                throwable_errors={
+                    "ModelNotFound": models_errors.ModelNotFound,
+                    "UnsupportedModelSource": models_errors.UnsupportedModelSource,
+                },
                 response_mode=_sdk_internal.get("response_mode", "ITERATOR"),
             ),
         )

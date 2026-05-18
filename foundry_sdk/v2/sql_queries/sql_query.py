@@ -116,6 +116,7 @@ class SqlQueryClient:
         *,
         query: str,
         fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
+        serialization_format: typing.Optional[sql_queries_models.SerializationFormat] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> sql_queries_models.QueryStatus:
@@ -128,11 +129,14 @@ class SqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
+        :param serialization_format: The format used to serialize query results. If not specified, defaults to `ARROW`.
+        :type serialization_format: Optional[SerializationFormat]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: sql_queries_models.QueryStatus
 
+        :raises ColumnTypesNotSupported: The query result contains column types that are not supported by the requested serialization format.
         :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
@@ -155,10 +159,12 @@ class SqlQueryClient:
                 body=sql_queries_models.ExecuteSqlQueryRequest(
                     query=query,
                     fallback_branch_ids=fallback_branch_ids,
+                    serialization_format=serialization_format,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ColumnTypesNotSupported": sql_queries_errors.ColumnTypesNotSupported,
                     "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
@@ -166,6 +172,73 @@ class SqlQueryClient:
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def execute_ontology(
+        self,
+        *,
+        query: str,
+        dry_run: typing.Optional[bool] = None,
+        parameters: typing.Optional[sql_queries_models.Parameters] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        row_limit: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> bytes:
+        """
+        Executes a SQL query against the Ontology. Results are returned synchronously in
+        [Apache Arrow](https://arrow.apache.org/) format.
+
+        :param query: The SQL query to execute.
+        :type query: str
+        :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
+        :type dry_run: Optional[bool]
+        :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
+        :type parameters: Optional[Parameters]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param row_limit: Maximum number of rows to return.
+        :type row_limit: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: bytes
+
+        :raises ExecuteOntologySqlQueryPermissionDenied: Could not executeOntology the SqlQuery.
+        :raises OntologyQueryFailed: The Ontology query failed.
+        :raises QueryParseError: The query cannot be parsed.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/sqlQueries/executeOntology",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/octet-stream",
+                },
+                body=sql_queries_models.ExecuteOntologySqlQueryRequest(
+                    query=query,
+                    parameters=parameters,
+                    row_limit=row_limit,
+                    dry_run=dry_run,
+                ),
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteOntologySqlQueryPermissionDenied": sql_queries_errors.ExecuteOntologySqlQueryPermissionDenied,
+                    "OntologyQueryFailed": sql_queries_errors.OntologyQueryFailed,
+                    "QueryParseError": sql_queries_errors.QueryParseError,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -182,8 +255,8 @@ class SqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> core.TableResponse:
         """
-        Gets the results of a query. The results of the query are returned in the
-        [Apache Arrow](https://arrow.apache.org/) format.
+        Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+        (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
         This endpoint implements long polling and requests will time out after one minute. They can be safely
         retried while the query is still running.
@@ -293,11 +366,13 @@ class _SqlQueryClientRaw:
     def __init__(self, client: SqlQueryClient) -> None:
         def cancel(_: None): ...
         def execute(_: sql_queries_models.QueryStatus): ...
+        def execute_ontology(_: bytes): ...
         def get_results(_: bytes): ...
         def get_status(_: sql_queries_models.QueryStatus): ...
 
         self.cancel = core.with_raw_response(cancel, client.cancel)
         self.execute = core.with_raw_response(execute, client.execute)
+        self.execute_ontology = core.with_raw_response(execute_ontology, client.execute_ontology)
         self.get_results = core.with_raw_response(get_results, client.get_results)
         self.get_status = core.with_raw_response(get_status, client.get_status)
 
@@ -305,10 +380,14 @@ class _SqlQueryClientRaw:
 class _SqlQueryClientStreaming:
     def __init__(self, client: SqlQueryClient) -> None:
         def execute(_: sql_queries_models.QueryStatus): ...
+        def execute_ontology(_: bytes): ...
         def get_results(_: bytes): ...
         def get_status(_: sql_queries_models.QueryStatus): ...
 
         self.execute = core.with_streaming_response(execute, client.execute)
+        self.execute_ontology = core.with_streaming_response(
+            execute_ontology, client.execute_ontology
+        )
         self.get_results = core.with_streaming_response(get_results, client.get_results)
         self.get_status = core.with_streaming_response(get_status, client.get_status)
 
@@ -404,6 +483,7 @@ class AsyncSqlQueryClient:
         *,
         query: str,
         fallback_branch_ids: typing.Optional[typing.List[core_models.BranchName]] = None,
+        serialization_format: typing.Optional[sql_queries_models.SerializationFormat] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[sql_queries_models.QueryStatus]:
@@ -416,11 +496,14 @@ class AsyncSqlQueryClient:
         :type query: str
         :param fallback_branch_ids: The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
         :type fallback_branch_ids: Optional[List[BranchName]]
+        :param serialization_format: The format used to serialize query results. If not specified, defaults to `ARROW`.
+        :type serialization_format: Optional[SerializationFormat]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
         :rtype: typing.Awaitable[sql_queries_models.QueryStatus]
 
+        :raises ColumnTypesNotSupported: The query result contains column types that are not supported by the requested serialization format.
         :raises ExecuteSqlQueryPermissionDenied: Could not execute the SqlQuery.
         :raises QueryCanceled: The query was canceled.
         :raises QueryFailed: The query failed.
@@ -443,10 +526,12 @@ class AsyncSqlQueryClient:
                 body=sql_queries_models.ExecuteSqlQueryRequest(
                     query=query,
                     fallback_branch_ids=fallback_branch_ids,
+                    serialization_format=serialization_format,
                 ),
                 response_type=sql_queries_models.QueryStatus,
                 request_timeout=request_timeout,
                 throwable_errors={
+                    "ColumnTypesNotSupported": sql_queries_errors.ColumnTypesNotSupported,
                     "ExecuteSqlQueryPermissionDenied": sql_queries_errors.ExecuteSqlQueryPermissionDenied,
                     "QueryCanceled": sql_queries_errors.QueryCanceled,
                     "QueryFailed": sql_queries_errors.QueryFailed,
@@ -454,6 +539,73 @@ class AsyncSqlQueryClient:
                     "QueryPermissionDenied": sql_queries_errors.QueryPermissionDenied,
                     "QueryRunning": sql_queries_errors.QueryRunning,
                     "ReadQueryInputsPermissionDenied": sql_queries_errors.ReadQueryInputsPermissionDenied,
+                },
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
+    def execute_ontology(
+        self,
+        *,
+        query: str,
+        dry_run: typing.Optional[bool] = None,
+        parameters: typing.Optional[sql_queries_models.Parameters] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
+        row_limit: typing.Optional[int] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[bytes]:
+        """
+        Executes a SQL query against the Ontology. Results are returned synchronously in
+        [Apache Arrow](https://arrow.apache.org/) format.
+
+        :param query: The SQL query to execute.
+        :type query: str
+        :param dry_run: If true, parse and validate the query without executing it. Defaults to false.
+        :type dry_run: Optional[bool]
+        :param parameters: Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
+        :type parameters: Optional[Parameters]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
+        :param row_limit: Maximum number of rows to return.
+        :type row_limit: Optional[int]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[bytes]
+
+        :raises ExecuteOntologySqlQueryPermissionDenied: Could not executeOntology the SqlQuery.
+        :raises OntologyQueryFailed: The Ontology query failed.
+        :raises QueryParseError: The query cannot be parsed.
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/sqlQueries/executeOntology",
+                query_params={
+                    "preview": preview,
+                },
+                path_params={},
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/octet-stream",
+                },
+                body=sql_queries_models.ExecuteOntologySqlQueryRequest(
+                    query=query,
+                    parameters=parameters,
+                    row_limit=row_limit,
+                    dry_run=dry_run,
+                ),
+                response_type=bytes,
+                request_timeout=request_timeout,
+                throwable_errors={
+                    "ExecuteOntologySqlQueryPermissionDenied": sql_queries_errors.ExecuteOntologySqlQueryPermissionDenied,
+                    "OntologyQueryFailed": sql_queries_errors.OntologyQueryFailed,
+                    "QueryParseError": sql_queries_errors.QueryParseError,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
             ),
@@ -470,8 +622,8 @@ class AsyncSqlQueryClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core.TableResponse]:
         """
-                Gets the results of a query. The results of the query are returned in the
-                [Apache Arrow](https://arrow.apache.org/) format.
+                Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+                (defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
                 This endpoint implements long polling and requests will time out after one minute. They can be safely
                 retried while the query is still running.
@@ -581,11 +733,15 @@ class _AsyncSqlQueryClientRaw:
     def __init__(self, client: AsyncSqlQueryClient) -> None:
         def cancel(_: None): ...
         def execute(_: sql_queries_models.QueryStatus): ...
+        def execute_ontology(_: bytes): ...
         def get_results(_: bytes): ...
         def get_status(_: sql_queries_models.QueryStatus): ...
 
         self.cancel = core.async_with_raw_response(cancel, client.cancel)
         self.execute = core.async_with_raw_response(execute, client.execute)
+        self.execute_ontology = core.async_with_raw_response(
+            execute_ontology, client.execute_ontology
+        )
         self.get_results = core.async_with_raw_response(get_results, client.get_results)
         self.get_status = core.async_with_raw_response(get_status, client.get_status)
 
@@ -593,9 +749,13 @@ class _AsyncSqlQueryClientRaw:
 class _AsyncSqlQueryClientStreaming:
     def __init__(self, client: AsyncSqlQueryClient) -> None:
         def execute(_: sql_queries_models.QueryStatus): ...
+        def execute_ontology(_: bytes): ...
         def get_results(_: bytes): ...
         def get_status(_: sql_queries_models.QueryStatus): ...
 
         self.execute = core.async_with_streaming_response(execute, client.execute)
+        self.execute_ontology = core.async_with_streaming_response(
+            execute_ontology, client.execute_ontology
+        )
         self.get_results = core.async_with_streaming_response(get_results, client.get_results)
         self.get_status = core.async_with_streaming_response(get_status, client.get_status)

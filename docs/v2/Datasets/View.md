@@ -2,12 +2,12 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add_backing_datasets**](#add_backing_datasets) | **POST** /v2/datasets/views/{viewDatasetRid}/addBackingDatasets | Public Beta |
-[**add_primary_key**](#add_primary_key) | **POST** /v2/datasets/views/{viewDatasetRid}/addPrimaryKey | Public Beta |
-[**create**](#create) | **POST** /v2/datasets/views | Public Beta |
-[**get**](#get) | **GET** /v2/datasets/views/{viewDatasetRid} | Public Beta |
-[**remove_backing_datasets**](#remove_backing_datasets) | **POST** /v2/datasets/views/{viewDatasetRid}/removeBackingDatasets | Public Beta |
-[**replace_backing_datasets**](#replace_backing_datasets) | **PUT** /v2/datasets/views/{viewDatasetRid}/replaceBackingDatasets | Public Beta |
+[**add_backing_datasets**](#add_backing_datasets) | **POST** /v2/datasets/views/{viewDatasetRid}/addBackingDatasets | Stable |
+[**add_primary_key**](#add_primary_key) | **POST** /v2/datasets/views/{viewDatasetRid}/addPrimaryKey | Stable |
+[**create**](#create) | **POST** /v2/datasets/views | Stable |
+[**get**](#get) | **GET** /v2/datasets/views/{viewDatasetRid} | Stable |
+[**remove_backing_datasets**](#remove_backing_datasets) | **POST** /v2/datasets/views/{viewDatasetRid}/removeBackingDatasets | Stable |
+[**replace_backing_datasets**](#replace_backing_datasets) | **PUT** /v2/datasets/views/{viewDatasetRid}/replaceBackingDatasets | Stable |
 
 # **add_backing_datasets**
 Adds one or more backing datasets to a View. Any duplicates with the same dataset RID and branch name are 
@@ -21,7 +21,6 @@ Name | Type | Description  | Notes |
 **view_dataset_rid** | DatasetRid | The rid of the View. |  |
 **backing_datasets** | List[ViewBackingDataset] |  |  |
 **branch** | Optional[BranchName] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **View**
@@ -47,13 +46,11 @@ backing_datasets = [
 ]
 # Optional[BranchName]
 branch = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.datasets.View.add_backing_datasets(
-        view_dataset_rid, backing_datasets=backing_datasets, branch=branch, preview=preview
+        view_dataset_rid, backing_datasets=backing_datasets, branch=branch
     )
     print("The add_backing_datasets response:\n")
     pprint(api_response)
@@ -87,7 +84,6 @@ Name | Type | Description  | Notes |
 **view_dataset_rid** | DatasetRid | The rid of the View. |  |
 **primary_key** | ViewPrimaryKey |  |  |
 **branch** | Optional[BranchName] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **View**
@@ -114,13 +110,11 @@ primary_key = {
 }
 # Optional[BranchName]
 branch = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.datasets.View.add_primary_key(
-        view_dataset_rid, primary_key=primary_key, branch=branch, preview=preview
+        view_dataset_rid, primary_key=primary_key, branch=branch
     )
     print("The add_primary_key response:\n")
     pprint(api_response)
@@ -153,7 +147,6 @@ Name | Type | Description  | Notes |
 **parent_folder_rid** | FolderRid |  |  |
 **view_name** | DatasetName |  |  |
 **branch** | Optional[BranchName] | The branch name of the View. If not specified, defaults to `master` for most enrollments. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **primary_key** | Optional[ViewPrimaryKey] |  | [optional] |
 
 ### Return type
@@ -182,8 +175,6 @@ parent_folder_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791
 view_name = "My Dataset"
 # Optional[BranchName] | The branch name of the View. If not specified, defaults to `master` for most enrollments.
 branch = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[ViewPrimaryKey]
 primary_key = {"columns": ["order_id"]}
 
@@ -194,7 +185,6 @@ try:
         parent_folder_rid=parent_folder_rid,
         view_name=view_name,
         branch=branch,
-        preview=preview,
         primary_key=primary_key,
     )
     print("The create response:\n")
@@ -226,7 +216,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **view_dataset_rid** | DatasetRid | The rid of the View. |  |
 **branch** | Optional[BranchName] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **View**
@@ -244,12 +233,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 view_dataset_rid = None
 # Optional[BranchName]
 branch = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.datasets.View.get(view_dataset_rid, branch=branch, preview=preview)
+    api_response = client.datasets.View.get(view_dataset_rid, branch=branch)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -283,7 +270,6 @@ Name | Type | Description  | Notes |
 **view_dataset_rid** | DatasetRid | The rid of the View. |  |
 **backing_datasets** | List[ViewBackingDataset] |  |  |
 **branch** | Optional[BranchName] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **View**
@@ -309,13 +295,11 @@ backing_datasets = [
 ]
 # Optional[BranchName]
 branch = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.datasets.View.remove_backing_datasets(
-        view_dataset_rid, backing_datasets=backing_datasets, branch=branch, preview=preview
+        view_dataset_rid, backing_datasets=backing_datasets, branch=branch
     )
     print("The remove_backing_datasets response:\n")
     pprint(api_response)
@@ -349,7 +333,6 @@ Name | Type | Description  | Notes |
 **view_dataset_rid** | DatasetRid | The rid of the View. |  |
 **backing_datasets** | List[ViewBackingDataset] |  |  |
 **branch** | Optional[BranchName] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **View**
@@ -375,13 +358,11 @@ backing_datasets = [
 ]
 # Optional[BranchName]
 branch = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.datasets.View.replace_backing_datasets(
-        view_dataset_rid, backing_datasets=backing_datasets, branch=branch, preview=preview
+        view_dataset_rid, backing_datasets=backing_datasets, branch=branch
     )
     print("The replace_backing_datasets response:\n")
     pprint(api_response)

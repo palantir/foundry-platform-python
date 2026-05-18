@@ -18,6 +18,7 @@ from dataclasses import dataclass
 
 import typing_extensions
 
+from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import models as datasets_models
@@ -376,6 +377,26 @@ class FileNotFoundOnTransactionRangeParameters(typing_extensions.TypedDict):
 class FileNotFoundOnTransactionRange(errors.NotFoundError):
     name: typing.Literal["FileNotFoundOnTransactionRange"]
     parameters: FileNotFoundOnTransactionRangeParameters
+    error_instance_id: str
+
+
+class FileSizeLimitExceededParameters(typing_extensions.TypedDict):
+    """
+    The requested file is larger than the configured maximum download size. Contact Palantir Support to discuss
+    limit increases.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    datasetRid: core_models.DatasetRid
+    path: core_models.FilePath
+    fileSizeBytes: core.Long
+
+
+@dataclass
+class FileSizeLimitExceeded(errors.BadRequestError):
+    name: typing.Literal["FileSizeLimitExceeded"]
+    parameters: FileSizeLimitExceededParameters
     error_instance_id: str
 
 
@@ -952,6 +973,7 @@ __all__ = [
     "FileNotFound",
     "FileNotFoundOnBranch",
     "FileNotFoundOnTransactionRange",
+    "FileSizeLimitExceeded",
     "GetBranchTransactionHistoryPermissionDenied",
     "GetDatasetHealthCheckReportsPermissionDenied",
     "GetDatasetHealthChecksPermissionDenied",

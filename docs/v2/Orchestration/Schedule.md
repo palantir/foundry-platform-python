@@ -16,6 +16,13 @@ Method | HTTP request | Release Stage |
 # **create**
 Creates a new Schedule.
 
+:::callout{theme=warning title=Warning}
+If the schedule is created in user-scoped mode, outputs to build will be discovered based on resources
+that the user has access to. If the user's permissions change later, this could change the outputs that
+will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+:::
+
+
 ### Parameters
 
 Name | Type | Description  | Notes |
@@ -348,7 +355,14 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **replace**
-Replace the Schedule with the specified rid.
+Replaces the Schedule with the specified rid.
+
+:::callout{theme=warning title=Warning}
+If the schedule is configured in user-scoped mode, outputs to build will be discovered based on resources
+that the user has access to. If the user's permissions change later, this could change the outputs that
+will be built or cause builds to fail. Consider using a project-scoped schedule instead.
+:::
+
 
 ### Parameters
 

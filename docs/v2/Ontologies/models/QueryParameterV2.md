@@ -7,6 +7,7 @@ Details about a parameter of a query.
 | ------------ | ------------- | ------------- | ------------- |
 **description** | Optional[str] | No |  |
 **data_type** | QueryDataType | Yes |  |
+**required** | bool | Yes |  |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

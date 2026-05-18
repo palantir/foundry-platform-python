@@ -4,6 +4,7 @@ Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**cancel**](#cancel) | **POST** /v2/sqlQueries/{sqlQueryId}/cancel | Stable |
 [**execute**](#execute) | **POST** /v2/sqlQueries/execute | Stable |
+[**execute_ontology**](#execute_ontology) | **POST** /v2/sqlQueries/executeOntology | Private Beta |
 [**get_results**](#get_results) | **GET** /v2/sqlQueries/{sqlQueryId}/getResults | Stable |
 [**get_status**](#get_status) | **GET** /v2/sqlQueries/{sqlQueryId}/getStatus | Stable |
 
@@ -67,6 +68,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **query** | str | The SQL query to execute. Queries should conform to the [Spark SQL dialect](https://spark.apache.org/docs/latest/sql-ref.html). This supports SELECT queries only. Datasets can be referenced in SQL queries by path or by RID. See the  [documentation](https://www.palantir.com/docs/foundry/analytics-connectivity/odbc-jdbc-drivers/#use-sql-to-query-foundry-datasets) for more details.  |  |
 **fallback_branch_ids** | Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.  | [optional] |
+**serialization_format** | Optional[SerializationFormat] | The format used to serialize query results. If not specified, defaults to `ARROW`.  | [optional] |
 
 ### Return type
 **QueryStatus**
@@ -84,11 +86,15 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 query = "SELECT * FROM `/Path/To/Dataset`"
 # Optional[List[BranchName]] | The list of branch ids to use as fallbacks if the query fails to execute on the primary branch. If a is not explicitly provided in the SQL query, the resource will be queried on the first fallback branch provided that exists. If no fallback branches are provided the default branch is used. This is `master` for most enrollments.
 fallback_branch_ids = ["master"]
+# Optional[SerializationFormat] | The format used to serialize query results. If not specified, defaults to `ARROW`.
+serialization_format = "CSV"
 
 
 try:
     api_response = client.sql_queries.SqlQuery.execute(
-        query=query, fallback_branch_ids=fallback_branch_ids
+        query=query,
+        fallback_branch_ids=fallback_branch_ids,
+        serialization_format=serialization_format,
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -110,9 +116,72 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
-# **get_results**
-Gets the results of a query. The results of the query are returned in the
+# **execute_ontology**
+Executes a SQL query against the Ontology. Results are returned synchronously in
 [Apache Arrow](https://arrow.apache.org/) format.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**query** | str | The SQL query to execute.  |  |
+**dry_run** | Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.  | [optional] |
+**parameters** | Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
+**row_limit** | Optional[int] | Maximum number of rows to return.  | [optional] |
+
+### Return type
+**bytes**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# str | The SQL query to execute.
+query = "SELECT * FROM ri.ontology.main.object-type.xxx"
+# Optional[bool] | If true, parse and validate the query without executing it. Defaults to false.
+dry_run = None
+# Optional[Parameters] | Parameters for the SQL query. Can be either unnamed positional parameters or a named parameter mapping.
+parameters = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
+# Optional[int] | Maximum number of rows to return.
+row_limit = None
+
+
+try:
+    api_response = client.sql_queries.SqlQuery.execute_ontology(
+        query=query, dry_run=dry_run, parameters=parameters, preview=preview, row_limit=row_limit
+    )
+    print("The execute_ontology response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling SqlQuery.execute_ontology: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | bytes  |  | application/octet-stream |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_results**
+Gets the results of a query. Results are returned in the `serializationFormat` specified at execute time
+(defaulting to [Apache Arrow](https://arrow.apache.org/) if no format is provided).
 
 This endpoint implements long polling and requests will time out after one minute. They can be safely
 retried while the query is still running.

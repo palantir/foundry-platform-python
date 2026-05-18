@@ -2,7 +2,7 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/virtualTables | Public Beta |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/virtualTables | Stable |
 
 # **create**
 Creates a new [Virtual Table](https://palantir.com/docs/foundry/data-integration/virtual-tables/) from an upstream table. The VirtualTable will be created
@@ -18,7 +18,6 @@ Name | Type | Description  | Notes |
 **name** | TableName |  |  |
 **parent_rid** | FolderRid |  |  |
 **markings** | Optional[List[MarkingId]] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **VirtualTable**
@@ -42,18 +41,11 @@ name = "my_table"
 parent_rid = "ri.compass.main.folder.c410f510-2937-420e-8ea3-8c9bcb3c1791"
 # Optional[List[MarkingId]]
 markings = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.connectivity.Connection.VirtualTable.create(
-        connection_rid,
-        config=config,
-        name=name,
-        parent_rid=parent_rid,
-        markings=markings,
-        preview=preview,
+        connection_rid, config=config, name=name, parent_rid=parent_rid, markings=markings
     )
     print("The create response:\n")
     pprint(api_response)

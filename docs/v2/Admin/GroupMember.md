@@ -76,9 +76,10 @@ in the response, you are on the last page.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **group_id** | GroupId |  |  |
+**include_expirations** | Optional[bool] | When true, includes the expiration time of any temporary members of this group. `includeExpirations`  cannot be set to true if `transitive` is also set to true.  Defaults to false.  | [optional] |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**transitive** | Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.  | [optional] |
+**transitive** | Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  If `transitive` is true, `includeExpirations` cannot also be set to true.  Defaults to false.  | [optional] |
 
 ### Return type
 **ListGroupMembersResponse**
@@ -94,17 +95,23 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # GroupId
 group_id = None
+# Optional[bool] | When true, includes the expiration time of any temporary members of this group. `includeExpirations`  cannot be set to true if `transitive` is also set to true.  Defaults to false.
+include_expirations = None
 # Optional[PageSize] | The page size to use for the endpoint.
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  Defaults to false.
+# Optional[bool] | When true, includes the transitive members of groups contained within this group. For example, say the Group has member Group A, and Group A has member User B. If `transitive=false` only Group A will be returned, but if `transitive=true` then Group A and User B will be returned. This will recursively resolve Groups through all layers of nesting.  If `transitive` is true, `includeExpirations` cannot also be set to true.  Defaults to false.
 transitive = None
 
 
 try:
     for group_member in client.admin.Group.GroupMember.list(
-        group_id, page_size=page_size, page_token=page_token, transitive=transitive
+        group_id,
+        include_expirations=include_expirations,
+        page_size=page_size,
+        page_token=page_token,
+        transitive=transitive,
     ):
         pprint(group_member)
 except foundry_sdk.PalantirRPCException as e:

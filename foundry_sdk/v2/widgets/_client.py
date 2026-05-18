@@ -54,6 +54,16 @@ class WidgetsClient:
         )
 
     @cached_property
+    def DevModeSettingsV2(self):
+        from foundry_sdk.v2.widgets.dev_mode_settings_v2 import DevModeSettingsV2Client
+
+        return DevModeSettingsV2Client(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
     def Repository(self):
         from foundry_sdk.v2.widgets.repository import RepositoryClient
 
@@ -90,10 +100,15 @@ class AsyncWidgetsClient:
         config: typing.Optional[core.Config] = None,
     ):
         from foundry_sdk.v2.widgets.dev_mode_settings import AsyncDevModeSettingsClient
+        from foundry_sdk.v2.widgets.dev_mode_settings_v2 import AsyncDevModeSettingsV2Client  # NOQA
         from foundry_sdk.v2.widgets.repository import AsyncRepositoryClient
         from foundry_sdk.v2.widgets.widget_set import AsyncWidgetSetClient
 
         self.DevModeSettings = AsyncDevModeSettingsClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.DevModeSettingsV2 = AsyncDevModeSettingsV2Client(
             auth=auth, hostname=hostname, config=config
         )
 

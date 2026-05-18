@@ -30,6 +30,8 @@ Name | Type | Description  | Notes |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
+**trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
+**trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 
 ### Return type
@@ -58,6 +60,10 @@ options = None
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
 sdk_version = None
+# Optional[TraceParent] | The W3C trace parent header included in the request.
+trace_parent = None
+# Optional[TraceState] | The W3C trace state header included in the request.
+trace_state = None
 # Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 
@@ -71,6 +77,8 @@ try:
         options=options,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
+        trace_parent=trace_parent,
+        trace_state=trace_state,
         transaction_id=transaction_id,
     )
     print("The apply response:\n")

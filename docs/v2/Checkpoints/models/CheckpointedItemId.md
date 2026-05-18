@@ -18,6 +18,7 @@ CheckpointedGroupId | checkpointedGroupId
 CheckpointedObjectSetVersionedRid | checkpointedObjectSetVersionedRid
 CheckpointedObjectSetTypesProxyRids | checkpointedObjectSetTypesProxyRids
 CheckpointedResourceRid | checkpointedResourceRid
+CheckpointedPeeringJobId | checkpointedPeeringJobId
 CheckpointedIssueRid | checkpointedIssueRid
 CheckpointedInterventionRid | checkpointedInterventionRid
 CheckpointedJobSpecRid | checkpointedJobSpecRid

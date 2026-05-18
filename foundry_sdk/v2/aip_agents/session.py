@@ -101,15 +101,15 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response before sending the next message.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -120,13 +120,13 @@ class SessionClient:
         :return: Returns the result object.
         :rtype: aip_agents_models.SessionExchangeResult
 
-        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
+        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
         :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -202,7 +202,7 @@ class SessionClient:
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -270,7 +270,7 @@ class SessionClient:
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
@@ -286,7 +286,7 @@ class SessionClient:
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -344,7 +344,7 @@ class SessionClient:
         Delete a conversation session between the calling user and an Agent.
         Once deleted, the session can no longer be accessed and will not appear in session lists.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -398,7 +398,7 @@ class SessionClient:
     ) -> aip_agents_models.Session:
         """
         Get the details of a conversation session between the calling user and an Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -454,10 +454,10 @@ class SessionClient:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
-        For example, any sessions created by the user in AIP Agent Studio will not be listed here.
+        For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -515,14 +515,14 @@ class SessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> aip_agents_models.AgentSessionRagContextResponse:
         """
-        Retrieve relevant [context](https://palantir.com/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+        Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+        :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: UserTextInput
@@ -604,15 +604,15 @@ class SessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
@@ -627,8 +627,8 @@ class SessionClient:
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -694,7 +694,7 @@ class SessionClient:
         Update the title for a session.
         Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -864,15 +864,15 @@ class AsyncSessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response before sending the next message.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context retrieval](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
@@ -883,13 +883,13 @@ class AsyncSessionClient:
         :return: Returns the result object.
         :rtype: typing.Awaitable[aip_agents_models.SessionExchangeResult]
 
-        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Agent Studio.
+        :raises AgentIterationsExceededLimit: The Agent was unable to produce an answer in the set number of maximum iterations. This can happen if the Agent gets confused or stuck in a loop, or if the query is too complex. Try a different query or review the Agent configuration in AIP Chatbot Studio.
         :raises AgentNotFound: The given Agent could not be found.
         :raises BlockingContinueSessionPermissionDenied: Could not blockingContinue the Session.
         :raises ContextSizeExceededLimit: Failed to generate a response for a session because the context size of the LLM has been exceeded. Clients should either retry with a shorter message or create a new session and try re-sending the message.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -965,7 +965,7 @@ class AsyncSessionClient:
         Canceling an exchange allows clients to prevent the exchange from being added to the session, or to provide a response to replace the Agent-generated response.
         Note that canceling an exchange does not terminate the stream returned by `streamingContinue`; clients should close the stream on triggering the cancellation request to stop reading from the stream.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1033,7 +1033,7 @@ class AsyncSessionClient:
         Create a new conversation session between the calling user and an Agent.
         Use `blockingContinue` or `streamingContinue` to start adding exchanges to the session.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param agent_version: The version of the Agent associated with the session. This can be set by clients on session creation. If not specified, defaults to use the latest published version of the Agent at session creation time.
         :type agent_version: Optional[AgentVersionString]
@@ -1049,7 +1049,7 @@ class AsyncSessionClient:
         :raises CreateSessionPermissionDenied: Could not create the Session.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
         :raises InvalidAgentVersion: The provided version string is not a valid format for an Agent version.
-        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Agent Studio to use the latest published version, or specify the version of the Agent to use.
+        :raises NoPublishedAgentVersion: Failed to retrieve the latest published version of the Agent because the Agent has no published versions. Try publishing the Agent in AIP Chatbot Studio to use the latest published version, or specify the version of the Agent to use.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -1107,7 +1107,7 @@ class AsyncSessionClient:
         Delete a conversation session between the calling user and an Agent.
         Once deleted, the session can no longer be accessed and will not appear in session lists.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1161,7 +1161,7 @@ class AsyncSessionClient:
     ) -> typing.Awaitable[aip_agents_models.Session]:
         """
         Get the details of a conversation session between the calling user and an Agent.
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
@@ -1217,10 +1217,10 @@ class AsyncSessionClient:
         """
         List all conversation sessions between the calling user and an Agent that was created by this client.
         This does not list sessions for the user created by other clients.
-        For example, any sessions created by the user in AIP Agent Studio will not be listed here.
+        For example, any sessions created by the user in AIP Chatbot Studio will not be listed here.
         Sessions are returned in order of most recently updated first.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param page_size: The page size to use for the endpoint.
         :type page_size: Optional[PageSize]
@@ -1278,14 +1278,14 @@ class AsyncSessionClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[aip_agents_models.AgentSessionRagContextResponse]:
         """
-        Retrieve relevant [context](https://palantir.com/docs/foundry/agent-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
+        Retrieve relevant [context](https://palantir.com/docs/foundry/chatbot-studio/core-concepts/#retrieval-context) for a user message from the data sources configured for the session.
         This allows clients to pre-retrieve context for a user message before sending it to the Agent with the `contextsOverride` option when continuing a session, to allow any pre-processing of the context before sending it to the Agent.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to use for the context retrieval.
+        :param parameter_inputs: Any values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to use for the context retrieval.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message to retrieve relevant context for from the configured Agent data sources.
         :type user_input: UserTextInput
@@ -1367,15 +1367,15 @@ class AsyncSessionClient:
         Concurrent requests to continue the same session are not supported.
         Clients should wait to receive a response, or cancel the in-progress exchange, before sending the next message.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
-        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/agent-studio/application-state/) to pass to the Agent for the exchange.
+        :param parameter_inputs: Any supplied values for [application variables](https://palantir.com/docs/foundry/chatbot-studio/application-state/) to pass to the Agent for the exchange.
         :type parameter_inputs: Dict[ParameterId, ParameterValue]
         :param user_input: The user message for the Agent to respond to.
         :type user_input: UserTextInput
-        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/agent-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
+        :param contexts_override: If set, automatic [context](https://palantir.com/docs/foundry/chatbot-studio/retrieval-context/) retrieval is skipped and the list of specified context is provided to the Agent instead. If omitted, relevant context for the user message is automatically retrieved and included in the prompt, based on data sources configured on the Agent for the session.
         :type contexts_override: Optional[List[InputContext]]
         :param message_id: A client-generated Universally Unique Identifier (UUID) to identify the message, which the client can use to cancel the exchange before the streaming response is complete.
         :type message_id: Optional[MessageId]
@@ -1390,8 +1390,8 @@ class AsyncSessionClient:
 
         :raises AgentNotFound: The given Agent could not be found.
         :raises FunctionLocatorNotFound: The specified function locator is configured for use by the Agent but could not be found. The function type or version may not exist or the client token does not have access.
-        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
-        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Agent Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameter: The provided application variable is not valid for the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
+        :raises InvalidParameterType: The provided value does not match the expected type for the application variable configured on the Agent for this session. Check the available application variables for the Agent under the `parameters` property, and version through the API with `getAgent`, or in AIP Chatbot Studio. The Agent version used for the session can be checked through the API with `getSession`.
         :raises ObjectTypeIdsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises ObjectTypeRidsNotFound: Some object types are configured for use by the Agent but could not be found. The object types either do not exist or the client token does not have access. Object types can be checked by listing available object types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
         :raises OntologyEntitiesNotFound: Some ontology types are configured for use by the Agent but could not be found. The types either do not exist or the client token does not have access. Object types and their link types can be checked by listing available object/link types through the API, or searching in [Ontology Manager](https://palantir.com/docs/foundry/ontology-manager/overview/).
@@ -1457,7 +1457,7 @@ class AsyncSessionClient:
         Update the title for a session.
         Use this to set a custom title for a session to help identify it in the list of sessions with an Agent.
 
-        :param agent_rid: An RID identifying an AIP Agent created in [AIP Agent Studio](https://palantir.com/docs/foundry/agent-studio/overview/).
+        :param agent_rid: An RID identifying an Agent created in [AIP Chatbot Studio](https://palantir.com/docs/foundry/chatbot-studio/overview/).
         :type agent_rid: AgentRid
         :param session_rid: The Resource Identifier (RID) of the conversation session.
         :type session_rid: SessionRid
