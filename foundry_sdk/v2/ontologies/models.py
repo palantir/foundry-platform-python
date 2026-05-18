@@ -18,6 +18,7 @@ from __future__ import annotations
 import typing
 from datetime import date
 
+import annotated_types
 import pydantic
 import typing_extensions
 
@@ -258,26 +259,54 @@ AggregationAccuracy = typing.Literal["ACCURATE", "APPROXIMATE"]
 
 
 AggregationAccuracyRequest = typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]
-"""AggregationAccuracyRequest"""
+"""
+Specifies the accuracy requirement for aggregation results.
+
+- `REQUIRE_ACCURATE`: Only return results if they are guaranteed to be accurate. If accuracy cannot be
+  guaranteed (e.g., due to a low `maxGroupCount` relative to distinct values), the request will fail
+  with an `AggregationAccuracyNotSupported` error.
+- `ALLOW_APPROXIMATE`: Allow approximate results when exact computation is not feasible. This is the
+  default behavior if not specified.
+"""
 
 
 class AggregationDurationGroupingV2(core.ModelBase):
     """
     Divides objects into groups according to an interval. Note that this grouping applies only on date and timestamp types.
     When grouping by `YEARS`, `QUARTERS`, `MONTHS`, or `WEEKS`, the `value` must be set to `1`.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
     """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     value: int
     unit: TimeUnit
     type: typing.Literal["duration"] = "duration"
 
 
 class AggregationExactGroupingV2(core.ModelBase):
-    """Divides objects into groups according to an exact value."""
+    """
+    Divides objects into groups according to an exact value.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     max_group_count: typing.Optional[int] = pydantic.Field(alias=str("maxGroupCount"), default=None)  # type: ignore[literal-required]
+    """
+    The maximum number of groups to return. If omitted, defaults to 10,000.
+
+    The server allocates resources based on the specified `maxGroupCount`. When the number of distinct
+    values in your data is within this limit, results are accurate and the top N values are returned
+    correctly. When distinct values exceed what the allocated resources can handle, results may become
+    approximate.
+
+    If you need accurate results with high-cardinality properties, set `maxGroupCount` high enough to
+    cover your distinct values. Items exceeding the limit are excluded from results and counted in
+    `excludedItems`. The response `accuracy` field indicates whether the results are `ACCURATE` or
+    `APPROXIMATE`.
+    """
+
     default_value: typing.Optional[str] = pydantic.Field(alias=str("defaultValue"), default=None)  # type: ignore[literal-required]
     """
     Includes a group with the specified default value that includes all objects where the specified field's value is null.
@@ -294,9 +323,13 @@ class AggregationExactGroupingV2(core.ModelBase):
 
 
 class AggregationFixedWidthGroupingV2(core.ModelBase):
-    """Divides objects into groups with the specified width."""
+    """
+    Divides objects into groups with the specified width.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     fixed_width: int = pydantic.Field(alias=str("fixedWidth"))  # type: ignore[literal-required]
     type: typing.Literal["fixedWidth"] = "fixedWidth"
 
@@ -347,9 +380,13 @@ class AggregationRangeV2(core.ModelBase):
 
 
 class AggregationRangesGroupingV2(core.ModelBase):
-    """Divides objects into groups according to specified ranges."""
+    """
+    Divides objects into groups according to specified ranges.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     ranges: typing.List[AggregationRangeV2]
     type: typing.Literal["ranges"] = "ranges"
 
@@ -442,18 +479,26 @@ class ApplyReducersLoadLevel(core.ModelBase):
 
 
 class ApproximateDistinctAggregationV2(core.ModelBase):
-    """Computes an approximate number of distinct values for the provided field."""
+    """
+    Computes an approximate number of distinct values for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["approximateDistinct"] = "approximateDistinct"
 
 
 class ApproximatePercentileAggregationV2(core.ModelBase):
-    """Computes the approximate percentile value for the provided field. Requires Object Storage V2."""
+    """
+    Computes the approximate percentile value for the provided field. Requires Object Storage V2.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     approximate_percentile: float = pydantic.Field(alias=str("approximatePercentile"))  # type: ignore[literal-required]
     direction: typing.Optional[OrderByDirection] = None
@@ -527,9 +572,13 @@ class AttachmentV2(core.ModelBase):
 
 
 class AvgAggregationV2(core.ModelBase):
-    """Computes the average value for the provided field."""
+    """
+    Computes the average value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["avg"] = "avg"
@@ -623,6 +672,7 @@ class BoundingBoxValue(core.ModelBase):
 
     top_left: WithinBoundingBoxPoint = pydantic.Field(alias=str("topLeft"))  # type: ignore[literal-required]
     bottom_right: WithinBoundingBoxPoint = pydantic.Field(alias=str("bottomRight"))  # type: ignore[literal-required]
+    type: typing.Literal["envelope"] = "envelope"
 
 
 class CenterPoint(core.ModelBase):
@@ -1172,12 +1222,26 @@ EditHistoryEdit = typing_extensions.Annotated[
 """EditHistoryEdit"""
 
 
-EditTypeFilter = typing.Literal["create", "modify", "delete"]
-"""EditTypeFilter"""
+EditsHistoryFilter = typing_extensions.Annotated[
+    typing.Union["EditsHistoryTimestampFilter", "EditsHistoryOperationIdsFilter"],
+    pydantic.Field(discriminator="type"),
+]
+"""EditsHistoryFilter"""
 
 
-class EditsHistoryFilters(core.ModelBase):
-    """EditsHistoryFilters"""
+class EditsHistoryOperationIdsFilter(core.ModelBase):
+    """EditsHistoryOperationIdsFilter"""
+
+    operation_ids: typing.List[ActionRid] = pydantic.Field(alias=str("operationIds"))  # type: ignore[literal-required]
+    type: typing.Literal["operationIdsFilter"] = "operationIdsFilter"
+
+
+EditsHistorySortOrder = typing.Literal["newest_first", "oldest_first"]
+"""EditsHistorySortOrder"""
+
+
+class EditsHistoryTimestampFilter(core.ModelBase):
+    """EditsHistoryTimestampFilter"""
 
     start_time: typing.Optional[core.AwareDatetime] = pydantic.Field(alias=str("startTime"), default=None)  # type: ignore[literal-required]
     """
@@ -1191,27 +1255,7 @@ class EditsHistoryFilters(core.ModelBase):
     ISO 8601 format. Example: "2024-12-31T23:59:59Z"
     """
 
-    action_types: typing.List[ActionTypeApiName] = pydantic.Field(alias=str("actionTypes"))  # type: ignore[literal-required]
-    """
-    Filter edits to only those caused by specific action types.
-    If not specified, edits from all action types are returned.
-    """
-
-    edit_types: typing.List[EditTypeFilter] = pydantic.Field(alias=str("editTypes"))  # type: ignore[literal-required]
-    """
-    Filter edits by operation type (create, modify, or delete).
-    If not specified, all edit types are returned.
-    """
-
-    user_ids: typing.List[str] = pydantic.Field(alias=str("userIds"))  # type: ignore[literal-required]
-    """
-    Filter edits to only those performed by specific users.
-    If not specified, edits from all users are returned.
-    """
-
-
-EditsHistorySortOrder = typing.Literal["newest_first", "oldest_first"]
-"""EditsHistorySortOrder"""
+    type: typing.Literal["timestampFilter"] = "timestampFilter"
 
 
 class EntrySetType(core.ModelBase):
@@ -1233,6 +1277,8 @@ class EqualsQueryV2(core.ModelBase):
     """
     Returns objects where the specified field is equal to a value. Allows you to specify a property to query on
     by a variety of means. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
     """
 
     field: typing.Optional[PropertyApiName] = None
@@ -1260,9 +1306,14 @@ ErrorName = str
 
 
 class ExactDistinctAggregationV2(core.ModelBase):
-    """Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation. Requires Object Storage V2."""
+    """
+    Computes an exact number of distinct values for the provided field. May be slower than an approximate
+    distinct aggregation. Requires Object Storage V2.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["exactDistinct"] = "exactDistinct"
@@ -1348,8 +1399,56 @@ Examples: `1.2.3`, `1.2.3-rc1`.
 """
 
 
+class FuzzyRule(core.ModelBase):
+    """
+    Matches intervals containing terms that are similar to the provided term, within an edit distance
+    defined by fuzziness. An edit is a single character change needed to make a term match, including
+    character insertion, deletion, substitution, or transposition of two adjacent characters.
+    """
+
+    term: str
+    """The term to match."""
+
+    fuzziness: typing.Optional[int] = None
+    """Maximum edit distance allowed for matching. Valid values are 0, 1, or 2. Defaults to 2."""
+
+    type: typing.Literal["fuzzy"] = "fuzzy"
+
+
 FuzzyV2 = bool
 """Setting fuzzy to `true` allows approximate matching in search queries that support it."""
+
+
+class GeoJsonString(core.ModelBase):
+    """A GeoJSON geometry specification."""
+
+    geo_json: str = pydantic.Field(alias=str("geoJson"))  # type: ignore[literal-required]
+    """
+    A GeoJSON geometry string. Supported geometry types include Point, MultiPoint, LineString,
+    MultiLineString, Polygon, MultiPolygon, and GeometryCollection.
+    """
+
+    type: typing.Literal["geoJson"] = "geoJson"
+
+
+GeoShapeV2Geometry = typing_extensions.Annotated[
+    typing.Union["BoundingBoxValue", "GeoJsonString"], pydantic.Field(discriminator="type")
+]
+"""Geometry specification for a GeoShapeV2Query. Supports bounding box envelopes and arbitrary GeoJSON geometries."""
+
+
+class GeoShapeV2Query(core.ModelBase):
+    """
+    Returns objects where the specified field satisfies the provided geometry query with the given spatial operator.
+    Supports both envelope (bounding box) and GeoJSON geometries for filtering geopoint or geoshape properties.
+    Either `field` or `propertyIdentifier` can be supplied, but not both.
+    """
+
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
+    geometry: GeoShapeV2Geometry
+    spatial_filter_mode: SpatialFilterMode = pydantic.Field(alias=str("spatialFilterMode"))  # type: ignore[literal-required]
+    type: typing.Literal["geoShapeV2"] = "geoShapeV2"
 
 
 class GeotemporalSeriesEntry(core.ModelBase):
@@ -1367,6 +1466,74 @@ class GeotimeSeriesValue(core.ModelBase):
     position: geo_models.Position
     timestamp: core.AwareDatetime
     type: typing.Literal["geotimeSeriesValue"] = "geotimeSeriesValue"
+
+
+class GetActionTypeByRidBatchRequest(core.ModelBase):
+    """GetActionTypeByRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetActionTypeByRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetActionTypeByRidBatchRequestElement(core.ModelBase):
+    """GetActionTypeByRidBatchRequestElement"""
+
+    action_type_rid: ActionTypeRid = pydantic.Field(alias=str("actionTypeRid"))  # type: ignore[literal-required]
+
+
+class GetActionTypeByRidBatchResponse(core.ModelBase):
+    """GetActionTypeByRidBatchResponse"""
+
+    data: typing.List[ActionTypeV2]
+
+
+class GetObjectTypeByRidBatchRequest(core.ModelBase):
+    """GetObjectTypeByRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetObjectTypeByRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+
+
+class GetObjectTypeByRidBatchRequestElement(core.ModelBase):
+    """GetObjectTypeByRidBatchRequestElement"""
+
+    object_type_rid: ObjectTypeRid = pydantic.Field(alias=str("objectTypeRid"))  # type: ignore[literal-required]
+
+
+class GetObjectTypeByRidBatchResponse(core.ModelBase):
+    """GetObjectTypeByRidBatchResponse"""
+
+    data: typing.List[ObjectTypeV2]
+
+
+class GetOutgoingLinkTypesByObjectTypeRidBatchRequest(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchRequest"""
+
+    requests: typing_extensions.Annotated[
+        typing.List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement],
+        annotated_types.Len(min_length=1, max_length=100),
+    ]
+    filter_link_type_rids: typing.List[LinkTypeRid] = pydantic.Field(alias=str("filterLinkTypeRids"))  # type: ignore[literal-required]
+    """
+    If provided, only return outgoing link types with RIDs in this list.
+    If omitted, all outgoing link types for each requested object type are returned.
+    """
+
+
+class GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement"""
+
+    object_type_rid: ObjectTypeRid = pydantic.Field(alias=str("objectTypeRid"))  # type: ignore[literal-required]
+
+
+class GetOutgoingLinkTypesByObjectTypeRidBatchResponse(core.ModelBase):
+    """GetOutgoingLinkTypesByObjectTypeRidBatchResponse"""
+
+    data: typing.Dict[ObjectTypeRid, typing.List[LinkTypeSideV2]]
 
 
 class GetSelectedPropertyOperation(core.ModelBase):
@@ -1432,6 +1599,8 @@ class InQuery(core.ModelBase):
     Returns objects where the specified field equals any of the provided values. Allows you to
     specify a property to query on by a variety of means. If an empty array is provided as the value, then the filter will match all objects
     in the object set. Either `field` or `propertyIdentifier` must be supplied, but not both.
+
+    For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
     """
 
     field: typing.Optional[PropertyApiName] = None
@@ -1744,7 +1913,7 @@ class IntervalQuery(core.ModelBase):
 
 
 IntervalQueryRule = typing_extensions.Annotated[
-    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule"],
+    typing.Union["AllOfRule", "MatchRule", "AnyOfRule", "PrefixOnLastTokenRule", "FuzzyRule"],
     pydantic.Field(discriminator="type"),
 ]
 """Sub-rule used for evaluating an IntervalQuery"""
@@ -2145,6 +2314,7 @@ class LoadObjectSetV2ObjectsOrInterfacesResponse(core.ModelBase):
 
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
     total_count: core_models.TotalCount = pydantic.Field(alias=str("totalCount"))  # type: ignore[literal-required]
+    transaction_id: typing.Optional[OntologyTransactionId] = pydantic.Field(alias=str("transactionId"), default=None)  # type: ignore[literal-required]
 
 
 class LoadOntologyMetadataRequest(core.ModelBase):
@@ -2241,9 +2411,13 @@ class MatchRule(core.ModelBase):
 
 
 class MaxAggregationV2(core.ModelBase):
-    """Computes the maximum value for the provided field."""
+    """
+    Computes the maximum value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["max"] = "max"
@@ -2258,9 +2432,13 @@ class MediaMetadata(core.ModelBase):
 
 
 class MinAggregationV2(core.ModelBase):
-    """Computes the minimum value for the provided field."""
+    """
+    Computes the minimum value for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["min"] = "min"
@@ -2578,6 +2756,7 @@ class ObjectEditHistoryEntry(core.ModelBase):
     created, modified, or deleted as part of an action execution.
     """
 
+    object_primary_key: ObjectPrimaryKeyV2 = pydantic.Field(alias=str("objectPrimaryKey"))  # type: ignore[literal-required]
     operation_id: ActionRid = pydantic.Field(alias=str("operationId"))  # type: ignore[literal-required]
     action_type_rid: ActionTypeRid = pydantic.Field(alias=str("actionTypeRid"))  # type: ignore[literal-required]
     user_id: str = pydantic.Field(alias=str("userId"))  # type: ignore[literal-required]
@@ -2945,7 +3124,7 @@ class ObjectTypeEditsHistoryRequest(core.ModelBase):
     """
 
     object_primary_key: typing.Optional[ObjectPrimaryKeyV2] = pydantic.Field(alias=str("objectPrimaryKey"), default=None)  # type: ignore[literal-required]
-    filters: typing.Optional[EditsHistoryFilters] = None
+    filters: typing.Optional[EditsHistoryFilter] = None
     sort_order: typing.Optional[EditsHistorySortOrder] = pydantic.Field(alias=str("sortOrder"), default=None)  # type: ignore[literal-required]
     include_all_previous_properties: typing.Optional[bool] = pydantic.Field(alias=str("includeAllPreviousProperties"), default=None)  # type: ignore[literal-required]
     page_size: typing.Optional[int] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
@@ -3078,6 +3257,7 @@ OntologyDataType = typing_extensions.Annotated[
         core_models.CipherTextType,
         core_models.MarkingType,
         core_models.UnsupportedType,
+        core_models.MediaReferenceType,
         "OntologyArrayType",
         "OntologyObjectSetType",
         core_models.BinaryType,
@@ -3756,25 +3936,28 @@ QueryDataType = typing_extensions.Annotated[
         core_models.DateType,
         "OntologyInterfaceObjectType",
         "QueryStructType",
-        "QuerySetType",
         core_models.StringType,
-        "EntrySetType",
-        core_models.DoubleType,
         core_models.IntegerType,
         "ThreeDimensionalAggregation",
-        "QueryUnionType",
         core_models.FloatType,
         core_models.LongType,
-        core_models.BooleanType,
         core_models.UnsupportedType,
         core_models.AttachmentType,
-        core_models.NullType,
         "QueryArrayType",
         "OntologyObjectSetType",
         "TwoDimensionalAggregation",
+        "QueryTypeReferenceType",
+        core_models.TimestampType,
+        "QuerySetType",
+        core_models.VoidType,
+        "EntrySetType",
+        core_models.DoubleType,
+        "QueryUnionType",
+        core_models.BooleanType,
+        core_models.MediaReferenceType,
+        core_models.NullType,
         "OntologyInterfaceObjectSetType",
         "OntologyObjectType",
-        core_models.TimestampType,
     ],
     pydantic.Field(discriminator="type"),
 ]
@@ -3786,6 +3969,7 @@ class QueryParameterV2(core.ModelBase):
 
     description: typing.Optional[str] = None
     data_type: QueryDataType = pydantic.Field(alias=str("dataType"))  # type: ignore[literal-required]
+    required: bool
 
 
 QueryRuntimeErrorParameter = str
@@ -3825,6 +4009,16 @@ class QueryTwoDimensionalAggregation(core.ModelBase):
     groups: typing.List[QueryAggregation]
 
 
+class QueryTypeReferenceType(core.ModelBase):
+    """
+    A reference to a type that is defined in the `typeReferences` map of the enclosing Query.
+    This enables support for recursive type definitions where a type may reference itself.
+    """
+
+    type_id: TypeReferenceIdentifier = pydantic.Field(alias=str("typeId"))  # type: ignore[literal-required]
+    type: typing.Literal["typeReference"] = "typeReference"
+
+
 class QueryTypeV2(core.ModelBase):
     """Represents a query type in the Ontology."""
 
@@ -3835,6 +4029,7 @@ class QueryTypeV2(core.ModelBase):
     output: QueryDataType
     rid: FunctionRid
     version: FunctionVersion
+    type_references: typing.Dict[TypeReferenceIdentifier, QueryDataType] = pydantic.Field(alias=str("typeReferences"))  # type: ignore[literal-required]
 
 
 class QueryUnionType(core.ModelBase):
@@ -3914,7 +4109,26 @@ class RegexConstraint(core.ModelBase):
 class RegexQuery(core.ModelBase):
     """
     Returns objects where the specified field matches the regex pattern provided. This applies to the non-analyzed
-    form of text fields and supports standard regex syntax of dot (.), star(*) and question mark(?).
+    form of text fields. Supported operators:
+      - `.` matches any character.
+      - `?` repeats the previous character 0 or 1 times.
+      - `+` repeats the previous character 1 or more times.
+      - `*` repeats the previous character 0 or more times.
+      - `{}` defines the minimum and maximum number of times the preceding character can repeat. `{2}` means the
+        previous character must repeat only twice, `{2,}` means the previous character must repeat at least twice,
+        and `{2,4}` means the previous character must repeat between 2-4 times.
+      - `|` is the OR operator.
+      - `()` forms a group within an expression such that the group can be treated as a single character.
+      - `[]` matches a single one of the characters contained inside the brackets, meaning [abc] matches `a`, `b` or
+        `c`. Unless `-` is the first character or escaped with `\\` (in which case it is treated as a normal character),
+        `-` can be used inside the bracket to create a range of characters, meaning [a-c] matches `a`, `b`, or `c`.
+        If the character sequence inside the brackets begins with `^`, the set of characters is negated, meaning
+        [^abc] does not match `a`, `b`, or `c`. Otherwise, `^` is treated as a normal character.
+      - `"` creates groups of string literals.
+      - `\\` is used as an escape character. However, \\d and \\D match digit and non-digit characters respectively, \\s
+      and \\S match whitespace and non whitespace characters respectively, and \\w and \\W match word and non word
+      characters respectively.
+
     Either `field` or `propertyIdentifier` can be supplied, but not both.
     """
 
@@ -4079,6 +4293,7 @@ SearchJsonQueryV2 = typing_extensions.Annotated[
         "IsNullQueryV2",
         "ContainsAnyTermQuery",
         "IntervalQuery",
+        "GeoShapeV2Query",
         "StartsWithQuery",
     ],
     pydantic.Field(discriminator="type"),
@@ -4366,6 +4581,14 @@ shared property type, use the `List shared property types` endpoint or check the
 
 SharedPropertyTypeRid = core.RID
 """The unique resource identifier of an shared property type, useful for interacting with other Foundry APIs."""
+
+
+SpatialFilterMode = typing.Literal["INTERSECTS", "DISJOINT", "WITHIN", "CONTAINS"]
+"""
+The spatial relation operator for a GeoShapeV2Query. INTERSECTS matches objects that intersect the provided
+geometry, DISJOINT matches objects that do not intersect the provided geometry, WITHIN matches objects that
+lie within the provided geometry, and CONTAINS matches objects that contain the provided geometry.
+"""
 
 
 class StartsWithQuery(core.ModelBase):
@@ -4662,9 +4885,13 @@ class SubtractPropertyExpression(core.ModelBase):
 
 
 class SumAggregationV2(core.ModelBase):
-    """Computes the sum of values for the provided field."""
+    """
+    Computes the sum of values for the provided field.
+    Either `field` or `propertyIdentifier` must be supplied, but not both.
+    """
 
-    field: PropertyApiName
+    field: typing.Optional[PropertyApiName] = None
+    property_identifier: typing.Optional[PropertyIdentifier] = pydantic.Field(alias=str("propertyIdentifier"), default=None)  # type: ignore[literal-required]
     name: typing.Optional[AggregationMetricName] = None
     direction: typing.Optional[OrderByDirection] = None
     type: typing.Literal["sum"] = "sum"
@@ -4673,6 +4900,7 @@ class SumAggregationV2(core.ModelBase):
 class SyncApplyActionResponseV2(core.ModelBase):
     """SyncApplyActionResponseV2"""
 
+    operation_id: typing.Optional[core.RID] = pydantic.Field(alias=str("operationId"), default=None)  # type: ignore[literal-required]
     validation: typing.Optional[ValidateActionResponseV2] = None
     edits: typing.Optional[ActionResults] = None
 
@@ -4858,6 +5086,13 @@ class TypeClass(core.ModelBase):
 
     name: str
     """The value of the type class."""
+
+
+TypeReferenceIdentifier = str
+"""
+The unique identifier of a type reference. This identifier is used to look up the
+type definition in the `typeReferences` map of the enclosing Query.
+"""
 
 
 class UnevaluableConstraint(core.ModelBase):
@@ -5169,6 +5404,8 @@ core.resolve_forward_references(DerivedPropertyDefinition, globalns=globals(), l
 core.resolve_forward_references(DisjunctiveMarkingSummary, globalns=globals(), localns=locals())
 core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
+core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
+core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
@@ -5373,9 +5610,10 @@ __all__ = [
     "DurationFormatStyle",
     "DurationPrecision",
     "EditHistoryEdit",
-    "EditTypeFilter",
-    "EditsHistoryFilters",
+    "EditsHistoryFilter",
+    "EditsHistoryOperationIdsFilter",
     "EditsHistorySortOrder",
+    "EditsHistoryTimestampFilter",
     "EntrySetType",
     "EnumConstraint",
     "EqualsQueryV2",
@@ -5396,9 +5634,22 @@ __all__ = [
     "FunctionParameterName",
     "FunctionRid",
     "FunctionVersion",
+    "FuzzyRule",
     "FuzzyV2",
+    "GeoJsonString",
+    "GeoShapeV2Geometry",
+    "GeoShapeV2Query",
     "GeotemporalSeriesEntry",
     "GeotimeSeriesValue",
+    "GetActionTypeByRidBatchRequest",
+    "GetActionTypeByRidBatchRequestElement",
+    "GetActionTypeByRidBatchResponse",
+    "GetObjectTypeByRidBatchRequest",
+    "GetObjectTypeByRidBatchRequestElement",
+    "GetObjectTypeByRidBatchResponse",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchRequest",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement",
+    "GetOutgoingLinkTypesByObjectTypeRidBatchResponse",
     "GetSelectedPropertyOperation",
     "GreatestPropertyExpression",
     "GroupMemberConstraint",
@@ -5643,6 +5894,7 @@ __all__ = [
     "QueryStructType",
     "QueryThreeDimensionalAggregation",
     "QueryTwoDimensionalAggregation",
+    "QueryTypeReferenceType",
     "QueryTypeV2",
     "QueryUnionType",
     "RangeConstraint",
@@ -5693,6 +5945,7 @@ __all__ = [
     "SharedPropertyType",
     "SharedPropertyTypeApiName",
     "SharedPropertyTypeRid",
+    "SpatialFilterMode",
     "StartsWithQuery",
     "StaticArgument",
     "StreamGeotemporalSeriesValuesRequest",
@@ -5746,6 +5999,7 @@ __all__ = [
     "TransactionEdit",
     "TwoDimensionalAggregation",
     "TypeClass",
+    "TypeReferenceIdentifier",
     "UnevaluableConstraint",
     "UniqueIdentifierArgument",
     "UniqueIdentifierLinkId",

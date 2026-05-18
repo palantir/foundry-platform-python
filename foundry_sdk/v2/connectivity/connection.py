@@ -24,7 +24,6 @@ from foundry_sdk import _core as core
 from foundry_sdk import _errors as errors
 from foundry_sdk.v2.connectivity import errors as connectivity_errors
 from foundry_sdk.v2.connectivity import models as connectivity_models
-from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.filesystem import errors as filesystem_errors
 from foundry_sdk.v2.filesystem import models as filesystem_models
 
@@ -98,7 +97,6 @@ class ConnectionClient:
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
         worker: connectivity_models.CreateConnectionRequestConnectionWorker,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
@@ -121,8 +119,6 @@ class ConnectionClient:
         :type parent_folder_rid: FolderRid
         :param worker:
         :type worker: CreateConnectionRequestConnectionWorker
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -141,9 +137,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -177,7 +171,6 @@ class ConnectionClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
@@ -185,8 +178,6 @@ class ConnectionClient:
         Get the Connection with the specified rid.
         :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -201,9 +192,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -229,7 +218,6 @@ class ConnectionClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.ConnectionConfiguration:
@@ -239,8 +227,6 @@ class ConnectionClient:
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -255,9 +241,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -286,7 +270,6 @@ class ConnectionClient:
             annotated_types.Len(min_length=1, max_length=200),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.GetConfigurationConnectionsBatchResponse:
@@ -298,8 +281,6 @@ class ConnectionClient:
         The maximum batch size for this endpoint is 200.
         :param body: Body of the request
         :type body: List[GetConfigurationConnectionsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -310,9 +291,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/getConfigurationBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -334,7 +313,6 @@ class ConnectionClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         export_settings: connectivity_models.ConnectionExportSettings,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -346,8 +324,6 @@ class ConnectionClient:
         :type connection_rid: ConnectionRid
         :param export_settings:
         :type export_settings: ConnectionExportSettings
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -361,9 +337,7 @@ class ConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateExportSettings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -455,7 +429,6 @@ class ConnectionClient:
         body: bytes,
         *,
         file_name: str,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.Connection:
@@ -469,8 +442,6 @@ class ConnectionClient:
         :type body: bytes
         :param file_name: The file name of the uploaded JDBC driver. Must end with .jar
         :type file_name: str
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -486,7 +457,6 @@ class ConnectionClient:
                 resource_path="/v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers",
                 query_params={
                     "fileName": file_name,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,
@@ -626,7 +596,6 @@ class AsyncConnectionClient:
         display_name: connectivity_models.ConnectionDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
         worker: connectivity_models.CreateConnectionRequestConnectionWorker,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.Connection]:
@@ -649,8 +618,6 @@ class AsyncConnectionClient:
         :type parent_folder_rid: FolderRid
         :param worker:
         :type worker: CreateConnectionRequestConnectionWorker
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -669,9 +636,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -705,7 +670,6 @@ class AsyncConnectionClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.Connection]:
@@ -713,8 +677,6 @@ class AsyncConnectionClient:
         Get the Connection with the specified rid.
         :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -729,9 +691,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -757,7 +717,6 @@ class AsyncConnectionClient:
         self,
         connection_rid: connectivity_models.ConnectionRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.ConnectionConfiguration]:
@@ -767,8 +726,6 @@ class AsyncConnectionClient:
 
         :param connection_rid:
         :type connection_rid: ConnectionRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -783,9 +740,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/getConfiguration",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -814,7 +769,6 @@ class AsyncConnectionClient:
             annotated_types.Len(min_length=1, max_length=200),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.GetConfigurationConnectionsBatchResponse]:
@@ -826,8 +780,6 @@ class AsyncConnectionClient:
         The maximum batch size for this endpoint is 200.
         :param body: Body of the request
         :type body: List[GetConfigurationConnectionsBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -838,9 +790,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/getConfigurationBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -862,7 +812,6 @@ class AsyncConnectionClient:
         connection_rid: connectivity_models.ConnectionRid,
         *,
         export_settings: connectivity_models.ConnectionExportSettings,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -874,8 +823,6 @@ class AsyncConnectionClient:
         :type connection_rid: ConnectionRid
         :param export_settings:
         :type export_settings: ConnectionExportSettings
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -889,9 +836,7 @@ class AsyncConnectionClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/updateExportSettings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -983,7 +928,6 @@ class AsyncConnectionClient:
         body: bytes,
         *,
         file_name: str,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.Connection]:
@@ -997,8 +941,6 @@ class AsyncConnectionClient:
         :type body: bytes
         :param file_name: The file name of the uploaded JDBC driver. Must end with .jar
         :type file_name: str
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1014,7 +956,6 @@ class AsyncConnectionClient:
                 resource_path="/v2/connectivity/connections/{connectionRid}/uploadCustomJdbcDrivers",
                 query_params={
                     "fileName": file_name,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,

@@ -292,7 +292,7 @@ When writing to an encrypted property:
 class CreateConnectionRequestFoundryWorker(core.ModelBase):
     """CreateConnectionRequestFoundryWorker"""
 
-    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
+    network_egress_policy_rids: typing.List[core_models.NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
     type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
@@ -1042,7 +1042,7 @@ class FoundryWorker(core.ModelBase):
     and scalable job execution, improved stability and do not incur the maintenance overhead associated with agents.
     """
 
-    network_egress_policy_rids: typing.List[NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
+    network_egress_policy_rids: typing.List[core_models.NetworkEgressPolicyRid] = pydantic.Field(alias=str("networkEgressPolicyRids"))  # type: ignore[literal-required]
     type: typing.Literal["foundryWorker"] = "foundryWorker"
 
 
@@ -1251,10 +1251,6 @@ class MicrosoftSqlServerTableImportConfig(core.ModelBase):
     query: TableImportQuery
     initial_incremental_state: typing.Optional[TableImportInitialIncrementalState] = pydantic.Field(alias=str("initialIncrementalState"), default=None)  # type: ignore[literal-required]
     type: typing.Literal["microsoftSqlServerImportConfig"] = "microsoftSqlServerImportConfig"
-
-
-NetworkEgressPolicyRid = core.RID
-"""The Resource Identifier (RID) of a Network Egress Policy."""
 
 
 class OauthMachineToMachineAuth(core.ModelBase):
@@ -2201,7 +2197,6 @@ __all__ = [
     "LongColumnInitialIncrementalState",
     "MicrosoftAccessTableImportConfig",
     "MicrosoftSqlServerTableImportConfig",
-    "NetworkEgressPolicyRid",
     "OauthMachineToMachineAuth",
     "OracleTableImportConfig",
     "PersonalAccessToken",

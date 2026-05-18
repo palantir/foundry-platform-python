@@ -91,6 +91,18 @@ def test_admin_v2_authentication_provider_import():
     assert AuthenticationProviderClient is not None
 
 
+def test_admin_v2_cbac_banner_import():
+    from foundry_sdk.v2.admin.cbac_banner import CbacBannerClient
+
+    assert CbacBannerClient is not None
+
+
+def test_admin_v2_cbac_marking_restrictions_import():
+    from foundry_sdk.v2.admin.cbac_marking_restrictions import CbacMarkingRestrictionsClient  # NOQA
+
+    assert CbacMarkingRestrictionsClient is not None
+
+
 def test_admin_v2_enrollment_import():
     from foundry_sdk.v2.admin.enrollment import EnrollmentClient
 
@@ -179,6 +191,12 @@ def test_admin_v2_organization_import():
     from foundry_sdk.v2.admin.organization import OrganizationClient
 
     assert OrganizationClient is not None
+
+
+def test_admin_v2_organization_guest_member_import():
+    from foundry_sdk.v2.admin.organization_guest_member import OrganizationGuestMemberClient  # NOQA
+
+    assert OrganizationGuestMemberClient is not None
 
 
 def test_admin_v2_organization_role_assignment_import():
@@ -333,6 +351,14 @@ def test_filesystem_v2_project_import():
     assert ProjectClient is not None
 
 
+def test_filesystem_v2_project_resource_reference_import():
+    from foundry_sdk.v2.filesystem.project_resource_reference import (
+        ProjectResourceReferenceClient,
+    )  # NOQA
+
+    assert ProjectResourceReferenceClient is not None
+
+
 def test_filesystem_v2_resource_import():
     from foundry_sdk.v2.filesystem.resource import ResourceClient
 
@@ -349,6 +375,12 @@ def test_filesystem_v2_space_import():
     from foundry_sdk.v2.filesystem.space import SpaceClient
 
     assert SpaceClient is not None
+
+
+def test_functions_v2_execution_import():
+    from foundry_sdk.v2.functions.execution import ExecutionClient
+
+    assert ExecutionClient is not None
 
 
 def test_functions_v2_query_import():
@@ -387,10 +419,68 @@ def test_media_sets_v2_media_set_import():
     assert MediaSetClient is not None
 
 
+def test_models_v2_experiment_import():
+    from foundry_sdk.v2.models.experiment import ExperimentClient
+
+    assert ExperimentClient is not None
+
+
+def test_models_v2_experiment_artifact_table_import():
+    from foundry_sdk.v2.models.experiment_artifact_table import (
+        ExperimentArtifactTableClient,
+    )  # NOQA
+
+    assert ExperimentArtifactTableClient is not None
+
+
+def test_models_v2_experiment_series_import():
+    from foundry_sdk.v2.models.experiment_series import ExperimentSeriesClient
+
+    assert ExperimentSeriesClient is not None
+
+
+def test_models_v2_live_deployment_import():
+    from foundry_sdk.v2.models.live_deployment import LiveDeploymentClient
+
+    assert LiveDeploymentClient is not None
+
+
 def test_models_v2_model_import():
     from foundry_sdk.v2.models.model import ModelClient
 
     assert ModelClient is not None
+
+
+def test_models_v2_model_function_import():
+    from foundry_sdk.v2.models.model_function import ModelFunctionClient
+
+    assert ModelFunctionClient is not None
+
+
+def test_models_v2_model_studio_import():
+    from foundry_sdk.v2.models.model_studio import ModelStudioClient
+
+    assert ModelStudioClient is not None
+
+
+def test_models_v2_model_studio_config_version_import():
+    from foundry_sdk.v2.models.model_studio_config_version import (
+        ModelStudioConfigVersionClient,
+    )  # NOQA
+
+    assert ModelStudioConfigVersionClient is not None
+
+
+def test_models_v2_model_studio_run_import():
+    from foundry_sdk.v2.models.model_studio_run import ModelStudioRunClient
+
+    assert ModelStudioRunClient is not None
+
+
+def test_models_v2_model_studio_trainer_import():
+    from foundry_sdk.v2.models.model_studio_trainer import ModelStudioTrainerClient
+
+    assert ModelStudioTrainerClient is not None
 
 
 def test_models_v2_model_version_import():
@@ -575,6 +665,12 @@ def test_streams_v2_stream_import():
     assert StreamClient is not None
 
 
+def test_streams_v2_subscriber_import():
+    from foundry_sdk.v2.streams.subscriber import SubscriberClient
+
+    assert SubscriberClient is not None
+
+
 def test_third_party_applications_v2_third_party_application_import():
     from foundry_sdk.v2.third_party_applications.third_party_application import (
         ThirdPartyApplicationClient,
@@ -599,6 +695,12 @@ def test_widgets_v2_dev_mode_settings_import():
     from foundry_sdk.v2.widgets.dev_mode_settings import DevModeSettingsClient
 
     assert DevModeSettingsClient is not None
+
+
+def test_widgets_v2_dev_mode_settings_v2_import():
+    from foundry_sdk.v2.widgets.dev_mode_settings_v2 import DevModeSettingsV2Client
+
+    assert DevModeSettingsV2Client is not None
 
 
 def test_widgets_v2_release_import():

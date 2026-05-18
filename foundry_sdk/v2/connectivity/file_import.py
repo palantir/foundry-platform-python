@@ -67,7 +67,6 @@ class FileImportClient:
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
         branch_name: typing.Optional[core_models.BranchName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -86,8 +85,6 @@ class FileImportClient:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.
         :type branch_name: Optional[BranchName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -112,9 +109,7 @@ class FileImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -157,7 +152,6 @@ class FileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -170,8 +164,6 @@ class FileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -185,9 +177,7 @@ class FileImportClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -212,7 +202,6 @@ class FileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core_models.BuildRid:
@@ -224,8 +213,6 @@ class FileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -239,9 +226,7 @@ class FileImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -268,7 +253,6 @@ class FileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> connectivity_models.FileImport:
@@ -278,8 +262,6 @@ class FileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -292,9 +274,7 @@ class FileImportClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -321,7 +301,6 @@ class FileImportClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[connectivity_models.FileImport]:
@@ -335,8 +314,6 @@ class FileImportClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -352,7 +329,6 @@ class FileImportClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,
@@ -381,7 +357,6 @@ class FileImportClient:
         display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -398,8 +373,6 @@ class FileImportClient:
         :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -421,9 +394,7 @@ class FileImportClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -528,7 +499,6 @@ class AsyncFileImportClient:
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
         branch_name: typing.Optional[core_models.BranchName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -547,8 +517,6 @@ class AsyncFileImportClient:
         :type import_mode: FileImportMode
         :param branch_name: The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.
         :type branch_name: Optional[BranchName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -573,9 +541,7 @@ class AsyncFileImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                 },
@@ -618,7 +584,6 @@ class AsyncFileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -631,8 +596,6 @@ class AsyncFileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -646,9 +609,7 @@ class AsyncFileImportClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -673,7 +634,6 @@ class AsyncFileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[core_models.BuildRid]:
@@ -685,8 +645,6 @@ class AsyncFileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -700,9 +658,7 @@ class AsyncFileImportClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -729,7 +685,6 @@ class AsyncFileImportClient:
         connection_rid: connectivity_models.ConnectionRid,
         file_import_rid: connectivity_models.FileImportRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[connectivity_models.FileImport]:
@@ -739,8 +694,6 @@ class AsyncFileImportClient:
         :type connection_rid: ConnectionRid
         :param file_import_rid:
         :type file_import_rid: FileImportRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -753,9 +706,7 @@ class AsyncFileImportClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,
@@ -782,7 +733,6 @@ class AsyncFileImportClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[connectivity_models.FileImport]:
@@ -796,8 +746,6 @@ class AsyncFileImportClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -813,7 +761,6 @@ class AsyncFileImportClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "connectionRid": connection_rid,
@@ -842,7 +789,6 @@ class AsyncFileImportClient:
         display_name: connectivity_models.FileImportDisplayName,
         file_import_filters: typing.List[connectivity_models.FileImportFilter],
         import_mode: connectivity_models.FileImportMode,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         subfolder: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -859,8 +805,6 @@ class AsyncFileImportClient:
         :type file_import_filters: List[FileImportFilter]
         :param import_mode:
         :type import_mode: FileImportMode
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param subfolder: A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
         :type subfolder: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -882,9 +826,7 @@ class AsyncFileImportClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "connectionRid": connection_rid,
                     "fileImportRid": file_import_rid,

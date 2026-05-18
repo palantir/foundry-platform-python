@@ -1,11 +1,15 @@
 # ExactDistinctAggregationV2
 
-Computes an exact number of distinct values for the provided field. May be slower than an approximate distinct aggregation. Requires Object Storage V2.
+Computes an exact number of distinct values for the provided field. May be slower than an approximate
+distinct aggregation. Requires Object Storage V2.
+Either `field` or `propertyIdentifier` must be supplied, but not both.
+
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | PropertyApiName | Yes |  |
+**field** | Optional[PropertyApiName] | No |  |
+**property_identifier** | Optional[PropertyIdentifier] | No |  |
 **name** | Optional[AggregationMetricName] | No |  |
 **direction** | Optional[OrderByDirection] | No |  |
 **type** | Literal["exactDistinct"] | Yes | None |

@@ -13,25 +13,28 @@ This discriminator class uses the `type` field to differentiate between classes.
 DateType | date
 OntologyInterfaceObjectType | interfaceObject
 QueryStructType | struct
-QuerySetType | set
 StringType | string
-EntrySetType | entrySet
-DoubleType | double
 IntegerType | integer
 ThreeDimensionalAggregation | threeDimensionalAggregation
-QueryUnionType | union
 FloatType | float
 LongType | long
-BooleanType | boolean
 UnsupportedType | unsupported
 AttachmentType | attachment
-NullType | null
 QueryArrayType | array
 OntologyObjectSetType | objectSet
 TwoDimensionalAggregation | twoDimensionalAggregation
+QueryTypeReferenceType | typeReference
+TimestampType | timestamp
+QuerySetType | set
+VoidType | void
+EntrySetType | entrySet
+DoubleType | double
+QueryUnionType | union
+BooleanType | boolean
+MediaReferenceType | mediaReference
+NullType | null
 OntologyInterfaceObjectSetType | interfaceObjectSet
 OntologyObjectType | object
-TimestampType | timestamp
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

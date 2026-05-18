@@ -67,6 +67,18 @@ class OrganizationClient:
             config=self._config,
         )
 
+    @cached_property
+    def OrganizationGuestMember(self):
+        from foundry_sdk.v2.admin.organization_guest_member import (
+            OrganizationGuestMemberClient,
+        )  # NOQA
+
+        return OrganizationGuestMemberClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -149,7 +161,6 @@ class OrganizationClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.Organization:
@@ -157,8 +168,6 @@ class OrganizationClient:
         Get the Organization with the specified rid.
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -171,9 +180,7 @@ class OrganizationClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -197,7 +204,6 @@ class OrganizationClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.ListAvailableOrganizationRolesResponse:
@@ -206,8 +212,6 @@ class OrganizationClient:
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -221,9 +225,7 @@ class OrganizationClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}/listAvailableRoles",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -251,7 +253,6 @@ class OrganizationClient:
         name: admin_models.OrganizationName,
         description: typing.Optional[str] = None,
         host: typing.Optional[admin_models.HostName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> admin_models.Organization:
@@ -265,8 +266,6 @@ class OrganizationClient:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -282,9 +281,7 @@ class OrganizationClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/organizations/{organizationRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -381,6 +378,18 @@ class AsyncOrganizationClient:
             config=self._config,
         )
 
+    @cached_property
+    def OrganizationGuestMember(self):
+        from foundry_sdk.v2.admin.organization_guest_member import (
+            AsyncOrganizationGuestMemberClient,
+        )  # NOQA
+
+        return AsyncOrganizationGuestMemberClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -463,7 +472,6 @@ class AsyncOrganizationClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.Organization]:
@@ -471,8 +479,6 @@ class AsyncOrganizationClient:
         Get the Organization with the specified rid.
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -485,9 +491,7 @@ class AsyncOrganizationClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -511,7 +515,6 @@ class AsyncOrganizationClient:
         self,
         organization_rid: core_models.OrganizationRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.ListAvailableOrganizationRolesResponse]:
@@ -520,8 +523,6 @@ class AsyncOrganizationClient:
 
         :param organization_rid:
         :type organization_rid: OrganizationRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -535,9 +536,7 @@ class AsyncOrganizationClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/admin/organizations/{organizationRid}/listAvailableRoles",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },
@@ -565,7 +564,6 @@ class AsyncOrganizationClient:
         name: admin_models.OrganizationName,
         description: typing.Optional[str] = None,
         host: typing.Optional[admin_models.HostName] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[admin_models.Organization]:
@@ -579,8 +577,6 @@ class AsyncOrganizationClient:
         :type description: Optional[str]
         :param host: The primary host name of the Organization. This should be used when constructing URLs for users of this Organization.
         :type host: Optional[HostName]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -596,9 +592,7 @@ class AsyncOrganizationClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/admin/organizations/{organizationRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "organizationRid": organization_rid,
                 },

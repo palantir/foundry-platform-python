@@ -18,11 +18,29 @@ from __future__ import annotations
 import typing
 
 import pydantic
+import typing_extensions
 
 from foundry_sdk import _core as core
 from foundry_sdk.v2.core import models as core_models
 from foundry_sdk.v2.datasets import models as datasets_models
 from foundry_sdk.v2.filesystem import models as filesystem_models
+
+
+class CommitSubscriberOffsetsRequest(core.ModelBase):
+    """CommitSubscriberOffsetsRequest"""
+
+    view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
+    """
+    The view RID to commit offsets for. If not provided, uses the latest view for the
+    dataset/branch.
+    """
+
+    offsets: PartitionOffsets
+    """
+    The last processed offset for each partition. The server will store these as
+    read positions (offset + 1), so the next read starts after the committed offset.
+    """
+
 
 Compressed = bool
 """
@@ -123,12 +141,39 @@ class CreateStreamingDatasetRequest(core.ModelBase):
     """Whether or not compression is enabled for the stream. Defaults to false."""
 
 
+class CreateSubscriberRequest(core.ModelBase):
+    """CreateSubscriberRequest"""
+
+    subscriber_id: SubscriberId = pydantic.Field(alias=str("subscriberId"))  # type: ignore[literal-required]
+    read_position: typing.Optional[ReadPosition] = pydantic.Field(alias=str("readPosition"), default=None)  # type: ignore[literal-required]
+    """
+    Where to start reading from. Defaults to `earliest` if not specified.
+
+    The `readPosition` determines where the subscriber will start reading:
+    - `earliest`: Start from the beginning of each partition (offset 0). Use this to process
+      all historical data.
+    - `latest`: Start from the current end of each partition. Use this to skip historical data
+      and only process new records arriving after registration.
+    - `specific`: Start from explicit offsets for each partition. Use this to resume from a
+      known checkpoint.
+    """
+
+
 class Dataset(core.ModelBase):
     """Dataset"""
 
     rid: core_models.DatasetRid
     name: datasets_models.DatasetName
     parent_folder_rid: filesystem_models.FolderRid = pydantic.Field(alias=str("parentFolderRid"))  # type: ignore[literal-required]
+
+
+class EarliestPosition(core.ModelBase):
+    """
+    Start reading from the beginning of the stream. Sets offset to 0 for all partitions,
+    allowing the subscriber to read all historical data from the start.
+    """
+
+    type: typing.Literal["earliest"] = "earliest"
 
 
 GetEndOffsetsResponse = typing.Dict["PartitionId", core.Long]
@@ -139,8 +184,26 @@ GetRecordsResponse = typing.List["RecordWithOffset"]
 """A list of records from a stream with their offsets."""
 
 
+class LatestPosition(core.ModelBase):
+    """
+    Start reading from the current end of the stream. Sets offsets to the latest available
+    offset for each partition, meaning the subscriber will only receive records published
+    after this point.
+    """
+
+    type: typing.Literal["latest"] = "latest"
+
+
 PartitionId = str
 """The identifier for a partition of a Foundry stream."""
+
+
+PartitionOffsets = typing.Dict["PartitionId", core.Long]
+"""A map of partition IDs to offsets."""
+
+
+PartitionRecords = typing.List["RecordWithOffset"]
+"""Records from a single partition with their offsets."""
 
 
 PartitionsCount = int
@@ -177,6 +240,56 @@ class PublishRecordsToStreamRequest(core.ModelBase):
     Providing this value is an advanced configuration, to be used when additional control over the
     underlying streaming data structures is needed.
     """
+
+
+ReadPosition = typing_extensions.Annotated[
+    typing.Union["SpecificPosition", "EarliestPosition", "LatestPosition"],
+    pydantic.Field(discriminator="type"),
+]
+"""
+Position to start reading from when registering a subscriber or resetting offsets.
+
+- `earliest`: Start reading from the beginning of each partition (offset 0). Use this to
+  reprocess all historical data in the stream.
+- `latest`: Start reading from the current end of each partition. Use this to skip
+  historical data and only process new records arriving after registration.
+- `specific`: Start reading from explicit offsets for each partition. Use this for precise
+  replay scenarios or to resume from a known checkpoint.
+"""
+
+
+class ReadRecordsFromSubscriberRequest(core.ModelBase):
+    """ReadRecordsFromSubscriberRequest"""
+
+    view_rid: typing.Optional[ViewRid] = pydantic.Field(alias=str("viewRid"), default=None)  # type: ignore[literal-required]
+    """
+    The view RID to read from. If not provided, reads from the latest view for the
+    dataset/branch.
+    """
+
+    limit: typing.Optional[int] = None
+    """
+    Maximum number of records to return across all partitions. Defaults to 100, max 1000. If a value 
+    greater than 1000 is requested, only 1000 records will be returned.
+    """
+
+    partition_ids: typing.Optional[typing.List[PartitionId]] = pydantic.Field(alias=str("partitionIds"), default=None)  # type: ignore[literal-required]
+    """If specified, only read from these partitions. Otherwise, read from all partitions."""
+
+    auto_commit: typing.Optional[bool] = pydantic.Field(alias=str("autoCommit"), default=None)  # type: ignore[literal-required]
+    """
+    If true, the read position is automatically committed after reading records.
+    The committed position will be the offset after the last record read.
+    If false, you must call the `commitOffsets` endpoint to commit offsets.
+    Defaults to false.
+    """
+
+
+class ReadSubscriberRecordsResponse(core.ModelBase):
+    """Response containing records grouped by partition ID."""
+
+    records_by_partition: typing.Dict[PartitionId, PartitionRecords] = pydantic.Field(alias=str("recordsByPartition"))  # type: ignore[literal-required]
+    """Records grouped by partition ID."""
 
 
 Record = typing.Dict[str, typing.Optional[typing.Any]]
@@ -228,6 +341,28 @@ class ResetStreamRequest(core.ModelBase):
     """
 
 
+class ResetSubscriberOffsetsRequest(core.ModelBase):
+    """ResetSubscriberOffsetsRequest"""
+
+    position: ReadPosition
+    """The position to reset offsets to."""
+
+
+class SpecificPosition(core.ModelBase):
+    """
+    Start reading from specific offsets for each partition. Useful for resuming from a known
+    checkpoint or replaying from a specific point in time.
+    """
+
+    offsets: PartitionOffsets
+    """
+    Specific offsets for each partition. Offsets must be valid (non-negative and not
+    beyond the end of the partition).
+    """
+
+    type: typing.Literal["specific"] = "specific"
+
+
 class Stream(core.ModelBase):
     """Stream"""
 
@@ -265,11 +400,51 @@ introduce some non-zero latency at the expense of a higher throughput. This stre
 recommended if you inspect your stream metrics in-platform and observe that the average batch size is equal
 to the max match size, or if jobs using the stream are failing due to Kafka producer batches expiring. For
 additional information on inspecting stream metrics, refer to the 
-(stream monitoring)[/docs/foundry/data-integration/stream-monitoring/#viewing-metrics] documentation.
+[stream monitoring](https://palantir.com/docs/foundry/data-integration/stream-monitoring/#viewing-metrics) documentation.
 
 For more information, refer to the [stream types](https://palantir.com/docs/foundry/data-integration/streams/#stream-types)
 documentation.
 """
+
+
+class Subscriber(core.ModelBase):
+    """Subscriber"""
+
+    subscriber_id: SubscriberId = pydantic.Field(alias=str("subscriberId"))  # type: ignore[literal-required]
+    read_position: typing.Optional[ReadPosition] = pydantic.Field(alias=str("readPosition"), default=None)  # type: ignore[literal-required]
+    """
+    Where to start reading from. Defaults to `earliest` if not specified.
+
+    The `readPosition` determines where the subscriber will start reading:
+    - `earliest`: Start from the beginning of each partition (offset 0). Use this to process
+      all historical data.
+    - `latest`: Start from the current end of each partition. Use this to skip historical data
+      and only process new records arriving after registration.
+    - `specific`: Start from explicit offsets for each partition. Use this to resume from a
+      known checkpoint.
+    """
+
+    dataset_rid: core_models.DatasetRid = pydantic.Field(alias=str("datasetRid"))  # type: ignore[literal-required]
+    """The RID of the dataset the subscriber is bound to."""
+
+    branch_name: core_models.BranchName = pydantic.Field(alias=str("branchName"))  # type: ignore[literal-required]
+    """The branch of the stream the subscriber is bound to."""
+
+    view_rid: ViewRid = pydantic.Field(alias=str("viewRid"))  # type: ignore[literal-required]
+    """
+    The current view RID being read from. This may change over time if the stream's
+    schema is migrated to a new view.
+    """
+
+    start_offsets: PartitionOffsets = pydantic.Field(alias=str("startOffsets"))  # type: ignore[literal-required]
+    """The offsets where reading began for each partition, based on the initial read position."""
+
+    created_time: core_models.CreatedTime = pydantic.Field(alias=str("createdTime"))  # type: ignore[literal-required]
+    """Timestamp when the subscriber was registered."""
+
+
+SubscriberId = str
+"""A unique identifier for a stream subscriber. Must be unique within the scope of a stream."""
 
 
 ViewRid = core.RID
@@ -278,24 +453,40 @@ ViewRid = core.RID
 
 core.resolve_forward_references(GetEndOffsetsResponse, globalns=globals(), localns=locals())
 core.resolve_forward_references(GetRecordsResponse, globalns=globals(), localns=locals())
+core.resolve_forward_references(PartitionOffsets, globalns=globals(), localns=locals())
+core.resolve_forward_references(PartitionRecords, globalns=globals(), localns=locals())
+core.resolve_forward_references(ReadPosition, globalns=globals(), localns=locals())
 core.resolve_forward_references(Record, globalns=globals(), localns=locals())
 
 __all__ = [
+    "CommitSubscriberOffsetsRequest",
     "Compressed",
     "CreateStreamRequest",
     "CreateStreamRequestStreamSchema",
     "CreateStreamingDatasetRequest",
+    "CreateSubscriberRequest",
     "Dataset",
+    "EarliestPosition",
     "GetEndOffsetsResponse",
     "GetRecordsResponse",
+    "LatestPosition",
     "PartitionId",
+    "PartitionOffsets",
+    "PartitionRecords",
     "PartitionsCount",
     "PublishRecordToStreamRequest",
     "PublishRecordsToStreamRequest",
+    "ReadPosition",
+    "ReadRecordsFromSubscriberRequest",
+    "ReadSubscriberRecordsResponse",
     "Record",
     "RecordWithOffset",
     "ResetStreamRequest",
+    "ResetSubscriberOffsetsRequest",
+    "SpecificPosition",
     "Stream",
     "StreamType",
+    "Subscriber",
+    "SubscriberId",
     "ViewRid",
 ]

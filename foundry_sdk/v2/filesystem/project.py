@@ -14,6 +14,7 @@
 
 
 import typing
+from functools import cached_property
 
 import pydantic
 import typing_extensions
@@ -53,6 +54,18 @@ class ProjectClient:
 
         self.with_streaming_response = _ProjectClientStreaming(self)
         self.with_raw_response = _ProjectClientRaw(self)
+
+    @cached_property
+    def Reference(self):
+        from foundry_sdk.v2.filesystem.project_resource_reference import (
+            ProjectResourceReferenceClient,
+        )  # NOQA
+
+        return ProjectResourceReferenceClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
 
     @core.maybe_ignore_preview
     @pydantic.validate_call
@@ -128,6 +141,7 @@ class ProjectClient:
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Project:
@@ -152,6 +166,8 @@ class ProjectClient:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
+        :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -188,6 +204,7 @@ class ProjectClient:
                     role_grants=role_grants,
                     default_roles=default_roles,
                     organization_rids=organization_rids,
+                    resource_level_role_grants_allowed=resource_level_role_grants_allowed,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,
@@ -607,6 +624,18 @@ class AsyncProjectClient:
         self.with_streaming_response = _AsyncProjectClientStreaming(self)
         self.with_raw_response = _AsyncProjectClientRaw(self)
 
+    @cached_property
+    def Reference(self):
+        from foundry_sdk.v2.filesystem.project_resource_reference import (
+            AsyncProjectResourceReferenceClient,
+        )  # NOQA
+
+        return AsyncProjectResourceReferenceClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
@@ -681,6 +710,7 @@ class AsyncProjectClient:
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Project]:
@@ -705,6 +735,8 @@ class AsyncProjectClient:
         :type description: Optional[str]
         :param preview: Enables the use of preview functionality.
         :type preview: Optional[PreviewMode]
+        :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
+        :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -741,6 +773,7 @@ class AsyncProjectClient:
                     role_grants=role_grants,
                     default_roles=default_roles,
                     organization_rids=organization_rids,
+                    resource_level_role_grants_allowed=resource_level_role_grants_allowed,
                 ),
                 response_type=filesystem_models.Project,
                 request_timeout=request_timeout,

@@ -65,6 +65,7 @@ class QueryClient:
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -87,6 +88,8 @@ class QueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution: The Attribution to be used when executing this request.
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -97,7 +100,7 @@ class QueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
-        :param version: The version of the Query to execute.
+        :param version: The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -110,6 +113,7 @@ class QueryClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -192,6 +196,7 @@ class AsyncQueryClient:
             ontologies_models.ParameterId, typing.Optional[ontologies_models.DataValue]
         ],
         attribution: typing.Optional[core_models.Attribution] = None,
+        branch: typing.Optional[core_models.FoundryBranch] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -214,6 +219,8 @@ class AsyncQueryClient:
         :type parameters: Dict[ParameterId, Optional[DataValue]]
         :param attribution: The Attribution to be used when executing this request.
         :type attribution: Optional[Attribution]
+        :param branch: The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.
+        :type branch: Optional[FoundryBranch]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -224,7 +231,7 @@ class AsyncQueryClient:
         :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
-        :param version: The version of the Query to execute.
+        :param version: The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
         :type version: Optional[FunctionVersion]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
@@ -237,6 +244,7 @@ class AsyncQueryClient:
                 method="POST",
                 resource_path="/v2/ontologies/{ontology}/queries/{queryApiName}/execute",
                 query_params={
+                    "branch": branch,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,

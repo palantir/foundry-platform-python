@@ -13,6 +13,7 @@ This discriminator class uses the `type` field to differentiate between classes.
 DateType | date
 QueryStructType | struct
 QuerySetType | set
+VoidType | void
 StringType | string
 DoubleType | double
 IntegerType | integer
@@ -23,10 +24,12 @@ LongType | long
 BooleanType | boolean
 UnsupportedType | unsupported
 AttachmentType | attachment
+MediaReferenceType | mediaReference
 NullType | null
 QueryArrayType | array
 TwoDimensionalAggregation | twoDimensionalAggregation
 ValueTypeReference | valueTypeReference
+QueryTypeReferenceType | typeReference
 TimestampType | timestamp
 
 

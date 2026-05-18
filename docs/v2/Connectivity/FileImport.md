@@ -2,12 +2,12 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
-[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
-[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute | Public Beta |
-[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
-[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Public Beta |
-[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Public Beta |
+[**create**](#create) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports | Stable |
+[**delete**](#delete) | **DELETE** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Stable |
+[**execute**](#execute) | **POST** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid}/execute | Stable |
+[**get**](#get) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Stable |
+[**list**](#list) | **GET** /v2/connectivity/connections/{connectionRid}/fileImports | Stable |
+[**replace**](#replace) | **PUT** /v2/connectivity/connections/{connectionRid}/fileImports/{fileImportRid} | Stable |
 
 # **create**
 Creates a new FileImport.
@@ -22,7 +22,6 @@ Name | Type | Description  | Notes |
 **file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
 **branch_name** | Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
@@ -49,8 +48,6 @@ file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 import_mode = "SNAPSHOT"
 # Optional[BranchName] | The branch name in the output dataset that will contain the imported data. Defaults to `master` for most enrollments. Can not be modified after the file import is created.
 branch_name = "master"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
@@ -63,7 +60,6 @@ try:
         file_import_filters=file_import_filters,
         import_mode=import_mode,
         branch_name=branch_name,
-        preview=preview,
         subfolder=subfolder,
     )
     print("The create response:\n")
@@ -98,7 +94,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **file_import_rid** | FileImportRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -116,14 +111,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.FileImport.delete(
-        connection_rid, file_import_rid, preview=preview
-    )
+    api_response = client.connectivity.Connection.FileImport.delete(connection_rid, file_import_rid)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -155,7 +146,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **file_import_rid** | FileImportRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **BuildRid**
@@ -173,13 +163,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.connectivity.Connection.FileImport.execute(
-        connection_rid, file_import_rid, preview=preview
+        connection_rid, file_import_rid
     )
     print("The execute response:\n")
     pprint(api_response)
@@ -210,7 +198,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **connection_rid** | ConnectionRid |  |  |
 **file_import_rid** | FileImportRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **FileImport**
@@ -228,14 +215,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 connection_rid = None
 # FileImportRid
 file_import_rid = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.connectivity.Connection.FileImport.get(
-        connection_rid, file_import_rid, preview=preview
-    )
+    api_response = client.connectivity.Connection.FileImport.get(connection_rid, file_import_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -268,7 +251,6 @@ Name | Type | Description  | Notes |
 **connection_rid** | ConnectionRid |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListFileImportsResponse**
@@ -288,13 +270,11 @@ connection_rid = None
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     for file_import in client.connectivity.Connection.FileImport.list(
-        connection_rid, page_size=page_size, page_token=page_token, preview=preview
+        connection_rid, page_size=page_size, page_token=page_token
     ):
         pprint(file_import)
 except foundry_sdk.PalantirRPCException as e:
@@ -327,7 +307,6 @@ Name | Type | Description  | Notes |
 **display_name** | FileImportDisplayName |  |  |
 **file_import_filters** | List[FileImportFilter] | Use filters to limit which files should be imported. Filters are applied in the order they are defined. A different ordering of filters may lead to a more optimized import. [Learn more about optimizing file imports.](https://palantir.com/docs/foundry/data-connection/file-based-syncs/#optimize-file-based-syncs) |  |
 **import_mode** | FileImportMode |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **subfolder** | Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system. | [optional] |
 
 ### Return type
@@ -352,8 +331,6 @@ display_name = "My file import"
 file_import_filters = [{"type": "pathMatchesFilter", "regex": "my-subfolder"}]
 # FileImportMode
 import_mode = "SNAPSHOT"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[str] | A subfolder in the external system that will be imported. If not specified, defaults to the root folder of the external system.
 subfolder = "subfolder1/subfolder2"
 
@@ -365,7 +342,6 @@ try:
         display_name=display_name,
         file_import_filters=file_import_filters,
         import_mode=import_mode,
-        preview=preview,
         subfolder=subfolder,
     )
     print("The replace response:\n")

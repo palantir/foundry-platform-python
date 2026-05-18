@@ -142,6 +142,11 @@ CheckpointType = typing.Literal[
     "UPLOAD_DATA_TO_FLOW_CAPTURE",
     "EXPORT_FLOW_CAPTURE_ZIP",
     "INSIGHT_LOAD",
+    "AIP_ANALYST_APP_LOAD",
+    "PEER_MANAGER_CDS_PAYLOAD_EXPORT",
+    "PEER_MANAGER_OBJECT_TYPE_SCHEMAS_EXPORT",
+    "AIP_ANALYST_EXPORT",
+    "OBJECT_EXPLORER_SEARCH",
 ]
 """
 Checkpoint type identifier. See the [Checkpoints documentation](https://palantir.com/docs/foundry/checkpoints/overview)
@@ -219,6 +224,7 @@ CheckpointedItem = typing_extensions.Annotated[
         "CheckpointedObjectSet",
         "CheckpointedMarking",
         "CheckpointedMarketplaceProduct",
+        "CheckpointedPeeringJob",
         "CheckpointedRole",
         "CheckpointedIntervention",
         "CheckpointedLanguageModelSession",
@@ -241,6 +247,7 @@ CheckpointedItemId = typing_extensions.Annotated[
         "CheckpointedObjectSetVersionedRid",
         "CheckpointedObjectSetTypesProxyRids",
         "CheckpointedResourceRid",
+        "CheckpointedPeeringJobId",
         "CheckpointedIssueRid",
         "CheckpointedInterventionRid",
         "CheckpointedJobSpecRid",
@@ -393,6 +400,28 @@ class CheckpointedOntologyWithObjectTypes(core.ModelBase):
     object_type_rids: typing.List[core.RID] = pydantic.Field(alias=str("objectTypeRids"))  # type: ignore[literal-required]
 
 
+class CheckpointedPeeringJob(core.ModelBase):
+    """A peering job that was captured as part of a checkpoint."""
+
+    job_id: str = pydantic.Field(alias=str("jobId"))  # type: ignore[literal-required]
+    """Identifier of the peering job."""
+
+    relationship_rid: core.RID = pydantic.Field(alias=str("relationshipRid"))  # type: ignore[literal-required]
+    """Resource identifier of the peering relationship."""
+
+    type: typing.Literal["checkpointedPeeringJob"] = "checkpointedPeeringJob"
+
+
+class CheckpointedPeeringJobId(core.ModelBase):
+    """Peering job identifier for a checkpointed peering job."""
+
+    id: str
+    relationship_rid: core.RID = pydantic.Field(alias=str("relationshipRid"))  # type: ignore[literal-required]
+    """Resource identifier of the peering relationship."""
+
+    type: typing.Literal["checkpointedPeeringJobId"] = "checkpointedPeeringJobId"
+
+
 class CheckpointedPrincipal(core.ModelBase):
     """A user or group principal that was captured as part of a checkpoint."""
 
@@ -476,6 +505,7 @@ CheckpointedResourceType = typing.Literal[
     "WORKSHOP_MODULE",
     "WALKTHROUGH",
     "FLOW_CAPTURE",
+    "PEERING_CONNECTION",
 ]
 """Type of resource that was captured."""
 
@@ -679,7 +709,7 @@ class Record(core.ModelBase):
 
 
 RecordCreatedAt = core.AwareDatetime
-"""RecordCreatedAt"""
+"""The time at which the checkpoint record was created."""
 
 
 RecordRid = core.RID
@@ -816,7 +846,7 @@ class SearchCheckpointRecordsRequest(core.ModelBase):
 
 
 class SearchCheckpointRecordsResponse(core.ModelBase):
-    """SearchCheckpointRecordsResponse"""
+    """Response payload for searching checkpoint records."""
 
     data: typing.List[Record]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
@@ -893,6 +923,8 @@ __all__ = [
     "CheckpointedObjectSetVersionedRid",
     "CheckpointedOntology",
     "CheckpointedOntologyWithObjectTypes",
+    "CheckpointedPeeringJob",
+    "CheckpointedPeeringJobId",
     "CheckpointedPrincipal",
     "CheckpointedPrincipalId",
     "CheckpointedPrincipalRole",

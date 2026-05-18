@@ -12,9 +12,12 @@ This discriminator class uses the `type` field to differentiate between classes.
 ExtractTableOfContentsOperation | extractTableOfContents
 GetPdfPageDimensionsOperation | getPdfPageDimensions
 ExtractAllTextOperation | extractAllText
+ExtractVlmTextOperation | extractVlmText
 ExtractTextFromPagesToArrayOperation | extractTextFromPagesToArray
 OcrOnPageOperation | ocrOnPage
 ExtractFormFieldsOperation | extractFormFields
+ExtractDocumentLayoutAwareTextV2Operation | extractLayoutAwareTextV2
+ExtractDocumentTextV2Operation | extractTextV2
 ExtractUnstructuredTextFromPageOperation | extractUnstructuredTextFromPage
 DocumentExtractLayoutAwareContentOperation | extractLayoutAwareContent
 OcrOnPagesOperation | ocrOnPages

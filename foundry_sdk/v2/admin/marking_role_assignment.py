@@ -66,6 +66,8 @@ class MarkingRoleAssignmentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+        Adds role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+        roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -79,6 +81,7 @@ class MarkingRoleAssignmentClient:
         :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
+        :raises OrganizationMarkingAdministerRoleNotSupported: The ADMINISTER role on Organization markings cannot be managed through the Marking Role Assignments endpoints. To manage administrator roles for an Organization, use the Organization Role Assignment endpoints instead.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -102,6 +105,7 @@ class MarkingRoleAssignmentClient:
                     "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "OrganizationMarkingAdministerRoleNotSupported": admin_errors.OrganizationMarkingAdministerRoleNotSupported,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -175,6 +179,8 @@ class MarkingRoleAssignmentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
         """
+        Removes role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+        roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -188,6 +194,7 @@ class MarkingRoleAssignmentClient:
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises ListMarkingRoleAssignmentsPermissionDenied: The provided token does not have permission to list assigned roles for this marking.
         :raises MarkingNotFound: The given Marking could not be found.
+        :raises OrganizationMarkingAdministerRoleNotSupported: The ADMINISTER role on Organization markings cannot be managed through the Marking Role Assignments endpoints. To manage administrator roles for an Organization, use the Organization Role Assignment endpoints instead.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         :raises RemoveMarkingRoleAssignmentsPermissionDenied: Could not remove the MarkingRoleAssignment.
@@ -214,6 +221,7 @@ class MarkingRoleAssignmentClient:
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "ListMarkingRoleAssignmentsPermissionDenied": admin_errors.ListMarkingRoleAssignmentsPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "OrganizationMarkingAdministerRoleNotSupported": admin_errors.OrganizationMarkingAdministerRoleNotSupported,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                     "RemoveMarkingRoleAssignmentsPermissionDenied": admin_errors.RemoveMarkingRoleAssignmentsPermissionDenied,
@@ -283,6 +291,8 @@ class AsyncMarkingRoleAssignmentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+        Adds role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+        roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -296,6 +306,7 @@ class AsyncMarkingRoleAssignmentClient:
         :raises AddMarkingRoleAssignmentsPermissionDenied: Could not add the MarkingRoleAssignment.
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises MarkingNotFound: The given Marking could not be found.
+        :raises OrganizationMarkingAdministerRoleNotSupported: The ADMINISTER role on Organization markings cannot be managed through the Marking Role Assignments endpoints. To manage administrator roles for an Organization, use the Organization Role Assignment endpoints instead.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         """
 
@@ -319,6 +330,7 @@ class AsyncMarkingRoleAssignmentClient:
                     "AddMarkingRoleAssignmentsPermissionDenied": admin_errors.AddMarkingRoleAssignmentsPermissionDenied,
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "OrganizationMarkingAdministerRoleNotSupported": admin_errors.OrganizationMarkingAdministerRoleNotSupported,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                 },
                 response_mode=_sdk_internal.get("response_mode"),
@@ -392,6 +404,8 @@ class AsyncMarkingRoleAssignmentClient:
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
         """
+        Removes role assignments for the given Marking. For Organization markings, only the USE and DECLASSIFY
+        roles are supported; the ADMINISTER role must be managed via the Organization Role Assignment endpoints.
 
         :param marking_id:
         :type marking_id: MarkingId
@@ -405,6 +419,7 @@ class AsyncMarkingRoleAssignmentClient:
         :raises GetMarkingPermissionDenied: The provided token does not have permission to view the marking.
         :raises ListMarkingRoleAssignmentsPermissionDenied: The provided token does not have permission to list assigned roles for this marking.
         :raises MarkingNotFound: The given Marking could not be found.
+        :raises OrganizationMarkingAdministerRoleNotSupported: The ADMINISTER role on Organization markings cannot be managed through the Marking Role Assignments endpoints. To manage administrator roles for an Organization, use the Organization Role Assignment endpoints instead.
         :raises PrincipalNotFound: A principal (User or Group) with the given PrincipalId could not be found
         :raises RemoveMarkingMembersPermissionDenied: Could not remove the MarkingMember.
         :raises RemoveMarkingRoleAssignmentsPermissionDenied: Could not remove the MarkingRoleAssignment.
@@ -431,6 +446,7 @@ class AsyncMarkingRoleAssignmentClient:
                     "GetMarkingPermissionDenied": admin_errors.GetMarkingPermissionDenied,
                     "ListMarkingRoleAssignmentsPermissionDenied": admin_errors.ListMarkingRoleAssignmentsPermissionDenied,
                     "MarkingNotFound": admin_errors.MarkingNotFound,
+                    "OrganizationMarkingAdministerRoleNotSupported": admin_errors.OrganizationMarkingAdministerRoleNotSupported,
                     "PrincipalNotFound": admin_errors.PrincipalNotFound,
                     "RemoveMarkingMembersPermissionDenied": admin_errors.RemoveMarkingMembersPermissionDenied,
                     "RemoveMarkingRoleAssignmentsPermissionDenied": admin_errors.RemoveMarkingRoleAssignmentsPermissionDenied,

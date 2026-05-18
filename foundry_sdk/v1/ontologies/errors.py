@@ -52,6 +52,19 @@ class ActionEditedPropertiesNotFound(errors.BadRequestError):
     error_instance_id: str
 
 
+class ActionEditsNotSupportedWithMarketplaceParameters(typing_extensions.TypedDict):
+    """Returning action edits is not supported when using marketplace bindings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class ActionEditsNotSupportedWithMarketplace(errors.BadRequestError):
+    name: typing.Literal["ActionEditsNotSupportedWithMarketplace"]
+    parameters: ActionEditsNotSupportedWithMarketplaceParameters
+    error_instance_id: str
+
+
 class ActionEditsReadOnlyEntityParameters(typing_extensions.TypedDict):
     """The given action request performs edits on a type that is read-only or does not allow edits."""
 
@@ -326,6 +339,19 @@ class AttachmentSizeExceededLimit(errors.BadRequestError):
     error_instance_id: str
 
 
+class BranchNotSupportedWithMarketplaceQueryParameters(typing_extensions.TypedDict):
+    """The branch parameter is not supported when executing queries with marketplace bindings."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class BranchNotSupportedWithMarketplaceQuery(errors.BadRequestError):
+    name: typing.Literal["BranchNotSupportedWithMarketplaceQuery"]
+    parameters: BranchNotSupportedWithMarketplaceQueryParameters
+    error_instance_id: str
+
+
 class CipherChannelNotFoundParameters(typing_extensions.TypedDict):
     """
     The Cipher Channel was not found.
@@ -404,6 +430,21 @@ class DerivedPropertyApiNamesNotUniqueParameters(typing_extensions.TypedDict):
 class DerivedPropertyApiNamesNotUnique(errors.BadRequestError):
     name: typing.Literal["DerivedPropertyApiNamesNotUnique"]
     parameters: DerivedPropertyApiNamesNotUniqueParameters
+    error_instance_id: str
+
+
+class DistinctEnumValuesExceededLimitParameters(typing_extensions.TypedDict):
+    """An enum time series contained too many distinct enum values. Check that the time series sync is using the correct value column."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    maxDistinctValues: typing_extensions.NotRequired[int]
+
+
+@dataclass
+class DistinctEnumValuesExceededLimit(errors.BadRequestError):
+    name: typing.Literal["DistinctEnumValuesExceededLimit"]
+    parameters: DistinctEnumValuesExceededLimitParameters
     error_instance_id: str
 
 
@@ -499,6 +540,23 @@ class FunctionInvalidInputParameters(typing_extensions.TypedDict):
 class FunctionInvalidInput(errors.BadRequestError):
     name: typing.Literal["FunctionInvalidInput"]
     parameters: FunctionInvalidInputParameters
+    error_instance_id: str
+
+
+class FunctionNotSupportedWithTransactionParameters(typing_extensions.TypedDict):
+    """The function runtime does not support execution with a transaction."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    functionRid: ontologies_models.FunctionRid
+    functionVersion: ontologies_models.FunctionVersion
+    message: str
+
+
+@dataclass
+class FunctionNotSupportedWithTransaction(errors.BadRequestError):
+    name: typing.Literal["FunctionNotSupportedWithTransaction"]
+    parameters: FunctionNotSupportedWithTransactionParameters
     error_instance_id: str
 
 
@@ -807,6 +865,25 @@ class InvalidDerivedPropertyDefinitionParameters(typing_extensions.TypedDict):
 class InvalidDerivedPropertyDefinition(errors.BadRequestError):
     name: typing.Literal["InvalidDerivedPropertyDefinition"]
     parameters: InvalidDerivedPropertyDefinitionParameters
+    error_instance_id: str
+
+
+class InvalidDerivedPropertyDefinitionOnInterfaceParameters(typing_extensions.TypedDict):
+    """
+    Derived property definition on an interface-typed object set was invalid due to shape of query or type
+    checking.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    interfaceType: ontologies_models.InterfaceTypeApiName
+    derivedProperty: ontologies_models.DerivedPropertyApiName
+
+
+@dataclass
+class InvalidDerivedPropertyDefinitionOnInterface(errors.BadRequestError):
+    name: typing.Literal["InvalidDerivedPropertyDefinitionOnInterface"]
+    parameters: InvalidDerivedPropertyDefinitionOnInterfaceParameters
     error_instance_id: str
 
 
@@ -1652,6 +1729,25 @@ class OntologyApiNameNotUnique(errors.BadRequestError):
     error_instance_id: str
 
 
+class OntologyDefinitionOutOfSyncParameters(typing_extensions.TypedDict):
+    """
+    The ontology definition is temporarily out of sync. The indexed definition does not yet
+    reflect the latest saved definition for this type. This is typically a transient condition that
+    resolves as indexing completes.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    objectTypeRid: ontologies_models.ObjectTypeRid
+
+
+@dataclass
+class OntologyDefinitionOutOfSync(errors.ConflictError):
+    name: typing.Literal["OntologyDefinitionOutOfSync"]
+    parameters: OntologyDefinitionOutOfSyncParameters
+    error_instance_id: str
+
+
 class OntologyEditsExceededLimitParameters(typing_extensions.TypedDict):
     """
     The number of edits to the Ontology exceeded the allowed limit.
@@ -2378,6 +2474,7 @@ class ViewObjectPermissionDenied(errors.PermissionDeniedError):
 __all__ = [
     "ActionContainsDuplicateEdits",
     "ActionEditedPropertiesNotFound",
+    "ActionEditsNotSupportedWithMarketplace",
     "ActionEditsReadOnlyEntity",
     "ActionNotFound",
     "ActionParameterInterfaceTypeNotFound",
@@ -2394,17 +2491,20 @@ __all__ = [
     "AttachmentNotFound",
     "AttachmentRidAlreadyExists",
     "AttachmentSizeExceededLimit",
+    "BranchNotSupportedWithMarketplaceQuery",
     "CipherChannelNotFound",
     "CompositePrimaryKeyNotSupported",
     "ConsistentSnapshotError",
     "DefaultAndNullGroupsNotSupported",
     "DerivedPropertyApiNamesNotUnique",
+    "DistinctEnumValuesExceededLimit",
     "DuplicateOrderBy",
     "EditObjectPermissionDenied",
     "FunctionEncounteredUserFacingError",
     "FunctionExecutionFailed",
     "FunctionExecutionTimedOut",
     "FunctionInvalidInput",
+    "FunctionNotSupportedWithTransaction",
     "HighScaleComputationNotEnabled",
     "IncompatibleNestedObjectSet",
     "InterfaceBasedObjectSetNotSupported",
@@ -2425,6 +2525,7 @@ __all__ = [
     "InvalidContentLength",
     "InvalidContentType",
     "InvalidDerivedPropertyDefinition",
+    "InvalidDerivedPropertyDefinitionOnInterface",
     "InvalidDurationGroupByPropertyType",
     "InvalidDurationGroupByPropertyTypeForInterface",
     "InvalidDurationGroupByValue",
@@ -2474,6 +2575,7 @@ __all__ = [
     "ObjectsExceededLimit",
     "ObjectsModifiedConcurrently",
     "OntologyApiNameNotUnique",
+    "OntologyDefinitionOutOfSync",
     "OntologyEditsExceededLimit",
     "OntologyNotFound",
     "OntologySyncing",

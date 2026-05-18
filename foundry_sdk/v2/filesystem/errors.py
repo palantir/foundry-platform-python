@@ -68,6 +68,21 @@ class AddOrganizationsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class AddProjectResourceReferencesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not add the ProjectResourceReference."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class AddProjectResourceReferencesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["AddProjectResourceReferencesPermissionDenied"]
+    parameters: AddProjectResourceReferencesPermissionDeniedParameters
+    error_instance_id: str
+
+
 class AddResourceRolesPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not add the ResourceRole."""
 
@@ -80,6 +95,19 @@ class AddResourceRolesPermissionDeniedParameters(typing_extensions.TypedDict):
 class AddResourceRolesPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["AddResourceRolesPermissionDenied"]
     parameters: AddResourceRolesPermissionDeniedParameters
+    error_instance_id: str
+
+
+class CircularDependencyParameters(typing_extensions.TypedDict):
+    """The requested operation would result in a circular dependency in the folder hierarchy. For example, moving a folder into one of its descendants."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+
+@dataclass
+class CircularDependency(errors.BadRequestError):
+    name: typing.Literal["CircularDependency"]
+    parameters: CircularDependencyParameters
     error_instance_id: str
 
 
@@ -431,6 +459,21 @@ class InvalidOrganizations(errors.BadRequestError):
     error_instance_id: str
 
 
+class InvalidParentFolderParameters(typing_extensions.TypedDict):
+    """The specified parent folder is not a valid destination for the resource. For example, a project cannot be moved under a regular folder, a folder cannot be moved to a Space, etc."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    parentFolderRid: filesystem_models.FolderRid
+
+
+@dataclass
+class InvalidParentFolder(errors.BadRequestError):
+    name: typing.Literal["InvalidParentFolder"]
+    parameters: InvalidParentFolderParameters
+    error_instance_id: str
+
+
 class InvalidPathParameters(typing_extensions.TypedDict):
     """
     The given path is invalid.
@@ -462,6 +505,39 @@ class InvalidPrincipalIdsForGroupTemplateParameters(typing_extensions.TypedDict)
 class InvalidPrincipalIdsForGroupTemplate(errors.BadRequestError):
     name: typing.Literal["InvalidPrincipalIdsForGroupTemplate"]
     parameters: InvalidPrincipalIdsForGroupTemplateParameters
+    error_instance_id: str
+
+
+class InvalidProjectParameters(typing_extensions.TypedDict):
+    """The provided resource identifier does not refer to a valid project."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class InvalidProject(errors.BadRequestError):
+    name: typing.Literal["InvalidProject"]
+    parameters: InvalidProjectParameters
+    error_instance_id: str
+
+
+class InvalidResourceReferenceParameters(typing_extensions.TypedDict):
+    """
+    The resource reference is invalid. This can occur when the resource identifier is malformed,
+    the resource type does not match the reference type, or the resource cannot be added as a reference.
+    """
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    resourceRid: filesystem_models.ResourceRid
+
+
+@dataclass
+class InvalidResourceReference(errors.BadRequestError):
+    name: typing.Literal["InvalidResourceReference"]
+    parameters: InvalidResourceReferenceParameters
     error_instance_id: str
 
 
@@ -759,6 +835,21 @@ class RemoveOrganizationsPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
+class RemoveProjectResourceReferencesPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not remove the ProjectResourceReference."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    projectRid: filesystem_models.ProjectRid
+
+
+@dataclass
+class RemoveProjectResourceReferencesPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["RemoveProjectResourceReferencesPermissionDenied"]
+    parameters: RemoveProjectResourceReferencesPermissionDeniedParameters
+    error_instance_id: str
+
+
 class RemoveResourceRolesPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not remove the ResourceRole."""
 
@@ -771,6 +862,21 @@ class RemoveResourceRolesPermissionDeniedParameters(typing_extensions.TypedDict)
 class RemoveResourceRolesPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["RemoveResourceRolesPermissionDenied"]
     parameters: RemoveResourceRolesPermissionDeniedParameters
+    error_instance_id: str
+
+
+class ReplaceFolderPermissionDeniedParameters(typing_extensions.TypedDict):
+    """Could not replace the Folder."""
+
+    __pydantic_config__ = {"extra": "allow"}  # type: ignore
+
+    folderRid: filesystem_models.FolderRid
+
+
+@dataclass
+class ReplaceFolderPermissionDenied(errors.PermissionDeniedError):
+    name: typing.Literal["ReplaceFolderPermissionDenied"]
+    parameters: ReplaceFolderPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -1069,7 +1175,9 @@ __all__ = [
     "AddGroupToParentGroupPermissionDenied",
     "AddMarkingsPermissionDenied",
     "AddOrganizationsPermissionDenied",
+    "AddProjectResourceReferencesPermissionDenied",
     "AddResourceRolesPermissionDenied",
+    "CircularDependency",
     "CreateFolderOutsideProjectNotSupported",
     "CreateFolderPermissionDenied",
     "CreateGroupPermissionDenied",
@@ -1094,8 +1202,11 @@ __all__ = [
     "InvalidFolder",
     "InvalidOrganizationHierarchy",
     "InvalidOrganizations",
+    "InvalidParentFolder",
     "InvalidPath",
     "InvalidPrincipalIdsForGroupTemplate",
+    "InvalidProject",
+    "InvalidResourceReference",
     "InvalidRoleIds",
     "InvalidVariable",
     "InvalidVariableEnumOption",
@@ -1115,7 +1226,9 @@ __all__ = [
     "ProjectTemplateNotFound",
     "RemoveMarkingsPermissionDenied",
     "RemoveOrganizationsPermissionDenied",
+    "RemoveProjectResourceReferencesPermissionDenied",
     "RemoveResourceRolesPermissionDenied",
+    "ReplaceFolderPermissionDenied",
     "ReplaceProjectPermissionDenied",
     "ReplaceSpacePermissionDenied",
     "ReservedSpaceCannotBeReplaced",

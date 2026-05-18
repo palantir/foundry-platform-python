@@ -10,7 +10,7 @@ Otherwise, the method will return edits history for all objects of this object t
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
 **object_primary_key** | Optional[ObjectPrimaryKeyV2] | No |  |
-**filters** | Optional[EditsHistoryFilters] | No |  |
+**filters** | Optional[EditsHistoryFilter] | No |  |
 **sort_order** | Optional[EditsHistorySortOrder] | No |  |
 **include_all_previous_properties** | Optional[bool] | No |  |
 **page_size** | Optional[int] | No | The maximum number of edits to return per page. Defaults to 100. |

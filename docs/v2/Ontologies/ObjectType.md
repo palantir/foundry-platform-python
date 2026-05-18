@@ -3,9 +3,11 @@
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
 [**get**](#get) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType} | Stable |
-[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Private Beta |
+[**get_by_rid_batch**](#get_by_rid_batch) | **POST** /v2/ontologies/{ontology}/objectTypes/getByRidBatch | Public Beta |
+[**get_edits_history**](#get_edits_history) | **POST** /v2/ontologies/{ontology}/objectTypes/{objectType}/editsHistory | Public Beta |
 [**get_full_metadata**](#get_full_metadata) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/fullMetadata | Public Beta |
 [**get_outgoing_link_type**](#get_outgoing_link_type) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes/{linkType} | Stable |
+[**get_outgoing_link_types_by_object_type_rid_batch**](#get_outgoing_link_types_by_object_type_rid_batch) | **POST** /v2/ontologies/{ontology}/outgoingLinkTypes/getByRidBatch | Public Beta |
 [**list**](#list) | **GET** /v2/ontologies/{ontology}/objectTypes | Stable |
 [**list_outgoing_link_types**](#list_outgoing_link_types) | **GET** /v2/ontologies/{ontology}/objectTypes/{objectType}/outgoingLinkTypes | Stable |
 
@@ -63,15 +65,78 @@ See [README](../../../README.md#authorization)
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
+# **get_by_rid_batch**
+Gets a list of object types by RID in bulk.
+
+Object types are filtered from the response if they don't exist or the requesting token lacks the required
+permissions.
+
+The maximum batch size for this endpoint is 100.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**requests** | List[GetObjectTypeByRidBatchRequestElement] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**GetObjectTypeByRidBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[GetObjectTypeByRidBatchRequestElement]
+requests = None
+# Optional[FoundryBranch] | The Foundry branch to load the object type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = client.ontologies.Ontology.ObjectType.get_by_rid_batch(
+        ontology, requests=requests, branch=branch, preview=preview
+    )
+    print("The get_by_rid_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print("HTTP error when calling ObjectType.get_by_rid_batch: %s\n" % e)
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetObjectTypeByRidBatchResponse  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
 # **get_edits_history**
 Returns the history of edits (additions, modifications, deletions) for objects of a
 specific object type. This endpoint provides visibility into all actions that have
 modified objects of this type.
 
-The edits are returned in reverse chronological order (most recent first).
+The edits are returned in reverse chronological order (most recent first) by default. 
 
-WARNING: right now this endpoint works only if you pass in an object primary key, i.e. it does not function 
-as a global object type edits history. Global object type edits history is currently under development.
+Note that filters are ignored for OSv1 object types.
 
 
 ### Parameters
@@ -81,7 +146,7 @@ Name | Type | Description  | Notes |
 **ontology** | OntologyIdentifier | The ontology RID or API name |  |
 **object_type** | ObjectTypeApiName | The API name of the object type |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
-**filters** | Optional[EditsHistoryFilters] |  | [optional] |
+**filters** | Optional[EditsHistoryFilter] |  | [optional] |
 **include_all_previous_properties** | Optional[bool] |  | [optional] |
 **object_primary_key** | Optional[ObjectPrimaryKeyV2] |  | [optional] |
 **page_size** | Optional[int] | The maximum number of edits to return per page. Defaults to 100. | [optional] |
@@ -106,7 +171,7 @@ ontology = "palantir"
 object_type = "Employee"
 # Optional[FoundryBranch] | The Foundry branch from which we will get edits history. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
-# Optional[EditsHistoryFilters]
+# Optional[EditsHistoryFilter]
 filters = None
 # Optional[bool]
 include_all_previous_properties = None
@@ -278,6 +343,85 @@ See [README](../../../README.md#authorization)
 | Status Code | Type        | Description | Content Type |
 |-------------|-------------|-------------|------------------|
 **200** | LinkTypeSideV2  | Success response. | application/json |
+
+[[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
+
+# **get_outgoing_link_types_by_object_type_rid_batch**
+Gets outgoing link types for a batch of object types, identified by their RIDs.
+
+For each requested object type, returns the list of outgoing link types visible to the
+requesting token. Optionally, results can be filtered to only include specific link type RIDs.
+
+Object types that don't exist or that the requesting token lacks permissions for are
+silently omitted from the response.
+
+The maximum batch size for this endpoint is 100.
+
+
+### Parameters
+
+Name | Type | Description  | Notes |
+------------- | ------------- | ------------- | ------------- |
+**ontology** | OntologyIdentifier |  |  |
+**filter_link_type_rids** | List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.  |  |
+**requests** | List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement] |  |  |
+**branch** | Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+
+### Return type
+**GetOutgoingLinkTypesByObjectTypeRidBatchResponse**
+
+### Example
+
+```python
+from foundry_sdk import FoundryClient
+import foundry_sdk
+from pprint import pprint
+
+client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
+
+# OntologyIdentifier
+ontology = "palantir"
+# List[LinkTypeRid] | If provided, only return outgoing link types with RIDs in this list. If omitted, all outgoing link types for each requested object type are returned.
+filter_link_type_rids = None
+# List[GetOutgoingLinkTypesByObjectTypeRidBatchRequestElement]
+requests = None
+# Optional[FoundryBranch] | The Foundry branch to load the outgoing link type definitions from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
+branch = None
+# Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
+preview = None
+
+
+try:
+    api_response = (
+        client.ontologies.Ontology.ObjectType.get_outgoing_link_types_by_object_type_rid_batch(
+            ontology,
+            filter_link_type_rids=filter_link_type_rids,
+            requests=requests,
+            branch=branch,
+            preview=preview,
+        )
+    )
+    print("The get_outgoing_link_types_by_object_type_rid_batch response:\n")
+    pprint(api_response)
+except foundry_sdk.PalantirRPCException as e:
+    print(
+        "HTTP error when calling ObjectType.get_outgoing_link_types_by_object_type_rid_batch: %s\n"
+        % e
+    )
+
+```
+
+
+
+### Authorization
+
+See [README](../../../README.md#authorization)
+
+### HTTP response details
+| Status Code | Type        | Description | Content Type |
+|-------------|-------------|-------------|------------------|
+**200** | GetOutgoingLinkTypesByObjectTypeRidBatchResponse  | Success response. | application/json |
 
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
