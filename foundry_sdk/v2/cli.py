@@ -4770,15 +4770,11 @@ def filesystem_space_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_space_op_list(
     client: FoundryClient,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     Lists all Spaces.
@@ -4788,7 +4784,6 @@ def filesystem_space_op_list(
     result = client.filesystem.Space.list(
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4845,15 +4840,11 @@ def filesystem_resource():
 @filesystem_resource.command("add_markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--marking_ids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_add_markings(
     client: FoundryClient,
     resource_rid: str,
     marking_ids: str,
-    preview: typing.Optional[bool],
 ):
     """
     Adds a list of Markings to a resource.
@@ -4861,21 +4852,16 @@ def filesystem_resource_op_add_markings(
     result = client.filesystem.Resource.add_markings(
         resource_rid=resource_rid,
         marking_ids=json.loads(marking_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("delete")
 @click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_delete(
     client: FoundryClient,
     resource_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Move the given resource to the trash. Following this operation, the resource can be restored, using the
@@ -4884,42 +4870,32 @@ def filesystem_resource_op_delete(
     """
     result = client.filesystem.Resource.delete(
         resource_rid=resource_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("get")
 @click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_get(
     client: FoundryClient,
     resource_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Resource with the specified rid.
     """
     result = client.filesystem.Resource.get(
         resource_rid=resource_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("get_access_requirements")
 @click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_get_access_requirements(
     client: FoundryClient,
     resource_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Returns a list of access requirements a user needs in order to view a resource. Access requirements are
@@ -4928,21 +4904,16 @@ def filesystem_resource_op_get_access_requirements(
     """
     result = client.filesystem.Resource.get_access_requirements(
         resource_rid=resource_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_get_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Fetches multiple resources in a single request.
@@ -4954,7 +4925,6 @@ def filesystem_resource_op_get_batch(
     """
     result = client.filesystem.Resource.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -4966,35 +4936,26 @@ def filesystem_resource_op_get_batch(
     required=True,
     help="""The path to the Resource. The leading slash is optional.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_get_by_path(
     client: FoundryClient,
     path: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get a Resource by its absolute path.
     """
     result = client.filesystem.Resource.get_by_path(
         path=path,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("get_by_path_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_get_by_path_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Gets multiple Resources by their absolute paths.
@@ -5007,7 +4968,6 @@ def filesystem_resource_op_get_by_path_batch(
     """
     result = client.filesystem.Resource.get_by_path_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5025,16 +4985,12 @@ def filesystem_resource_op_get_by_path_batch(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_markings(
     client: FoundryClient,
     resource_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     List of Markings directly applied to a resource. The number of Markings on a resource is typically small
@@ -5045,21 +5001,16 @@ def filesystem_resource_op_markings(
         resource_rid=resource_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("permanently_delete")
 @click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_permanently_delete(
     client: FoundryClient,
     resource_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Permanently delete the given resource from the trash. If the Resource is not directly trashed, a
@@ -5068,7 +5019,6 @@ def filesystem_resource_op_permanently_delete(
     """
     result = client.filesystem.Resource.permanently_delete(
         resource_rid=resource_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5076,15 +5026,11 @@ def filesystem_resource_op_permanently_delete(
 @filesystem_resource.command("remove_markings")
 @click.argument("resource_rid", type=str, required=True)
 @click.option("--marking_ids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_remove_markings(
     client: FoundryClient,
     resource_rid: str,
     marking_ids: str,
-    preview: typing.Optional[bool],
 ):
     """
     Removes Markings from a resource.
@@ -5092,21 +5038,16 @@ def filesystem_resource_op_remove_markings(
     result = client.filesystem.Resource.remove_markings(
         resource_rid=resource_rid,
         marking_ids=json.loads(marking_ids),
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_resource.command("restore")
 @click.argument("resource_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_resource_op_restore(
     client: FoundryClient,
     resource_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Restore the given resource and any directly trashed ancestors from the trash. If the resource is not
@@ -5115,7 +5056,6 @@ def filesystem_resource_op_restore(
     """
     result = client.filesystem.Resource.restore(
         resource_rid=resource_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5207,15 +5147,11 @@ def filesystem_project():
 @filesystem_project.command("add_organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--organization_rids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_op_add_organizations(
     client: FoundryClient,
     project_rid: str,
     organization_rids: str,
-    preview: typing.Optional[bool],
 ):
     """
     Adds a list of Organizations to a Project.
@@ -5223,7 +5159,6 @@ def filesystem_project_op_add_organizations(
     result = client.filesystem.Project.add_organizations(
         project_rid=project_rid,
         organization_rids=json.loads(organization_rids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5235,9 +5170,6 @@ def filesystem_project_op_add_organizations(
 @click.option("--role_grants", type=str, required=True, help="""""")
 @click.option("--space_rid", type=str, required=True, help="""""")
 @click.option("--description", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.option(
     "--resource_level_role_grants_allowed",
     type=bool,
@@ -5255,7 +5187,6 @@ def filesystem_project_op_create(
     role_grants: str,
     space_rid: str,
     description: typing.Optional[str],
-    preview: typing.Optional[bool],
     resource_level_role_grants_allowed: typing.Optional[bool],
 ):
     """
@@ -5273,7 +5204,6 @@ def filesystem_project_op_create(
         role_grants=json.loads(role_grants),
         space_rid=space_rid,
         description=description,
-        preview=preview,
         resource_level_role_grants_allowed=resource_level_role_grants_allowed,
     )
     click.echo(repr(result))
@@ -5284,9 +5214,6 @@ def filesystem_project_op_create(
 @click.option("--variable_values", type=str, required=True, help="""""")
 @click.option("--default_roles", type=str, required=False, help="""""")
 @click.option("--organization_rids", type=str, required=False, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.option("--project_description", type=str, required=False, help="""""")
 @click.pass_obj
 def filesystem_project_op_create_from_template(
@@ -5295,7 +5222,6 @@ def filesystem_project_op_create_from_template(
     variable_values: str,
     default_roles: typing.Optional[str],
     organization_rids: typing.Optional[str],
-    preview: typing.Optional[bool],
     project_description: typing.Optional[str],
 ):
     """
@@ -5306,7 +5232,6 @@ def filesystem_project_op_create_from_template(
         variable_values=json.loads(variable_values),
         default_roles=None if default_roles is None else json.loads(default_roles),
         organization_rids=None if organization_rids is None else json.loads(organization_rids),
-        preview=preview,
         project_description=project_description,
     )
     click.echo(repr(result))
@@ -5341,16 +5266,12 @@ def filesystem_project_op_get(
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_op_organizations(
     client: FoundryClient,
     project_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     List of Organizations directly applied to a Project. The number of Organizations on a Project is
@@ -5361,7 +5282,6 @@ def filesystem_project_op_organizations(
         project_rid=project_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5369,15 +5289,11 @@ def filesystem_project_op_organizations(
 @filesystem_project.command("remove_organizations")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--organization_rids", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_op_remove_organizations(
     client: FoundryClient,
     project_rid: str,
     organization_rids: str,
-    preview: typing.Optional[bool],
 ):
     """
     Removes Organizations from a Project.
@@ -5385,7 +5301,6 @@ def filesystem_project_op_remove_organizations(
     result = client.filesystem.Project.remove_organizations(
         project_rid=project_rid,
         organization_rids=json.loads(organization_rids),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5435,15 +5350,11 @@ def filesystem_project_project_resource_reference():
 @filesystem_project_project_resource_reference.command("add")
 @click.argument("project_rid", type=str, required=True)
 @click.option("--resources", type=str, required=True, help="""""")
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_project_resource_reference_op_add(
     client: FoundryClient,
     project_rid: str,
     resources: str,
-    preview: typing.Optional[bool],
 ):
     """
     Add references to the given project
@@ -5452,7 +5363,6 @@ def filesystem_project_project_resource_reference_op_add(
     result = client.filesystem.Project.Reference.add(
         project_rid=project_rid,
         resources=json.loads(resources),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5471,9 +5381,6 @@ To fetch the next page, clients should take the value from the `nextPageToken` f
 and use it to populate the `pageToken` field of the next request.""",
 )
 @click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
-@click.option(
     "--reference_type",
     type=click.Choice(["EXTERNAL", "FILESYSTEM"]),
     required=False,
@@ -5485,7 +5392,6 @@ def filesystem_project_project_resource_reference_op_list(
     project_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
     reference_type: typing.Optional[typing.Literal["EXTERNAL", "FILESYSTEM"]],
 ):
     """
@@ -5496,7 +5402,6 @@ def filesystem_project_project_resource_reference_op_list(
         project_rid=project_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
         reference_type=reference_type,
     )
     click.echo(repr(result))
@@ -5510,15 +5415,11 @@ def filesystem_project_project_resource_reference_op_list(
     required=True,
     help="""The resource identifiers to remove as references. These may be either filesystem or external resource identifiers.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_project_project_resource_reference_op_remove(
     client: FoundryClient,
     project_rid: str,
     resources: str,
-    preview: typing.Optional[bool],
 ):
     """
     Remove references from the given project
@@ -5527,7 +5428,6 @@ def filesystem_project_project_resource_reference_op_remove(
     result = client.filesystem.Project.Reference.remove(
         project_rid=project_rid,
         resources=json.loads(resources),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5550,16 +5450,12 @@ def filesystem_folder():
 To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response
 and use it to populate the `pageToken` field of the next request.""",
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_folder_op_children(
     client: FoundryClient,
     folder_rid: str,
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
-    preview: typing.Optional[bool],
 ):
     """
     List all child Resources of the Folder.
@@ -5572,7 +5468,6 @@ def filesystem_folder_op_children(
         folder_rid=folder_rid,
         page_size=page_size,
         page_token=page_token,
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -5587,15 +5482,11 @@ def filesystem_folder_op_children(
 this value will be the root folder (`ri.compass.main.folder.0`).
 """,
 )
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_folder_op_create(
     client: FoundryClient,
     display_name: str,
     parent_folder_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Creates a new Folder.
@@ -5603,42 +5494,32 @@ def filesystem_folder_op_create(
     result = client.filesystem.Folder.create(
         display_name=display_name,
         parent_folder_rid=parent_folder_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_folder.command("get")
 @click.argument("folder_rid", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_folder_op_get(
     client: FoundryClient,
     folder_rid: str,
-    preview: typing.Optional[bool],
 ):
     """
     Get the Folder with the specified rid.
     """
     result = client.filesystem.Folder.get(
         folder_rid=folder_rid,
-        preview=preview,
     )
     click.echo(repr(result))
 
 
 @filesystem_folder.command("get_batch")
 @click.argument("body", type=str, required=True)
-@click.option(
-    "--preview", type=bool, required=False, help="""Enables the use of preview functionality."""
-)
 @click.pass_obj
 def filesystem_folder_op_get_batch(
     client: FoundryClient,
     body: str,
-    preview: typing.Optional[bool],
 ):
     """
     Fetches multiple folders in a single request.
@@ -5648,7 +5529,6 @@ def filesystem_folder_op_get_batch(
     """
     result = client.filesystem.Folder.get_batch(
         body=json.loads(body),
-        preview=preview,
     )
     click.echo(repr(result))
 
@@ -8409,6 +8289,13 @@ When provided with `version`, the specified version must exist on the branch.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to execute the query on.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -8440,7 +8327,7 @@ When provided with `version`, the specified version must exist on the branch.
     "--transaction_id",
     type=str,
     required=False,
-    help="""The ID of an Ontology transaction to read from. 
+    help="""The ID of an Ontology transaction to read from.
 Transactions are an experimental feature and all workflows may not be supported.
 """,
 )
@@ -8459,6 +8346,7 @@ def ontologies_query_op_execute(
     parameters: str,
     attribution: typing.Optional[str],
     branch: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -8478,6 +8366,7 @@ def ontologies_query_op_execute(
         parameters=json.loads(parameters),
         attribution=attribution,
         branch=branch,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -8603,6 +8492,31 @@ def ontologies_ontology_transaction_op_post_edits(
     click.echo(repr(result))
 
 
+@ontologies.group("ontology_scenario")
+def ontologies_ontology_scenario():
+    pass
+
+
+@ontologies_ontology_scenario.command("create_scenario")
+@click.argument("ontology", type=str, required=True)
+@click.option("--base", type=str, required=False, help="""""")
+@click.pass_obj
+def ontologies_ontology_scenario_op_create_scenario(
+    client: FoundryClient,
+    ontology: str,
+    base: typing.Optional[str],
+):
+    """
+    Creates an ontology scenario.
+
+    """
+    result = client.ontologies.OntologyScenario.create_scenario(
+        ontology=ontology,
+        base=None if base is None else json.loads(base),
+    )
+    click.echo(repr(result))
+
+
 @ontologies.group("ontology_object_set")
 def ontologies_ontology_object_set():
     pass
@@ -8628,6 +8542,13 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option("--include_compute_usage", type=bool, required=False, help="""""")
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to aggregate the objects on.
+""",
+)
 @click.option(
     "--sdk_package_rid",
     type=str,
@@ -8674,6 +8595,7 @@ def ontologies_ontology_object_set_op_aggregate(
     accuracy: typing.Optional[typing.Literal["REQUIRE_ACCURATE", "ALLOW_APPROXIMATE"]],
     branch: typing.Optional[str],
     include_compute_usage: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -8692,6 +8614,7 @@ def ontologies_ontology_object_set_op_aggregate(
         accuracy=accuracy,
         branch=branch,
         include_compute_usage=include_compute_usage,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -8823,6 +8746,13 @@ This feature is experimental and not yet generally available.
 @click.option("--page_size", type=int, required=False, help="""""")
 @click.option("--page_token", type=str, required=False, help="""""")
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to load the object set from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -8889,6 +8819,7 @@ def ontologies_ontology_object_set_op_load(
     order_by: typing.Optional[str],
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
@@ -8919,6 +8850,7 @@ def ontologies_ontology_object_set_op_load(
         order_by=None if order_by is None else json.loads(order_by),
         page_size=page_size,
         page_token=page_token,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
@@ -9070,6 +9002,13 @@ This feature is experimental and not yet generally available.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to load the object set from.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -9137,6 +9076,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
@@ -9173,6 +9113,7 @@ def ontologies_ontology_object_set_op_load_multiple_object_types(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
@@ -9212,6 +9153,13 @@ Setting this to true may improve performance of this endpoint for object types i
     type=bool,
     required=False,
     help="""A boolean flag that, when set to true, enables the use of beta features in preview mode.
+""",
+)
+@click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to load the objects or interfaces from.
 """,
 )
 @click.option(
@@ -9280,6 +9228,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
     page_size: typing.Optional[int],
     page_token: typing.Optional[str],
     preview: typing.Optional[bool],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     select_v2: typing.Optional[str],
@@ -9316,6 +9265,7 @@ def ontologies_ontology_object_set_op_load_objects_or_interfaces(
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=None if select_v2 is None else json.loads(select_v2),
@@ -10931,6 +10881,168 @@ def ontologies_ontology_object_type_op_list_outgoing_link_types(
     click.echo(repr(result))
 
 
+@ontologies_ontology_object_type.command("list_scenario_edited_entity_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_object_type_op_list_scenario_edited_entity_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+):
+    """
+    Returns the object types and link types that have been modified within a given scenario.
+
+    The response contains the list of object type API names that have been modified, and the list of
+    many-to-many link types that have been modified, grouped by their source object type. One-to-many
+    link type edits are surfaced as object edits on the object type that owns the foreign key property.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_entity_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("list_scenario_edited_link_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_object_type_op_list_scenario_edited_link_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+):
+    """
+    Returns the list of outgoing links that have been modified within a given scenario for an object type.
+
+    Note that only many-to-many link type are returned by this endpoint. One-to-many link type edits are
+    surfaced as object edits on the object type that owns the foreign key property.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_link_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("list_scenario_edited_links")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.argument("link_type", type=str, required=True)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of links to return per page.
+""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token to use for pagination.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_list_scenario_edited_links(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    link_type: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+):
+    """
+    Returns the list of edited links within a given scenario for a specific object type and link type, grouped
+    by source object. Only works for many-to-many link types. Only links where the user has permission to view
+    both objects are returned.
+
+    Each page may be smaller than the requested page size.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_links(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        link_type=link_type,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("list_scenario_edited_object_types")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.pass_obj
+def ontologies_ontology_object_type_op_list_scenario_edited_object_types(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+):
+    """
+    Returns the list of object type API names that have been modified within a given scenario.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_object_types(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+    )
+    click.echo(repr(result))
+
+
+@ontologies_ontology_object_type.command("list_scenario_edited_objects")
+@click.argument("ontology", type=str, required=True)
+@click.argument("scenario_rid", type=str, required=True)
+@click.argument("object_type", type=str, required=True)
+@click.option(
+    "--page_size",
+    type=int,
+    required=False,
+    help="""The maximum number of objects to return per page.
+""",
+)
+@click.option(
+    "--page_token",
+    type=str,
+    required=False,
+    help="""The page token to use for pagination.
+""",
+)
+@click.pass_obj
+def ontologies_ontology_object_type_op_list_scenario_edited_objects(
+    client: FoundryClient,
+    ontology: str,
+    scenario_rid: str,
+    object_type: str,
+    page_size: typing.Optional[int],
+    page_token: typing.Optional[str],
+):
+    """
+    Returns the list of objects that have been edited within a given scenario for a specific object type.
+    Only objects that the user has permission to view are returned.
+
+    Each page may be smaller than the requested page size.
+
+    """
+    result = client.ontologies.Ontology.ObjectType.list_scenario_edited_objects(
+        ontology=ontology,
+        scenario_rid=scenario_rid,
+        object_type=object_type,
+        page_size=page_size,
+        page_token=page_token,
+    )
+    click.echo(repr(result))
+
+
 @ontologies_ontology.group("action_type")
 def ontologies_ontology_action_type():
     pass
@@ -11986,6 +12098,13 @@ Branches are an experimental feature and not all workflows are supported.
 )
 @click.option("--options", type=str, required=False, help="""""")
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to apply the action against.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12029,6 +12148,7 @@ def ontologies_action_op_apply(
     parameters: str,
     branch: typing.Optional[str],
     options: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     trace_parent: typing.Optional[str],
@@ -12054,6 +12174,7 @@ def ontologies_action_op_apply(
         parameters=json.loads(parameters),
         branch=branch,
         options=None if options is None else json.loads(options),
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -12139,6 +12260,13 @@ Branches are an experimental feature and not all workflows are supported.
 """,
 )
 @click.option(
+    "--scenario_rid",
+    type=str,
+    required=False,
+    help="""The resource identifier of an ontology scenario to apply the action against.
+""",
+)
+@click.option(
     "--sdk_package_rid",
     type=str,
     required=False,
@@ -12168,6 +12296,7 @@ def ontologies_action_op_apply_with_overrides(
     overrides: str,
     request: str,
     branch: typing.Optional[str],
+    scenario_rid: typing.Optional[str],
     sdk_package_rid: typing.Optional[str],
     sdk_version: typing.Optional[str],
     transaction_id: typing.Optional[str],
@@ -12183,6 +12312,7 @@ def ontologies_action_op_apply_with_overrides(
         overrides=json.loads(overrides),
         request=json.loads(request),
         branch=branch,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         transaction_id=transaction_id,

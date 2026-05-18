@@ -25,6 +25,7 @@ Name | Type | Description  | Notes |
 **accuracy** | Optional[AggregationAccuracyRequest] |  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to aggregate the objects from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **include_compute_usage** | Optional[IncludeComputeUsage] |  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to aggregate the objects on.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
@@ -67,6 +68,8 @@ accuracy = None
 branch = None
 # Optional[IncludeComputeUsage]
 include_compute_usage = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to aggregate the objects on.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -88,6 +91,7 @@ try:
         accuracy=accuracy,
         branch=branch,
         include_compute_usage=include_compute_usage,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -264,6 +268,7 @@ Name | Type | Description  | Notes |
 **order_by** | Optional[SearchOrderByV2] |  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
@@ -304,6 +309,8 @@ order_by = None
 page_size = 10000
 # Optional[PageToken]
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -332,6 +339,7 @@ try:
         order_by=order_by,
         page_size=page_size,
         page_token=page_token,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=select_v2,
@@ -494,6 +502,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
@@ -536,6 +545,8 @@ page_size = 10000
 page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmVlcnMvP2xldmVyLXNvdXJjZSU1YiU1ZD1BUElEb2NzI29wZW4tcG9zaXRpb25z"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the object set from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -565,6 +576,7 @@ try:
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=select_v2,
@@ -624,6 +636,7 @@ Name | Type | Description  | Notes |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
 **preview** | Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the objects or interfaces from.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The package version of the generated SDK.  | [optional] |
 **select_v2** | Optional[List[PropertyIdentifier]] | The identifiers of the properties to include in the response. Only selectV2 or select should be populated, but not both.  | [optional] |
@@ -662,6 +675,8 @@ page_size = 10000
 page_token = "v1.VGhlcmUgaXMgc28gbXVjaCBsZWZ0IHRvIGJ1aWxkIC0gcGFsYW50aXIuY29tL2NhcmVlcnMv"
 # Optional[PreviewMode] | A boolean flag that, when set to true, enables the use of beta features in preview mode.
 preview = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to load the objects or interfaces from.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The package version of the generated SDK.
@@ -689,6 +704,7 @@ try:
         page_size=page_size,
         page_token=page_token,
         preview=preview,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         select_v2=select_v2,

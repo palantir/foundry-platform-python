@@ -170,6 +170,16 @@ class OntologiesClient:
         )
 
     @cached_property
+    def OntologyScenario(self):
+        from foundry_sdk.v2.ontologies.ontology_scenario import OntologyScenarioClient
+
+        return OntologyScenarioClient(
+            auth=self._auth,
+            hostname=self._hostname_supplier,
+            config=self._config,
+        )
+
+    @cached_property
     def OntologyTransaction(self):
         from foundry_sdk.v2.ontologies.ontology_transaction import OntologyTransactionClient  # NOQA
 
@@ -265,6 +275,7 @@ class AsyncOntologiesClient:
         from foundry_sdk.v2.ontologies.ontology_object_set import (
             AsyncOntologyObjectSetClient,
         )  # NOQA
+        from foundry_sdk.v2.ontologies.ontology_scenario import AsyncOntologyScenarioClient  # NOQA
         from foundry_sdk.v2.ontologies.ontology_transaction import (
             AsyncOntologyTransactionClient,
         )  # NOQA
@@ -314,6 +325,10 @@ class AsyncOntologiesClient:
         self.OntologyObject = AsyncOntologyObjectClient(auth=auth, hostname=hostname, config=config)
 
         self.OntologyObjectSet = AsyncOntologyObjectSetClient(
+            auth=auth, hostname=hostname, config=config
+        )
+
+        self.OntologyScenario = AsyncOntologyScenarioClient(
             auth=auth, hostname=hostname, config=config
         )
 

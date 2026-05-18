@@ -2381,6 +2381,8 @@ Namespace | Name | Import |
 **Ontologies** | [CreateLinkRule](docs/v2/Ontologies/models/CreateLinkRule.md) | `from foundry_sdk.v2.ontologies.models import CreateLinkRule` |
 **Ontologies** | [CreateObjectLogicRule](docs/v2/Ontologies/models/CreateObjectLogicRule.md) | `from foundry_sdk.v2.ontologies.models import CreateObjectLogicRule` |
 **Ontologies** | [CreateObjectRule](docs/v2/Ontologies/models/CreateObjectRule.md) | `from foundry_sdk.v2.ontologies.models import CreateObjectRule` |
+**Ontologies** | [CreateOntologyScenarioRequest](docs/v2/Ontologies/models/CreateOntologyScenarioRequest.md) | `from foundry_sdk.v2.ontologies.models import CreateOntologyScenarioRequest` |
+**Ontologies** | [CreateOntologyScenarioResponse](docs/v2/Ontologies/models/CreateOntologyScenarioResponse.md) | `from foundry_sdk.v2.ontologies.models import CreateOntologyScenarioResponse` |
 **Ontologies** | [CreateOrModifyObjectLogicRule](docs/v2/Ontologies/models/CreateOrModifyObjectLogicRule.md) | `from foundry_sdk.v2.ontologies.models import CreateOrModifyObjectLogicRule` |
 **Ontologies** | [CreateOrModifyObjectLogicRuleV2](docs/v2/Ontologies/models/CreateOrModifyObjectLogicRuleV2.md) | `from foundry_sdk.v2.ontologies.models import CreateOrModifyObjectLogicRuleV2` |
 **Ontologies** | [CreateTemporaryObjectSetRequestV2](docs/v2/Ontologies/models/CreateTemporaryObjectSetRequestV2.md) | `from foundry_sdk.v2.ontologies.models import CreateTemporaryObjectSetRequestV2` |
@@ -2526,6 +2528,11 @@ Namespace | Name | Import |
 **Ontologies** | [ListOutgoingInterfaceLinkTypesResponse](docs/v2/Ontologies/models/ListOutgoingInterfaceLinkTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListOutgoingInterfaceLinkTypesResponse` |
 **Ontologies** | [ListOutgoingLinkTypesResponseV2](docs/v2/Ontologies/models/ListOutgoingLinkTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListOutgoingLinkTypesResponseV2` |
 **Ontologies** | [ListQueryTypesResponseV2](docs/v2/Ontologies/models/ListQueryTypesResponseV2.md) | `from foundry_sdk.v2.ontologies.models import ListQueryTypesResponseV2` |
+**Ontologies** | [ListScenarioEditedEntityTypesResponse](docs/v2/Ontologies/models/ListScenarioEditedEntityTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedEntityTypesResponse` |
+**Ontologies** | [ListScenarioEditedLinksResponse](docs/v2/Ontologies/models/ListScenarioEditedLinksResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedLinksResponse` |
+**Ontologies** | [ListScenarioEditedLinkTypesResponse](docs/v2/Ontologies/models/ListScenarioEditedLinkTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedLinkTypesResponse` |
+**Ontologies** | [ListScenarioEditedObjectsResponse](docs/v2/Ontologies/models/ListScenarioEditedObjectsResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedObjectsResponse` |
+**Ontologies** | [ListScenarioEditedObjectTypesResponse](docs/v2/Ontologies/models/ListScenarioEditedObjectTypesResponse.md) | `from foundry_sdk.v2.ontologies.models import ListScenarioEditedObjectTypesResponse` |
 **Ontologies** | [LoadObjectSetLinksRequestV2](docs/v2/Ontologies/models/LoadObjectSetLinksRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksRequestV2` |
 **Ontologies** | [LoadObjectSetLinksResponseV2](docs/v2/Ontologies/models/LoadObjectSetLinksResponseV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetLinksResponseV2` |
 **Ontologies** | [LoadObjectSetRequestV2](docs/v2/Ontologies/models/LoadObjectSetRequestV2.md) | `from foundry_sdk.v2.ontologies.models import LoadObjectSetRequestV2` |
@@ -2624,6 +2631,8 @@ Namespace | Name | Import |
 **Ontologies** | [OneOfConstraint](docs/v2/Ontologies/models/OneOfConstraint.md) | `from foundry_sdk.v2.ontologies.models import OneOfConstraint` |
 **Ontologies** | [OntologyApiName](docs/v2/Ontologies/models/OntologyApiName.md) | `from foundry_sdk.v2.ontologies.models import OntologyApiName` |
 **Ontologies** | [OntologyArrayType](docs/v2/Ontologies/models/OntologyArrayType.md) | `from foundry_sdk.v2.ontologies.models import OntologyArrayType` |
+**Ontologies** | [OntologyBase](docs/v2/Ontologies/models/OntologyBase.md) | `from foundry_sdk.v2.ontologies.models import OntologyBase` |
+**Ontologies** | [OntologyBaseBranch](docs/v2/Ontologies/models/OntologyBaseBranch.md) | `from foundry_sdk.v2.ontologies.models import OntologyBaseBranch` |
 **Ontologies** | [OntologyDataType](docs/v2/Ontologies/models/OntologyDataType.md) | `from foundry_sdk.v2.ontologies.models import OntologyDataType` |
 **Ontologies** | [OntologyFullMetadata](docs/v2/Ontologies/models/OntologyFullMetadata.md) | `from foundry_sdk.v2.ontologies.models import OntologyFullMetadata` |
 **Ontologies** | [OntologyIdentifier](docs/v2/Ontologies/models/OntologyIdentifier.md) | `from foundry_sdk.v2.ontologies.models import OntologyIdentifier` |
@@ -2638,6 +2647,7 @@ Namespace | Name | Import |
 **Ontologies** | [OntologyObjectTypeReferenceType](docs/v2/Ontologies/models/OntologyObjectTypeReferenceType.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectTypeReferenceType` |
 **Ontologies** | [OntologyObjectV2](docs/v2/Ontologies/models/OntologyObjectV2.md) | `from foundry_sdk.v2.ontologies.models import OntologyObjectV2` |
 **Ontologies** | [OntologyRid](docs/v2/Ontologies/models/OntologyRid.md) | `from foundry_sdk.v2.ontologies.models import OntologyRid` |
+**Ontologies** | [OntologyScenarioRid](docs/v2/Ontologies/models/OntologyScenarioRid.md) | `from foundry_sdk.v2.ontologies.models import OntologyScenarioRid` |
 **Ontologies** | [OntologySetType](docs/v2/Ontologies/models/OntologySetType.md) | `from foundry_sdk.v2.ontologies.models import OntologySetType` |
 **Ontologies** | [OntologyStructField](docs/v2/Ontologies/models/OntologyStructField.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructField` |
 **Ontologies** | [OntologyStructType](docs/v2/Ontologies/models/OntologyStructType.md) | `from foundry_sdk.v2.ontologies.models import OntologyStructType` |
@@ -2730,6 +2740,7 @@ Namespace | Name | Import |
 **Ontologies** | [ReturnEditsMode](docs/v2/Ontologies/models/ReturnEditsMode.md) | `from foundry_sdk.v2.ontologies.models import ReturnEditsMode` |
 **Ontologies** | [RidConstraint](docs/v2/Ontologies/models/RidConstraint.md) | `from foundry_sdk.v2.ontologies.models import RidConstraint` |
 **Ontologies** | [RollingAggregateWindowPoints](docs/v2/Ontologies/models/RollingAggregateWindowPoints.md) | `from foundry_sdk.v2.ontologies.models import RollingAggregateWindowPoints` |
+**Ontologies** | [ScenarioEditedLinkTypeMapping](docs/v2/Ontologies/models/ScenarioEditedLinkTypeMapping.md) | `from foundry_sdk.v2.ontologies.models import ScenarioEditedLinkTypeMapping` |
 **Ontologies** | [SdkPackageName](docs/v2/Ontologies/models/SdkPackageName.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageName` |
 **Ontologies** | [SdkPackageRid](docs/v2/Ontologies/models/SdkPackageRid.md) | `from foundry_sdk.v2.ontologies.models import SdkPackageRid` |
 **Ontologies** | [SdkVersion](docs/v2/Ontologies/models/SdkVersion.md) | `from foundry_sdk.v2.ontologies.models import SdkVersion` |

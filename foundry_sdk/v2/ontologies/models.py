@@ -870,6 +870,18 @@ class CreateObjectRule(core.ModelBase):
     type: typing.Literal["createObject"] = "createObject"
 
 
+class CreateOntologyScenarioRequest(core.ModelBase):
+    """The request payload for creating an ontology scenario."""
+
+    base: typing.Optional[OntologyBase] = None
+
+
+class CreateOntologyScenarioResponse(core.ModelBase):
+    """The response payload for creating an ontology scenario."""
+
+    scenario_rid: OntologyScenarioRid = pydantic.Field(alias=str("scenarioRid"))  # type: ignore[literal-required]
+
+
 class CreateOrModifyObjectLogicRule(core.ModelBase):
     """CreateOrModifyObjectLogicRule"""
 
@@ -2138,6 +2150,58 @@ class ListQueryTypesResponseV2(core.ModelBase):
     data: typing.List[QueryTypeV2]
 
 
+class ListScenarioEditedEntityTypesResponse(core.ModelBase):
+    """The object types and link types that have been modified within a scenario."""
+
+    object_types: typing.List[ObjectTypeApiName] = pydantic.Field(alias=str("objectTypes"))  # type: ignore[literal-required]
+    """The list of object type API names that have been modified within the scenario."""
+
+    link_types: typing.List[ScenarioEditedLinkTypeMapping] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    """
+    The list of edited link types grouped by source object type.
+
+    Note that only many-to-many link types are returned. One-to-many link type edits are surfaced as object
+    edits on the object type that owns the foreign key property.
+    """
+
+
+class ListScenarioEditedLinkTypesResponse(core.ModelBase):
+    """The link types that have been modified within a scenario."""
+
+    data: typing.List[LinkTypeApiName]
+    """The list of link type API names that have been modified within the scenario."""
+
+
+class ListScenarioEditedLinksResponse(core.ModelBase):
+    """The linked objects that have been edited within a scenario for a given link type, grouped by source object."""
+
+    data: typing.List[LinksFromObject]
+    """The list of linked objects that have been edited within the scenario, grouped by source object."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class ListScenarioEditedObjectTypesResponse(core.ModelBase):
+    """The object types that have been modified within a scenario."""
+
+    data: typing.List[ObjectTypeApiName]
+    """The list of object type API names that have been modified within the scenario."""
+
+
+class ListScenarioEditedObjectsResponse(core.ModelBase):
+    """
+    The objects that have been edited within a scenario for a given object type.
+
+    The Ontology Objects in this response will only ever have the `__primaryKey` and `__apiName`
+    fields present, thus functioning as object locators rather than full objects.
+    """
+
+    data: typing.List[OntologyObjectV2]
+    """The list of objects that have been edited within the scenario."""
+
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
 class LoadObjectSetLinksRequestV2(core.ModelBase):
     """LoadObjectSetLinksRequestV2"""
 
@@ -3241,6 +3305,13 @@ class OntologyArrayType(core.ModelBase):
     type: typing.Literal["array"] = "array"
 
 
+class OntologyBaseBranch(core.ModelBase):
+    """A branch reference used to initialize a scenario."""
+
+    branch: core_models.FoundryBranch
+    type: typing.Literal["branch"] = "branch"
+
+
 OntologyDataType = typing_extensions.Annotated[
     typing.Union[
         core_models.DateType,
@@ -3372,6 +3443,10 @@ OntologyRid = core.RID
 The unique Resource Identifier (RID) of the Ontology. To look up your Ontology RID, please use the
 `List ontologies` endpoint or check the **Ontology Manager**.
 """
+
+
+OntologyScenarioRid = core.RID
+"""The unique resource identifier of an ontology scenario."""
 
 
 class OntologySetType(core.ModelBase):
@@ -4251,6 +4326,14 @@ class RollingAggregateWindowPoints(core.ModelBase):
 
     count: int
     type: typing.Literal["pointsCount"] = "pointsCount"
+
+
+class ScenarioEditedLinkTypeMapping(core.ModelBase):
+    """The link types that have been modified within a scenario for a given object type."""
+
+    source_object_type: ObjectTypeApiName = pydantic.Field(alias=str("sourceObjectType"))  # type: ignore[literal-required]
+    link_types: typing.List[LinkTypeApiName] = pydantic.Field(alias=str("linkTypes"))  # type: ignore[literal-required]
+    """The list of link type API names that have been modified within the scenario for the source object type."""
 
 
 SdkPackageName = str
@@ -5367,6 +5450,10 @@ MethodObjectSet = ObjectSet
 """MethodObjectSet"""
 
 
+OntologyBase = OntologyBaseBranch
+"""The base used to initialize a scenario."""
+
+
 PolygonValue = geo_models.Polygon
 """PolygonValue"""
 
@@ -5570,6 +5657,8 @@ __all__ = [
     "CreateLinkRule",
     "CreateObjectLogicRule",
     "CreateObjectRule",
+    "CreateOntologyScenarioRequest",
+    "CreateOntologyScenarioResponse",
     "CreateOrModifyObjectLogicRule",
     "CreateOrModifyObjectLogicRuleV2",
     "CreateTemporaryObjectSetRequestV2",
@@ -5715,6 +5804,11 @@ __all__ = [
     "ListOutgoingInterfaceLinkTypesResponse",
     "ListOutgoingLinkTypesResponseV2",
     "ListQueryTypesResponseV2",
+    "ListScenarioEditedEntityTypesResponse",
+    "ListScenarioEditedLinkTypesResponse",
+    "ListScenarioEditedLinksResponse",
+    "ListScenarioEditedObjectTypesResponse",
+    "ListScenarioEditedObjectsResponse",
     "LoadObjectSetLinksRequestV2",
     "LoadObjectSetLinksResponseV2",
     "LoadObjectSetRequestV2",
@@ -5813,6 +5907,8 @@ __all__ = [
     "OneOfConstraint",
     "OntologyApiName",
     "OntologyArrayType",
+    "OntologyBase",
+    "OntologyBaseBranch",
     "OntologyDataType",
     "OntologyFullMetadata",
     "OntologyIdentifier",
@@ -5827,6 +5923,7 @@ __all__ = [
     "OntologyObjectTypeReferenceType",
     "OntologyObjectV2",
     "OntologyRid",
+    "OntologyScenarioRid",
     "OntologySetType",
     "OntologyStructField",
     "OntologyStructType",
@@ -5919,6 +6016,7 @@ __all__ = [
     "ReturnEditsMode",
     "RidConstraint",
     "RollingAggregateWindowPoints",
+    "ScenarioEditedLinkTypeMapping",
     "SdkPackageName",
     "SdkPackageRid",
     "SdkVersion",

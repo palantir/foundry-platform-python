@@ -2,12 +2,12 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Public Beta |
-[**create**](#create) | **POST** /v2/filesystem/projects/create | Public Beta |
-[**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Public Beta |
+[**add_organizations**](#add_organizations) | **POST** /v2/filesystem/projects/{projectRid}/addOrganizations | Stable |
+[**create**](#create) | **POST** /v2/filesystem/projects/create | Stable |
+[**create_from_template**](#create_from_template) | **POST** /v2/filesystem/projects/createFromTemplate | Stable |
 [**get**](#get) | **GET** /v2/filesystem/projects/{projectRid} | Stable |
-[**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Public Beta |
-[**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Public Beta |
+[**organizations**](#organizations) | **GET** /v2/filesystem/projects/{projectRid}/organizations | Stable |
+[**remove_organizations**](#remove_organizations) | **POST** /v2/filesystem/projects/{projectRid}/removeOrganizations | Stable |
 [**replace**](#replace) | **PUT** /v2/filesystem/projects/{projectRid} | Private Beta |
 
 # **add_organizations**
@@ -19,7 +19,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -37,13 +36,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.filesystem.Project.add_organizations(
-        project_rid, organization_rids=organization_rids, preview=preview
+        project_rid, organization_rids=organization_rids
     )
     print("The add_organizations response:\n")
     pprint(api_response)
@@ -83,7 +80,6 @@ Name | Type | Description  | Notes |
 **role_grants** | Dict[RoleId, List[PrincipalWithId]] |  |  |
 **space_rid** | SpaceRid |  |  |
 **description** | Optional[str] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **resource_level_role_grants_allowed** | Optional[bool] | Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.  | [optional] |
 
 ### Return type
@@ -114,8 +110,6 @@ role_grants = {
 space_rid = "ri.compass.main.folder.a86ad5f5-3db5-48e4-9fdd-00aa3e5731ca"
 # Optional[str]
 description = "project description"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[bool] | Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
 resource_level_role_grants_allowed = None
 
@@ -128,7 +122,6 @@ try:
         role_grants=role_grants,
         space_rid=space_rid,
         description=description,
-        preview=preview,
         resource_level_role_grants_allowed=resource_level_role_grants_allowed,
     )
     print("The create response:\n")
@@ -162,7 +155,6 @@ Name | Type | Description  | Notes |
 **variable_values** | Dict[ProjectTemplateVariableId, ProjectTemplateVariableValue] |  |  |
 **default_roles** | Optional[List[RoleId]] |  | [optional] |
 **organization_rids** | Optional[List[OrganizationRid]] |  | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **project_description** | Optional[str] |  | [optional] |
 
 ### Return type
@@ -185,8 +177,6 @@ variable_values = {"name": "my project name"}
 default_roles = ["8bf49052-dc37-4528-8bf0-b551cfb71268"]
 # Optional[List[OrganizationRid]]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 # Optional[str]
 project_description = None
 
@@ -197,7 +187,6 @@ try:
         variable_values=variable_values,
         default_roles=default_roles,
         organization_rids=organization_rids,
-        preview=preview,
         project_description=project_description,
     )
     print("The create_from_template response:\n")
@@ -279,7 +268,6 @@ Name | Type | Description  | Notes |
 **project_rid** | ProjectRid |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListOrganizationsOfProjectResponse**
@@ -299,13 +287,11 @@ project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     for project in client.filesystem.Project.organizations(
-        project_rid, page_size=page_size, page_token=page_token, preview=preview
+        project_rid, page_size=page_size, page_token=page_token
     ):
         pprint(project)
 except foundry_sdk.PalantirRPCException as e:
@@ -335,7 +321,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **project_rid** | ProjectRid |  |  |
 **organization_rids** | List[OrganizationRid] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -353,13 +338,11 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 project_rid = "ri.compass.main.folder.01a79a9d-e293-48db-a585-9ffe221536e8"
 # List[OrganizationRid]
 organization_rids = ["ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     api_response = client.filesystem.Project.remove_organizations(
-        project_rid, organization_rids=organization_rids, preview=preview
+        project_rid, organization_rids=organization_rids
     )
     print("The remove_organizations response:\n")
     pprint(api_response)

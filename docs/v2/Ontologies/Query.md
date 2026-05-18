@@ -19,11 +19,12 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **attribution** | Optional[Attribution] | The Attribution to be used when executing this request.  | [optional] |
 **branch** | Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to execute the query on.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
 **trace_state** | Optional[TraceState] | The W3C trace state header included in the request.  | [optional] |
-**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
+**transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
 **version** | Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.  | [optional] |
 
 ### Return type
@@ -48,6 +49,8 @@ parameters = {"city": "New York"}
 attribution = None
 # Optional[FoundryBranch] | The Foundry branch to execute the query from. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported. When provided without `version`, the latest version on this branch is used, including pre-release versions. When provided with `version`, the specified version must exist on the branch.
 branch = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to execute the query on.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -56,7 +59,7 @@ sdk_version = None
 trace_parent = None
 # Optional[TraceState] | The W3C trace state header included in the request.
 trace_state = None
-# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from.  Transactions are an experimental feature and all workflows may not be supported.
+# Optional[OntologyTransactionId] | The ID of an Ontology transaction to read from. Transactions are an experimental feature and all workflows may not be supported.
 transaction_id = None
 # Optional[FunctionVersion] | The version of the Query to execute. When used with `branch`, the specified version must exist on the branch.
 version = None
@@ -69,6 +72,7 @@ try:
         parameters=parameters,
         attribution=attribution,
         branch=branch,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,

@@ -62,7 +62,6 @@ class ProjectResourceReferenceClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         resources: typing.List[filesystem_models.AddResourceReferenceRequest],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -73,8 +72,6 @@ class ProjectResourceReferenceClient:
         :type project_rid: ProjectRid
         :param resources:
         :type resources: List[AddResourceReferenceRequest]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -91,9 +88,7 @@ class ProjectResourceReferenceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/references/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -125,7 +120,6 @@ class ProjectResourceReferenceClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         reference_type: typing.Optional[filesystem_models.ProjectResourceReferenceType] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -139,8 +133,6 @@ class ProjectResourceReferenceClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param reference_type: Filter references by type. If not provided, all references are returned.
         :type reference_type: Optional[ProjectResourceReferenceType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -158,7 +150,6 @@ class ProjectResourceReferenceClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "referenceType": reference_type,
                 },
                 path_params={
@@ -185,7 +176,6 @@ class ProjectResourceReferenceClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         resources: typing.List[core.RID],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -196,8 +186,6 @@ class ProjectResourceReferenceClient:
         :type project_rid: ProjectRid
         :param resources: The resource identifiers to remove as references. These may be either filesystem or external resource identifiers.
         :type resources: List[RID]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -214,9 +202,7 @@ class ProjectResourceReferenceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/references/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -295,7 +281,6 @@ class AsyncProjectResourceReferenceClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         resources: typing.List[filesystem_models.AddResourceReferenceRequest],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -306,8 +291,6 @@ class AsyncProjectResourceReferenceClient:
         :type project_rid: ProjectRid
         :param resources:
         :type resources: List[AddResourceReferenceRequest]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -324,9 +307,7 @@ class AsyncProjectResourceReferenceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/references/add",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -358,7 +339,6 @@ class AsyncProjectResourceReferenceClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         reference_type: typing.Optional[filesystem_models.ProjectResourceReferenceType] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -372,8 +352,6 @@ class AsyncProjectResourceReferenceClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param reference_type: Filter references by type. If not provided, all references are returned.
         :type reference_type: Optional[ProjectResourceReferenceType]
         :param request_timeout: timeout setting for this request in seconds.
@@ -391,7 +369,6 @@ class AsyncProjectResourceReferenceClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                     "referenceType": reference_type,
                 },
                 path_params={
@@ -418,7 +395,6 @@ class AsyncProjectResourceReferenceClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         resources: typing.List[core.RID],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -429,8 +405,6 @@ class AsyncProjectResourceReferenceClient:
         :type project_rid: ProjectRid
         :param resources: The resource identifiers to remove as references. These may be either filesystem or external resource identifiers.
         :type resources: List[RID]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -447,9 +421,7 @@ class AsyncProjectResourceReferenceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/references/remove",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },

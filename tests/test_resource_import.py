@@ -579,6 +579,12 @@ def test_ontologies_v2_ontology_object_set_import():
     assert OntologyObjectSetClient is not None
 
 
+def test_ontologies_v2_ontology_scenario_import():
+    from foundry_sdk.v2.ontologies.ontology_scenario import OntologyScenarioClient
+
+    assert OntologyScenarioClient is not None
+
+
 def test_ontologies_v2_ontology_transaction_import():
     from foundry_sdk.v2.ontologies.ontology_transaction import OntologyTransactionClient
 
