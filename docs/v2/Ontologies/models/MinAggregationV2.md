@@ -1,14 +1,11 @@
 # MinAggregationV2
 
 Computes the minimum value for the provided field.
-Either `field` or `propertyIdentifier` must be supplied, but not both.
-
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | Optional[PropertyApiName] | No |  |
-**property_identifier** | Optional[PropertyIdentifier] | No |  |
+**field** | PropertyApiName | Yes |  |
 **name** | Optional[AggregationMetricName] | No |  |
 **direction** | Optional[OrderByDirection] | No |  |
 **type** | Literal["min"] | Yes | None |

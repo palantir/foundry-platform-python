@@ -6,11 +6,11 @@ Method | HTTP request | Release Stage |
 [**get**](#get) | **GET** /v2/datasets/{datasetRid} | Stable |
 [**get_health_check_reports**](#get_health_check_reports) | **GET** /v2/datasets/{datasetRid}/getHealthCheckReports | Public Beta |
 [**get_health_checks**](#get_health_checks) | **GET** /v2/datasets/{datasetRid}/getHealthChecks | Public Beta |
-[**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Stable |
-[**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Stable |
-[**get_schema_batch**](#get_schema_batch) | **POST** /v2/datasets/getSchemaBatch | Stable |
+[**get_schedules**](#get_schedules) | **GET** /v2/datasets/{datasetRid}/getSchedules | Public Beta |
+[**get_schema**](#get_schema) | **GET** /v2/datasets/{datasetRid}/getSchema | Public Beta |
+[**get_schema_batch**](#get_schema_batch) | **POST** /v2/datasets/getSchemaBatch | Public Beta |
 [**jobs**](#jobs) | **POST** /v2/datasets/{datasetRid}/jobs | Public Beta |
-[**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Stable |
+[**put_schema**](#put_schema) | **PUT** /v2/datasets/{datasetRid}/putSchema | Public Beta |
 [**read_table**](#read_table) | **GET** /v2/datasets/{datasetRid}/readTable | Stable |
 [**transactions**](#transactions) | **GET** /v2/datasets/{datasetRid}/transactions | Public Beta |
 
@@ -231,11 +231,7 @@ See [README](../../../README.md#authorization)
 [[Back to top]](#) [[Back to API list]](../../../README.md#apis-v2-link) [[Back to Model list]](../../../README.md#models-v2-link) [[Back to README]](../../../README.md)
 
 # **get_schedules**
-Get the RIDs of the Schedules that target the given Dataset.
-
-Note: It may take up to an hour for recent changes to schedules to be reflected in this response,
-especially for schedules managed by Marketplace. This operation will return outdated results in the
-meantime.
+Get the RIDs of the Schedules that target the given Dataset
 
 
 ### Parameters
@@ -246,6 +242,7 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] | The name of the Branch. If none is provided, the default Branch name - `master` for most enrollments - will be used.  | [optional] |
 **page_size** | Optional[PageSize] |  | [optional] |
 **page_token** | Optional[PageToken] |  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListSchedulesResponse**
@@ -267,11 +264,17 @@ branch_name = None
 page_size = None
 # Optional[PageToken]
 page_token = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     for dataset in client.datasets.Dataset.get_schedules(
-        dataset_rid, branch_name=branch_name, page_size=page_size, page_token=page_token
+        dataset_rid,
+        branch_name=branch_name,
+        page_size=page_size,
+        page_token=page_token,
+        preview=preview,
     ):
         pprint(dataset)
 except foundry_sdk.PalantirRPCException as e:
@@ -303,6 +306,7 @@ Name | Type | Description  | Notes |
 **dataset_rid** | DatasetRid |  |  |
 **branch_name** | Optional[BranchName] |  | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 **version_id** | Optional[VersionId] | The schema version that should be used. If none is provided, the latest version will be used.  | [optional] |
 
 ### Return type
@@ -323,6 +327,8 @@ dataset_rid = None
 branch_name = None
 # Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction. If a user does not provide a value, the RID of the latest committed transaction will be used.
 end_transaction_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 # Optional[VersionId] | The schema version that should be used. If none is provided, the latest version will be used.
 version_id = None
 
@@ -332,6 +338,7 @@ try:
         dataset_rid,
         branch_name=branch_name,
         end_transaction_rid=end_transaction_rid,
+        preview=preview,
         version_id=version_id,
     )
     print("The get_schema response:\n")
@@ -366,6 +373,7 @@ The maximum batch size for this endpoint is 1000.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[GetSchemaDatasetsBatchRequestElement] | Body of the request |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetSchemaDatasetsBatchResponse**
@@ -388,10 +396,12 @@ body = [
         "branchName": "master",
     }
 ]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.datasets.Dataset.get_schema_batch(body)
+    api_response = client.datasets.Dataset.get_schema_batch(body, preview=preview)
     print("The get_schema_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -503,6 +513,7 @@ Name | Type | Description  | Notes |
 **branch_name** | Optional[BranchName] |  | [optional] |
 **dataframe_reader** | Optional[DataframeReader] | The dataframe reader used for reading the dataset schema. Defaults to PARQUET. | [optional] |
 **end_transaction_rid** | Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.  | [optional] |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetDatasetSchemaResponse**
@@ -552,6 +563,8 @@ branch_name = "master"
 dataframe_reader = "PARQUET"
 # Optional[TransactionRid] | The Resource Identifier (RID) of the end Transaction.
 end_transaction_rid = "ri.foundry.main.transaction.0a0207cb-26b7-415b-bc80-66a3aa3933f4"
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
@@ -561,6 +574,7 @@ try:
         branch_name=branch_name,
         dataframe_reader=dataframe_reader,
         end_transaction_rid=end_transaction_rid,
+        preview=preview,
     )
     print("The put_schema response:\n")
     pprint(api_response)

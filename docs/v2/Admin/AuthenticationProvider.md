@@ -223,7 +223,17 @@ organization = "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
 # UserUsername | The new user's username. This must match one of the provider's supported username patterns.
 username = "jsmith"
 # Optional[Dict[AttributeName, AttributeValues]]
-attributes = {"department": ["Finance"], "jobTitle": ["Accountant"]}
+attributes = {
+    "multipass:givenName": ["John"],
+    "multipass:familyName": ["Smith"],
+    "multipass:email:primary": ["jsmith@example.com"],
+    "multipass:realm": ["eab0a251-ca1a-4a84-a482-200edfb8026f"],
+    "multipass:organization-rid": [
+        "ri.multipass..organization.c30ee6ad-b5e4-4afe-a74f-fe4a289f2faa"
+    ],
+    "department": ["Finance"],
+    "jobTitle": ["Accountant"],
+}
 # Optional[str]
 email = "jsmith@example.com"
 # Optional[str]

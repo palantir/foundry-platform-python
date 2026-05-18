@@ -68,8 +68,6 @@ class ActionClient:
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
-        trace_parent: typing.Optional[core_models.TraceParent] = None,
-        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -100,10 +98,6 @@ class ActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param trace_parent: The W3C trace parent header included in the request.
-        :type trace_parent: Optional[TraceParent]
-        :param trace_state: The W3C trace state header included in the request.
-        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -127,8 +121,6 @@ class ActionClient:
                     "action": action,
                 },
                 header_params={
-                    "traceParent": trace_parent,
-                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
@@ -361,8 +353,6 @@ class AsyncActionClient:
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
-        trace_parent: typing.Optional[core_models.TraceParent] = None,
-        trace_state: typing.Optional[core_models.TraceState] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -393,10 +383,6 @@ class AsyncActionClient:
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
         :type sdk_version: Optional[SdkVersion]
-        :param trace_parent: The W3C trace parent header included in the request.
-        :type trace_parent: Optional[TraceParent]
-        :param trace_state: The W3C trace state header included in the request.
-        :type trace_state: Optional[TraceState]
         :param transaction_id: The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.
         :type transaction_id: Optional[OntologyTransactionId]
         :param request_timeout: timeout setting for this request in seconds.
@@ -420,8 +406,6 @@ class AsyncActionClient:
                     "action": action,
                 },
                 header_params={
-                    "traceParent": trace_parent,
-                    "traceState": trace_state,
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },

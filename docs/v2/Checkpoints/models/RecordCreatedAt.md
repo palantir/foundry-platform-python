@@ -1,6 +1,6 @@
 # RecordCreatedAt
 
-The time at which the checkpoint record was created.
+RecordCreatedAt
 
 ## Type
 ```python

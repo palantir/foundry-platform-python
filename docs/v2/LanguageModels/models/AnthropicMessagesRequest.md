@@ -15,7 +15,6 @@ AnthropicMessagesRequest
 **tools** | Optional[List[AnthropicTool]] | No | Definitions of tools that the model may use. |
 **top_k** | Optional[int] | No | Only sample from the top K options for each subsequent token. |
 **top_p** | Optional[float] | No | Use nucleus sampling. You should either alter temperature or top_p, but not both |
-**output_config** | Optional[AnthropicOutputConfig] | No | Configuration to control the shape of the model's output |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

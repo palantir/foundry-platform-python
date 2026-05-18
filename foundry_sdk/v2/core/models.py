@@ -95,14 +95,6 @@ class CipherTextType(core.ModelBase):
     type: typing.Literal["cipherText"] = "cipherText"
 
 
-Color = str
-"""The hex value of a color."""
-
-
-ColumnName = str
-"""The name of a column in a dataset."""
-
-
 ComputeSeconds = float
 """A measurement of compute usage expressed in [compute-seconds](https://palantir.com/docs/foundry/resource-management/usage-types#compute-second). For more information, please refer to the [Usage types](https://palantir.com/docs/foundry/resource-management/usage-types) documentation."""
 
@@ -606,10 +598,6 @@ Examples: `application/json`, `application/pdf`, `application/octet-stream`, `im
 """
 
 
-NetworkEgressPolicyRid = core.RID
-"""The Resource Identifier (RID) of a Network Egress Policy."""
-
-
 class NullType(core.ModelBase):
     """NullType"""
 
@@ -907,12 +895,6 @@ VersionId = core.UUID
 """The version identifier of a dataset schema."""
 
 
-class VoidType(core.ModelBase):
-    """VoidType"""
-
-    type: typing.Literal["void"] = "void"
-
-
 ZoneId = str
 """A string representation of a java.time.ZoneId"""
 
@@ -960,8 +942,6 @@ __all__ = [
     "CheckReportRid",
     "CheckRid",
     "CipherTextType",
-    "Color",
-    "ColumnName",
     "ComputeSeconds",
     "ContentLength",
     "ContentType",
@@ -1031,7 +1011,6 @@ __all__ = [
     "MediaSetViewItemWrapper",
     "MediaSetViewRid",
     "MediaType",
-    "NetworkEgressPolicyRid",
     "NullType",
     "NumericOrNonNumericType",
     "Operation",
@@ -1078,6 +1057,5 @@ __all__ = [
     "VectorSimilarityFunctionValue",
     "VectorType",
     "VersionId",
-    "VoidType",
     "ZoneId",
 ]

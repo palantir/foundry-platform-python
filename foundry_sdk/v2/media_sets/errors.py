@@ -51,25 +51,6 @@ class GetMediaItemRidByPathPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class InvalidMediaItemRidParameters(typing_extensions.TypedDict):
-    """The provided media item RID is invalid."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    mediaItemRid: core_models.MediaItemRid
-    reason: str
-    invalidFieldName: typing_extensions.NotRequired[str]
-    expectedFieldValue: typing_extensions.NotRequired[str]
-    actualFieldValue: typing_extensions.NotRequired[str]
-
-
-@dataclass
-class InvalidMediaItemRid(errors.BadRequestError):
-    name: typing.Literal["InvalidMediaItemRid"]
-    parameters: InvalidMediaItemRidParameters
-    error_instance_id: str
-
-
 class InvalidMediaItemSchemaParameters(typing_extensions.TypedDict):
     """The media item does not match the schema of the media set."""
 
@@ -147,21 +128,6 @@ class MediaItemNotFoundParameters(typing_extensions.TypedDict):
 class MediaItemNotFound(errors.NotFoundError):
     name: typing.Literal["MediaItemNotFound"]
     parameters: MediaItemNotFoundParameters
-    error_instance_id: str
-
-
-class MediaItemRidAlreadyExistsParameters(typing_extensions.TypedDict):
-    """A media item with the specified RID already exists."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    mediaItemRid: core_models.MediaItemRid
-
-
-@dataclass
-class MediaItemRidAlreadyExists(errors.ConflictError):
-    name: typing.Literal["MediaItemRidAlreadyExists"]
-    parameters: MediaItemRidAlreadyExistsParameters
     error_instance_id: str
 
 
@@ -328,29 +294,14 @@ class UnexpectedMetadataType(errors.InternalServerError):
     error_instance_id: str
 
 
-class UnsupportedMetadataParameters(typing_extensions.TypedDict):
-    """A media item has an unsupported metadata type"""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-
-@dataclass
-class UnsupportedMetadata(errors.InternalServerError):
-    name: typing.Literal["UnsupportedMetadata"]
-    parameters: UnsupportedMetadataParameters
-    error_instance_id: str
-
-
 __all__ = [
     "ConflictingMediaSetIdentifiers",
     "GetMediaItemRidByPathPermissionDenied",
-    "InvalidMediaItemRid",
     "InvalidMediaItemSchema",
     "MediaItemHasUnsupportedSecuritySettings",
     "MediaItemImageUnparsable",
     "MediaItemIsPasswordProtected",
     "MediaItemNotFound",
-    "MediaItemRidAlreadyExists",
     "MediaItemXmlUnparsable",
     "MediaSetNotFound",
     "MediaSetOpenTransactionAlreadyExists",
@@ -362,5 +313,4 @@ __all__ = [
     "TransformationUnavailable",
     "TransformedMediaItemNotFound",
     "UnexpectedMetadataType",
-    "UnsupportedMetadata",
 ]

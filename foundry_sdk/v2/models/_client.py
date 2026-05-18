@@ -44,40 +44,10 @@ class ModelsClient:
         self._config = config
 
     @cached_property
-    def LiveDeployment(self):
-        from foundry_sdk.v2.models.live_deployment import LiveDeploymentClient
-
-        return LiveDeploymentClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
-
-    @cached_property
     def Model(self):
         from foundry_sdk.v2.models.model import ModelClient
 
         return ModelClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
-
-    @cached_property
-    def ModelStudio(self):
-        from foundry_sdk.v2.models.model_studio import ModelStudioClient
-
-        return ModelStudioClient(
-            auth=self._auth,
-            hostname=self._hostname_supplier,
-            config=self._config,
-        )
-
-    @cached_property
-    def ModelStudioTrainer(self):
-        from foundry_sdk.v2.models.model_studio_trainer import ModelStudioTrainerClient
-
-        return ModelStudioTrainerClient(
             auth=self._auth,
             hostname=self._hostname_supplier,
             config=self._config,
@@ -99,17 +69,6 @@ class AsyncModelsClient:
         hostname: typing.Union[str, core.HostnameSupplier],
         config: typing.Optional[core.Config] = None,
     ):
-        from foundry_sdk.v2.models.live_deployment import AsyncLiveDeploymentClient
         from foundry_sdk.v2.models.model import AsyncModelClient
-        from foundry_sdk.v2.models.model_studio import AsyncModelStudioClient
-        from foundry_sdk.v2.models.model_studio_trainer import AsyncModelStudioTrainerClient  # NOQA
-
-        self.LiveDeployment = AsyncLiveDeploymentClient(auth=auth, hostname=hostname, config=config)
 
         self.Model = AsyncModelClient(auth=auth, hostname=hostname, config=config)
-
-        self.ModelStudio = AsyncModelStudioClient(auth=auth, hostname=hostname, config=config)
-
-        self.ModelStudioTrainer = AsyncModelStudioTrainerClient(
-            auth=auth, hostname=hostname, config=config
-        )

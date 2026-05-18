@@ -107,7 +107,6 @@ class FileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
         :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
-        :raises FileSizeLimitExceeded: The requested file is larger than the configured maximum download size. Contact Palantir Support to discuss limit increases.
         :raises GetFileContentPermissionDenied: Could not content the File.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
@@ -138,7 +137,6 @@ class FileClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
                     "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
-                    "FileSizeLimitExceeded": datasets_errors.FileSizeLimitExceeded,
                     "GetFileContentPermissionDenied": datasets_errors.GetFileContentPermissionDenied,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,
@@ -637,7 +635,6 @@ class AsyncFileClient:
         :raises DatasetNotFound: The requested dataset could not be found, or the client token does not have access to it.
         :raises FileNotFoundOnBranch: The requested file could not be found on the given branch, or the client token does not have access to it.
         :raises FileNotFoundOnTransactionRange: The requested file could not be found on the given transaction range, or the client token does not have access to it.
-        :raises FileSizeLimitExceeded: The requested file is larger than the configured maximum download size. Contact Palantir Support to discuss limit increases.
         :raises GetFileContentPermissionDenied: Could not content the File.
         :raises InvalidBranchName: The requested branch name cannot be used. Branch names cannot be empty and must not look like RIDs or UUIDs.
         :raises InvalidParameterCombination: The given parameters are individually valid but cannot be used in the given combination.
@@ -668,7 +665,6 @@ class AsyncFileClient:
                     "DatasetNotFound": datasets_errors.DatasetNotFound,
                     "FileNotFoundOnBranch": datasets_errors.FileNotFoundOnBranch,
                     "FileNotFoundOnTransactionRange": datasets_errors.FileNotFoundOnTransactionRange,
-                    "FileSizeLimitExceeded": datasets_errors.FileSizeLimitExceeded,
                     "GetFileContentPermissionDenied": datasets_errors.GetFileContentPermissionDenied,
                     "InvalidBranchName": datasets_errors.InvalidBranchName,
                     "InvalidParameterCombination": core_errors.InvalidParameterCombination,

@@ -54,23 +54,6 @@ class CannotWriteToTrashedStream(errors.BadRequestError):
     error_instance_id: str
 
 
-class CommitSubscriberOffsetsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not commitOffsets the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class CommitSubscriberOffsetsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["CommitSubscriberOffsetsPermissionDenied"]
-    parameters: CommitSubscriberOffsetsPermissionDeniedParameters
-    error_instance_id: str
-
-
 class CreateStreamPermissionDeniedParameters(typing_extensions.TypedDict):
     """Could not create the Stream."""
 
@@ -97,40 +80,6 @@ class CreateStreamingDatasetPermissionDeniedParameters(typing_extensions.TypedDi
 class CreateStreamingDatasetPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["CreateStreamingDatasetPermissionDenied"]
     parameters: CreateStreamingDatasetPermissionDeniedParameters
-    error_instance_id: str
-
-
-class CreateSubscriberPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not create the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class CreateSubscriberPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["CreateSubscriberPermissionDenied"]
-    parameters: CreateSubscriberPermissionDeniedParameters
-    error_instance_id: str
-
-
-class DeleteSubscriberPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not delete the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class DeleteSubscriberPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["DeleteSubscriberPermissionDenied"]
-    parameters: DeleteSubscriberPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -176,23 +125,6 @@ class GetRecordsFromStreamPermissionDeniedParameters(typing_extensions.TypedDict
 class GetRecordsFromStreamPermissionDenied(errors.PermissionDeniedError):
     name: typing.Literal["GetRecordsFromStreamPermissionDenied"]
     parameters: GetRecordsFromStreamPermissionDeniedParameters
-    error_instance_id: str
-
-
-class GetSubscriberReadPositionPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not getReadPosition the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class GetSubscriberReadPositionPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["GetSubscriberReadPositionPermissionDenied"]
-    parameters: GetSubscriberReadPositionPermissionDeniedParameters
     error_instance_id: str
 
 
@@ -276,23 +208,6 @@ class PublishRecordsToStreamPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class ReadRecordsFromSubscriberPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not readRecords the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class ReadRecordsFromSubscriberPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ReadRecordsFromSubscriberPermissionDenied"]
-    parameters: ReadRecordsFromSubscriberPermissionDeniedParameters
-    error_instance_id: str
-
-
 class RecordDoesNotMatchStreamSchemaParameters(typing_extensions.TypedDict):
     """A provided record does not match the stream schema"""
 
@@ -339,23 +254,6 @@ class ResetStreamPermissionDenied(errors.PermissionDeniedError):
     error_instance_id: str
 
 
-class ResetSubscriberOffsetsPermissionDeniedParameters(typing_extensions.TypedDict):
-    """Could not resetOffsets the Subscriber."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    datasetRid: core_models.DatasetRid
-    subscriberSubscriberId: streams_models.SubscriberId
-    streamBranchName: core_models.BranchName
-
-
-@dataclass
-class ResetSubscriberOffsetsPermissionDenied(errors.PermissionDeniedError):
-    name: typing.Literal["ResetSubscriberOffsetsPermissionDenied"]
-    parameters: ResetSubscriberOffsetsPermissionDeniedParameters
-    error_instance_id: str
-
-
 class StreamNotFoundParameters(typing_extensions.TypedDict):
     """The given Stream could not be found."""
 
@@ -369,38 +267,6 @@ class StreamNotFoundParameters(typing_extensions.TypedDict):
 class StreamNotFound(errors.NotFoundError):
     name: typing.Literal["StreamNotFound"]
     parameters: StreamNotFoundParameters
-    error_instance_id: str
-
-
-class SubscriberAlreadyExistsParameters(typing_extensions.TypedDict):
-    """A subscriber with this ID already exists for a different stream."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subscriberId: streams_models.SubscriberId
-    existingDatasetRid: core_models.DatasetRid
-    existingBranchName: core_models.BranchName
-
-
-@dataclass
-class SubscriberAlreadyExists(errors.ConflictError):
-    name: typing.Literal["SubscriberAlreadyExists"]
-    parameters: SubscriberAlreadyExistsParameters
-    error_instance_id: str
-
-
-class SubscriberNotFoundParameters(typing_extensions.TypedDict):
-    """No subscriber with the given ID was found."""
-
-    __pydantic_config__ = {"extra": "allow"}  # type: ignore
-
-    subscriberId: streams_models.SubscriberId
-
-
-@dataclass
-class SubscriberNotFound(errors.NotFoundError):
-    name: typing.Literal["SubscriberNotFound"]
-    parameters: SubscriberNotFoundParameters
     error_instance_id: str
 
 
@@ -422,27 +288,19 @@ class ViewNotFound(errors.NotFoundError):
 __all__ = [
     "CannotCreateStreamingDatasetInUserFolder",
     "CannotWriteToTrashedStream",
-    "CommitSubscriberOffsetsPermissionDenied",
     "CreateStreamPermissionDenied",
     "CreateStreamingDatasetPermissionDenied",
-    "CreateSubscriberPermissionDenied",
-    "DeleteSubscriberPermissionDenied",
     "FailedToProcessBinaryRecord",
     "GetEndOffsetsForStreamPermissionDenied",
     "GetRecordsFromStreamPermissionDenied",
-    "GetSubscriberReadPositionPermissionDenied",
     "InvalidStreamNoSchema",
     "InvalidStreamType",
     "PublishBinaryRecordToStreamPermissionDenied",
     "PublishRecordToStreamPermissionDenied",
     "PublishRecordsToStreamPermissionDenied",
-    "ReadRecordsFromSubscriberPermissionDenied",
     "RecordDoesNotMatchStreamSchema",
     "RecordTooLarge",
     "ResetStreamPermissionDenied",
-    "ResetSubscriberOffsetsPermissionDenied",
     "StreamNotFound",
-    "SubscriberAlreadyExists",
-    "SubscriberNotFound",
     "ViewNotFound",
 ]

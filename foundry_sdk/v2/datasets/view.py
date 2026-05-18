@@ -66,6 +66,7 @@ class ViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.View:
@@ -79,6 +80,8 @@ class ViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -95,7 +98,9 @@ class ViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/addBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -129,6 +134,7 @@ class ViewClient:
         *,
         primary_key: datasets_models.ViewPrimaryKey,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.View:
@@ -142,6 +148,8 @@ class ViewClient:
         :type primary_key: ViewPrimaryKey
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -162,7 +170,9 @@ class ViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/addPrimaryKey",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -201,6 +211,7 @@ class ViewClient:
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -215,6 +226,8 @@ class ViewClient:
         :type view_name: DatasetName
         :param branch: The branch name of the View. If not specified, defaults to `master` for most enrollments.
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param primary_key:
         :type primary_key: Optional[ViewPrimaryKey]
         :param request_timeout: timeout setting for this request in seconds.
@@ -244,7 +257,9 @@ class ViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -289,6 +304,7 @@ class ViewClient:
         view_dataset_rid: core_models.DatasetRid,
         *,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.View:
@@ -298,6 +314,8 @@ class ViewClient:
         :type view_dataset_rid: DatasetRid
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -312,6 +330,7 @@ class ViewClient:
                 resource_path="/v2/datasets/views/{viewDatasetRid}",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
@@ -338,6 +357,7 @@ class ViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.View:
@@ -352,6 +372,8 @@ class ViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -367,7 +389,9 @@ class ViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/removeBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -400,6 +424,7 @@ class ViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> datasets_models.View:
@@ -413,6 +438,8 @@ class ViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -429,7 +456,9 @@ class ViewClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/replaceBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -539,6 +568,7 @@ class AsyncViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.View]:
@@ -552,6 +582,8 @@ class AsyncViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -568,7 +600,9 @@ class AsyncViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/addBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -602,6 +636,7 @@ class AsyncViewClient:
         *,
         primary_key: datasets_models.ViewPrimaryKey,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.View]:
@@ -615,6 +650,8 @@ class AsyncViewClient:
         :type primary_key: ViewPrimaryKey
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -635,7 +672,9 @@ class AsyncViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/addPrimaryKey",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -674,6 +713,7 @@ class AsyncViewClient:
         parent_folder_rid: filesystem_models.FolderRid,
         view_name: datasets_models.DatasetName,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         primary_key: typing.Optional[datasets_models.ViewPrimaryKey] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -688,6 +728,8 @@ class AsyncViewClient:
         :type view_name: DatasetName
         :param branch: The branch name of the View. If not specified, defaults to `master` for most enrollments.
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param primary_key:
         :type primary_key: Optional[ViewPrimaryKey]
         :param request_timeout: timeout setting for this request in seconds.
@@ -717,7 +759,9 @@ class AsyncViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -762,6 +806,7 @@ class AsyncViewClient:
         view_dataset_rid: core_models.DatasetRid,
         *,
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.View]:
@@ -771,6 +816,8 @@ class AsyncViewClient:
         :type view_dataset_rid: DatasetRid
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -785,6 +832,7 @@ class AsyncViewClient:
                 resource_path="/v2/datasets/views/{viewDatasetRid}",
                 query_params={
                     "branch": branch,
+                    "preview": preview,
                 },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
@@ -811,6 +859,7 @@ class AsyncViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.View]:
@@ -825,6 +874,8 @@ class AsyncViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -840,7 +891,9 @@ class AsyncViewClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/removeBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },
@@ -873,6 +926,7 @@ class AsyncViewClient:
         *,
         backing_datasets: typing.List[datasets_models.ViewBackingDataset],
         branch: typing.Optional[core_models.BranchName] = None,
+        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[datasets_models.View]:
@@ -886,6 +940,8 @@ class AsyncViewClient:
         :type backing_datasets: List[ViewBackingDataset]
         :param branch:
         :type branch: Optional[BranchName]
+        :param preview: Enables the use of preview functionality.
+        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -902,7 +958,9 @@ class AsyncViewClient:
             core.RequestInfo(
                 method="PUT",
                 resource_path="/v2/datasets/views/{viewDatasetRid}/replaceBackingDatasets",
-                query_params={},
+                query_params={
+                    "preview": preview,
+                },
                 path_params={
                     "viewDatasetRid": view_dataset_rid,
                 },

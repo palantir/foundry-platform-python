@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**get**](#get) | **GET** /v2/checkpoints/records/{recordRid} | Public Beta |
-[**get_batch**](#get_batch) | **POST** /v2/checkpoints/records/getBatch | Public Beta |
-[**search**](#search) | **POST** /v2/checkpoints/records/search | Public Beta |
+[**get**](#get) | **GET** /v2/checkpoints/records/{recordRid} | Private Beta |
+[**get_batch**](#get_batch) | **POST** /v2/checkpoints/records/getBatch | Private Beta |
+[**search**](#search) | **POST** /v2/checkpoints/records/search | Private Beta |
 
 # **get**
 Retrieve a single checkpoint record by id.
@@ -83,7 +83,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # List[GetRecordsBatchRequestElement] | Body of the request
-body = [{"recordRid": "ri.checkpoints.main.checkpoint.a1b2c3d4-e5f6-7890-abcd-ef1234567890"}]
+body = None
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 
@@ -136,7 +136,7 @@ from pprint import pprint
 client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.palantirfoundry.com")
 
 # SearchCheckpointRecordsRequest
-where = {"filter": {"type": "eq", "field": "checkpointType", "value": "CONTOUR_EXPORT"}}
+where = None
 # Optional[PageSize] | The page size for the search request. If no value is provided, a default of `100` will be used.
 page_size = 100
 # Optional[PageToken]
@@ -144,7 +144,7 @@ page_token = "v1.QnVpbGQgdGhlIEZ1dHVyZTogaHR0cHM6Ly93d3cucGFsYW50aXIuY29tL2NhcmV
 # Optional[PreviewMode] | Enables the use of preview functionality.
 preview = None
 # Optional[SortDirection] | Chronological order of creation time for records to be returned in. Defaults to reverse chronological order (DESC).
-sort_direction = "DESC"
+sort_direction = "ASC"
 
 
 try:

@@ -8,7 +8,6 @@ The top left and bottom right coordinate points that make up the bounding box.
 | ------------ | ------------- | ------------- | ------------- |
 **top_left** | WithinBoundingBoxPoint | Yes |  |
 **bottom_right** | WithinBoundingBoxPoint | Yes |  |
-**type** | Literal["envelope"] | Yes | None |
 
 
 [[Back to Model list]](../../../../README.md#models-v2-link) [[Back to API list]](../../../../README.md#apis-v2-link) [[Back to README]](../../../../README.md)

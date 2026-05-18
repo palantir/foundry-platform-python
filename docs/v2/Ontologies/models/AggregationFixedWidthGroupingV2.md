@@ -1,14 +1,11 @@
 # AggregationFixedWidthGroupingV2
 
 Divides objects into groups with the specified width.
-Either `field` or `propertyIdentifier` must be supplied, but not both.
-
 
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |
-**field** | Optional[PropertyApiName] | No |  |
-**property_identifier** | Optional[PropertyIdentifier] | No |  |
+**field** | PropertyApiName | Yes |  |
 **fixed_width** | int | Yes |  |
 **type** | Literal["fixedWidth"] | Yes | None |
 

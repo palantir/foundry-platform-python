@@ -2,9 +2,6 @@
 
 Returns objects where the specified field is equal to a value.
 
-For string properties, full term matching only works when **Selectable** is enabled for the property in Ontology Manager.
-
-
 ## Properties
 | Name | Type | Required | Description |
 | ------------ | ------------- | ------------- | ------------- |

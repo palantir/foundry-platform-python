@@ -332,123 +332,6 @@ class GroupClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def list_current(
-        self,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.ListCurrentGroupsResponse:
-        """
-        Returns all Groups which contain the current user as a direct or transitive member. For example if the current user is a member of Group A and Group A is a member of Group B, this endpoint will return Group A and Group B.
-
-        Unlike the list Group Memberships endpoint which requires the `api:admin-read` scope, this endpoint
-        does not require any particular scopes and can be used by any authenticated user to retrieve their own
-        group memberships.
-
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.ListCurrentGroupsResponse
-
-        :raises ListCurrentGroupsPermissionDenied: Could not listCurrent the Group.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/groups/listCurrent",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=admin_models.ListCurrentGroupsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ListCurrentGroupsPermissionDenied": admin_errors.ListCurrentGroupsPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def replace(
-        self,
-        group_id: core_models.GroupId,
-        *,
-        attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
-        name: admin_models.GroupName,
-        organizations: typing.List[core_models.OrganizationRid],
-        description: typing.Optional[str] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> admin_models.Group:
-        """
-        When replacing groups, you must send all attributes that begin with `multipass:` exactly as they appear when calling the Get Group endpoint.
-        :param group_id:
-        :type group_id: GroupId
-        :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-        :type attributes: Dict[AttributeName, AttributeValues]
-        :param name: The name of the Group.
-        :type name: GroupName
-        :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
-        :type organizations: List[OrganizationRid]
-        :param description: A description of the Group.
-        :type description: Optional[str]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: admin_models.Group
-
-        :raises AttributesNotEditable: One or more attributes are not editable. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are not editable.
-        :raises GroupNameAlreadyExists: A group with this name already exists
-        :raises GroupNotFound: The given Group could not be found.
-        :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
-        :raises ReplaceGroupPermissionDenied: Could not replace the Group.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="PUT",
-                resource_path="/v2/admin/groups/{groupId}",
-                query_params={},
-                path_params={
-                    "groupId": group_id,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=admin_models.ReplaceGroupRequest(
-                    name=name,
-                    organizations=organizations,
-                    description=description,
-                    attributes=attributes,
-                ),
-                response_type=admin_models.Group,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "AttributesNotEditable": admin_errors.AttributesNotEditable,
-                    "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
-                    "GroupNotFound": admin_errors.GroupNotFound,
-                    "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
-                    "ReplaceGroupPermissionDenied": admin_errors.ReplaceGroupPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         *,
@@ -509,8 +392,6 @@ class _GroupClientRaw:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def list_current(_: admin_models.ListCurrentGroupsResponse): ...
-        def replace(_: admin_models.Group): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.with_raw_response(create, client.create)
@@ -518,8 +399,6 @@ class _GroupClientRaw:
         self.get = core.with_raw_response(get, client.get)
         self.get_batch = core.with_raw_response(get_batch, client.get_batch)
         self.list = core.with_raw_response(list, client.list)
-        self.list_current = core.with_raw_response(list_current, client.list_current)
-        self.replace = core.with_raw_response(replace, client.replace)
         self.search = core.with_raw_response(search, client.search)
 
 
@@ -529,16 +408,12 @@ class _GroupClientStreaming:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def list_current(_: admin_models.ListCurrentGroupsResponse): ...
-        def replace(_: admin_models.Group): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.with_streaming_response(create, client.create)
         self.get = core.with_streaming_response(get, client.get)
         self.get_batch = core.with_streaming_response(get_batch, client.get_batch)
         self.list = core.with_streaming_response(list, client.list)
-        self.list_current = core.with_streaming_response(list_current, client.list_current)
-        self.replace = core.with_streaming_response(replace, client.replace)
         self.search = core.with_streaming_response(search, client.search)
 
 
@@ -846,123 +721,6 @@ class AsyncGroupClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
-    def list_current(
-        self,
-        *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[admin_models.ListCurrentGroupsResponse]:
-        """
-        Returns all Groups which contain the current user as a direct or transitive member. For example if the current user is a member of Group A and Group A is a member of Group B, this endpoint will return Group A and Group B.
-
-        Unlike the list Group Memberships endpoint which requires the `api:admin-read` scope, this endpoint
-        does not require any particular scopes and can be used by any authenticated user to retrieve their own
-        group memberships.
-
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[admin_models.ListCurrentGroupsResponse]
-
-        :raises ListCurrentGroupsPermissionDenied: Could not listCurrent the Group.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="GET",
-                resource_path="/v2/admin/groups/listCurrent",
-                query_params={
-                    "preview": preview,
-                },
-                path_params={},
-                header_params={
-                    "Accept": "application/json",
-                },
-                body=None,
-                response_type=admin_models.ListCurrentGroupsResponse,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "ListCurrentGroupsPermissionDenied": admin_errors.ListCurrentGroupsPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
-    def replace(
-        self,
-        group_id: core_models.GroupId,
-        *,
-        attributes: typing.Dict[admin_models.AttributeName, admin_models.AttributeValues],
-        name: admin_models.GroupName,
-        organizations: typing.List[core_models.OrganizationRid],
-        description: typing.Optional[str] = None,
-        request_timeout: typing.Optional[core.Timeout] = None,
-        _sdk_internal: core.SdkInternal = {},
-    ) -> typing.Awaitable[admin_models.Group]:
-        """
-        When replacing groups, you must send all attributes that begin with `multipass:` exactly as they appear when calling the Get Group endpoint.
-        :param group_id:
-        :type group_id: GroupId
-        :param attributes: A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change.
-        :type attributes: Dict[AttributeName, AttributeValues]
-        :param name: The name of the Group.
-        :type name: GroupName
-        :param organizations: The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed.
-        :type organizations: List[OrganizationRid]
-        :param description: A description of the Group.
-        :type description: Optional[str]
-        :param request_timeout: timeout setting for this request in seconds.
-        :type request_timeout: Optional[int]
-        :return: Returns the result object.
-        :rtype: typing.Awaitable[admin_models.Group]
-
-        :raises AttributesNotEditable: One or more attributes are not editable. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are not editable.
-        :raises GroupNameAlreadyExists: A group with this name already exists
-        :raises GroupNotFound: The given Group could not be found.
-        :raises InvalidGroupOrganizations: At least one Organization RID must be provided for a group
-        :raises ReplaceGroupPermissionDenied: Could not replace the Group.
-        """
-
-        return self._api_client.call_api(
-            core.RequestInfo(
-                method="PUT",
-                resource_path="/v2/admin/groups/{groupId}",
-                query_params={},
-                path_params={
-                    "groupId": group_id,
-                },
-                header_params={
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-                body=admin_models.ReplaceGroupRequest(
-                    name=name,
-                    organizations=organizations,
-                    description=description,
-                    attributes=attributes,
-                ),
-                response_type=admin_models.Group,
-                request_timeout=request_timeout,
-                throwable_errors={
-                    "AttributesNotEditable": admin_errors.AttributesNotEditable,
-                    "GroupNameAlreadyExists": admin_errors.GroupNameAlreadyExists,
-                    "GroupNotFound": admin_errors.GroupNotFound,
-                    "InvalidGroupOrganizations": admin_errors.InvalidGroupOrganizations,
-                    "ReplaceGroupPermissionDenied": admin_errors.ReplaceGroupPermissionDenied,
-                },
-                response_mode=_sdk_internal.get("response_mode"),
-            ),
-        )
-
-    @core.maybe_ignore_preview
-    @pydantic.validate_call
-    @errors.handle_unexpected
     def search(
         self,
         *,
@@ -1023,8 +781,6 @@ class _AsyncGroupClientRaw:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def list_current(_: admin_models.ListCurrentGroupsResponse): ...
-        def replace(_: admin_models.Group): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.async_with_raw_response(create, client.create)
@@ -1032,8 +788,6 @@ class _AsyncGroupClientRaw:
         self.get = core.async_with_raw_response(get, client.get)
         self.get_batch = core.async_with_raw_response(get_batch, client.get_batch)
         self.list = core.async_with_raw_response(list, client.list)
-        self.list_current = core.async_with_raw_response(list_current, client.list_current)
-        self.replace = core.async_with_raw_response(replace, client.replace)
         self.search = core.async_with_raw_response(search, client.search)
 
 
@@ -1043,14 +797,10 @@ class _AsyncGroupClientStreaming:
         def get(_: admin_models.Group): ...
         def get_batch(_: admin_models.GetGroupsBatchResponse): ...
         def list(_: admin_models.ListGroupsResponse): ...
-        def list_current(_: admin_models.ListCurrentGroupsResponse): ...
-        def replace(_: admin_models.Group): ...
         def search(_: admin_models.SearchGroupsResponse): ...
 
         self.create = core.async_with_streaming_response(create, client.create)
         self.get = core.async_with_streaming_response(get, client.get)
         self.get_batch = core.async_with_streaming_response(get_batch, client.get_batch)
         self.list = core.async_with_streaming_response(list, client.list)
-        self.list_current = core.async_with_streaming_response(list_current, client.list_current)
-        self.replace = core.async_with_streaming_response(replace, client.replace)
         self.search = core.async_with_streaming_response(search, client.search)

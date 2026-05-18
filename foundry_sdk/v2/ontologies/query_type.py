@@ -117,7 +117,6 @@ class QueryTypeClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -131,8 +130,6 @@ class QueryTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list queries from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -148,7 +145,6 @@ class QueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
-                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },
@@ -278,7 +274,6 @@ class AsyncQueryTypeClient:
         self,
         ontology: ontologies_models.OntologyIdentifier,
         *,
-        branch: typing.Optional[core_models.FoundryBranch] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
@@ -292,8 +287,6 @@ class AsyncQueryTypeClient:
 
         :param ontology:
         :type ontology: OntologyIdentifier
-        :param branch: The Foundry branch to list queries from. If not specified, the default branch will be used. Branches are an experimental feature and not all workflows are supported.
-        :type branch: Optional[FoundryBranch]
         :param page_size: The desired size of the page to be returned. Defaults to 100. See [page sizes](https://palantir.com/docs/foundry/api/general/overview/paging/#page-sizes) for details.
         :type page_size: Optional[PageSize]
         :param page_token:
@@ -309,7 +302,6 @@ class AsyncQueryTypeClient:
                 method="GET",
                 resource_path="/v2/ontologies/{ontology}/queryTypes",
                 query_params={
-                    "branch": branch,
                     "pageSize": page_size,
                     "pageToken": page_token,
                 },

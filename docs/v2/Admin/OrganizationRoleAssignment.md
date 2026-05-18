@@ -2,9 +2,9 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add**](#add) | **POST** /v2/admin/organizations/{organizationRid}/roleAssignments/add | Stable |
-[**list**](#list) | **GET** /v2/admin/organizations/{organizationRid}/roleAssignments | Stable |
-[**remove**](#remove) | **POST** /v2/admin/organizations/{organizationRid}/roleAssignments/remove | Stable |
+[**add**](#add) | **POST** /v2/admin/organizations/{organizationRid}/roleAssignments/add | Public Beta |
+[**list**](#list) | **GET** /v2/admin/organizations/{organizationRid}/roleAssignments | Public Beta |
+[**remove**](#remove) | **POST** /v2/admin/organizations/{organizationRid}/roleAssignments/remove | Public Beta |
 
 # **add**
 Assign roles to principals for the given Organization. At most 100 role assignments can be added in a single request.
@@ -16,6 +16,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
 **role_assignments** | List[RoleAssignmentUpdate] |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -38,11 +39,13 @@ role_assignments = [
         "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
     }
 ]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     api_response = client.admin.Organization.OrganizationRoleAssignment.add(
-        organization_rid, role_assignments=role_assignments
+        organization_rid, role_assignments=role_assignments, preview=preview
     )
     print("The add response:\n")
     pprint(api_response)
@@ -73,6 +76,7 @@ List all principals who are assigned a role for the given Organization.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListOrganizationRoleAssignmentsResponse**
@@ -88,10 +92,14 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # OrganizationRid
 organization_rid = None
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
-    api_response = client.admin.Organization.OrganizationRoleAssignment.list(organization_rid)
+    api_response = client.admin.Organization.OrganizationRoleAssignment.list(
+        organization_rid, preview=preview
+    )
     print("The list response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -122,6 +130,7 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **organization_rid** | OrganizationRid |  |  |
 **role_assignments** | List[RoleAssignmentUpdate] |  |  |
+**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -144,11 +153,13 @@ role_assignments = [
         "principalId": "f05f8da4-b84c-4fca-9c77-8af0b13d11de",
     }
 ]
+# Optional[PreviewMode] | Enables the use of preview functionality.
+preview = None
 
 
 try:
     api_response = client.admin.Organization.OrganizationRoleAssignment.remove(
-        organization_rid, role_assignments=role_assignments
+        organization_rid, role_assignments=role_assignments, preview=preview
     )
     print("The remove response:\n")
     pprint(api_response)

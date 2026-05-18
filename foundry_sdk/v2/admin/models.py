@@ -49,12 +49,6 @@ class AddMarkingRoleAssignmentsRequest(core.ModelBase):
     role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
 
 
-class AddOrganizationGuestMembersRequest(core.ModelBase):
-    """AddOrganizationGuestMembersRequest"""
-
-    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
-
-
 class AddOrganizationRoleAssignmentsRequest(core.ModelBase):
     """AddOrganizationRoleAssignmentsRequest"""
 
@@ -110,46 +104,6 @@ AuthenticationProviderRid = core.RID
 """AuthenticationProviderRid"""
 
 
-class CbacBanner(core.ModelBase):
-    """CbacBanner"""
-
-    classification_string: CbacBannerClassificationString = pydantic.Field(alias=str("classificationString"))  # type: ignore[literal-required]
-    markings: typing.List[core_models.MarkingId]
-    text_color: core_models.Color = pydantic.Field(alias=str("textColor"))  # type: ignore[literal-required]
-    background_colors: typing.List[core_models.Color] = pydantic.Field(alias=str("backgroundColors"))  # type: ignore[literal-required]
-
-
-CbacBannerClassificationString = str
-"""CbacBannerClassificationString"""
-
-
-class CbacMarkingRestrictions(core.ModelBase):
-    """CbacMarkingRestrictions"""
-
-    disallowed_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("disallowedMarkings"))  # type: ignore[literal-required]
-    """Markings that cannot appear in conjunction with the provided markings. This includes all such markings, not just those present in the provided set."""
-
-    implied_markings: typing.List[core_models.MarkingId] = pydantic.Field(alias=str("impliedMarkings"))  # type: ignore[literal-required]
-    """Markings that are automatically granted when a user has membership in any of the provided markings."""
-
-    required_markings: typing.List[typing.List[core_models.MarkingId]] = pydantic.Field(alias=str("requiredMarkings"))  # type: ignore[literal-required]
-    """Markings that must appear in conjunction with the provided markings. Each list contains the requirements for one of the provided markings, and at least one marking from each must be included in the provided markingIds to constitute a valid classification."""
-
-    user_satisfies_markings: CbacMarkingRestrictionsUserSatisfiesMarkings = pydantic.Field(alias=str("userSatisfiesMarkings"))  # type: ignore[literal-required]
-    """True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
-
-    is_valid: CbacMarkingRestrictionsIsValid = pydantic.Field(alias=str("isValid"))  # type: ignore[literal-required]
-    """True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
-
-
-CbacMarkingRestrictionsIsValid = bool
-"""True if the provided markings constitute a valid classification, containing no disallowed markings and satisfying all required marking constraints."""
-
-
-CbacMarkingRestrictionsUserSatisfiesMarkings = bool
-"""True if the current user satisfies the provided markings. The user must be a member of all conjunctive markings. The provided disjunctive markings are grouped by category, and the user must be a member of at least one marking in each group."""
-
-
 class CertificateInfo(core.ModelBase):
     """CertificateInfo"""
 
@@ -163,10 +117,6 @@ class CertificateInfo(core.ModelBase):
 
 CertificateUsageType = typing.Literal["ENCRYPTION", "SIGNING", "UNSPECIFIED"]
 """CertificateUsageType"""
-
-
-ClassificationBannerDisplayType = typing.Literal["BANNER_LINE", "PORTION_MARKING"]
-"""The display type of the classification banner. BANNER_LINE is the long classification string used in the header of a document; PORTION_MARKING is a short classification string used for individual paragraphs"""
 
 
 class CreateGroupRequest(core.ModelBase):
@@ -342,11 +292,6 @@ class GroupMember(core.ModelBase):
 
     principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
     principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-    expiration: typing.Optional[GroupMembershipExpiration] = None
-    """
-    The time at which this member's membership in the group will expire. This field will always be
-    empty unless the `includeExpirations` query parameter is set to true in the list operation.
-    """
 
 
 class GroupMembership(core.ModelBase):
@@ -413,12 +358,6 @@ class ListAvailableOrganizationRolesResponse(core.ModelBase):
     data: typing.List[core_models.Role]
 
 
-class ListCurrentGroupsResponse(core.ModelBase):
-    """ListCurrentGroupsResponse"""
-
-    data: typing.List[Group]
-
-
 class ListEnrollmentRoleAssignmentsResponse(core.ModelBase):
     """ListEnrollmentRoleAssignmentsResponse"""
 
@@ -479,13 +418,6 @@ class ListMarkingsResponse(core.ModelBase):
     """ListMarkingsResponse"""
 
     data: typing.List[Marking]
-    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
-
-
-class ListOrganizationGuestMembersResponse(core.ModelBase):
-    """ListOrganizationGuestMembersResponse"""
-
-    data: typing.List[OrganizationGuestMember]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
@@ -645,13 +577,6 @@ class Organization(core.ModelBase):
     """
 
 
-class OrganizationGuestMember(core.ModelBase):
-    """OrganizationGuestMember"""
-
-    principal_type: core_models.PrincipalType = pydantic.Field(alias=str("principalType"))  # type: ignore[literal-required]
-    principal_id: core_models.PrincipalId = pydantic.Field(alias=str("principalId"))  # type: ignore[literal-required]
-
-
 OrganizationName = str
 """OrganizationName"""
 
@@ -722,12 +647,6 @@ class RemoveMarkingRoleAssignmentsRequest(core.ModelBase):
     role_assignments: typing.List[MarkingRoleUpdate] = pydantic.Field(alias=str("roleAssignments"))  # type: ignore[literal-required]
 
 
-class RemoveOrganizationGuestMembersRequest(core.ModelBase):
-    """RemoveOrganizationGuestMembersRequest"""
-
-    principal_ids: typing.List[core_models.PrincipalId] = pydantic.Field(alias=str("principalIds"))  # type: ignore[literal-required]
-
-
 class RemoveOrganizationRoleAssignmentsRequest(core.ModelBase):
     """RemoveOrganizationRoleAssignmentsRequest"""
 
@@ -752,29 +671,6 @@ class ReplaceGroupProviderInfoRequest(core.ModelBase):
     The ID of the Group in the external authentication provider. This value is determined by the authentication provider.
     At most one Group can have a given provider ID in a given Realm.
     """
-
-
-class ReplaceGroupRequest(core.ModelBase):
-    """ReplaceGroupRequest"""
-
-    name: GroupName
-    """The name of the Group."""
-
-    organizations: typing.List[core_models.OrganizationRid]
-    """The RIDs of the Organizations whose members can see this group. At least one Organization RID must be listed."""
-
-    description: typing.Optional[str] = None
-    """A description of the Group."""
-
-    attributes: typing.Dict[AttributeName, AttributeValues]
-    """A map of the Group's attributes. Attributes prefixed with "multipass:" are reserved for internal use by Foundry and are subject to change."""
-
-
-class ReplaceMarkingCategoryRequest(core.ModelBase):
-    """ReplaceMarkingCategoryRequest"""
-
-    name: MarkingCategoryName
-    description: MarkingCategoryDescription
 
 
 class ReplaceMarkingRequest(core.ModelBase):
@@ -946,7 +842,6 @@ __all__ = [
     "AddGroupMembersRequest",
     "AddMarkingMembersRequest",
     "AddMarkingRoleAssignmentsRequest",
-    "AddOrganizationGuestMembersRequest",
     "AddOrganizationRoleAssignmentsRequest",
     "AttributeName",
     "AttributeValue",
@@ -956,14 +851,8 @@ __all__ = [
     "AuthenticationProviderEnabled",
     "AuthenticationProviderName",
     "AuthenticationProviderRid",
-    "CbacBanner",
-    "CbacBannerClassificationString",
-    "CbacMarkingRestrictions",
-    "CbacMarkingRestrictionsIsValid",
-    "CbacMarkingRestrictionsUserSatisfiesMarkings",
     "CertificateInfo",
     "CertificateUsageType",
-    "ClassificationBannerDisplayType",
     "CreateGroupRequest",
     "CreateMarkingCategoryRequest",
     "CreateMarkingRequest",
@@ -992,7 +881,6 @@ __all__ = [
     "HostName",
     "ListAuthenticationProvidersResponse",
     "ListAvailableOrganizationRolesResponse",
-    "ListCurrentGroupsResponse",
     "ListEnrollmentRoleAssignmentsResponse",
     "ListGroupMembersResponse",
     "ListGroupMembershipsResponse",
@@ -1002,7 +890,6 @@ __all__ = [
     "ListMarkingMembersResponse",
     "ListMarkingRoleAssignmentsResponse",
     "ListMarkingsResponse",
-    "ListOrganizationGuestMembersResponse",
     "ListOrganizationRoleAssignmentsResponse",
     "ListUsersResponse",
     "Marking",
@@ -1023,7 +910,6 @@ __all__ = [
     "MarkingType",
     "OidcAuthenticationProtocol",
     "Organization",
-    "OrganizationGuestMember",
     "OrganizationName",
     "OrganizationRoleAssignment",
     "PreregisterGroupRequest",
@@ -1034,12 +920,9 @@ __all__ = [
     "RemoveGroupMembersRequest",
     "RemoveMarkingMembersRequest",
     "RemoveMarkingRoleAssignmentsRequest",
-    "RemoveOrganizationGuestMembersRequest",
     "RemoveOrganizationRoleAssignmentsRequest",
     "ReplaceGroupMembershipExpirationPolicyRequest",
     "ReplaceGroupProviderInfoRequest",
-    "ReplaceGroupRequest",
-    "ReplaceMarkingCategoryRequest",
     "ReplaceMarkingRequest",
     "ReplaceOrganizationRequest",
     "ReplaceUserProviderInfoRequest",
