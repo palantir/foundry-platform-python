@@ -5,7 +5,7 @@ Method | HTTP request | Release Stage |
 [**create**](#create) | **POST** /v2/filesystem/spaces | Private Beta |
 [**delete**](#delete) | **DELETE** /v2/filesystem/spaces/{spaceRid} | Private Beta |
 [**get**](#get) | **GET** /v2/filesystem/spaces/{spaceRid} | Private Beta |
-[**list**](#list) | **GET** /v2/filesystem/spaces | Public Beta |
+[**list**](#list) | **GET** /v2/filesystem/spaces | Stable |
 [**replace**](#replace) | **PUT** /v2/filesystem/spaces/{spaceRid} | Private Beta |
 
 # **create**
@@ -203,7 +203,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListSpacesResponse**
@@ -221,14 +220,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    for space in client.filesystem.Space.list(
-        page_size=page_size, page_token=page_token, preview=preview
-    ):
+    for space in client.filesystem.Space.list(page_size=page_size, page_token=page_token):
         pprint(space)
 except foundry_sdk.PalantirRPCException as e:
     print("HTTP error when calling Space.list: %s\n" % e)

@@ -2,17 +2,17 @@
 
 Method | HTTP request | Release Stage |
 ------------- | ------------- | ----- |
-[**add_markings**](#add_markings) | **POST** /v2/filesystem/resources/{resourceRid}/addMarkings | Public Beta |
-[**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Public Beta |
-[**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Public Beta |
-[**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Public Beta |
-[**get_batch**](#get_batch) | **POST** /v2/filesystem/resources/getBatch | Public Beta |
-[**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Public Beta |
-[**get_by_path_batch**](#get_by_path_batch) | **POST** /v2/filesystem/resources/getByPathBatch | Public Beta |
-[**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Public Beta |
-[**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Public Beta |
-[**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Public Beta |
-[**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Public Beta |
+[**add_markings**](#add_markings) | **POST** /v2/filesystem/resources/{resourceRid}/addMarkings | Stable |
+[**delete**](#delete) | **DELETE** /v2/filesystem/resources/{resourceRid} | Stable |
+[**get**](#get) | **GET** /v2/filesystem/resources/{resourceRid} | Stable |
+[**get_access_requirements**](#get_access_requirements) | **GET** /v2/filesystem/resources/{resourceRid}/getAccessRequirements | Stable |
+[**get_batch**](#get_batch) | **POST** /v2/filesystem/resources/getBatch | Stable |
+[**get_by_path**](#get_by_path) | **GET** /v2/filesystem/resources/getByPath | Stable |
+[**get_by_path_batch**](#get_by_path_batch) | **POST** /v2/filesystem/resources/getByPathBatch | Stable |
+[**markings**](#markings) | **GET** /v2/filesystem/resources/{resourceRid}/markings | Stable |
+[**permanently_delete**](#permanently_delete) | **POST** /v2/filesystem/resources/{resourceRid}/permanentlyDelete | Stable |
+[**remove_markings**](#remove_markings) | **POST** /v2/filesystem/resources/{resourceRid}/removeMarkings | Stable |
+[**restore**](#restore) | **POST** /v2/filesystem/resources/{resourceRid}/restore | Stable |
 
 # **add_markings**
 Adds a list of Markings to a resource.
@@ -23,7 +23,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
 **marking_ids** | List[MarkingId] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -41,14 +40,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[MarkingId]
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.add_markings(
-        resource_rid, marking_ids=marking_ids, preview=preview
-    )
+    api_response = client.filesystem.Resource.add_markings(resource_rid, marking_ids=marking_ids)
     print("The add_markings response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -79,7 +74,6 @@ Move the given resource to the trash. Following this operation, the resource can
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -95,12 +89,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.delete(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.delete(resource_rid)
     print("The delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -129,7 +121,6 @@ Get the Resource with the specified rid.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Resource**
@@ -145,12 +136,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.get(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.get(resource_rid)
     print("The get response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -181,7 +170,6 @@ composed of Organizations and Markings, and can either be applied directly to th
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **AccessRequirements**
@@ -197,12 +185,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.get_access_requirements(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.get_access_requirements(resource_rid)
     print("The get_access_requirements response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -236,7 +222,6 @@ The maximum batch size for this endpoint is 1000.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[GetResourcesBatchRequestElement] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetResourcesBatchResponse**
@@ -252,12 +237,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # List[GetResourcesBatchRequestElement] | Body of the request
 body = [{"resourceRid": "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"}]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.get_batch(body, preview=preview)
+    api_response = client.filesystem.Resource.get_batch(body)
     print("The get_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -286,7 +269,6 @@ Get a Resource by its absolute path.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **path** | ResourcePath | The path to the Resource. The leading slash is optional. |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **Resource**
@@ -302,12 +284,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourcePath | The path to the Resource. The leading slash is optional.
 path = "/My Organization-abcd/My Important Project/My Dataset"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.get_by_path(path=path, preview=preview)
+    api_response = client.filesystem.Resource.get_by_path(path=path)
     print("The get_by_path response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -342,7 +322,6 @@ The maximum batch size for this endpoint is 1000.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **body** | List[GetByPathResourcesBatchRequestElement] | Body of the request |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **GetByPathResourcesBatchResponse**
@@ -358,12 +337,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # List[GetByPathResourcesBatchRequestElement] | Body of the request
 body = [{"path": "/My Organization-abcd/My Important Project/My Dataset"}]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.get_by_path_batch(body, preview=preview)
+    api_response = client.filesystem.Resource.get_by_path_batch(body)
     print("The get_by_path_batch response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -396,7 +373,6 @@ Name | Type | Description  | Notes |
 **resource_rid** | ResourceRid |  |  |
 **page_size** | Optional[PageSize] | The page size to use for the endpoint. | [optional] |
 **page_token** | Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request. | [optional] |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **ListMarkingsOfResourceResponse**
@@ -416,13 +392,11 @@ resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 page_size = None
 # Optional[PageToken] | The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
 page_token = None
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
     for resource in client.filesystem.Resource.markings(
-        resource_rid, page_size=page_size, page_token=page_token, preview=preview
+        resource_rid, page_size=page_size, page_token=page_token
     ):
         pprint(resource)
 except foundry_sdk.PalantirRPCException as e:
@@ -453,7 +427,6 @@ Permanently delete the given resource from the trash. If the Resource is not dir
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -469,12 +442,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.permanently_delete(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.permanently_delete(resource_rid)
     print("The permanently_delete response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -504,7 +475,6 @@ Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
 **marking_ids** | List[MarkingId] |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -522,14 +492,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
 # List[MarkingId]
 marking_ids = ["18212f9a-0e63-4b79-96a0-aae04df23336"]
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.remove_markings(
-        resource_rid, marking_ids=marking_ids, preview=preview
-    )
+    api_response = client.filesystem.Resource.remove_markings(resource_rid, marking_ids=marking_ids)
     print("The remove_markings response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:
@@ -560,7 +526,6 @@ trashed, this operation will be ignored.
 Name | Type | Description  | Notes |
 ------------- | ------------- | ------------- | ------------- |
 **resource_rid** | ResourceRid |  |  |
-**preview** | Optional[PreviewMode] | Enables the use of preview functionality. | [optional] |
 
 ### Return type
 **None**
@@ -576,12 +541,10 @@ client = FoundryClient(auth=foundry_sdk.UserTokenAuth(...), hostname="example.pa
 
 # ResourceRid
 resource_rid = "ri.foundry.main.dataset.c26f11c8-cdb3-4f44-9f5d-9816ea1c82da"
-# Optional[PreviewMode] | Enables the use of preview functionality.
-preview = None
 
 
 try:
-    api_response = client.filesystem.Resource.restore(resource_rid, preview=preview)
+    api_response = client.filesystem.Resource.restore(resource_rid)
     print("The restore response:\n")
     pprint(api_response)
 except foundry_sdk.PalantirRPCException as e:

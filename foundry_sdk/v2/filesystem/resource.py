@@ -74,7 +74,6 @@ class ResourceClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -84,8 +83,6 @@ class ResourceClient:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -103,9 +100,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/addMarkings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -136,7 +131,6 @@ class ResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -146,8 +140,6 @@ class ResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -164,9 +156,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/filesystem/resources/{resourceRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -192,7 +182,6 @@ class ResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Resource:
@@ -200,8 +189,6 @@ class ResourceClient:
         Get the Resource with the specified rid.
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -216,9 +203,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -244,7 +229,6 @@ class ResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.AccessRequirements:
@@ -254,8 +238,6 @@ class ResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -269,9 +251,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/getAccessRequirements",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -299,7 +279,6 @@ class ResourceClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.GetResourcesBatchResponse:
@@ -312,8 +291,6 @@ class ResourceClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetResourcesBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -324,9 +301,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -347,7 +322,6 @@ class ResourceClient:
         self,
         *,
         path: filesystem_models.ResourcePath,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Resource:
@@ -355,8 +329,6 @@ class ResourceClient:
         Get a Resource by its absolute path.
         :param path: The path to the Resource. The leading slash is optional.
         :type path: ResourcePath
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -376,7 +348,6 @@ class ResourceClient:
                 resource_path="/v2/filesystem/resources/getByPath",
                 query_params={
                     "path": path,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -407,7 +378,6 @@ class ResourceClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.GetByPathResourcesBatchResponse:
@@ -421,8 +391,6 @@ class ResourceClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetByPathResourcesBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -433,9 +401,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/getByPathBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -458,7 +424,6 @@ class ResourceClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[core_models.MarkingId]:
@@ -472,8 +437,6 @@ class ResourceClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -489,7 +452,6 @@ class ResourceClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "resourceRid": resource_rid,
@@ -514,7 +476,6 @@ class ResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -524,8 +485,6 @@ class ResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -540,9 +499,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/permanentlyDelete",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -567,7 +524,6 @@ class ResourceClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -577,8 +533,6 @@ class ResourceClient:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -596,9 +550,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/removeMarkings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -629,7 +581,6 @@ class ResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -639,8 +590,6 @@ class ResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -655,9 +604,7 @@ class ResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/restore",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -774,7 +721,6 @@ class AsyncResourceClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -784,8 +730,6 @@ class AsyncResourceClient:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -803,9 +747,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/addMarkings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -836,7 +778,6 @@ class AsyncResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -846,8 +787,6 @@ class AsyncResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -864,9 +803,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="DELETE",
                 resource_path="/v2/filesystem/resources/{resourceRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -892,7 +829,6 @@ class AsyncResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Resource]:
@@ -900,8 +836,6 @@ class AsyncResourceClient:
         Get the Resource with the specified rid.
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -916,9 +850,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -944,7 +876,6 @@ class AsyncResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.AccessRequirements]:
@@ -954,8 +885,6 @@ class AsyncResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -969,9 +898,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/resources/{resourceRid}/getAccessRequirements",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -999,7 +926,6 @@ class AsyncResourceClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.GetResourcesBatchResponse]:
@@ -1012,8 +938,6 @@ class AsyncResourceClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetResourcesBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1024,9 +948,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -1047,7 +969,6 @@ class AsyncResourceClient:
         self,
         *,
         path: filesystem_models.ResourcePath,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Resource]:
@@ -1055,8 +976,6 @@ class AsyncResourceClient:
         Get a Resource by its absolute path.
         :param path: The path to the Resource. The leading slash is optional.
         :type path: ResourcePath
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1076,7 +995,6 @@ class AsyncResourceClient:
                 resource_path="/v2/filesystem/resources/getByPath",
                 query_params={
                     "path": path,
-                    "preview": preview,
                 },
                 path_params={},
                 header_params={
@@ -1107,7 +1025,6 @@ class AsyncResourceClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.GetByPathResourcesBatchResponse]:
@@ -1121,8 +1038,6 @@ class AsyncResourceClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetByPathResourcesBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1133,9 +1048,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/getByPathBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -1158,7 +1071,6 @@ class AsyncResourceClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[core_models.MarkingId]:
@@ -1172,8 +1084,6 @@ class AsyncResourceClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1189,7 +1099,6 @@ class AsyncResourceClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "resourceRid": resource_rid,
@@ -1214,7 +1123,6 @@ class AsyncResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -1224,8 +1132,6 @@ class AsyncResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1240,9 +1146,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/permanentlyDelete",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -1267,7 +1171,6 @@ class AsyncResourceClient:
         resource_rid: filesystem_models.ResourceRid,
         *,
         marking_ids: typing.List[core_models.MarkingId],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -1277,8 +1180,6 @@ class AsyncResourceClient:
         :type resource_rid: ResourceRid
         :param marking_ids:
         :type marking_ids: List[MarkingId]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1296,9 +1197,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/removeMarkings",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },
@@ -1329,7 +1228,6 @@ class AsyncResourceClient:
         self,
         resource_rid: filesystem_models.ResourceRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -1339,8 +1237,6 @@ class AsyncResourceClient:
 
         :param resource_rid:
         :type resource_rid: ResourceRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1355,9 +1251,7 @@ class AsyncResourceClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/resources/{resourceRid}/restore",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "resourceRid": resource_rid,
                 },

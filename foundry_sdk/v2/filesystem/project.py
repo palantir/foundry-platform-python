@@ -75,7 +75,6 @@ class ProjectClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -85,8 +84,6 @@ class ProjectClient:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -102,9 +99,7 @@ class ProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/addOrganizations",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -140,7 +135,6 @@ class ProjectClient:
         ],
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -164,8 +158,6 @@ class ProjectClient:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
         :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -189,9 +181,7 @@ class ProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/create",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -237,7 +227,6 @@ class ProjectClient:
         ],
         default_roles: typing.Optional[typing.List[core_models.RoleId]] = None,
         organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         project_description: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -252,8 +241,6 @@ class ProjectClient:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -286,9 +273,7 @@ class ProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/createFromTemplate",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -380,7 +365,6 @@ class ProjectClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[core_models.OrganizationRid]:
@@ -394,8 +378,6 @@ class ProjectClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -411,7 +393,6 @@ class ProjectClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "projectRid": project_rid,
@@ -437,7 +418,6 @@ class ProjectClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> None:
@@ -447,8 +427,6 @@ class ProjectClient:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -465,9 +443,7 @@ class ProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/removeOrganizations",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -644,7 +620,6 @@ class AsyncProjectClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -654,8 +629,6 @@ class AsyncProjectClient:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -671,9 +644,7 @@ class AsyncProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/addOrganizations",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },
@@ -709,7 +680,6 @@ class AsyncProjectClient:
         ],
         space_rid: filesystem_models.SpaceRid,
         description: typing.Optional[str] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         resource_level_role_grants_allowed: typing.Optional[bool] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -733,8 +703,6 @@ class AsyncProjectClient:
         :type space_rid: SpaceRid
         :param description:
         :type description: Optional[str]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param resource_level_role_grants_allowed: Whether role grants should be allowed on individual resources within the Project. When not specified, defaults to true.
         :type resource_level_role_grants_allowed: Optional[bool]
         :param request_timeout: timeout setting for this request in seconds.
@@ -758,9 +726,7 @@ class AsyncProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/create",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -806,7 +772,6 @@ class AsyncProjectClient:
         ],
         default_roles: typing.Optional[typing.List[core_models.RoleId]] = None,
         organization_rids: typing.Optional[typing.List[core_models.OrganizationRid]] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         project_description: typing.Optional[str] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
@@ -821,8 +786,6 @@ class AsyncProjectClient:
         :type default_roles: Optional[List[RoleId]]
         :param organization_rids:
         :type organization_rids: Optional[List[OrganizationRid]]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param project_description:
         :type project_description: Optional[str]
         :param request_timeout: timeout setting for this request in seconds.
@@ -855,9 +818,7 @@ class AsyncProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/createFromTemplate",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -949,7 +910,6 @@ class AsyncProjectClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[core_models.OrganizationRid]:
@@ -963,8 +923,6 @@ class AsyncProjectClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -980,7 +938,6 @@ class AsyncProjectClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "projectRid": project_rid,
@@ -1006,7 +963,6 @@ class AsyncProjectClient:
         project_rid: filesystem_models.ProjectRid,
         *,
         organization_rids: typing.List[core_models.OrganizationRid],
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[None]:
@@ -1016,8 +972,6 @@ class AsyncProjectClient:
         :type project_rid: ProjectRid
         :param organization_rids:
         :type organization_rids: List[OrganizationRid]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -1034,9 +988,7 @@ class AsyncProjectClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/projects/{projectRid}/removeOrganizations",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "projectRid": project_rid,
                 },

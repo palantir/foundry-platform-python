@@ -66,6 +66,7 @@ class OntologyObjectSetClient:
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -91,6 +92,8 @@ class OntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param scenario_rid: The resource identifier of an ontology scenario to aggregate the objects on.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -113,6 +116,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -267,6 +271,7 @@ class OntologyObjectSetClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -307,6 +312,8 @@ class OntologyObjectSetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -333,6 +340,7 @@ class OntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -478,6 +486,7 @@ class OntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -525,6 +534,8 @@ class OntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -552,6 +563,7 @@ class OntologyObjectSetClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -599,6 +611,7 @@ class OntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -644,6 +657,8 @@ class OntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the objects or interfaces from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -671,6 +686,7 @@ class OntologyObjectSetClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -800,6 +816,7 @@ class AsyncOntologyObjectSetClient:
         accuracy: typing.Optional[ontologies_models.AggregationAccuracyRequest] = None,
         branch: typing.Optional[core_models.FoundryBranch] = None,
         include_compute_usage: typing.Optional[core_models.IncludeComputeUsage] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -825,6 +842,8 @@ class AsyncOntologyObjectSetClient:
         :type branch: Optional[FoundryBranch]
         :param include_compute_usage:
         :type include_compute_usage: Optional[IncludeComputeUsage]
+        :param scenario_rid: The resource identifier of an ontology scenario to aggregate the objects on.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -847,6 +866,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/aggregate",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -1001,6 +1021,7 @@ class AsyncOntologyObjectSetClient:
         order_by: typing.Optional[ontologies_models.SearchOrderByV2] = None,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -1041,6 +1062,8 @@ class AsyncOntologyObjectSetClient:
         :type page_size: Optional[PageSize]
         :param page_token:
         :type page_token: Optional[PageToken]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -1067,6 +1090,7 @@ class AsyncOntologyObjectSetClient:
                 resource_path="/v2/ontologies/{ontology}/objectSets/loadObjects",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -1212,6 +1236,7 @@ class AsyncOntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -1259,6 +1284,8 @@ class AsyncOntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the object set from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -1286,6 +1313,7 @@ class AsyncOntologyObjectSetClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -1333,6 +1361,7 @@ class AsyncOntologyObjectSetClient:
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
         preview: typing.Optional[core_models.PreviewMode] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         select_v2: typing.Optional[typing.List[ontologies_models.PropertyIdentifier]] = None,
@@ -1378,6 +1407,8 @@ class AsyncOntologyObjectSetClient:
         :type page_token: Optional[PageToken]
         :param preview: A boolean flag that, when set to true, enables the use of beta features in preview mode.
         :type preview: Optional[PreviewMode]
+        :param scenario_rid: The resource identifier of an ontology scenario to load the objects or interfaces from.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The package version of the generated SDK.
@@ -1405,6 +1436,7 @@ class AsyncOntologyObjectSetClient:
                 query_params={
                     "branch": branch,
                     "preview": preview,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,

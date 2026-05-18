@@ -64,7 +64,6 @@ class FolderClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.ResourceIterator[filesystem_models.Resource]:
@@ -80,8 +79,6 @@ class FolderClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -101,7 +98,6 @@ class FolderClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "folderRid": folder_rid,
@@ -131,7 +127,6 @@ class FolderClient:
         *,
         display_name: filesystem_models.ResourceDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Folder:
@@ -141,8 +136,6 @@ class FolderClient:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
         :type parent_folder_rid: FolderRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -162,9 +155,7 @@ class FolderClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -197,7 +188,6 @@ class FolderClient:
         self,
         folder_rid: filesystem_models.FolderRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.Folder:
@@ -205,8 +195,6 @@ class FolderClient:
         Get the Folder with the specified rid.
         :param folder_rid:
         :type folder_rid: FolderRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -221,9 +209,7 @@ class FolderClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "folderRid": folder_rid,
                 },
@@ -252,7 +238,6 @@ class FolderClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> filesystem_models.GetFoldersBatchResponse:
@@ -263,8 +248,6 @@ class FolderClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetFoldersBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -275,9 +258,7 @@ class FolderClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -434,7 +415,6 @@ class AsyncFolderClient:
         *,
         page_size: typing.Optional[core_models.PageSize] = None,
         page_token: typing.Optional[core_models.PageToken] = None,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> core.AsyncResourceIterator[filesystem_models.Resource]:
@@ -450,8 +430,6 @@ class AsyncFolderClient:
         :type page_size: Optional[PageSize]
         :param page_token: The page token indicates where to start paging. This should be omitted from the first page's request. To fetch the next page, clients should take the value from the `nextPageToken` field of the previous response and use it to populate the `pageToken` field of the next request.
         :type page_token: Optional[PageToken]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -471,7 +449,6 @@ class AsyncFolderClient:
                 query_params={
                     "pageSize": page_size,
                     "pageToken": page_token,
-                    "preview": preview,
                 },
                 path_params={
                     "folderRid": folder_rid,
@@ -501,7 +478,6 @@ class AsyncFolderClient:
         *,
         display_name: filesystem_models.ResourceDisplayName,
         parent_folder_rid: filesystem_models.FolderRid,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Folder]:
@@ -511,8 +487,6 @@ class AsyncFolderClient:
         :type display_name: ResourceDisplayName
         :param parent_folder_rid: The parent folder Resource Identifier (RID). For Projects, this will be the Space RID and for Spaces, this value will be the root folder (`ri.compass.main.folder.0`).
         :type parent_folder_rid: FolderRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -532,9 +506,7 @@ class AsyncFolderClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",
@@ -567,7 +539,6 @@ class AsyncFolderClient:
         self,
         folder_rid: filesystem_models.FolderRid,
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.Folder]:
@@ -575,8 +546,6 @@ class AsyncFolderClient:
         Get the Folder with the specified rid.
         :param folder_rid:
         :type folder_rid: FolderRid
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -591,9 +560,7 @@ class AsyncFolderClient:
             core.RequestInfo(
                 method="GET",
                 resource_path="/v2/filesystem/folders/{folderRid}",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={
                     "folderRid": folder_rid,
                 },
@@ -622,7 +589,6 @@ class AsyncFolderClient:
             annotated_types.Len(min_length=1, max_length=1000),
         ],
         *,
-        preview: typing.Optional[core_models.PreviewMode] = None,
         request_timeout: typing.Optional[core.Timeout] = None,
         _sdk_internal: core.SdkInternal = {},
     ) -> typing.Awaitable[filesystem_models.GetFoldersBatchResponse]:
@@ -633,8 +599,6 @@ class AsyncFolderClient:
         The maximum batch size for this endpoint is 1000.
         :param body: Body of the request
         :type body: List[GetFoldersBatchRequestElement]
-        :param preview: Enables the use of preview functionality.
-        :type preview: Optional[PreviewMode]
         :param request_timeout: timeout setting for this request in seconds.
         :type request_timeout: Optional[int]
         :return: Returns the result object.
@@ -645,9 +609,7 @@ class AsyncFolderClient:
             core.RequestInfo(
                 method="POST",
                 resource_path="/v2/filesystem/folders/getBatch",
-                query_params={
-                    "preview": preview,
-                },
+                query_params={},
                 path_params={},
                 header_params={
                     "Content-Type": "application/json",

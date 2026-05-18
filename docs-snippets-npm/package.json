@@ -24,7 +24,7 @@
   "sls": {
     "dependencies": {
       "com.palantir.foundry.api:api-gateway": {
-        "minVersion": "1.1598.2",
+        "minVersion": "1.1607.0",
         "maxVersion": "1.x.x",
         "optional": false
       }

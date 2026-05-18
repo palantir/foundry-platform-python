@@ -66,6 +66,7 @@ class ActionClient:
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -96,6 +97,8 @@ class ActionClient:
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
+        :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -118,6 +121,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -229,6 +233,7 @@ class ActionClient:
         overrides: ontologies_models.ApplyActionOverrides,
         request: ontologies_models.ApplyActionRequestV2,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
@@ -249,6 +254,8 @@ class ActionClient:
         :type request: ApplyActionRequestV2
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -267,6 +274,7 @@ class ActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -359,6 +367,7 @@ class AsyncActionClient:
         ],
         branch: typing.Optional[core_models.FoundryBranch] = None,
         options: typing.Optional[ontologies_models.ApplyActionRequestOptions] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         trace_parent: typing.Optional[core_models.TraceParent] = None,
@@ -389,6 +398,8 @@ class AsyncActionClient:
         :type branch: Optional[FoundryBranch]
         :param options:
         :type options: Optional[ApplyActionRequestOptions]
+        :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -411,6 +422,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/apply",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,
@@ -522,6 +534,7 @@ class AsyncActionClient:
         overrides: ontologies_models.ApplyActionOverrides,
         request: ontologies_models.ApplyActionRequestV2,
         branch: typing.Optional[core_models.FoundryBranch] = None,
+        scenario_rid: typing.Optional[ontologies_models.OntologyScenarioRid] = None,
         sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
         sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
         transaction_id: typing.Optional[ontologies_models.OntologyTransactionId] = None,
@@ -542,6 +555,8 @@ class AsyncActionClient:
         :type request: ApplyActionRequestV2
         :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
         :type branch: Optional[FoundryBranch]
+        :param scenario_rid: The resource identifier of an ontology scenario to apply the action against.
+        :type scenario_rid: Optional[OntologyScenarioRid]
         :param sdk_package_rid: The package rid of the generated SDK.
         :type sdk_package_rid: Optional[SdkPackageRid]
         :param sdk_version: The version of the generated SDK.
@@ -560,6 +575,7 @@ class AsyncActionClient:
                 resource_path="/v2/ontologies/{ontology}/actions/{action}/applyWithOverrides",
                 query_params={
                     "branch": branch,
+                    "scenarioRid": scenario_rid,
                     "sdkPackageRid": sdk_package_rid,
                     "sdkVersion": sdk_version,
                     "transactionId": transaction_id,

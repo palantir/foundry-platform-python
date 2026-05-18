@@ -28,6 +28,7 @@ Name | Type | Description  | Notes |
 **parameters** | Dict[ParameterId, Optional[DataValue]] |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
 **options** | Optional[ApplyActionRequestOptions] |  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **trace_parent** | Optional[TraceParent] | The W3C trace parent header included in the request.  | [optional] |
@@ -56,6 +57,8 @@ parameters = {"id": 80060, "newName": "Anna Smith-Doe"}
 branch = None
 # Optional[ApplyActionRequestOptions]
 options = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -75,6 +78,7 @@ try:
         parameters=parameters,
         branch=branch,
         options=options,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         trace_parent=trace_parent,
@@ -200,6 +204,7 @@ Name | Type | Description  | Notes |
 **overrides** | ApplyActionOverrides |  |  |
 **request** | ApplyActionRequestV2 |  |  |
 **branch** | Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.  | [optional] |
+**scenario_rid** | Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.  | [optional] |
 **sdk_package_rid** | Optional[SdkPackageRid] | The package rid of the generated SDK.  | [optional] |
 **sdk_version** | Optional[SdkVersion] | The version of the generated SDK.  | [optional] |
 **transaction_id** | Optional[OntologyTransactionId] | The ID of an Ontology transaction to apply the action against. Transactions are an experimental feature and all workflows may not be supported.  | [optional] |
@@ -231,6 +236,8 @@ overrides = {
 request = {"parameters": {"id": 80060, "newName": "Anna Smith-Doe"}}
 # Optional[FoundryBranch] | The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
 branch = None
+# Optional[OntologyScenarioRid] | The resource identifier of an ontology scenario to apply the action against.
+scenario_rid = None
 # Optional[SdkPackageRid] | The package rid of the generated SDK.
 sdk_package_rid = None
 # Optional[SdkVersion] | The version of the generated SDK.
@@ -246,6 +253,7 @@ try:
         overrides=overrides,
         request=request,
         branch=branch,
+        scenario_rid=scenario_rid,
         sdk_package_rid=sdk_package_rid,
         sdk_version=sdk_version,
         transaction_id=transaction_id,
