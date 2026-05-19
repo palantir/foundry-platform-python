@@ -614,6 +614,13 @@ class BatchApplyActionRequestItem(core.ModelBase):
     parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
 
 
+class BatchApplyActionRequestItemWithOverrides(core.ModelBase):
+    """BatchApplyActionRequestItemWithOverrides"""
+
+    parameters: typing.Dict[ParameterId, typing.Optional[DataValue]]
+    overrides: typing.Optional[ApplyActionOverrides] = None
+
+
 class BatchApplyActionRequestOptions(core.ModelBase):
     """BatchApplyActionRequestOptions"""
 
@@ -631,6 +638,13 @@ class BatchApplyActionResponseV2(core.ModelBase):
     """BatchApplyActionResponseV2"""
 
     edits: typing.Optional[BatchActionResults] = None
+
+
+class BatchApplyActionWithOverridesRequest(core.ModelBase):
+    """BatchApplyActionWithOverridesRequest"""
+
+    options: typing.Optional[BatchApplyActionRequestOptions] = None
+    requests: typing.List[BatchApplyActionRequestItemWithOverrides]
 
 
 BatchReturnEditsMode = typing.Literal["ALL", "NONE"]
@@ -1463,13 +1477,12 @@ class GeoShapeV2Query(core.ModelBase):
     type: typing.Literal["geoShapeV2"] = "geoShapeV2"
 
 
-class GeotemporalSeriesEntry(core.ModelBase):
-    """A single geotemporal data point representing the location of an entity at a specific point in time."""
-
-    time: core.AwareDatetime
-    """An ISO 8601 timestamp."""
-
-    position: geo_models.GeoPoint
+GeotemporalSeriesEntry = typing.Dict["PropertyApiName", "PropertyValue"]
+"""
+A single geotemporal data point. Each entry is a map from property API names to property values. Standard
+entries include "time" (ISO 8601 timestamp) and "position" (GeoPoint), and may include additional geotemporal
+series metadata fields such as speed, heading, or altitude.
+"""
 
 
 class GeotimeSeriesValue(core.ModelBase):
@@ -2199,6 +2212,45 @@ class ListScenarioEditedObjectsResponse(core.ModelBase):
     data: typing.List[OntologyObjectV2]
     """The list of objects that have been edited within the scenario."""
 
+    next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
+
+
+class LoadGeotemporalSeriesRequest(core.ModelBase):
+    """
+    The request body for loading entries from a geotemporal series reference property.
+
+    A geotemporal series represents time-indexed geographic observations for an object, such as the location history
+    of a vehicle or aircraft. Each entry in the response is a map of property names to values, following the same
+    structure as `OntologyObjectV2`.
+
+    The `range` field is required and restricts results to a specific time window. Both `startTime` and `endTime`
+    are required on `range`. The `additionalProperties` field controls which additional properties appear in each
+    returned entry. Results are paginated; use `pageToken` from a previous response to retrieve additional pages.
+    """
+
+    range: AbsoluteTimeRange
+    additional_properties: typing.List[SelectedPropertyApiName] = pydantic.Field(alias=str("additionalProperties"))  # type: ignore[literal-required]
+    """
+    The additional property API names to include in each entry. The "time" and "position" properties are always
+    included and do not need to be specified here. Use this to request additional geotemporal series metadata
+    properties such as "speed" or "heading". Properties that are not available for the underlying geotemporal
+    integration will be omitted from the response entries.
+    """
+
+    page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("pageToken"), default=None)  # type: ignore[literal-required]
+    page_size: typing.Optional[core_models.PageSize] = pydantic.Field(alias=str("pageSize"), default=None)  # type: ignore[literal-required]
+
+
+class LoadGeotemporalSeriesResponse(core.ModelBase):
+    """
+    The response when loading entries from a geotemporal series reference property.
+
+    Each entry in `data` is a map of property names to values containing the fields requested via
+    `additionalProperties` in the corresponding `LoadGeotemporalSeriesRequest`. If `nextPageToken` is present,
+    additional entries are available and can be retrieved by passing the token in a subsequent request.
+    """
+
+    data: typing.List[GeotemporalSeriesEntry]
     next_page_token: typing.Optional[core_models.PageToken] = pydantic.Field(alias=str("nextPageToken"), default=None)  # type: ignore[literal-required]
 
 
@@ -3629,6 +3681,12 @@ class PrefixOnLastTokenRule(core.ModelBase):
     type: typing.Literal["prefixOnLastToken"] = "prefixOnLastToken"
 
 
+class PrimaryKeyPropertySelector(core.ModelBase):
+    """Specifies the primary key property of an object type which is present on all object types."""
+
+    type: typing.Literal["primaryKeyProperty"] = "primaryKeyProperty"
+
+
 PrimaryKeyValue = typing.Any
 """Represents the primary key value that is used as a unique identifier for an object."""
 
@@ -3719,7 +3777,13 @@ application and assign them API names. In every other case, API names should be 
 
 
 PropertyIdentifier = typing_extensions.Annotated[
-    typing.Union["PropertyApiNameSelector", "StructFieldSelector", "PropertyWithLoadLevelSelector"],
+    typing.Union[
+        "PropertyApiNameSelector",
+        "StructFieldSelector",
+        "PropertyWithLoadLevelSelector",
+        "TitlePropertySelector",
+        "PrimaryKeyPropertySelector",
+    ],
     pydantic.Field(discriminator="type"),
 ]
 """An identifier used to select properties or struct fields."""
@@ -4694,12 +4758,6 @@ class StaticArgument(core.ModelBase):
     type: typing.Literal["staticValue"] = "staticValue"
 
 
-class StreamGeotemporalSeriesValuesRequest(core.ModelBase):
-    """StreamGeotemporalSeriesValuesRequest"""
-
-    range: typing.Optional[TimeRange] = None
-
-
 StreamMessage = typing_extensions.Annotated[
     typing.Union[
         "ObjectSetUpdates", "RefreshObjectSet", "SubscriptionClosed", "ObjectSetSubscribeResponses"
@@ -5144,6 +5202,12 @@ class TimestampValue(core.ModelBase):
     type: typing.Literal["timestampValue"] = "timestampValue"
 
 
+class TitlePropertySelector(core.ModelBase):
+    """Specifies the title property of an object type which is present on all object types."""
+
+    type: typing.Literal["titleProperty"] = "titleProperty"
+
+
 TransactionEdit = typing_extensions.Annotated[
     typing.Union[
         "ModifyObjectEdit", "DeleteObjectEdit", "AddObjectEdit", "DeleteLinkEdit", "AddLinkEdit"
@@ -5493,6 +5557,7 @@ core.resolve_forward_references(DurationFormatStyle, globalns=globals(), localns
 core.resolve_forward_references(EditHistoryEdit, globalns=globals(), localns=locals())
 core.resolve_forward_references(EditsHistoryFilter, globalns=globals(), localns=locals())
 core.resolve_forward_references(GeoShapeV2Geometry, globalns=globals(), localns=locals())
+core.resolve_forward_references(GeotemporalSeriesEntry, globalns=globals(), localns=locals())
 core.resolve_forward_references(
     InterfaceLinkTypeLinkedEntityApiName, globalns=globals(), localns=locals()
 )
@@ -5629,9 +5694,11 @@ __all__ = [
     "BatchActionObjectEdits",
     "BatchActionResults",
     "BatchApplyActionRequestItem",
+    "BatchApplyActionRequestItemWithOverrides",
     "BatchApplyActionRequestOptions",
     "BatchApplyActionRequestV2",
     "BatchApplyActionResponseV2",
+    "BatchApplyActionWithOverridesRequest",
     "BatchReturnEditsMode",
     "BatchedFunctionLogicRule",
     "BlueprintIcon",
@@ -5809,6 +5876,8 @@ __all__ = [
     "ListScenarioEditedLinksResponse",
     "ListScenarioEditedObjectTypesResponse",
     "ListScenarioEditedObjectsResponse",
+    "LoadGeotemporalSeriesRequest",
+    "LoadGeotemporalSeriesResponse",
     "LoadObjectSetLinksRequestV2",
     "LoadObjectSetLinksResponseV2",
     "LoadObjectSetRequestV2",
@@ -5945,6 +6014,7 @@ __all__ = [
     "PreciseDuration",
     "PreciseTimeUnit",
     "PrefixOnLastTokenRule",
+    "PrimaryKeyPropertySelector",
     "PrimaryKeyValue",
     "PrimaryKeyValueV2",
     "PropertyApiName",
@@ -6046,7 +6116,6 @@ __all__ = [
     "SpatialFilterMode",
     "StartsWithQuery",
     "StaticArgument",
-    "StreamGeotemporalSeriesValuesRequest",
     "StreamMessage",
     "StreamTimeSeriesPointsRequest",
     "StreamTimeSeriesValuesRequest",
@@ -6094,6 +6163,7 @@ __all__ = [
     "TimeUnit",
     "TimeseriesEntry",
     "TimestampValue",
+    "TitlePropertySelector",
     "TransactionEdit",
     "TwoDimensionalAggregation",
     "TypeClass",

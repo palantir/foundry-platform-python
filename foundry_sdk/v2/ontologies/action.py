@@ -225,6 +225,82 @@ class ActionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def apply_batch_with_overrides(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
+        *,
+        requests: typing.List[ontologies_models.BatchApplyActionRequestItemWithOverrides],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> ontologies_models.BatchApplyActionResponseV2:
+        """
+        Applies multiple actions (of the same Action Type) with per-item overrides
+        for UniqueIdentifier and CurrentTime generated action parameters.
+
+        Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+        Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
+
+        Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
+        call Functions may receive a higher limit.
+
+        Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
+        :type action: ActionTypeApiName
+        :param requests:
+        :type requests: List[BatchApplyActionRequestItemWithOverrides]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param options:
+        :type options: Optional[BatchApplyActionRequestOptions]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: ontologies_models.BatchApplyActionResponseV2
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatchWithOverrides",
+                query_params={
+                    "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "action": action,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.BatchApplyActionWithOverridesRequest(
+                    options=options,
+                    requests=requests,
+                ),
+                response_type=ontologies_models.BatchApplyActionResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def apply_with_overrides(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -303,10 +379,14 @@ class _ActionClientRaw:
     def __init__(self, client: ActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_batch_with_overrides(_: ontologies_models.BatchApplyActionResponseV2): ...
         def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.with_raw_response(apply, client.apply)
         self.apply_batch = core.with_raw_response(apply_batch, client.apply_batch)
+        self.apply_batch_with_overrides = core.with_raw_response(
+            apply_batch_with_overrides, client.apply_batch_with_overrides
+        )
         self.apply_with_overrides = core.with_raw_response(
             apply_with_overrides, client.apply_with_overrides
         )
@@ -316,10 +396,14 @@ class _ActionClientStreaming:
     def __init__(self, client: ActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_batch_with_overrides(_: ontologies_models.BatchApplyActionResponseV2): ...
         def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.with_streaming_response(apply, client.apply)
         self.apply_batch = core.with_streaming_response(apply_batch, client.apply_batch)
+        self.apply_batch_with_overrides = core.with_streaming_response(
+            apply_batch_with_overrides, client.apply_batch_with_overrides
+        )
         self.apply_with_overrides = core.with_streaming_response(
             apply_with_overrides, client.apply_with_overrides
         )
@@ -526,6 +610,82 @@ class AsyncActionClient:
     @core.maybe_ignore_preview
     @pydantic.validate_call
     @errors.handle_unexpected
+    def apply_batch_with_overrides(
+        self,
+        ontology: ontologies_models.OntologyIdentifier,
+        action: ontologies_models.ActionTypeApiName,
+        *,
+        requests: typing.List[ontologies_models.BatchApplyActionRequestItemWithOverrides],
+        branch: typing.Optional[core_models.FoundryBranch] = None,
+        options: typing.Optional[ontologies_models.BatchApplyActionRequestOptions] = None,
+        sdk_package_rid: typing.Optional[ontologies_models.SdkPackageRid] = None,
+        sdk_version: typing.Optional[ontologies_models.SdkVersion] = None,
+        request_timeout: typing.Optional[core.Timeout] = None,
+        _sdk_internal: core.SdkInternal = {},
+    ) -> typing.Awaitable[ontologies_models.BatchApplyActionResponseV2]:
+        """
+        Applies multiple actions (of the same Action Type) with per-item overrides
+        for UniqueIdentifier and CurrentTime generated action parameters.
+
+        Changes to objects or links stored in Object Storage V1 are eventually consistent and may take some time to be visible.
+        Edits to objects or links in Object Storage V2 will be visible immediately after the action completes.
+
+        Up to 20 actions may be applied in one call. Actions that only modify objects in Object Storage v2 and do not
+        call Functions may receive a higher limit.
+
+        Note that [notifications](https://palantir.com/docs/foundry/action-types/notifications/) are not currently supported by this endpoint.
+
+        :param ontology:
+        :type ontology: OntologyIdentifier
+        :param action: The API name of the action to apply. To find the API name for your action, use the **List action types** endpoint or check the **Ontology Manager**.
+        :type action: ActionTypeApiName
+        :param requests:
+        :type requests: List[BatchApplyActionRequestItemWithOverrides]
+        :param branch: The Foundry branch to apply the action against. If not specified, the default branch is used. Branches are an experimental feature and not all workflows are supported.
+        :type branch: Optional[FoundryBranch]
+        :param options:
+        :type options: Optional[BatchApplyActionRequestOptions]
+        :param sdk_package_rid: The package rid of the generated SDK.
+        :type sdk_package_rid: Optional[SdkPackageRid]
+        :param sdk_version: The version of the generated SDK.
+        :type sdk_version: Optional[SdkVersion]
+        :param request_timeout: timeout setting for this request in seconds.
+        :type request_timeout: Optional[int]
+        :return: Returns the result object.
+        :rtype: typing.Awaitable[ontologies_models.BatchApplyActionResponseV2]
+        """
+
+        return self._api_client.call_api(
+            core.RequestInfo(
+                method="POST",
+                resource_path="/v2/ontologies/{ontology}/actions/{action}/applyBatchWithOverrides",
+                query_params={
+                    "branch": branch,
+                    "sdkPackageRid": sdk_package_rid,
+                    "sdkVersion": sdk_version,
+                },
+                path_params={
+                    "ontology": ontology,
+                    "action": action,
+                },
+                header_params={
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body=ontologies_models.BatchApplyActionWithOverridesRequest(
+                    options=options,
+                    requests=requests,
+                ),
+                response_type=ontologies_models.BatchApplyActionResponseV2,
+                request_timeout=request_timeout,
+                throwable_errors={},
+                response_mode=_sdk_internal.get("response_mode"),
+            ),
+        )
+
+    @core.maybe_ignore_preview
+    @pydantic.validate_call
+    @errors.handle_unexpected
     def apply_with_overrides(
         self,
         ontology: ontologies_models.OntologyIdentifier,
@@ -604,10 +764,14 @@ class _AsyncActionClientRaw:
     def __init__(self, client: AsyncActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_batch_with_overrides(_: ontologies_models.BatchApplyActionResponseV2): ...
         def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.async_with_raw_response(apply, client.apply)
         self.apply_batch = core.async_with_raw_response(apply_batch, client.apply_batch)
+        self.apply_batch_with_overrides = core.async_with_raw_response(
+            apply_batch_with_overrides, client.apply_batch_with_overrides
+        )
         self.apply_with_overrides = core.async_with_raw_response(
             apply_with_overrides, client.apply_with_overrides
         )
@@ -617,10 +781,14 @@ class _AsyncActionClientStreaming:
     def __init__(self, client: AsyncActionClient) -> None:
         def apply(_: ontologies_models.SyncApplyActionResponseV2): ...
         def apply_batch(_: ontologies_models.BatchApplyActionResponseV2): ...
+        def apply_batch_with_overrides(_: ontologies_models.BatchApplyActionResponseV2): ...
         def apply_with_overrides(_: ontologies_models.SyncApplyActionResponseV2): ...
 
         self.apply = core.async_with_streaming_response(apply, client.apply)
         self.apply_batch = core.async_with_streaming_response(apply_batch, client.apply_batch)
+        self.apply_batch_with_overrides = core.async_with_streaming_response(
+            apply_batch_with_overrides, client.apply_batch_with_overrides
+        )
         self.apply_with_overrides = core.async_with_streaming_response(
             apply_with_overrides, client.apply_with_overrides
         )
